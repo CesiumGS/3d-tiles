@@ -48,7 +48,7 @@ A model's `batchId` is used to lookup into each array, and extract the model's p
 For example, the following example batch table has properties for a batch of two models.
 ```json
 {
-    "id" : ["unique id", "another unique id"]
+    "id" : ["unique id", "another unique id"],
     "displayName" : ["Building name", "Another building name"],
     "yearBuilt" : [1999, 2015]
 }
