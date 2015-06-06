@@ -9,9 +9,9 @@ _TODO: change name to something like "Batched 3D Model"_
 
 ## Overview
 
-Batched Binary glTF allows offline batching of heterogeneous 3D models, such as different buildings in a city, for efficient streaming to a web client for rendering.  The efficiency comes from transfering multiple models in a single request and rendering them in the least number of WebGL draw calls necessary.
+Batched Binary glTF allows offline batching of heterogeneous 3D models, such as different buildings in a city, for efficient streaming to a web client for rendering and interaction.  Efficiency comes from transfering multiple models in a single request and rendering them in the least number of WebGL draw calls necessary.
 
-Per-model IDs and metadata enable individual models to be identified and updated at runtime, e.g., show/hide, hightlight color, etc., and enable individual models to carry properties, for example, used to query REST services, for display, or for updating, e.g., changing highlight color based on a property value.
+Per-model IDs and metadata enable individual models to be identified and updated at runtime, e.g., show/hide, hightlight color, etc., and enable individual models to reference properties, for example, to query REST services, for display, or for updating, e.g., changing highlight color based on a property value.
 
 Batched Binary glTF is a binary blob in little endian accessed in JavaScript as an `ArrayBuffer`.
 
@@ -33,7 +33,7 @@ The 12-byte header contains:
 
 ### Batch Table
 
-In the Binary glTF section, each vertex has a zero-based `batchId` attribute (_TODO: type_) indicating which model it beyonds to, which allows models to be batched together and still be identifiable.
+In the Binary glTF section, each vertex has a `batchId` attribute (_TODO: type_) in the range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
 
 The batch table maps each `batchId` to per-model properties.  If present, the batch table immediately follows the header and is `batchTableLength` bytes long.
 
@@ -43,7 +43,7 @@ Each property in the object is an array with its length equal to the number of m
 
 _TODO: schema._
 
-A model's `batchId` is used to lookup into each array, and extract the model's properties.  For example, the following batch table has properties for a batch of two models.
+A vertex's `batchId` is used to access elements in each array, and extract the corresponding properties.  For example, the following batch table has properties for a batch of two models.
 ```json
 {
     "id" : ["unique id", "another unique id"],
@@ -72,7 +72,7 @@ yearBuilt[1] = 2015;
 
 Binary glTF immediately follows the batch table.  It begins `12 + batchTableLength` bytes from the start of the arraybuffer and continues for the rest of arraybuffer.  It may embed all of its geometry, texture, and animations or may refer to external sources for some or all of these data.
 
-As described above, each vertex as a zero-based `batchId` attribute indicating which model it beyonds to.  For example, a batch with three models may look like:
+As described above, each vertex has a `batchId` attribute indicating which model it beyonds to.  For example, vertices for a batch with three models may look like:
 ```
 batchId:  [0,   0,   0,   ..., 1,   1,   1,   ..., 2,   2,   2,   ...]
 position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
@@ -84,7 +84,7 @@ batchId:  [0,   1,   2,   ..., 2,   1,   0,   ..., 1,   2,   0,   ...]
 position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 ```
-Note that a vertex can't below to more than one model; in that case, the vertex needs to be duplicated so the `batchId` can be assigned.
+Note that a vertex can't belong to more than one model; in that case, the vertex needs to be duplicated so the `batchId`s can be assigned.
 
 The `batchId` is identified by the glTF technique parameter semantic `BATCHID`.  In the vertex shader, the attribute is named `a_batchId` and is declared as
 ```glsl
