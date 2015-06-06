@@ -72,7 +72,7 @@ yearBuilt[1] = 2015;
 
 Binary glTF immediately follows the batch table.  It begins `12 + batchTableLength` bytes from the start of the arraybuffer and continues for the rest of arraybuffer.  It may embed all of its geometry, texture, and animations or may refer to external sources for some or all of these data.
 
-As described above, each vertex has a `batchId` attribute indicating which model it beyonds to.  For example, vertices for a batch with three models may look like:
+As described above, each vertex has a `batchId` attribute indicating the model to which it belongs.  For example, vertices for a batch with three models may look like:
 ```
 batchId:  [0,   0,   0,   ..., 1,   1,   1,   ..., 2,   2,   2,   ...]
 position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
@@ -86,7 +86,7 @@ normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 ```
 Note that a vertex can't belong to more than one model; in that case, the vertex needs to be duplicated so the `batchId`s can be assigned.
 
-The `batchId` is identified by the glTF technique parameter semantic `BATCHID`.  In the vertex shader, the attribute is named `a_batchId` and is declared as
+The `batchId` is identified by the glTF technique parameter semantic `BATCHID`.  In the vertex shader, the attribute is named `a_batchId` and is declared as:
 ```glsl
 attribute float a_batchId;
 ```
