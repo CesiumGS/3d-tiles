@@ -15,8 +15,6 @@ Batched 3D Model, or just the _batch_, is a binary blob in little endian accesse
 
 ## Layout
 
-_TODO: extensions?_
-
 **Figure 1**: Batched 3D Model layout (dashes indicate optional sections).
 
 ![](figures/layout.png)
@@ -29,17 +27,18 @@ The 12-byte header contains:
 * `version` - `uint32` that contains the version of the Batched 3D Model format, which is currently `1`.
 * `batchTableLength` - `uint32` that contains the length of the batch table.  It may be zero indicating there is not a batch table.
 
+_TODO: extensions?_
+_TODO: code example reading header?_
+
 ### Batch Table
 
-In the Binary glTF section, each vertex has a `batchId` attribute (_TODO: type_) in the range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
+In the Binary glTF section, each vertex has an unsigned short `batchId` attribute in the range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
 
 The batch table maps each `batchId` to per-model properties.  If present, the batch table immediately follows the header and is `batchTableLength` bytes long.
 
 The batch table is a `UTF-8` string containing JSON.  It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 
 Each property in the object is an array with its length equal to the number of models in the batch.  Each array is a homogeneous collection of `String`, `Number`, or `Boolean` elements.  Elements may be `null`.
-
-_TODO: schema._
 
 A vertex's `batchId` is used to access elements in each array, and extract the corresponding properties.  For example, the following batch table has properties for a batch of two models.
 ```json
