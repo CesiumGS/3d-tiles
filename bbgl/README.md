@@ -95,3 +95,14 @@ attribute float a_batchId;
 The vertex shader can be modified at runtime to use `a_batchId` to access individual models in the batch, e.g., to change their color.
 
 Although not strictly required, clients may find the glTF [CESIUM_RTC](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_RTC/README.md) extension useful for high-precision rendering.
+
+### File Extension
+
+`.b3dm`
+
+### MIME Type
+
+_TODO_
+
+`application/octet-stream`
+``
