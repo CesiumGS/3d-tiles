@@ -105,4 +105,3 @@ Although not strictly required, clients may find the glTF [CESIUM_RTC](https://g
 _TODO_
 
 `application/octet-stream`
-``
