@@ -1,6 +1,4 @@
-_TODO: change name to something like "Batched 3D Model"_
-
-# Batched Binary glTF
+# Batched 3D Model
 
 ## Contributors
 
@@ -9,17 +7,17 @@ _TODO: change name to something like "Batched 3D Model"_
 
 ## Overview
 
-Batched Binary glTF allows offline batching of heterogeneous 3D models, such as different buildings in a city, for efficient streaming to a web client for rendering and interaction.  Efficiency comes from transfering multiple models in a single request and rendering them in the least number of WebGL draw calls necessary.
+_Batched 3D Model_ allows offline batching of heterogeneous 3D models, such as different buildings in a city, for efficient streaming to a web client for rendering and interaction.  Efficiency comes from transfering multiple models in a single request and rendering them in the least number of WebGL draw calls necessary.
 
 Per-model IDs and metadata enable individual models to be identified and updated at runtime, e.g., show/hide, hightlight color, etc., and enable individual models to reference properties, for example, to query REST services, for display, or for updating, e.g., changing highlight color based on a property value.
 
-Batched Binary glTF is a binary blob in little endian accessed in JavaScript as an `ArrayBuffer`.
+Batched 3D Model, or just the _batch_, is a binary blob in little endian accessed in JavaScript as an `ArrayBuffer`.
 
 ## Layout
 
 _TODO: extensions?_
 
-**Figure 1**: Batched Binary glTF layout (dashes indicate optional sections).
+**Figure 1**: Batched 3D Model layout (dashes indicate optional sections).
 
 ![](figures/layout.png)
 
@@ -27,8 +25,8 @@ _TODO: extensions?_
 
 The 12-byte header contains:
 
-* `magic` - 4-byte ANSI string `bbgl`.  This can be used to identify the arraybuffer as Batched Binary glTF.
-* `version` - `uint32` that contains the version of the Batched Binary glTF format, which is currently `1`.
+* `magic` - 4-byte ANSI string `b3dm`.  This can be used to identify the arraybuffer as Batched 3D Model.
+* `version` - `uint32` that contains the version of the Batched 3D Model format, which is currently `1`.
 * `batchTableLength` - `uint32` that contains the length of the batch table.  It may be zero indicating there is not a batch table.
 
 ### Batch Table
