@@ -24,23 +24,31 @@ We expect the 3D Tiles specification to evolve until spring 2015.  If you are OK
 
 #### Are 3D Tiles specific to Cesium?
 
-No, 3D Tiles are a general specification for streaming massive heterogeneous 3D geospatial datasets.  The Cesium team started this initiative because we need an open format optimized for streaming 3D content to Cesium.  AGI, the founders of Cesium, is also developing tools for creating 3D Tiles.  We expect to see other clients and conversion tools use 3D Tiles.  Our initial goal, of course, is to make 3D Tile support in Cesium as best as possible.
+No, 3D Tiles are a general specification for streaming massive heterogeneous 3D geospatial datasets.  The Cesium team started this initiative because we need an open format optimized for streaming 3D content to Cesium.  [AGI](http://www.agi.com/), the founders of Cesium, is also developing tools for creating 3D Tiles.  We expect to see other visualization engines and conversion tools use 3D Tiles.
+
+#### What is the relationship between 3D Tiles and glTF
+
+[glTF](https://www.khronos.org/gltf), the runtime asset format for WebGL, is an emerging open-standard for 3D models from Khronos (the same group who does WebGL and COLLADA).  Cesium uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter.  We recommend using glTF in Cesium for individual assets, e.g., an aircraft, a character, or a 3D building.
+
+We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitively big.  Given that glTF is optimized for rendering, Cesium has a well-tested glTF loader, and there are existing conversion tools for glTF, 3D Tiles use glTF for some tile types like [b3dm](b3dm/README.md) (used for 3D buildings).  In particular, we introduced a binary extension ([CESIUM_binary_glTF](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_binary_glTF/README.md)) in order to embed glTF into binary tiles and avoid base64-encoding or multiple file overhead.
+
+Taking this approach allows us to improve Cesium, glTF, and 3D Tiles at the same time, e.g., when we add mesh compression to glTF, it benefits 3D models in Cesium, the glTF ecosystem, and 3D Tiles.
 
 #### Will 3D Tiles include terrain?
 
-Yes, a [quantized mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html)-like tile (we say _like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to tiles.json) would fit well with 3D Tiles and allow Cesium to use the same streaming code.
+Yes, a [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html)-like tile would fit well with 3D Tiles and allow Cesium to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to tiles.json).
 
-However, since Cesium already streams terrain well, we are not focused on it in the short-term.
+However, since Cesium already streams terrain well, we are not focused on this in the short-term.
 
 #### Will 3D Tiles include imagery?
 
-Yes, there is an opportunity to provide an optimized base layer of terrain and imagery (similar to how a 3D model contains both geometry and textures).  There is also the open research problem of how do we tile imagery for 3D?  In 2D, only one LOD (`z` layer) is used for a given view.  In 3D, especially when looking out towards the horizon, tiles from different LODs are adjacent to each other.  How do we make the seams look good?  This will likely require tool and runtime support.
+Yes, there is an opportunity to provide an optimized base layer of terrain and imagery (similar to how a 3D model contains both geometry and textures).  There is also the open research problem of how to tile imagery for 3D?  In 2D, only one LOD (`z` layer) is used for a given view.  In 3D, especially when looking towards the horizon, tiles from multiple LODs are adjacent to each other.  How do we make the seams look good?  This will likely require tool and runtime support.
 
 Similar to terrain, since Cesium already streams imagery, we are not focused on this in the short-term.
 
 #### Will 3D Tiles replace KML?
 
-By the end of 2016, we believe 3D Tiles can replace KML.  KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web.  3D Tiles are built for the web and optimized for visualization; true hierarchical LOD is used, polygons do not need to be triangulated, and so on.
+Conservatively, by the end of 2016, we believe 3D Tiles can replace KML.  KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web.  3D Tiles are built for the web and optimized for streaming; true hierarchical LOD is used, polygons do not need to be triangulated, and so on.
 
 ### Technical Q&A
 
