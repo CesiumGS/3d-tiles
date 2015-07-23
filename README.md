@@ -56,17 +56,17 @@ Conservatively, by the end of 2016, we believe 3D Tiles can replace KML.  KML re
 
 Geospatial datasets are heterogeneous; 3D buildings are different from terrain, which is different from point clouds, which are different from vector data, and so on.
 
-3D Tiles support heterogeneous data by allowing a different content type for each tile in a tileset, e.g., a tileset may contain tiles for 3D buildings, instanced 3D trees, and point clouds, all using different tile formats.
+3D Tiles support heterogeneous data by allowing a different content type for each tile in a tileset, e.g., a tileset may contain tiles for 3D buildings, tiles for instanced 3D trees, and tiles for point clouds, all using different tile types.
 
-We expect 3D Tiles will also support heterogeneous tiles by concatenating different tile formats into one tile; in the example above, a tile may have a short header followed by the contents for the 3D buildings, instanced 3D trees, and point clouds.
+We expect 3D Tiles will also support heterogeneous datasets by concatenating different tile types into one tile; in the example above, a tile may have a short header followed by the contents for the 3D buildings, instanced 3D trees, and point clouds.
 
-Support heterogeneous datasets both inter-tile (different tile types in the same tileset) and intra-tile (different tile types in the same tile) will allow conversion tools to make trade-offs between number of requests (heterogeneous tiles === few requests), optimal subdivision (separate tiles allows each type to be subdivided separately), and how on/off layers are handled (separate tiles allow, for example, 3D trees to only be streamed if the layer is enabled).
+Supporting heterogeneous datasets with both inter-tile (different tile types in the same tileset) and intra-tile (different tile types in the same tile) options will allow conversion tools to make trade-offs between number of requests, optimal type-specific subdivision, and how visible/hidden layers are streamed.
 
 #### Will tiles.json be part of the final 3D Tiles spec?
 
 Yes, in one form or another.  There will always be a need to know metadata about the tileset and about tiles that are not yet loaded, e.g., so only visible tiles are request.  However, when scaling to millions of tiles, a single tiles.json with metadata for the entire tree will be prohibitively big.
 
 There's a few ways we may solve this:
-* Trees of trees.  A content type of `"3dtile"` is already planned and will allow conversion tools to chunk up a tileset into any number of tiles.json.
+* Trees of trees.  A content type of `"3dtile"` is already planned and will allow conversion tools to chunk up a tileset into any number of tiles.json files that reference each other.
 * Moving subtree metadata to the tile payload instead of tiles.json.  Each tile would have a header with, for example, the bounding volumes of each child, and perhaps grandchildren and so on.
-* Explicit tile layout like traditional tiling schemes (e.g., TMS's `z/y/x`).  The challenge is that this implicitly assumes a spatial subdivision, where as 3D Tiles strive to be general enough to support quadtrees, octrees, k-d trees, and son.
+* Explicit tile layout like traditional tiling schemes (e.g., TMS's `z/y/x`).  The challenge is that this implicitly assumes a spatial subdivision, where as 3D Tiles strive to be general enough to support quadtrees, octrees, k-d trees, and so on.
