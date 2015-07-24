@@ -1,17 +1,25 @@
 # 3D Tiles
 
-Specification for streaming massive heterogeneous 3D geospatial datasets
+Specification for streaming massive heterogeneous 3D geospatial datasets.
 
-**Content Types**
+Contents:
+
+* [Content Types](#contentTypes)
+* [Q&A](#qa)
+
+Created by the [Cesium team](http://cesiumjs.org/) and built on [glTF](https://www.khronos.org/gltf).
+
+<a href="http://cesiumjs.org/"><img src="figures/cesium.jpg" height="40" /></a> <a href="https://www.khronos.org/gltf"><img src="figures/gltf.png" height="40" /></a>
+
+Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html).
+---
+
+<a name="contentTypes">
+## Content Types
 * [Batched 3D Model](b3dm/README.md) - 3D cities
 * [Points](pnts/README.md) - point clouds
 
-![](figures/gltf.png)
-
-![](figures/cesium.jpg)
-
-**TODO: discussion on the forum**
-
+<a name="qa">
 ## Q&A
 
 **TODO: TOC**
