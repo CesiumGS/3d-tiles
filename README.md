@@ -12,6 +12,7 @@ Created by the [Cesium team](http://cesiumjs.org/) and built on [glTF](https://w
 <a href="http://cesiumjs.org/"><img src="figures/cesium.jpg" height="40" /></a> <a href="https://www.khronos.org/gltf"><img src="figures/gltf.png" height="40" /></a>
 
 Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html).
+
 ---
 
 <a name="contentTypes">
