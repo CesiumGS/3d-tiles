@@ -43,6 +43,8 @@ We created 3D Tiles for streaming massive geospatial datasets where a single glT
 
 Taking this approach allows us to improve Cesium, glTF, and 3D Tiles at the same time, e.g., when we add mesh compression to glTF, it benefits 3D models in Cesium, the glTF ecosystem, and 3D Tiles.
 
+_TODO: glTF supports general models and has a material system - as opposed to building something custom for 3D buildings_
+
 #### Will 3D Tiles include terrain?
 
 Yes, a [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html)-like tile would fit well with 3D Tiles and allow Cesium to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to tiles.json).
