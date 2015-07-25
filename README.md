@@ -4,6 +4,7 @@ Specification for streaming massive heterogeneous 3D geospatial datasets.
 
 Contents:
 
+* [Status](#status)
 * [Content Types](#contentTypes)
 * [Q&A](#qa)
 
@@ -14,6 +15,11 @@ Created by the [Cesium team](http://cesiumjs.org/) and built on [glTF](https://w
 Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html).
 
 ---
+
+<a name="status">
+## Status
+
+TODO: icons
 
 <a name="contentTypes">
 ## Content Types
