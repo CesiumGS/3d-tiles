@@ -19,7 +19,16 @@ Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html).
 <a name="status">
 ## Status
 
-TODO: icons
+Topic  | Status
+---|---
+tiles.json  | :white_check_mark: **Pretty solid**, but will expand as we add new content types
+Batched 3D Model ([b3dm](b3dm/README.md))  | :white_check_mark: **Pretty solid**, only minor changes expected
+Points ([pnts](pnts/README.md))  | :rocket: **Prototype**, needs compression and additional attributes
+Composite Tile  | :white_circle: **Not started**
+Instanced 3D Model  | :white_circle: **Not started**
+Vector Data  | :white_circle: **Not started**
+Massive Model  | :white_circle: **Not started**
+Terrain  | :white_circle: **Not started**
 
 <a name="contentTypes">
 ## Content Types
