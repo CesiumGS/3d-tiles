@@ -102,3 +102,7 @@ There's a few ways we may solve this:
 More generally, how do we support the use case for when the viewer is zoom in very close to terrain, for example, and we do not want to load all the parent tiles toward the root of the tree; instead, we want to skip right to the high-resolution tiles needed for the current 3D view?
 
 This 3D Tiles topic needs additional research, but the answer is basically the same as above: either the skeleton of the tree can be quickly traversed to find the desired tiles or an explicit layout scheme will be used for specific subdivisions.
+
+#### How are cracks between tiles with vector data handled?
+
+Unlike 2D, in 3D, we expect adjacent to be from different LODs so, for example, in the distance, lower resolution tiles are used.  Adjacent tiles from different LODs can lead to an artifact called _cracking_ where there are gaps.  For terrain, this is generally handled by dropping slightly angled _skirts_ around each tile to fill the gap.  For 3D buildings, this is handled by extended by the tile boundary to fully include buildings on the edge.  For vector data, this is an open research problem that we need to solve.  This could invole boundary-aware simplication or runtime stitching. 
