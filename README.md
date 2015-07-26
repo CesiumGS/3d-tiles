@@ -28,7 +28,7 @@ Composite Tile  | :white_circle: **Not started**
 Instanced 3D Model  | :white_circle: **Not started**
 Vector Data  | :white_circle: **Not started**
 Massive Model  | :white_circle: **Not started**
-Terrain  | :white_circle: **Not started**
+Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point
 
 <a name="contentTypes">
 ## Content Types
