@@ -29,6 +29,8 @@ Instanced 3D Model  | :white_circle: **Not started**
 Vector Data  | :white_circle: **Not started**
 Massive Model  | :white_circle: **Not started**
 Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point
+Imposters  | :white_circle: **Not started**, could be covered by Vector Data
+Stars  | :white_circle: **Not started**
 
 <a name="contentTypes">
 ## Content Types
@@ -36,7 +38,7 @@ Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org
 * [Points](pnts/README.md) - point clouds
 
 <a name="qa">
-## Q&A
+## Roadmap Q&A
 
 **TODO: TOC**
 
@@ -59,6 +61,12 @@ We created 3D Tiles for streaming massive geospatial datasets where a single glT
 Taking this approach allows us to improve Cesium, glTF, and 3D Tiles at the same time, e.g., when we add mesh compression to glTF, it benefits 3D models in Cesium, the glTF ecosystem, and 3D Tiles.
 
 _TODO: glTF supports general models and has a material system - as opposed to building something custom for 3D buildings_
+
+#### Do 3D Tiles support runtime editing?
+
+A common use case for 3D buildings is to stream a city dataset, color each building based on one or properties, e.g., its height, and then hide a few buildings, and replace them with high-resolution 3D buildings.  With 3D Tiles, this can be done at runtime.
+
+The general case runtime editing of geometry on a building, vector data, etc., and then efficiently saving those changes in a 3D Tile will be possible, but unlikely to be in the 1.0 spec.  Stylization is much easier since it can be applied at runtime without modification to the 3D Tiles tree.
 
 #### Will 3D Tiles include terrain?
 
@@ -97,6 +105,18 @@ There's a few ways we may solve this:
 * Moving subtree metadata to the tile payload instead of tiles.json.  Each tile would have a header with, for example, the bounding volumes of each child, and perhaps grandchildren and so on.
 * Explicit tile layout like traditional tiling schemes (e.g., TMS's `z/y/x`).  The challenge is that this implicitly assumes a spatial subdivision, where as 3D Tiles strive to be general enough to support quadtrees, octrees, k-d trees, and so on.
 
+#### What bounding volume do tiles use?
+
+Currently, tiles use a box defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  Note that this is not actually a box in Cartesian coordinates since the planes perpendicular to the ground are along the geodetic surface normal.
+
+This bounding volume works OK for the general case, but 3D Tiles will likely support other bounding volumes such as bounding spheres and oriented bounding boxes depending in WGS84 Cartesian coordinates.  The later will allow, for example, better fit bounding volumes for cities not aligned with a line of longitude or latitude, and for arbitrary point clouds.
+
+_TODO: screenshot_
+
+#### Will 3D Tiles support horizon culling?
+
+Since [horizon culling](http://cesiumjs.org/2013/04/25/Horizon-culling/) is useful for terrain, 3D Tiles will likely support the metadata needed for it.  We considered it yet since our initial work with 3D Tiles was for 3D buildings where horizon culling is not effective.
+
 #### How do I request the tiles for Level `n`?
 
 More generally, how do we support the use case for when the viewer is zoom in very close to terrain, for example, and we do not want to load all the parent tiles toward the root of the tree; instead, we want to skip right to the high-resolution tiles needed for the current 3D view?
@@ -106,3 +126,13 @@ This 3D Tiles topic needs additional research, but the answer is basically the s
 #### How are cracks between tiles with vector data handled?
 
 Unlike 2D, in 3D, we expect adjacent to be from different LODs so, for example, in the distance, lower resolution tiles are used.  Adjacent tiles from different LODs can lead to an artifact called _cracking_ where there are gaps.  For terrain, this is generally handled by dropping slightly angled _skirts_ around each tile to fill the gap.  For 3D buildings, this is handled by extended by the tile boundary to fully include buildings on the edge.  For vector data, this is an open research problem that we need to solve.  This could invole boundary-aware simplication or runtime stitching. 
+
+#### When using replacement refinement, can multiple children be combined into one request?
+
+Often when using replacement refinement, a tile's children is not rendered until all children are downloaded (an exception, for example, is unstructured data like point clouds where clipping planes can be used to mask out parts of the parent tile where the children are load; naively using the same approach with terrain or an arbitrary 3D model results in cracking).
+
+We may design 3D Tiles to support downloading all children in a single request by allowing tiles.json to point to a subset of a file for a tile's content similiar to glTF [buffer](https://github.com/KhronosGroup/glTF/blob/master/specification/buffer.schema.json) and [bufferView](https://github.com/KhronosGroup/glTF/blob/master/specification/bufferView.schema.json).  [HTTP/2](http://chimera.labs.oreilly.com/books/1230000000545/ch12.html#_brief_history_of_spdy_and_http_2) will also make the overhead of multiple requests less important.
+
+#### What texture compression do 3D Tiles use?
+
+3D Tiles will support the same texture compression that glTF [will support](https://github.com/KhronosGroup/glTF/issues/59).  In addition, we need to consider how well GPU formats compress compared to, for example, jpg.  Some game engines use jpg, then decompress and recompress to a GPU format in a thread.  The CPU overhead for this approach may be too high for JavaScript and Web Workers.
