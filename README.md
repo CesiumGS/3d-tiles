@@ -5,14 +5,16 @@ Specification for streaming massive heterogeneous 3D geospatial datasets.
 Contents:
 
 * [Status](#status)
-* [Content Types](#contentTypes)
+* [Tile Formats](#tileFormats)
 * [Q&A](#qa)
 
-Created by the [Cesium team](http://cesiumjs.org/) and built on [glTF](https://www.khronos.org/gltf).
+Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html).
+
+<p align="center">
+Created by the <a href="http://cesiumjs.org/">Cesium team</a> and built on <a href="https://www.khronos.org/gltf">glTF</a>.<br/>
 
 <a href="http://cesiumjs.org/"><img src="figures/cesium.jpg" height="40" /></a> <a href="https://www.khronos.org/gltf"><img src="figures/gltf.png" height="40" /></a>
-
-Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html).
+</p>
 
 ---
 
@@ -21,7 +23,7 @@ Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html).
 
 Topic  | Status
 ---|---
-tiles.json  | :white_check_mark: **Pretty solid**, but will expand as we add new content types
+tiles.json  | :white_check_mark: **Pretty solid**, but will expand as we add new tile formats
 Batched 3D Model ([b3dm](b3dm/README.md))  | :white_check_mark: **Pretty solid**, only minor changes expected
 Points ([pnts](pnts/README.md))  | :rocket: **Prototype**, needs compression and additional attributes
 Composite Tile  | :white_circle: **Not started**
@@ -32,39 +34,37 @@ Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org
 Imposters  | :white_circle: **Not started**, could be covered by Vector Data
 Stars  | :white_circle: **Not started**
 
-<a name="contentTypes">
-## Content Types
+<a name="tileFormats">
+## Tile Formats
 * [Batched 3D Model](b3dm/README.md) - 3D cities
 * [Points](pnts/README.md) - point clouds
 
 <a name="qa">
 ## Roadmap Q&A
 
-**TODO: TOC**
+_TODO: TOC_
 
 ### General Q&A
 
 #### Can I use 3D Tiles today?
 
-We expect the 3D Tiles specification to evolve until spring 2015.  If you are OK with things changing, then, yes, jump in.  The Cesium implementation is in the [3d-tiles branch](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles).
+We expect the initial 3D Tiles spec to evolve until spring 2016.  If you are OK with things changing, then, yes, jump in.  The Cesium implementation is in the [3d-tiles](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles) branch.
 
 #### Are 3D Tiles specific to Cesium?
 
-No, 3D Tiles are a general specification for streaming massive heterogeneous 3D geospatial datasets.  The Cesium team started this initiative because we need an open format optimized for streaming 3D content to Cesium.  [AGI](http://www.agi.com/), the founders of Cesium, is also developing tools for creating 3D Tiles.  We expect to see other visualization engines and conversion tools use 3D Tiles.
+No, 3D Tiles are a general spec for streaming massive heterogeneous 3D geospatial datasets.  The Cesium team started this initiative because we need an open format optimized for streaming 3D content to Cesium.  [AGI](http://www.agi.com/), the founders of Cesium, is also developing tools for creating 3D Tiles.  We expect to see other visualization engines and conversion tools use 3D Tiles.
 
 #### What is the relationship between 3D Tiles and glTF
 
 [glTF](https://www.khronos.org/gltf), the runtime asset format for WebGL, is an emerging open-standard for 3D models from Khronos (the same group who does WebGL and COLLADA).  Cesium uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter.  We recommend using glTF in Cesium for individual assets, e.g., an aircraft, a character, or a 3D building.
 
-We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitively big.  Given that glTF is optimized for rendering, Cesium has a well-tested glTF loader, and there are existing conversion tools for glTF, 3D Tiles use glTF for some tile types like [b3dm](b3dm/README.md) (used for 3D buildings).  In particular, we introduced a binary extension ([CESIUM_binary_glTF](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_binary_glTF/README.md)) in order to embed glTF into binary tiles and avoid base64-encoding or multiple file overhead.
+We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, Cesium has a well-tested glTF loader, and there are existing conversion tools for glTF, 3D Tiles use glTF for some tile types formats [b3dm](b3dm/README.md) (used for 3D buildings).  In particular, we introduced a binary extension ([CESIUM_binary_glTF](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_binary_glTF/README.md)) in order to embed glTF into binary tiles and avoid base64-encoding or multiple file overhead.
 
 Taking this approach allows us to improve Cesium, glTF, and 3D Tiles at the same time, e.g., when we add mesh compression to glTF, it benefits 3D models in Cesium, the glTF ecosystem, and 3D Tiles.
 
-_TODO: glTF supports general models and has a material system - as opposed to building something custom for 3D buildings_
-
 #### Do 3D Tiles support runtime editing?
 
-A common use case for 3D buildings is to stream a city dataset, color each building based on one or properties, e.g., its height, and then hide a few buildings, and replace them with high-resolution 3D buildings.  With 3D Tiles, this can be done at runtime.
+A common use case for 3D buildings is to stream a city dataset, color each building based on one or more properties, e.g., its height, and then hide a few buildings, and replace them with high-resolution 3D buildings.  With 3D Tiles, this type of editing can be done at runtime.
 
 The general case runtime editing of geometry on a building, vector data, etc., and then efficiently saving those changes in a 3D Tile will be possible, but unlikely to be in the 1.0 spec.  Stylization is much easier since it can be applied at runtime without modification to the 3D Tiles tree.
 
@@ -82,7 +82,7 @@ Similar to terrain, since Cesium already streams imagery, we are not focused on 
 
 #### Will 3D Tiles replace KML?
 
-Conservatively, by the end of 2016, we believe 3D Tiles can replace KML.  KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web.  3D Tiles are built for the web and optimized for streaming; true hierarchical LOD is used, polygons do not need to be triangulated, and so on.
+Conservatively, by the end of 2016, we believe 3D Tiles can replace KML.  KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web.  3D Tiles are built for the web and optimized for streaming; true HLOD is used, polygons do not need to be triangulated, and so on.
 
 ### Technical Q&A
 
@@ -92,7 +92,7 @@ Geospatial datasets are heterogeneous; 3D buildings are different from terrain, 
 
 3D Tiles support heterogeneous data by allowing a different content type for each tile in a tileset, e.g., a tileset may contain tiles for 3D buildings, tiles for instanced 3D trees, and tiles for point clouds, all using different tile types.
 
-We expect 3D Tiles will also support heterogeneous datasets by concatenating different tile types into one tile; in the example above, a tile may have a short header followed by the contents for the 3D buildings, instanced 3D trees, and point clouds.
+We expect 3D Tiles will also support heterogeneous datasets by concatenating different tile types into one tile, a_composite_; in the example above, a tile may have a short header followed by the contents for the 3D buildings, instanced 3D trees, and point clouds.
 
 Supporting heterogeneous datasets with both inter-tile (different tile types in the same tileset) and intra-tile (different tile types in the same tile) options will allow conversion tools to make trade-offs between number of requests, optimal type-specific subdivision, and how visible/hidden layers are streamed.
 
@@ -109,13 +109,13 @@ There's a few ways we may solve this:
 
 Currently, tiles use a box defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  Note that this is not actually a box in Cartesian coordinates since the planes perpendicular to the ground are along the geodetic surface normal.
 
-This bounding volume works OK for the general case, but 3D Tiles will likely support other bounding volumes such as bounding spheres and oriented bounding boxes depending in WGS84 Cartesian coordinates.  The later will allow, for example, better fit bounding volumes for cities not aligned with a line of longitude or latitude, and for arbitrary point clouds.
+This bounding volume works OK for the general case, but 3D Tiles will likely support other bounding volumes such as bounding spheres and oriented bounding boxes defined in WGS84 Cartesian coordinates.  The later will allow, for example, better fit bounding volumes for cities not aligned with a line of longitude or latitude, and for arbitrary point clouds.
 
 _TODO: screenshot_
 
 #### Will 3D Tiles support horizon culling?
 
-Since [horizon culling](http://cesiumjs.org/2013/04/25/Horizon-culling/) is useful for terrain, 3D Tiles will likely support the metadata needed for it.  We considered it yet since our initial work with 3D Tiles was for 3D buildings where horizon culling is not effective.
+Since [horizon culling](http://cesiumjs.org/2013/04/25/Horizon-culling/) is useful for terrain, 3D Tiles will likely support the metadata needed for it.  We haven't considered it yet since our initial work with 3D Tiles was for 3D buildings where horizon culling is not effective.
 
 #### How do I request the tiles for Level `n`?
 
@@ -135,4 +135,4 @@ We may design 3D Tiles to support downloading all children in a single request b
 
 #### What texture compression do 3D Tiles use?
 
-3D Tiles will support the same texture compression that glTF [will support](https://github.com/KhronosGroup/glTF/issues/59).  In addition, we need to consider how well GPU formats compress compared to, for example, jpg.  Some game engines use jpg, then decompress and recompress to a GPU format in a thread.  The CPU overhead for this approach may be too high for JavaScript and Web Workers.
+3D Tiles will support the same texture compression that glTF [will support](https://github.com/KhronosGroup/glTF/issues/59).  In addition, we need to consider how well GPU formats compress compared to, for example, jpeg.  Some desktop game engines use jpeg, then decompress and recompress to a GPU format in a thread.  The CPU overhead for this approach may be too high for JavaScript and Web Workers.
