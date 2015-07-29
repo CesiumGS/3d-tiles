@@ -38,13 +38,17 @@ Stars  | :white_circle: **Not started**
 <a name="introduction">
 ## Introduction
 
-For a gentle introduction to the motivation and principles of 3D Tiles, see [Introducing 3D Tiles](http://cesiumjs.org//2015/08/10/Introducing-3D-Tiles/) on the Cesium blog.  Here, we start with the format.
+For an introduction to the motivation and principles of 3D Tiles, see [Introducing 3D Tiles](http://cesiumjs.org//2015/08/10/Introducing-3D-Tiles/) on the Cesium blog.  Here, we start with the format.
 
-In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a hierarchical spatial data structure, the _tree_.  Each tile has a bounding volume and the tree has spatial coherence; the bounding volume for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any hierarchical spatial data structure with this property, including quadtrees, octrees, k-d trees, multi-way k-d trees, and grids.
+In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a hierarchical spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its contents, and the tree has spatial coherence; the bounding volume for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any data structure with this property, including quadtrees, octrees, k-d trees, multi-way k-d trees, and grids.
 
 _TODO: tree and BV image_
 
-We expect 3D Tiles will different bounding volumes ([see the Q&A below](What-bounding-volume-do-tiles-use)).
+Currently, the bounding volume is a "box" defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  We expect 3D Tiles will different bounding volumes ([see the Q&A below](What-bounding-volume-do-tiles-use)).
+
+The metadata for each tile - not the actual contents - are defined in JSON.  For example:
+```json
+
 
 <a name="tileFormats">
 ## Tile Formats
