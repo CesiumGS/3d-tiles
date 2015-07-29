@@ -43,7 +43,7 @@ For an introduction to the motivation and principles of 3D Tiles, see [Introduci
 
 In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a hierarchical spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its contents, and the tree has spatial coherence; the bounding volume for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any data structure with this property, including quadtrees, octrees, k-d trees, multi-way k-d trees, and grids.
 
-_TODO: tree and BV image_
+![](figures/tree.jpg)
 
 Currently, the bounding volume is a "box" defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  We expect 3D Tiles will different bounding volumes ([see the Q&A below](What-bounding-volume-do-tiles-use)).
 
@@ -90,7 +90,7 @@ _TODO: screenshots showing box and contents.box._
 
 `children` is an array of child tiles whose `box` are guaranteed to be enclosed by this parent tile's `box`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
 
-_TODO: diagram of a tile_
+![](figures/tile.jpg)
 
 TODO
 * tiles.json
