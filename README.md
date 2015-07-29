@@ -48,12 +48,58 @@ Currently, the bounding volume is a "box" defined by minimum and maximum longitu
 
 The metadata for each tile - not the actual contents - are defined in JSON.  For example:
 ```json
+{
+  "content": {
+    "url": "2/0/0.b3dm",
+    "type": "b3dm",
+    "box": [
+      -1.2418882438584018,
+      0.7395016240301894,
+      -1.2415422846940714,
+      0.7396461198389616,
+      0,
+      19.4
+    ],
+    "batchSize": 29
+  },
+  "box": [
+    -1.2419052957251926,
+    0.7395016240301894,
+    -1.2415404171917719,
+    0.7396563300150859,
+    0,
+    20.4
+  ],
+  "geometricError": 43.88464075650763,
+  "children": [...]
+}
+```
+The top-level `box` property defines the bounding volume with the order `[west, south, east, north, minimum height, maximum height]`.  Longitude and latitude are in radians, and height is in meters above (or below) the WGS84 ellipsoid.
 
+The `geometricError` property defines the error introduced, in meters, if this tile is not rendered.  At runtime, this is used to compute _screen-space error_ (SSE) to drive _Hierarchical Level of Detail_ (HLOD) refinement, i.e., decide if a tile should be rendered or its children.
+
+The `contents` property contains metadata about and links to the actual tile's contents.  `contents.type` defines the [tile format](#tileFormats) and `contents.url` points to the tile's contents with an absolute or relative url.  `contents.batchSize` defines the number of models batched in the tile, e.g., above, there are 29 buildings in this tile.
+
+`contents.box` defines an optional bounding volume similar to the top-level `box` property; however, `contents.box` is a tight fit box enclosing just the tile's contents.  This is used for replacement refinement; `box` provides spatial coherence and `contents.box` enables tight view frustum culling.
+
+_TODO: screenshots showing box and contents.box._
+
+`children` is an array of child tiles whose `box` are guaranteed to be enclosed by this parent tile's `box`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
+
+_TODO: diagram of a tile_
+
+TODO
+* `propertes`
+* Top-level `geometricError`
+* Complete tiles.json
+   * http://cesiumjs.org/CanaryWharf/
+
+_TODO: Link to JSON schema._
 
 <a name="tileFormats">
 ## Tile Formats
-* [Batched 3D Model](b3dm/README.md) - 3D cities
-* [Points](pnts/README.md) - point clouds
+* [Batched 3D Model](b3dm/README.md) (b3dm) - 3D cities
+* [Points](pnts/README.md) (pnts) - point clouds
 
 <a name="qa">
 ## Roadmap Q&A
