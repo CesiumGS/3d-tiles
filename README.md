@@ -6,6 +6,7 @@ Contents:
 
 * [Status](#status)
 * [Introduction](#introduction)
+* [Tile Metadata](#Tile-Metadata)
 * [Tile Formats](#tileFormats)
 * [Q&A](#qa)
 
@@ -45,6 +46,9 @@ In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a hierarchical spatial
 _TODO: tree and BV image_
 
 Currently, the bounding volume is a "box" defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  We expect 3D Tiles will different bounding volumes ([see the Q&A below](What-bounding-volume-do-tiles-use)).
+
+<a name="Tile-Metadata">
+## Tile Metadata
 
 The metadata for each tile - not the actual contents - are defined in JSON.  For example:
 ```json
@@ -89,6 +93,7 @@ _TODO: screenshots showing box and contents.box._
 _TODO: diagram of a tile_
 
 TODO
+* tiles.json
 * `propertes`
 * Top-level `geometricError`
 * Complete tiles.json
