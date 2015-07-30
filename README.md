@@ -85,12 +85,15 @@ The metadata for each tile - not the actual contents - are defined in JSON.  For
     20.4
   ],
   "geometricError": 43.88464075650763,
+  "refine" : "add",
   "children": [...]
 }
 ```
 The top-level `box` property is an array of six numbers that define the bounding volume with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
 
 The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _screen-space error_ (SSE), i.e., the error in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
+
+The `refine` property is an optional string that is either `"replace"` for replacement refinement or `"add"` for additive refinement.  When `refine` is omitted, it defaults to `"add"`.
 
 The `contents` property is an object that contains metadata about the tile's content and a link to the content.  `contents.type` is a string that defines the [tile format](#tileFormats) and `contents.url` is a string that points to the tile's contents with an absolute or relative url.  `contents.batchSize` is a nonnegative integer that defines the number of models batched in the tile, e.g., above, there are 29 buildings in the tile.
 
