@@ -155,7 +155,33 @@ See the [Q&A below](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec) for how
 <a name="Creating-Spatial-Data-Structures">
 ### Creating spatial data structures
 
-TODO
+The tree defined in tiles.json by `root` and, recursively, its `children`, can define many different spatial data structures.  It is up to the conversion tool that generates tiles.json to define an optimal tree for the dataset.  A runtime engine, like Cesium, is generic and will render any tree defined by tiles.json.  Here's brief descriptions on how to generate common spatial data structures.
+
+#### K-d trees
+
+A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the x, y, z or axis (or longitude, latitude, height).  The split axis is often round robin rotated as we go down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
+
+_TODO: diagram_
+
+Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree.
+
+#### Quadtree
+
+A quadtree is created when each tile has four uniformly subdivided children (e.g., using the center longitude and latitude) similar to typical 2D geospatial tiling schemes.
+
+3D Tiles enable quadtree variations such as non-uniform splits and tight bounding volumes (as opposed to bounding, for example, the full 25% of the parent tile, which is wasteful for sparse datasets).  For example, here are the tiles for the root tile and its children for Canary Wharf (note the bottom left, where the bounding volume does not include the water where no buildings will appear):
+
+![](figures/nonUniformQuadtree.png)
+
+Another variation 3D Tiles enable are approaches like loose quadtrees, where child tiles overlap, but spatial coherence is still preserved, i.e., a parent tile completely encloses all of its children.  This approach can be useful to avoid splitting models across tiles.
+
+Below, the green buildings are in the left child and the purple buildings are in the right tile.  Note that the tiles overlap so the two green and one purple building in the center are not split.
+
+![](figures/looseQuadtree.png)
+
+#### Octree
+
+_TODO: point cloud screenshot_
 
 <a name="tileFormats">
 ## Tile Formats
