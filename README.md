@@ -155,6 +155,8 @@ See the [Q&A below](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec) for how
 <a name="Creating-Spatial-Data-Structures">
 ### Creating spatial data structures
 
+_TODO: add references to this section_
+
 The tree defined in tiles.json by `root` and, recursively, its `children`, can define many different spatial data structures.  It is up to the conversion tool that generates tiles.json to define an optimal tree for the dataset.  A runtime engine, like Cesium, is generic and will render any tree defined by tiles.json.  Here's brief descriptions on how to generate common spatial data structures.
 
 #### K-d trees
@@ -164,6 +166,8 @@ A k-d tree is created when each tile has two children separated by a _splitting 
 _TODO: diagram_
 
 Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree.
+
+_TODO: multi-way k-d tree_
 
 #### Quadtree
 
