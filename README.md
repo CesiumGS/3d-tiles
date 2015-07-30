@@ -1,12 +1,14 @@
 # 3D Tiles
 
-Specification for streaming massive heterogeneous 3D geospatial datasets.
+Specification for streaming massive heterogeneous **3D** geospatial datasets.
 
 Contents:
 
 * [Status](#status)
 * [Introduction](#introduction)
 * [Tile Metadata](#Tile-Metadata)
+* [tiles.json](#tiles.json)
+   * [Creating Spatial Data Structures](#Creating-Spatial-Data-Structures)
 * [Tile Formats](#tileFormats)
 * [Roadmap Q&A](#qa)
 
@@ -25,9 +27,9 @@ Created by the <a href="http://cesiumjs.org/">Cesium team</a> and built on <a hr
 
 Topic  | Status
 ---|---
-tiles.json  | :white_check_mark: **Pretty solid**, but will expand as we add new tile formats
-Batched 3D Model ([b3dm](b3dm/README.md))  | :white_check_mark: **Pretty solid**, only minor changes expected
-Points ([pnts](pnts/README.md))  | :rocket: **Prototype**, needs compression and additional attributes
+[tiles.json](#tiles.json)  | :white_check_mark: **Pretty solid**, but will expand as we add new tile formats
+[Batched 3D Model](b3dm/README.md) (b3dm)  | :white_check_mark: **Pretty solid**, only minor changes expected
+[Points](pnts/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
 Composite Tile  | :white_circle: **Not started**
 Instanced 3D Model  | :white_circle: **Not started**
 Vector Data  | :white_circle: **Not started**
@@ -36,16 +38,18 @@ Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org
 Imposters  | :white_circle: **Not started**, could be covered by Vector Data
 Stars  | :white_circle: **Not started**
 
+For spec work in progress watch this repo, and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
+
 <a name="introduction">
 ## Introduction
 
-For an introduction to the motivation and principles of 3D Tiles, see [Introducing 3D Tiles](http://cesiumjs.org//2015/08/10/Introducing-3D-Tiles/) on the Cesium blog.  Here, we start with the format.
+For an introduction to the motivation for and principles of 3D Tiles, see [Introducing 3D Tiles](http://cesiumjs.org//2015/08/10/Introducing-3D-Tiles/) on the Cesium blog.  Here, we cover with the format itself.
 
-In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a hierarchical spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its contents, and the tree has spatial coherence; the bounding volume for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any data structure with this property, including quadtrees, octrees, k-d trees, multi-way k-d trees, and grids.
+In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its contents.  The tree has spatial coherence; the bounding volume for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any data structure with this property, including quadtrees, octrees, k-d trees, multi-way k-d trees, and grids.
 
 ![](figures/tree.jpg)
 
-Currently, the bounding volume is a "box" defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  We expect 3D Tiles will different bounding volumes ([see the Q&A below](What-bounding-volume-do-tiles-use)).
+Currently, the bounding volume is a "box" defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  We expect 3D Tiles will support different bounding volumes ([see the Q&A below](What-bounding-volume-do-tiles-use)).
 
 <a name="Tile-Metadata">
 ## Tile Metadata
@@ -80,26 +84,78 @@ The metadata for each tile - not the actual contents - are defined in JSON.  For
 ```
 The top-level `box` property defines the bounding volume with the order `[west, south, east, north, minimum height, maximum height]`.  Longitude and latitude are in radians, and height is in meters above (or below) the WGS84 ellipsoid.
 
-The `geometricError` property defines the error introduced, in meters, if this tile is not rendered.  At runtime, this is used to compute _screen-space error_ (SSE) to drive _Hierarchical Level of Detail_ (HLOD) refinement, i.e., decide if a tile should be rendered or its children.
+The `geometricError` property defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _screen-space error_ (SSE), i.e., the error in pixels, to drive _Hierarchical Level of Detail_ (HLOD) refinement, i.e., decide if a tile sufficiently detailed for the current view or if its children should be considered.
 
-The `contents` property contains metadata about and links to the actual tile's contents.  `contents.type` defines the [tile format](#tileFormats) and `contents.url` points to the tile's contents with an absolute or relative url.  `contents.batchSize` defines the number of models batched in the tile, e.g., above, there are 29 buildings in this tile.
+The `contents` property contains metadata about the tile's content and a link to the content.  `contents.type` defines the [tile format](#tileFormats) and `contents.url` points to the tile's contents with an absolute or relative url.  `contents.batchSize` defines the number of models batched in the tile, e.g., above, there are 29 buildings in the tile.
 
 `contents.box` defines an optional bounding volume similar to the top-level `box` property; however, `contents.box` is a tight fit box enclosing just the tile's contents.  This is used for replacement refinement; `box` provides spatial coherence and `contents.box` enables tight view frustum culling.
 
-_TODO: screenshots showing box and contents.box._
+The screenshot below shows the bounding boxes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `box` is red, and enclosed the entire area of the dataset; `contents.box` is blue, and encloses just the models in the root tile.
 
-`children` is an array of child tiles whose `box` are guaranteed to be enclosed by this parent tile's `box`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
+![](figures/contentsBox.jpg)
+
+`children` is an array of child tiles described in the [section below](#tiles.json).
 
 ![](figures/tile.jpg)
 
-TODO
-* tiles.json
-* `propertes`
-* Top-level `geometricError`
-* Complete tiles.json
-   * http://cesiumjs.org/CanaryWharf/
+<a name="tiles.json">
+## tiles.json
 
-_TODO: Link to JSON schema._
+_tiles.json_ defines a tileset using the JSON for tile metadata described above.
+
+Here is a subset of the tiles.json used for [Canary Wharf](http://cesiumjs.org/CanaryWharf/) (also see the complete [tiles.json](examples/tiles.json)):
+```json
+{
+  "properties": {
+    "Height": {
+      "minimum": 1,
+      "maximum": 241.6
+    }
+  },
+  "geometricError": 494.50961650991815,
+  "root": {
+    "content": {
+      "url": "0/0/0.b3dm",
+      "type": "b3dm",
+      "box": [
+        -0.0004001690908972599,
+        0.8988700116775743,
+        0.00010096729722787196,
+        0.8989625664878067,
+        0,
+        241.6
+      ],
+      "batchSize": 4
+    },
+    "box": [
+      -0.0005682966577418737,
+      0.8987233516605286,
+      0.00011646582098558159,
+      0.8990603398325034,
+      0,
+      241.6
+    ],
+    "geometricError": 268.37878244706053,
+    "children": [..]
+  }
+}
+```
+The top-level object in tiles.json has three properties: `propertes`, `geometricError`, and `root`.
+
+`propertes` is an object containing objects for each per-model property in the tileset.  This tiles.json snippet is for 3D buildings so each tile has building models, and each building model has a height property (see the _Batch Table_ in the [Batched 3D Model](b3dm/README.md) tile format).  The name of each object in `propertes` matches the name of each per-model property, and defines its `minimum` and `maximum` values, which is useful, for example, for creating color ramps for shading.
+
+`geometricError` is the error, in meters, when the tileset is not rendered.
+
+`root` defines the root tile using the JSON described in the [above section](#Tile-Metadata).  `root.geometricError` is not the same as `geometricError`.  `geometricError` is the error when the entire tileset is not rendered; `root.geometricError` is the error when only the root tile is rendered.
+
+`root.children` is an array of child tiles.  Each tile has a `box` fully enclosed by its parent tile's `box`, and, generally, a `geometricError` less than its parent tile's.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
+
+See the [Q&A below](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec) for how tiles.json will scale to a massive number of tiles. 
+
+<a name="Creating-Spatial-Data-Structures">
+### Creating Spatial Data Structures
+
+TODO
 
 <a name="tileFormats">
 ## Tile Formats
