@@ -6,13 +6,13 @@ Contents:
 
 * [Status](#status)
 * [Introduction](#introduction)
-* [Tile Metadata](#Tile-Metadata)
+* [Tile metadata](#Tile-Metadata)
 * [tiles.json](#tiles.json)
-   * [Creating Spatial Data Structures](#Creating-Spatial-Data-Structures)
-* [Tile Formats](#tileFormats)
+   * [Creating spatial data structures](#Creating-Spatial-Data-Structures)
+* [Tile formats](#tileFormats)
 * [Roadmap Q&A](#qa)
 
-Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html).
+Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html) or contact Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi).
 
 <p align="center">
 Created by the <a href="http://cesiumjs.org/">Cesium team</a> and built on <a href="https://www.khronos.org/gltf">glTF</a>.<br/>
@@ -38,7 +38,7 @@ Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org
 Imposters  | :white_circle: **Not started**, could be covered by Vector Data
 Stars  | :white_circle: **Not started**
 
-For spec work in progress watch this repo, and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
+For spec work in progress [watch this repo](https://github.com/AnalyticalGraphicsInc/3d-tiles/subscription), and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
 
 <a name="introduction">
 ## Introduction
@@ -52,7 +52,7 @@ In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structu
 Currently, the bounding volume is a "box" defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  We expect 3D Tiles will support different bounding volumes ([see the Q&A below](What-bounding-volume-do-tiles-use)).
 
 <a name="Tile-Metadata">
-## Tile Metadata
+## Tile metadata
 
 The metadata for each tile - not the actual contents - are defined in JSON.  For example:
 ```json
@@ -92,7 +92,7 @@ The `contents` property contains metadata about the tile's content and a link to
 
 The screenshot below shows the bounding boxes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `box` is red, and enclosed the entire area of the dataset; `contents.box` is blue, and encloses just the models in the root tile.
 
-![](figures/contentsBox.jpg)
+![](figures/contentsBox.png)
 
 `children` is an array of child tiles described in the [section below](#tiles.json).
 
@@ -153,7 +153,7 @@ The top-level object in tiles.json has three properties: `propertes`, `geometric
 See the [Q&A below](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec) for how tiles.json will scale to a massive number of tiles. 
 
 <a name="Creating-Spatial-Data-Structures">
-### Creating Spatial Data Structures
+### Creating spatial data structures
 
 TODO
 
