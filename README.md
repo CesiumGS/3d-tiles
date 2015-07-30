@@ -9,6 +9,10 @@ Contents:
 * [Tile metadata](#Tile-Metadata)
 * [tiles.json](#tiles.json)
    * [Creating spatial data structures](#Creating-Spatial-Data-Structures)
+      * [K-d trees](#K-d-trees)
+      * [Quadtrees](#Quadtrees)
+      * [Octrees](#Octrees)
+      * [Grids](#Grids)
 * [Tile formats](#tileFormats)
 * [Roadmap Q&A](#qa)
 
@@ -96,6 +100,8 @@ The screenshot below shows the bounding volumes for the root tile for [Canary Wh
 
 ![](figures/contentsBox.png)
 
+`contents` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#Grids)).
+
 `children` is an array of object that define child tiles.  See the [section below](#tiles.json).
 
 ![](figures/tile.png)
@@ -155,49 +161,53 @@ See the [Q&A below](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec) for how
 <a name="Creating-Spatial-Data-Structures">
 ### Creating spatial data structures
 
-_TODO: add references to this section_
+The tree defined in tiles.json by `root` and, recursively, its `children`, can define different types of spatial data structures.  In addition, any combination of tile formats and refinement approach (replacement or additive) can be used, enabling a lot of flexibility.
 
-The tree defined in tiles.json by `root` and, recursively, its `children`, can define many different spatial data structures.  These can use any combination of tile formats and refinement approach (replacement or additive) enabling a lot of flexibility.
+It is up to the conversion tool that generates tiles.json to define an optimal tree for the dataset.  A runtime engine, like Cesium, is generic and will render any tree defined by tiles.json.  Here's brief descriptions on how to generate spatial data structures.
 
-It is up to the conversion tool that generates tiles.json to define an optimal tree for the dataset.  A runtime engine, like Cesium, is generic and will render any tree defined by tiles.json.  Here's brief descriptions on how to generate common spatial data structures.
-
+<a name="K-d-trees">
 #### K-d trees
 
-A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the x, y, z or axis (or longitude, latitude, height).  The split axis is often round robin rotated as we go down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
+A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the x, y, z or axis (or longitude, latitude, height).  The split axis is often round-robin rotated as we go down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
 
 _TODO: diagram_
 
 Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree.
 
-3D Tiles enable variations on k-d trees such as multi-way k-d trees where, at each leve of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
+3D Tiles enable variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leve of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
 
+<a name="Quadtrees">
 #### Quadtrees
 
 A quadtree is created when each tile has four uniformly subdivided children (e.g., using the center longitude and latitude) similar to typical 2D geospatial tiling schemes.
 
-3D Tiles enable quadtree variations such as non-uniform splits and tight bounding volumes (as opposed to bounding, for example, the full 25% of the parent tile, which is wasteful for sparse datasets).  For example, here are the tiles for the root tile and its children for Canary Wharf (note the bottom left, where the bounding volume does not include the water where no buildings will appear):
+3D Tiles enable quadtree variations such as non-uniform splits and tight bounding volumes (as opposed to bounding, for example, the full 25% of the parent tile, which is wasteful for sparse datasets).
+
+For example, here are the tiles for the root tile and its children for Canary Wharf.  Note the bottom left, where the bounding volume does not include the water where no buildings will appear:
 
 ![](figures/nonUniformQuadtree.png)
 
-Another variation 3D Tiles enable are approaches like loose quadtrees, where child tiles overlap, but spatial coherence is still preserved, i.e., a parent tile completely encloses all of its children.  This approach can be useful to avoid splitting models across tiles.
+Another variation 3D Tiles enable are approaches like [loose quadtrees](http://www.tulrich.com/geekstuff/partitioning.html), where child tiles overlap, but spatial coherence is still preserved, i.e., a parent tile completely encloses all of its children.  This approach can be useful to avoid splitting models across tiles.
 
-Below, the green buildings are in the left child and the purple buildings are in the right tile.  Note that the tiles overlap so the two green and one purple building in the center are not split.
+Below, the green buildings are in the left child and the purple buildings are in the right child.  Note that the tiles overlap so the two green and one purple building in the center are not split.
 
 ![](figures/looseQuadtree.png)
 
+<a name="Octrees">
 #### Octrees
 
-An octree extends an octree by using three orthogonal splitting planes to subdivide a tile into eight tiles.  Like quadtrees, 3D Tiles allows variations to octrees such as non-uniform splits, tight bounding volumes, and overlapping children.
+An octree extends a quadtree by using three orthogonal splitting planes to subdivide a tile into eight children.  Like quadtrees, 3D Tiles allows variations to octrees such as non-uniform splits, tight bounding volumes, and overlapping children.
 
 _TODO: point cloud screenshot_
 
+<a name="Grids">
 #### Grids
 
 3D Tiles enable uniform, non-uniform, and overlapping grids by supporting an arbitrary number of child tiles.  For example, here is a top-down view of a non-uniform overlapping grid of Cambridge:
 
 ![](figures/grid.png)
 
-Since a tile's `contents` property does not be defined, empty non-leaf tiles (tiles with a bounding volume, but no content) can be used to accelerate non-uniform grids with hierarchical culling.
+Since a tile's `contents` property does not be defined, empty non-leaf tiles (tiles with a bounding volume, but no content) can be used to accelerate non-uniform grids with hierarchical culling, essentially creating an quadtree or octree without HLOD.
 
 <a name="tileFormats">
 ## Tile Formats
