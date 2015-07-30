@@ -49,7 +49,7 @@ For spec work in progress [watch this repo](https://github.com/AnalyticalGraphic
 <a name="introduction">
 ## Introduction
 
-For an introduction to the motivation for and principles of 3D Tiles, see [Introducing 3D Tiles](http://cesiumjs.org//2015/08/10/Introducing-3D-Tiles/) on the Cesium blog.  Here, we cover the format itself.
+For an introduction to the motivation for and principles of 3D Tiles, see [Introducing 3D Tiles](http://cesiumjs.org/2015/08/10/Introducing-3D-Tiles/) on the Cesium blog.  Here, we cover the format itself.
 
 In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its contents.  The tree has spatial coherence; the bounding volume for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any spatial data structure with spatial coherence, including quadtrees, octrees, k-d trees, multi-way k-d trees, and grids.
 
