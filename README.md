@@ -157,7 +157,9 @@ See the [Q&A below](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec) for how
 
 _TODO: add references to this section_
 
-The tree defined in tiles.json by `root` and, recursively, its `children`, can define many different spatial data structures.  It is up to the conversion tool that generates tiles.json to define an optimal tree for the dataset.  A runtime engine, like Cesium, is generic and will render any tree defined by tiles.json.  Here's brief descriptions on how to generate common spatial data structures.
+The tree defined in tiles.json by `root` and, recursively, its `children`, can define many different spatial data structures.  These can use any combination of tile formats and refinement approach (replacement or additive) enabling a lot of flexibility.
+
+It is up to the conversion tool that generates tiles.json to define an optimal tree for the dataset.  A runtime engine, like Cesium, is generic and will render any tree defined by tiles.json.  Here's brief descriptions on how to generate common spatial data structures.
 
 #### K-d trees
 
@@ -167,9 +169,9 @@ _TODO: diagram_
 
 Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree.
 
-_TODO: multi-way k-d tree_
+3D Tiles enable variations on k-d trees such as multi-way k-d trees where, at each leve of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
 
-#### Quadtree
+#### Quadtrees
 
 A quadtree is created when each tile has four uniformly subdivided children (e.g., using the center longitude and latitude) similar to typical 2D geospatial tiling schemes.
 
@@ -183,9 +185,15 @@ Below, the green buildings are in the left child and the purple buildings are in
 
 ![](figures/looseQuadtree.png)
 
-#### Octree
+#### Octrees
+
+An octree extends an octree by using three orthogonal splitting planes to subdivide a tile into eight tiles.  Like quadtrees, 3D Tiles allows variations to octrees such as non-uniform splits, tight bounding volumes, and overlapping children.
 
 _TODO: point cloud screenshot_
+
+#### Grids
+
+_TODO_
 
 <a name="tileFormats">
 ## Tile Formats
