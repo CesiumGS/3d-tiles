@@ -193,7 +193,11 @@ _TODO: point cloud screenshot_
 
 #### Grids
 
-_TODO_
+3D Tiles enable uniform, non-uniform, and overlapping grids by supporting an arbitrary number of child tiles.  For example, here is a top-down view of a non-uniform overlapping grid of Cambridge:
+
+![](figures/grid.png)
+
+Since a tile's `contents` property does not be defined, empty non-leaf tiles (tiles with a bounding volume, but no content) can be used to accelerate non-uniform grids with hierarchical culling.
 
 <a name="tileFormats">
 ## Tile Formats
@@ -314,3 +318,5 @@ We may design 3D Tiles to support downloading all children in a single request b
 #### What texture compression do 3D Tiles use?
 
 3D Tiles will support the same texture compression that glTF [will support](https://github.com/KhronosGroup/glTF/issues/59).  In addition, we need to consider how well GPU formats compress compared to, for example, jpeg.  Some desktop game engines use jpeg, then decompress and recompress to a GPU format in a thread.  The CPU overhead for this approach may be too high for JavaScript and Web Workers.
+
+_TODO: data credits_
