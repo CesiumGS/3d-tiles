@@ -15,6 +15,7 @@ Contents:
       * [Grids](#Grids)
 * [Tile formats](#tileFormats)
 * [Roadmap Q&A](#qa)
+* [Data Credits](#DataCredits)
 
 <p align="center">
 Created by the <a href="http://cesiumjs.org/">Cesium team</a> and built on <a href="https://www.khronos.org/gltf">glTF</a>.<br/>
@@ -357,4 +358,7 @@ We may design 3D Tiles to support downloading all children in a single request b
 
 3D Tiles will support the same texture compression that glTF [will support](https://github.com/KhronosGroup/glTF/issues/59).  In addition, we need to consider how well GPU formats compress compared to, for example, jpeg.  Some desktop game engines stream jpeg, then decompress and recompress to a GPU format in a thread.  The CPU overhead for this approach may be too high for JavaScript and Web Workers.
 
-_TODO: data credits_
+<a name="DataCredits">
+## Data Credits
+
+The screenshots in this spec use awesome [CyberCity3D](http://www.cybercity3d.com/) buildings and [Bing Maps](https://www.microsoft.com/maps/choose-your-bing-maps-API.aspx) base layer.
