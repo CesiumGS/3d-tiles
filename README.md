@@ -95,7 +95,9 @@ The `geometricError` property is a nonnegative number that defines the error, in
 
 The `refine` property is an optional string that is either `"replace"` for replacement refinement or `"add"` for additive refinement.  When `refine` is omitted, it defaults to `"add"`.
 
-The `contents` property is an object that contains metadata about the tile's content and a link to the content.  `contents.type` is a string that defines the [tile format](#tileFormats) and `contents.url` is a string that points to the tile's contents with an absolute or relative url.  `contents.batchSize` is a nonnegative integer that defines the number of models batched in the tile, e.g., above, there are 29 buildings in the tile.
+The `contents` property is an object that contains metadata about the tile's content and a link to the content.  `contents.type` is a string that defines the [tile format](#tileFormats) and `contents.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
+
+`contents.batchSize` is a nonnegative integer that defines the number of models batched in the tile, e.g., above, there are 29 buildings in the tile.
 
 `contents.box` defines an optional bounding volume similar to the top-level `box` property; however, `contents.box` is a tight fit box enclosing just the tile's contents.  This is used for replacement refinement; `box` provides spatial coherence and `contents.box` enables tight view frustum culling.
 
@@ -344,7 +346,7 @@ Often when using replacement refinement, a tile's children is not rendered until
 We may design 3D Tiles to support downloading all children in a single request by allowing tiles.json to point to a subset of a file for a tile's content similiar to glTF [buffer](https://github.com/KhronosGroup/glTF/blob/master/specification/buffer.schema.json) and [bufferView](https://github.com/KhronosGroup/glTF/blob/master/specification/bufferView.schema.json).  [HTTP/2](http://chimera.labs.oreilly.com/books/1230000000545/ch12.html#_brief_history_of_spdy_and_http_2) will also make the overhead of multiple requests less important.
 
 <a name="What-texture-compression-do-3D-Tiles-use">
-#### What texture compression do 3D Tiles use?
+#### What texture compression does 3D Tiles use?
 
 3D Tiles will support the same texture compression that glTF [will support](https://github.com/KhronosGroup/glTF/issues/59).  In addition, we need to consider how well GPU formats compress compared to, for example, jpeg.  Some desktop game engines use jpeg, then decompress and recompress to a GPU format in a thread.  The CPU overhead for this approach may be too high for JavaScript and Web Workers.
 
