@@ -220,7 +220,23 @@ Since a tile's `contents` property does not be defined, empty non-leaf tiles (ti
 <a name="qa">
 ## Roadmap Q&A
 
-_TODO: TOC_
+* [General Q&A](#General-qa)
+   * [Can I use 3D Tiles today?](#Can-I-use-3D-Tiles-today)
+   * [Are 3D Tiles specific to Cesium?](#Are-3D-Tiles-specific-to-Cesium)
+   * [What is the relationship between 3D Tiles and glTF](#What-is-the-relationship-between-3D-Tiles-and-glTF)
+   * [Do 3D Tiles support runtime editing?](#Do-3D-Tiles-support-runtime-editing)
+   * [Will 3D Tiles include terrain?](#Will-3D-Tiles-include-terrain)
+   * [Will 3D Tiles include imagery?](#Will-3D-Tiles-include-imagery)
+   * [Will 3D Tiles replace KML?](#Will-3D-Tiles-replace-KML)
+* [Technical Q&A](#Technical-qa)
+   * [How do 3D Tiles support heterogeneous datasets?](#How-do-3D-Tiles-support-heterogeneous-datasets)
+   * [Will tiles.json be part of the final 3D Tiles spec?](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec)
+   * [What bounding volume do tiles use?](#What-bounding-volume-do-tiles-use)
+   * [Will 3D Tiles support horizon culling?](#Will-3D-Tiles-support-horizon-culling)
+   * [How do I request the tiles for Level `n`?](#How-do-I-request-the-tiles-for-Level-n)
+   * [How are cracks between tiles with vector data handled?](#How-are-cracks-between-tiles-with-vector-data-handled)
+   * [When using replacement refinement, can multiple children be combined into one request?](#When-using-replacement-refinement-can-multiple-children-be-combined-into-one-request)
+   * [What texture compression do 3D Tiles use?](#What-texture-compression-do-3D-Tiles-use)
 
 <a name="General-qa">
 ### General Q&A
