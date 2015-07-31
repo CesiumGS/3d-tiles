@@ -36,7 +36,7 @@ Topic  | Status
 ---|---
 [tiles.json](#tiles.json)  | :white_check_mark: **Pretty solid**, but will expand as we add new tile formats
 [Batched 3D Model](b3dm/README.md) (b3dm)  | :white_check_mark: **Pretty solid**, only minor changes expected
-[Points](pnts/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
+[Point Cloud](pnts/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
 Composite Tile  | :white_circle: **Not started**
 Instanced 3D Model  | :white_circle: **Not started**
 Vector Data  | :white_circle: **Not started**
@@ -56,7 +56,9 @@ In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structu
 
 ![](figures/tree.png)
 
-Currently, the bounding volume is a "box" defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  We expect 3D Tiles will support different bounding volumes see the ([Q&A below](#What-bounding-volume-do-tiles-use)).
+Currently, the bounding volume is a "box" defined by minimum and maximum longitude, latitude, and height.  We expect 3D Tiles will support different bounding volumes see the ([Q&A below](#What-bounding-volume-do-tiles-use)).
+
+A tile usually references a _model_ or set of _models_, e.g., 3D buildings.  These models may be batched together into essentially a single model to reduce client-side load time and WebGL draw call overhead.
 
 <a name="Tile-Metadata" />
 ## Tile metadata
@@ -64,6 +66,16 @@ Currently, the bounding volume is a "box" defined by minimum and maximum longitu
 The metadata for each tile - not the actual contents - are defined in JSON.  For example:
 ```json
 {
+  "box": [
+    -1.2419052957251926,
+    0.7395016240301894,
+    -1.2415404171917719,
+    0.7396563300150859,
+    0,
+    20.4
+  ],
+  "geometricError": 43.88464075650763,
+  "refine" : "add",
   "content": {
     "url": "2/0/0.b3dm",
     "type": "b3dm",
@@ -77,16 +89,6 @@ The metadata for each tile - not the actual contents - are defined in JSON.  For
     ],
     "batchSize": 29
   },
-  "box": [
-    -1.2419052957251926,
-    0.7395016240301894,
-    -1.2415404171917719,
-    0.7396563300150859,
-    0,
-    20.4
-  ],
-  "geometricError": 43.88464075650763,
-  "refine" : "add",
   "children": [...]
 }
 ```
@@ -108,7 +110,9 @@ The screenshot below shows the bounding volumes for the root tile for [Canary Wh
 
 `contents` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#Grids)).
 
-`children` is an array of objectsthat define child tiles.  See the [section below](#tiles.json).
+`children` is an array of objects that define child tiles.  See the [section below](#tiles.json).
+
+_TODO: update this figure to match JSON_
 
 ![](figures/tile.png)
 
@@ -126,6 +130,15 @@ _tiles.json_ defines a tileset.  Here is a subset of the tiles.json used for [Ca
   },
   "geometricError": 494.50961650991815,
   "root": {
+    "box": [
+      -0.0005682966577418737,
+      0.8987233516605286,
+      0.00011646582098558159,
+      0.8990603398325034,
+      0,
+      241.6
+    ],
+    "geometricError": 268.37878244706053,
     "content": {
       "url": "0/0/0.b3dm",
       "type": "b3dm",
@@ -139,22 +152,13 @@ _tiles.json_ defines a tileset.  Here is a subset of the tiles.json used for [Ca
       ],
       "batchSize": 4
     },
-    "box": [
-      -0.0005682966577418737,
-      0.8987233516605286,
-      0.00011646582098558159,
-      0.8990603398325034,
-      0,
-      241.6
-    ],
-    "geometricError": 268.37878244706053,
     "children": [..]
   }
 }
 ```
 The top-level object in tiles.json has three properties: `propertes`, `geometricError`, and `root`.
 
-`propertes` is an object containing objects for each per-model property in the tileset.  This tiles.json snippet is for 3D buildings so each tile has building models, and each building model has a `Height` property (see the _Batch Table_ in the [Batched 3D Model](b3dm/README.md) tile format).  The name of each object in `propertes` matches the name of a per-model property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
+`propertes` is an object containing objects for each per-model property in the tileset.  This tiles.json snippet is for 3D buildings so each tile has building models, and each building model has a `Height` property (see the _Batch Table_ in the [Batched 3D Model](b3dm/README.md) tile format).  The name of each object in `properties` matches the name of a per-model property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
 `geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered.
 
@@ -180,7 +184,7 @@ A k-d tree is created when each tile has two children separated by a _splitting 
 
 Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree for sparse and non-uniformly distributed datasets.
 
-3D Tiles enable variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leve of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
+3D Tiles enable variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leaf of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
 
 <a name="Quadtrees" />
 #### Quadtrees
@@ -189,7 +193,7 @@ A quadtree is created when each tile has four uniformly subdivided children (e.g
 
 3D Tiles enable quadtree variations such as non-uniform subdivision and tight bounding volumes (as opposed to bounding, for example, the full 25% of the parent tile, which is wasteful for sparse datasets).
 
-For example, here are the tiles for the root tile and its children for Canary Wharf.  Note the bottom left, where the bounding volume does not include the water on the left where no buildings will appear:
+For example, here is the root tile and its children for Canary Wharf.  Note the bottom left, where the bounding volume does not include the water on the left where no buildings will appear:
 
 ![](figures/nonUniformQuadtree.png)
 
@@ -221,7 +225,7 @@ Since a tile's `contents` property does not need to be defined, empty non-leaf t
 Each tile's `contents.url` property points to a tile that is one of the following formats (see the [Status section](#status) for planned formats).
 
 * [Batched 3D Model](b3dm/README.md) (b3dm) - 3D cities
-* [Points](pnts/README.md) (pnts) - point clouds
+* [Point Cloud](pnts/README.md) (pnts) - point clouds
 
 A tileset can contain any combination of tile formats.  3D Tiles may also support different formats in the same tile, see the [roadmap Q&A](#How-do-3D-Tiles-support-heterogeneous-datasets).
 
@@ -244,7 +248,7 @@ A tileset can contain any combination of tile formats.  3D Tiles may also suppor
    * [Will 3D Tiles support horizon culling?](#Will-3D-Tiles-support-horizon-culling)
    * [How are cracks between tiles with vector data handled?](#How-are-cracks-between-tiles-with-vector-data-handled)
    * [When using replacement refinement, can multiple children be combined into one request?](#When-using-replacement-refinement-can-multiple-children-be-combined-into-one-request)
-   * [What texture compression do 3D Tiles use?](#What-texture-compression-do-3D-Tiles-use)
+   * [What compressed texture formats do 3D Tiles use?](#What-texture-compression-do-3D-Tiles-use)
 
 <a name="General-qa" />
 ### General Q&A
@@ -271,9 +275,9 @@ Taking this approach allows us to improve Cesium, glTF, and 3D Tiles at the same
 <a name="Do-3D-Tiles-support-runtime-editing" />
 #### Do 3D Tiles support runtime editing?
 
-A common use case for 3D buildings is to stream a city dataset, color each building based on one or more properties, e.g., the building's height, and then hide a few buildings, and replace them with high-resolution 3D buildings.  With 3D Tiles, this type of editing can be done at runtime.
+A common use case for 3D buildings is to stream a city dataset, color each building based on one or more properties (e.g., the building's height) and then hide a few buildings, and replace them with high-resolution 3D buildings.  With 3D Tiles, this type of editing can be done at runtime.
 
-The general case runtime editing of geometry on a building, vector data, etc., and then efficiently saving those changes in a 3D Tile will be possible, but is not the initial focus.  However, stylization is much easier since it can be applied at runtime without modification to the 3D Tiles tree, and is part of the initial work.
+The general case runtime editing of geometry on a building, vector data, etc., and then efficiently saving those changes in a 3D Tile will be possible, but is not the initial focus.  However, styling is much easier since it can be applied at runtime without modification to the 3D Tiles tree, and is part of the initial work.
 
 <a name="Will-3D-Tiles-include-terrain" />
 #### Will 3D Tiles include terrain?
@@ -292,7 +296,7 @@ Similar to terrain, since Cesium already streams imagery, we are not focused on 
 <a name="Will-3D-Tiles-replace-KML" />
 #### Will 3D Tiles replace KML?
 
-Yes.  KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web.  3D Tiles are built for the web and optimized for streaming; true HLOD is used, polygons do not need to be triangulated, and so on.
+In many cases, yes.  KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web.  3D Tiles are built for the web and optimized for streaming; true HLOD is used, polygons do not need to be triangulated, and so on.
 
 <a name="Technical-qa" />
 ### Technical Q&A
@@ -304,14 +308,14 @@ Geospatial datasets are heterogeneous; 3D buildings are different from terrain, 
 
 3D Tiles support heterogeneous data by allowing a different tile formats in a tileset, e.g., a tileset may contain tiles for 3D buildings, tiles for instanced 3D trees, and tiles for point clouds, all using different tile formats.
 
-We expect 3D Tiles will also support heterogeneous datasets by concatenating different tile formats into one tile, a _composite_; in the example above, a tile may have a short header followed by the contents for the 3D buildings, instanced 3D trees, and point clouds.
+We expect 3D Tiles will also support heterogeneous datasets by concatenating different tile formats into one tile, a _composite_; in the example above, a tile may have a short header followed by the content for the 3D buildings, instanced 3D trees, and point clouds.
 
 Supporting heterogeneous datasets with both inter-tile (different tile formats in the same tileset) and intra-tile (different tile formats in the same tile) options will allow conversion tools to make trade-offs between number of requests, optimal type-specific subdivision, and how visible/hidden layers are streamed.
 
 <a name="Will-tiles.json-be-part-of-the-final-3D-Tiles-spec" />
 #### Will tiles.json be part of the final 3D Tiles spec?
 
-Yes.  There will always be a need to know metadata about the tileset and about tiles that are not yet loaded, e.g., so only visible tiles can be requested.  However, when scaling to millions of tiles, a single tiles.json with metadata for the entire tree will be prohibitively big.
+Yes.  There will always be a need to know metadata about the tileset and about tiles that are not yet loaded, e.g., so only visible tiles can be requested.  However, when scaling to millions of tiles, a single tiles.json with metadata for the entire tree will be prohibitively large.
 
 There's a few ways we may solve this:
 * Trees of trees.  A `content.type` of `"3dtile"` is planned and will allow conversion tools to chunk up a tileset into any number of tiles.json files that reference each other.
@@ -330,7 +334,7 @@ This 3D Tiles topic needs additional research, but the answer is basically the s
 
 Currently, tiles use a box defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  Note that this is not actually a box in WGS84 Cartesian coordinates since the planes perpendicular to the ground are along the geodetic surface normal.
 
-This bounding volume works OK for the general case, but 3D Tiles will likely support other bounding volumes such as bounding spheres and oriented bounding boxes defined in WGS84 Cartesian coordinates.  The later will allow, for example, BSP trees and better fit bounding volumes for cities not aligned with a line of longitude or latitude, and for arbitrary point clouds.
+This bounding volume works OK for the general case, but 3D Tiles will likely support other bounding volumes such as bounding spheres and oriented bounding boxes defined in WGS84 Cartesian coordinates.  The latter will allow, for example, BSP trees and better fit bounding volumes for cities not aligned with a line of longitude or latitude, and for arbitrary point clouds.
 
 For example, consider the wasted space in the root bounding volume below and how it could be reduced by rotating it:
 
@@ -344,7 +348,7 @@ Since [horizon culling](http://cesiumjs.org/2013/04/25/Horizon-culling/) is usef
 <a name="How-are-cracks-between-tiles-with-vector-data-handled" />
 #### How are cracks between tiles with vector data handled?
 
-Unlike 2D, in 3D, we expect adjacent tiles to be from different LODs so, for example, in the distance, lower resolution tiles are used.  Adjacent tiles from different LODs can lead to an artifact called _cracking_ where there are gaps between tiles.  For terrain, this is generally handled by dropping _skirts_ slightly angled outward around each tile to fill the gap.  For 3D buildings, this is handled by extending the tile boundary to fully include buildings on the edge ([see above](#Quadtrees)).  For vector data, this is an open research problem that we need to solve.  This could invole boundary-aware simplication or runtime stitching. 
+Unlike 2D, in 3D, we expect adjacent tiles to be from different LODs so, for example, in the distance, lower resolution tiles are used.  Adjacent tiles from different LODs can lead to an artifact called _cracking_ where there are gaps between tiles.  For terrain, this is generally handled by dropping _skirts_ slightly angled outward around each tile to fill the gap.  For 3D buildings, this is handled by extending the tile boundary to fully include buildings on the edge ([see above](#Quadtrees)).  For vector data, this is an open research problem that we need to solve.  This could invole boundary-aware simplification or runtime stitching. 
 
 <a name="When-using-replacement-refinement-can-multiple-children-be-combined-into-one-request" />
 #### When using replacement refinement, can multiple children be combined into one request?
@@ -354,7 +358,7 @@ Often when using replacement refinement, a tile's children are not rendered unti
 We may design 3D Tiles to support downloading all children in a single request by allowing tiles.json to point to a subset of a file for a tile's content similiar to glTF [buffer](https://github.com/KhronosGroup/glTF/blob/master/specification/buffer.schema.json) and [bufferView](https://github.com/KhronosGroup/glTF/blob/master/specification/bufferView.schema.json).  [HTTP/2](http://chimera.labs.oreilly.com/books/1230000000545/ch12.html#_brief_history_of_spdy_and_http_2) will also make the overhead of multiple requests less important.
 
 <a name="What-texture-compression-do-3D-Tiles-use" />
-#### What texture compression does 3D Tiles use?
+#### What compressed texture formats do 3D Tiles use??
 
 3D Tiles will support the same texture compression that glTF [will support](https://github.com/KhronosGroup/glTF/issues/59).  In addition, we need to consider how well GPU formats compress compared to, for example, jpeg.  Some desktop game engines stream jpeg, then decompress and recompress to a GPU format in a thread.  The CPU overhead for this approach may be too high for JavaScript and Web Workers.
 
