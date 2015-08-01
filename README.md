@@ -226,6 +226,11 @@ Below, the green buildings are in the left child and the purple buildings are in
 
 An octree extends a quadtree by using three orthogonal splitting planes to subdivide a tile into eight children.  Like quadtrees, 3D Tiles allows variations to octrees such as non-uniform subdivision, tight bounding volumes, and overlapping children.
 
+<p align="center">
+  <img src="figures/octree.jpg" /><br />
+  Traditional octree subdivision.
+</p>
+
 _TODO: point cloud screenshot_
 
 <a name="Grids" />
