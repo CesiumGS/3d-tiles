@@ -175,14 +175,17 @@ The tree defined in tiles.json by `root` and, recursively, its `children`, can d
 
 It is up to the conversion tool that generates tiles.json to define an optimal tree for the dataset.  A runtime engine, like Cesium, is generic and will render any tree defined by tiles.json.  Here's brief descriptions of how 3D Tiles can represent various spatial data structures.
 
-_TODO: diagrams for each_
-
 <a name="K-d-trees" />
 #### K-d trees
 
 A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the x, y, z or axis (or longitude, latitude, height).  The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
 
 Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree for sparse and non-uniformly distributed datasets.
+
+<p align="center">
+  <img src="figures/kdtree.jpg" /><br />
+  Example k-d tree.  Note the non-uniform subdivision.
+</p>
 
 3D Tiles enable variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leaf of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
 
@@ -191,13 +194,28 @@ Note that a k-d tree does not have uniform subdivision like typical 2D geospatia
 
 A quadtree is created when each tile has four uniformly subdivided children (e.g., using the center longitude and latitude) similar to typical 2D geospatial tiling schemes.  Empty child tiles can be omitted.
 
+<p align="center">
+  <img src="figures/quadtree.jpg" /><br />
+  Classic quadtree subdivision.
+</p>
+
 3D Tiles enable quadtree variations such as non-uniform subdivision and tight bounding volumes (as opposed to bounding, for example, the full 25% of the parent tile, which is wasteful for sparse datasets).
+
+<p align="center">
+  <img src="figures/quadtree-tight.jpg" /><br />
+  Quadtree with tight bounding volumes around each child.
+</p>
 
 For example, here is the root tile and its children for Canary Wharf.  Note the bottom left, where the bounding volume does not include the water on the left where no buildings will appear:
 
 ![](figures/nonUniformQuadtree.png)
 
 3D Tiles also enable other quadtree-variations such as [loose quadtrees](http://www.tulrich.com/geekstuff/partitioning.html), where child tiles overlap, but spatial coherence is still preserved, i.e., a parent tile completely encloses all of its children.  This approach can be useful to avoid splitting models across tiles.
+
+<p align="center">
+  <img src="figures/quadtree-overlap.jpg" /><br />
+  Quadtree with non-uniform and overlapping tiles.
+</p>
 
 Below, the green buildings are in the left child and the purple buildings are in the right child.  Note that the tiles overlap so the two green and one purple building in the center are not split.
 
