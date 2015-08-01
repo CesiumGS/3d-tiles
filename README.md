@@ -4,7 +4,7 @@ Specification for streaming massive heterogeneous **3D** geospatial datasets.
 
 Contents:
 
-* [Status](#status)
+* [Spec Status](#status)
 * [Introduction](#introduction)
 * [Tile metadata](#Tile-Metadata)
 * [tiles.json](#tiles.json)
@@ -28,9 +28,9 @@ Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html) or contac
 ---
 
 <a name="status" />
-## Status
+## Spec Status
 
-The 3D Tiles spec is pre-1.0.  We expect it to stablize in spring 2016.
+The 3D Tiles spec is pre-1.0.  We expect it and the [Cesium implementation](https://github.com/AnalyticalGraphicsInc/cesium/compare/3d-tiles) to stablize in spring 2016.
 
 Topic  | Status
 ---|---
