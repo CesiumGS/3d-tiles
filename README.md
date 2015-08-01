@@ -112,7 +112,7 @@ The screenshot below shows the bounding volumes for the root tile for [Canary Wh
 
 `children` is an array of objects that define child tiles.  See the [section below](#tiles.json).
 
-_TODO: update this figure to match JSON_
+_Sarah TODO: update (again, sorry) this figure to match the JSON under [Tile metadata](#Tile-Metadata) above. `contents` should be `content` (or should I change the JSON?). `geometric error` should be `geometricError` and moved to under `box`. A new `refine` should be under that (this all just matched the order of the JSON). A new `batchSize` should be under the second `box` and intendented.  As we stabilize the spec, we'll probably have to change this a few more times, sorry in advance._
 
 ![](figures/tile.png)
 
