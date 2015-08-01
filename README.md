@@ -384,7 +384,7 @@ Compared to replacement refinement, additive refinement has a size advantage bec
 3D Tiles can optimize this by storing an optional spatial data structure in each tile.  For example, a tile could contain a simple 2x2 grid, and if the tile's bounding volume is not completely inside the view frustum, each box in the grid is checked against the frustum, and only those inside or intersecting are rendered.
 
 <a name="What-texture-compression-do-3D-Tiles-use" />
-#### What compressed texture formats do 3D Tiles use??
+#### What compressed texture formats do 3D Tiles use?
 
 3D Tiles will support the same texture compression that glTF [will support](https://github.com/KhronosGroup/glTF/issues/59).  In addition, we need to consider how well GPU formats compress compared to, for example, jpeg.  Some desktop game engines stream jpeg, then decompress and recompress to a GPU format in a thread.  The CPU overhead for this approach may be too high for JavaScript and Web Workers.
 
