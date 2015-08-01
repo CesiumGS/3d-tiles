@@ -34,8 +34,8 @@ The 3D Tiles spec is pre-1.0.  We expect it and the [Cesium implementation](http
 
 Topic  | Status
 ---|---
-[tiles.json](#tiles.json)  | :white_check_mark: **Pretty solid**, but will expand as we add new tile formats
-[Batched 3D Model](b3dm/README.md) (b3dm)  | :white_check_mark: **Pretty solid**, only minor changes expected
+[tiles.json](#tiles.json)  | :white_check_mark: **Solid base**, but will expand as we add new tile formats
+[Batched 3D Model](b3dm/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
 [Point Cloud](pnts/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
 Composite Tile  | :white_circle: **Not started**
 Instanced 3D Model  | :white_circle: **Not started**
