@@ -27,8 +27,7 @@ The 12-byte header contains:
 * `version` - `uint32` that contains the version of the Batched 3D Model format, which is currently `1`.
 * `batchTableLength` - `uint32` that contains the length of the batch table.  It may be zero indicating there is not a batch table.
 
-_TODO: extensions?_
-_TODO: code example reading header?_
+_TODO: code example reading header_
 
 ### Batch Table
 
@@ -82,8 +81,6 @@ position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 ```
 Note that a vertex can't belong to more than one model; in that case, the vertex needs to be duplicated so the `batchId`s can be assigned.
-
-_TODO: WGS84 coordnates - or that really belongs elsewhere so this can be used in different scenarios._
 
 The `batchId` is identified by the glTF technique parameter semantic `BATCHID`.  In the vertex shader, the attribute is named `a_batchId` and is declared as:
 ```glsl
