@@ -52,7 +52,7 @@ For spec work in progress [watch this repo](https://github.com/AnalyticalGraphic
 
 For an introduction to the motivation for and principles of 3D Tiles, see [Introducing 3D Tiles](http://cesiumjs.org/2015/08/10/Introducing-3D-Tiles/) on the Cesium blog.  Here, we cover the format itself.
 
-In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its contents.  The tree has spatial coherence; the bounding volume for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any spatial data structure with spatial coherence, including quadtrees, octrees, k-d trees, multi-way k-d trees, and grids.
+In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its contents.  The tree has spatial coherence; the bounding volume for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any spatial data structure with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
 
 ![](figures/tree.png)
 
@@ -248,6 +248,7 @@ A tileset can contain any combination of tile formats.  3D Tiles may also suppor
    * [Will 3D Tiles support horizon culling?](#Will-3D-Tiles-support-horizon-culling)
    * [How are cracks between tiles with vector data handled?](#How-are-cracks-between-tiles-with-vector-data-handled)
    * [When using replacement refinement, can multiple children be combined into one request?](#When-using-replacement-refinement-can-multiple-children-be-combined-into-one-request)
+   * [How can additive refinement be optimized?](#How-can-additive-refinement-be-optimized)
    * [What compressed texture formats do 3D Tiles use?](#What-texture-compression-do-3D-Tiles-use)
 
 <a name="General-qa" />
@@ -356,6 +357,13 @@ Unlike 2D, in 3D, we expect adjacent tiles to be from different LODs so, for exa
 Often when using replacement refinement, a tile's children are not rendered until all children are downloaded (an exception, for example, is unstructured data like point clouds where clipping planes can be used to mask out parts of the parent tile where the children are loaded; naively using the same approach for terrain or an arbitrary 3D model results in cracking or other artifacts between the parent and child).
 
 We may design 3D Tiles to support downloading all children in a single request by allowing tiles.json to point to a subset of a file for a tile's content similiar to glTF [buffer](https://github.com/KhronosGroup/glTF/blob/master/specification/buffer.schema.json) and [bufferView](https://github.com/KhronosGroup/glTF/blob/master/specification/bufferView.schema.json).  [HTTP/2](http://chimera.labs.oreilly.com/books/1230000000545/ch12.html#_brief_history_of_spdy_and_http_2) will also make the overhead of multiple requests less important.
+
+<a name="How-can-additive-refinement-be-optimized" />
+#### How can additive refinement be optimized?
+
+Compared to replacement refinement, additive refinement has a size advantage because it doesn't duplicate data in the original dataset.  However, it has a disadvantage when there are expensive tiles to render near the root, and the view is zoomed in close.  For example, the entire root tile is rendered, but perhaps only one model or even no models are visible.
+
+3D Tiles can optimize this by storing an optional spatial data structure in each tile.  For example, a tile could contain a simple 2x2 grid, and if the tile's bounding volume is not completely inside the view frustum, each box in the grid is checked against the frustum, and only those inside or intersecting are rendered.
 
 <a name="What-texture-compression-do-3D-Tiles-use" />
 #### What compressed texture formats do 3D Tiles use??
