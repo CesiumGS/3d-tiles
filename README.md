@@ -94,7 +94,7 @@ The metadata for each tile - not the actual contents - are defined in JSON.  For
 ```
 The top-level `box` property is an array of six numbers that define the bounding volume with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
 
-The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _screen-space error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
+The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
 
 The `refine` property is an optional string that is either `"replace"` for replacement refinement or `"add"` for additive refinement.  When `refine` is omitted, it defaults to `"add"`.
 
@@ -272,6 +272,7 @@ A tileset can contain any combination of tile formats.  3D Tiles may also suppor
    * [How do I request the tiles for Level `n`?](#How-do-I-request-the-tiles-for-Level-n)
    * [What bounding volume do tiles use?](#What-bounding-volume-do-tiles-use)
    * [Will 3D Tiles support horizon culling?](#Will-3D-Tiles-support-horizon-culling)
+   * [Is screen-space error the only metric used to drive refinement?](#Is-screen-space-error-the-only-metric-used-to-drive-refinement)
    * [How are cracks between tiles with vector data handled?](#How-are-cracks-between-tiles-with-vector-data-handled)
    * [When using replacement refinement, can multiple children be combined into one request?](#When-using-replacement-refinement-can-multiple-children-be-combined-into-one-request)
    * [How can additive refinement be optimized?](#How-can-additive-refinement-be-optimized)
@@ -371,6 +372,13 @@ For example, consider the wasted space in the root bounding volume below and how
 #### Will 3D Tiles support horizon culling?
 
 Since [horizon culling](http://cesiumjs.org/2013/04/25/Horizon-culling/) is useful for terrain, 3D Tiles will likely support the metadata needed for it.  We haven't considered it yet since our initial work with 3D Tiles is for 3D buildings where horizon culling is not effective.
+
+<a name="Is-screen-space-error-the-only-metric-used-to-drive-refinement" />
+#### Is Screen-Space Error the only metric used to drive refinement?
+
+At runtime, a tile's `geometricError` is used to compute the Screen-Space Error (SSE) to drive refinement.  We expect to expand this, for example, by using the [_Virtual Multiresolution Screen Space Error_](http://www.dis.unal.edu.co/profesores/pierre/MyHome/publications/papers/vmsse.pdf) (VMSSE), which takes into occlusion.  This can be done at runtime without streaming additional tile metadata.
+
+However, we do anticipate other metadata for driving refinement.  SSE may not be appropriate for all dataset, for example, points of interest may be better served with on/off distances and a label collision factor computed at runtime.  Note that the viewer's height above the ground is rarely a good metric for 3D since 3D support arbitrary views.
 
 <a name="How-are-cracks-between-tiles-with-vector-data-handled" />
 #### How are cracks between tiles with vector data handled?
