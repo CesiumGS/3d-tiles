@@ -229,7 +229,7 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 
 <p align="center">
   <img src="figures/pointcloud-octree.png" /><br />
-  Non-uniform octree subdivision for a point cloud using additive refinement. Point Cloud of [the Church of St Marie at Chappes, France](http://robotics.cs.columbia.edu/~atroccol/ijcv/chappes.html) by Prof. Peter Allen, Columbia University Robotics Lab. Scanning by Alejandro Troccoli and Matei Ciocarlie
+  Non-uniform octree subdivision for a point cloud using additive refinement. Point Cloud of <a href="http://robotics.cs.columbia.edu/~atroccol/ijcv/chappes.html">the Church of St Marie at Chappes, France</a> by Prof. Peter Allen, Columbia University Robotics Lab. Scanning by Alejandro Troccoli and Matei Ciocarlie
 </p>
 
 <a name="Grids" />
