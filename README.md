@@ -179,7 +179,7 @@ A k-d tree is created when each tile has two children separated by a _splitting 
 Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree for sparse and non-uniformly distributed datasets.
 
 <p align="center">
-  <img src="figures/kdtree.jpg" /><br />
+  <img src="figures/kdtree.png" /><br />
   Example k-d tree.  Note the non-uniform subdivision.
 </p>
 
@@ -191,14 +191,14 @@ Note that a k-d tree does not have uniform subdivision like typical 2D geospatia
 A quadtree is created when each tile has four uniformly subdivided children (e.g., using the center longitude and latitude) similar to typical 2D geospatial tiling schemes.  Empty child tiles can be omitted.
 
 <p align="center">
-  <img src="figures/quadtree.jpg" /><br />
+  <img src="figures/quadtree.png" /><br />
   Classic quadtree subdivision.
 </p>
 
 3D Tiles enables quadtree variations such as non-uniform subdivision and tight bounding volumes (as opposed to bounding, for example, the full 25% of the parent tile, which is wasteful for sparse datasets).
 
 <p align="center">
-  <img src="figures/quadtree-tight.jpg" /><br />
+  <img src="figures/quadtree-tight.png" /><br />
   Quadtree with tight bounding volumes around each child.
 </p>
 
@@ -223,7 +223,7 @@ Below, the green buildings are in the left child and the purple buildings are in
 An octree extends a quadtree by using three orthogonal splitting planes to subdivide a tile into eight children.  Like quadtrees, 3D Tiles allows variations to octrees such as non-uniform subdivision, tight bounding volumes, and overlapping children.
 
 <p align="center">
-  <img src="figures/octree.jpg" /><br />
+  <img src="figures/octree.png" /><br />
   Traditional octree subdivision.
 </p>
 
