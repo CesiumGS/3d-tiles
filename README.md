@@ -235,7 +235,7 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 <a name="Grids" />
 #### Grids
 
-3D Tiles enable uniform, non-uniform, and overlapping grids by supporting an arbitrary number of child tiles.  For example, here is a top-down view of a non-uniform overlapping grid of Cambridge:
+3D Tiles enables uniform, non-uniform, and overlapping grids by supporting an arbitrary number of child tiles.  For example, here is a top-down view of a non-uniform overlapping grid of Cambridge:
 
 ![](figures/grid.png)
 
@@ -285,7 +285,7 @@ We expect the initial 3D Tiles spec to evolve until spring 2016.  If you are OK 
 <a name="Are-3D-Tiles-specific-to-Cesium" />
 #### Are 3D Tiles specific to Cesium?
 
-No, 3D Tiles are a general spec for streaming massive heterogeneous 3D geospatial datasets.  The Cesium team started this initiative because we need an open format optimized for streaming 3D content to Cesium.  [AGI](http://www.agi.com/), the founder of Cesium, is also developing tools for creating 3D Tiles.  We expect to see other visualization engines and conversion tools use 3D Tiles.
+No, 3D Tiles is a general spec for streaming massive heterogeneous 3D geospatial datasets.  The Cesium team started this initiative because we need an open format optimized for streaming 3D content to Cesium.  [AGI](http://www.agi.com/), the founder of Cesium, is also developing tools for creating 3D Tiles.  We expect to see other visualization engines and conversion tools use 3D Tiles.
 
 <a name="What-is-the-relationship-between-3D-Tiles-and-glTF" />
 #### What is the relationship between 3D Tiles and glTF?
@@ -320,7 +320,7 @@ As with terrain, since Cesium already streams imagery well, we are not focused o
 <a name="Will-3D-Tiles-replace-KML" />
 #### Will 3D Tiles replace KML?
 
-In many cases, yes.  KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web.  3D Tiles are built for the web and optimized for streaming; true HLOD is used; polygons do not need to be triangulated; and so on.
+In many cases, yes.  KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web.  3D Tiles is built for the web and optimized for streaming; true HLOD is used; polygons do not need to be triangulated; and so on.
 
 <a name="Technical-qa" />
 ### Technical Q&A
@@ -330,7 +330,7 @@ In many cases, yes.  KML regions and network links are a clunky approach to stre
 
 Geospatial datasets are heterogeneous: 3D buildings are different from terrain, which is different from point clouds, which are different from vector data, and so on.
 
-3D Tiles support heterogeneous data by allowing different tile formats in a tileset, e.g., a tileset may contain tiles for 3D buildings, tiles for instanced 3D trees, and tiles for point clouds, all using different tile formats.
+3D Tiles supports heterogeneous data by allowing different tile formats in a tileset, e.g., a tileset may contain tiles for 3D buildings, tiles for instanced 3D trees, and tiles for point clouds, all using different tile formats.
 
 We expect 3D Tiles will also support heterogeneous datasets by concatenating different tile formats into one tile, a _composite_; in the example above, a tile may have a short header followed by the content for the 3D buildings, instanced 3D trees, and point clouds.
 
@@ -401,6 +401,6 @@ Compared to replacement refinement, additive refinement has a size advantage bec
 3D Tiles will support the same texture compression that glTF [will support](https://github.com/KhronosGroup/glTF/issues/59).  In addition, we need to consider how well GPU formats compress compared to, for example, jpeg.  Some desktop game engines stream jpeg, then decompress and recompress to a GPU format in a thread.  The CPU overhead for this approach may be too high for JavaScript and Web Workers.
 
 <a name="DataCredits" />
-## Data Credits
+## Data credits
 
 The screenshots in this spec use awesome [CyberCity3D](http://www.cybercity3d.com/) buildings and the [Bing Maps](https://www.microsoft.com/maps/choose-your-bing-maps-API.aspx) base layer.
