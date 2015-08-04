@@ -210,7 +210,7 @@ For example, here is the root tile and its children for Canary Wharf.  Note the 
 3D Tiles also enable other quadtree variations such as [loose quadtrees](http://www.tulrich.com/geekstuff/partitioning.html), where child tiles overlap but spatial coherence is still preserved, i.e., a parent tile completely encloses all of its children.  This approach can be useful to avoid splitting models across tiles.
 
 <p align="center">
-  <img src="figures/quadtree-overlap.jpg" /><br />
+  <img src="figures/quadtree-overlap.png" /><br />
   Quadtree with non-uniform and overlapping tiles.
 </p>
 
