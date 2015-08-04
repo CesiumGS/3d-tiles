@@ -34,12 +34,13 @@ The 3D Tiles spec is pre-1.0.  We expect it and the [Cesium implementation](http
 
 Topic  | Status
 ---|---
-[tiles.json](#tiles.json)  | :white_check_mark: **Solid base**, but will expand as we add new tile formats
+[tiles.json](#tiles.json)  | :white_check_mark: **Good starting point**, but will expand as we add new tile formats
 [Batched 3D Model](b3dm/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
 [Point Cloud](pnts/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
 Composite Tile  | :white_circle: **Not started**
 Instanced 3D Model  | :white_circle: **Not started**
 Vector Data  | :white_circle: **Not started**
+OSM  | :white_circle: **Not started**
 Massive Model  | :white_circle: **Not started**
 Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point
 Imposters  | :white_circle: **Not started**, could be covered by Vector Data
@@ -176,12 +177,12 @@ It is up to the conversion tool that generates tiles.json to define an optimal t
 
 A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the x, y, z or axis (or longitude, latitude, height).  The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
 
-Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree for sparse and non-uniformly distributed datasets.
-
 <p align="center">
   <img src="figures/kdtree.png" /><br />
   Example k-d tree.  Note the non-uniform subdivision.
 </p>
+
+Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree for sparse and non-uniformly distributed datasets.
 
 3D Tiles enables variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leaf of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
 
@@ -358,7 +359,7 @@ This 3D Tiles topic needs additional research, but the answer is basically the s
 
 Currently, tiles use a box defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  Note that this is not actually a box in WGS84 Cartesian coordinates since the planes perpendicular to the ground are along the geodetic surface normal.
 
-This bounding volume works OK for the general case, but 3D Tiles will likely support other bounding volumes such as bounding spheres and oriented bounding boxes defined in WGS84 Cartesian coordinates.  The latter will allow, for example, BSP trees and better fit bounding volumes for cities not aligned with a line of longitude or latitude, and for arbitrary point clouds.
+This bounding volume works OK for the general case, but 3D Tiles will likely support other bounding volumes such as bounding spheres and oriented bounding boxes defined in Cartesian coordinates.  The latter will allow, for example, BSP trees and better fit bounding volumes for cities not aligned with a line of longitude or latitude, and for arbitrary point clouds.
 
 For example, consider the wasted space in the root bounding volume below and how it could be reduced by rotating it:
 
