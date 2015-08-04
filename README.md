@@ -99,15 +99,15 @@ The `geometricError` property is a nonnegative number that defines the error, in
 
 The `refine` property is an optional string that is either `"replace"` for replacement refinement or `"add"` for additive refinement.  When `refine` is omitted, it defaults to `"add"`.
 
-The `contents` property is an object that contains metadata about the tile's content and a link to the content.  `contents.type` is a string that defines the [tile format](#tileFormats) and `contents.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
+The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.type` is a string that defines the [tile format](#tileFormats) and `content.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
 
-`contents.batchSize` is a nonnegative integer that defines the number of models batched in the tile, e.g., in the example above, there are 29 buildings in the tile.
+`content.batchSize` is a nonnegative integer that defines the number of models batched in the tile, e.g., in the example above, there are 29 buildings in the tile.
 
-`contents.box` defines an optional bounding volume similar to the top-level `box` property. But unlike the top-level `box` property, `contents.box` is a tightly fit box enclosing just the tile's contents.  This is used for replacement refinement; `box` provides spatial coherence and `contents.box` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `box`, shown in red, and encloses the entire area of the tileset; `contents.box` shown in blue, encloses just the four models in the root tile.
+`content.box` defines an optional bounding volume similar to the top-level `box` property. But unlike the top-level `box` property, `content.box` is a tightly fit box enclosing just the tile's contents.  This is used for replacement refinement; `box` provides spatial coherence and `content.box` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `box`, shown in red, and encloses the entire area of the tileset; `content.box` shown in blue, encloses just the four models in the root tile.
 
 ![](figures/contentsBox.png)
 
-`contents` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#Grids)).
+`content` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#Grids)).
 
 `children` is an array of objects that define child tiles.  See the [section below](#tiles.json).
 
@@ -240,12 +240,12 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 
 ![](figures/grid.png)
 
-3D Tiles take advantage of empty tiles: those tiles that have a bounding volume, but no content. Since a tile's `contents` property does not need to be defined, empty non-leaf tiles can be used to accelerate non-uniform grids with hierarchical culling. This essentially creates a quadtree or octree without hierarchical levels of detail (HLOD).
+3D Tiles take advantage of empty tiles: those tiles that have a bounding volume, but no content. Since a tile's `content` property does not need to be defined, empty non-leaf tiles can be used to accelerate non-uniform grids with hierarchical culling. This essentially creates a quadtree or octree without hierarchical levels of detail (HLOD).
 
 <a name="tileFormats" />
 ## Tile Formats
 
-Each tile's `contents.url` property points to a tile that is one of the following formats; see the [Status section](#status) for planned formats.
+Each tile's `content.url` property points to a tile that is one of the following formats; see the [Status section](#status) for planned formats.
 
 * [Batched 3D Model](b3dm/README.md) (b3dm) - 3D cities
 * [Point Cloud](pnts/README.md) (pnts) - point clouds
