@@ -9,7 +9,7 @@
 
 _Batched 3D Model_ allows offline batching of heterogeneous 3D models, such as different buildings in a city, for efficient streaming to a web client for rendering and interaction.  Efficiency comes from transfering multiple models in a single request and rendering them in the least number of WebGL draw calls necessary.
 
-Per-model IDs and metadata enable individual models to be identified and updated at runtime, e.g., show/hide, hightlight color, etc., and enable individual models to reference properties, for example, to query REST services, for display, or for updating, e.g., changing highlight color based on a property value.
+Per-model properties, such as IDs, enable individual models to be identified and updated at runtime, e.g., show/hide, highlight color, etc. Properties may be used, for example, to query a web service to access metadata, such as passing a building's ID to get its address. Or a property might be referenced on-the-fly for changing a model's appearance, e.g., changing highlight color based on a property value.
 
 Batched 3D Model, or just the _batch_, is a binary blob in little endian accessed in JavaScript as an `ArrayBuffer`.
 
@@ -24,11 +24,10 @@ Batched 3D Model, or just the _batch_, is a binary blob in little endian accesse
 The 12-byte header contains:
 
 * `magic` - 4-byte ANSI string `b3dm`.  This can be used to identify the arraybuffer as Batched 3D Model.
-* `version` - `uint32` that contains the version of the Batched 3D Model format, which is currently `1`.
-* `batchTableLength` - `uint32` that contains the length of the batch table.  It may be zero indicating there is not a batch table.
+* `version` - `uint32`, which contains the version of the Batched 3D Model format. It is currently `1`.
+* `batchTableLength` - `uint32`, which contains the length of the batch table.  It may be zero indicating there is not a batch table.
 
-_TODO: extensions?_
-_TODO: code example reading header?_
+_TODO: code example reading header_
 
 ### Batch Table
 
@@ -40,7 +39,7 @@ The batch table is a `UTF-8` string containing JSON.  It can be extracted from t
 
 Each property in the object is an array with its length equal to the number of models in the batch.  Each array is a homogeneous collection of `String`, `Number`, or `Boolean` elements.  Elements may be `null`.
 
-A vertex's `batchId` is used to access elements in each array, and extract the corresponding properties.  For example, the following batch table has properties for a batch of two models.
+A vertex's `batchId` is used to access elements in each array and extract the corresponding properties.  For example, the following batch table has properties for a batch of two models.
 ```json
 {
     "id" : ["unique id", "another unique id"],
@@ -49,14 +48,14 @@ A vertex's `batchId` is used to access elements in each array, and extract the c
 }
 ```
 
-The properties for the model with `batchId = 0` are:
+The properties for the model with `batchId = 0` are
 ```javascript
 id[0] = 'unique id';
 displayName[0] = 'Building name';
 yearBuilt[0] = 1999;
 ```
 
-The properties for `batchId = 1` are:
+The properties for `batchId = 1` are
 ```javascript
 id[1] = 'another unique id';
 displayName[1] = 'Another building name';
@@ -67,9 +66,9 @@ yearBuilt[1] = 2015;
 
 [glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL.  [Binary glTF](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_binary_glTF/README.md) is an extension defining a binary container for glTF.
 
-Binary glTF immediately follows the batch table.  It begins `12 + batchTableLength` bytes from the start of the arraybuffer and continues for the rest of arraybuffer.  It may embed all of its geometry, texture, and animations or may refer to external sources for some or all of these data.
+Binary glTF immediately follows the batch table.  It begins `12 + batchTableLength` bytes from the start of the arraybuffer and continues for the rest of arraybuffer.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
-As described above, each vertex has a `batchId` attribute indicating the model to which it belongs.  For example, vertices for a batch with three models may look like:
+As described above, each vertex has a `batchId` attribute indicating the model to which it belongs.  For example, vertices for a batch with three models may look like this:
 ```
 batchId:  [0,   0,   0,   ..., 1,   1,   1,   ..., 2,   2,   2,   ...]
 position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
@@ -82,8 +81,6 @@ position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 ```
 Note that a vertex can't belong to more than one model; in that case, the vertex needs to be duplicated so the `batchId`s can be assigned.
-
-_TODO: WGS84 coordnates - or that really belongs elsewhere so this can be used in different scenarios._
 
 The `batchId` is identified by the glTF technique parameter semantic `BATCHID`.  In the vertex shader, the attribute is named `a_batchId` and is declared as:
 ```glsl
