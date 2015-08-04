@@ -175,7 +175,7 @@ It is up to the conversion tool that generates tiles.json to define an optimal t
 <a name="K-d-trees" />
 #### K-d trees
 
-A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the x, y, z or axis (or longitude, latitude, height).  The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
+A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the x, y, or z axis (or longitude, latitude, height).  The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
 
 <p align="center">
   <img src="figures/kdtree.png" /><br />
@@ -184,7 +184,7 @@ A k-d tree is created when each tile has two children separated by a _splitting 
 
 Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree for sparse and non-uniformly distributed datasets.
 
-3D Tiles enables variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leaf of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
+3D Tiles enable variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leaf of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
 
 <a name="Quadtrees" />
 #### Quadtrees
@@ -196,7 +196,7 @@ A quadtree is created when each tile has four uniformly subdivided children (e.g
   Classic quadtree subdivision.
 </p>
 
-3D Tiles enables quadtree variations such as non-uniform subdivision and tight bounding volumes (as opposed to bounding, for example, the full 25% of the parent tile, which is wasteful for sparse datasets).
+3D Tiles enable quadtree variations such as non-uniform subdivision and tight bounding volumes (as opposed to bounding, for example, the full 25% of the parent tile, which is wasteful for sparse datasets).
 
 <p align="center">
   <img src="figures/quadtree-tight.png" /><br />
@@ -207,7 +207,7 @@ For example, here is the root tile and its children for Canary Wharf.  Note the 
 
 ![](figures/nonUniformQuadtree.png)
 
-3D Tiles also enables other quadtree variations such as [loose quadtrees](http://www.tulrich.com/geekstuff/partitioning.html), where child tiles overlap but spatial coherence is still preserved, i.e., a parent tile completely encloses all of its children.  This approach can be useful to avoid splitting models across tiles.
+3D Tiles also enable other quadtree variations such as [loose quadtrees](http://www.tulrich.com/geekstuff/partitioning.html), where child tiles overlap but spatial coherence is still preserved, i.e., a parent tile completely encloses all of its children.  This approach can be useful to avoid splitting models across tiles.
 
 <p align="center">
   <img src="figures/quadtree-overlap.jpg" /><br />
@@ -221,7 +221,7 @@ Below, the green buildings are in the left child and the purple buildings are in
 <a name="Octrees" />
 #### Octrees
 
-An octree extends a quadtree by using three orthogonal splitting planes to subdivide a tile into eight children.  Like quadtrees, 3D Tiles allows variations to octrees such as non-uniform subdivision, tight bounding volumes, and overlapping children.
+An octree extends a quadtree by using three orthogonal splitting planes to subdivide a tile into eight children.  Like quadtrees, 3D Tiles allow variations to octrees such as non-uniform subdivision, tight bounding volumes, and overlapping children.
 
 <p align="center">
   <img src="figures/octree.png" /><br />
@@ -236,11 +236,11 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 <a name="Grids" />
 #### Grids
 
-3D Tiles enables uniform, non-uniform, and overlapping grids by supporting an arbitrary number of child tiles.  For example, here is a top-down view of a non-uniform overlapping grid of Cambridge:
+3D Tiles enable uniform, non-uniform, and overlapping grids by supporting an arbitrary number of child tiles.  For example, here is a top-down view of a non-uniform overlapping grid of Cambridge:
 
 ![](figures/grid.png)
 
-Since a tile's `contents` property does not need to be defined, empty non-leaf tiles (tiles with a bounding volume, but no content) can be used to accelerate non-uniform grids with hierarchical culling, essentially creating a quadtree or octree without hierarchical levels of detail (HLOD).
+3D Tiles take advantage of empty tiles: those tiles that have a bounding volume, but no content. Since a tile's `contents` property does not need to be defined, empty non-leaf tiles can be used to accelerate non-uniform grids with hierarchical culling. This essentially creates a quadtree or octree without hierarchical levels of detail (HLOD).
 
 <a name="tileFormats" />
 ## Tile Formats
@@ -259,12 +259,12 @@ A tileset can contain any combination of tile formats.  3D Tiles may also suppor
    * [Can I use 3D Tiles today?](#Can-I-use-3D-Tiles-today)
    * [Are 3D Tiles specific to Cesium?](#Are-3D-Tiles-specific-to-Cesium)
    * [What is the relationship between 3D Tiles and glTF?](#What-is-the-relationship-between-3D-Tiles-and-glTF)
-   * [Does 3D Tiles support runtime editing?](#Do-3D-Tiles-support-runtime-editing)
+   * [Do 3D Tiles support runtime editing?](#Do-3D-Tiles-support-runtime-editing)
    * [Will 3D Tiles include terrain?](#Will-3D-Tiles-include-terrain)
    * [Will 3D Tiles include imagery?](#Will-3D-Tiles-include-imagery)
    * [Will 3D Tiles replace KML?](#Will-3D-Tiles-replace-KML)
 * [Technical Q&A](#Technical-qa)
-   * [How does 3D Tiles support heterogeneous datasets?](#How-do-3D-Tiles-support-heterogeneous-datasets)
+   * [How do 3D Tiles support heterogeneous datasets?](#How-do-3D-Tiles-support-heterogeneous-datasets)
    * [Will tiles.json be part of the final 3D Tiles spec?](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec)
    * [How do I request the tiles for Level `n`?](#How-do-I-request-the-tiles-for-Level-n)
    * [What bounding volume do tiles use?](#What-bounding-volume-do-tiles-use)
@@ -273,7 +273,7 @@ A tileset can contain any combination of tile formats.  3D Tiles may also suppor
    * [How are cracks between tiles with vector data handled?](#How-are-cracks-between-tiles-with-vector-data-handled)
    * [When using replacement refinement, can multiple children be combined into one request?](#When-using-replacement-refinement-can-multiple-children-be-combined-into-one-request)
    * [How can additive refinement be optimized?](#How-can-additive-refinement-be-optimized)
-   * [What compressed texture formats does 3D Tiles use?](#What-texture-compression-do-3D-Tiles-use)
+   * [What compressed texture formats do 3D Tiles use?](#What-texture-compression-do-3D-Tiles-use)
 
 <a name="General-qa" />
 ### General Q&A
@@ -286,14 +286,14 @@ We expect the initial 3D Tiles spec to evolve until spring 2016.  If you are OK 
 <a name="Are-3D-Tiles-specific-to-Cesium" />
 #### Are 3D Tiles specific to Cesium?
 
-No, 3D Tiles is a general spec for streaming massive heterogeneous 3D geospatial datasets.  The Cesium team started this initiative because we need an open format optimized for streaming 3D content to Cesium.  [AGI](http://www.agi.com/), the founder of Cesium, is also developing tools for creating 3D Tiles.  We expect to see other visualization engines and conversion tools use 3D Tiles.
+No, 3D Tiles are a general spec for streaming massive heterogeneous 3D geospatial datasets.  The Cesium team started this initiative because we need an open format optimized for streaming 3D content to Cesium.  [AGI](http://www.agi.com/), the founder of Cesium, is also developing tools for creating 3D Tiles.  We expect to see other visualization engines and conversion tools use 3D Tiles.
 
 <a name="What-is-the-relationship-between-3D-Tiles-and-glTF" />
 #### What is the relationship between 3D Tiles and glTF?
 
 [glTF](https://www.khronos.org/gltf), the runtime asset format for WebGL, is an emerging open standard for 3D models from Khronos (the same group that does WebGL and COLLADA).  Cesium uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter.  We recommend using glTF in Cesium for individual assets, e.g., an aircraft, a character, or a 3D building.
 
-We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, that Cesium has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles uses glTF for some tile formats such as [b3dm](b3dm/README.md) (used for 3D buildings).  We created a binary glTF extension ([CESIUM_binary_glTF](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_binary_glTF/README.md)) in order to embed glTF into binary tiles and avoid base64-encoding or multiple file overhead.
+We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, that Cesium has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles use glTF for some tile formats such as [b3dm](b3dm/README.md) (used for 3D buildings).  We created a binary glTF extension ([CESIUM_binary_glTF](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_binary_glTF/README.md)) in order to embed glTF into binary tiles and avoid base64-encoding or multiple file overhead.
 
 Taking this approach allows us to improve Cesium, glTF, and 3D Tiles at the same time, e.g., when we add mesh compression to glTF, it benefits 3D models in Cesium, the glTF ecosystem, and 3D Tiles.
 
@@ -321,17 +321,17 @@ As with terrain, since Cesium already streams imagery well, we are not focused o
 <a name="Will-3D-Tiles-replace-KML" />
 #### Will 3D Tiles replace KML?
 
-In many cases, yes.  KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web.  3D Tiles is built for the web and optimized for streaming; true HLOD is used; polygons do not need to be triangulated; and so on.
+In many cases, yes.  KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web.  3D Tiles are built for the web and optimized for streaming; true HLOD is used; polygons do not need to be triangulated; and so on.
 
 <a name="Technical-qa" />
 ### Technical Q&A
 
 <a name="How-do-3D-Tiles-support-heterogeneous-datasets" />
-#### How does 3D Tiles support heterogeneous datasets?
+#### How do 3D Tiles support heterogeneous datasets?
 
 Geospatial datasets are heterogeneous: 3D buildings are different from terrain, which is different from point clouds, which are different from vector data, and so on.
 
-3D Tiles supports heterogeneous data by allowing different tile formats in a tileset, e.g., a tileset may contain tiles for 3D buildings, tiles for instanced 3D trees, and tiles for point clouds, all using different tile formats.
+3D Tiles support heterogeneous data by allowing different tile formats in a tileset, e.g., a tileset may contain tiles for 3D buildings, tiles for instanced 3D trees, and tiles for point clouds, all using different tile formats.
 
 We expect 3D Tiles will also support heterogeneous datasets by concatenating different tile formats into one tile, a _composite_; in the example above, a tile may have a short header followed by the content for the 3D buildings, instanced 3D trees, and point clouds.
 
@@ -345,12 +345,12 @@ Yes.  There will always be a need to know metadata about the tileset and about t
 There's a few ways we may solve this:
 * Trees of trees.  A `content.type` of `"3dtile"` is planned and will allow conversion tools to chunk up a tileset into any number of tiles.json files that reference each other.
 * Moving subtree metadata to the tile payload instead of tiles.json.  Each tile would have a header with, for example, the bounding volumes of each child, and perhaps grandchildren, and so on.
-* Explicit tile layout like those of traditional tiling schemes (e.g., TMS's `z/y/x`).  The challenge is that this implicitly assumes a spatial subdivision, whereas 3D Tiles is general enough to support quadtrees, octrees, k-d trees, and so on.  There is likely to be a balance where two or three explicit tiling schemes can cover common cases to complement the generic spatial data structures. 
+* Explicit tile layout like those of traditional tiling schemes (e.g., TMS's `z/y/x`).  The challenge is that this implicitly assumes a spatial subdivision, whereas 3D Tiles are general enough to support quadtrees, octrees, k-d trees, and so on.  There is likely to be a balance where two or three explicit tiling schemes can cover common cases to complement the generic spatial data structures. 
 
 <a name="How-do-I-request-the-tiles-for-Level-n" />
 #### How do I request the tiles for Level `n`?
 
-More generally, how does 3D Tiles support the use case for when the viewer is zoomed in very close to terrain, for example, and we do not want to load all the parent tiles toward the root of the tree; instead, we want to skip right to the high-resolution tiles needed for the current 3D view?
+More generally, how do 3D Tiles support the use case for when the viewer is zoomed in very close to terrain, for example, and we do not want to load all the parent tiles toward the root of the tree; instead, we want to skip right to the high-resolution tiles needed for the current 3D view?
 
 This 3D Tiles topic needs additional research, but the answer is basically the same as above: either the skeleton of the tree can be quickly traversed to find the desired tiles or an explicit layout scheme will be used for specific subdivisions.
 
@@ -397,7 +397,7 @@ Compared to replacement refinement, additive refinement has a size advantage bec
 3D Tiles can optimize this by storing an optional spatial data structure in each tile.  For example, a tile could contain a simple 2x2 grid, and if the tile's bounding volume is not completely inside the view frustum, each box in the grid is checked against the frustum, and only those inside or intersecting are rendered.
 
 <a name="What-texture-compression-do-3D-Tiles-use" />
-#### What compressed texture formats does 3D Tiles use?
+#### What compressed texture formats do 3D Tiles use?
 
 3D Tiles will support the same texture compression that glTF [will support](https://github.com/KhronosGroup/glTF/issues/59).  In addition, we need to consider how well GPU formats compress compared to, for example, jpeg.  Some desktop game engines stream jpeg, then decompress and recompress to a GPU format in a thread.  The CPU overhead for this approach may be too high for JavaScript and Web Workers.
 
