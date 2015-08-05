@@ -1,4 +1,4 @@
-# 3D Tiles
+<p align="center"><img src="figures/Cesium3DTiles.png" /></p>
 
 Specification for streaming massive heterogeneous **3D** geospatial datasets.
 
