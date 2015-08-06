@@ -38,7 +38,7 @@ Topic  | Status
 [Batched 3D Model](b3dm/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
 [Point Cloud](pnts/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
 Composite Tile  | :white_circle: **Not started**
-Instanced 3D Model  | :white_circle: **Not started**
+[Instanced 3D Model](TileFormats/Instanced3DModel/README.md)  | :white_circle: **Not started**
 Vector Data  | :white_circle: **Not started**
 OSM  | :white_circle: **Not started**
 Massive Model  | :white_circle: **Not started**
