@@ -41,7 +41,7 @@ Topic  | Status
 [Instanced 3D Model](TileFormats/Instanced3DModel/README.md)  | :white_circle: **Not started**
 Vector Data  | :white_circle: **Not started**
 [OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started**
-Massive Model  | :white_circle: **Not started**
+[Massive Model](TileFormats/MassiveModel/README.md)  | :white_circle: **Not started**
 Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point
 Imposters  | :white_circle: **Not started**, could be covered by Vector Data
 Stars  | :white_circle: **Not started**
