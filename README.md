@@ -30,7 +30,7 @@ Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html) or contac
 <a name="status" />
 ## Spec status
 
-The 3D Tiles spec is pre-1.0.  We expect it and the [Cesium implementation](https://github.com/AnalyticalGraphicsInc/cesium/compare/3d-tiles) to stablize in the spring of 2016.
+The 3D Tiles spec is pre-1.0.  We expect it and the [Cesium implementation](https://github.com/AnalyticalGraphicsInc/cesium/compare/3d-tiles) to stabilize in the spring of 2016.
 
 Topic  | Status
 ---|---
