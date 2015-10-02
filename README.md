@@ -37,9 +37,9 @@ Topic  | Status
 [tiles.json](#tiles.json)  | :white_check_mark: **Good starting point**, will expand as we add new tile formats
 [Batched 3D Model](b3dm/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
 [Point Cloud](pnts/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
-[Composite](TileFormats/Composite/README.md)  | :white_circle: **In progress** [#23](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/23)
-[Instanced 3D Model](TileFormats/Instanced3DModel/README.md)  | :white_circle: **In progress** [#23](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/23)
-[Vector Data](TileFormats/VectorData/README.md)  | :white_circle: **Not started**
+[Composite](TileFormats/Composite/README.md)  | :white_circle: **In progress**, [#23](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/23)
+[Instanced 3D Model](TileFormats/Instanced3DModel/README.md)  | :white_circle: **In progress**, [#23](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/23)
+[Vector Data](TileFormats/VectorData/README.md)  | :white_circle: **In progress**, [#24](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/24)
 [OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started**
 [Massive Model](TileFormats/MassiveModel/README.md)  | :white_circle: **Not started**
 Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point
