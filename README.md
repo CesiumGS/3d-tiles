@@ -39,7 +39,7 @@ Topic  | Status
 [Point Cloud](pnts/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
 [Composite](TileFormats/Composite/README.md)  | :white_circle: **In progress**, [#23](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/23)
 [Instanced 3D Model](TileFormats/Instanced3DModel/README.md)  | :white_circle: **In progress**, [#23](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/23)
-[Vector Data](TileFormats/VectorData/README.md)  | :white_circle: **In progress**, [#24](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/24)
+[Vector Data](TileFormats/VectorData/README.md)  | :white_circle: **In progress**, [#25](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/25)
 [OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started**
 [Massive Model](TileFormats/MassiveModel/README.md)  | :white_circle: **Not started**
 Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point
