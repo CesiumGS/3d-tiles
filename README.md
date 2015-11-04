@@ -79,7 +79,6 @@ The metadata for each tile - not the actual contents - are defined in JSON.  For
   "refine" : "add",
   "content": {
     "url": "2/0/0.b3dm",
-    "type": "b3dm",
     "box": [
       -1.2418882438584018,
       0.7395016240301894,
@@ -98,7 +97,9 @@ The `geometricError` property is a nonnegative number that defines the error, in
 
 The `refine` property is an optional string that is either `"replace"` for replacement refinement or `"add"` for additive refinement.  When `refine` is omitted, it defaults to `"add"`.
 
-The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.type` is a string that defines the [tile format](#tileFormats) and `content.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
+The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
+
+The file extension of `content.url` defines the [tile format](#tileFormats).
 
 `content.box` defines an optional bounding volume similar to the top-level `box` property. But unlike the top-level `box` property, `content.box` is a tightly fit box enclosing just the tile's contents.  This is used for replacement refinement; `box` provides spatial coherence and `content.box` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `box`, shown in red, and encloses the entire area of the tileset; `content.box` shown in blue, encloses just the four models in the root tile.
 
@@ -135,7 +136,6 @@ _tiles.json_ defines a tileset.  Here is a subset of the tiles.json used for [Ca
     "geometricError": 268.37878244706053,
     "content": {
       "url": "0/0/0.b3dm",
-      "type": "b3dm",
       "box": [
         -0.0004001690908972599,
         0.8988700116775743,
@@ -339,7 +339,7 @@ Supporting heterogeneous datasets with both inter-tile (different tile formats i
 Yes.  There will always be a need to know metadata about the tileset and about tiles that are not yet loaded, e.g., so only visible tiles can be requested.  However, when scaling to millions of tiles, a single tiles.json with metadata for the entire tree would be prohibitively large.
 
 There's a few ways we may solve this:
-* Trees of trees.  A `content.type` of `"3dtile"` is planned and will allow conversion tools to chunk up a tileset into any number of tiles.json files that reference each other.
+* Trees of trees.  Allowing `content.url` to point to another tiles.json will enable conversion tools to chunk up a tileset into any number of tiles.json files that reference each other.
 * Moving subtree metadata to the tile payload instead of tiles.json.  Each tile would have a header with, for example, the bounding volumes of each child, and perhaps grandchildren, and so on.
 * Explicit tile layout like those of traditional tiling schemes (e.g., TMS's `z/y/x`).  The challenge is that this implicitly assumes a spatial subdivision, whereas 3D Tiles are general enough to support quadtrees, octrees, k-d trees, and so on.  There is likely to be a balance where two or three explicit tiling schemes can cover common cases to complement the generic spatial data structures. 
 
