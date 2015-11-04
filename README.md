@@ -87,8 +87,7 @@ The metadata for each tile - not the actual contents - are defined in JSON.  For
       0.7396461198389616,
       0,
       19.4
-    ],
-    "batchSize": 29
+    ]
   },
   "children": [...]
 }
@@ -100,8 +99,6 @@ The `geometricError` property is a nonnegative number that defines the error, in
 The `refine` property is an optional string that is either `"replace"` for replacement refinement or `"add"` for additive refinement.  When `refine` is omitted, it defaults to `"add"`.
 
 The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.type` is a string that defines the [tile format](#tileFormats) and `content.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
-
-`content.batchSize` is a nonnegative integer that defines the number of models batched in the tile, e.g., in the example above, there are 29 buildings in the tile.
 
 `content.box` defines an optional bounding volume similar to the top-level `box` property. But unlike the top-level `box` property, `content.box` is a tightly fit box enclosing just the tile's contents.  This is used for replacement refinement; `box` provides spatial coherence and `content.box` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `box`, shown in red, and encloses the entire area of the tileset; `content.box` shown in blue, encloses just the four models in the root tile.
 
@@ -146,8 +143,7 @@ _tiles.json_ defines a tileset.  Here is a subset of the tiles.json used for [Ca
         0.8989625664878067,
         0,
         241.6
-      ],
-      "batchSize": 4
+      ]
     },
     "children": [..]
   }
