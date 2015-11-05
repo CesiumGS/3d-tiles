@@ -7,7 +7,7 @@
 
 ## Overview
 
-_Batched 3D Model_ allows offline batching of heterogeneous 3D models, such as different buildings in a city, for efficient streaming to a web client for rendering and interaction.  Efficiency comes from transfering multiple models in a single request and rendering them in the least number of WebGL draw calls necessary.
+_Batched 3D Model_ allows offline batching of heterogeneous 3D models, such as different buildings in a city, for efficient streaming to a web client for rendering and interaction.  Efficiency comes from transferring multiple models in a single request and rendering them in the least number of WebGL draw calls necessary.
 
 Per-model properties, such as IDs, enable individual models to be identified and updated at runtime, e.g., show/hide, highlight color, etc. Properties may be used, for example, to query a web service to access metadata, such as passing a building's ID to get its address. Or a property might be referenced on-the-fly for changing a model's appearance, e.g., changing highlight color based on a property value.
 
@@ -21,10 +21,11 @@ Batched 3D Model, or just the _batch_, is a binary blob in little endian accesse
 
 ### Header
 
-The 12-byte header contains:
+The 16-byte header contains:
 
 * `magic` - 4-byte ANSI string `b3dm`.  This can be used to identify the arraybuffer as Batched 3D Model.
 * `version` - `uint32`, which contains the version of the Batched 3D Model format. It is currently `1`.
+* `byteLength` - `uint32`, the length of the entire tile, including the header and each inner tile, in bytes.
 * `batchTableLength` - `uint32`, which contains the length of the batch table.  It may be zero indicating there is not a batch table.
 
 _TODO: code example reading header_
@@ -64,7 +65,9 @@ yearBuilt[1] = 2015;
 
 ### Binary glTF
 
-[glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL.  [Binary glTF](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_binary_glTF/README.md) is an extension defining a binary container for glTF.
+[glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL.  [Binary glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) is an extension defining a binary container for glTF.
+
+Batched 3D Model uses glTF 1.0 with the [KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) extension.
 
 Binary glTF immediately follows the batch table.  It begins `12 + batchTableLength` bytes from the start of the arraybuffer and continues for the rest of arraybuffer.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
