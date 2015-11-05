@@ -9,9 +9,9 @@
 
 The _Composite_ tile format enables concatenating tiles of different formats into one tile.
 
-The allows flexibility for streaming heterogeneous datasets.  For example, buildings and trees could be stored in two separate _Batched 3D Model_ and _Instanced 3D Model_ tiles or, using a Composite tile, the building and tree tiles can be stored together.
+3D Tiles and the Composite tile allow flexibility for streaming heterogeneous datasets.  For example, buildings and trees could be stored in two separate _Batched 3D Model_ and _Instanced 3D Model_ tiles or, using a Composite tile, the tiles can be combined.
 
-Supporting heterogeneous datasets with both inter-tile (different tile formats in the same tileset) and intra-tile (different tile formats in the same Composite tile) options allows conversion tools to make trade-offs between number of requests, optimal type-specific subdivision, and how visible/hidden layers are streamed.
+Supporting heterogeneous datasets with both inter-tile (separate tiles of different formats in the same tileset) and intra-tile (different tile formats in the same Composite tile) options allows conversion tools to make trade-offs between number of requests, optimal type-specific subdivision, and how visible/hidden layers are streamed.
 
 A Composite is a binary blob in little endian accessed in JavaScript as an `ArrayBuffer`.
 
@@ -34,13 +34,13 @@ _TODO: code example reading header_
 
 #### Inner Tiles
 
-The inner tiles are stored tightly packed immediately following the header.
+Inner tiles are stored tightly packed immediately following the header.
 
 Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See the [main 3D Tiles spec](../../README.md) for a list of tile formats.  Composite tiles can contain Composite tiles.
 
-Each tile's header contains a `uint32` `byteLength`, which defines the length of the inner tile, including its header, in bytes.  This can be used to traverse the inner tiles in a Composite.
+Each tile's header contains a `uint32` `byteLength`, which defines the length of the inner tile, including its header, in bytes.  This can be used to traverse the inner tiles.
 
-For tile format's version 1, the first 12-bytes of all tile formats is:
+For tile format's version 1, the first 12-bytes of all tiles is:
 ```
 magic       // uchar[4], indicates the tile format
 version     // uint32,   1
