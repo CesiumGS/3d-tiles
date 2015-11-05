@@ -38,7 +38,7 @@ Topic  | Status
 [Batched 3D Model](b3dm/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
 [Point Cloud](pnts/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
 [Composite](TileFormats/Composite/README.md) (cmpt) | :white_check_mark: **Solid base**, only minor changes expected
-[Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (i3dm) | :white_circle: **In progress**, [#23](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/23)
+[Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (i3dm) | :rocket: **Prototype**, needs compression and optimized position/orientation
 [Vector Data](TileFormats/VectorData/README.md)  | :white_circle: **In progress**, [#25](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/25)
 [OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started**
 [Massive Model](TileFormats/MassiveModel/README.md)  | :white_circle: **Not started**
