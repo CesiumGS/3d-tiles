@@ -25,7 +25,7 @@ A Composite is a binary blob in little endian accessed in JavaScript as an `Arra
 
 The 16-byte header contains:
 
-* `magic` - 4-byte ANSI string `cmpt`.  This can be used to identify the arraybuffer as a Composite.
+* `magic` - 4-byte ANSI string `cmpt`.  This can be used to identify the arraybuffer as a Composite tile.
 * `version` - `uint32`, which contains the version of the Composite format. It is currently `1`.
 * `byteLength` - `uint32`, the length of the entire Composite tile, including the header and each inner tile, in bytes.
 * `tilesLength` - `uint32`, the number of tiles in the Composite.  Must be greater than or equal to zero.
