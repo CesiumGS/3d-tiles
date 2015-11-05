@@ -21,7 +21,7 @@ A Composite is a binary blob in little endian accessed in JavaScript as an `Arra
 
 ![](figures/layout.png)
 
-### Header
+## Header
 
 The 16-byte header contains:
 
@@ -32,7 +32,7 @@ The 16-byte header contains:
 
 _TODO: code example reading header_
 
-#### Inner Tiles
+## Inner Tiles
 
 Inner tiles are stored tightly packed immediately following the header.
 
@@ -48,11 +48,11 @@ byteLength  // uint32,   length, in bytes, of the entire tile.
 ```
 Refer to the spec for each tile format for more details.
 
-### File Extension
+## File Extension
 
 `.cmpt`
 
-### MIME Type
+## MIME Type
 
 _TODO_
 

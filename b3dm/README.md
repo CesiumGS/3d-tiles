@@ -19,7 +19,7 @@ Batched 3D Model, or just the _batch_, is a binary blob in little endian accesse
 
 ![](figures/layout.png)
 
-### Header
+## Header
 
 The 16-byte header contains:
 
@@ -30,7 +30,7 @@ The 16-byte header contains:
 
 _TODO: code example reading header_
 
-### Batch Table
+## Batch Table
 
 In the Binary glTF section, each vertex has an unsigned short `batchId` attribute in the range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
 
@@ -63,7 +63,7 @@ displayName[1] = 'Another building name';
 yearBuilt[1] = 2015;
 ```
 
-### Binary glTF
+## Binary glTF
 
 [glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL.  [Binary glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) is an extension defining a binary container for glTF.
 
@@ -93,11 +93,11 @@ The vertex shader can be modified at runtime to use `a_batchId` to access indivi
 
 Although not strictly required, clients may find the glTF [CESIUM_RTC](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_RTC/README.md) extension useful for high-precision rendering.
 
-### File Extension
+## File Extension
 
 `.b3dm`
 
-### MIME Type
+## MIME Type
 
 _TODO_
 
