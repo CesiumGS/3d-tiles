@@ -1,17 +1,59 @@
 # Composite
 
-## Notes
+## Contributors
 
-**Use cases**: Flexibility for streaming heterogeneous datasets, e.g., streaming buildings and trees as separate layers, or as one layer.
+* Sean Lilley, [@lilleyse](https://twitter.com/lilleyse)
+* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
-From the main spec:
+## Overview
 
->> How do 3D Tiles support heterogeneous datasets?
+The _Composite_ tile format enables concatenating tiles of different formats into one tile.
 
-> Geospatial datasets are heterogeneous: 3D buildings are different from terrain, which is different from point clouds, which are different from vector data, and so on.
+The allows flexibility for streaming heterogeneous datasets.  For example, buildings and trees could be stored in two separate _Batched 3D Model_ and _Instanced 3D Model_ tiles or, using a Composite tile, the building and tree tiles can be stored together.
 
-> 3D Tiles support heterogeneous data by allowing different tile formats in a tileset, e.g., a tileset may contain tiles for 3D buildings, tiles for instanced 3D trees, and tiles for point clouds, all using different tile formats.
+Supporting heterogeneous datasets with both inter-tile (different tile formats in the same tileset) and intra-tile (different tile formats in the same Composite tile) options allows conversion tools to make trade-offs between number of requests, optimal type-specific subdivision, and how visible/hidden layers are streamed.
 
-> **We expect 3D Tiles will also support heterogeneous datasets by concatenating different tile formats into one tile, a _composite_; in the example above, a tile may have a short header followed by the content for the 3D buildings, instanced 3D trees, and point clouds.**
+A Composite is a binary blob in little endian accessed in JavaScript as an `ArrayBuffer`.
 
-> Supporting heterogeneous datasets with both inter-tile (different tile formats in the same tileset) and intra-tile (different tile formats in the same tile) options will allow conversion tools to make trade-offs between number of requests, optimal type-specific subdivision, and how visible/hidden layers are streamed.
+## Layout
+
+**Figure 1**: Composite layout (dashes indicate optional sections).
+
+![](figures/layout.png)
+
+### Header
+
+The 16-byte header contains:
+
+* `magic` - 4-byte ANSI string `cmpt`.  This can be used to identify the arraybuffer as a Composite.
+* `version` - `uint32`, which contains the version of the Composite format. It is currently `1`.
+* `byteLength` - `uint32`, the length of the entire Composite tile, including the header and each inner tile, in bytes.
+* `tilesLength` - `uint32`, the number of tiles in the Composite.  Must be greater than or equal to zero.
+
+_TODO: code example reading header_
+
+#### Inner Tiles
+
+The inner tiles are stored tightly packed immediately following the header.
+
+Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See the [main 3D Tiles spec](../../README.md) for a list of tile formats.  Composite tiles can contain Composite tiles.
+
+Each tile's header contains a `uint32` `byteLength`, which defines the length of the inner tile, including its header, in bytes.  This can be used to traverse the inner tiles in a Composite.
+
+For tile format's version 1, the first 12-bytes of all tile formats is:
+```
+magic       // uchar[4], indicates the tile format
+version     // uint32,   1
+byteLength  // uint32,   length, in bytes, of the entire tile.
+```
+Refer to the spec for each tile format for more details.
+
+### File Extension
+
+`.cmpt`
+
+### MIME Type
+
+_TODO_
+
+`application/octet-stream`
