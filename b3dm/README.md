@@ -26,7 +26,7 @@ The 16-byte header contains:
 * `magic` - 4-byte ANSI string `b3dm`.  This can be used to identify the arraybuffer as a Batched 3D Model tile.
 * `version` - `uint32`, which contains the version of the Batched 3D Model format. It is currently `1`.
 * `byteLength` - `uint32`, the length of the entire tile, including the header, in bytes.
-* `batchTableLength` - `uint32`, which contains the length of the batch table.  It may be zero indicating there is not a batch table.
+* `batchTableLength` - `uint32`, which contains the length of the batch table.  This must be greater than or equal to zero.  Zero indicates there is not a batch table.
 
 _TODO: code example reading header_
 
