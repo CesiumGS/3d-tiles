@@ -7,7 +7,7 @@
 
 ## Overview
 
-_Instanced 3D Model_ is a tile format for efficient streaming and rendering of a large number models, called _instances_, with slight variations.  In the simplest case, the same tree model, for example, may be located - or _instanced_ - in several places.  Each instance references the same model, and has per-instance properties such as position.
+_Instanced 3D Model_ is a tile format for efficient streaming and rendering of a large number of models, called _instances_, with slight variations.  In the simplest case, the same tree model, for example, may be located - or _instanced_ - in several places.  Each instance references the same model, and has per-instance properties, such as position.
 
 In addition to trees, Instanced 3D Model is useful for fire hydrants, sewer caps, lamps, traffic lights, etc.
 
@@ -39,7 +39,7 @@ _TODO: code example reading header_
 
 If either `glTFLength` or `instancesLength` equal zero, the tile does not need to be rendered.
 
-The body immediately follows the header, and is composted of three fields: `Batch Table`, `glTF`, and `instances`.
+The body immediately follows the header, and is composed of three fields: `Batch Table`, `glTF`, and `instances`.
 
 ## Batch Table
 
@@ -49,7 +49,7 @@ The batch table is a `UTF-8` string containing JSON.  It immediately follows the
 
 Each property in the object is an array with its length equal to the number of instances in the tile.  Each array is a homogeneous collection of `String`, `Number`, or `Boolean` elements.  Elements may be `null`.
 
-An instances' `batchId` is used to access elements in each array and extract the corresponding properties.  For example, the following batch table has properties for two instances.
+An instance's `batchId` is used to access elements in each array and extract the corresponding properties.  For example, the following batch table has properties for two instances:
 ```json
 {
     "id" : ["unique id", "another unique id"],
@@ -74,7 +74,7 @@ yearBuilt[1] = 2003;
 
 ## glTF
 
-The glTF field immediately follows the Batch Table (or immediately follows follows the header, if `header.batchTableLength` is zero).
+The glTF field immediately follows the batch table (or immediately follows the header, if `header.batchTableLength` is zero).
 
 [glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL.  [Binary glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) is an extension defining a binary container for glTF.  Instanced 3D Model uses glTF 1.0 with the [KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) extension.
 
@@ -88,7 +88,7 @@ When the value of `header.glTFFormat` is `1`, the glTF field is
 
 In either case, `header.glTFLength` contains the length of the glTF field in bytes.
 
-## instances
+## Instances
 
 The `instances` field immediately follows the `glTF` field (which may be omitted when `header.glTFLength` is `0`).
 
