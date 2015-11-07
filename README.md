@@ -15,6 +15,7 @@ Contents:
       * [Grids](#Grids)
 * [Tile formats](#tileFormats)
 * [Roadmap Q&A](#qa)
+* [Acknowledgments](#Acknowledgments)
 * [Data credits](#DataCredits)
 
 <p align="center">
@@ -393,6 +394,11 @@ Compared to replacement refinement, additive refinement has a size advantage bec
 #### What compressed texture formats do 3D Tiles use?
 
 3D Tiles will support the same texture compression that glTF [will support](https://github.com/KhronosGroup/glTF/issues/59).  In addition, we need to consider how well GPU formats compress compared to, for example, jpeg.  Some desktop game engines stream jpeg, then decompress and recompress to a GPU format in a thread.  The CPU overhead for this approach may be too high for JavaScript and Web Workers.
+
+<a name="Acknowledgments" />
+## Acknowledgments
+
+* Sarah Chow
 
 <a name="DataCredits" />
 ## Data credits
