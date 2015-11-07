@@ -100,6 +100,8 @@ The `instances` field contains `header.instancesLength` tightly packed instances
 
 _TODO: make this much more memory efficient and more general._
 
+When `header.batchTableLength` is zero, which indicates there is not a batch table, `batchId` is omitted, so each instance contains only `longitude` and `latitude` fields.
+
 Each instance is in the east-north-up reference frame (`x` points east, `y` points north, and `z` points along the geodetic surface normal).
 
 ## File Extension
