@@ -27,13 +27,15 @@ A tile is composed of a header immediately followed by a body.
 
 The 28-byte header contains:
 
-* `magic` - 4-byte ANSI string `i3dm`.  This can be used to identify the arraybuffer as an Instanced 3D Model tile.
-* `version` - `uint32`, which contains the version of the Instanced 3D Model format. It is currently `1`.
-* `byteLength` - `uint32`, which contains the length of the entire tile, including the header, in bytes.
-* `batchTableByteLength` - `uint32`, which contains the length of the batch table in bytes.  This must be greater than or equal to zero.  Zero indicates there is not a batch table.
-* `gltfByteLength` - `uint32`, which contains the length of glTF field in bytes.  This must be greater than or equal to zero.
-* `gltfFormat` - `uint32`, which indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the glTF section below.
-* `instancesLength` - `uint32`, which contains the number of instances.  This must be greater than or equal to zero.
+|Field name|Data type|Description|
+|----------|---------|-----------|
+| `magic` | 4-byte ANSI string | `"i3dm"`.  This can be used to identify the arraybuffer as an Instanced 3D Model tile. |
+| `version` | `uint32` | The version of the Instanced 3D Model format. It is currently `1`. |
+| `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
+| `batchTableByteLength` | `uint32` | The length of the batch table in bytes.  This must be greater than or equal to zero.  Zero indicates there is not a batch table. |
+| `gltfByteLength` | `uint32` | The length of glTF field in bytes.  This must be greater than or equal to zero. |
+| `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the glTF section below. |
+| `instancesLength` | `uint32` | The number of instances.  This must be greater than or equal to zero. |
 
 _TODO: code example reading header_
 
@@ -94,9 +96,11 @@ The `instances` field immediately follows the `glTF` field (which may be omitted
 
 The `instances` field contains `header.instancesLength` tightly packed instances.  Each instance has three fields:
 
-* `longitude` - `double`, the longitude, in radians, in the range `[-PI, PI]`.
-* `latitude` - `double`, the latitude, in radians, in the range `[-PI / 2, PI / 2]`.
-* `batchId` - `uint16` in the range `[0, length of arrays in the Batch Table)`, which indicates the corresponding properties.
+|Field name|Data type|Description|
+|----------|---------|-----------|
+| `longitude` | `double` | The longitude, in radians, in the range `[-PI, PI]`. |
+| `latitude` | `double` | The latitude, in radians, in the range `[-PI / 2, PI / 2]`. |
+| `batchId` | `uint16`  | id in the range `[0, length of arrays in the Batch Table)`, which indicates the corresponding properties. |
 
 _TODO: make this much more memory efficient and more general._
 
