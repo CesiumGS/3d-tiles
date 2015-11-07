@@ -28,8 +28,8 @@ The 16-byte header contains:
 * `magic` - 4-byte ANSI string `b3dm`.  This can be used to identify the arraybuffer as a Batched 3D Model tile.
 * `version` - `uint32`, which contains the version of the Batched 3D Model format. It is currently `1`.
 * `byteLength` - `uint32`, which contains the length of the entire tile, including the header, in bytes.
-* `batchLength` - `unit32`, which contains the number of models in the tile.  This must be greater than or equal to zero.
-* `batchTableLength` - `uint32`, which contains the length of the batch table.  This must be greater than or equal to zero.  This field must be zero, which indicates there is not a batch table, or equal to `batchTableLength`.
+* `batchLength` - `unit32`, which contains the number of models in the batch.  This must be greater than or equal to zero.
+* `batchTableByteLength` - `uint32`, which contains the length of the batch table in bytes.  This must be greater than or equal to zero.  Zero indicates there is not a batch table.
 
 _TODO: code example reading header_
 
@@ -39,11 +39,11 @@ The body immediately follows the header, and is composed of two fields: `Batch T
 
 In the Binary glTF section, each vertex has an unsigned short `batchId` attribute in the range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
 
-The batch table maps each `batchId` to per-model properties.  If present, the batch table immediately follows the header and is `batchTableLength` bytes long.
+The batch table maps each `batchId` to per-model properties.  If present, the batch table immediately follows the header and is `batchTableByteLength` bytes long.
 
 The batch table is a `UTF-8` string containing JSON.  It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 
-Each property in the object is an array with its length equal to the number of models in the batch.  Each array is a homogeneous collection of `String`, `Number`, or `Boolean` elements.  Elements may be `null`.
+Each property in the object is an array with its length equal to `header.batchLength`.  Each array is a homogeneous collection of `String`, `Number`, or `Boolean` elements.  Elements may be `null`.
 
 A vertex's `batchId` is used to access elements in each array and extract the corresponding properties.  For example, the following batch table has properties for a batch of two models.
 ```json
@@ -74,7 +74,7 @@ yearBuilt[1] = 2015;
 
 Batched 3D Model uses glTF 1.0 with the [KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) extension.
 
-Binary glTF immediately follows the batch table.  It begins `12 + batchTableLength` bytes from the start of the arraybuffer and continues for the rest of arraybuffer.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
+Binary glTF immediately follows the batch table.  It begins `12 + batchTableByteLength` bytes from the start of the arraybuffer and continues for the rest of arraybuffer.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
 As described above, each vertex has a `batchId` attribute indicating the model to which it belongs.  For example, vertices for a batch with three models may look like this:
 ```
