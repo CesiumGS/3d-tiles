@@ -96,7 +96,7 @@ The `instances` field contains `header.instancesLength` tightly packed instances
 
 * `longitude` - `double`, the longitude, in radians, in the range `[-PI, PI]`.
 * `latitude` - `double`, the latitude, in radians, in the range `[-PI / 2, PI / 2]`.
-* `batchId` - `uint32` in the range `[0, header.batchTableLength)`, which indicates the corresponding properties.
+* `batchId` - `uint16` in the range `[0, header.batchTableLength)`, which indicates the corresponding properties.
 
 _TODO: make this much more memory efficient and more general._
 
