@@ -15,6 +15,8 @@ Batched 3D Model, or just the _batch_, is a binary blob in little endian accesse
 
 ## Layout
 
+A tile is composed of a header immediately followed by a body.
+
 **Figure 1**: Batched 3D Model layout (dashes indicate optional sections).
 
 ![](figures/layout.png)
@@ -25,10 +27,13 @@ The 16-byte header contains:
 
 * `magic` - 4-byte ANSI string `b3dm`.  This can be used to identify the arraybuffer as a Batched 3D Model tile.
 * `version` - `uint32`, which contains the version of the Batched 3D Model format. It is currently `1`.
-* `byteLength` - `uint32`, the length of the entire tile, including the header, in bytes.
-* `batchTableLength` - `uint32`, which contains the length of the batch table.  It may be zero indicating there is not a batch table.
+* `byteLength` - `uint32`, which contains the length of the entire tile, including the header, in bytes.
+* `batchLength` - `unit32`, which contains the number of models in the tile.  This must be greater than or equal to zero.
+* `batchTableLength` - `uint32`, which contains the length of the batch table.  This must be greater than or equal to zero.  This field must be zero, which indicates there is not a batch table, or equal to `batchTableLength`.
 
 _TODO: code example reading header_
+
+The body immediately follows the header, and is composed of two fields: `Batch Table` and `glTF`.
 
 ## Batch Table
 
