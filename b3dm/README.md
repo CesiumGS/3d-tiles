@@ -33,7 +33,7 @@ The 16-byte header contains:
 
 _TODO: code example reading header_
 
-The body immediately follows the header, and is composed of two fields: `Batch Table` and `glTF`.
+The body immediately follows the header, and is composed of two fields: `Batch Table` and `Binary glTF`.
 
 ## Batch Table
 
