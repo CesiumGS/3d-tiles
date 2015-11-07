@@ -92,7 +92,7 @@ In either case, `header.gltfByteLength` contains the length of the glTF field in
 
 The `instances` field immediately follows the `glTF` field (which may be omitted when `header.gltfByteLength` is `0`).
 
-The `instances` field contains `header.instancesLength` tightly packed instances.  Each instance has three fields:
+The `instances` field contains `header.instancesLength` of tightly packed instances.  Each instance has three fields:
 
 * `longitude` - `double`, the longitude, in radians, in the range `[-PI, PI]`.
 * `latitude` - `double`, the latitude, in radians, in the range `[-PI / 2, PI / 2]`.
