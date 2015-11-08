@@ -17,3 +17,13 @@ _TBA_
 ![](figures/layout.png)
 
 Positions are defined for high-precision rendering with [RTC](http://blogs.agi.com/insight3d/index.php/2008/09/03/precisions-precisions/). [#10](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/10)
+
+## File Extension
+
+`.pnts`
+
+## MIME Type
+
+_TODO_
+
+`application/octet-stream`
