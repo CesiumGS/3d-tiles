@@ -25,10 +25,12 @@ A Composite is a binary blob in little endian accessed in JavaScript as an `Arra
 
 The 16-byte header contains:
 
-* `magic` - 4-byte ANSI string `cmpt`.  This can be used to identify the arraybuffer as a Composite tile.
-* `version` - `uint32`, which contains the version of the Composite format. It is currently `1`.
-* `byteLength` - `uint32`, the length of the entire Composite tile, including the header and each inner tile, in bytes.
-* `tilesLength` - `uint32`, the number of tiles in the Composite.  Must be greater than or equal to zero.
+|Field name|Data type|Description|
+|----------|---------|-----------|
+| `magic` | 4-byte ANSI string | `"cmpt"`.  This can be used to identify the arraybuffer as a Composite tile. |
+| `version` | `uint32` | The version of the Composite format. It is currently `1`. |
+| `byteLength` | `uint32` | The length of the entire Composite tile, including the header and each inner tile, in bytes. |
+| `tilesLength` | `uint32` | The number of tiles in the Composite.  Must be greater than or equal to zero. |
 
 _TODO: code example reading header_
 
@@ -41,11 +43,13 @@ Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determi
 Each tile's header contains a `uint32` `byteLength`, which defines the length of the inner tile, including its header, in bytes.  This can be used to traverse the inner tiles.
 
 For any tile format's version 1, the first 12-bytes of all tiles is:
-```
-magic       // uchar[4], indicates the tile format
-version     // uint32,   1
-byteLength  // uint32,   length, in bytes, of the entire tile.
-```
+
+|Field name|Data type|Description|
+|----------|---------|-----------|
+| `magic` | `uchar[4]` | Indicates the tile format |
+| `version` | `uint32` | `1` |
+| `byteLength` | `uint32` | Length, in bytes, of the entire tile. |
+
 Refer to the spec for each tile format for more details.
 
 ## File Extension
