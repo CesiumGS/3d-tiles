@@ -1,0 +1,30 @@
+{
+    "$schema" : "http://json-schema.org/draft-03/schema",
+    "title" : "Tileset",
+    "type" : "object",
+    "description" : "A 3D Tiles tileset.",
+    "properties" : {
+        "properties" : {
+            "type" : "object",
+            "description" : "A dictionary object of metadata about per-feature properties.",
+            "properties" : {
+            },
+            "additionalProperties" : {
+                "$ref" : "properties.schema.json"
+            },
+            "default" : {}
+        },
+    },
+    "geometricError" : {
+        "type" : "number",
+        "description" : "The error, in meters, introduced if this tileset is not rendered.  At runtime, the geometric error is used to compute Screen-Space Error (SSE), i.e., the error measured in pixels.",
+        "minimum" : 0,
+        "required" : true
+    },
+    "root" : {
+        "extends" : { "$ref" : "tiles.schema.json" },
+        "description" : "The root node.",
+        "required" : true
+    },
+    "additionalProperties" : false
+}
