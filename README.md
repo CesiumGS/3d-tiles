@@ -36,8 +36,8 @@ The 3D Tiles spec is pre-1.0.  We expect it and the [Cesium implementation](http
 Topic  | Status
 ---|---
 [tiles.json](#tiles.json)  | :white_check_mark: **Good starting point**, will expand as we add new tile formats
-[Batched 3D Model](b3dm/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
-[Point Cloud](pnts/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
+[Batched 3D Model](TileFormats/Batched3DModel/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
+[Point Cloud](TileFormats/Points/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
 [Composite](TileFormats/Composite/README.md) (cmpt) | :white_check_mark: **Solid base**, only minor changes expected
 [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (i3dm) | :rocket: **Prototype**, needs optimizations, [#33](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/33)
 [Vector Data](TileFormats/VectorData/README.md)  | :white_circle: **In progress**, [#25](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/25)
@@ -152,7 +152,7 @@ _tiles.json_ defines a tileset.  Here is a subset of the tiles.json used for [Ca
 ```
 The top-level object in tiles.json has three properties: `propertes`, `geometricError`, and `root`.
 
-`propertes` is an object containing objects for each per-model property in the tileset.  This tiles.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see the _Batch Table_ in the [Batched 3D Model](b3dm/README.md) tile format).  The name of each object in `properties` matches the name of a per-model property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
+`propertes` is an object containing objects for each per-model property in the tileset.  This tiles.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see the _Batch Table_ in the [Batched 3D Model](TileFormats/Batched3DModel/README.md) tile format).  The name of each object in `properties` matches the name of a per-model property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
 `geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered.
 
@@ -287,7 +287,7 @@ No, 3D Tiles are a general spec for streaming massive heterogeneous 3D geospatia
 
 [glTF](https://www.khronos.org/gltf), the runtime asset format for WebGL, is an open standard for 3D models from Khronos (the same group that does WebGL and COLLADA).  Cesium uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter.  We recommend using glTF in Cesium for individual assets, e.g., an aircraft, a character, or a 3D building.
 
-We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, that Cesium has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles use glTF for some tile formats such as [b3dm](b3dm/README.md) (used for 3D buildings).  We created a binary glTF extension ([KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF)) in order to embed glTF into binary tiles and avoid base64-encoding or multiple file overhead.
+We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, that Cesium has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles use glTF for some tile formats such as [b3dm](TileFormats/Batched3DModel/README.md) (used for 3D buildings).  We created a binary glTF extension ([KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF)) in order to embed glTF into binary tiles and avoid base64-encoding or multiple file overhead.
 
 Taking this approach allows us to improve Cesium, glTF, and 3D Tiles at the same time, e.g., when we add mesh compression to glTF, it benefits 3D models in Cesium, the glTF ecosystem, and 3D Tiles.
 
