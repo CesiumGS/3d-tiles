@@ -13,7 +13,7 @@
                 "$ref" : "properties.schema.json"
             },
             "default" : {}
-        },
+        }
     },
     "geometricError" : {
         "type" : "number",
