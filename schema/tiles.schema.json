@@ -22,7 +22,7 @@
         "required" : true
     },
     "root" : {
-        "extends" : { "$ref" : "tiles.schema.json" },
+        "extends" : { "$ref" : "tile.schema.json" },
         "description" : "The root node.",
         "required" : true
     },
