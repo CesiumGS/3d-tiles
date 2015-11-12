@@ -17,7 +17,7 @@
     },
     "geometricError" : {
         "type" : "number",
-        "description" : "The error, in meters, introduced if this tileset is not rendered.  At runtime, the geometric error is used to compute Screen-Space Error (SSE), i.e., the error measured in pixels.",
+        "description" : "The error, in meters, introduced if this tileset is not rendered. At runtime, the geometric error is used to compute Screen-Space Error (SSE), i.e., the error measured in pixels.",
         "minimum" : 0,
         "required" : true
     },
