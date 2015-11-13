@@ -100,7 +100,7 @@ The `refine` property is an optional string that is either `"replace"` for repla
 
 The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
 
-The file extension of `content.url` defines the [tile format](#tileFormats).
+The file extension of `content.url` defines the [tile format](#tileFormats).  The url can be another tiles.json file to create a tileset of tilesets.
 
 `content.box` defines an optional bounding volume similar to the top-level `box` property. But unlike the top-level `box` property, `content.box` is a tightly fit box enclosing just the tile's contents.  This is used for replacement refinement; `box` provides spatial coherence and `content.box` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `box`, shown in red, and encloses the entire area of the tileset; `content.box` shown in blue, encloses just the four models in the root tile.
 
@@ -336,8 +336,9 @@ Supporting heterogeneous datasets with both inter-tile (different tile formats i
 
 Yes.  There will always be a need to know metadata about the tileset and about tiles that are not yet loaded, e.g., so only visible tiles can be requested.  However, when scaling to millions of tiles, a single tiles.json with metadata for the entire tree would be prohibitively large.
 
-There's a few ways we may solve this:
-* Trees of trees.  Allowing `content.url` to point to another tiles.json will enable conversion tools to chunk up a tileset into any number of tiles.json files that reference each other.
+3D Tiles already support trees of trees. `content.url` can point to another tiles.json, which enables conversion tools to chunk up a tileset into any number of tiles.json files that reference each other.
+
+There's a few other ways we may solve this:
 * Moving subtree metadata to the tile payload instead of tiles.json.  Each tile would have a header with, for example, the bounding volumes of each child, and perhaps grandchildren, and so on.
 * Explicit tile layout like those of traditional tiling schemes (e.g., TMS's `z/y/x`).  The challenge is that this implicitly assumes a spatial subdivision, whereas 3D Tiles are general enough to support quadtrees, octrees, k-d trees, and so on.  There is likely to be a balance where two or three explicit tiling schemes can cover common cases to complement the generic spatial data structures. 
 
@@ -359,6 +360,8 @@ For example, consider the wasted space in the root bounding volume below and how
 
 ![](figures/grid.png)
 
+See [#10](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/10).
+
 <a name="Will-3D-Tiles-support-horizon-culling" />
 #### Will 3D Tiles support horizon culling?
 
@@ -370,6 +373,8 @@ Since [horizon culling](http://cesiumjs.org/2013/04/25/Horizon-culling/) is usef
 At runtime, a tile's `geometricError` is used to compute the Screen-Space Error (SSE) to drive refinement.  We expect to expand this, for example, by using the [_Virtual Multiresolution Screen Space Error_](http://www.dis.unal.edu.co/profesores/pierre/MyHome/publications/papers/vmsse.pdf) (VMSSE), which takes occlusion into account.  This can be done at runtime without streaming additional tile metadata.  Similarly, fog can also be used to tolerate increases to the SSE in the distance.
 
 However, we do anticipate other metadata for driving refinement.  SSE may not be appropriate for all datasets; for example, points of interest may be better served with on/off distances and a label collision factor computed at runtime.  Note that the viewer's height above the ground is rarely a good metric for 3D since 3D supports arbitrary views.
+
+See [#15](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/15).
 
 <a name="How-are-cracks-between-tiles-with-vector-data-handled" />
 #### How are cracks between tiles with vector data handled?
@@ -383,12 +388,16 @@ Often when using replacement refinement, a tile's children are not rendered unti
 
 We may design 3D Tiles to support downloading all children in a single request by allowing tiles.json to point to a subset of a file for a tile's content similiar to glTF [buffer](https://github.com/KhronosGroup/glTF/blob/master/specification/buffer.schema.json) and [bufferView](https://github.com/KhronosGroup/glTF/blob/master/specification/bufferView.schema.json).  [HTTP/2](http://chimera.labs.oreilly.com/books/1230000000545/ch12.html#_brief_history_of_spdy_and_http_2) will also make the overhead of multiple requests less important.
 
+See [#9](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/9).
+
 <a name="How-can-additive-refinement-be-optimized" />
 #### How can additive refinement be optimized?
 
 Compared to replacement refinement, additive refinement has a size advantage because it doesn't duplicate data in the original dataset.  However, it has a disadvantage when there are expensive tiles to render near the root and the view is zoomed in close.  In this case, for example, the entire root tile may be rendered, but perhaps only one model or even no models are visible.
 
 3D Tiles can optimize this by storing an optional spatial data structure in each tile.  For example, a tile could contain a simple 2x2 grid, and if the tile's bounding volume is not completely inside the view frustum, each box in the grid is checked against the frustum, and only those inside or intersecting are rendered.
+
+See [#11](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/11).
 
 <a name="What-texture-compression-do-3D-Tiles-use" />
 #### What compressed texture formats do 3D Tiles use?

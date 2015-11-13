@@ -1,0 +1,41 @@
+{
+    "$schema" : "http://json-schema.org/draft-03/schema",
+    "title" : "Tiles",
+    "type" : "object",
+    "description" : "A tile in a 3D Tiles tileset.",
+    "box" : {
+        "type" : "array",
+        "description" : "An array of six numbers that define the bounding volume with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.",
+        "items" : {
+            "type" : "number"
+        },
+        "minItems" : 6,
+        "maxItems" : 6,
+        "required" : true
+    },
+    "geometricError" : {
+        "type" : "number",
+        "description" : "The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute Screen-Space Error (SSE), i.e., the error measured in pixels.",
+        "minimum" : 0,
+        "required" : true
+    },
+    "refine" : {
+        "type" : "string",
+        "description" : "Specifies if additive or replacement refinement is used when traversing the tileset for rendering.",
+        "enum" : ["add", "replace"],
+        "default" : "add"
+    },        
+    "content" : {
+        "extends" : { "$ref" : "tile.content.schema.json" },
+        "description" : "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling."
+    },
+    "children" : {
+        "type" : "array",
+        "description" : "An array of objects that define child tiles. Each child tile has a box fully enclosed by its parent tile's box and, generally, a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.",
+        "items" : {
+            "$ref" : "tile.schema.json"
+        },
+        "uniqueItems" : true
+    },
+    "additionalProperties" : false
+}

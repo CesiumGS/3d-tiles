@@ -1,0 +1,21 @@
+{
+    "$schema" : "http://json-schema.org/draft-03/schema",
+    "title" : "Tile",
+    "type" : "object",
+    "description" : "Metadata about the tile's content and a link to the content.",
+    "box" : {
+        "type" : "array",
+        "description" : "An optional array of six numbers that define the tightly fitting bounding volume enclosing just the tile's contents, with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid. This is used for replacement refinement; tile.box provides spatial coherence and tile.content.box enables tight view frustum culling. When this is omitted, tile.box is used.",
+        "items" : {
+            "type" : "number"
+        },
+        "minItems" : 6,
+        "maxItems" : 6
+    },
+    "url" : {
+        "type" : "string",
+        "description" : "A string that points to the tile's contents with an absolute or relative url. The file extension of content.url defines the tile format. The core 3D Tiles spec suports the following tile formats: Batched 3D Model (*.b3dm), Instanced 3D Model (*.i3dm), Composite (*.cmpt), and 3D Tiles TileSet (*.json)",
+        "required" : true
+    },
+    "additionalProperties" : false
+}
