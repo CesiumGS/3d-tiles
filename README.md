@@ -112,6 +112,8 @@ The file extension of `content.url` defines the [tile format](#tileFormats).  Th
 
 ![](figures/tile.png)
 
+_TODO: Update the above figure, [#27](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/27)_
+
 <a name="tiles.json" />
 ## tiles.json
 
@@ -159,6 +161,8 @@ The top-level object in tiles.json has three properties: `propertes`, `geometric
 `root` is an object that defines the root tile using the JSON described in the [above section](#Tile-Metadata).  `root.geometricError` is not the same as tile.json's top-level `geometricError`.  tile.json's `geometricError` is the error when the entire tileset is not rendered; `root.geometricError` is the error when only the root tile is rendered.
 
 `root.children` is an array of objects that define child tiles.  Each child tile has a `box` fully enclosed by its parent tile's `box` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
+
+See [schema](schema) for the detailed JSON schema for tiles.json.
 
 See the [Q&A below](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec) for how tiles.json will scale to a massive number of tiles. 
 
