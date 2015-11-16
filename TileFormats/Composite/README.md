@@ -30,7 +30,7 @@ The 16-byte header contains:
 | `magic` | 4-byte ANSI string | `"cmpt"`.  This can be used to identify the arraybuffer as a Composite tile. |
 | `version` | `uint32` | The version of the Composite format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire Composite tile, including the header and each inner tile, in bytes. |
-| `tilesLength` | `uint32` | The number of tiles in the Composite.  Must be greater than or equal to zero. |
+| `tilesLength` | `uint32` | The number of tiles in the Composite. |
 
 _TODO: code example reading header_
 
