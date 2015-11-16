@@ -32,10 +32,10 @@ The 28-byte header contains:
 | `magic` | 4-byte ANSI string | `"i3dm"`.  This can be used to identify the arraybuffer as an Instanced 3D Model tile. |
 | `version` | `uint32` | The version of the Instanced 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
-| `batchTableByteLength` | `uint32` | The length of the batch table in bytes.  This must be greater than or equal to zero.  Zero indicates there is not a batch table. |
-| `gltfByteLength` | `uint32` | The length of the glTF field in bytes.  This must be greater than or equal to zero. |
+| `batchTableByteLength` | `uint32` | The length of the batch table in bytes. Zero indicates there is not a batch table. |
+| `gltfByteLength` | `uint32` | The length of the glTF field in bytes. |
 | `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the glTF section below. |
-| `instancesLength` | `uint32` | The number of instances.  This must be greater than or equal to zero. |
+| `instancesLength` | `uint32` | The number of instances. |
 
 _TODO: code example reading header_
 
