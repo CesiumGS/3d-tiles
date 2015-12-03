@@ -8,6 +8,7 @@ Contents:
 * [Introduction](#introduction)
 * [Tile metadata](#Tile-Metadata)
 * [tiles.json](#tiles.json)
+   * [Bounding Volume Spatial Coherenc](#Bounding-Volume-Spatial-Coherence)
    * [Creating spatial data structures](#Creating-Spatial-Data-Structures)
       * [K-d trees](#K-d-trees)
       * [Quadtrees](#Quadtrees)
@@ -31,7 +32,7 @@ Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html) or contac
 <a name="status" />
 ## Spec status
 
-The 3D Tiles spec is pre-1.0.  We expect it and the [Cesium implementation](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241) to stabilize in the spring of 2016.
+The 3D Tiles spec is pre-1.0.  We expect it and the [Cesium implementationn](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241) to stabilize in the spring of 2016.
 
 Topic  | Status
 ---|---
@@ -54,7 +55,7 @@ For spec work in progress, [watch this repo](https://github.com/AnalyticalGraphi
 
 For an introduction to the motivation for and principles of 3D Tiles, see [Introducing 3D Tiles](http://cesiumjs.org/2015/08/10/Introducing-3D-Tiles/) on the Cesium blog.  Here, we cover the format itself.
 
-In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its contents.  The tree has spatial coherence; the bounding volume for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any spatial data structure with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
+In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its contents.  The tree has spatial coherence; the content for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any spatial data structure with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
 
 ![](figures/tree.png)
 
@@ -165,6 +166,21 @@ The top-level object in tiles.json has three properties: `propertes`, `geometric
 See [schema](schema) for the detailed JSON schema for tiles.json.
 
 See the [Q&A below](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec) for how tiles.json will scale to a massive number of tiles. 
+
+<a name="Bounding-Volume-Spatial-Coherence" />
+### Bounding Volume Spatial Coherence
+
+As described above, the tree has spatial coherence; each tile has a bounding volume completely enclosing its contents, and the content for child tiles are completely inside the parent's bounding volume.  This does not imply that a child's bounding volume is completely inside its parent's bounding volume.  For example:
+
+<p align="center">
+  <img src="figures/parentBoundingSphere.jpg" /><br />
+  Bounding sphere for a terrain tile.
+</p>
+
+<p align="center">
+  <img src="figures/childBoundingSphere.jpg" /><br />
+  Bounding spheres for the four child tiles.  The child's content are completely inside the parent's bounding volume, but the child's bounding volumes are not since they not tightly fit.
+</p>
 
 <a name="Creating-Spatial-Data-Structures" />
 ### Creating spatial data structures
@@ -411,7 +427,8 @@ See [#11](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/11).
 <a name="Acknowledgments" />
 ## Acknowledgments
 
-* Sarah Chow
+* [Sarah Chow](http://cesiumjs.org/team/SarahChow.html)
+* [Kevin Ring](http://www.kotachrome.com/kevin/)
 
 <a name="DataCredits" />
 ## Data credits
