@@ -181,7 +181,7 @@ As described above, the tree has spatial coherence; each tile has a bounding vol
 
 The tree defined in tiles.json by `root` and, recursively, its `children`, can define different types of spatial data structures.  In addition, any combination of tile formats and refinement approach (replacement or additive) can be used, enabling a lot of flexibility to support heterogeneous datasets.
 
-It is up to the conversion tool that generates tiles.json to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by tiles.json.  Here's a brief descriptions of how 3D Tiles can represent various spatial data structures.  This is allowed, but is suboptimal.
+It is up to the conversion tool that generates tiles.json to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by tiles.json.  Here's a brief descriptions of how 3D Tiles can represent various spatial data structures.
 
 #### K-d trees
 
