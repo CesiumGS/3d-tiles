@@ -8,7 +8,7 @@ Contents:
 * [Introduction](#introduction)
 * [Tile metadata](#Tile-Metadata)
 * [tiles.json](#tiles.json)
-   * [Bounding Volume Spatial Coherenc](#Bounding-Volume-Spatial-Coherence)
+   * [Bounding volume spatial coherence](#Bounding-Volume-Spatial-coherence)
    * [Creating spatial data structures](#Creating-Spatial-Data-Structures)
       * [K-d trees](#K-d-trees)
       * [Quadtrees](#Quadtrees)
@@ -168,7 +168,7 @@ See [schema](schema) for the detailed JSON schema for tiles.json.
 See the [Q&A below](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec) for how tiles.json will scale to a massive number of tiles. 
 
 <a name="Bounding-Volume-Spatial-Coherence" />
-### Bounding Volume Spatial Coherence
+### Bounding volume spatial coherence
 
 As described above, the tree has spatial coherence; each tile has a bounding volume completely enclosing its contents, and the content for child tiles are completely inside the parent's bounding volume.  This does not imply that a child's bounding volume is completely inside its parent's bounding volume.  For example:
 
