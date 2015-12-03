@@ -31,7 +31,7 @@ Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html) or contac
 
 ## Spec status
 
-The 3D Tiles spec is pre-1.0.  We expect it and the [Cesium implementationn](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241) to stabilize in the spring of 2016.
+The 3D Tiles spec is pre-1.0.  We expect it and the [Cesium implementation](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241) to stabilize in the spring of 2016.
 
 Topic  | Status
 ---|---
@@ -174,7 +174,7 @@ As described above, the tree has spatial coherence; each tile has a bounding vol
 
 <p align="center">
   <img src="figures/childBoundingSphere.jpg" /><br />
-  Bounding spheres for the four child tiles.  The child's content are completely inside the parent's bounding volume, but the child's bounding volumes are not since they not tightly fit.
+  Bounding spheres for the four child tiles.  The children's content are completely inside the parent's bounding volume, but the children's bounding volumes are not since they are not tightly fit.
 </p>
 
 ### Creating spatial data structures
