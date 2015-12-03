@@ -4,20 +4,20 @@ Specification for streaming massive heterogeneous **3D** geospatial datasets.
 
 Contents:
 
-* [Spec status](#status)
+* [Spec status](#spec-status)
 * [Introduction](#introduction)
-* [Tile metadata](#Tile-Metadata)
-* [tiles.json](#tiles.json)
-   * [Bounding volume spatial coherence](#Bounding-Volume-Spatial-coherence)
-   * [Creating spatial data structures](#Creating-Spatial-Data-Structures)
-      * [K-d trees](#K-d-trees)
-      * [Quadtrees](#Quadtrees)
-      * [Octrees](#Octrees)
-      * [Grids](#Grids)
-* [Tile formats](#tileFormats)
-* [Roadmap Q&A](#qa)
-* [Acknowledgments](#Acknowledgments)
-* [Data credits](#DataCredits)
+* [Tile metadata](#tile-metadata)
+* [tiles.json](#tilesjson)
+   * [Bounding volume spatial coherence](#bounding-volume-spatial-coherence)
+   * [Creating spatial data structures](#creating-spatial-data-structures)
+      * [K-d trees](#k-d-trees)
+      * [Quadtrees](#quadtrees)
+      * [Octrees](#octrees)
+      * [Grids](#grids)
+* [Tile formats](#tile-formats)
+* [Roadmap Q&A](#roadmap-qa)
+* [Acknowledgments](#acknowledgments)
+* [Data credits](#data-credits)
 
 <p align="center">
 Created by the <a href="http://cesiumjs.org/">Cesium team</a> and built on <a href="https://www.khronos.org/gltf">glTF</a>.<br/>
@@ -29,7 +29,6 @@ Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html) or contac
 
 ---
 
-<a name="status" />
 ## Spec status
 
 The 3D Tiles spec is pre-1.0.  We expect it and the [Cesium implementationn](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241) to stabilize in the spring of 2016.
@@ -50,7 +49,6 @@ Stars  | :white_circle: **Not started**
 
 For spec work in progress, [watch this repo](https://github.com/AnalyticalGraphicsInc/3d-tiles/subscription) and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
 
-<a name="introduction" />
 ## Introduction
 
 For an introduction to the motivation for and principles of 3D Tiles, see [Introducing 3D Tiles](http://cesiumjs.org/2015/08/10/Introducing-3D-Tiles/) on the Cesium blog.  Here, we cover the format itself.
@@ -63,7 +61,6 @@ Currently, the bounding volume is a "box" defined by minimum and maximum longitu
 
 A tile usually references a _model_ or set of _models_, e.g., 3D buildings.  These models may be batched together into essentially a single model to reduce client-side load time and WebGL draw call overhead.
 
-<a name="Tile-Metadata" />
 ## Tile metadata
 
 The metadata for each tile - not the actual contents - are defined in JSON.  For example:
@@ -115,7 +112,6 @@ The file extension of `content.url` defines the [tile format](#tileFormats).  Th
 
 _TODO: Update the above figure, [#27](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/27)_
 
-<a name="tiles.json" />
 ## tiles.json
 
 _tiles.json_ defines a tileset.  Here is a subset of the tiles.json used for [Canary Wharf](http://cesiumjs.org/CanaryWharf/) (also see the complete [tiles.json](examples/tiles.json)):
@@ -167,7 +163,6 @@ See [schema](schema) for the detailed JSON schema for tiles.json.
 
 See the [Q&A below](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec) for how tiles.json will scale to a massive number of tiles. 
 
-<a name="Bounding-Volume-Spatial-Coherence" />
 ### Bounding volume spatial coherence
 
 As described above, the tree has spatial coherence; each tile has a bounding volume completely enclosing its contents, and the content for child tiles are completely inside the parent's bounding volume.  This does not imply that a child's bounding volume is completely inside its parent's bounding volume.  For example:
@@ -182,14 +177,12 @@ As described above, the tree has spatial coherence; each tile has a bounding vol
   Bounding spheres for the four child tiles.  The child's content are completely inside the parent's bounding volume, but the child's bounding volumes are not since they not tightly fit.
 </p>
 
-<a name="Creating-Spatial-Data-Structures" />
 ### Creating spatial data structures
 
 The tree defined in tiles.json by `root` and, recursively, its `children`, can define different types of spatial data structures.  In addition, any combination of tile formats and refinement approach (replacement or additive) can be used, enabling a lot of flexibility to support heterogeneous datasets.
 
-It is up to the conversion tool that generates tiles.json to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by tiles.json.  Here's a brief descriptions of how 3D Tiles can represent various spatial data structures.
+It is up to the conversion tool that generates tiles.json to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by tiles.json.  Here's a brief descriptions of how 3D Tiles can represent various spatial data structures.  This is allowed, but is suboptimal.
 
-<a name="K-d-trees" />
 #### K-d trees
 
 A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the x, y, or z axis (or longitude, latitude, height).  The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
@@ -203,7 +196,6 @@ Note that a k-d tree does not have uniform subdivision like typical 2D geospatia
 
 3D Tiles enable variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leaf of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
 
-<a name="Quadtrees" />
 #### Quadtrees
 
 A quadtree is created when each tile has four uniformly subdivided children (e.g., using the center longitude and latitude) similar to typical 2D geospatial tiling schemes.  Empty child tiles can be omitted.
@@ -235,7 +227,6 @@ Below, the green buildings are in the left child and the purple buildings are in
 
 ![](figures/looseQuadtree.png)
 
-<a name="Octrees" />
 #### Octrees
 
 An octree extends a quadtree by using three orthogonal splitting planes to subdivide a tile into eight children.  Like quadtrees, 3D Tiles allow variations to octrees such as non-uniform subdivision, tight bounding volumes, and overlapping children.
@@ -250,7 +241,6 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
   Non-uniform octree subdivision for a point cloud using additive refinement. Point Cloud of <a href="http://robotics.cs.columbia.edu/~atroccol/ijcv/chappes.html">the Church of St Marie at Chappes, France</a> by Prof. Peter Allen, Columbia University Robotics Lab. Scanning by Alejandro Troccoli and Matei Ciocarlie
 </p>
 
-<a name="Grids" />
 #### Grids
 
 3D Tiles enable uniform, non-uniform, and overlapping grids by supporting an arbitrary number of child tiles.  For example, here is a top-down view of a non-uniform overlapping grid of Cambridge:
@@ -259,50 +249,44 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 
 3D Tiles take advantage of empty tiles: those tiles that have a bounding volume, but no content. Since a tile's `content` property does not need to be defined, empty non-leaf tiles can be used to accelerate non-uniform grids with hierarchical culling. This essentially creates a quadtree or octree without hierarchical levels of detail (HLOD).
 
-<a name="tileFormats" />
 ## Tile Formats
 
 Each tile's `content.url` property points to a tile that is one of the formats listed in the [Status section](#status) above.
 
 A tileset can contain any combination of tile formats.  3D Tiles may also support different formats in the same tile using a [Composite](TileFormats/Composite/README.md) tile.
 
-<a name="qa" />
 ## Roadmap Q&A
 
-* [General Q&A](#General-qa)
-   * [Can I use 3D Tiles today?](#Can-I-use-3D-Tiles-today)
-   * [Are 3D Tiles specific to Cesium?](#Are-3D-Tiles-specific-to-Cesium)
-   * [What is the relationship between 3D Tiles and glTF?](#What-is-the-relationship-between-3D-Tiles-and-glTF)
-   * [Do 3D Tiles support runtime editing?](#Do-3D-Tiles-support-runtime-editing)
-   * [Will 3D Tiles include terrain?](#Will-3D-Tiles-include-terrain)
-   * [Will 3D Tiles include imagery?](#Will-3D-Tiles-include-imagery)
-   * [Will 3D Tiles replace KML?](#Will-3D-Tiles-replace-KML)
-* [Technical Q&A](#Technical-qa)
-   * [How do 3D Tiles support heterogeneous datasets?](#How-do-3D-Tiles-support-heterogeneous-datasets)
-   * [Will tiles.json be part of the final 3D Tiles spec?](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec)
-   * [How do I request the tiles for Level `n`?](#How-do-I-request-the-tiles-for-Level-n)
-   * [What bounding volume do tiles use?](#What-bounding-volume-do-tiles-use)
-   * [Will 3D Tiles support horizon culling?](#Will-3D-Tiles-support-horizon-culling)
-   * [Is screen-space error the only metric used to drive refinement?](#Is-screen-space-error-the-only-metric-used-to-drive-refinement)
-   * [How are cracks between tiles with vector data handled?](#How-are-cracks-between-tiles-with-vector-data-handled)
-   * [When using replacement refinement, can multiple children be combined into one request?](#When-using-replacement-refinement-can-multiple-children-be-combined-into-one-request)
-   * [How can additive refinement be optimized?](#How-can-additive-refinement-be-optimized)
-   * [What compressed texture formats do 3D Tiles use?](#What-texture-compression-do-3D-Tiles-use)
+* [General Q&A](#general-qa)
+   * [Can I use 3D Tiles today?](#can-i-use-3d-tiles-today)
+   * [Are 3D Tiles specific to Cesium?](#are-3d-tiles-specific-to-cesium)
+   * [What is the relationship between 3D Tiles and glTF?](#what-is-the-relationship-between-3d-tiles-and-gltf)
+   * [Do 3D Tiles support runtime editing?](#does-3d-tiles-support-runtime-editing)
+   * [Will 3D Tiles include terrain?](#will-3d-tiles-include-terrain)
+   * [Will 3D Tiles include imagery?](#will-3d-tiles-include-imagery)
+   * [Will 3D Tiles replace KML?](#will-3d-tiles-replace-kml)
+* [Technical Q&A](#technical-qa)
+   * [How do 3D Tiles support heterogeneous datasets?](#how-do-3d-tiles-support-heterogeneous-datasets)
+   * [Will tiles.json be part of the final 3D Tiles spec?](#will-tilesjson-be-part-of-the-final-3d-tiles-spec)
+   * [How do I request the tiles for Level `n`?](#how-do-i-request-the-tiles-for-level-n)
+   * [What bounding volume do tiles use?](#what-bounding-volume-do-tiles-use)
+   * [Will 3D Tiles support horizon culling?](#will-3d-tiles-support-horizon-culling)
+   * [Is screen-space error the only metric used to drive refinement?](#is-screen-space-error-the-only-metric-used-to-drive-refinement)
+   * [How are cracks between tiles with vector data handled?](#how-are-cracks-between-tiles-with-vector-data-handled)
+   * [When using replacement refinement, can multiple children be combined into one request?](#when-using-replacement-refinement-can-multiple-children-be-combined-into-one-request)
+   * [How can additive refinement be optimized?](#how-can-additive-refinement-be-optimized)
+   * [What compressed texture formats do 3D Tiles use?](#what-compressed-texture-formats-do-3d-tiles-use)
 
-<a name="General-qa" />
 ### General Q&A
 
-<a name="Can-I-use-3D-Tiles-today" />
 #### Can I use 3D Tiles today?
 
 We expect the initial 3D Tiles spec to evolve until spring 2016.  If you are OK with things changing, then yes, jump in.  The Cesium implementation is in the [3d-tiles](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles) branch.
 
-<a name="Are-3D-Tiles-specific-to-Cesium" />
 #### Are 3D Tiles specific to Cesium?
 
 No, 3D Tiles are a general spec for streaming massive heterogeneous 3D geospatial datasets.  The Cesium team started this initiative because we need an open format optimized for streaming 3D content to Cesium.  [AGI](http://www.agi.com/), the founder of Cesium, is also developing tools for creating 3D Tiles.  We expect to see other visualization engines and conversion tools use 3D Tiles.
 
-<a name="What-is-the-relationship-between-3D-Tiles-and-glTF" />
 #### What is the relationship between 3D Tiles and glTF?
 
 [glTF](https://www.khronos.org/gltf), the runtime asset format for WebGL, is an open standard for 3D models from Khronos (the same group that does WebGL and COLLADA).  Cesium uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter.  We recommend using glTF in Cesium for individual assets, e.g., an aircraft, a character, or a 3D building.
@@ -311,36 +295,30 @@ We created 3D Tiles for streaming massive geospatial datasets where a single glT
 
 Taking this approach allows us to improve Cesium, glTF, and 3D Tiles at the same time, e.g., when we add mesh compression to glTF, it benefits 3D models in Cesium, the glTF ecosystem, and 3D Tiles.
 
-<a name="Do-3D-Tiles-support-runtime-editing" />
 #### Does 3D Tiles support runtime editing?
 
 A common use case for 3D buildings is to stream a city dataset, color each building based on one or more properties (e.g., the building's height), and then hide a few buildings and replace them with high-resolution 3D buildings.  With 3D Tiles, this type of editing can be done at runtime.
 
 The general case runtime editing of geometry on a building, vector data, etc., and then efficiently saving those changes in a 3D Tile will be possible, but is not the initial focus.  However, styling is much easier since it can be applied at runtime without modification to the 3D Tiles tree and is part of the initial work.
 
-<a name="Will-3D-Tiles-include-terrain" />
 #### Will 3D Tiles include terrain?
 
 Yes, a [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html)-like tile would fit well with 3D Tiles and allow Cesium to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to tiles.json).
 
 However, since Cesium already streams terrain well, we are not focused on this in the short-term.
 
-<a name="Will-3D-Tiles-include-imagery" />
 #### Will 3D Tiles include imagery?
 
 Yes, there is an opportunity to provide an optimized base layer of terrain and imagery (similar to how a 3D model contains both geometry and textures).  There is also the open research problem of how to tile imagery for 3D.  In 2D, only one LOD (`z` layer) is used for a given view.  In 3D, especially when looking towards the horizon, tiles from multiple LODs are adjacent to each other.  How do we make the seams look good?  This will likely require tool and runtime support.
 
 As with terrain, since Cesium already streams imagery well, we are not focused on this in the short-term.
 
-<a name="Will-3D-Tiles-replace-KML" />
 #### Will 3D Tiles replace KML?
 
 In many cases, yes.  KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web.  3D Tiles are built for the web and optimized for streaming; true HLOD is used; polygons do not need to be triangulated; and so on.
 
-<a name="Technical-qa" />
 ### Technical Q&A
 
-<a name="How-do-3D-Tiles-support-heterogeneous-datasets" />
 #### How do 3D Tiles support heterogeneous datasets?
 
 Geospatial datasets are heterogeneous: 3D buildings are different from terrain, which is different from point clouds, which are different from vector data, and so on.
@@ -351,7 +329,6 @@ Geospatial datasets are heterogeneous: 3D buildings are different from terrain, 
 
 Supporting heterogeneous datasets with both inter-tile (different tile formats in the same tileset) and intra-tile (different tile formats in the same Composite tile) options allows conversion tools to make trade-offs between number of requests, optimal type-specific subdivision, and how visible/hidden layers are streamed.
 
-<a name="Will-tiles.json-be-part-of-the-final-3D-Tiles-spec" />
 #### Will tiles.json be part of the final 3D Tiles spec?
 
 Yes.  There will always be a need to know metadata about the tileset and about tiles that are not yet loaded, e.g., so only visible tiles can be requested.  However, when scaling to millions of tiles, a single tiles.json with metadata for the entire tree would be prohibitively large.
@@ -362,14 +339,12 @@ There's a few other ways we may solve this:
 * Moving subtree metadata to the tile payload instead of tiles.json.  Each tile would have a header with, for example, the bounding volumes of each child, and perhaps grandchildren, and so on.
 * Explicit tile layout like those of traditional tiling schemes (e.g., TMS's `z/y/x`).  The challenge is that this implicitly assumes a spatial subdivision, whereas 3D Tiles are general enough to support quadtrees, octrees, k-d trees, and so on.  There is likely to be a balance where two or three explicit tiling schemes can cover common cases to complement the generic spatial data structures. 
 
-<a name="How-do-I-request-the-tiles-for-Level-n" />
 #### How do I request the tiles for Level `n`?
 
 More generally, how do 3D Tiles support the use case for when the viewer is zoomed in very close to terrain, for example, and we do not want to load all the parent tiles toward the root of the tree; instead, we want to skip right to the high-resolution tiles needed for the current 3D view?
 
 This 3D Tiles topic needs additional research, but the answer is basically the same as above: either the skeleton of the tree can be quickly traversed to find the desired tiles or an explicit layout scheme will be used for specific subdivisions.
 
-<a name="What-bounding-volume-do-tiles-use" />
 #### What bounding volume do tiles use?
 
 Currently, tiles use a box defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  Note that this is not actually a box in WGS84 Cartesian coordinates since the planes perpendicular to the ground are along the geodetic surface normal.
@@ -382,12 +357,10 @@ For example, consider the wasted space in the root bounding volume below and how
 
 See [#10](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/10).
 
-<a name="Will-3D-Tiles-support-horizon-culling" />
 #### Will 3D Tiles support horizon culling?
 
 Since [horizon culling](http://cesiumjs.org/2013/04/25/Horizon-culling/) is useful for terrain, 3D Tiles will likely support the metadata needed for it.  We haven't considered it yet since our initial work with 3D Tiles is for 3D buildings where horizon culling is not effective.
 
-<a name="Is-screen-space-error-the-only-metric-used-to-drive-refinement" />
 #### Is Screen-Space Error the only metric used to drive refinement?
 
 At runtime, a tile's `geometricError` is used to compute the Screen-Space Error (SSE) to drive refinement.  We expect to expand this, for example, by using the [_Virtual Multiresolution Screen Space Error_](http://www.dis.unal.edu.co/profesores/pierre/MyHome/publications/papers/vmsse.pdf) (VMSSE), which takes occlusion into account.  This can be done at runtime without streaming additional tile metadata.  Similarly, fog can also be used to tolerate increases to the SSE in the distance.
@@ -396,12 +369,10 @@ However, we do anticipate other metadata for driving refinement.  SSE may not be
 
 See [#15](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/15).
 
-<a name="How-are-cracks-between-tiles-with-vector-data-handled" />
 #### How are cracks between tiles with vector data handled?
 
 Unlike 2D, in 3D, we expect adjacent tiles to be from different LODs so, for example, in the distance, lower resolution tiles are used.  Adjacent tiles from different LODs can lead to an artifact called _cracking_ where there are gaps between tiles.  For terrain, this is generally handled by dropping _skirts_ slightly angled outward around each tile to fill the gap.  For 3D buildings, this is handled by extending the tile boundary to fully include buildings on the edge; [see above](#Quadtrees).  For vector data, this is an open research problem that we need to solve.  This could invole boundary-aware simplification or runtime stitching. 
 
-<a name="When-using-replacement-refinement-can-multiple-children-be-combined-into-one-request" />
 #### When using replacement refinement, can multiple children be combined into one request?
 
 Often when using replacement refinement, a tile's children are not rendered until all children are downloaded (an exception, for example, is unstructured data such as point clouds, where clipping planes can be used to mask out parts of the parent tile where the children are loaded; naively using the same approach for terrain or an arbitrary 3D model results in cracking or other artifacts between the parent and child).
@@ -410,7 +381,6 @@ We may design 3D Tiles to support downloading all children in a single request b
 
 See [#9](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/9).
 
-<a name="How-can-additive-refinement-be-optimized" />
 #### How can additive refinement be optimized?
 
 Compared to replacement refinement, additive refinement has a size advantage because it doesn't duplicate data in the original dataset.  However, it has a disadvantage when there are expensive tiles to render near the root and the view is zoomed in close.  In this case, for example, the entire root tile may be rendered, but perhaps only one model or even no models are visible.
@@ -419,18 +389,15 @@ Compared to replacement refinement, additive refinement has a size advantage bec
 
 See [#11](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/11).
 
-<a name="What-texture-compression-do-3D-Tiles-use" />
 #### What compressed texture formats do 3D Tiles use?
 
 3D Tiles will support the same texture compression that glTF [will support](https://github.com/KhronosGroup/glTF/issues/59).  In addition, we need to consider how well GPU formats compress compared to, for example, jpeg.  Some desktop game engines stream jpeg, then decompress and recompress to a GPU format in a thread.  The CPU overhead for this approach may be too high for JavaScript and Web Workers.
 
-<a name="Acknowledgments" />
 ## Acknowledgments
 
 * [Sarah Chow](http://cesiumjs.org/team/SarahChow.html)
 * [Kevin Ring](http://www.kotachrome.com/kevin/)
 
-<a name="DataCredits" />
 ## Data credits
 
 The screenshots in this spec use awesome [CyberCity3D](http://www.cybercity3d.com/) buildings and the [Bing Maps](https://www.microsoft.com/maps/choose-your-bing-maps-API.aspx) base layer.
