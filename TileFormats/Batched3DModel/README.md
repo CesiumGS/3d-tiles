@@ -23,7 +23,7 @@ A tile is composed of a header immediately followed by a body.
 
 ## Header
 
-The 16-byte header contains:
+The 20-byte header contains:
 
 |Field name|Data type|Description|
 |----------|---------|-----------|
