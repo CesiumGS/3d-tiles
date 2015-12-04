@@ -86,7 +86,7 @@ The metadata for each tile - not the actual contents - are defined in JSON.  For
       0,
       19.4
     ]
-  },
+  },sp
   "children": [...]
 }
 ```
@@ -251,7 +251,7 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 
 ## Tile Formats
 
-Each tile's `content.url` property points to a tile that is one of the formats listed in the [Status section](#status) above.
+Each tile's `content.url` property points to a tile that is one of the formats listed in the [Status section](#spec-status) above.
 
 A tileset can contain any combination of tile formats.  3D Tiles may also support different formats in the same tile using a [Composite](TileFormats/Composite/README.md) tile.
 
