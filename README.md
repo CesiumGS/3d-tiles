@@ -4,6 +4,7 @@ Specification for streaming massive heterogeneous **3D** geospatial datasets.
 
 Contents:
 
+* [Resources](#resources)
 * [Spec status](#spec-status)
 * [Introduction](#introduction)
 * [Tile metadata](#tile-metadata)
@@ -25,13 +26,22 @@ Created by the <a href="http://cesiumjs.org/">Cesium team</a> and built on <a hr
 <a href="http://cesiumjs.org/"><img src="figures/cesium.jpg" height="40" /></a> <a href="https://www.khronos.org/gltf"><img src="figures/gltf.png" height="40" /></a>
 </p>
 
-Discuss 3D Tiles on the [Cesium forum](http://cesiumjs.org/forum.html) or contact Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi).
+Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi).
 
 ---
 
+## Resources
+
+* [Introducing 3D Tiles](http://cesiumjs.org/2015/08/10/Introducing-3D-Tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
+* [3D Tiles thread on the Cesium forum](https://groups.google.com/forum/#!topic/cesium-dev/tCCooBxpZFU) - get the latest 3D Tiles news and ask questions here.
+* Cesium implementation
+   * [Roadmap](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241)
+   * [3d-tiles](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles) branch
+* [Slides](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf) on 3D Tiles from the Cesium BOF at SIGGRAPH 2015.
+
 ## Spec status
 
-The 3D Tiles spec is pre-1.0.  We expect it and the [Cesium implementation](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241) to stabilize in the spring of 2016.
+The 3D Tiles spec is pre-1.0.  We expect it and the Cesium implementation to stabilize in the spring of 2016.
 
 Topic  | Status
 ---|---
@@ -50,8 +60,6 @@ Stars  | :white_circle: **Not started**
 For spec work in progress, [watch this repo](https://github.com/AnalyticalGraphicsInc/3d-tiles/subscription) and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
 
 ## Introduction
-
-For an introduction to the motivation for and principles of 3D Tiles, see [Introducing 3D Tiles](http://cesiumjs.org/2015/08/10/Introducing-3D-Tiles/) on the Cesium blog.  Here, we cover the format itself.
 
 In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its contents.  The tree has spatial coherence; the content for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any spatial data structure with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
 
