@@ -177,7 +177,7 @@ When a tile points to an external tileset, the tile
     * `root.box === tile.content.box` (or `root.box === tile.box` when `tile.content.box` is `undefined`).
 * Cannot be used to create cycles, for example, by pointing to the same tiles.json containing the tile or by pointing to another tiles.json that then points back to the tiles.json containing the tile.
 
-_TODO: figure_
+![](figures/tilesets.jpg)
 
 ### Bounding volume spatial coherence
 
