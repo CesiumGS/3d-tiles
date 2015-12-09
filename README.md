@@ -9,6 +9,7 @@ Contents:
 * [Introduction](#introduction)
 * [Tile metadata](#tile-metadata)
 * [tiles.json](#tilesjson)
+   * [External tilesets](#external-tilesets)
    * [Bounding volume spatial coherence](#bounding-volume-spatial-coherence)
    * [Creating spatial data structures](#creating-spatial-data-structures)
       * [K-d trees](#k-d-trees)
@@ -106,7 +107,7 @@ The `refine` property is an optional string that is either `"replace"` for repla
 
 The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
 
-The file extension of `content.url` defines the [tile format](#tileFormats).  The url can be another tiles.json file to create a tileset of tilesets.
+The file extension of `content.url` defines the [tile format](#tileFormats).  The url can be another tiles.json file to create a tileset of tilesets.  See [External tilesets](#external-tilesets)
 
 `content.box` defines an optional bounding volume similar to the top-level `box` property. But unlike the top-level `box` property, `content.box` is a tightly fit box enclosing just the tile's contents.  This is used for replacement refinement; `box` provides spatial coherence and `content.box` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `box`, shown in red, and encloses the entire area of the tileset; `content.box` shown in blue, encloses just the four models in the root tile.
 
@@ -170,6 +171,21 @@ The top-level object in tiles.json has three properties: `propertes`, `geometric
 See [schema](schema) for the detailed JSON schema for tiles.json.
 
 See the [Q&A below](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec) for how tiles.json will scale to a massive number of tiles. 
+
+### External Tilesets
+
+To create a tree of trees, a tile's `content.url` can point to an external tileset (another tile.json).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
+
+When a tile points to an external tileset, the tile
+
+* Cannot have any children, `tile.children` must be `undefined` or an empty array.
+* Is semantically the same as the external tileset's root tile so
+    * `root.geometricError === tile.geometricError`,
+    * `root.refine === tile.refine`, and
+    * `root.box === tile.content.box` (or `root.box === tile.box` when `tile.content.box` is `undefined`).
+* Cannot be used to create cycles, for example, by pointing to the same tiles.json containing the tile or by pointing to another tiles.json that then points back to the tiles.json containing the tile.
+
+![](figures/tilesets.jpg)
 
 ### Bounding volume spatial coherence
 
@@ -403,6 +419,7 @@ See [#11](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/11).
 
 ## Acknowledgments
 
+* [Erik Andersson](https://github.com/e-andersson)
 * [Sarah Chow](http://cesiumjs.org/team/SarahChow.html)
 * [Kevin Ring](http://www.kotachrome.com/kevin/)
 
