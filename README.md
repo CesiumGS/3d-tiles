@@ -66,7 +66,9 @@ In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structu
 
 ![](figures/tree.png)
 
-Currently, the bounding volume is a "box" defined by minimum and maximum longitude, latitude, and height.  We expect 3D Tiles will eventually support different bounding volumes; see the [Q&A below](#What-bounding-volume-do-tiles-use).
+To support tight fitting volumes for a variety of datasets from regularly divided terrain to cities not aligned with a line of longitude or latitude to arbitrary point clouds, the bounding volume may be an oriented bounding box, a bounding sphere, or a geographic region defined by minimum and maximum longitudes, latitudes, and heights.
+
+_TODO: include a screenshot of each bounding volume type._
 
 A tile usually references a _model_ or set of _models_, e.g., 3D buildings.  These models may be batched together into essentially a single model to reduce client-side load time and WebGL draw call overhead.
 
@@ -75,31 +77,35 @@ A tile usually references a _model_ or set of _models_, e.g., 3D buildings.  The
 The metadata for each tile - not the actual contents - are defined in JSON.  For example:
 ```json
 {
-  "box": [
-    -1.2419052957251926,
-    0.7395016240301894,
-    -1.2415404171917719,
-    0.7396563300150859,
-    0,
-    20.4
-  ],
+  "boundingVolume": {
+    "region": [
+      -1.2419052957251926,
+      0.7395016240301894,
+      -1.2415404171917719,
+      0.7396563300150859,
+      0,
+      20.4
+    ]
+  },
   "geometricError": 43.88464075650763,
   "refine" : "add",
   "content": {
-    "url": "2/0/0.b3dm",
-    "box": [
-      -1.2418882438584018,
-      0.7395016240301894,
-      -1.2415422846940714,
-      0.7396461198389616,
-      0,
-      19.4
-    ]
-  },sp
+    "boundingVolume": {
+      "region": [
+        -1.2418882438584018,
+        0.7395016240301894,
+        -1.2415422846940714,
+        0.7396461198389616,
+        0,
+        19.4
+      ]
+    },
+    "url": "2/0/0.b3dm"
+  },
   "children": [...]
 }
 ```
-The top-level `box` property is an array of six numbers that define the bounding volume with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
+The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
 
 The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
 
@@ -109,7 +115,7 @@ The `content` property is an object that contains metadata about the tile's cont
 
 The file extension of `content.url` defines the [tile format](#tileFormats).  The url can be another tiles.json file to create a tileset of tilesets.  See [External tilesets](#external-tilesets)
 
-`content.box` defines an optional bounding volume similar to the top-level `box` property. But unlike the top-level `box` property, `content.box` is a tightly fit box enclosing just the tile's contents.  This is used for replacement refinement; `box` provides spatial coherence and `content.box` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `box`, shown in red, and encloses the entire area of the tileset; `content.box` shown in blue, encloses just the four models in the root tile.
+`content.boundingVolume` defines an optional bounding volume similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's contents.  This is used for replacement refinement; `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four models in the root tile.
 
 ![](figures/contentsBox.png)
 
@@ -134,25 +140,29 @@ _tiles.json_ defines a tileset.  Here is a subset of the tiles.json used for [Ca
   },
   "geometricError": 494.50961650991815,
   "root": {
-    "box": [
-      -0.0005682966577418737,
-      0.8987233516605286,
-      0.00011646582098558159,
-      0.8990603398325034,
-      0,
-      241.6
-    ],
-    "geometricError": 268.37878244706053,
-    "content": {
-      "url": "0/0/0.b3dm",
-      "box": [
-        -0.0004001690908972599,
-        0.8988700116775743,
-        0.00010096729722787196,
-        0.8989625664878067,
+    "boundingVolume": {
+      "region": [
+        -0.0005682966577418737,
+        0.8987233516605286,
+        0.00011646582098558159,
+        0.8990603398325034,
         0,
         241.6
       ]
+    },
+    "geometricError": 268.37878244706053,
+    "content": {
+      "url": "0/0/0.b3dm",
+      "boundingVolume": {
+        "region": [
+          -0.0004001690908972599,
+          0.8988700116775743,
+          0.00010096729722787196,
+          0.8989625664878067,
+          0,
+          241.6
+        ]
+      }
     },
     "children": [..]
   }
@@ -293,7 +303,6 @@ A tileset can contain any combination of tile formats.  3D Tiles may also suppor
    * [How do 3D Tiles support heterogeneous datasets?](#how-do-3d-tiles-support-heterogeneous-datasets)
    * [Will tiles.json be part of the final 3D Tiles spec?](#will-tilesjson-be-part-of-the-final-3d-tiles-spec)
    * [How do I request the tiles for Level `n`?](#how-do-i-request-the-tiles-for-level-n)
-   * [What bounding volume do tiles use?](#what-bounding-volume-do-tiles-use)
    * [Will 3D Tiles support horizon culling?](#will-3d-tiles-support-horizon-culling)
    * [Is screen-space error the only metric used to drive refinement?](#is-screen-space-error-the-only-metric-used-to-drive-refinement)
    * [How are cracks between tiles with vector data handled?](#how-are-cracks-between-tiles-with-vector-data-handled)
@@ -368,18 +377,6 @@ There's a few other ways we may solve this:
 More generally, how do 3D Tiles support the use case for when the viewer is zoomed in very close to terrain, for example, and we do not want to load all the parent tiles toward the root of the tree; instead, we want to skip right to the high-resolution tiles needed for the current 3D view?
 
 This 3D Tiles topic needs additional research, but the answer is basically the same as above: either the skeleton of the tree can be quickly traversed to find the desired tiles or an explicit layout scheme will be used for specific subdivisions.
-
-#### What bounding volume do tiles use?
-
-Currently, tiles use a box defined by minimum and maximum longitude, latitude, and height (relative to the WGS84 ellipsoid).  Note that this is not actually a box in WGS84 Cartesian coordinates since the planes perpendicular to the ground are along the geodetic surface normal.
-
-This bounding volume works OK for the general case, but 3D Tiles will likely support other bounding volumes such as bounding spheres and oriented bounding boxes defined in Cartesian coordinates.  The latter will allow, for example, BSP trees and better fit bounding volumes for cities not aligned with a line of longitude or latitude, and for arbitrary point clouds.
-
-For example, consider the wasted space in the root bounding volume below and how it could be reduced by rotating it:
-
-![](figures/grid.png)
-
-See [#10](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/10).
 
 #### Will 3D Tiles support horizon culling?
 
