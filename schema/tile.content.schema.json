@@ -6,7 +6,7 @@
     "properties" : {
         "boundingVolume" : {
             "extends" : { "$ref" : "boundingVolume.schema.json" },
-            "description" : "An optional bounding volumes that tightly enclosing just the tile's contents. This is used for replacement refinement; tile.boundingVolume provides spatial coherence and tile.content.boundingVolume enables tight view frustum culling. When this is omitted, tile.boundingVolume is used."
+            "description" : "An optional bounding volume that tightly enclosing just the tile's contents. This is used for replacement refinement; tile.boundingVolume provides spatial coherence and tile.content.boundingVolume enables tight view frustum culling. When this is omitted, tile.boundingVolume is used."
         },
         "url" : {
             "type" : "string",
