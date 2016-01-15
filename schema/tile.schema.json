@@ -17,10 +17,9 @@
         },
         "refine" : {
             "type" : "string",
-            "description" : "Specifies if additive or replacement refinement is used when traversing the tileset for rendering.",
-            "enum" : ["add", "replace"],
-            "default" : "add"
-        },        
+            "description" : "Specifies if additive or replacement refinement is used when traversing the tileset for rendering.  This property is required for the root tile of a tileset; it is optional for all other tiles.  The default is to inherit from the parent tile.",
+            "enum" : ["add", "replace"]
+        },
         "content" : {
             "extends" : { "$ref" : "tile.content.schema.json" },
             "description" : "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling."

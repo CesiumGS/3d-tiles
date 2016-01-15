@@ -39,6 +39,7 @@
       "url": "0/0/0.b3dm"
     },
     "geometricError": 268.37878244706053,
+    "refine": "add",
     "children": [
       {
         "boundingVolume": {
