@@ -1,6 +1,6 @@
 {
     "$schema" : "http://json-schema.org/draft-03/schema",
-    "title" : "Tiles",
+    "title" : "tile",
     "type" : "object",
     "description" : "A tile in a 3D Tiles tileset.",
     "properties" : {
