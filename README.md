@@ -8,7 +8,7 @@ Contents:
 * [Spec status](#spec-status)
 * [Introduction](#introduction)
 * [Tile metadata](#tile-metadata)
-* [tiles.json](#tilesjson)
+* [tileset.json](#tilesjson)
    * [External tilesets](#external-tilesets)
    * [Bounding volume spatial coherence](#bounding-volume-spatial-coherence)
    * [Creating spatial data structures](#creating-spatial-data-structures)
@@ -46,7 +46,7 @@ The 3D Tiles spec is pre-1.0.  We expect it and the Cesium implementation to sta
 
 Topic  | Status
 ---|---
-[tiles.json](#tiles.json)  | :white_check_mark: **Good starting point**, will expand as we add new tile formats
+[tileset.json](#tileset.json)  | :white_check_mark: **Good starting point**, will expand as we add new tile formats
 [Batched 3D Model](TileFormats/Batched3DModel/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
 [Point Cloud](TileFormats/Points/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
 [Composite](TileFormats/Composite/README.md) (cmpt) | :white_check_mark: **Solid base**, only minor changes expected
@@ -113,7 +113,7 @@ The `refine` property is a string that is either `"replace"` for replacement ref
 
 The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
 
-The file extension of `content.url` defines the [tile format](#tileFormats).  The url can be another tiles.json file to create a tileset of tilesets.  See [External tilesets](#external-tilesets)
+The file extension of `content.url` defines the [tile format](#tileFormats).  The url can be another tileset.json file to create a tileset of tilesets.  See [External tilesets](#external-tilesets)
 
 `content.boundingVolume` defines an optional bounding volume similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's contents.  This is used for replacement refinement; `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four models in the root tile.
 
@@ -121,15 +121,15 @@ The file extension of `content.url` defines the [tile format](#tileFormats).  Th
 
 `content` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#Grids)).
 
-`children` is an array of objects that define child tiles.  See the [section below](#tiles.json).
+`children` is an array of objects that define child tiles.  See the [section below](#tileset.json).
 
 ![](figures/tile.png)
 
 _TODO: Update the above figure, [#27](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/27)_
 
-## tiles.json
+## tileset.json
 
-_tiles.json_ defines a tileset.  Here is a subset of the tiles.json used for [Canary Wharf](http://cesiumjs.org/CanaryWharf/) (also see the complete [tiles.json](examples/tiles.json)):
+_tileset.json_ defines a tileset.  Here is a subset of the tileset.json used for [Canary Wharf](http://cesiumjs.org/CanaryWharf/) (also see the complete [tileset.json](examples/tileset.json)):
 ```json
 {
   "properties": {
@@ -168,9 +168,9 @@ _tiles.json_ defines a tileset.  Here is a subset of the tiles.json used for [Ca
   }
 }
 ```
-The top-level object in tiles.json has three properties: `propertes`, `geometricError`, and `root`.
+The top-level object in tileset.json has three properties: `propertes`, `geometricError`, and `root`.
 
-`propertes` is an object containing objects for each per-model property in the tileset.  This tiles.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see the _Batch Table_ in the [Batched 3D Model](TileFormats/Batched3DModel/README.md) tile format).  The name of each object in `properties` matches the name of a per-model property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
+`propertes` is an object containing objects for each per-model property in the tileset.  This tileset.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see the _Batch Table_ in the [Batched 3D Model](TileFormats/Batched3DModel/README.md) tile format).  The name of each object in `properties` matches the name of a per-model property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
 `geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered.
 
@@ -178,9 +178,9 @@ The top-level object in tiles.json has three properties: `propertes`, `geometric
 
 `root.children` is an array of objects that define child tiles.  Each child tile has a `box` fully enclosed by its parent tile's `box` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
 
-See [schema](schema) for the detailed JSON schema for tiles.json.
+See [schema](schema) for the detailed JSON schema for tileset.json.
 
-See the [Q&A below](#Will-tiles.json-be-part-of-the-final-3D-Tiles-spec) for how tiles.json will scale to a massive number of tiles. 
+See the [Q&A below](#Will-tileset.json-be-part-of-the-final-3D-Tiles-spec) for how tileset.json will scale to a massive number of tiles. 
 
 ### External Tilesets
 
@@ -193,7 +193,7 @@ When a tile points to an external tileset, the tile
     * `root.geometricError === tile.geometricError`,
     * `root.refine === tile.refine`, and
     * `root.box === tile.content.box` (or `root.box === tile.box` when `tile.content.box` is `undefined`).
-* Cannot be used to create cycles, for example, by pointing to the same tiles.json containing the tile or by pointing to another tiles.json that then points back to the tiles.json containing the tile.
+* Cannot be used to create cycles, for example, by pointing to the same tileset.json containing the tile or by pointing to another tileset.json that then points back to the tileset.json containing the tile.
 
 ![](figures/tilesets.jpg)
 
@@ -213,9 +213,9 @@ As described above, the tree has spatial coherence; each tile has a bounding vol
 
 ### Creating spatial data structures
 
-The tree defined in tiles.json by `root` and, recursively, its `children`, can define different types of spatial data structures.  In addition, any combination of tile formats and refinement approach (replacement or additive) can be used, enabling a lot of flexibility to support heterogeneous datasets.
+The tree defined in tileset.json by `root` and, recursively, its `children`, can define different types of spatial data structures.  In addition, any combination of tile formats and refinement approach (replacement or additive) can be used, enabling a lot of flexibility to support heterogeneous datasets.
 
-It is up to the conversion tool that generates tiles.json to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by tiles.json.  Here's a brief descriptions of how 3D Tiles can represent various spatial data structures.
+It is up to the conversion tool that generates tileset.json to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by tileset.json.  Here's a brief descriptions of how 3D Tiles can represent various spatial data structures.
 
 #### K-d trees
 
@@ -301,7 +301,7 @@ A tileset can contain any combination of tile formats.  3D Tiles may also suppor
    * [Will 3D Tiles replace KML?](#will-3d-tiles-replace-kml)
 * [Technical Q&A](#technical-qa)
    * [How do 3D Tiles support heterogeneous datasets?](#how-do-3d-tiles-support-heterogeneous-datasets)
-   * [Will tiles.json be part of the final 3D Tiles spec?](#will-tilesjson-be-part-of-the-final-3d-tiles-spec)
+   * [Will tileset.json be part of the final 3D Tiles spec?](#will-tilesjson-be-part-of-the-final-3d-tiles-spec)
    * [How do I request the tiles for Level `n`?](#how-do-i-request-the-tiles-for-level-n)
    * [Will 3D Tiles support horizon culling?](#will-3d-tiles-support-horizon-culling)
    * [Is screen-space error the only metric used to drive refinement?](#is-screen-space-error-the-only-metric-used-to-drive-refinement)
@@ -336,7 +336,7 @@ The general case runtime editing of geometry on a building, vector data, etc., a
 
 #### Will 3D Tiles include terrain?
 
-Yes, a [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html)-like tile would fit well with 3D Tiles and allow Cesium to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to tiles.json).
+Yes, a [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html)-like tile would fit well with 3D Tiles and allow Cesium to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to tileset.json).
 
 However, since Cesium already streams terrain well, we are not focused on this in the short-term.
 
@@ -362,14 +362,14 @@ Geospatial datasets are heterogeneous: 3D buildings are different from terrain, 
 
 Supporting heterogeneous datasets with both inter-tile (different tile formats in the same tileset) and intra-tile (different tile formats in the same Composite tile) options allows conversion tools to make trade-offs between number of requests, optimal type-specific subdivision, and how visible/hidden layers are streamed.
 
-#### Will tiles.json be part of the final 3D Tiles spec?
+#### Will tileset.json be part of the final 3D Tiles spec?
 
-Yes.  There will always be a need to know metadata about the tileset and about tiles that are not yet loaded, e.g., so only visible tiles can be requested.  However, when scaling to millions of tiles, a single tiles.json with metadata for the entire tree would be prohibitively large.
+Yes.  There will always be a need to know metadata about the tileset and about tiles that are not yet loaded, e.g., so only visible tiles can be requested.  However, when scaling to millions of tiles, a single tileset.json with metadata for the entire tree would be prohibitively large.
 
-3D Tiles already support trees of trees. `content.url` can point to another tiles.json, which enables conversion tools to chunk up a tileset into any number of tiles.json files that reference each other.
+3D Tiles already support trees of trees. `content.url` can point to another tileset.json, which enables conversion tools to chunk up a tileset into any number of tileset.json files that reference each other.
 
 There's a few other ways we may solve this:
-* Moving subtree metadata to the tile payload instead of tiles.json.  Each tile would have a header with, for example, the bounding volumes of each child, and perhaps grandchildren, and so on.
+* Moving subtree metadata to the tile payload instead of tileset.json.  Each tile would have a header with, for example, the bounding volumes of each child, and perhaps grandchildren, and so on.
 * Explicit tile layout like those of traditional tiling schemes (e.g., TMS's `z/y/x`).  The challenge is that this implicitly assumes a spatial subdivision, whereas 3D Tiles are general enough to support quadtrees, octrees, k-d trees, and so on.  There is likely to be a balance where two or three explicit tiling schemes can cover common cases to complement the generic spatial data structures. 
 
 #### How do I request the tiles for Level `n`?
@@ -398,7 +398,7 @@ Unlike 2D, in 3D, we expect adjacent tiles to be from different LODs so, for exa
 
 Often when using replacement refinement, a tile's children are not rendered until all children are downloaded (an exception, for example, is unstructured data such as point clouds, where clipping planes can be used to mask out parts of the parent tile where the children are loaded; naively using the same approach for terrain or an arbitrary 3D model results in cracking or other artifacts between the parent and child).
 
-We may design 3D Tiles to support downloading all children in a single request by allowing tiles.json to point to a subset of a file for a tile's content similiar to glTF [buffer](https://github.com/KhronosGroup/glTF/blob/master/specification/buffer.schema.json) and [bufferView](https://github.com/KhronosGroup/glTF/blob/master/specification/bufferView.schema.json).  [HTTP/2](http://chimera.labs.oreilly.com/books/1230000000545/ch12.html#_brief_history_of_spdy_and_http_2) will also make the overhead of multiple requests less important.
+We may design 3D Tiles to support downloading all children in a single request by allowing tileset.json to point to a subset of a file for a tile's content similiar to glTF [buffer](https://github.com/KhronosGroup/glTF/blob/master/specification/buffer.schema.json) and [bufferView](https://github.com/KhronosGroup/glTF/blob/master/specification/bufferView.schema.json).  [HTTP/2](http://chimera.labs.oreilly.com/books/1230000000545/ch12.html#_brief_history_of_spdy_and_http_2) will also make the overhead of multiple requests less important.
 
 See [#9](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/9).
 
