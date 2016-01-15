@@ -1,9 +1,19 @@
 {
     "$schema" : "http://json-schema.org/draft-03/schema",
-    "title" : "Tileset",
+    "title" : "tileset",
     "type" : "object",
     "description" : "A 3D Tiles tileset.",
     "properties" : {
+        "asset" : {
+            "type" : "object",
+            "description" : "Metadata about the entire tileset.",
+            "properties" : {
+            },
+            "additionalProperties" : {
+                "$ref" : "asset.schema.json"
+            },
+            "required" : true
+        },
         "properties" : {
             "type" : "object",
             "description" : "A dictionary object of metadata about per-feature properties.",

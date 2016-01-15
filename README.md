@@ -42,7 +42,7 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi).
 
 ## Spec status
 
-The 3D Tiles spec is pre-1.0.  We expect it and the Cesium implementation to stabilize in the spring of 2016.
+The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in tileset.json).  We expect it and the Cesium implementation to stabilize in the spring of 2016.
 
 Topic  | Status
 ---|---
@@ -132,6 +132,10 @@ _TODO: Update the above figure, [#27](https://github.com/AnalyticalGraphicsInc/3
 _tileset.json_ defines a tileset.  Here is a subset of the tileset.json used for [Canary Wharf](http://cesiumjs.org/CanaryWharf/) (also see the complete [tileset.json](examples/tileset.json)):
 ```json
 {
+  "asset" : {
+    "version": 0.0,
+    "tilesetVersion": "e575c6f1-a45b-420a-b172-6449fa6e0a59"
+  },
   "properties": {
     "Height": {
       "minimum": 1,
@@ -168,7 +172,9 @@ _tileset.json_ defines a tileset.  Here is a subset of the tileset.json used for
   }
 }
 ```
-The top-level object in tileset.json has three properties: `propertes`, `geometricError`, and `root`.
+The top-level object in tileset.json has four properties: `asset`, `propertes`, `geometricError`, and `root`.
+
+`asset` is an object containing properties with metadata about the entire tileset.  Its `version` property is a string that defines the 3D Tiles version.  The version defines the JSON schema for tileset.json and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated.
 
 `propertes` is an object containing objects for each per-model property in the tileset.  This tileset.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see the _Batch Table_ in the [Batched 3D Model](TileFormats/Batched3DModel/README.md) tile format).  The name of each object in `properties` matches the name of a per-model property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 

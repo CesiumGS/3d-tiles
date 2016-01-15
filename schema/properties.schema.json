@@ -1,6 +1,6 @@
 {
     "$schema" : "http://json-schema.org/draft-03/schema",
-    "title" : "Properties",
+    "title" : "properties",
     "type" : "object",
     "description" : "A dictionary object of metadata about per-feature properties.",
     "properties" : {
