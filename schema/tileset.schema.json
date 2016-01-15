@@ -12,7 +12,7 @@
             "additionalProperties" : {
                 "$ref" : "asset.schema.json"
             },
-            "default" : {}
+            "required" : true
         },
         "properties" : {
             "type" : "object",
