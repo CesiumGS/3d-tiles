@@ -133,7 +133,7 @@ _tileset.json_ defines a tileset.  Here is a subset of the tileset.json used for
 ```json
 {
   "asset" : {
-    "version": 0.0,
+    "version": "0.0",
     "tilesetVersion": "e575c6f1-a45b-420a-b172-6449fa6e0a59"
   },
   "properties": {
