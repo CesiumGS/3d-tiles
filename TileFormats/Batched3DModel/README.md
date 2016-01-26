@@ -30,10 +30,10 @@ The 20-byte header contains:
 | `magic` | 4-byte ANSI string | `"b3dm"`.  This can be used to identify the arraybuffer as a Batched 3D Model tile. |
 | `version` | `uint32` | The version of the Batched 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
-| `batchLength` | `unit32` | The number of models in the batch. |
+| `batchLength` | `unit32` | The number of models, also called features, in the batch. |
 | `batchTableByteLength` | `uint32` | The length of the batch table in bytes. Zero indicates there is not a batch table. |
 
-_TODO: code example reading header_
+_TODO: Link to Cesium code for reading header_
 
 The body immediately follows the header, and is composed of two fields: `Batch Table` and `Binary glTF`.
 
