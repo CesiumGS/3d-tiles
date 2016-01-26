@@ -70,7 +70,7 @@ To support tight fitting volumes for a variety of datasets from regularly divide
 
 _TODO: include a screenshot of each bounding volume type._
 
-A tile usually references a _model_ or set of _models_, e.g., 3D buildings.  These models may be batched together into essentially a single model to reduce client-side load time and WebGL draw call overhead.
+A tile references a _feature_ or set of _features_, such as 3D models representing buildings or trees, points in a point cloud, or polygons, polylines, and points in a vector dataset.  These features may be batched together into essentially a single feature to reduce client-side load time and WebGL draw call overhead.
 
 ## Tile metadata
 
@@ -105,7 +105,7 @@ The metadata for each tile - not the actual contents - are defined in JSON.  For
   "children": [...]
 }
 ```
-The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
+The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.  Besides `region`, other bounding volumes, such as `box` and `sphere`, may be used.
 
 The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
 
@@ -115,7 +115,7 @@ The `content` property is an object that contains metadata about the tile's cont
 
 The file extension of `content.url` defines the [tile format](#tileFormats).  The url can be another tileset.json file to create a tileset of tilesets.  See [External tilesets](#external-tilesets)
 
-`content.boundingVolume` defines an optional bounding volume similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's contents.  This is used for replacement refinement; `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four models in the root tile.
+`content.boundingVolume` defines an optional bounding volume similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's contents.  This is used for replacement refinement; `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
 
 ![](figures/contentsBox.png)
 
@@ -176,11 +176,11 @@ The top-level object in tileset.json has four properties: `asset`, `propertes`, 
 
 `asset` is an object containing properties with metadata about the entire tileset.  Its `version` property is a string that defines the 3D Tiles version.  The version defines the JSON schema for tileset.json and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated.
 
-`propertes` is an object containing objects for each per-model property in the tileset.  This tileset.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see the _Batch Table_ in the [Batched 3D Model](TileFormats/Batched3DModel/README.md) tile format).  The name of each object in `properties` matches the name of a per-model property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
+`propertes` is an object containing objects for each per-feature property in the tileset.  This tileset.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see the _Batch Table_ in the [Batched 3D Model](TileFormats/Batched3DModel/README.md) tile format).  The name of each object in `properties` matches the name of a per-feature property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
 `geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered.
 
-`root` is an object that defines the root tile using the JSON described in the [above section](#Tile-Metadata).  `root.geometricError` is not the same as tile.json's top-level `geometricError`.  tile.json's `geometricError` is the error when the entire tileset is not rendered; `root.geometricError` is the error when only the root tile is rendered.
+`root` is an object that defines the root tile using the JSON described in the [above section](#Tile-Metadata).  `root.geometricError` is not the same as tileset.json's top-level `geometricError`.  tileset.json's `geometricError` is the error when the entire tileset is not rendered; `root.geometricError` is the error when only the root tile is rendered.
 
 `root.children` is an array of objects that define child tiles.  Each child tile has a `box` fully enclosed by its parent tile's `box` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
 
@@ -190,7 +190,7 @@ See the [Q&A below](#Will-tileset.json-be-part-of-the-final-3D-Tiles-spec) for h
 
 ### External Tilesets
 
-To create a tree of trees, a tile's `content.url` can point to an external tileset (another tile.json).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
+To create a tree of trees, a tile's `content.url` can point to an external tileset (another tileset.json).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
 
 When a tile points to an external tileset, the tile
 
@@ -256,7 +256,7 @@ For example, here is the root tile and its children for Canary Wharf.  Note the 
 
 ![](figures/nonUniformQuadtree.png)
 
-3D Tiles also enable other quadtree variations such as [loose quadtrees](http://www.tulrich.com/geekstuff/partitioning.html), where child tiles overlap but spatial coherence is still preserved, i.e., a parent tile completely encloses all of its children.  This approach can be useful to avoid splitting models across tiles.
+3D Tiles also enable other quadtree variations such as [loose quadtrees](http://www.tulrich.com/geekstuff/partitioning.html), where child tiles overlap but spatial coherence is still preserved, i.e., a parent tile completely encloses all of its children.  This approach can be useful to avoid splitting features, such as 3D models, across tiles.
 
 <p align="center">
   <img src="figures/quadtree-overlap.png" /><br />
@@ -410,7 +410,7 @@ See [#9](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/9).
 
 #### How can additive refinement be optimized?
 
-Compared to replacement refinement, additive refinement has a size advantage because it doesn't duplicate data in the original dataset.  However, it has a disadvantage when there are expensive tiles to render near the root and the view is zoomed in close.  In this case, for example, the entire root tile may be rendered, but perhaps only one model or even no models are visible.
+Compared to replacement refinement, additive refinement has a size advantage because it doesn't duplicate data in the original dataset.  However, it has a disadvantage when there are expensive tiles to render near the root and the view is zoomed in close.  In this case, for example, the entire root tile may be rendered, but perhaps only one feature or even no features are visible.
 
 3D Tiles can optimize this by storing an optional spatial data structure in each tile.  For example, a tile could contain a simple 2x2 grid, and if the tile's bounding volume is not completely inside the view frustum, each box in the grid is checked against the frustum, and only those inside or intersecting are rendered.
 
