@@ -35,9 +35,9 @@ The 28-byte header contains:
 | `batchTableByteLength` | `uint32` | The length of the batch table in bytes. Zero indicates there is not a batch table. |
 | `gltfByteLength` | `uint32` | The length of the glTF field in bytes. |
 | `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the glTF section below. |
-| `instancesLength` | `uint32` | The number of instances. |
+| `instancesLength` | `uint32` | The number of instances, also called features, in the tile. |
 
-_TODO: code example reading header_
+_TODO: Link to Cesium code for reading header_
 
 If either `gltfByteLength` or `instancesLength` equal zero, the tile does not need to be rendered.
 
