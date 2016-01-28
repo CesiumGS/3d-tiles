@@ -17,13 +17,13 @@ A Composite is a binary blob in little endian accessed in JavaScript as an `Arra
 
 ## Layout
 
-**Figure 1**: Composite layout (dashes indicate optional sections).
+**Figure 1**: Composite layout (dashes indicate optional fields).
 
 ![](figures/layout.png)
 
 ## Header
 
-The 16-byte header contains:
+The 16-byte header section contains the following fields:
 
 |Field name|Data type|Description|
 |----------|---------|-----------|
@@ -36,13 +36,13 @@ _TODO: code example reading header_
 
 ## Inner Tiles
 
-Inner tiles are stored tightly packed immediately following the header.
+Inner tile fields are stored tightly packed immediately following the header section.
 
 Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See the [main 3D Tiles spec](../../README.md) for a list of tile formats.  Composite tiles can contain Composite tiles.
 
 Each tile's header contains a `uint32` `byteLength`, which defines the length of the inner tile, including its header, in bytes.  This can be used to traverse the inner tiles.
 
-For any tile format's version 1, the first 12-bytes of all tiles is:
+For any tile format's version 1, the first 12-bytes of all tiles is the following fields:
 
 |Field name|Data type|Description|
 |----------|---------|-----------|
@@ -58,6 +58,6 @@ Refer to the spec for each tile format for more details.
 
 ## MIME Type
 
-_TODO_
+_TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`

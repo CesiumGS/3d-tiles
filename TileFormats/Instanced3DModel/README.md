@@ -11,21 +11,21 @@ _Instanced 3D Model_ is a tile format for efficient streaming and rendering of a
 
 In addition to trees, Instanced 3D Model is useful for fire hydrants, sewer caps, lamps, traffic lights, etc.
 
-A Composite tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights.
+A [Composite](../Composite/README.md) tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights.
 
 Instanced 3D Model maps well to the [ANGLE_instanced_arrays](https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/) extension for efficient rendering with WebGL.
 
 ## Layout
 
-A tile is composed of a header immediately followed by a body.
+A tile is composed of a header section immediately followed by a body section.
 
-**Figure 1**: Instanced 3D Model layout (dashes indicate optional sections).
+**Figure 1**: Instanced 3D Model layout (dashes indicate optional fields).
 
 ![](figures/layout.png)
 
 ## Header
 
-The 28-byte header contains:
+The 28-byte header contains the following fields:
 
 |Field name|Data type|Description|
 |----------|---------|-----------|
@@ -41,11 +41,11 @@ _TODO: Link to Cesium code for reading header_
 
 If either `gltfByteLength` or `instancesLength` equal zero, the tile does not need to be rendered.
 
-The body immediately follows the header, and is composed of three fields: `Batch Table`, `glTF`, and `instances`.
+The body section immediately follows the header section, and is composed of three fields: `Batch Table`, `glTF`, and `instances`.
 
 ## Batch Table
 
-_TODO: create a separate Batch Table spec that b3dm, i3dm, etc. can reference?_
+_TODO: create a separate Batch Table spec that b3dm, i3dm, etc. can reference, [#32](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/32)?_
 
 The batch table is a `UTF-8` string containing JSON.  It immediately follows the header.  It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 
@@ -102,7 +102,7 @@ The `instances` field contains `header.instancesLength` of tightly packed instan
 | `latitude` | `double` | The latitude, in radians, in the range `[-PI / 2, PI / 2]`. |
 | `batchId` | `uint16`  | ID in the range `[0, length of arrays in the Batch Table)`, which indicates the corresponding properties. |
 
-_TODO: make this much more memory efficient and more general._
+_TODO: make this much more memory efficient and more general, [#33](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/33)._
 
 When `header.batchTableByteLength` is zero, which indicates there is not a batch table, `batchId` is omitted, so each instance contains only `longitude` and `latitude` fields.
 
@@ -114,6 +114,6 @@ Each instance is in the east-north-up reference frame (`x` points east, `y` poin
 
 ## MIME Type
 
-_TODO_
+_TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`
