@@ -17,7 +17,7 @@ A Composite is a binary blob in little endian accessed in JavaScript as an `Arra
 
 ## Layout
 
-**Figure 1**: Composite layout (dashes indicate optional sections).
+**Figure 1**: Composite layout (dashes indicate optional fields).
 
 ![](figures/layout.png)
 
