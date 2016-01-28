@@ -9,7 +9,7 @@ As we add more tile formats, 3D Tiles needs to stay consistent.
 
 ## Fields
 
-* field names are in camelCase.
+* Field names are in camelCase.
 * `Length` - a `Length` suffix on a field name indicates the number of elements in an array.
 * `ByteLength` - a `ByteLength` suffix indicates the number of bytes, not to be confused with just `Length`.
 
