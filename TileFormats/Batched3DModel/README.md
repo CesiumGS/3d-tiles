@@ -15,15 +15,15 @@ Batched 3D Model, or just the _batch_, is a binary blob in little endian accesse
 
 ## Layout
 
-A tile is composed of a header immediately followed by a body.
+A tile is composed of two sections: a header immediately followed by a body.
 
-**Figure 1**: Batched 3D Model layout (dashes indicate optional sections).
+**Figure 1**: Batched 3D Model layout (dashes indicate optional fields).
 
 ![](figures/layout.png)
 
 ## Header
 
-The 20-byte header contains:
+The 20-byte header contains the following fields:
 
 |Field name|Data type|Description|
 |----------|---------|-----------|
@@ -35,7 +35,7 @@ The 20-byte header contains:
 
 _TODO: code example reading header_
 
-The body immediately follows the header, and is composed of two fields: `Batch Table` and `Binary glTF`.
+The body section immediately follows the header section, and is composed of two fields: `Batch Table` and `Binary glTF`.
 
 ## Batch Table
 
@@ -104,6 +104,6 @@ Although not strictly required, clients may find the glTF [CESIUM_RTC](https://g
 
 ## MIME Type
 
-_TODO_
+_TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`

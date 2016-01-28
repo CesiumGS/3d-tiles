@@ -8,7 +8,7 @@
 
 ## Overview
 
-_TBA_
+_TODO, [#22](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/22)_
 
 ## Layout
 
@@ -24,6 +24,6 @@ Positions are defined for high-precision rendering with [RTC](http://blogs.agi.c
 
 ## MIME Type
 
-_TODO_
+_TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`
