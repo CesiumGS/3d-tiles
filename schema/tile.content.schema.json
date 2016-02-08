@@ -10,7 +10,7 @@
         },
         "url" : {
             "type" : "string",
-            "description" : "A string that points to the tile's contents with an absolute or relative url. The file extension of content.url defines the tile format. The core 3D Tiles spec supports the following tile formats: Batched 3D Model (*.b3dm), Instanced 3D Model (*.i3dm), Composite (*.cmpt), and 3D Tiles TileSet (*.json)",
+            "description" : "A string that points to the tile's contents with an absolute or relative url. When the url is relative, it is relative to the referring tileset.json. The file extension of content.url defines the tile format. The core 3D Tiles spec supports the following tile formats: Batched 3D Model (*.b3dm), Instanced 3D Model (*.i3dm), Composite (*.cmpt), and 3D Tiles TileSet (*.json)",
             "required" : true
         }
     },
