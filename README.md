@@ -17,6 +17,7 @@ Contents:
       * [Octrees](#octrees)
       * [Grids](#grids)
 * [Tile formats](#tile-formats)
+* [Declarative styling](#declarative-styling)
 * [Roadmap Q&A](#roadmap-qa)
 * [Acknowledgments](#acknowledgments)
 * [Data credits](#data-credits)
@@ -55,8 +56,8 @@ Topic  | Status
 [OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started**
 [Massive Model](TileFormats/MassiveModel/README.md)  | :white_circle: **Not started**
 Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point
-Imposters  | :white_circle: **Not started**, could be covered by Vector Data
 Stars  | :white_circle: **Not started**
+[Declarative Styling](Styling/README.md)  | :white_circle: **In progress**, [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
 
 For spec work in progress, [watch this repo](https://github.com/AnalyticalGraphicsInc/3d-tiles/subscription) and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
 
@@ -188,7 +189,7 @@ See [schema](schema) for the detailed JSON schema for tileset.json.
 
 See the [Q&A below](#Will-tileset.json-be-part-of-the-final-3D-Tiles-spec) for how tileset.json will scale to a massive number of tiles. 
 
-### External Tilesets
+### External tilesets
 
 To create a tree of trees, a tile's `content.url` can point to an external tileset (another tileset.json).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
 
@@ -289,7 +290,7 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 
 3D Tiles take advantage of empty tiles: those tiles that have a bounding volume, but no content. Since a tile's `content` property does not need to be defined, empty non-leaf tiles can be used to accelerate non-uniform grids with hierarchical culling. This essentially creates a quadtree or octree without hierarchical levels of detail (HLOD).
 
-## Tile Formats
+## Tile formats
 
 Each tile's `content.url` property points to a tile that is one of the formats listed in the [Status section](#spec-status) above.
 
@@ -315,6 +316,10 @@ A tileset can contain any combination of tile formats.  3D Tiles may also suppor
    * [When using replacement refinement, can multiple children be combined into one request?](#when-using-replacement-refinement-can-multiple-children-be-combined-into-one-request)
    * [How can additive refinement be optimized?](#how-can-additive-refinement-be-optimized)
    * [What compressed texture formats do 3D Tiles use?](#what-compressed-texture-formats-do-3d-tiles-use)
+
+## Declarative styling
+
+TODO: Concise overview, examples, and link to [Declarative Styling](Styling/README.md).
 
 ### General Q&A
 
