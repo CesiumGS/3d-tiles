@@ -23,7 +23,7 @@ TBA (and full JSON schema)
 
 TODO: intro
 
-The syntax for expressions is derived from JavaScript.  
+The syntax for expressions is derived from JavaScript, but provides stronger typing, variables to access feature properties, and a native color type.
 
 _Implementation note: Cesium used the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
 
@@ -48,11 +48,15 @@ All of the types except `Color` are derived from JavaScript.  `Color` is derived
 ### Color
 
 Colors are created with the following constructor functions:
-* `Color(keyword : String)`, `Color(6-digit-hex : String)`, `Color(3-digit-hex : String)`
-* `rgb(red : Number, green : Number, blue : number)`, `rgba(red : Number, green : Number, blue : number, alpha : Number)`
-* `hsl(hue : Number, saturation : Number/Percentage, lightness : Number/Percentage)`, `hsla(hue : Number, saturation : Number/Percentage, lightness : Number/Percentage, alpha : Number)`
+* `Color(keyword : String)`
+* `Color(6-digit-hex : String)`
+* `Color(3-digit-hex : String)`
+* `rgb(red : Number, green : Number, blue : number)`
+* `rgba(red : Number, green : Number, blue : number, alpha : Number)`
+* `hsl(hue : Number, saturation : Number/Percentage, lightness : Number/Percentage)`
+* `hsla(hue : Number, saturation : Number/Percentage, lightness : Number/Percentage, alpha : Number)`
 
-Colors defined by keyword (e.g. `cyan`) or hex rgb (e.g., `#00FFFF`) should be passed as strings to the `Color` constructor (so that they can be differentiated from string types).  For example:
+Colors defined by keyword (e.g. `cyan`) or hex rgb (e.g., `#00FFFF`) are passed as strings to the `Color` constructor (so that they can be differentiated from string types).  For example:
 * `Color('cyan')`
 * `Color('#00FFFF')`
 * `Color('#0FF')`
@@ -63,11 +67,13 @@ Colors defined with decimal rgb or hsl are defined with `rgb` and `hsl` function
 * `rgb(100, 255, 190)`
 * `hsl(250, 60%, 70%)`
 
-The range for rgb components are numbers in the range `0` to `255`, inclusive.  For `hsl`, the range for hue is `0` to `255`, and the range for saturation and lightness is `0%` to `100%`, inclusive.
+The range for rgb components is `0` to `255`, inclusive.  For `hsl`, the range for hue is `0` to `255`, and the range for saturation and lightness is `0%` to `100%`, inclusive.
 
 Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
 * `rgba(100, 255, 190, 0.25)`
 * `hsla(250, 60%, 70%, 0.75)`
+
+**TODO: is keyword case sensitive?**
 
 **TODO: should `Color` have an optional second argument for alpha, e.g., `Color('red', 0.5)`?  I think so.**
 
