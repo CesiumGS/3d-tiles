@@ -99,8 +99,8 @@ For conversions involving `Color`, colors are treated as a JavaScript object.  F
 
 The following operators are supported with the same semantics and precedence as JavaScript.
 
-* Unary: `-` and `!`
-   * Not supported: `~` and `+`
+* Unary: `-`, `+`, `!`
+   * Not supported: `~`
 * Binary: `||`, `&&`, `===`, `!==`, `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/`, `%`
    * Not supported: `|`, `^`, `&`, `==`, `!=`, `<<`, `>>`, and `>>>`
 * Ternary: `? :`
