@@ -43,7 +43,7 @@ The following operators are supported with the same semantics and precedence as 
 
 Logical `||` and `&&` implement short-circuiting; `true || expression` does not evaluate the right expression; and `false && expression` does not evaluate the right expression.
 
-Similarly, `true ? left-expression : right-expression` only executes the left expression, and `false ? left-expression : right-expression` only executes the right expression.
+Similarly, `true ? left-expression : rightExpression` only executes the left expression, and `false ? leftExpression : right-expression` only executes the right expression.
 
 ### Types
 
@@ -117,8 +117,53 @@ For conversions involving `Color`, colors are treated as a JavaScript object.  F
 
 ### TODO
 
-TODO: Variables
 TODO: RegEx
+
+#### Variables
+
+Variables are used to retrieve the properties of individual features in a tileset.  Variables are identified using the ES 6 Template String syntax, i.e., `${identifier}`, where the identifier is the case-sensitive property name.
+
+If a feature does not have a property with specified name, the variable evaluates to `undefined`.  Note that the property may also be `null` if `null` was explicitly stored for that property.
+
+Variables may be any of the supported types:
+* `Boolean`
+* `Null`
+* `Undefined`
+* `Number`
+* `String`
+* `Color`
+
+For example:
+```
+feature : {
+    enabled : true,
+    description : null
+    details : undefined,
+    order : 1
+    name : 'Feature name',
+    color : TODO
+}
+```
+**TODO: need to think about how color is store in the batch table**
+```
+${enabled} === true
+${description} === null
+${details} === undefined
+${order} === 1
+${name} === 'Feature name'
+${color} === Color('#FFFFFF')
+```
+
+Variables can also be substituted inside strings, for example:
+```
+feature : {
+    order : 1,
+    name : 'Feature name'
+}
+```
+```
+'Name is ${name}, order is ${order}'
+```
 
 ### Notes
 
