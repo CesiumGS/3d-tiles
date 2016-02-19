@@ -7,6 +7,8 @@
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
+TBA: TOC
+
 ## Overview
 
 TBA
@@ -23,21 +25,21 @@ TBA (and full JSON schema)
 
 TODO: intro
 
-The syntax for expressions is derived from JavaScript, but provides stronger typing, variables to access feature properties, and a native color type.
+The syntax for expressions is derived from JavaScript [EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf), and includes a native color type.
 
-_Implementation note: Cesium used the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
+_Implementation note: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
 
 ### Types
 
 The following types are supported:
 * `Boolean`
 * `Null`
-* `Undefined` **TODO: is this right?**
+* `Undefined`
 * `Number`
 * `String`
 * `Color`
 
-All of the types except `Color` are derived from JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/).  Example expressions include:
+All of the types except `Color` are derived from JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/).  Example expressions for different types include:
 * `true`
 * `null`
 * `undefined`
@@ -45,9 +47,16 @@ All of the types except `Color` are derived from JavaScript.  `Color` is derived
 * `'Cesium'`
 * `Color('#00FFFF')`
 
-### Color
+#### Number
+
+Like JavaScript, numbers include `NaN` and `Infinity`, and the functions:
+* `isNaN(testValue : Number)`
+* `isFinite(testValue : Number)`
+
+#### Color
 
 Colors are created with the following constructor functions:
+* `Color()` `// default constructs #FFFFFF`
 * `Color(keyword : String)`
 * `Color(6-digit-hex : String)`
 * `Color(3-digit-hex : String)`
@@ -64,9 +73,7 @@ Colors defined by a case-insensitive keyword (e.g. `cyan`) or hex rgb (e.g., `#0
 The `Color` constructor has an optional second argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
 * `Color('cyan', 0.5)`
 
-An empty `Color` constructor `Color()` produces white.
-
-Colors defined with decimal rgb or hsl are defined with `rgb` and `hsl` functions, respectively, just like in CSS.  For example:
+Colors defined with decimal rgb or hsl are defined with `rgb` and `hsl` functions, respectively, just like in CSS (but with perctange ranges from `0.0` to `1.0` for `0%` to `100%`, respectively).  For example:
 * `rgb(100, 255, 190)`
 * `hsl(1.0, 0.6, 0.7)`
 
@@ -77,6 +84,25 @@ Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha com
 * `hsla(1.0, 0.6, 0.7, 0.75)`
 
 The functions `rgb`, `hsl`, `rgba`, and `hsla` require all their arguments.
+
+#### Conversions
+
+To minimize type coercion, `==` and `!=` operators are not supported.
+
+As in JavaScript, `>`, `>=`, `<`, and `<=` perform type coercion to `Number`, following the JavaScript conversion rules.  Colors are treated as `NaN` since `Number({})` is `NaN`.
+
+TODO: Look at ! and other operators
+TODO: Look at ! and other operators
+TODO: Look at ! and other operators
+TODO: Look at ! and other operators
+TODO: Look at ! and other operators
+TODO: Look at ! and other operators
+TODO: Look at ! and other operators
+TODO: Look at ! and other operators
+
+TODO: include NaN, Infinity, isNaN, isFinite
+
+**TODO: we should write a few test cases for this, e.g. `true` to `1`, `false` to `0`, `null` to `0`, `undefined` to `NaN`, `String` (zero-length) to `0`, `String` (non-zero length) to `NaN`, `Color` to `NaN`**
 
 ## File Extension
 
