@@ -53,31 +53,30 @@ Colors are created with the following constructor functions:
 * `Color(3-digit-hex : String)`
 * `rgb(red : Number, green : Number, blue : number)`
 * `rgba(red : Number, green : Number, blue : number, alpha : Number)`
-* `hsl(hue : Number, saturation : Number/Percentage, lightness : Number/Percentage)`
-* `hsla(hue : Number, saturation : Number/Percentage, lightness : Number/Percentage, alpha : Number)`
+* `hsl(hue : Number, saturation : Number, lightness : Number)`
+* `hsla(hue : Number, saturation : Number, lightness : Number, alpha : Number)`
 
-Colors defined by keyword (e.g. `cyan`) or hex rgb (e.g., `#00FFFF`) are passed as strings to the `Color` constructor (so that they can be differentiated from string types).  For example:
+Colors defined by a case-insensitive keyword (e.g. `cyan`) or hex rgb (e.g., `#00FFFF`) are passed as strings to the `Color` constructor (so that they can be differentiated from string types).  For example:
 * `Color('cyan')`
 * `Color('#00FFFF')`
 * `Color('#0FF')`
 
-**TODO: What does `Color()` produce?  What should it?  WHITE or DeveloperError?**
+The `Color` constructor has an optional second argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
+* `Color('cyan', 0.5)`
+
+An empty `Color` constructor `Color()` produces white.
 
 Colors defined with decimal rgb or hsl are defined with `rgb` and `hsl` functions, respectively, just like in CSS.  For example:
 * `rgb(100, 255, 190)`
-* `hsl(250, 60%, 70%)`
+* `hsl(1.0, 0.6, 0.7)`
 
-The range for rgb components is `0` to `255`, inclusive.  For `hsl`, the range for hue is `0` to `255`, and the range for saturation and lightness is `0%` to `100%`, inclusive.
+The range for rgb components is `0` to `255`, inclusive.  For `hsl`, the range for hue, saturation, and lightness is `0.0` to `1.0`, inclusive.
 
 Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
 * `rgba(100, 255, 190, 0.25)`
-* `hsla(250, 60%, 70%, 0.75)`
+* `hsla(1.0, 0.6, 0.7, 0.75)`
 
-**TODO: is keyword case sensitive?**
-
-**TODO: should `Color` have an optional second argument for alpha, e.g., `Color('red', 0.5)`?  I think so.**
-
-**TODO: `rgb`, `hsl`, `rgba`, and `hsla` should require all their arguments (assuming that is true in CSS).**
+The functions `rgb`, `hsl`, `rgba`, and `hsla` require all their arguments.
 
 ## File Extension
 
