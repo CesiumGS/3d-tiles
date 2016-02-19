@@ -29,6 +29,22 @@ The syntax for expressions is derived from JavaScript [EMCAScript 5](http://www.
 
 _Implementation note: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
 
+### Operators
+
+The following operators are supported with the same semantics and precedence as JavaScript.
+
+* Unary: `+`, `-`, `!`
+   * Not supported: `~`
+* Binary: `||`, `&&`, `===`, `!==`, `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/`, `%`
+   * Not supported: `|`, `^`, `&`, `==`, `!=`, `<<`, `>>`, and `>>>`
+* Ternary: `? :`
+
+`(` and `)` are supported for grouping expressions.
+
+Logical `||` and `&&` implement short-circuiting; `true || expression` does not evaluate the right expression; and `false && expression` does not evaluate the right expression.
+
+Similarly, `true ? left-expression : right-expression` only executes the left expression, and `false ? left-expression : right-expression` only executes the right expression.
+
 ### Types
 
 The following types are supported:
@@ -87,6 +103,8 @@ Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha com
 
 The functions `rgb`, `hsl`, `rgba`, and `hsla` require all their arguments.
 
+Color supports the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `Color() === Color()` is true since the red, green, blue, and alpha components are equal.
+
 **TODO: `toString` and other functions all JavaScript Objects need.**
 
 #### Conversions
@@ -95,26 +113,14 @@ JavaScript conversion rules are followed.  To minimize unexpected type coercion,
 
 For conversions involving `Color`, colors are treated as a JavaScript object.  For example, `Color` implicitly converts to `NaN` (`Number({})` is `NaN`) with `>`, `>=`, `<`, and `<=` operators.  In boolean expressions, `Color` implicit converts to `true`, e.g., `!!Color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
 
-### Operators
-
-The following operators are supported with the same semantics and precedence as JavaScript.
-
-* Unary: `-`, `+`, `!`
-   * Not supported: `~`
-* Binary: `||`, `&&`, `===`, `!==`, `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/`, `%`
-   * Not supported: `|`, `^`, `&`, `==`, `!=`, `<<`, `>>`, and `>>>`
-* Ternary: `? :`
-
-`(` and `)` are supported for grouping expressions.
-
-Logical `||` and `&&` implement short-circuiting; `true || expression` does not evaluate the right expression; and `false && expression` does not evaluate the right expression.
-
-Similarly, `true ? left-expression : right-expression` only executes the left expression, and `false ? left-expression : right-expression` only executes the right expression.
-
 ### TODO
 
 TODO: Variables
 TODO: RegEx
+
+### Notes
+
+Comments are not supported.
 
 ## File Extension
 
