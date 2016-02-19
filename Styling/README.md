@@ -91,9 +91,7 @@ The functions `rgb`, `hsl`, `rgba`, and `hsla` require all their arguments.
 
 JavaScript conversion rules are followed.  To minimize unexpected type coercion, `==` and `!=` operators are not supported.
 
-For conversions involving `Color`, colors are treated as a JavaScript object.  For example, `Color` implicitly converts to `NaN` (`Number({})` is `NaN`) in `>`, `>=`, `<`, and `<=`, and implicitly converts to `'[object Object]'`  In boolean expressions, `Color` implicit converts to `true`, e.g., `!!Color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
-
-As in JavaScript, `>`, `>=`, `<`, `<=`, `*`, `/`, `-`, `%` perform type coercion to `Number`.  With these operators, colors are treated as `NaN` since `Number({})` is `NaN`.
+For conversions involving `Color`, colors are treated as a JavaScript object.  For example, `Color` implicitly converts to `NaN` (`Number({})` is `NaN`) with `>`, `>=`, `<`, and `<=` operators.  In boolean expressions, `Color` implicit converts to `true`, e.g., `!!Color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
 
 ## File Extension
 
