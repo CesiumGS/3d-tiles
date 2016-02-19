@@ -40,12 +40,14 @@ The following types are supported:
 * `Color`
 
 All of the types except `Color` are derived from JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/).  Example expressions for different types include:
-* `true`
+* `true`, `false`
 * `null`
 * `undefined`
-* `1.0`
-* `'Cesium'`
+* `1.0`, `NaN`, `Infinity`
+* `'Cesium'`, `"Cesium"`
 * `Color('#00FFFF')`
+
+Array expressions are not supported.
 
 #### Number
 
@@ -92,6 +94,27 @@ The functions `rgb`, `hsl`, `rgba`, and `hsla` require all their arguments.
 JavaScript conversion rules are followed.  To minimize unexpected type coercion, `==` and `!=` operators are not supported.
 
 For conversions involving `Color`, colors are treated as a JavaScript object.  For example, `Color` implicitly converts to `NaN` (`Number({})` is `NaN`) with `>`, `>=`, `<`, and `<=` operators.  In boolean expressions, `Color` implicit converts to `true`, e.g., `!!Color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
+
+### Operators
+
+The following operators are supported with the same semantics and precedence as JavaScript.
+
+* Unary: `-` and `!`
+   * Not supported: `~` and `+`
+* Binary: `||`, `&&`, `===`, `!==`, `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/`, `%`
+   * Not supported: `|`, `^`, `&`, `==`, `!=`, `<<`, `>>`, and `>>>`
+* Ternary: `? :`
+
+`(` and `)` are supported for grouping expressions.
+
+Logical `||` and `&&` implement short-circuiting; `true || expression` does not evaluate the right expression; and `false && expression` does not evaluate the right expression.
+
+Similarly, `true ? left-expression : right-expression` only executes the left expression, and `false ? left-expression : right-expression` only executes the right expression.
+
+### TODO
+
+TODO: Variables
+TODO: RegEx
 
 ## File Extension
 
