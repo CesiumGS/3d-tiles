@@ -105,7 +105,9 @@ The functions `rgb`, `hsl`, `rgba`, and `hsla` require all their arguments.
 
 Color supports the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `Color() === Color()` is true since the red, green, blue, and alpha components are equal.
 
-**TODO: `toString` and other functions all JavaScript Objects need.**
+Color instances do not expose a `prototype` object.
+
+Color instances have a `toString` for explicit (and implicit) conversion to strings of the form `'(red, green, blue, alpha)'`, which each component is in its internal range of `0.0` to `1.0`.
 
 #### Conversions
 
