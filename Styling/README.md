@@ -85,24 +85,15 @@ Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha com
 
 The functions `rgb`, `hsl`, `rgba`, and `hsla` require all their arguments.
 
+**TODO: `toString` and other functions all JavaScript Objects need.**
+
 #### Conversions
 
-To minimize type coercion, `==` and `!=` operators are not supported.
+JavaScript conversion rules are followed.  To minimize unexpected type coercion, `==` and `!=` operators are not supported.
 
-As in JavaScript, `>`, `>=`, `<`, and `<=` perform type coercion to `Number`, following the JavaScript conversion rules.  Colors are treated as `NaN` since `Number({})` is `NaN`.
+For conversions involving `Color`, colors are treated as a JavaScript object.  For example, `Color` implicitly converts to `NaN` (`Number({})` is `NaN`) in `>`, `>=`, `<`, and `<=`, and implicitly converts to `'[object Object]'`  In boolean expressions, `Color` implicit converts to `true`, e.g., `!!Color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
 
-TODO: Look at ! and other operators
-TODO: Look at ! and other operators
-TODO: Look at ! and other operators
-TODO: Look at ! and other operators
-TODO: Look at ! and other operators
-TODO: Look at ! and other operators
-TODO: Look at ! and other operators
-TODO: Look at ! and other operators
-
-TODO: include NaN, Infinity, isNaN, isFinite
-
-**TODO: we should write a few test cases for this, e.g. `true` to `1`, `false` to `0`, `null` to `0`, `undefined` to `NaN`, `String` (zero-length) to `0`, `String` (non-zero length) to `NaN`, `Color` to `NaN`**
+As in JavaScript, `>`, `>=`, `<`, `<=`, `*`, `/`, `-`, `%` perform type coercion to `Number`.  With these operators, colors are treated as `NaN` since `Number({})` is `NaN`.
 
 ## File Extension
 
