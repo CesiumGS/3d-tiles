@@ -192,7 +192,7 @@ TODO: RegEx
 
 #### Variables
 
-Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)) Template Literal syntax, i.e., `${identifier}`, where the identifier is the case-sensitive property name.
+Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)) Template Literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name.  `feature` is implicit and can be ommited in most cases.
 
 If a feature does not have a property with specified name, the variable evaluates to `undefined`.  Note that the property may also be `null` if `null` was explicitly stored for a property.
 
@@ -227,7 +227,7 @@ Color(${red}, ${green}, ${blue}, ${alpha})
 Color(${colorKeyword})
 ```
 
-Dot notation or bracket notation is used to access feature sub-properties.  For example:
+Dot or bracket notation is used to access feature sub-properties.  For example:
 ```json
 {
     "address" : {
@@ -239,12 +239,13 @@ Dot notation or bracket notation is used to access feature sub-properties.  For 
 
 ```
 ${address.street} === `Example street`
-${address.city} === `Example city`
 ${address['street']} === `Example street`
+
+${address.city} === `Example city`
 ${address['city']} === `Example city`
 ```
 
-Top level properties can be accessed with bracket notation by using the `feature` keyword. For example:
+Top-level properties can be accessed with bracket notation by explicitly using the `feature` keyword. For example:
 
 ```json
 {
@@ -274,7 +275,6 @@ To access a feature named `feature`, use the variable `${feature}`. This is equi
 ${feature} === `building`
 ${feature.feature} === `building`
 ```
-
 
 Variables can also be substituted inside strings defined with back-ticks, for example:
 ```json
