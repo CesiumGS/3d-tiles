@@ -25,7 +25,7 @@ TBA (and full JSON schema)
 
 TODO: intro
 
-The language for expressions is a small subset of JavaScript, [EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf), plus a native color type and access to feature properties in the form of readonly variables.
+The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)) plus a native color type and access to tileset feature properties in the form of readonly variables.
 
 _Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
 
@@ -55,7 +55,7 @@ The following types are supported:
 * `String`
 * `Color`
 
-All of the types except `Color` are from JavaScript and have the same behavior as JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and behaves similar to a JavaScript `Object`.
+All of the types except `Color` are from JavaScript and have the same syntax and runtime behavior as JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and behaves similar to a JavaScript `Object` (see the [Color section](#color)).
 
 Example expressions for different types include:
 * `true`, `false`
@@ -83,15 +83,13 @@ Color objects are created with the following constructor functions:
 * `Color(6-digit-hex : String, [alpha : Number])`
 * `Color(3-digit-hex : String, [alpha : Number])`
 
-And the following functions:
+And the following creation functions:
 * `rgb(red : Number, green : Number, blue : number)`
 * `rgba(red : Number, green : Number, blue : number, alpha : Number)`
 * `hsl(hue : Number, saturation : Number, lightness : Number)`
 * `hsla(hue : Number, saturation : Number, lightness : Number, alpha : Number)`
 
 The functions `rgb`, `hsl`, `rgba`, and `hsla` require all their arguments.
-
-**TODO: would we rather the above functions be `Color.fromXXX` like Cesium even though it doesn't match CSS as well?**
 
 Colors defined by a case-insensitive keyword (e.g. `cyan`) or hex rgb are passed as strings to the `Color` constructor.  For example:
 * `Color('cyan')`
@@ -113,15 +111,15 @@ Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha com
 
 Color objects support the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `Color() === Color()` is true since the red, green, blue, and alpha components are equal.
 
-Color objects have a `toString` for explicit (and implicit) conversion to strings in the format `'(red, green, blue, alpha)'`, where each component is in its internal range of `0.0` to `1.0`.
+Color objects have a `toString` function for explicit (and implicit) conversion to strings in the format `'(red, green, blue, alpha)'`, where each component is in its internal range of `0.0` to `1.0`.
 
 Color objects do not expose any other functions or a `prototype` object.
 
 #### Conversions
 
-JavaScript conversion rules are followed.  To minimize unexpected type coercion, `==` and `!=` operators are not supported.
+Style expressions follow JavaScript conversion rules.  To minimize unexpected type coercion, `==` and `!=` operators are not supported.
 
-For conversions involving `Color`, color objects are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` (`Number({})` is `NaN`) with `>`, `>=`, `<`, and `<=` operators.  In boolean expressions, `Color` implicit converts to `true`, e.g., `!!Color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
+For conversions involving `Color`, color objects are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `>`, `>=`, `<`, and `<=` operators.  In boolean expressions, `Color` implicit converts to `true`, e.g., `!!Color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
 
 ### TODO
 
@@ -131,7 +129,7 @@ TODO: RegEx
 
 Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)) Template Literal syntax, i.e., `${identifier}`, where the identifier is the case-sensitive property name.
 
-If a feature does not have a property with specified name, the variable evaluates to `undefined`.  Note that the property may also be `null` if `null` was explicitly stored for that property.
+If a feature does not have a property with specified name, the variable evaluates to `undefined`.  Note that the property may also be `null` if `null` was explicitly stored for a property.
 
 Variables may be any of the supported types:
 * `Boolean`
@@ -149,10 +147,15 @@ feature : {
     details : undefined,
     order : 1
     name : 'Feature name',
-    color : TODO
+    color : {
+        red : 255,
+        green : 255,
+        blue : 255,
+        alpha : 1.0
+    }
 }
 ```
-**TODO: need to think about how color is store in the batch table**
+**TODO: need to think about how color is store in the batch table - should support all overloads of Color constructor**
 ```
 ${enabled} === true
 ${description} === null
@@ -162,7 +165,7 @@ ${name} === 'Feature name'
 ${color} === Color('#FFFFFF')
 ```
 
-Variables can also be substituted inside strings, for example:
+Variables can also be substituted inside strings defined with back-ticks, for example:
 ```
 feature : {
     order : 1,
@@ -170,7 +173,7 @@ feature : {
 }
 ```
 ```
-'Name is ${name}, order is ${order}'
+`Name is ${name}, order is ${order}`
 ```
 
 ### Notes
