@@ -45,6 +45,14 @@ Logical `||` and `&&` implement short-circuiting; `true || expression` does not 
 
 Similarly, `true ? left-expression : rightExpression` only executes the left expression, and `false ? leftExpression : right-expression` only executes the right expression.
 
+### Semantics
+
+Dot notation is used to access properties by name, e.g., `color.red`.
+
+Bracket notation (`[]`) is also used to access properties, e.g., `color['red']`, or arrays, e.g., `temperatures[1]`.
+
+Functions are called with parenthesis (`()`) and comma-separated arguments, e.g., (`isNaN(0.0)`, `Color('cyan', 0.5)`).
+
 ### Types
 
 The following types are supported:
@@ -66,8 +74,6 @@ Example expressions for different types include:
 * `Color('#00FFFF')`
 
 Explicit `Boolean`, `Number`, and `String` constructor functions are not supported.
-
-Array expressions are not supported.
 
 #### Number
 
@@ -109,9 +115,17 @@ Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha com
 * `rgba(100, 255, 190, 0.25)`
 * `hsla(1.0, 0.6, 0.7, 0.75)`
 
+Colors store rgba components internally where each component is in the range `0.0` to `1.0`.  They are accessed with readonly properties:
+* `red : Number`
+* `green : Number`
+* `blue : Number`
+* `alpha : Number`
+
+For example: `color.red`.
+
 Color objects support the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `Color() === Color()` is true since the red, green, blue, and alpha components are equal.
 
-Color objects have a `toString` function for explicit (and implicit) conversion to strings in the format `'(red, green, blue, alpha)'`, where each component is in its internal range of `0.0` to `1.0`.
+Color objects have a `toString` function for explicit (and implicit) conversion to strings in the format `'(red, green, blue, alpha)'`.
 
 Color objects do not expose any other functions or a `prototype` object.
 
@@ -139,8 +153,8 @@ Variables may be any of the supported native JavaScript types:
 * `String`
 
 For example:
-```
-feature : {
+```json
+{
     enabled : true,
     description : null
     details : undefined,
@@ -164,15 +178,46 @@ Color(${red}, ${green}, ${blue}, ${alpha})
 Color(${colorKeyword})
 ```
 
-Variables can also be substituted inside strings defined with back-ticks, for example:
+Dot notation is used to access feature sub-properties.  For example:
+```json
+{
+    address : {
+        street : 'Example street',
+        city : 'Example city'
+    }
+}
 ```
-feature : {
+
+```
+${address.street} === `Example street`
+${address.city} === `Example city`
+```
+
+Variables can also be substituted inside strings defined with back-ticks, for example:
+```json
+{
     order : 1,
     name : 'Feature name'
 }
 ```
 ```
 `Name is ${name}, order is ${order}`
+```
+
+Bracket notation is used to access feature sub-properties or arrays.  For example:
+```json
+{
+    temperatures : {
+        scale : 'fahrenheit'
+        values : [70, 80, 90]
+    }
+}
+```
+
+```
+${temperatures[scale]} === 'fahrenheit'
+${temperatures.values[0]} === 70
+${temperatures[values][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
 ```
 
 ### Notes
