@@ -40,7 +40,7 @@ Instead of showing all features, `show` can be an expression dependent on a feat
 Here, only features in the 19341 zip code are shown.
 ```json
 {
-    "show" : "(${County} === regExp('/^Chest/')) && (Number(${YearBuilt}) >= 1970)"
+    "show" : "(${County} === regExp('/^Chest/')) && (${YearBuilt} >= 1970)"
 }
 ```
 
