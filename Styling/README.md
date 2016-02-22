@@ -29,6 +29,14 @@ The language for expressions is a small subset of JavaScript ([EMCAScript 5](htt
 
 _Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
 
+### Semantics
+
+Dot notation is used to access properties by name, e.g., `color.red`.
+
+Bracket notation (`[]`) is also used to access properties, e.g., `color['red']`, or arrays, e.g., `temperatures[1]`.
+
+Functions are called with parenthesis (`()`) and comma-separated arguments, e.g., (`isNaN(0.0)`, `Color('cyan', 0.5)`).
+
 ### Operators
 
 The following operators are supported with the same semantics and precedence as JavaScript.
@@ -44,14 +52,6 @@ The following operators are supported with the same semantics and precedence as 
 Logical `||` and `&&` implement short-circuiting; `true || expression` does not evaluate the right expression; and `false && expression` does not evaluate the right expression.
 
 Similarly, `true ? left-expression : rightExpression` only executes the left expression, and `false ? leftExpression : right-expression` only executes the right expression.
-
-### Semantics
-
-Dot notation is used to access properties by name, e.g., `color.red`.
-
-Bracket notation (`[]`) is also used to access properties, e.g., `color['red']`, or arrays, e.g., `temperatures[1]`.
-
-Functions are called with parenthesis (`()`) and comma-separated arguments, e.g., (`isNaN(0.0)`, `Color('cyan', 0.5)`).
 
 ### Types
 
