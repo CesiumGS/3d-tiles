@@ -227,7 +227,7 @@ Color(${red}, ${green}, ${blue}, ${alpha})
 Color(${colorKeyword})
 ```
 
-Dot notation is used to access feature sub-properties.  For example:
+Dot notation or bracket notation is used to access feature sub-properties.  For example:
 ```json
 {
     "address" : {
@@ -240,7 +240,41 @@ Dot notation is used to access feature sub-properties.  For example:
 ```
 ${address.street} === `Example street`
 ${address.city} === `Example city`
+${address['street']} === `Example street`
+${address['city']} === `Example city`
 ```
+
+Top level properties can be accessed with bracket notation by using the `feature` keyword. For example:
+
+```json
+{
+    "address.street" : "Maple Street",
+    "address" : {
+        "street" : "Oak Street"
+    }
+}
+```
+
+```
+${address.street} === `Oak Street`
+${feature.address.street} === `Oak Street`
+${feature['address'].street} === `Oak Street`
+${feature['address.street']} === `Maple Street`
+```
+
+To access a feature named `feature`, use the variable `${feature}`. This is equivelent to accessing `${feature.feature}`
+
+```json
+{
+    "feature" : "building"
+}
+```
+
+```
+${feature} === `building`
+${feature.feature} === `building`
+```
+
 
 Variables can also be substituted inside strings defined with back-ticks, for example:
 ```json
@@ -264,9 +298,9 @@ Bracket notation is used to access feature sub-properties or arrays.  For exampl
 ```
 
 ```
-${temperatures[scale]} === 'fahrenheit'
+${temperatures['scale']} === 'fahrenheit'
 ${temperatures.values[0]} === 70
-${temperatures[values][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
+${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
 ```
 
 ### Notes
