@@ -131,13 +131,12 @@ Variables are used to retrieve the property values of individual features in a t
 
 If a feature does not have a property with specified name, the variable evaluates to `undefined`.  Note that the property may also be `null` if `null` was explicitly stored for a property.
 
-Variables may be any of the supported types:
+Variables may be any of the supported native JavaScript types:
 * `Boolean`
 * `Null`
 * `Undefined`
 * `Number`
 * `String`
-* `Color`
 
 For example:
 ```
@@ -146,16 +145,10 @@ feature : {
     description : null
     details : undefined,
     order : 1
-    name : 'Feature name',
-    color : {
-        red : 255,
-        green : 255,
-        blue : 255,
-        alpha : 1.0
-    }
+    name : 'Feature name'
 }
 ```
-**TODO: need to think about how color is store in the batch table - should support all overloads of Color constructor**
+
 ```
 ${enabled} === true
 ${description} === null
@@ -163,6 +156,12 @@ ${details} === undefined
 ${order} === 1
 ${name} === 'Feature name'
 ${color} === Color('#FFFFFF')
+```
+
+Variables can be used to constructor colors, for example:
+```
+Color(${red}, ${green}, ${blue}, ${alpha})
+Color(${colorKeyword})
 ```
 
 Variables can also be substituted inside strings defined with back-ticks, for example:
