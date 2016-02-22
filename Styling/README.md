@@ -1,4 +1,4 @@
-# Declarative Styling
+# Styling
 
 ## Contributors
 
@@ -11,19 +11,70 @@ TBA: TOC
 
 ## Overview
 
-TBA
+3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's batch table.
+
+Styles are a JSON format with expressions written in a small subset of JavaScript augmented for styling.
 
 ## Examples
 
-TBA
+TODO: test these examples
+TODO: are color strings exactly CSS colors or are they the same as the expression language?
+TODO: would be cool to include some screenshots here
+TODO: introduce translucency property to assign without having to set RGB
+
+The following style assigns the default show and color properties to each feature:
+```json
+{
+    "show" : true,
+    "color" : "Color('#FFF')"
+}
+```
+
+Instead of showing all features, `show` can be an expression dependent on a feature's properties, for example:
+```json
+{
+    "show" : "${ZipCode} === '19341'"
+}
+```
+
+Here, only features in the 19341 zip code are shown.
+```json
+{
+    "show" : "(${County} === regExp('/^Chest/')) && (Number(${YearBuilt}) >= 1970)"
+}
+```
+
+Above, a compound conditional and regular expression is used to show only features whose county starts with `'Chest'` and whose year built is greater than or equal to 1970.
+
+Colors can also be defined by expressions dependent on a feature's properties, for example:
+```json
+{
+    "color" : "(${Temperature} > 90) ? Color('red') : Color('white')"
+}
+```
+
+This colors features with a temperature above 90 red, and the others white.
+
+The alpha component is used to set a feature opacity, for example:
+```json
+{
+   "color" : "Color(${red}, ${green}, ${blue}, (${volume} > 100 ? 0.5 : 1.0))"
+}
+```
+This sets the RGB values from the feature's property, and makes features with volume greater than 100 transparent.
+
+
+-------------------
+TODO: map
+TODO: ramp
+-------------------
+
 
 ## Schema Reference
 
 TBA (and full JSON schema)
 
 ## Expressions
-
-TODO: intro
 
 The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)) plus a native color type and access to tileset feature properties in the form of readonly variables.
 
@@ -231,3 +282,7 @@ TBA
 _TBA, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/json`
+
+## Acknowledgements
+
+* Piero Toffanin, [@pierotofy](https://github.com/pierotofy)
