@@ -157,7 +157,7 @@ For example:
 {
     "enabled" : true,
     "description" : null,
-    "order" : 1
+    "order" : 1,
     "name" : "Feature name"
 }
 ```
