@@ -245,6 +245,8 @@ ${address.city} === `Example city`
 ${address['city']} === `Example city`
 ```
 
+Bracket notation supports only string literals.
+
 Top-level properties can be accessed with bracket notation by explicitly using the `feature` keyword. For example:
 
 ```json
