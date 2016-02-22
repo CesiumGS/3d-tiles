@@ -156,8 +156,7 @@ For example:
 ```json
 {
     "enabled" : true,
-    "description" : null
-    "details" : undefined,
+    "description" : null,
     "order" : 1
     "name" : "Feature name"
 }
@@ -166,7 +165,6 @@ For example:
 ```
 ${enabled} === true
 ${description} === null
-${details} === undefined
 ${order} === 1
 ${name} === 'Feature name'
 ${color} === Color('#FFFFFF')
@@ -208,7 +206,7 @@ Bracket notation is used to access feature sub-properties or arrays.  For exampl
 ```json
 {
     "temperatures" : {
-        "scale" : "fahrenheit"
+        "scale" : "fahrenheit",
         "values" : [70, 80, 90]
     }
 }
