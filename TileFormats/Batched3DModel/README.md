@@ -45,14 +45,15 @@ The batch table maps each `batchId` to per-model properties.  If present, the ba
 
 The batch table is a `UTF-8` string containing JSON.  It immediately follows the header.  It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 
-Each property in the object is an array with its length equal to `header.batchLength`.  Each array is a homogeneous collection of `String`, `Number`, or `Boolean` elements.  Elements may be `null`.
+Each property in the object is an array with its length equal to `header.batchLength`.  Each array is a homogeneous collection of `String`, `Number`, `Boolean` or `JSONObject` elements.  Elements may be `null`.
 
 A vertex's `batchId` is used to access elements in each array and extract the corresponding properties.  For example, the following batch table has properties for a batch of two models.
 ```json
 {
     "id" : ["unique id", "another unique id"],
     "displayName" : ["Building name", "Another building name"],
-    "yearBuilt" : [1999, 2015]
+    "yearBuilt" : [1999, 2015],
+    "address":[{"street":"Main Street", "HouseNumber":"1"}, {"street":"Main Street", "HouseNumber":"2"}]
 }
 ```
 
@@ -61,6 +62,7 @@ The properties for the model with `batchId = 0` are
 id[0] = 'unique id';
 displayName[0] = 'Building name';
 yearBuilt[0] = 1999;
+address[0] = {"street":"Main Street", "HouseNumber":"1"};
 ```
 
 The properties for `batchId = 1` are
@@ -68,6 +70,7 @@ The properties for `batchId = 1` are
 id[1] = 'another unique id';
 displayName[1] = 'Another building name';
 yearBuilt[1] = 2015;
+address[1] = {"street":"Main Street", "HouseNumber":"2"};
 ```
 
 ## Binary glTF
