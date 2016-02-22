@@ -65,6 +65,10 @@ Example expressions for different types include:
 * `'Cesium'`, `"Cesium"`
 * `Color('#00FFFF')`
 
+Explicit `Boolean`, `Number`, and `String` constructor functions are not supported.
+
+Array expressions are not supported.
+
 #### Number
 
 Like JavaScript, numbers can be `NaN` or `Infinity`.  The following test functions are supported:
@@ -170,8 +174,6 @@ feature : {
 ```
 
 ### Notes
-
-Array expressions are not supported.
 
 Comments are not supported.
 
