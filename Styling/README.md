@@ -155,11 +155,11 @@ Variables may be any of the supported native JavaScript types:
 For example:
 ```json
 {
-    enabled : true,
-    description : null
-    details : undefined,
-    order : 1
-    name : 'Feature name'
+    "enabled" : true,
+    "description" : null
+    "details" : undefined,
+    "order" : 1
+    "name" : "Feature name"
 }
 ```
 
@@ -181,9 +181,9 @@ Color(${colorKeyword})
 Dot notation is used to access feature sub-properties.  For example:
 ```json
 {
-    address : {
-        street : 'Example street',
-        city : 'Example city'
+    "address" : {
+        "street" : "Example street",
+        "city" : "Example city"
     }
 }
 ```
@@ -196,8 +196,8 @@ ${address.city} === `Example city`
 Variables can also be substituted inside strings defined with back-ticks, for example:
 ```json
 {
-    order : 1,
-    name : 'Feature name'
+    "order" : 1,
+    "name" : "Feature name"
 }
 ```
 ```
@@ -207,9 +207,9 @@ Variables can also be substituted inside strings defined with back-ticks, for ex
 Bracket notation is used to access feature sub-properties or arrays.  For example:
 ```json
 {
-    temperatures : {
-        scale : 'fahrenheit'
-        values : [70, 80, 90]
+    "temperatures" : {
+        "scale" : "fahrenheit"
+        "values" : [70, 80, 90]
     }
 }
 ```
