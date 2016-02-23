@@ -44,7 +44,7 @@ Here, only features in the 19341 zip code are shown.
 }
 ```
 
-Above, a compound conditional and regular expression is used to show only features whose county starts with `'Chest'` and whose year built is greater than or equal to 1970.
+Above, a compound conditional and regular expression are used to show only features whose county starts with `'Chest'` and whose year built is greater than or equal to 1970.
 
 Colors can also be defined by expressions dependent on a feature's properties, for example:
 ```json
@@ -55,13 +55,13 @@ Colors can also be defined by expressions dependent on a feature's properties, f
 
 This colors features with a temperature above 90 red, and the others white.
 
-The alpha component is used to set a feature opacity, for example:
+The color's alpha component defines the feature's opacity, for example:
 ```json
 {
    "color" : "Color(${red}, ${green}, ${blue}, (${volume} > 100 ? 0.5 : 1.0))"
 }
 ```
-This sets the RGB values from the feature's property, and makes features with volume greater than 100 transparent.
+This sets the feature's RGB color components from the feature's properties, and makes features with volume greater than 100 transparent.
 
 
 -------------------
