@@ -149,9 +149,7 @@ Example expressions for different types include:
 * `'Cesium'`, `"Cesium"`
 * `Color('#00FFFF')`
 
-Explicit `Boolean`, `Number`, and `String` constructor functions are not supported.
-
-Conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions. For exmple,
+Explicit conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions. For example:
 
 ```
 Boolean(1) === true
