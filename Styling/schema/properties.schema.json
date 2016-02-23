@@ -1,0 +1,19 @@
+{
+    "$schema" : "http://json-schema.org/draft-03/schema",
+    "title" : "properties",
+    "type" : "object",
+    "description" : "A dictionary object of metadata about per-feature properties.",
+    "properties" : {
+        "maximum" : {
+            "type" : "number",
+            "description" : "The maximum value of this property of all the features in the tileset.",
+            "required" : true
+        },
+        "minimum" : {
+            "type" : "number",
+            "description" : "The minimum value of this property of all the features in the tileset.",
+            "required" : true
+        }
+    },
+    "additionalProperties" : false
+}

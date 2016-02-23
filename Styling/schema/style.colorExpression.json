@@ -1,0 +1,7 @@
+{
+    "$schema" : "http://json-schema.org/draft-03/schema",
+    "title" : "color expression",
+    "type" : "string",
+    "description" : "3D Tiles style expression that evaluates to a Color indicating the 'highlight color' multiplied with the feature's intrinsic color.",
+    "default" : "Color('#FFFFFF')"
+}

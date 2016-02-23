@@ -1,0 +1,23 @@
+{
+    "$schema" : "http://json-schema.org/draft-03/schema",
+    "title" : "style",
+    "type" : "object",
+    "description" : "A 3D Tiles style.",
+    "properties" : {
+        "show" : {
+            "type" : "string",
+            "description" : "A style expression that evaluates to a boolean indicating if the feature should be shown.",
+            "default" : "true"
+        },
+        "color" : {
+            "type" : [{
+                "$ref" : "style.colorExpression.schema.json"
+            }, {
+                "$ref" : "style.colorMap.schema.json"
+            }],
+            "description" : "A style expression or map that evaluates to a Color indicating the 'highlight color' multiplied with the feature's intrinsic color.",
+            "default" : "Color('#FFFFFF')"
+        }
+    },
+    "additionalProperties" : false
+}

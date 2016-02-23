@@ -25,7 +25,7 @@ TODO: introduce translucency property to assign without having to set RGB
 The following style assigns the default show and color properties to each feature:
 ```json
 {
-    "show" : true,
+    "show" : "true",
     "color" : "Color('#FFF')"
 }
 ```
@@ -63,12 +63,37 @@ The color's alpha component defines the feature's opacity, for example:
 ```
 This sets the feature's RGB color components from the feature's properties, and makes features with volume greater than 100 transparent.
 
+In addition to a string containing an expression, `color` can be an object defining a map or color ramp.  For example:
+```json
+"color" : {
+    "key" : "RegEx('^1(\\d)$').exec(${id})",
+    "map" : {
+        "1" : "Color('#FF0000')",
+        "2" : "Color('#00FF00')"
+    },
+    "defaultValue" : "Color('#FFFFFF')"
+}
+```
 
--------------------
-TODO: map
-TODO: ramp
--------------------
+TODO: what exactly should exec return? See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec
+TODO: require new for constructor functions, e.g., `new Color('red')` and `new RegEx('^1(\\d)$')`.  Or rename these to lowercase.
 
+`color` can also be a color ramp by using a conditional:
+```json
+"color" : {
+    "key" : "${Height} / ${Area}",
+    "conditional" : {
+        "(${KEY} >= 1.0)  && (${KEY} < 10.0)"  : "Color('#FF00FF')",
+        "(${KEY} >= 10.0) && (${KEY} < 30.0)"  : "Color('#FF0000')",
+        "(${KEY} >= 30.0) && (${KEY} < 50.0)"  : "Color('#FFFF00')",
+        "(${KEY} >= 50.0) && (${KEY} < 70.0)"  : "Color('#00FF00')",
+        "(${KEY} >= 70.0) && (${KEY} < 100.0)" : "Color('#00FFFF')",
+        "(${KEY} >= 100.0)"                    : "Color('#0000FF')",
+    }
+}
+```
+
+TODO: schema for conditional
 
 ## Schema Reference
 
