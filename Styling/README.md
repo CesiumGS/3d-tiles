@@ -151,6 +151,14 @@ Example expressions for different types include:
 
 Explicit `Boolean`, `Number`, and `String` constructor functions are not supported.
 
+Conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions. For exmple,
+
+```
+Boolean(1) === true
+Number('1') === 1
+String(1) === '1'
+```
+
 #### Number
 
 Like JavaScript, numbers can be `NaN` or `Infinity`.  The following test functions are supported:
