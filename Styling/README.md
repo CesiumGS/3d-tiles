@@ -18,7 +18,6 @@ Styles are a JSON format with expressions written in a small subset of JavaScrip
 ## Examples
 
 TODO: test these examples
-TODO: are color strings exactly CSS colors or are they the same as the expression language?
 TODO: would be cool to include some screenshots here
 TODO: introduce translucency property to assign without having to set RGB
 
@@ -88,7 +87,7 @@ TODO: require new for constructor functions, e.g., `new Color('red')` and `new R
         "(${KEY} >= 30.0) && (${KEY} < 50.0)"  : "Color('#FFFF00')",
         "(${KEY} >= 50.0) && (${KEY} < 70.0)"  : "Color('#00FF00')",
         "(${KEY} >= 70.0) && (${KEY} < 100.0)" : "Color('#00FFFF')",
-        "(${KEY} >= 100.0)"                    : "Color('#0000FF')",
+        "(${KEY} >= 100.0)"                    : "Color('#0000FF')"
     }
 }
 ```
