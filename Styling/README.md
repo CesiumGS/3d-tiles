@@ -25,7 +25,7 @@ The following style assigns the default show and color properties to each featur
 ```json
 {
     "show" : "true",
-    "color" : "Color('#FFF')"
+    "color" : "color('#FFF')"
 }
 ```
 
@@ -48,7 +48,7 @@ Above, a compound conditional and regular expression are used to show only featu
 Colors can also be defined by expressions dependent on a feature's properties, for example:
 ```json
 {
-    "color" : "(${Temperature} > 90) ? Color('red') : Color('white')"
+    "color" : "(${Temperature} > 90) ? color('red') : color('white')"
 }
 ```
 
@@ -57,7 +57,7 @@ This colors features with a temperature above 90 red, and the others white.
 The color's alpha component defines the feature's opacity, for example:
 ```json
 {
-   "color" : "Color(${red}, ${green}, ${blue}, (${volume} > 100 ? 0.5 : 1.0))"
+   "color" : "color(${red}, ${green}, ${blue}, (${volume} > 100 ? 0.5 : 1.0))"
 }
 ```
 This sets the feature's RGB color components from the feature's properties, and makes features with volume greater than 100 transparent.
@@ -67,27 +67,26 @@ In addition to a string containing an expression, `color` can be an object defin
 "color" : {
     "key" : "RegEx('^1(\\d)$').exec(${id})",
     "map" : {
-        "1" : "Color('#FF0000')",
-        "2" : "Color('#00FF00')"
+        "1" : "color('#FF0000')",
+        "2" : "color('#00FF00')"
     },
-    "defaultValue" : "Color('#FFFFFF')"
+    "defaultValue" : "color('#FFFFFF')"
 }
 ```
 
 TODO: what exactly should exec return? See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec
-TODO: require new for constructor functions, e.g., `new Color('red')` and `new RegEx('^1(\\d)$')`.  Or rename these to lowercase.
 
 `color` can also be a color ramp by using a conditional:
 ```json
 "color" : {
     "key" : "${Height} / ${Area}",
     "conditional" : {
-        "(${KEY} >= 1.0)  && (${KEY} < 10.0)"  : "Color('#FF00FF')",
-        "(${KEY} >= 10.0) && (${KEY} < 30.0)"  : "Color('#FF0000')",
-        "(${KEY} >= 30.0) && (${KEY} < 50.0)"  : "Color('#FFFF00')",
-        "(${KEY} >= 50.0) && (${KEY} < 70.0)"  : "Color('#00FF00')",
-        "(${KEY} >= 70.0) && (${KEY} < 100.0)" : "Color('#00FFFF')",
-        "(${KEY} >= 100.0)"                    : "Color('#0000FF')"
+        "(${KEY} >= 1.0)  && (${KEY} < 10.0)"  : "color('#FF00FF')",
+        "(${KEY} >= 10.0) && (${KEY} < 30.0)"  : "color('#FF0000')",
+        "(${KEY} >= 30.0) && (${KEY} < 50.0)"  : "color('#FFFF00')",
+        "(${KEY} >= 50.0) && (${KEY} < 70.0)"  : "color('#00FF00')",
+        "(${KEY} >= 70.0) && (${KEY} < 100.0)" : "color('#00FFFF')",
+        "(${KEY} >= 100.0)"                    : "color('#0000FF')"
     }
 }
 ```
@@ -110,7 +109,7 @@ Dot notation is used to access properties by name, e.g., `color.red`.
 
 Bracket notation (`[]`) is also used to access properties, e.g., `color['red']`, or arrays, e.g., `temperatures[1]`.
 
-Functions are called with parenthesis (`()`) and comma-separated arguments, e.g., (`isNaN(0.0)`, `Color('cyan', 0.5)`).
+Functions are called with parenthesis (`()`) and comma-separated arguments, e.g., (`isNaN(0.0)`, `color('cyan', 0.5)`).
 
 ### Operators
 
@@ -146,7 +145,7 @@ Example expressions for different types include:
 * `undefined`
 * `1.0`, `NaN`, `Infinity`
 * `'Cesium'`, `"Cesium"`
-* `Color('#00FFFF')`
+* `color('#00FFFF')`
 
 Explicit conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions. For example:
 
@@ -164,13 +163,11 @@ Like JavaScript, numbers can be `NaN` or `Infinity`.  The following test functio
 
 #### Color
 
-Color objects are created with the following constructor functions:
-* `Color()` `// default constructs #FFFFFF`
-* `Color(keyword : String, [alpha : Number])`
-* `Color(6-digit-hex : String, [alpha : Number])`
-* `Color(3-digit-hex : String, [alpha : Number])`
-
-And the following creation functions:
+Colors are created with one of the following functions:
+* `color()` `// default constructs #FFFFFF`
+* `color(keyword : String, [alpha : Number])`
+* `color(6-digit-hex : String, [alpha : Number])`
+* `color(3-digit-hex : String, [alpha : Number])`
 * `rgb(red : Number, green : Number, blue : number)`
 * `rgba(red : Number, green : Number, blue : number, alpha : Number)`
 * `hsl(hue : Number, saturation : Number, lightness : Number)`
@@ -178,13 +175,13 @@ And the following creation functions:
 
 The functions `rgb`, `hsl`, `rgba`, and `hsla` require all their arguments.
 
-Colors defined by a case-insensitive keyword (e.g. `cyan`) or hex rgb are passed as strings to the `Color` constructor.  For example:
-* `Color('cyan')`
-* `Color('#00FFFF')`
-* `Color('#0FF')`
+Colors defined by a case-insensitive keyword (e.g. `cyan`) or hex rgb are passed as strings to the `color` function.  For example:
+* `color('cyan')`
+* `color('#00FFFF')`
+* `color('#0FF')`
 
-These constructor functions have an optional second argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
-* `Color('cyan', 0.5)`
+These `color` function has an optional second argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
+* `color('cyan', 0.5)`
 
 Colors defined with decimal rgb or hsl are defined with `rgb` and `hsl` functions, respectively, just like in CSS (but with perctange ranges from `0.0` to `1.0` for `0%` to `100%`, respectively).  For example:
 * `rgb(100, 255, 190)`
@@ -204,7 +201,7 @@ Colors store rgba components internally where each component is in the range `0.
 
 For example: `color.red`.
 
-Color objects support the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `Color() === Color()` is true since the red, green, blue, and alpha components are equal.
+Colors support the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `color() === color()` is true since the red, green, blue, and alpha components are equal.
 
 Color objects have a `toString` function for explicit (and implicit) conversion to strings in the format `'(red, green, blue, alpha)'`.
 
@@ -214,7 +211,7 @@ Color objects do not expose any other functions or a `prototype` object.
 
 Style expressions follow JavaScript conversion rules.  To minimize unexpected type coercion, `==` and `!=` operators are not supported.
 
-For conversions involving `Color`, color objects are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `>`, `>=`, `<`, and `<=` operators.  In boolean expressions, `Color` implicit converts to `true`, e.g., `!!Color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
+For conversions involving `Color`, colors are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `>`, `>=`, `<`, and `<=` operators.  In boolean expressions, a `Color` implicitly converts to `true`, e.g., `!!color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
 
 ### TODO
 
@@ -248,13 +245,13 @@ ${enabled} === true
 ${description} === null
 ${order} === 1
 ${name} === 'Feature name'
-${color} === Color('#FFFFFF')
+${color} === color('#FFFFFF')
 ```
 
 Variables can be used to constructor colors, for example:
 ```
-Color(${red}, ${green}, ${blue}, ${alpha})
-Color(${colorKeyword})
+color(${red}, ${green}, ${blue}, ${alpha})
+color(${colorKeyword})
 ```
 
 Dot or bracket notation is used to access feature sub-properties.  For example:
