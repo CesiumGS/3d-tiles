@@ -216,9 +216,30 @@ Style expressions follow JavaScript conversion rules.  To minimize unexpected ty
 
 For conversions involving `Color`, color objects are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `>`, `>=`, `<`, and `<=` operators.  In boolean expressions, `Color` implicit converts to `true`, e.g., `!!Color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
 
-### TODO
+#### Regular Expressions
 
-TODO: RegEx
+Regular expressions can be created with the following constructor functions:
+* `RegExp()` - default constructor returns an empty regex, equivilent to `/(?:)/`
+* `RegExp(pattern : String, [flags : String])`
+
+The `RegExp` function behaves like the JavaScript [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) constructor and takes the same arguments. All arguments must be literals, not expressions. 
+
+Regular expressions support the functions:
+* `test(string: String) : Boolean` - Tests the specified string for a match.  
+* `exec(string: String) : String` - Executes a search for a match in the specified string. If the search succeeds, it returns the first instance of a captured `String`. If the search fails, it returns `null`
+
+For example:
+```json
+{
+    "name" : "Building 1"
+}
+```
+
+```
+RegExp("a").test("abc") === true
+RegExp("a(.)").exec("abc") === 'b'
+RegExp("Building\s(\d)").exec(${name}) === '1'
+```
 
 #### Variables
 
