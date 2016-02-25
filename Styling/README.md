@@ -218,11 +218,11 @@ For conversions involving `Color`, color objects are treated as JavaScript objec
 
 #### Regular Expressions
 
-Regular expressions can be created with the following constructor functions:
-* `RegExp()` - default constructor returns an empty regex, equivilent to `/(?:)/`
-* `RegExp(pattern : String, [flags : String])`
+Regular expressions can be created with the following functions:
+* `regExp()` - returns an empty regex, equivilent to `/(?:)/`
+* `regExp(pattern : String, [flags : String])`
 
-The `RegExp` function behaves like the JavaScript [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) constructor and takes the same arguments. All arguments must be literals, not expressions. 
+The regExp` function behaves like the JavaScript [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) constructor and takes the same arguments.
 
 Regular expressions support the functions:
 * `test(string: String) : Boolean` - Tests the specified string for a match.  
@@ -236,9 +236,9 @@ For example:
 ```
 
 ```
-RegExp("a").test("abc") === true
-RegExp("a(.)").exec("abc") === 'b'
-RegExp("Building\s(\d)").exec(${name}) === '1'
+regExp("a").test("abc") === true
+regExp("a(.)").exec("abc") === 'b'
+regExp("Building\s(\d)").exec(${name}) === '1'
 ```
 
 #### Variables
