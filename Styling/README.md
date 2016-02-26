@@ -13,13 +13,12 @@ TBA: TOC
 
 3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's batch table.
 
-Styles are a JSON format with expressions written in a small subset of JavaScript augmented for styling.
+Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling.
 
 ## Examples
 
 TODO: test these examples
 TODO: would be cool to include some screenshots here
-TODO: introduce translucency property to assign without having to set RGB
 
 The following style assigns the default show and color properties to each feature:
 ```json
@@ -74,8 +73,6 @@ In addition to a string containing an expression, `color` can be an object defin
 }
 ```
 
-TODO: what exactly should exec return? See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec
-
 `color` can also be a color ramp by using a conditional:
 ```json
 "color" : {
@@ -99,7 +96,7 @@ TBA (and full JSON schema)
 
 ## Expressions
 
-The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)) plus a native color type and access to tileset feature properties in the form of readonly variables.
+The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)) plus native color and regular expression types and access to tileset feature properties in the form of readonly variables.
 
 _Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
 
@@ -136,8 +133,9 @@ The following types are supported:
 * `Number`
 * `String`
 * `Color`
+* `RegExp`
 
-All of the types except `Color` are from JavaScript and have the same syntax and runtime behavior as JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and behaves similar to a JavaScript `Object` (see the [Color section](#color)).
+All of the types except `Color` are from JavaScript and have the same syntax and runtime behavior as JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and behaves similar to a JavaScript `Object` (see the [Color section](#color)).  `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
 
 Example expressions for different types include:
 * `true`, `false`
@@ -146,8 +144,14 @@ Example expressions for different types include:
 * `1.0`, `NaN`, `Infinity`
 * `'Cesium'`, `"Cesium"`
 * `color('#00FFFF')`
+* `regExp('/^Chest/'))`
 
-Explicit conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions. For example:
+Explicit conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions.
+* `Boolean(value : Any) : Boolean`
+* `Number(value : Any) : Number`
+* `String(value : Any) : String`
+
+For example:
 
 ```
 Boolean(1) === true
@@ -155,35 +159,37 @@ Number('1') === 1
 String(1) === '1'
 ```
 
+Note that these are essentially casts, not constructor functions.
+
 #### Number
 
 Like JavaScript, numbers can be `NaN` or `Infinity`.  The following test functions are supported:
-* `isNaN(testValue : Number)`
-* `isFinite(testValue : Number)`
+* `isNaN(testValue : Number) : Boolean`
+* `isFinite(testValue : Number) : Boolean`
 
 #### Color
 
 Colors are created with one of the following functions:
-* `color()` `// default constructs #FFFFFF`
-* `color(keyword : String, [alpha : Number])`
-* `color(6-digit-hex : String, [alpha : Number])`
-* `color(3-digit-hex : String, [alpha : Number])`
-* `rgb(red : Number, green : Number, blue : number)`
-* `rgba(red : Number, green : Number, blue : number, alpha : Number)`
-* `hsl(hue : Number, saturation : Number, lightness : Number)`
-* `hsla(hue : Number, saturation : Number, lightness : Number, alpha : Number)`
+* `color() : Color`
+* `color(keyword : String, [alpha : Number]) : Color`
+* `color(6-digit-hex : String, [alpha : Number]) : Color`
+* `color(3-digit-hex : String, [alpha : Number]) : Color`
+* `rgb(red : Number, green : Number, blue : number) : Color`
+* `rgba(red : Number, green : Number, blue : number, alpha : Number) : Color`
+* `hsl(hue : Number, saturation : Number, lightness : Number) : Color`
+* `hsla(hue : Number, saturation : Number, lightness : Number, alpha : Number) : Color`
 
-The functions `rgb`, `hsl`, `rgba`, and `hsla` require all their arguments.
+Calling `color()` with no arguments is the same as calling `color('#FFFFFF')`.
 
-Colors defined by a case-insensitive keyword (e.g. `cyan`) or hex rgb are passed as strings to the `color` function.  For example:
+Colors defined by a case-insensitive keyword (e.g. `'cyan'`) or hex rgb are passed as strings to the `color` function.  For example:
 * `color('cyan')`
 * `color('#00FFFF')`
 * `color('#0FF')`
 
-These `color` function has an optional second argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
+These `color` functions have an optional second argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
 * `color('cyan', 0.5)`
 
-Colors defined with decimal rgb or hsl are defined with `rgb` and `hsl` functions, respectively, just like in CSS (but with perctange ranges from `0.0` to `1.0` for `0%` to `100%`, respectively).  For example:
+Colors defined with decimal rgb or hsl are created with `rgb` and `hsl` functions, respectively, just like in CSS (but with perctange ranges from `0.0` to `1.0` for `0%` to `100%`, respectively).  For example:
 * `rgb(100, 255, 190)`
 * `hsl(1.0, 0.6, 0.7)`
 
@@ -201,25 +207,22 @@ Colors store rgba components internally where each component is in the range `0.
 
 For example: `color.red`.
 
-Colors support the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `color() === color()` is true since the red, green, blue, and alpha components are equal.
+Colors support the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `color() === color()` is true since the red, green, blue, and alpha components are equal.  This is not the same behavior as a JavaScript `Object`, where, for example, reference equality would be used.  Operators are essentially overloaded for `Color`.
 
 Color objects have a `toString` function for explicit (and implicit) conversion to strings in the format `'(red, green, blue, alpha)'`.
+* `toString() : String`
 
 Color objects do not expose any other functions or a `prototype` object.
 
-#### Conversions
+#### RegExp
 
-Style expressions follow JavaScript conversion rules.  To minimize unexpected type coercion, `==` and `!=` operators are not supported.
+Regular expressions are created with the following functions:
+* `regExp() : RegExp`
+* `regExp(pattern : String, [flags : String]) : RegExp`
 
-For conversions involving `Color`, colors are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `>`, `>=`, `<`, and `<=` operators.  In boolean expressions, a `Color` implicitly converts to `true`, e.g., `!!color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
+Calling `regExp()` with no arguments is the same as calling `regExp('/(?:)/')`.
 
-#### Regular Expressions
-
-Regular expressions can be created with the following functions:
-* `regExp()` - returns an empty regex, equivilent to `/(?:)/`
-* `regExp(pattern : String, [flags : String])`
-
-The regExp` function behaves like the JavaScript [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) constructor and takes the same arguments.
+The `regExp` function behaves like the JavaScript [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) constructor and takes the same arguments.
 
 Regular expressions support the functions:
 * `test(string: String) : Boolean` - Tests the specified string for a match.  
@@ -233,10 +236,16 @@ For example:
 ```
 
 ```
-regExp("a").test("abc") === true
-regExp("a(.)").exec("abc") === 'b'
-regExp("Building\s(\d)").exec(${name}) === '1'
+regExp('a').test("abc") === true
+regExp('a(.)').exec("abc") === 'b'
+regExp('Building\s(\d)').exec(${name}) === '1'
 ```
+
+#### Conversions
+
+Style expressions follow JavaScript conversion rules.  To minimize unexpected type coercion, `==` and `!=` operators are not supported.
+
+For conversions involving `Color` or `RegExp`, they are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `>`, `>=`, `<`, and `<=` operators.  In boolean expressions, a `Color` implicitly converts to `true`, e.g., `!!color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
 
 #### Variables
 
