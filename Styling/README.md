@@ -189,7 +189,7 @@ Colors defined by a case-insensitive keyword (e.g. `'cyan'`) or hex rgb are pass
 These `color` functions have an optional second argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
 * `color('cyan', 0.5)`
 
-Colors defined with decimal rgb or hsl are created with `rgb` and `hsl` functions, respectively, just like in CSS (but with perctange ranges from `0.0` to `1.0` for `0%` to `100%`, respectively).  For example:
+Colors defined with decimal rgb or hsl are created with `rgb` and `hsl` functions, respectively, just like in CSS (but with percentange ranges from `0.0` to `1.0` for `0%` to `100%`, respectively).  For example:
 * `rgb(100, 255, 190)`
 * `hsl(1.0, 0.6, 0.7)`
 
@@ -209,20 +209,26 @@ For example: `color.red`.
 
 Colors support the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `color() === color()` is true since the red, green, blue, and alpha components are equal.  This is not the same behavior as a JavaScript `Object`, where, for example, reference equality would be used.  Operators are essentially overloaded for `Color`.
 
-Color objects have a `toString` function for explicit (and implicit) conversion to strings in the format `'(red, green, blue, alpha)'`.
+Colors have a `toString` function for explicit (and implicit) conversion to strings in the format `'(red, green, blue, alpha)'`.
 * `toString() : String`
 
-Color objects do not expose any other functions or a `prototype` object.
+Colors do not expose any other functions or a `prototype` object.
 
 #### RegExp
 
-Regular expressions are created with the following functions:
+Regular expressions are created with the following functions, which behave like the JavaScript [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) constructor:
 * `regExp() : RegExp`
 * `regExp(pattern : String, [flags : String]) : RegExp`
 
 Calling `regExp()` with no arguments is the same as calling `regExp('/(?:)/')`.
 
-The `regExp` function behaves like the JavaScript [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) constructor and takes the same arguments.
+If specified, flags can have any combination of the following values:
+
+* `g` - global match
+* `i` - ignore case
+* `m` - multiline
+* `u` - unicode
+* `y`- sticky
 
 Regular expressions support the functions:
 * `test(string: String) : Boolean` - Tests the specified string for a match.  
@@ -236,10 +242,17 @@ For example:
 ```
 
 ```
-regExp('a').test("abc") === true
-regExp('a(.)').exec("abc") === 'b'
+regExp('a').test('abc') === true
+regExp('a(.)').exec('Abc', 'i') === 'b'
 regExp('Building\s(\d)').exec(${name}) === '1'
 ```
+
+Regular expressions have a `toString` function for explicit (and implicit) conversion to strings in the format `'pattern'`.
+* `toString() : String`
+
+Regular expressions are treated as `NaN` when performing operations with any operator. 
+
+Regular expressions do not expose any other functions or a `prototype` object.
 
 #### Conversions
 
@@ -249,7 +262,14 @@ For conversions involving `Color` or `RegExp`, they are treated as JavaScript ob
 
 #### Variables
 
-Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)) Template Literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name.  `feature` is implicit and can be ommited in most cases.
+Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)) Template Literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name.  `feature` is implicit and can be omitted in most cases.
+
+Variables can be used anywhere a valid expression is accepted, expcet inside other variable identifiers.
+
+For example, the following syntax is not allowed:
+```
+${foo[${bar}]}
+```
 
 If a feature does not have a property with specified name, the variable evaluates to `undefined`.  Note that the property may also be `null` if `null` was explicitly stored for a property.
 
@@ -322,7 +342,7 @@ ${feature['address'].street} === `Oak Street`
 ${feature['address.street']} === `Maple Street`
 ```
 
-To access a feature named `feature`, use the variable `${feature}`. This is equivelent to accessing `${feature.feature}`
+To access a feature named `feature`, use the variable `${feature}`. This is equivalent to accessing `${feature.feature}`
 
 ```json
 {
@@ -376,6 +396,6 @@ _TBA, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/json`
 
-## Acknowledgements
+## Acknowledgments
 
 * Piero Toffanin, [@pierotofy](https://github.com/pierotofy)
