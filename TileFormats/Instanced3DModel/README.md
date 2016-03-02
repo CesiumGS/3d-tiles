@@ -49,14 +49,15 @@ _TODO: create a separate Batch Table spec that b3dm, i3dm, etc. can reference, [
 
 The batch table is a `UTF-8` string containing JSON.  It immediately follows the header.  It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 
-Each property in the object is an array with its length equal to the number of instances in the tile.  Each array is a homogeneous collection of `String`, `Number`, or `Boolean` elements.  Elements may be `null`.
+Each property in the object is an array with its length equal to `header.batchLength`.  Array elements can be any valid JSON data type, including objects and arrays.  Elements may be `null`.
 
 An instance's `batchId` is used to access elements in each array and extract the corresponding properties.  For example, the following batch table has properties for two instances:
 ```json
 {
     "id" : ["unique id", "another unique id"],
     "displayName" : ["Tree species", "Another tree species"],
-    "yearPlanted" : [1999, 2003]
+    "yearPlanted" : [1999, 2003],
+    "location" : [{"x" : 1, "y" : 2}, {"x" : 3, "y" : 4}]
 }
 ```
 
@@ -65,6 +66,7 @@ The properties for the instance with `batchId = 0` are
 id[0] = 'unique id';
 displayName[0] = 'Tree species';
 yearBuilt[0] = 1999;
+location[0] = {x : 1, y : 2};
 ```
 
 The properties for `batchId = 1` are
@@ -72,6 +74,7 @@ The properties for `batchId = 1` are
 id[1] = 'another unique id';
 displayName[1] = 'Another tree species';
 yearBuilt[1] = 2003;
+location[1] = {x : 3, y : 4};
 ```
 
 ## glTF
