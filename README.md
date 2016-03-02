@@ -38,6 +38,7 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi).
 * Cesium implementation
    * [Roadmap](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241)
    * [3d-tiles](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles) branch
+* Sample data: [simple 3D tilesets](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles/Specs/Data/Cesium3DTiles) used in the Cesium unit tests.
 * [Slides](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf) on 3D Tiles from the Cesium BOF at SIGGRAPH 2015.
 
 ## Spec status
