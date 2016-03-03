@@ -39,6 +39,7 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi).
 * Cesium implementation
    * [Roadmap](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241)
    * [3d-tiles](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles) branch
+* Sample data: [simple 3D tilesets](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles/Specs/Data/Cesium3DTiles) used in the Cesium unit tests.
 * [Slides](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf) on 3D Tiles from the Cesium BOF at SIGGRAPH 2015.
 
 ## Spec status
@@ -173,17 +174,17 @@ _tileset.json_ defines a tileset.  Here is a subset of the tileset.json used for
   }
 }
 ```
-The top-level object in tileset.json has four properties: `asset`, `propertes`, `geometricError`, and `root`.
+The top-level object in tileset.json has four properties: `asset`, `properties`, `geometricError`, and `root`.
 
 `asset` is an object containing properties with metadata about the entire tileset.  Its `version` property is a string that defines the 3D Tiles version.  The version defines the JSON schema for tileset.json and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated.
 
-`propertes` is an object containing objects for each per-feature property in the tileset.  This tileset.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see the _Batch Table_ in the [Batched 3D Model](TileFormats/Batched3DModel/README.md) tile format).  The name of each object in `properties` matches the name of a per-feature property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
+`properties` is an object containing objects for each per-feature property in the tileset.  This tileset.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see the _Batch Table_ in the [Batched 3D Model](TileFormats/Batched3DModel/README.md) tile format).  The name of each object in `properties` matches the name of a per-feature property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
 `geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered.
 
 `root` is an object that defines the root tile using the JSON described in the [above section](#Tile-Metadata).  `root.geometricError` is not the same as tileset.json's top-level `geometricError`.  tileset.json's `geometricError` is the error when the entire tileset is not rendered; `root.geometricError` is the error when only the root tile is rendered.
 
-`root.children` is an array of objects that define child tiles.  Each child tile has a `box` fully enclosed by its parent tile's `box` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
+`root.children` is an array of objects that define child tiles.  Each child tile has a `boundingVolume` fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
 
 See [schema](schema) for the detailed JSON schema for tileset.json.
 

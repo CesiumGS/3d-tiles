@@ -45,14 +45,15 @@ The batch table maps each `batchId` to per-model properties.  If present, the ba
 
 The batch table is a `UTF-8` string containing JSON.  It immediately follows the header.  It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 
-Each property in the object is an array with its length equal to `header.batchLength`.  Each array is a homogeneous collection of `String`, `Number`, or `Boolean` elements.  Elements may be `null`.
+Each property in the object is an array with its length equal to `header.batchLength`.  Array elements can be any valid JSON data type, including objects and arrays.  Elements may be `null`.
 
 A vertex's `batchId` is used to access elements in each array and extract the corresponding properties.  For example, the following batch table has properties for a batch of two models.
 ```json
 {
     "id" : ["unique id", "another unique id"],
     "displayName" : ["Building name", "Another building name"],
-    "yearBuilt" : [1999, 2015]
+    "yearBuilt" : [1999, 2015],
+    "address" : [{"street" : "Main Street", "houseNumber" : "1"}, {"street" : "Main Street", "houseNumber" : "2"}]
 }
 ```
 
@@ -61,6 +62,7 @@ The properties for the model with `batchId = 0` are
 id[0] = 'unique id';
 displayName[0] = 'Building name';
 yearBuilt[0] = 1999;
+address[0] = {street : 'Main Street', houseNumber : '1'};
 ```
 
 The properties for `batchId = 1` are
@@ -68,6 +70,7 @@ The properties for `batchId = 1` are
 id[1] = 'another unique id';
 displayName[1] = 'Another building name';
 yearBuilt[1] = 2015;
+address[1] = {street : 'Main Street', houseNumber : '2'};
 ```
 
 ## Binary glTF
@@ -96,6 +99,8 @@ attribute float a_batchId;
 ```
 The vertex shader can be modified at runtime to use `a_batchId` to access individual models in the batch, e.g., to change their color.
 
+When a Batch Table is present, the `a_batchId` attribute (with the parameter semantic `BATCHID`) is required; otherwise, it is not.
+
 Although not strictly required, clients may find the glTF [CESIUM_RTC](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_RTC/README.md) extension useful for high-precision rendering.
 
 ## File Extension
@@ -107,3 +112,7 @@ Although not strictly required, clients may find the glTF [CESIUM_RTC](https://g
 _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`
+
+## Acknowledgments
+
+* Jannes Bolling, [@jbo023](https://github.com/jbo023)
