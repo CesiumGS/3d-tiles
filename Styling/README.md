@@ -84,8 +84,8 @@ For example, here's a color map that maps an id property to colors:
     "color" : {
         "expression" : "RegEx('^1(\\d)$').exec(${id})",
         "conditions" : {
-            "{$EXPRESSION} === 1" : "color('#FF0000')",
-            "{$EXPRESSION} === 2" : "color('#00FF00')",
+            "{$expression} === 1" : "color('#FF0000')",
+            "{$expression} === 2" : "color('#00FF00')",
             "true" : "color('#FFFFFF')"
         }
     }
@@ -97,12 +97,12 @@ Conditions are evaluated in order so, above, if `{$EXPRESSION}` is not `1` or `2
 "color" : {
     "expression" : "${Height}",
     "conditions" : {
-        "(${EXPRESSION} >= 1.0)  && (${EXPRESSION} < 10.0)" : "color('#FF00FF')",
-        "(${EXPRESSION} >= 10.0) && (${EXPRESSION} < 30.0)" : "color('#FF0000')",
-        "(${EXPRESSION} >= 30.0) && (${EXPRESSION} < 50.0)" : "color('#FFFF00')",
-        "(${EXPRESSION} >= 50.0) && (${EXPRESSION} < 70.0)" : "color('#00FF00')",
-        "(${EXPRESSION} >= 70.0) && (${EXPRESSION} < 100.0)" : "color('#00FFFF')",
-        "(${EXPRESSION} >= 100.0)" : "color('#0000FF')"
+        "(${expression} >= 1.0)  && (${expression} < 10.0)" : "color('#FF00FF')",
+        "(${expression} >= 10.0) && (${expression} < 30.0)" : "color('#FF0000')",
+        "(${expression} >= 30.0) && (${expression} < 50.0)" : "color('#FFFF00')",
+        "(${expression} >= 50.0) && (${expression} < 70.0)" : "color('#00FF00')",
+        "(${expression} >= 70.0) && (${expression} < 100.0)" : "color('#00FFFF')",
+        "(${expression} >= 100.0)" : "color('#0000FF')"
     }
 }
 ```
