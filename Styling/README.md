@@ -7,7 +7,23 @@
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
-TBA: TOC
+
+* [Overview](#overview)
+* [Examples](#examples)
+* [Schema Reference](#schema-reference)
+* [Expressions](#expressions)
+   * [Semantics](#semantics)
+   * [Operators](#operators)
+   * [Types](#types)
+      * [Number](#number)
+      * [Color](#color)
+      * [RegExp](#regexp)
+   * [Conversions](#conversions)
+   * [Variables](#variables)
+   * [Notes](#notes)
+* [File Extension](#file-extension)
+* [MIME Type](#mime-type)
+* [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -272,13 +288,13 @@ Regular expressions are treated as `NaN` when performing operations with any ope
 
 Regular expressions do not expose any other functions or a `prototype` object.
 
-#### Conversions
+### Conversions
 
 Style expressions follow JavaScript conversion rules.  To minimize unexpected type coercion, `==` and `!=` operators are not supported.
 
 For conversions involving `Color` or `RegExp`, they are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `>`, `>=`, `<`, and `<=` operators.  In boolean expressions, a `Color` implicitly converts to `true`, e.g., `!!color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
 
-#### Variables
+### Variables
 
 Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)) Template Literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name.  `feature` is implicit and can be omitted in most cases.
 
