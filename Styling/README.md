@@ -39,7 +39,7 @@ The following style assigns the default show and color properties to each featur
 ```json
 {
     "show" : "true",
-    "color" : "color('#FFF')"
+    "color" : "color('#ffffff')"
 }
 ```
 
@@ -82,17 +82,17 @@ For example, here's a color map that maps an id property to colors:
 ```json
 {
     "color" : {
-        "expression" : "RegEx('^1(\\d)$').exec(${id})",
+        "expression" : "regExp('^1(\\d)$').exec(${id})",
         "conditions" : {
-            "{$expression} === 1" : "color('#FF0000')",
-            "{$expression} === 2" : "color('#00FF00')",
+            "${expression} === 1" : "color('#FF0000')",
+            "${expression} === 2" : "color('#00FF00')",
             "true" : "color('#FFFFFF')"
         }
     }
 }
 ```
 
-Conditions are evaluated in order so, above, if `{$EXPRESSION}` is not `1` or `2`, the `"true"` condition returns white.  The next example shows how to use conditions to create a color ramp using intervals with an inclusive lower bound and exclusive upper bound.
+Conditions are evaluated in order so, above, if `${expression}` is not `1` or `2`, the `"true"` condition returns white.  The next example shows how to use conditions to create a color ramp using intervals with an inclusive lower bound and exclusive upper bound.
 ```json
 "color" : {
     "expression" : "${Height}",
