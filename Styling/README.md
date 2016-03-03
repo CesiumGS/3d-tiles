@@ -61,38 +61,56 @@ The color's alpha component defines the feature's opacity, for example:
 ```
 This sets the feature's RGB color components from the feature's properties, and makes features with volume greater than 100 transparent.
 
-In addition to a string containing an expression, `color` can be an object defining a map or color ramp.  For example:
-```json
-"color" : {
-    "key" : "RegEx('^1(\\d)$').exec(${id})",
-    "map" : {
-        "1" : "color('#FF0000')",
-        "2" : "color('#00FF00')"
-    },
-    "defaultValue" : "color('#FFFFFF')"
-}
-```
+In addition to a string containing an expression, `color` and `show` can be an object defining a series of conditions (think of them as `if...else` statements).  Conditions can be used to make color maps and color ramps with any type of inclusive/exclusive intervals.
 
-`color` can also be a color ramp by using a conditional:
+For example, here's a color map that maps an id property to colors:
 ```json
-"color" : {
-    "key" : "${Height} / ${Area}",
-    "conditional" : {
-        "(${KEY} >= 1.0)  && (${KEY} < 10.0)"  : "color('#FF00FF')",
-        "(${KEY} >= 10.0) && (${KEY} < 30.0)"  : "color('#FF0000')",
-        "(${KEY} >= 30.0) && (${KEY} < 50.0)"  : "color('#FFFF00')",
-        "(${KEY} >= 50.0) && (${KEY} < 70.0)"  : "color('#00FF00')",
-        "(${KEY} >= 70.0) && (${KEY} < 100.0)" : "color('#00FFFF')",
-        "(${KEY} >= 100.0)"                    : "color('#0000FF')"
+{
+    "color" : {
+        "expression" : "RegEx('^1(\\d)$').exec(${id})",
+        "conditions" : {
+            "{$EXPRESSION} === 1" : "color('#FF0000')",
+            "{$EXPRESSION} === 2" : "color('#00FF00')",
+            "true" : "color('#FFFFFF')"
+        }
     }
 }
 ```
 
-TODO: schema for conditional
+Conditions are evaluated in order so, above, if `{$EXPRESSION}` is not `1` or `2`, the `"true"` condition returns white.  The next example shows how to use conditions to create a color ramp with intervals with an inclusive lower bound and exclusive upper bound.
+```json
+"color" : {
+    "expression" : "${Height}",
+    "conditions" : {
+        "(${EXPRESSION} >= 1.0)  && (${EXPRESSION} < 10.0)" : "color('#FF00FF')",
+        "(${EXPRESSION} >= 10.0) && (${EXPRESSION} < 30.0)" : "color('#FF0000')",
+        "(${EXPRESSION} >= 30.0) && (${EXPRESSION} < 50.0)" : "color('#FFFF00')",
+        "(${EXPRESSION} >= 50.0) && (${EXPRESSION} < 70.0)" : "color('#00FF00')",
+        "(${EXPRESSION} >= 70.0) && (${EXPRESSION} < 100.0)" : "color('#00FFFF')",
+        "(${EXPRESSION} >= 100.0)" : "color('#0000FF')"
+    }
+}
+```
+
+Since `expression` is optional and conditions are evaluated in order, the above can more concisely be written as:
+```json
+"color" : {
+    "conditions" : {
+        "(${Height} >= 100.0)" : "color('#0000FF')",
+        "(${Height} >= 70.0)" : "color('#00FFFF')",
+        "(${Height} >= 50.0)" : "color('#00FF00')",
+        "(${Height} >= 30.0)" : "color('#FFFF00')",
+        "(${Height} >= 10.0)" : "color('#FF0000')",
+        "(${Height} >= 1.0)" : "color('#FF00FF')"
+    }
+}
+```
 
 ## Schema Reference
 
-TBA (and full JSON schema)
+TODO: generate reference doc from schema
+
+Also, see the [JSON schema](schema).
 
 ## Expressions
 
