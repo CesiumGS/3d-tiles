@@ -35,9 +35,6 @@ Styles are defined with JSON and expressions written in a small subset of JavaSc
 
 ## Examples
 
-TODO: test these examples
-TODO: would be cool to include some screenshots here
-
 The following style assigns the default show and color properties to each feature:
 ```json
 {
@@ -60,7 +57,7 @@ Here, only features in the 19341 zip code are shown.
 }
 ```
 
-Above, a compound conditional and regular expression are used to show only features whose county starts with `'Chest'` and whose year built is greater than or equal to 1970.
+Above, a compound condition and regular expression are used to show only features whose county starts with `'Chest'` and whose year built is greater than or equal to 1970.
 
 Colors can also be defined by expressions dependent on a feature's properties, for example:
 ```json
@@ -79,7 +76,7 @@ The color's alpha component defines the feature's opacity, for example:
 ```
 This sets the feature's RGB color components from the feature's properties, and makes features with volume greater than 100 transparent.
 
-In addition to a string containing an expression, `color` and `show` can be an object defining a series of conditions (think of them as `if...else` statements).  Conditions can be used to make color maps and color ramps with any type of inclusive/exclusive intervals.
+In addition to a string containing an expression, `color` and `show` can be an object defining a series of conditions (think of them as `if...else` statements).  Conditions can, for example, be used to make color maps and color ramps with any type of inclusive/exclusive intervals.
 
 For example, here's a color map that maps an id property to colors:
 ```json
@@ -95,7 +92,7 @@ For example, here's a color map that maps an id property to colors:
 }
 ```
 
-Conditions are evaluated in order so, above, if `{$EXPRESSION}` is not `1` or `2`, the `"true"` condition returns white.  The next example shows how to use conditions to create a color ramp with intervals with an inclusive lower bound and exclusive upper bound.
+Conditions are evaluated in order so, above, if `{$EXPRESSION}` is not `1` or `2`, the `"true"` condition returns white.  The next example shows how to use conditions to create a color ramp using intervals with an inclusive lower bound and exclusive upper bound.
 ```json
 "color" : {
     "expression" : "${Height}",
@@ -132,7 +129,7 @@ Also, see the [JSON schema](schema).
 
 ## Expressions
 
-The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)) plus native color and regular expression types and access to tileset feature properties in the form of readonly variables.
+The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)) plus native color and regular expression types, and access to tileset feature properties in the form of readonly variables.
 
 _Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
 
@@ -158,7 +155,7 @@ The following operators are supported with the same semantics and precedence as 
 
 Logical `||` and `&&` implement short-circuiting; `true || expression` does not evaluate the right expression; and `false && expression` does not evaluate the right expression.
 
-Similarly, `true ? left-expression : rightExpression` only executes the left expression, and `false ? leftExpression : right-expression` only executes the right expression.
+Similarly, `true ? leftExpression : rightExpression` only executes the left expression, and `false ? leftExpression : rightExpression` only executes the right expression.
 
 ### Types
 
@@ -171,7 +168,7 @@ The following types are supported:
 * `Color`
 * `RegExp`
 
-All of the types except `Color` are from JavaScript and have the same syntax and runtime behavior as JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and behaves similar to a JavaScript `Object` (see the [Color section](#color)).  `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
+All of the types except `Color` and `RegExp` have the same syntax and runtime behavior as JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and behaves similar to a JavaScript `Object` (see the [Color section](#color)).  `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
 
 Example expressions for different types include:
 * `true`, `false`
@@ -195,7 +192,7 @@ Number('1') === 1
 String(1) === '1'
 ```
 
-Note that these are essentially casts, not constructor functions.
+These are essentially casts, not constructor functions.
 
 #### Number
 
@@ -258,7 +255,7 @@ Regular expressions are created with the following functions, which behave like 
 
 Calling `regExp()` with no arguments is the same as calling `regExp('/(?:)/')`.
 
-If specified, flags can have any combination of the following values:
+If specified, `flags` can have any combination of the following values:
 
 * `g` - global match
 * `i` - ignore case
@@ -273,14 +270,14 @@ Regular expressions support the functions:
 For example:
 ```json
 {
-    "name" : "Building 1"
+    "Name" : "Building 1"
 }
 ```
 
 ```
 regExp('a').test('abc') === true
 regExp('a(.)').exec('Abc', 'i') === 'b'
-regExp('Building\s(\d)').exec(${name}) === '1'
+regExp('Building\s(\d)').exec(${Name}) === '1'
 ```
 
 Regular expressions have a `toString` function for explicit (and implicit) conversion to strings in the format `'pattern'`.
@@ -300,9 +297,7 @@ For conversions involving `Color` or `RegExp`, they are treated as JavaScript ob
 
 Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)) Template Literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name.  `feature` is implicit and can be omitted in most cases.
 
-Variables can be used anywhere a valid expression is accepted, expcet inside other variable identifiers.
-
-For example, the following syntax is not allowed:
+Variables can be used anywhere a valid expression is accepted, expcet inside other variable identifiers. For example, the following is not allowed:
 ```
 ${foo[${bar}]}
 ```
@@ -331,7 +326,6 @@ ${enabled} === true
 ${description} === null
 ${order} === 1
 ${name} === 'Feature name'
-${color} === color('#FFFFFF')
 ```
 
 Variables can be used to constructor colors, for example:
