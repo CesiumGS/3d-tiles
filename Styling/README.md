@@ -8,6 +8,8 @@
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
 
+Contents:
+
 * [Overview](#overview)
 * [Examples](#examples)
 * [Schema Reference](#schema-reference)
