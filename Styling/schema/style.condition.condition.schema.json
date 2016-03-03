@@ -1,0 +1,10 @@
+{
+    "$schema" : "http://json-schema.org/draft-03/schema",
+    "title" : "condition",
+    "type" : [{
+        "$ref" : "style.booleanExpression.schema.json"
+    }, {
+        "$ref" : "style.colorExpression.schema.json"
+    }],
+    "description" : "An expression evaluated as the result of a condition being true."
+}

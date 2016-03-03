@@ -1,0 +1,26 @@
+{
+    "$schema" : "http://json-schema.org/draft-03/schema",
+    "title" : "condition",
+    "type" : "object",
+    "description" : "A series of conditions evaluated in order like a series of if...else statements.",
+    "properties" : {
+        "expression" : {
+            "type" : [{
+                "$ref" : "style.booleanExpression.schema.json"
+            }, {
+                "$ref" : "style.colorExpression.schema.json"
+            }],
+            "description" : "An optional expression that is evaluated once and then can be access in the condition expressions as ${expression}.  If a feature has a property named 'expression`, use ${feature.expression} to access it.  If expression is not defined, ${expression} evaluates to `undefined`.",
+        },
+        "conditions" : {
+            "type" : "object",
+            "description" : "A series of boolean conditions evaluated in order.  For the first one that evaluates to true, its value, the 'result', (which is also an expression) is evaluated and returned.  Result expressions must all be the same type.  If no condition evaluates to true, the result is `undefined`.  When no conditions `undefined`, `null`, or an empty object, the result is `undefined`.",
+            "properties" : {
+            },
+            "additionalProperties" : {
+                "$ref" : "style.condition.condition.schema.json"
+            }
+        }
+    },
+    "additionalProperties" : false
+}

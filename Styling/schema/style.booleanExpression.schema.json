@@ -1,0 +1,6 @@
+{
+    "$schema" : "http://json-schema.org/draft-03/schema",
+    "title" : "boolean expression",
+    "type" : ["boolean", "string"],
+    "description" : "A boolean or 3D Tiles style expression that evaluates to a boolean."
+}
