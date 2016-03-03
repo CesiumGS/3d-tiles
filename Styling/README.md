@@ -53,7 +53,7 @@ Instead of showing all features, `show` can be an expression dependent on a feat
 Here, only features in the 19341 zip code are shown.
 ```json
 {
-    "show" : "(${County} === regExp('/^Chest/')) && (${YearBuilt} >= 1970)"
+    "show" : "(regExp('^Chest').test(${County})) && (${YearBuilt} >= 1970)"
 }
 ```
 
@@ -71,7 +71,7 @@ This colors features with a temperature above 90 red, and the others white.
 The color's alpha component defines the feature's opacity, for example:
 ```json
 {
-   "color" : "color(${red}, ${green}, ${blue}, (${volume} > 100 ? 0.5 : 1.0))"
+   "color" : "rgba(${red}, ${green}, ${blue}, (${volume} > 100 ? 0.5 : 1.0))"
 }
 ```
 This sets the feature's RGB color components from the feature's properties, and makes features with volume greater than 100 transparent.
@@ -177,7 +177,7 @@ Example expressions for different types include:
 * `1.0`, `NaN`, `Infinity`
 * `'Cesium'`, `"Cesium"`
 * `color('#00FFFF')`
-* `regExp('/^Chest/'))`
+* `regExp('^Chest'))`
 
 Explicit conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions.
 * `Boolean(value : Any) : Boolean`
@@ -253,7 +253,7 @@ Regular expressions are created with the following functions, which behave like 
 * `regExp() : RegExp`
 * `regExp(pattern : String, [flags : String]) : RegExp`
 
-Calling `regExp()` with no arguments is the same as calling `regExp('/(?:)/')`.
+Calling `regExp()` with no arguments is the same as calling `regExp('(?:)')`.
 
 If specified, `flags` can have any combination of the following values:
 
@@ -330,7 +330,7 @@ ${name} === 'Feature name'
 
 Variables can be used to constructor colors, for example:
 ```
-color(${red}, ${green}, ${blue}, ${alpha})
+rgba(${red}, ${green}, ${blue}, ${alpha})
 color(${colorKeyword})
 ```
 
