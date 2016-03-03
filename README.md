@@ -58,7 +58,7 @@ Topic  | Status
 [Massive Model](TileFormats/MassiveModel/README.md)  | :white_circle: **Not started**
 Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point
 Stars  | :white_circle: **Not started**
-[Declarative Styling](Styling/README.md)  | :white_circle: **In progress**, [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
+[Declarative Styling](Styling/README.md)  | :white_check_mark: **Solid base**, will add features/functions as needed [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
 
 For spec work in progress, [watch this repo](https://github.com/AnalyticalGraphicsInc/3d-tiles/subscription) and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
 
@@ -297,6 +297,26 @@ Each tile's `content.url` property points to a tile that is one of the formats l
 
 A tileset can contain any combination of tile formats.  3D Tiles may also support different formats in the same tile using a [Composite](TileFormats/Composite/README.md) tile.
 
+## Declarative styling
+
+<p align="center">
+  <img src="figures/style.jpg" /><br />
+  Buildings colored by height using declarative styling.
+</p>
+
+3D Tiles include concise declarative styling defined with JSON and expressions written in a small subset of JavaScript augmented for styling.
+
+Styles generally define a feature's `show` and `color` (RGB and translucency) using an expression based on a feature's properties, for example:
+```json
+{
+    "color" : "(${Temperature} > 90) ? color('red') : color('white')"
+}
+```
+
+This colors features with a temperature above 90 red, and the others white.
+
+For complete details, see the [Declarative Styling](Styling/README.md) spec.
+
 ## Roadmap Q&A
 
 * [General Q&A](#general-qa)
@@ -317,10 +337,6 @@ A tileset can contain any combination of tile formats.  3D Tiles may also suppor
    * [When using replacement refinement, can multiple children be combined into one request?](#when-using-replacement-refinement-can-multiple-children-be-combined-into-one-request)
    * [How can additive refinement be optimized?](#how-can-additive-refinement-be-optimized)
    * [What compressed texture formats do 3D Tiles use?](#what-compressed-texture-formats-do-3d-tiles-use)
-
-## Declarative styling
-
-TODO: Concise overview, examples, and link to [Declarative Styling](Styling/README.md).
 
 ### General Q&A
 
