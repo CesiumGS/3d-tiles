@@ -276,7 +276,7 @@ For example:
 
 ```
 regExp('a').test('abc') === true
-regExp('a(.)').exec('Abc', 'i') === 'b'
+regExp('a(.)', 'i').exec('Abc') === 'b'
 regExp('Building\s(\d)').exec(${Name}) === '1'
 ```
 
