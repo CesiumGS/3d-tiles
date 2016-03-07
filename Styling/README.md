@@ -82,7 +82,7 @@ For example, here's a color map that maps an id property to colors:
 ```json
 {
     "color" : {
-        "expression" : "regExp('^1(\\d)$').exec(${id})",
+        "expression" : "regExp('^1(\\d)').exec(${id})",
         "conditions" : {
             "${expression} === '1'" : "color('#FF0000')",
             "${expression} === '2'" : "color('#00FF00')",
@@ -92,7 +92,9 @@ For example, here's a color map that maps an id property to colors:
 }
 ```
 
-Conditions are evaluated in order so, above, if `${expression}` is not `1` or `2`, the `"true"` condition returns white.  The next example shows how to use conditions to create a color ramp using intervals with an inclusive lower bound and exclusive upper bound.
+Conditions are evaluated in order so, above, if `${expression}` is not `'1'` or `'2'`, the `"true"` condition returns white. If no conditions are met, the color of the feature will be `undefined`.
+
+The next example shows how to use conditions to create a color ramp using intervals with an inclusive lower bound and exclusive upper bound.
 ```json
 "color" : {
     "expression" : "${Height}",
