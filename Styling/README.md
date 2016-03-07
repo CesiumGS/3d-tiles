@@ -84,8 +84,8 @@ For example, here's a color map that maps an id property to colors:
     "color" : {
         "expression" : "regExp('^1(\\d)$').exec(${id})",
         "conditions" : {
-            "${expression} === 1" : "color('#FF0000')",
-            "${expression} === 2" : "color('#00FF00')",
+            "${expression} === '1'" : "color('#FF0000')",
+            "${expression} === '2'" : "color('#00FF00')",
             "true" : "color('#FFFFFF')"
         }
     }
