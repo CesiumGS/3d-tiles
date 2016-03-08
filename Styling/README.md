@@ -1,5 +1,23 @@
 # Styling
 
+![](figures/example.png)
+
+
+```json
+{
+    "show" : "${Area} > 0",
+    "color" : {
+        "conditions" : {
+            "${Height} < 60" : "color('#13293D')",
+            "${Height} < 120" : "color('#1B98E0')",
+            "true" : "color('#E8F1F2', 0.5)"
+        }
+    }
+}
+```
+
+Example: Creating a color ramp based on building height.
+
 ## Contributors
 
 * Gabby Getz, [@ggetz](https://github.com/ggetz)
@@ -32,24 +50,6 @@ Contents:
 3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's batch table.
 
 Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling.
-
-Here's an example of creating a color ramp based on building height:
-
-![](figures/example.png)
-
-
-```json
-{
-    "show" : "${Area} > 0",
-    "color" : {
-        "conditions" : {
-            "${Height} < 60" : "color('#13293D')",
-            "${Height} < 120" : "color('#1B98E0')",
-            "true" : "color('#E8F1F2', 0.5)"
-        }
-    }
-}
-```
 
 ## Examples
 
