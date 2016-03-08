@@ -33,6 +33,24 @@ Contents:
 
 Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling.
 
+Here's an example of creating a color ramp based on building height:
+
+![](figures/example.png)
+
+
+```json
+{
+    "show" : "${Area} > 0",
+    "color" : {
+        "conditions" : {
+            "${Height} < 60" : "color('#13293D')",
+            "${Height} < 120" : "color('#1B98E0')",
+            "true" : "color('#E8F1F2', 0.5)"
+        }
+    }
+}
+```
+
 ## Examples
 
 The following style assigns the default show and color properties to each feature:
