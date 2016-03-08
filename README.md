@@ -313,7 +313,7 @@ Styles generally define a feature's `show` and `color` (RGB and translucency) us
 }
 ```
 
-This colors features with a temperature above 90 red, and the others white.
+This colors features with a temperature above 90 as red and the others as white.
 
 For complete details, see the [Declarative Styling](Styling/README.md) spec.
 

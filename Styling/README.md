@@ -66,7 +66,7 @@ Colors can also be defined by expressions dependent on a feature's properties, f
 }
 ```
 
-This colors features with a temperature above 90 red, and the others white.
+This colors features with a temperature above 90 as red and the others as white.
 
 The color's alpha component defines the feature's opacity, for example:
 ```json
@@ -74,11 +74,11 @@ The color's alpha component defines the feature's opacity, for example:
    "color" : "rgba(${red}, ${green}, ${blue}, (${volume} > 100 ? 0.5 : 1.0))"
 }
 ```
-This sets the feature's RGB color components from the feature's properties, and makes features with volume greater than 100 transparent.
+This sets the feature's RGB color components from the feature's properties and makes features with volume greater than 100 transparent.
 
 In addition to a string containing an expression, `color` and `show` can be an object defining a series of conditions (think of them as `if...else` statements).  Conditions can, for example, be used to make color maps and color ramps with any type of inclusive/exclusive intervals.
 
-For example, here's a color map that maps an id property to colors:
+For example, here's a color map that maps an ID property to colors:
 ```json
 {
     "color" : {
@@ -131,7 +131,7 @@ Also, see the [JSON schema](schema).
 
 ## Expressions
 
-The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)) plus native color and regular expression types, and access to tileset feature properties in the form of readonly variables.
+The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)), plus native color and regular expression types and access to tileset feature properties in the form of readonly variables.
 
 _Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
 
@@ -155,7 +155,7 @@ The following operators are supported with the same semantics and precedence as 
 
 `(` and `)` are also supported for grouping expressions for clarity and precedence.
 
-Logical `||` and `&&` implement short-circuiting; `true || expression` does not evaluate the right expression; and `false && expression` does not evaluate the right expression.
+Logical `||` and `&&` implement short-circuiting; `true || expression` does not evaluate the right expression, and `false && expression` does not evaluate the right expression.
 
 Similarly, `true ? leftExpression : rightExpression` only executes the left expression, and `false ? leftExpression : rightExpression` only executes the right expression.
 
@@ -170,9 +170,9 @@ The following types are supported:
 * `Color`
 * `RegExp`
 
-All of the types except `Color` and `RegExp` have the same syntax and runtime behavior as JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and behaves similar to a JavaScript `Object` (see the [Color section](#color)).  `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
+All of the types except `Color` and `RegExp` have the same syntax and runtime behavior as JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and behaves similarly to a JavaScript `Object` (see the [Color section](#color)).  `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
 
-Example expressions for different types include:
+Example expressions for different types include the following:
 * `true`, `false`
 * `null`
 * `undefined`
@@ -198,7 +198,7 @@ These are essentially casts, not constructor functions.
 
 #### Number
 
-Like JavaScript, numbers can be `NaN` or `Infinity`.  The following test functions are supported:
+As in JavaScript, numbers can be `NaN` or `Infinity`.  The following test functions are supported:
 * `isNaN(testValue : Number) : Boolean`
 * `isFinite(testValue : Number) : Boolean`
 
@@ -216,7 +216,7 @@ Colors are created with one of the following functions:
 
 Calling `color()` with no arguments is the same as calling `color('#FFFFFF')`.
 
-Colors defined by a case-insensitive keyword (e.g. `'cyan'`) or hex rgb are passed as strings to the `color` function.  For example:
+Colors defined by a case-insensitive keyword (e.g., `'cyan'`) or hex rgb are passed as strings to the `color` function.  For example:
 * `color('cyan')`
 * `color('#00FFFF')`
 * `color('#0FF')`
@@ -224,7 +224,7 @@ Colors defined by a case-insensitive keyword (e.g. `'cyan'`) or hex rgb are pass
 These `color` functions have an optional second argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
 * `color('cyan', 0.5)`
 
-Colors defined with decimal rgb or hsl are created with `rgb` and `hsl` functions, respectively, just like in CSS (but with percentange ranges from `0.0` to `1.0` for `0%` to `100%`, respectively).  For example:
+Colors defined with decimal rgb or hsl are created with `rgb` and `hsl` functions, respectively, just as in CSS (but with percentage ranges from `0.0` to `1.0` for `0%` to `100%`, respectively).  For example:
 * `rgb(100, 255, 190)`
 * `hsl(1.0, 0.6, 0.7)`
 
@@ -234,7 +234,7 @@ Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha com
 * `rgba(100, 255, 190, 0.25)`
 * `hsla(1.0, 0.6, 0.7, 0.75)`
 
-Colors store rgba components internally where each component is in the range `0.0` to `1.0`.  They are accessed with readonly properties:
+Colors store rgba components internally, where each component is in the range `0.0` to `1.0`.  They are accessed with readonly properties:
 * `red : Number`
 * `green : Number`
 * `blue : Number`
@@ -265,7 +265,7 @@ If specified, `flags` can have any combination of the following values:
 * `u` - unicode
 * `y`- sticky
 
-Regular expressions support the functions:
+Regular expressions support these functions:
 * `test(string: String) : Boolean` - Tests the specified string for a match.  
 * `exec(string: String) : String` - Executes a search for a match in the specified string. If the search succeeds, it returns the first instance of a captured `String`. If the search fails, it returns `null`
 
@@ -293,13 +293,13 @@ Regular expressions do not expose any other functions or a `prototype` object.
 
 Style expressions follow JavaScript conversion rules.  To minimize unexpected type coercion, `==` and `!=` operators are not supported.
 
-For conversions involving `Color` or `RegExp`, they are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `>`, `>=`, `<`, and `<=` operators.  In boolean expressions, a `Color` implicitly converts to `true`, e.g., `!!color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
+For conversions involving `Color` or `RegExp`, they are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `>`, `>=`, `<`, and `<=` operators.  In Boolean expressions, a `Color` implicitly converts to `true`, e.g., `!!color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
 
 ### Variables
 
 Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)) Template Literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name.  `feature` is implicit and can be omitted in most cases.
 
-Variables can be used anywhere a valid expression is accepted, expcet inside other variable identifiers. For example, the following is not allowed:
+Variables can be used anywhere a valid expression is accepted, except inside other variable identifiers. For example, the following is not allowed:
 ```
 ${foo[${bar}]}
 ```
@@ -336,7 +336,7 @@ rgba(${red}, ${green}, ${blue}, ${alpha})
 color(${colorKeyword})
 ```
 
-Dot or bracket notation is used to access feature sub-properties.  For example:
+Dot or bracket notation is used to access feature subproperties.  For example:
 ```json
 {
     "address" : {
@@ -387,7 +387,7 @@ ${feature} === `building`
 ${feature.feature} === `building`
 ```
 
-Variables can also be substituted inside strings defined with back-ticks, for example:
+Variables can also be substituted inside strings defined with backticks, for example:
 ```json
 {
     "order" : 1,
@@ -398,7 +398,7 @@ Variables can also be substituted inside strings defined with back-ticks, for ex
 `Name is ${name}, order is ${order}`
 ```
 
-Bracket notation is used to access feature sub-properties or arrays.  For example:
+Bracket notation is used to access feature subproperties or arrays.  For example:
 ```json
 {
     "temperatures" : {
