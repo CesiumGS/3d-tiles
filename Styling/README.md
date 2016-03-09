@@ -348,7 +348,7 @@ ${order} === 1
 ${name} === 'Feature name'
 ```
 
-Variables can be used to constructor colors, for example:
+Variables can be used to construct colors, for example:
 ```
 rgba(${red}, ${green}, ${blue}, ${alpha})
 color(${colorKeyword})
