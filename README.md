@@ -44,7 +44,9 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi).
 
 ## Spec status
 
-The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in tileset.json).  We expect it and the Cesium implementation to stabilize in the spring of 2016.
+The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in tileset.json).  We expect a draft 1.0 version and the Cesium implementation to stabilize in the fall of 2016.
+
+**Draft 1.0 Plans**
 
 Topic  | Status
 ---|---
@@ -54,11 +56,16 @@ Topic  | Status
 [Composite](TileFormats/Composite/README.md) (cmpt) | :white_check_mark: **Solid base**, only minor changes expected
 [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (i3dm) | :rocket: **Prototype**, needs optimizations, [#33](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/33)
 [Vector Data](TileFormats/VectorData/README.md)  | :white_circle: **In progress**, [#25](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/25)
+[Declarative Styling](Styling/README.md)  | :white_check_mark: **Solid base**, will add features/functions as needed [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
+
+**Post Draft 1.0 Plans**
+
+Topic  | Status
+---|---
 [OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started**
 [Massive Model](TileFormats/MassiveModel/README.md)  | :white_circle: **Not started**
 Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point
 Stars  | :white_circle: **Not started**
-[Declarative Styling](Styling/README.md)  | :white_check_mark: **Solid base**, will add features/functions as needed [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
 
 For spec work in progress, [watch this repo](https://github.com/AnalyticalGraphicsInc/3d-tiles/subscription) and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
 
@@ -342,7 +349,7 @@ For complete details, see the [Declarative Styling](Styling/README.md) spec.
 
 #### Can I use 3D Tiles today?
 
-We expect the initial 3D Tiles spec to evolve until spring 2016.  If you are OK with things changing, then yes, jump in.  The Cesium implementation is in the [3d-tiles](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles) branch.
+We expect the initial 3D Tiles spec to evolve until fall 2016.  If you are OK with things changing, then yes, jump in.  The Cesium implementation is in the [3d-tiles](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles) branch.
 
 #### Are 3D Tiles specific to Cesium?
 
