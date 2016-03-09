@@ -1,0 +1,27 @@
+{
+    "$schema" : "http://json-schema.org/draft-03/schema",
+    "title" : "style",
+    "type" : "object",
+    "description" : "A 3D Tiles style.",
+    "properties" : {
+        "show" : {
+            "type" : [{
+                "$ref" : "style.booleanExpression.schema.json"
+            }, {
+                "$ref" : "style.condition.schema.json"
+            }],
+            "description" : "Determines if a feature should be shown.",
+            "default" : "true"
+        },
+        "color" : {
+            "type" : [{
+                "$ref" : "style.colorExpression.schema.json"
+            }, {
+                "$ref" : "style.condition.schema.json"
+            }],
+            "description" : "Determines the 'highlight color' multiplied with the feature's intrinsic color.",
+            "default" : "Color('#FFFFFF')"
+        }
+    },
+    "additionalProperties" : false
+}

@@ -17,6 +17,7 @@ Contents:
       * [Octrees](#octrees)
       * [Grids](#grids)
 * [Tile formats](#tile-formats)
+* [Declarative styling](#declarative-styling)
 * [Roadmap Q&A](#roadmap-qa)
 * [Acknowledgments](#acknowledgments)
 * [Data credits](#data-credits)
@@ -56,8 +57,8 @@ Topic  | Status
 [OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started**
 [Massive Model](TileFormats/MassiveModel/README.md)  | :white_circle: **Not started**
 Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point
-Imposters  | :white_circle: **Not started**, could be covered by Vector Data
 Stars  | :white_circle: **Not started**
+[Declarative Styling](Styling/README.md)  | :white_check_mark: **Solid base**, will add features/functions as needed [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
 
 For spec work in progress, [watch this repo](https://github.com/AnalyticalGraphicsInc/3d-tiles/subscription) and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
 
@@ -189,7 +190,7 @@ See [schema](schema) for the detailed JSON schema for tileset.json.
 
 See the [Q&A below](#Will-tileset.json-be-part-of-the-final-3D-Tiles-spec) for how tileset.json will scale to a massive number of tiles. 
 
-### External Tilesets
+### External tilesets
 
 To create a tree of trees, a tile's `content.url` can point to an external tileset (another tileset.json).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
 
@@ -290,11 +291,31 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 
 3D Tiles take advantage of empty tiles: those tiles that have a bounding volume, but no content. Since a tile's `content` property does not need to be defined, empty non-leaf tiles can be used to accelerate non-uniform grids with hierarchical culling. This essentially creates a quadtree or octree without hierarchical levels of detail (HLOD).
 
-## Tile Formats
+## Tile formats
 
 Each tile's `content.url` property points to a tile that is one of the formats listed in the [Status section](#spec-status) above.
 
 A tileset can contain any combination of tile formats.  3D Tiles may also support different formats in the same tile using a [Composite](TileFormats/Composite/README.md) tile.
+
+## Declarative styling
+
+<p align="center">
+  <img src="figures/style.jpg" /><br />
+  Buildings colored by height using declarative styling.
+</p>
+
+3D Tiles include concise declarative styling defined with JSON and expressions written in a small subset of JavaScript augmented for styling.
+
+Styles generally define a feature's `show` and `color` (RGB and translucency) using an expression based on a feature's properties, for example:
+```json
+{
+    "color" : "(${Temperature} > 90) ? color('red') : color('white')"
+}
+```
+
+This colors features with a temperature above 90 as red and the others as white.
+
+For complete details, see the [Declarative Styling](Styling/README.md) spec.
 
 ## Roadmap Q&A
 
