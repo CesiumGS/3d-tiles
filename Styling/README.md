@@ -53,11 +53,12 @@ Styles are defined with JSON and expressions written in a small subset of JavaSc
 
 ## Examples
 
-The following style assigns the default show and color properties to each feature:
+The following style assigns the default show, color, and meta properties to each feature:
 ```json
 {
     "show" : "true",
-    "color" : "color('#ffffff')"
+    "color" : "color('#ffffff')",
+    "meta" : {}
 }
 ```
 
@@ -137,6 +138,27 @@ Since `expression` is optional and conditions are evaluated in order, the above 
         "(${Height} >= 30.0)" : "color('#FFFF00')",
         "(${Height} >= 10.0)" : "color('#FF0000')",
         "(${Height} >= 1.0)" : "color('#FF00FF')"
+    }
+}
+```
+
+Non-visual properties of a feature can be defined using the `meta` property. 
+
+For example, to set a `description` meta property to a string containing the feature name:
+```json
+{
+    "meta" : {
+        "description" : "'Hello, ${featureName}.'"
+    }
+}
+```
+
+A meta property expression can evaluate to any type. For example:
+```json
+{
+    "meta" : {
+        "featureColor" : "rgb(${red}, ${green}, ${blue})",
+        "featureVolume" : "${height} * ${width} * ${depth}" 
     }
 }
 ```
