@@ -167,7 +167,7 @@ The following operators are supported with the same semantics and precedence as 
 
 * Unary: `+`, `-`, `!`
    * Not supported: `~`
-* Binary: `||`, `&&`, `===`, `!==`, `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/`, `%`
+* Binary: `||`, `&&`, `===`, `!==`, `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/`, `%`, `=~`, `!~` 
    * Not supported: `|`, `^`, `&`, `==`, `!=`, `<<`, `>>`, and `>>>`
 * Ternary: `? :`
 
@@ -303,9 +303,25 @@ regExp('Building\s(\d)').exec(${Name}) === '1'
 Regular expressions have a `toString` function for explicit (and implicit) conversion to strings in the format `'pattern'`.
 * `toString() : String`
 
-Regular expressions are treated as `NaN` when performing operations with any operator. 
-
 Regular expressions do not expose any other functions or a `prototype` object.
+
+The operators `=~` and `!~` are overloaded for regular expressions. The `=~` operator matches the behavior of the `test` function, and tests the specified string for a match. It returns `true` if one is found, and `false` if not found. The `!~` operator is the inverse of the `=~` operator. It returns `true` if no matches are found, and `false` if a match is found. Both operators are communitive.
+
+For example, the following expressions all evaluate to true:
+```
+regExp('a') =~ 'abc'
+'abc' =~ regExp('a')
+
+regExp('a') !~ 'bcd'
+'bcd' !~ regExp('a')
+```
+
+If no `RegExp` is supplied as and operand, both operators will return `false`.
+
+If both operands are of type `RegExp`, the left operand will be treated as the regular expression which is performing the match, and the right operand will be treated as the object which the test is being performed on. For example, `regExp('a') =~ regExp('abc')` will match the behavior of `regExp('a').test(regExp('abc'))`.
+
+Regular expressions are treated as `NaN` when performing operations with operators other than `=~` and `!~`. 
+
 
 ### Conversions
 
