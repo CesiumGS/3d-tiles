@@ -4,10 +4,10 @@ Specification for streaming massive heterogeneous **3D** geospatial datasets.
 
 Who's using 3D Tiles?
 
-![](figures/users/AGI.jpg) | ![](figures/users/CC3D.jpg)
----|---
-![](figures/users/virtualcitySYSTEMS.jpg)  | ![](figures/users/Cityzenith.jpg)
-![](figures/users/Fraunhofer.jpg)  | ![](figures/users/Vricon.jpg)
+![](figures/users/AGI.jpg) [AGI](http://www.agi.com/products/) | ![](figures/users/CC3D.jpg) [CyberCity3D](http://www.cybercity3d.com/)
+|:---:|:---:|
+![](figures/users/virtualcitySYSTEMS.jpg) **[virtualcitySYSTEMS](http://www.virtualcitysystems.de/en/)**  | ![](figures/users/Cityzenith.jpg) **[Cityzenith](http://www.cityzenith.com/)**
+![](figures/users/Fraunhofer.jpg) **[Fraunhofer](http://www.fraunhofer.de/en.html)**  | ![](figures/users/Vricon.jpg) **[Vricon](http://www.vricon.com/)**
 
 
 ## Contents
