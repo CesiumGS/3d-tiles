@@ -53,12 +53,11 @@ Styles are defined with JSON and expressions written in a small subset of JavaSc
 
 ## Examples
 
-The following style assigns the default show, color, and meta properties to each feature:
+The following style assigns the default show and color properties to each feature:
 ```json
 {
     "show" : "true",
-    "color" : "color('#ffffff')",
-    "meta" : {}
+    "color" : "color('#ffffff')"
 }
 ```
 
