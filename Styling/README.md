@@ -318,6 +318,8 @@ regExp('a') !~ 'bcd'
 
 If no `RegExp` is supplied as and operand, both operators will return `false`.
 
+If both operands are of type `RegExp`, the left operand will be treated as the regular expression which is performing the match, and the right operand will be treated as the object which the test is being performed on. For example, `regExp('a') =~ regExp('abc')` will match the behavior of `regExp('a').test(regExp('abc'))`.
+
 Regular expressions are treated as `NaN` when performing operations with operators other than `=~` and `!~`. 
 
 
