@@ -2,7 +2,7 @@
 
 Specification for streaming massive heterogeneous **3D** geospatial datasets.
 
-Contents:
+## Contents
 
 * [Resources](#resources)
 * [Spec status](#spec-status)
@@ -28,19 +28,21 @@ Created by the <a href="http://cesiumjs.org/">Cesium team</a> and built on <a hr
 <a href="http://cesiumjs.org/"><img src="figures/cesium.jpg" height="40" /></a> <a href="https://www.khronos.org/gltf"><img src="figures/gltf.png" height="40" /></a>
 </p>
 
-Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi).
+Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com](mailto:pcozzi@agi.com).
 
 ---
 
 ## Resources
 
 * [Introducing 3D Tiles](http://cesiumjs.org/2015/08/10/Introducing-3D-Tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
-* [3D Tiles thread on the Cesium forum](https://groups.google.com/forum/#!topic/cesium-dev/tCCooBxpZFU) - get the latest 3D Tiles news and ask questions here.
+* **News**: [3D Tiles thread on the Cesium forum](https://groups.google.com/forum/#!topic/cesium-dev/tCCooBxpZFU) - get the latest 3D Tiles news and ask questions here.
 * Cesium implementation
    * [Roadmap](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241)
    * [3d-tiles](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles) branch
-* Sample data: [simple 3D tilesets](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles/Specs/Data/Cesium3DTiles) used in the Cesium unit tests.
-* [Slides](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf) on 3D Tiles from the Cesium BOF at SIGGRAPH 2015.
+* **Sample data**: [simple 3D tilesets](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles/Specs/Data/Cesium3DTiles) used in the Cesium unit tests.
+* **Talks**
+   * 3D Tiles motivation and ecosystem update ([pdf](https://github.com/AnalyticalGraphicsInc/3d-tiles)) at the OGC Technical and Planning Committee Meeting (March 2016)
+   * 3D Tiles intro ([pdf](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
 
 ## Spec status
 
