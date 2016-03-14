@@ -1,0 +1,8 @@
+{
+    "$schema" : "http://json-schema.org/draft-03/schema",
+    "title" : "metaProperty",
+    "type" : ["string", {
+        "$ref" : "style.expression.schema.json"
+    }],
+    "description" : "A property name and the expression to be evaluated for the value of that property."
+}
