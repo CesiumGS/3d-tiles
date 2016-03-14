@@ -2,6 +2,14 @@
 
 Specification for streaming massive heterogeneous **3D** geospatial datasets.
 
+Who's using 3D Tiles?
+
+![](figures/users/AGI.jpg) | ![](figures/users/CC3D.jpg)
+---|---
+![](figures/users/virtualcitySYSTEMS.jpg)  | ![](figures/users/Cityzenith.jpg)
+![](figures/users/Fraunhofer.jpg)  | ![](figures/users/Vricon.jpg)
+
+
 ## Contents
 
 * [Resources](#resources)
@@ -30,20 +38,18 @@ Created by the <a href="http://cesiumjs.org/">Cesium team</a> and built on <a hr
 
 Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com](mailto:pcozzi@agi.com).
 
----
-
 ## Resources
 
 * [Introducing 3D Tiles](http://cesiumjs.org/2015/08/10/Introducing-3D-Tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
 * **News**
    * [3D Tiles thread on the Cesium forum](https://groups.google.com/forum/#!topic/cesium-dev/tCCooBxpZFU) - get the latest 3D Tiles news and ask questions here.
 * **Cesium implementation**
-   * [Roadmap](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241)
-   * [3d-tiles](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles) branch
+   * [Roadmap](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241).
+   * [3d-tiles](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles) branch.
 * **Sample data**
    * [Simple 3D tilesets](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles/Specs/Data/Cesium3DTiles) used in the Cesium unit tests.
 * **Talks**
-   * 3D Tiles motivation and ecosystem update ([pdf](https://github.com/AnalyticalGraphicsInc/3d-tiles)) at the OGC Technical Committee Meeting (March 2016)
+   * 3D Tiles motivation and ecosystem update ([pdf](https://github.com/AnalyticalGraphicsInc/3d-tiles)) at the OGC Technical Committee Meeting (March 2016).
    * 3D Tiles intro ([pdf](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
 
 ## Spec status
