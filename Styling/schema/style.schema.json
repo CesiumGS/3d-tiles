@@ -21,6 +21,12 @@
             }],
             "description" : "Determines the 'highlight color' multiplied with the feature's intrinsic color.",
             "default" : "Color('#FFFFFF')"
+        },
+        "meta" : {
+            "type" : {
+                "$ref" : "style.meta.schema.json"
+            },
+            "description" : "Determines the values of non-visual properties of the feature."
         }
     },
     "additionalProperties" : false

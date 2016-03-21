@@ -141,6 +141,27 @@ Since `expression` is optional and conditions are evaluated in order, the above 
 }
 ```
 
+Non-visual properties of a feature can be defined using the `meta` property. 
+
+For example, to set a `description` meta property to a string containing the feature name:
+```json
+{
+    "meta" : {
+        "description" : "'Hello, ${featureName}.'"
+    }
+}
+```
+
+A meta property expression can evaluate to any type. For example:
+```json
+{
+    "meta" : {
+        "featureColor" : "rgb(${red}, ${green}, ${blue})",
+        "featureVolume" : "${height} * ${width} * ${depth}" 
+    }
+}
+```
+
 ## Schema Reference
 
 TODO: generate reference doc from schema
