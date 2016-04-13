@@ -20,7 +20,7 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
 Live apps
 * [Berlin Atlas of Economy ](http://www.businesslocationcenter.de/wab/maps/main/) (switch to 3D and zoom in) by virtualcitySYSTEMS
 * [Downtown Miami](http://cybercity3d.s3-website-us-east-1.amazonaws.com/?city=Miami) by CyberCity3D and AGI
-* 
+
 ## Contents
 
 * [Resources](#resources)
