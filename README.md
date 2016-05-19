@@ -147,8 +147,6 @@ The file extension of `content.url` defines the [tile format](#tileFormats).  Th
 
 ![](figures/tile.png)
 
-_TODO: Update the above figure, [#27](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/27)_
-
 ## tileset.json
 
 _tileset.json_ defines a tileset.  Here is a subset of the tileset.json used for [Canary Wharf](http://cesiumjs.org/CanaryWharf/) (also see the complete [tileset.json](examples/tileset.json)):
