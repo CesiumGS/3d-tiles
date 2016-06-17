@@ -52,6 +52,7 @@ Live apps
 * **Sample data**
    * [Simple 3D tilesets](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles/Specs/Data/Cesium3DTiles) used in the Cesium unit tests.
 * **Talks**
+   * _3D Tiles: Beyond 2D Tiling_ ([pdf](http://cesiumjs.org/presentations/FOSS4GNA2016/3DTiles.pdf), [video](https://www.youtube.com/watch?v=I1vYCrMKKEE)) at FOSS4G NA 2016.
    * 3D Tiles motivation and ecosystem update ([pdf](http://cesiumjs.org/presentations/3D-Tiles-OGC-DC.pdf)) at the OGC Technical Committee Meeting (March 2016).
    * 3D Tiles intro ([pdf](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
 
