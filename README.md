@@ -66,10 +66,10 @@ Topic  | Status
 ---|---
 [tileset.json](#tileset.json)  | :white_check_mark: **Good starting point**, will expand as we add new tile formats
 [Batched 3D Model](TileFormats/Batched3DModel/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
+[Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (i3dm) | :white_check_mark: **Solid base**, only minor changes expected
 [Point Cloud](TileFormats/Points/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
-[Composite](TileFormats/Composite/README.md) (cmpt) | :white_check_mark: **Solid base**, only minor changes expected
-[Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (i3dm) | :rocket: **Prototype**, needs optimizations, [#33](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/33)
 [Vector Data](TileFormats/VectorData/README.md)  | :white_circle: **In progress**, [#25](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/25)
+[Composite](TileFormats/Composite/README.md) (cmpt) | :white_check_mark: **Solid base**, only minor changes expected
 [Declarative Styling](Styling/README.md)  | :white_check_mark: **Solid base**, will add features/functions as needed [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
 
 **Post Draft 1.0 Plans**
