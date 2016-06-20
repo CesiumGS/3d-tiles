@@ -4,6 +4,7 @@
 
 * Sean Lilley, [@lilleyse](https://twitter.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
+* Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
 
 ## Overview
 
