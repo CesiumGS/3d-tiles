@@ -70,15 +70,15 @@ Topic  | Status
 [Point Cloud](TileFormats/Points/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
 [Vector Data](TileFormats/VectorData/README.md)  | :white_circle: **In progress**, [#25](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/25)
 [Composite](TileFormats/Composite/README.md) (cmpt) | :white_check_mark: **Solid base**, only minor changes expected
-[Declarative Styling](Styling/README.md)  | :white_check_mark: **Solid base**, will add features/functions as needed [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
+[Declarative Styling](Styling/README.md)  | :white_check_mark: **Solid base**, will add features/functions as needed, [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
 
 **Post Draft 1.0 Plans**
 
 Topic  | Status
 ---|---
-[OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started**
-[Massive Model](TileFormats/MassiveModel/README.md)  | :white_circle: **Not started**
 Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point
+[OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started**
+[Massive Model](TileFormats/MassiveModel/README.md)  | :white_circle: **Not started**, might just use `b3dm`
 Stars  | :white_circle: **Not started**
 
 For spec work in progress, [watch this repo](https://github.com/AnalyticalGraphicsInc/3d-tiles/subscription) and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
