@@ -21,11 +21,13 @@ Instanced 3D Model maps well to the [ANGLE_instanced_arrays](https://www.khronos
 A tile is composed of a header section immediately followed by a body section.
 
 
-| **Figure 1**: Instanced 3D Model layout (dashes indicate optional fields). |
-| :--- |
-| ![header layout](figures/header-layout.png) |
-| ![body layout](figures/body-layout.png) |
-| ![instance layout](figures/instance-layout.png) |
+**Figure 1**: Instanced 3D Model layout (dashes indicate optional fields).
+
+![header layout](figures/header-layout.png)
+
+![body layout](figures/body-layout.png)
+
+![instance layout](figures/instance-layout.png)
 
 
 ## Header
@@ -127,9 +129,9 @@ The `instances` field contains `header.instancesLength` of tightly packed instan
 
 `x`, `y`, and `z` are stored as `uint16` positions in the quantized instance region defined by the `origin` and `span` fields in the header.
 
-| **Figure 2:** The instance region defined by `origin` and `span`
-| :---: |
-| ![](figures/instance-region.png) |
+**Figure 2:** The instance region defined by `origin` and `span`
+
+![](figures/instance-region.png)
 
 Transforming `position` in instance region space to `position_w` in world space can be done using the formula: `position_w` = `origin` + [`position` * `span` / (`2^16-1`)].
 
@@ -144,9 +146,13 @@ In their decoded form, `v1` and `v2` establish a new orthonormal basis, effectiv
 
 The `y` and `x` vectors in the natural basis are transformed to map onto `v1` and `v2` respectively.
 
-| **Figure 3:** A 3D box in the natural basis | **Figure 4:** A 3D box in the rotated basis |
-| :---: | :---: |
-| ![](figures/box-unit-basis.png) | ![](figures/box-rotated-basis.png) |
+**Figure 3:** A 3D box in the natural basis
+
+![](figures/box-unit-basis.png)
+
+**Figure 4:** A 3D box in the rotated basis
+
+![](figures/box-rotated-basis.png)
 
 The mapping for `z` can be omitted since it will be the cross product of `v1` and `v2`.
 
