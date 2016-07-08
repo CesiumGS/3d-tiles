@@ -24,9 +24,7 @@ A tile is composed of a header section immediately followed by a body section.
 | **Figure 1**: Instanced 3D Model layout (dashes indicate optional fields). |
 | :--- |
 | ![header layout](figures/header-layout.png) |
-| |
 | ![body layout](figures/body-layout.png) |
-| |
 | ![instance layout](figures/instance-layout.png) |
 
 
