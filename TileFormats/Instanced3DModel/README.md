@@ -133,7 +133,9 @@ The `instances` field contains `header.instancesLength` of tightly packed instan
 
 ![](figures/instance-region.png)
 
-Transforming `position` in instance region space to `position_w` in world space can be done using the formula: `position_w` = `origin` + [`position` * `span` / (`2^16-1`)].
+Transforming `position` in instance region space to `position_w` in world space can be done using the formula:
+
+`position_w` = `origin` + [`position` * `span` / (`2^16-1`)].
 
 ### V1, and V2 for Rotation
 
