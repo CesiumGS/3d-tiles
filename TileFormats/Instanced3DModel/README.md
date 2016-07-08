@@ -23,11 +23,11 @@ A tile is composed of a header section immediately followed by a body section.
 
 | **Figure 1**: Instanced 3D Model layout (dashes indicate optional fields). |
 | :--- |
-| ![header layout](figures/header-layout.svg) |
+| ![header layout](figures/header-layout.png) |
 | |
-| ![body layout](figures/body-layout.svg) |
+| ![body layout](figures/body-layout.png) |
 | |
-| ![instance layout](figures/instance-layout.svg) |
+| ![instance layout](figures/instance-layout.png) |
 
 
 ## Header
@@ -131,7 +131,7 @@ The `instances` field contains `header.instancesLength` of tightly packed instan
 
 | **Figure 2:** The instance region defined by `origin` and `span`
 | :---: |
-| ![](figures/instance-region.svg) |
+| ![](figures/instance-region.png) |
 
 Transforming `position` in instance region space to `position_w` in world space can be done using the formula: `position_w` = `origin` + [`position` * `span` / (`2^16-1`)].
 
@@ -148,7 +148,7 @@ The `y` and `x` vectors in the natural basis are transformed to map onto `v1` an
 
 | **Figure 3:** A 3D box in the natural basis | **Figure 4:** A 3D box in the rotated basis |
 | :---: | :---: |
-| ![](figures/box-unit-basis.svg) | ![](figures/box-rotated-basis.svg) |
+| ![](figures/box-unit-basis.png) | ![](figures/box-rotated-basis.png) |
 
 The mapping for `z` can be omitted since it will be the cross product of `v1` and `v2`.
 
