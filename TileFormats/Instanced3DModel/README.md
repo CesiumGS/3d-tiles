@@ -20,16 +20,22 @@ Instanced 3D Model maps well to the [ANGLE_instanced_arrays](https://www.khronos
 
 A tile is composed of a header section immediately followed by a body section.
 
-**Figure 1**: Instanced 3D Model layout (dashes indicate optional fields).
 
-![](figures/layout.png)
+| **Figure 1**: Instanced 3D Model layout (dashes indicate optional fields). |
+| :--- |
+| ![header layout](figures/header-layout.svg) |
+| |
+| ![body layout](figures/body-layout.svg) |
+| |
+| ![instance layout](figures/instance-layout.svg) |
+
 
 ## Header
 
-The 28-byte header contains the following fields:
+The 76-byte header contains the following fields:
 
-|Field name|Data type|Description|
-|----------|---------|-----------|
+| Field name | Data type | Description |
+| --- | --- | --- |
 | `magic` | 4-byte ANSI string | `"i3dm"`.  This can be used to identify the arraybuffer as an Instanced 3D Model tile. |
 | `version` | `uint32` | The version of the Instanced 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
@@ -37,8 +43,16 @@ The 28-byte header contains the following fields:
 | `gltfByteLength` | `uint32` | The length of the glTF field in bytes. |
 | `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the glTF section below. |
 | `instancesLength` | `uint32` | The number of instances, also called features, in the tile. |
+| `origin.x` | `double` | The `x` coordinate of the origin for the instance region. |
+| `origin.y` | `double` | The `y` coordinate of the origin for the instance region. |
+| `origin.z` | `double` | The `z` coordinate of the origin for the instance region. |
+| `span.x` | `double` | The distance from the origin in the `x` direction covered by the instance region. |
+| `span.y` | `double` | The distance from the origin in the `y` direction covered by the instance region. |
+| `span.z` | `double` | The distance from the origin in the `z` direction covered by the instance region. |
 
-_TODO: Link to Cesium code for reading header_
+Code for reading the header can be found in
+[Instanced3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Instanced3DModel3DTileContent.js#L170)
+in the Cesium implementation of 3D Tiles.
 
 If either `gltfByteLength` or `instancesLength` equal zero, the tile does not need to be rendered.
 
@@ -98,19 +112,48 @@ In either case, `header.gltfByteLength` contains the length of the glTF field in
 
 The `instances` field immediately follows the `glTF` field (which may be omitted when `header.gltfByteLength` is `0`).
 
-The `instances` field contains `header.instancesLength` of tightly packed instances.  Each instance has three fields:
+The `instances` field contains `header.instancesLength` of tightly packed instances.  Each instance has the following fields:
 
-|Field name|Data type|Description|
-|----------|---------|-----------|
-| `longitude` | `double` | The longitude, in radians, in the range `[-PI, PI]`. |
-| `latitude` | `double` | The latitude, in radians, in the range `[-PI / 2, PI / 2]`. |
-| `batchId` | `uint16`  | ID in the range `[0, length of arrays in the Batch Table)`, which indicates the corresponding properties. |
+| Field name | Data type | Description | Required |
+| --- | --- | --- | --- |
+| `position.x` | `uint16` | The x-coordinate in quantized cartesian coordinates. | `yes` |
+| `position.y` | `uint16` | The y-coordinate in quantized cartesian coordinates. | `yes` |
+| `position.z` | `uint16` | The z-coordinate in quantized cartesian coordinates. | `yes` |
+| `v1.x` | `uint` | The first component of the oct-encoded vector `v1`. | `yes` |
+| `v1.y` | `uint` | The second component of the oct-encoded vector `v1`. | `yes` |
+| `v2.x` | `uint` | The first component of the oct-encoded vector `v2`. | `yes` |
+| `v2.y` | `uint` | The second component of the oct-encoded vector `v2`. | `yes` |
+| `batchId` | `uint16` | ID in the range `[0, length of arrays in the Batch Table)`, which indicates the corresponding properties. | `if header.batchTableByteLength > 0`
 
-_TODO: make this much more memory efficient and more general, [#33](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/33)._
+### X, Y, and Z for Translation
 
-When `header.batchTableByteLength` is zero, which indicates there is not a batch table, `batchId` is omitted, so each instance contains only `longitude` and `latitude` fields.
+`x`, `y`, and `z` are stored as `uint16` positions in the quantized instance region defined by the `origin` and `span` fields in the header.
 
-Each instance is in the east-north-up reference frame (`x` points east, `y` points north, and `z` points along the geodetic surface normal).
+| **Figure 2:** The instance region defined by `origin` and `span`
+| :---: |
+| ![](figures/instance-region.svg) |
+
+Transforming `position` in instance region space to `position_w` in world space can be done using the formula: `position_w` = `origin` + [`position` * `span` / (`2^16-1`)].
+
+### V1, and V2 for Rotation
+
+`v1` and `v2` are stored as two components in oct-encoded format as described in
+[*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/)
+The [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
+module in Cesium contains an implementation for encoding and decoding vectors in this fashion.
+
+In their decoded form, `v1` and `v2` establish a new orthonormal basis, effectively rotating the coordinate system.
+
+The `y` and `x` vectors in the natural basis are transformed to map onto `v1` and `v2` respectively.
+
+| **Figure 3:** A 3D box in the natural basis | **Figure 4:** A 3D box in the rotated basis |
+| :---: | :---: |
+| ![](figures/box-unit-basis.svg) | ![](figures/box-rotated-basis.svg) |
+
+The mapping for `z` can be omitted since it will be the cross product of `v1` and `v2`.
+
+A rotation matrix can be created from `v1`, `v2`, and `v3`=`v2`x`v1` by placing `v2` into the first column,
+`v1` into the second column, and `v3` into the third column.
 
 ## File Extension
 
