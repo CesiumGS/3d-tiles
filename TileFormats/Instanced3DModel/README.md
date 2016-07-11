@@ -20,6 +20,7 @@ Instanced 3D Model maps well to the [ANGLE_instanced_arrays](https://www.khronos
 
 A tile is composed of a header section immediately followed by a body section.
 
+Instances are organized as a structure of arrays where the fields from each instance are grouped together.
 
 **Figure 1**: Instanced 3D Model layout (dashes indicate optional fields).
 
@@ -182,6 +183,7 @@ _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 ### Cesium
 
 #### Generating Right and Up Vectors from Longitude, Latitude, and Height
+
 ```javascript
 var position = Cartesian3.fromRadians(longitude, latitude, height);
 
@@ -193,7 +195,6 @@ Matrix4.getRotation(transform, rotation);
 
 // In east-north-up, the up vector is stored in the z component
 Matrix3.multiplyByVector(rotation, Cartesian3.UNIT_Z, up);
-
 
 // Compute the right vector
 var right = new Cartesian3();
