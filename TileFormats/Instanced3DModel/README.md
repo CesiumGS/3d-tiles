@@ -43,12 +43,12 @@ The 76-byte header contains the following fields:
 | `gltfByteLength` | `uint32` | The length of the glTF field in bytes. |
 | `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the glTF section below. |
 | `instancesLength` | `uint32` | The number of instances, also called features, in the tile. |
-| `origin.x` | `double` | The `x` coordinate of the origin for the instance region. |
-| `origin.y` | `double` | The `y` coordinate of the origin for the instance region. |
-| `origin.z` | `double` | The `z` coordinate of the origin for the instance region. |
-| `span.x` | `double` | The distance from the origin in the `x` direction covered by the instance region. |
-| `span.y` | `double` | The distance from the origin in the `y` direction covered by the instance region. |
-| `span.z` | `double` | The distance from the origin in the `z` direction covered by the instance region. |
+| `offset.x` | `double` | The `x` coordinate of the offset for the quantized volume. |
+| `offset.y` | `double` | The `y` coordinate of the offset for the quantized volume. |
+| `offset.z` | `double` | The `z` coordinate of the offset for the quantized volume. |
+| `scale.x` | `double` | The length in the `x` direction covered by the quantized volume. |
+| `scale.y` | `double` | The length in the `y` direction covered by the quantized volume. |
+| `scale.z` | `double` | The length in the `z` direction covered by the quantized volume. |
 
 Code for reading the header can be found in
 [Instanced3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Instanced3DModel3DTileContent.js#L170)
@@ -57,6 +57,14 @@ in the Cesium implementation of 3D Tiles.
 If either `gltfByteLength` or `instancesLength` equal zero, the tile does not need to be rendered.
 
 The body section immediately follows the header section, and is composed of three fields: `Batch Table`, `glTF`, and `instances`.
+
+## Quantized Volume
+
+Instances are placed by their position relative to the quantized volume defined by the `offset` and `scale` fields in the header.
+
+**Figure 2:** The quantized volume defined by `offset` and `scale`.
+
+![](figures/instance-region.png)
 
 ## Batch Table
 
@@ -119,47 +127,45 @@ The `instances` field contains `header.instancesLength` of tightly packed instan
 | `position.x` | `uint16` | The x-coordinate in quantized cartesian coordinates. | `yes` |
 | `position.y` | `uint16` | The y-coordinate in quantized cartesian coordinates. | `yes` |
 | `position.z` | `uint16` | The z-coordinate in quantized cartesian coordinates. | `yes` |
-| `v1.x` | `uint` | The first component of the oct-encoded vector `v1`. | `yes` |
-| `v1.y` | `uint` | The second component of the oct-encoded vector `v1`. | `yes` |
-| `v2.x` | `uint` | The first component of the oct-encoded vector `v2`. | `yes` |
-| `v2.y` | `uint` | The second component of the oct-encoded vector `v2`. | `yes` |
+| `rightEncoded.x` | `uint` | The first component of the oct-encoded vector `up`. | `yes` |
+| `rightEncoded.y` | `uint` | The second component of the oct-encoded vector `up`. | `yes` |
+| `upEncoded.x` | `uint` | The first component of the oct-encoded vector `right`. | `yes` |
+| `upEncoded.y` | `uint` | The second component of the oct-encoded vector `right`. | `yes` |
 | `batchId` | `uint16` | ID in the range `[0, length of arrays in the Batch Table)`, which indicates the corresponding properties. | `if header.batchTableByteLength > 0`
 
 ### X, Y, and Z for Translation
 
-`x`, `y`, and `z` are stored as `uint16` positions in the quantized instance region defined by the `origin` and `span` fields in the header.
+`x`, `y`, and `z` are stored as `uint16` positions in the [quantized volume](#quantized-volume) defined by the `origin` and `span` fields in the header.
 
-**Figure 2:** The instance region defined by `origin` and `span`
+Transforming `position` in instance region space to `position_m` in model space can be done using the formula:
 
-![](figures/instance-region.png)
+`position_m` = `offset` + [`position` * `scale` / (`2^16-1`)].
 
-Transforming `position` in instance region space to `position_w` in world space can be done using the formula:
+### Up and Right for Rotation
 
-`position_w` = `origin` + [`position` * `span` / (`2^16-1`)].
-
-### V1, and V2 for Rotation
-
-`v1` and `v2` are stored as two components in oct-encoded format as described in
+`up` and `right` are stored as two components in oct-encoded format as described in
 [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/)
 The [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module in Cesium contains an implementation for encoding and decoding vectors in this fashion.
 
-In their decoded form, `v1` and `v2` establish a new orthonormal basis, effectively rotating the coordinate system.
+In their decoded form, `right` and `up` establish a new orthonormal basis, effectively rotating the coordinate system.
 
-The `y` and `x` vectors in the natural basis are transformed to map onto `v1` and `v2` respectively.
+The `x` and `y` vectors in the natural basis are transformed to map onto `right` and `up` respectively.
 
 **Figure 3:** A 3D box in the natural basis
 
 ![](figures/box-unit-basis.png)
 
-**Figure 4:** A 3D box in the rotated basis
+**Figure 4:** A 3D box in a rotated basis
 
 ![](figures/box-rotated-basis.png)
 
-The mapping for `z` can be omitted since it will be the cross product of `v1` and `v2`.
+The mapping for `z` onto `forward` can be omitted since it will be the cross product of `right` and `up`.
 
-A rotation matrix can be created from `v1`, `v2`, and `v3`=`v2`x`v1` by placing `v2` into the first column,
-`v1` into the second column, and `v3` into the third column.
+A rotation matrix can be created from `right`, `up`, and `forward`=`right`x`up` by placing `right` into the first column,
+`up` into the second column, and `forward` into the third column.
+
+### TILES
 
 ## File Extension
 
@@ -170,3 +176,59 @@ A rotation matrix can be created from `v1`, `v2`, and `v3`=`v2`x`v1` by placing 
 _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`
+
+## Implementation Examples
+
+### Cesium
+
+#### Generating Right and Up Vectors from Longitude, Latitude, and Height
+```javascript
+var position = Cartesian3.fromRadians(longitude, latitude, height);
+
+// Compute the up vector
+var up = new Cartesian3();
+var transform = Transforms.eastNorthUpToFixedFrame(position);
+var rotation = new Matrix3();
+Matrix4.getRotation(transform, rotation);
+
+// In east-north-up, the up vector is stored in the z component
+Matrix3.multiplyByVector(rotation, Cartesian3.UNIT_Z, up);
+
+
+// Compute the right vector
+var right = new Cartesian3();
+var forward = Cartesian3.clone(Cartesian3.UNIT_Z);
+
+// You can change the orientation of a model by rotating about the y-axis first
+var orient = new Matrix3();
+var orientAngle = CesiumMath.fromDegrees(90.0);
+Matrix3.fromRotationY(orientAngle, orient);
+Matrix3.multiplyByVector(orient, forward, forward);
+
+// Cross up and forward to get right
+Cartesian3.cross(up, forward, right);
+Cartesian3.normalize(right, right);
+
+var encodedUp = new Cartesian2();
+AttributeCompression.octEncode(up, encodedUp);
+
+var encodedRight = new Cartesian2();
+AttributeCompression.octEncode(right, encodedRight);
+```
+
+#### Creating a Rotation Matrix for an Instance
+
+```javascript
+// Decode compressed normals
+AttributeCompression.octDecode(rightEncodedX, rightEncodedY, normalRight);
+AttributeCompression.octDecode(upEncodedX, upEncodedY, normalUp);
+
+// Compute third normal
+Cartesian3.cross(normalRight, normalUp, normalForward);
+
+// Place the basis into the rotation matrix
+Matrix3.setColumn(rotation, 0, normalRight, rotation);
+Matrix3.setColumn(rotation, 1, normalUp, rotation);
+Matrix3.setColumn(rotation, 2, normalForward, rotation);
+```
+

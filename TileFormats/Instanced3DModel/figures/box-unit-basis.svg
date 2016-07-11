@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="75.856mm" viewBox="0 0 311.8715 268.78076" width="88.017mm" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="123.98mm" width="139.71mm" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 495.02643 439.31552">
  <defs id="defs4">
-  <marker id="Arrow1Lend" refY="0" refX="0" orient="auto" overflow="visible">
-   <path id="path8094" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#f00" stroke-width="1pt" fill="#f00"/>
-  </marker>
   <marker id="Arrow1Lend-5" refY="0" refX="0" orient="auto" overflow="visible">
    <path id="path8094-9" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#0f0" stroke-width="1pt" fill="#0f0"/>
+  </marker>
+  <marker id="Arrow1Lend" refY="0" refX="0" orient="auto" overflow="visible">
+   <path id="path8094" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#f00" stroke-width="1pt" fill="#f00"/>
   </marker>
   <marker id="Arrow1Lend-5-8" refY="0" refX="0" orient="auto" overflow="visible">
    <path id="path8094-9-9" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#00f" stroke-width="1pt" fill="#00f"/>
@@ -21,31 +21,20 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <g id="layer1" transform="translate(-211.02 -395.08)">
-  <g id="g4138" stroke-width="0.408" stroke="#000" fill-rule="evenodd">
-   <path id="path4148" d="m312.71 618.06 56.551 45.377 95.457-19.014-65.417-36.639z" points="369.26473,663.43463 464.72158,644.42097 399.30432,607.78171 312.71366,618.0581 " fill="#afafde"/>
-   <path id="path4140" d="m312.71 529.23v88.829l86.591-10.276v-77.896z" points="312.71366,618.0581 399.30432,607.78171 399.30432,529.88522 312.71366,529.22861 " fill="#353564"/>
-   <path id="path4150" d="m399.3 529.89 65.417 21.157v93.378l-65.417-36.639z" points="464.72158,551.04269 464.72158,644.42097 399.30432,607.78171 399.30432,529.88522 " fill="#e9e9ff"/>
-   <path id="path4142" d="m312.71 529.23 56.551 24.666 95.457-2.8521-65.417-21.157z" points="369.26473,553.89482 464.72158,551.04269 399.30432,529.88522 312.71366,529.22861 " fill="#4d4d9f"/>
-   <path id="path4146" d="m369.26 553.89v109.54l95.457-19.014v-93.378z" points="369.26473,663.43463 464.72158,644.42097 464.72158,551.04269 369.26473,553.89482 " fill="#d7d7ff"/>
-   <path id="path4144" d="m312.71 529.23 56.551 24.666v109.54l-56.551-45.377z" points="369.26473,553.89482 369.26473,663.43463 312.71366,618.0581 312.71366,529.22861 " fill="#8686bf"/>
+ <g id="layer1" transform="translate(56.082 -139.75)">
+  <g id="g4154" fill-rule="evenodd">
+   <path id="path4164" d="m99.893 435.6 78.263 87.072h189.96l-105.1-87.072z" points="178.15598,522.67278 368.11774,522.67278 263.01681,435.60106 99.893299,435.60106 " fill="#afafde"/>
+   <path id="path4156" d="m99.893 284.27v151.33h163.12v-151.33z" points="99.893299,435.60106 263.01681,435.60106 263.01681,284.26989 99.893299,284.26989 " fill="#353564"/>
+   <path id="path4166" d="m263.02 284.27 105.1 62.174v176.23l-105.1-87.072z" points="368.11774,346.44353 368.11774,522.67278 263.01681,435.60106 263.01681,284.26989 " fill="#e9e9ff"/>
+   <path id="path4158" d="m99.893 284.27 78.263 62.174h189.96l-105.1-62.174z" points="178.15598,346.44353 368.11774,346.44353 263.01681,284.26989 99.893299,284.26989 " fill="#4d4d9f"/>
+   <path id="path4162" d="m178.16 346.44v176.23h189.96v-176.23z" points="178.15598,522.67278 368.11774,522.67278 368.11774,346.44353 178.15598,346.44353 " fill="#d7d7ff"/>
+   <path id="path4160" d="m99.893 284.27 78.263 62.174v176.23l-78.263-87.072z" points="178.15598,346.44353 178.15598,522.67278 99.893299,435.60106 99.893299,284.26989 " fill="#8686bf"/>
   </g>
- </g>
- <g id="layer2" transform="translate(-211.02 -395.08)">
-  <path id="path8493" marker-end="url(#Arrow1Lend)" d="m417.96 606.76 100.84 51.45" stroke="#f00" stroke-width="2.521" fill="none"/>
-  <g id="g21" font-family="sans-serif">
-   <flowRoot id="flowRoot10325" font-size="40px" style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" line-height="125%"><flowRegion id="flowRegion10327"><rect id="rect10329" y="269.51" width="154.29" height="151.43" x="648.57"/></flowRegion><flowPara id="flowPara10331" stroke="#0000ff"/></flowRoot>
-   <flowRoot id="flowRoot10333" font-size="50px" style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" line-height="125%"><flowRegion id="flowRegion10335"><rect id="rect10337" y="309.51" width="237.14" x="605.71" height="208.57"/></flowRegion><flowPara id="flowPara10339"/></flowRoot>
-   <flowRoot id="flowRoot10341" font-size="50px" style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" line-height="125%"><flowRegion id="flowRegion10343"><rect id="rect10345" y="386.65" width="171.43" x="654.29" height="154.29"/></flowRegion><flowPara id="flowPara10347"/></flowRoot>
-  </g>
-  <text id="text10349" style="word-spacing:0px;letter-spacing:0px" line-height="125%" font-family="sans-serif" xml:space="preserve" font-size="47.912px" transform="scale(.98863 1.0115)" stroke="#000000" y="609.21527" x="483.42276" stroke-width=".45215px" fill="#ff0000"><tspan id="tspan10351" y="609.21527" x="483.42276" stroke-width=".45215px">x</tspan></text>
- </g>
- <g id="layer3" transform="translate(-211.02 -395.08)">
-  <path id="path8493-2" marker-end="url(#Arrow1Lend-5)" d="m382.28 540.23-1.72-127" stroke="#0f0" stroke-width="3.0204" fill="none"/>
-  <text id="text4482" style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" font-size="46.33px" line-height="125%" y="420.34933" x="401.92499" font-family="sans-serif" fill="#00ff00"><tspan id="tspan4484" y="420.34933" x="401.92499">y</tspan></text>
- </g>
- <g id="layer4" transform="translate(-211.02 -395.08)">
-  <path id="path8493-2-4" marker-end="url(#Arrow1Lend-5-8)" d="m340.57 595.72-124.18 26.69" stroke="#00f" stroke-width="3.0204" fill="none"/>
-  <text id="text4486" style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" font-size="54.075px" line-height="125%" y="586.40869" x="224.87186" font-family="sans-serif" fill="#0000ff"><tspan id="tspan4488" y="586.40869" x="224.87186">z</tspan></text>
+  <path id="path8493-2" marker-end="url(#Arrow1Lend-5)" d="m237.52 310.65-3.04-162.63" stroke="#0f0" stroke-width="4.548" fill="none"/>
+  <text id="text4482" font-size="46.33px" xml:space="preserve" style="word-spacing:0px;letter-spacing:0px" y="206.47462" x="264.90872" font-family="sans-serif" line-height="125%" fill="#00ff00"><tspan id="tspan4484" y="206.47462" x="264.90872">y</tspan></text>
+  <path id="path8493" marker-end="url(#Arrow1Lend)" d="m293.15 450.3 132 123.22" stroke="#f00" stroke-width="4.4637" fill="none"/>
+  <text id="text10349" font-size="47.912px" font-family="sans-serif" transform="scale(.98863 1.0115)" line-height="125%" stroke="#000000" style="word-spacing:0px;letter-spacing:0px" y="509.22656" x="416.81369" stroke-width=".45215px" xml:space="preserve" fill="#ff0000"><tspan id="tspan10351" y="509.22656" x="416.81369" stroke-width=".45215px">x</tspan></text>
+  <path id="path8493-2-4" marker-end="url(#Arrow1Lend-5-8)" d="m145.75 402.85-192.86-3.9" stroke="#00f" stroke-width="4.9308" fill="none"/>
+  <text id="text4486" font-size="54.075px" xml:space="preserve" style="word-spacing:0px;letter-spacing:0px" y="360.98331" x="4.6347184" font-family="sans-serif" line-height="125%" fill="#0000ff"><tspan id="tspan4488" y="360.98331" x="4.6347184">z</tspan></text>
  </g>
 </svg>
