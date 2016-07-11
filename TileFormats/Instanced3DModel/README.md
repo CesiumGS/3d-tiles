@@ -121,22 +121,22 @@ In either case, `header.gltfByteLength` contains the length of the glTF field in
 
 The `instances` field immediately follows the `glTF` field (which may be omitted when `header.gltfByteLength` is `0`).
 
-The `instances` field contains `header.instancesLength` of tightly packed instances.  Each instance has the following fields:
+The `instances` field contains `header.instancesLength` of each instance field stored sequentially.  Each instance has the following fields:
 
 | Field name | Data type | Description | Required |
 | --- | --- | --- | --- |
-| `position.x` | `uint16` | The x-coordinate in quantized cartesian coordinates. | `yes` |
-| `position.y` | `uint16` | The y-coordinate in quantized cartesian coordinates. | `yes` |
-| `position.z` | `uint16` | The z-coordinate in quantized cartesian coordinates. | `yes` |
-| `rightEncoded.x` | `uint` | The first component of the oct-encoded vector `up`. | `yes` |
-| `rightEncoded.y` | `uint` | The second component of the oct-encoded vector `up`. | `yes` |
-| `upEncoded.x` | `uint` | The first component of the oct-encoded vector `right`. | `yes` |
-| `upEncoded.y` | `uint` | The second component of the oct-encoded vector `right`. | `yes` |
+| `position.x` | `uint16` | The x-coordinate in quantized Cartesian coordinates. | `yes` |
+| `position.y` | `uint16` | The y-coordinate in quantized Cartesian coordinates. | `yes` |
+| `position.z` | `uint16` | The z-coordinate in quantized Cartesian coordinates. | `yes` |
+| `rightEncoded.x` | `uint` | The first component of the oct-encoded vector `right`. | `yes` |
+| `rightEncoded.y` | `uint` | The second component of the oct-encoded vector `right`. | `yes` |
+| `upEncoded.x` | `uint` | The first component of the oct-encoded vector `up`. | `yes` |
+| `upEncoded.y` | `uint` | The second component of the oct-encoded vector `up`. | `yes` |
 | `batchId` | `uint16` | ID in the range `[0, length of arrays in the Batch Table)`, which indicates the corresponding properties. | `if header.batchTableByteLength > 0`
 
 ### X, Y, and Z for Translation
 
-`x`, `y`, and `z` are stored as `uint16` positions in the [quantized volume](#quantized-volume) defined by the `origin` and `span` fields in the header.
+`x`, `y`, and `z` are stored as `uint16` positions in the [quantized volume](#quantized-volume) defined by the `offset` and `scale` fields in the header.
 
 Transforming `position` in instance region space to `position_m` in model space can be done using the formula:
 
@@ -166,7 +166,16 @@ The mapping for `z` onto `forward` can be omitted since it will be the cross pro
 A rotation matrix can be created from `right`, `up`, and `forward`=`right`x`up` by placing `right` into the first column,
 `up` into the second column, and `forward` into the third column.
 
-### TILES
+### Scaling using TILES3D_SCALE and TILES3D_NON_UNIFORM_SCALE
+
+Scaling can be done using the special batch semantics `TILES3D_SCALE` and `TILES3D_NON_UNIFORM_SCALE`.
+
+`TILES3D_SCALE` is a number stored for a `batchId` in the batch table.
+If present, all instances with that `batchId` will have their dimensions scaled by the number.
+
+`TILES3D_NON_UNIFORM_SCALE` is an array of numbers stored for a `batchId` in the batch table.
+If present, all instances with that `batchId` will have their dimensions
+in the `x`, `y`, and `z` directions scaled by the first, second, and third components of the array, respectively.
 
 ## File Extension
 
@@ -232,4 +241,6 @@ Matrix3.setColumn(rotation, 0, normalRight, rotation);
 Matrix3.setColumn(rotation, 1, normalUp, rotation);
 Matrix3.setColumn(rotation, 2, normalForward, rotation);
 ```
+
+## Resources
 
