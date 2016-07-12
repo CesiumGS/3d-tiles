@@ -135,9 +135,9 @@ Each instance has the following fields:
 | `encodedAngle` | `uint` | The angle to rotate about the axis from `0` to `2π` scaled to fill a single byte. | `yes` |
 | `batchId` | `uint16` | ID in the range `[0, length of arrays in the Batch Table)`, which indicates the corresponding properties. | `if header.batchTableByteLength > 0`
 
-### X, Y, and Z for Translation
+### Position for Translation
 
-`x`, `y`, and `z` are stored as `uint16` positions in the [quantized volume](#quantized-volume) defined by the `offset` and `scale` fields in the header.
+`position.x`, `position.y`, and `position.z` are stored as `uint16` positions in the [quantized volume](#quantized-volume) defined by the `offset` and `scale` fields in the header.
 
 Transforming `position` in instance region space to `position_m` in model space can be done using the formula:
 
