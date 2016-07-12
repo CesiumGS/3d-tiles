@@ -121,7 +121,9 @@ In either case, `header.gltfByteLength` contains the length of the glTF field in
 
 The `instances` field immediately follows the `glTF` field (which may be omitted when `header.gltfByteLength` is `0`).
 
-The `instances` field contains `header.instancesLength` of each instance field stored sequentially.  Each instance has the following fields:
+The `instances` field contains `header.instancesLength` of each instance field which are stored in groups of each field.
+
+Each instance has the following fields:
 
 | Field name | Data type | Description | Required |
 | --- | --- | --- | --- |
@@ -176,6 +178,10 @@ _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 `application/octet-stream`
 
 ## Resources
+
+1. [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/)
+2. [*Mesh Geometry Compression for Mobile Graphics* by Jongseok Lee et al.](http://cg.postech.ac.kr/research/mesh_comp_mobile/mesh_comp_mobile_conference.pdf)
+3. Cesium [AttributeCompression] module for oct-encoding (https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 
 ## Implementation Examples
 
