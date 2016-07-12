@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="122.25mm" viewBox="0 0 509.13408 433.15178" width="143.69mm" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <defs id="defs4">
+  <marker id="marker10109" refY="0.0" refX="0.0" orient="auto" overflow="visible">
+   <path id="path10111" d="m0 0l5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="scale(.8) rotate(180) translate(12.5)" stroke="#7f007f" stroke-width="1pt" fill="#7f007f"/>
+  </marker>
+  <marker id="marker9943" refY="0" refX="0" orient="auto" overflow="visible">
+   <path id="path9945" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#0f0" stroke-width="1pt" fill="#0f0"/>
+  </marker>
+  <marker id="marker9861" refY="0" refX="0" orient="auto" overflow="visible">
+   <path id="path9863" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#f00" stroke-width="1pt" fill="#f00"/>
+  </marker>
+  <marker id="marker9786" refY="0" refX="0" orient="auto" overflow="visible">
+   <path id="path9533" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#00f" stroke-width="1pt" fill="#00f"/>
+  </marker>
+  <marker id="marker4598" refY="0" refX="0" orient="auto" overflow="visible">
+   <path id="path4224" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#7f007f" stroke-width="1pt" fill="#7f007f"/>
+  </marker>
+ </defs>
+ <metadata id="metadata7">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g font-family="sans-serif">
+  <text id="text4482-5" style="word-spacing:0px;letter-spacing:0px" font-size="46.329px" line-height="125%" y="68.391754" x="288.46091" xml:space="preserve" fill="#00ff00"><tspan id="tspan4484-7" y="68.391754" x="288.46091">y</tspan></text>
+  <text id="text10349-8" style="word-spacing:0px;letter-spacing:0px" transform="scale(.98863 1.0115)" line-height="125%" stroke="#000000" font-size="47.911px" y="377.30902" x="440.634" stroke-width=".45214px" xml:space="preserve" fill="#ff0000"><tspan id="tspan10351-1" y="377.30902" x="440.634" stroke-width=".45214px">x</tspan></text>
+  <text id="text4486-8" style="word-spacing:0px;letter-spacing:0px" font-size="54.074px" line-height="125%" y="227.55147" x="48.667568" xml:space="preserve" fill="#0000ff"><tspan id="tspan4488-4" y="227.55147" x="48.667568">z</tspan></text>
+ </g>
+ <g stroke-width="3.5001" fill="none">
+  <path id="path4529" d="m180.88 258.69h88.19" stroke="#00f"/>
+  <path id="path4531" d="m265.76 162.69 2.3268 96.331" stroke="#0f0"/>
+  <path id="path4533" d="m320.21 306.95-53.05-48.86" stroke="#f00"/>
+  <path id="path4535" d="m269.02 258.55 141.47-61.43" stroke="#7f007f"/>
+  <path id="path4535-0" marker-end="url(#marker10109)" d="m407.53 198.45 100.86-47.33" stroke="#7f007f"/>
+ </g>
+ <flowRoot id="flowRoot4661" style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" transform="matrix(1.5241 0 0 1.4983 -265.39 -114.84)" line-height="125%" font-size="10px" font-family="sans-serif" fill="#7f007f"><flowRegion id="flowRegion4663"><rect id="rect4665" height="26.992" width="100.52" y="207.56" x="451.4" fill="#7f007f"/></flowRegion><flowPara id="flowPara4667" fill="#7f007f" font-size="22.501px">axis</flowPara></flowRoot>
+ <g fill-rule="evenodd">
+  <path id="path4164-2" opacity=".75" d="m119.89 267.38 101.37 106.97 143.74-38.51-125.63-101.83z" points="178.15598,522.67278 368.11774,522.67278 263.01681,435.60106 99.893299,435.60106 " fill="#afafde"/>
+  <path id="path4156-8" opacity=".75" d="m159.68 151.99-41.07 115.39 120.76-32.73 42.35-114.75z" points="99.893299,435.60106 263.01681,435.60106 263.01681,284.26989 99.893299,284.26989 " fill="#353564"/>
+  <path id="path4166-6" opacity=".75" d="m280.45 120.54 130.77 77.58-47.5 136.44-124.99-100.55z" points="368.11774,346.44353 368.11774,522.67278 263.01681,435.60106 263.01681,284.26989 " fill="#e9e9ff"/>
+  <path id="path4158-0" opacity=".75" d="m159.04 151.99 117.41 94.91 134.76-48.78-131.41-78.22z" points="178.15598,346.44353 368.11774,346.44353 263.01681,284.26989 99.893299,284.26989 " fill="#4d4d9f"/>
+  <path id="path4162-5" opacity=".75" d="m276.89 246.89-56.27 129.03 144.39-39.79 45.56-136.44z" points="178.15598,522.67278 368.11774,522.67278 368.11774,346.44353 178.15598,346.44353 " fill="#d7d7ff"/>
+  <path id="path4160-4" opacity=".75" d="m159.68 153.28 117.85 94.07-56.92 127.64-102-108.89z" points="178.15598,346.44353 178.15598,522.67278 99.893299,435.60106 99.893299,284.26989 " fill="#8686bf"/>
+ </g>
+ <g fill="none">
+  <path id="path8493-7" marker-end="url(#marker9861)" d="m319.18 305.71 135.06 123.91" stroke="#f00" stroke-width="2.8732"/>
+  <path id="path8493-2-4-7" marker-end="url(#marker9786)" d="m181.1 258.57-175.09-4.28" stroke="#00f" stroke-width="3.3008"/>
+  <path id="path8493-2-1" marker-end="url(#marker9943)" d="m265.96 162.7-3.33-156.65" stroke="#0f0" stroke-width="3.3315"/>
+  <path id="path4326" marker-end="url(#marker4598)" d="m446.15 165.68c-5.4176-5.2187-13.491-7.5233-20.847-5.951-7.3562 1.5723-13.782 6.9758-16.592 13.953-2.8108 6.9774-1.9251 15.326 2.287 21.559 4.2121 6.2324 11.628 10.168 19.151 10.161 7.6415-0.006 14.711-3.7434 21.53-7.191 2.717-1.3735 5.4499-2.7155 8.198-4.0256" stroke="#7f007f" stroke-width="1.5222"/>
+ </g>
+</svg>
