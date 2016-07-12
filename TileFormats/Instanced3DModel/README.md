@@ -128,10 +128,9 @@ The `instances` field contains `header.instancesLength` of each instance field s
 | `position.x` | `uint16` | The x-coordinate in quantized Cartesian coordinates. | `yes` |
 | `position.y` | `uint16` | The y-coordinate in quantized Cartesian coordinates. | `yes` |
 | `position.z` | `uint16` | The z-coordinate in quantized Cartesian coordinates. | `yes` |
-| `rightEncoded.x` | `uint` | The first component of the oct-encoded vector `right`. | `yes` |
-| `rightEncoded.y` | `uint` | The second component of the oct-encoded vector `right`. | `yes` |
-| `upEncoded.x` | `uint` | The first component of the oct-encoded vector `up`. | `yes` |
-| `upEncoded.y` | `uint` | The second component of the oct-encoded vector `up`. | `yes` |
+| `encodedAxis.x` | `uint` | The first component of the oct-encoded `axis` vector. | `yes` |
+| `encodedAxis.y` | `uint` | The second component of the oct-encoded `axis` vector. | `yes` |
+| `encodedAngle` | `uint` | The angle to rotate about the axis from `0` to `2π` scaled to fill a single byte. | `yes` |
 | `batchId` | `uint16` | ID in the range `[0, length of arrays in the Batch Table)`, which indicates the corresponding properties. | `if header.batchTableByteLength > 0`
 
 ### X, Y, and Z for Translation
@@ -142,29 +141,18 @@ Transforming `position` in instance region space to `position_m` in model space 
 
 `position_m` = `offset` + [`position` * `scale` / (`2^16-1`)].
 
-### Up and Right for Rotation
+### Axis and Angle for Rotation
 
-`up` and `right` are stored as two components in oct-encoded format as described in
+`encodedAxis` is stored as two components in oct-encoded format as described in
 [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/)
 The [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module in Cesium contains an implementation for encoding and decoding vectors in this fashion.
 
-In their decoded form, `right` and `up` establish a new orthonormal basis, effectively rotating the coordinate system.
+`encodedAngle` is the rotation about the axis, from `0` to `2π` scaled to a range of `0` to `255`. It can be decoded to using the formula:
 
-The `x` and `y` vectors in the natural basis are transformed to map onto `right` and `up` respectively.
+`decodedAngle = encodedAngle * 2π / 255.0`.
 
-**Figure 3:** A 3D box in the natural basis
-
-![](figures/box-unit-basis.png)
-
-**Figure 4:** A 3D box in a rotated basis
-
-![](figures/box-rotated-basis.png)
-
-The mapping for `z` onto `forward` can be omitted since it will be the cross product of `right` and `up`.
-
-A rotation matrix can be created from `right`, `up`, and `forward`=`right`x`up` by placing `right` into the first column,
-`up` into the second column, and `forward` into the third column.
+This format can be easily converted to a quaternion or [a rotation matrix](#creating-a-rotation-matrix-for-an-instance).
 
 ### Scaling using TILES3D_SCALE and TILES3D_NON_UNIFORM_SCALE
 
@@ -187,11 +175,13 @@ _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`
 
+## Resources
+
 ## Implementation Examples
 
 ### Cesium
 
-#### Generating Right and Up Vectors from Longitude, Latitude, and Height
+#### Generating Axis-Angle Rotation from Longitude, Latitude, and Height
 
 ```javascript
 var position = Cartesian3.fromRadians(longitude, latitude, height);
@@ -205,7 +195,7 @@ Matrix4.getRotation(transform, rotation);
 // In east-north-up, the up vector is stored in the z component
 Matrix3.multiplyByVector(rotation, Cartesian3.UNIT_Z, up);
 
-// Compute the right vector
+// Compute the right and forward vectors
 var right = new Cartesian3();
 var forward = Cartesian3.clone(Cartesian3.UNIT_Z);
 
@@ -219,28 +209,43 @@ Matrix3.multiplyByVector(orient, forward, forward);
 Cartesian3.cross(up, forward, right);
 Cartesian3.normalize(right, right);
 
-var encodedUp = new Cartesian2();
-AttributeCompression.octEncode(up, encodedUp);
+// Place the basis we just created into a rotation matrix
+var rotation = new Matrix3();
+Matrix3.setColumn(rotation, 0, right, rotation);
+Matrix3.setColumn(rotation, 1, up, rotation);
+Matrix3.setColumn(rotation, 2, forward, rotation);
 
-var encodedRight = new Cartesian2();
-AttributeCompression.octEncode(right, encodedRight);
+// Convert to a quaternion
+var quaternion = new Quaternion();
+Quaternion.fromRotationMatrix(rotation, quaternion);
+
+// Convert quaternion to axis angle
+var axis = new Cartesian3();
+Quaternion.computeAxis(quaternion, axis);
+var angle = Quaternion.computeAngle(quaternion);
+
+// Encode the axis and angle
+var encodedAxis = new Cartesian2();
+AttributeCompression.octEncode(axis, encodedAxis);
+var encodedAngle = Math.round(angle * 255.0 / (2.0 * Math.PI));
 ```
 
 #### Creating a Rotation Matrix for an Instance
 
 ```javascript
-// Decode compressed normals
-AttributeCompression.octDecode(rightEncodedX, rightEncodedY, normalRight);
-AttributeCompression.octDecode(upEncodedX, upEncodedY, normalUp);
+// Decode compressed axis
+var axis = new Cartesian3();
+AttributeCompression.octDecode(encodedAxis.x, encodedAxis.y, axis);
 
-// Compute third normal
-Cartesian3.cross(normalRight, normalUp, normalForward);
+// Decode angle
+var angle = angle * (2.0 * Math.PI)/ 255.0;
 
-// Place the basis into the rotation matrix
-Matrix3.setColumn(rotation, 0, normalRight, rotation);
-Matrix3.setColumn(rotation, 1, normalUp, rotation);
-Matrix3.setColumn(rotation, 2, normalForward, rotation);
+// Create quaternion from axis angle
+var quaternion = new Quaternion();
+Quaternion.fromAxisAngle(axis, angle, quaternion);
+
+// Convert to a rotation matrix
+var rotation = new Matrix3();
+Matrix3.fromQuaternion(quaternion, rotation);
 ```
-
-## Resources
 
