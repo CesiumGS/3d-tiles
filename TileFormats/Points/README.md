@@ -21,11 +21,11 @@ Positions are defined for high-precision rendering with [RTC](http://blogs.agi.c
 
 ## Batch Table Semantics
 
-* `TILES3D_RGBA` - per-point colors, interleaved RGBA `uint8` (32-bits per point).  Byte length: `header.pointsLength * 4`
-* `TILES3D_RGB` - per-point colors, interleaved RGB `uint8` (24-bits per point).  Byte length: `header.pointsLength * 3`
+* `TILES3D_RGBA` - per-point colors, tightly packed interleaved RGBA `uint8` (32-bits per point).  Byte length: `header.pointsLength * 4`
+* `TILES3D_RGB` - per-point colors, tightly packed interleaved RGB `uint8` (24-bits per point).  Byte length: `header.pointsLength * 3`
 * `TILES3D_COLOR` - constant color for all points.  RGBA `uint8`.  Byte length: `4`
 
-If more than one semantic is defined, the precedence order is `TILES3D_RGBA`, `TILES3D_RGB`, and `TILES3D_COLOR`.  For example, if a tile's batch table contains both `TILES3D_RGBA` and `TILES3D_COLOR` properties, the runtime would render with per-point colors using `TILES3D_RGBA`.
+If more than one semantic is defined, the precedence order is `TILES3D_RGBA`, `TILES3D_RGB`, then `TILES3D_COLOR`.  For example, if a tile's batch table contains both `TILES3D_RGBA` and `TILES3D_COLOR` properties, the runtime would render with per-point colors using `TILES3D_RGBA`.
 
 ## File Extension
 
