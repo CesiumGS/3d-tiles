@@ -36,9 +36,9 @@ The 36-byte header contains the following fields:
 | `version` | `uint32` | The version of the Instanced 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
 | `featureTableJSONByteLength` | `uint32` | The length of the feature table JSON section in bytes. |
-| `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. |
+| `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
 | `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates that there is no batch table. |
-| `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes.
+| `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
 | `gltfByteLength` | `uint32` | The length of the glTF field in bytes. |
 | `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the glTF section below. |
 
@@ -62,19 +62,19 @@ See the [Feature Table](TODO:add link) reference for more information.
 
 These semantics map to an array of feature values that are used to create instances. The length of these arrays must be the same for all semantics and is equal to the number of instances.
 
-If a semantic has a dependency on another semantic, that semantic must be defined in order to be used.
+If a semantic has a dependency on another semantic, that semantic must be defined in order to be a valid tile.
 
-| Semantic | Data Type | Dependencies | Description | Required |
+| Semantic | Data Type  | Description | Required |
 | --- | --- | --- | --- | --- |
-| `POSITION` | `float32[3]` | | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, if `POSITION_QUANTIZED` is not defined |
-| `POSITION_QUANTIZED` | `uint16[3]` | `QUANTIZED_VOLUME_OFFSET`, `QUANTIZED_VOLUME_SCALE` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, if `POSITION` is not defined |
-| `NORMAL_UP` | `float32[3]` | `NORMAL_RIGHT` | A unit vector defining the `up` direction for the orientation of the instance. | No |
-| `NORMAL_RIGHT` | `float32[3]` | `NORMAL_UP` | A unit vector defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | No |
-| `NORMAL_UP_OCT32P` | `uint16[2]` | `NORMAL_RIGHT_OCT32P` | An oct-encoded unit vector with 32-bits of precision defining the `up` direction for the orientation of the instance. | No |
-| `NORMAL_RIGHT_OCT32P` | `uint16[2]` | `NORMAL_UP_OCT32P` | An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | No |
-| `SCALE` | `float32` | `none` | A number defining a scale to apply to all axes of the instance. | No |
-| `SCALE_NON_UNIFORM` | `float32[3]` | `none` | A 3-component array of numbers defining the scale to apply to the `x`, `y`, and `z` axes of the instance. | No |
-| `BATCH_ID` | `unit16` | `none` | The `batchId` of the instance that can be used to retrieve metadata from the `Batch Table`. | No |
+| `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, if `POSITION_QUANTIZED` is not defined|
+| `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, if `POSITION` is not defined <br> :red_circle: Depends on `QUANTIZED_VOLUME_OFFSET` <br> :red_circle: Depends on `QUANTIZED_VOLUME_SCALE` |
+| `NORMAL_UP` | `float32[3]`| A unit vector defining the `up` direction for the orientation of the instance. | No <br> :red_circle: Depends on `NORMAL_RIGHT` |
+| `NORMAL_RIGHT` | `float32[3]` | A unit vector defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | No <br> :red_circle: Depends on `NORMAL_UP` |
+| `NORMAL_UP_OCT32P` | `uint16[2]` | An oct-encoded unit vector with 32-bits of precision defining the `up` direction for the orientation of the instance. | No <br> :red_circle: Depends on `NORMAL_UP_OCT32P |
+| `NORMAL_RIGHT_OCT32P` | `uint16[2]` | An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | No <br> :red_circle: Depends on `NORMAL_RIGHT_OCT32P` |
+| `SCALE` | `float32` | A number defining a scale to apply to all axes of the instance. | No |
+| `SCALE_NON_UNIFORM` | `float32[3]` | A 3-component array of numbers defining the scale to apply to the `x`, `y`, and `z` axes of the instance. | No |
+| `BATCH_ID` | `unit16` | The `batchId` of the instance that can be used to retrieve metadata from the `Batch Table`. | No |
 
 #### Global Semantics
 
@@ -82,14 +82,14 @@ These semantics define global properties for all instances.
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `INSTANCES_LENGTH`| `uint32` | The number of instances to generate. The length of each array value for an instance semantic should be equal to this. | Yes |
+| `INSTANCES_LENGTH`| `uint32` | The number of instances to generate. The length of each array value for an instance semantic should be equal to this. | :white_check_mark: Yes |
 | `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | No |
 | `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. | No |
 
 ### Instance Orientation
 
-An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. If `NORMAL_UP` and `NORMAL_RIGHT` are not present,
-the instance will default to `east/north/up` for its position projected onto `WGS84`.
+An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. If `NORMAL_UP` and `NORMAL_RIGHT` or `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P` are not present,
+the instance will default to the `east/north/up` reference frame's orientation for the instance's Cartographic position (`x`, `y`, `z` converted to `longitude` and `latitude` on the `WGS84` ellipsoid).
 
 The `x` vector in the standard basis maps onto the `right` vector in the transformed basis, and the `y` vector maps on to the `up` vector.
 The `z` vector would map onto a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
@@ -184,7 +184,7 @@ _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 ### Cesium
 
-#### Generating `up` and `right` from `longitude`, `latitude`, and `height`
+#### Generating up and right from longitude, latitude, and height
 
 ```javascript
 var position = Cartesian3.fromRadians(longitude, latitude, height);
