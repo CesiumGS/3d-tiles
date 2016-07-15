@@ -2,10 +2,10 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="53.934mm" viewBox="0 0 793.56252 191.10866" width="223.96mm" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
  <defs id="defs4">
-  <marker id="Arrow1Lend" refY="0" refX="0" orient="auto" overflow="visible">
+  <marker id="Arrow1Lend" refY="0" refX="0" overflow="visible" orient="auto">
    <path id="path4833" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#000" stroke-width="1pt"/>
   </marker>
-  <marker id="Arrow1Lstart" refY="0" refX="0" orient="auto" overflow="visible">
+  <marker id="Arrow1Lstart" refY="0" refX="0" overflow="visible" orient="auto">
    <path id="path6466" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(.8 0 0 .8 10 0)" stroke="#000" stroke-width="1pt"/>
   </marker>
   <filter id="filter10326" style="color-interpolation-filters:sRGB" height="24.619" width="1.0048" y="-11.809" x="-.0023949">
@@ -14,7 +14,7 @@
   <filter id="filter10326-6" style="color-interpolation-filters:sRGB" height="24.619" width="1.0048" y="-11.809" x="-.0023949">
    <feGaussianBlur id="feGaussianBlur10328-0" stdDeviation="0.86984367"/>
   </filter>
-  <marker id="Arrow1Lend-8" refY="0" refX="0" orient="auto" overflow="visible">
+  <marker id="Arrow1Lend-8" refY="0" refX="0" overflow="visible" orient="auto">
    <path id="path4833-7" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#000" stroke-width="1pt"/>
   </marker>
  </defs>
@@ -28,7 +28,7 @@
   </rdf:RDF>
  </metadata>
  <path id="path4206" stroke-linejoin="round" marker-end="" d="m1.3882 82.218h160.2v-40.95h-160.2v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
- <g font-size="12.45px" font-family="&apos;Courier New&apos;" fill="#000000">
+ <g font-family="&apos;Courier New&apos;" fill="#000000">
   <text id="text4216" y="56.737309" x="62.618088">
    <tspan id="tspan4218" y="56.737309" x="62.618088">m</tspan>
   </text>
@@ -46,7 +46,7 @@
   <tspan id="tspan4266" y="71.737312" x="118.89809 126.39809 133.89809 141.39809">[4])</tspan>
  </text>
  <path id="path4268" stroke-linejoin="round" marker-end="" d="m161.29 82.218h81.3v-40.95h-81.3v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
- <g font-size="12.45px" font-family="&apos;Courier New&apos;">
+ <g font-family="&apos;Courier New&apos;">
   <text id="text4278" y="56.737309" x="175.7506" fill="#000000">
    <tspan id="tspan4280" y="56.737309" x="175.7506 183.2506 190.7506 198.2506 205.7506 213.2506 220.7506">version</tspan>
   </text>
@@ -61,7 +61,7 @@
   </text>
  </g>
  <path id="path4520" stroke-linejoin="round" d="m1.6219 190.46h204.52v-40.858h-204.52v40.858z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2923" fill="none"/>
- <g font-size="12.45px" font-family="&apos;Courier New&apos;">
+ <g font-family="&apos;Courier New&apos;">
   <text id="text4530" y="165.02763" x="14.625739" fill="#000000">
    <tspan id="tspan4532">batchTableJSONByteLength</tspan>
   </text>
@@ -76,7 +76,7 @@
   </text>
  </g>
  <path id="path4586" stroke-linejoin="round" marker-end="" d="m242.59 82.218h97.05v-40.95h-97.05v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
- <g font-size="12.45px" font-family="&apos;Courier New&apos;">
+ <g font-family="&apos;Courier New&apos;">
   <text id="text4596" y="56.737309" x="253.60059" fill="#000000">
    <tspan id="tspan4598" y="56.737309" x="253.60059 261.10059 268.60059 276.10059 283.60059 291.10059 298.60059 306.10059 313.60059 321.10059">byteLength</tspan>
   </text>
@@ -91,7 +91,7 @@
   </text>
  </g>
  <path id="path4636" stroke-linejoin="round" marker-end="" d="m425.93 190.44h128.7v-40.95h-128.7v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
- <g font-size="12.45px" font-family="&apos;Courier New&apos;">
+ <g font-family="&apos;Courier New&apos;">
   <text id="text4646" y="164.95447" x="437.80432" fill="#000000">
    <tspan id="tspan4648" y="164.95447" x="437.80432 445.30432 452.80432 460.30432 467.80432 475.30432 482.80432 490.30432 497.80432 505.30432 512.80432 520.30432 527.80432 535.30432">gltfByteLength</tspan>
   </text>
@@ -106,7 +106,7 @@
   </text>
  </g>
  <path id="path4686" stroke-linejoin="round" marker-end="" d="m554.63 190.44h97.05v-40.95h-97.05v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
- <g font-size="12.45px" font-family="&apos;Courier New&apos;">
+ <g font-family="&apos;Courier New&apos;">
   <text id="text4696" y="164.95447" x="565.60431" fill="#000000">
    <tspan id="tspan4698" y="164.95447" x="565.60431 573.10431 580.60431 588.10431 595.60431 603.10431 610.60431 618.10431 625.60431 633.10431">gltfFormat</tspan>
   </text>
@@ -120,13 +120,13 @@
    <tspan id="tspan4734" y="179.95447" x="625.64178">)</tspan>
   </text>
  </g>
- <flowRoot id="flowRoot5950" style="word-spacing:0px;letter-spacing:0px" transform="translate(-9.1048 -54.062)" xml:space="preserve" font-size="40px" font-family="sans-serif" line-height="125%" fill="#000000"><flowRegion id="flowRegion5952"><rect id="rect5954" y="85.362" x="884" width="286" height="51"/></flowRegion><flowPara id="flowPara5956"/></flowRoot>
+ <flowRoot id="flowRoot5950" style="word-spacing:0px;letter-spacing:0px" line-height="125%" xml:space="preserve" font-size="40px" transform="translate(-9.1048 -54.062)" font-family="sans-serif" fill="#000000"><flowRegion id="flowRegion5952"><rect id="rect5954" y="85.362" x="884" height="51" width="286"/></flowRegion><flowPara id="flowPara5956"/></flowRoot>
  <g stroke="#000" fill="none">
   <path id="path6763" marker-end="url(#Arrow1Lend)" d="m0.73069 13.657 788.35-0.183" marker-start="url(#Arrow1Lstart)" stroke-width=".96756"/>
   <path id="path6763-9" opacity="0.695" d="m14.787 70.194 871.68-0.177" stroke-opacity=".39053" transform="matrix(.88567 0 0 1.6998 -1.6077 -103.83)" filter="url(#filter10326)" stroke-width=".99978"/>
   <path id="path4520-2" stroke-linejoin="round" d="m339.85 82.203h217.87v-40.817h-217.87v40.817z" stroke-miterlimit="10" stroke-width="1.3332"/>
  </g>
- <g font-size="12.45px" font-family="&apos;Courier New&apos;">
+ <g font-family="&apos;Courier New&apos;">
   <text id="text4542-7" y="72.068817" x="411.91104" fill="#000000">
    <tspan id="tspan4544-8" y="72.068817" x="411.91104">(</tspan>
   </text>
@@ -141,7 +141,7 @@
   </text>
  </g>
  <path id="path4520-2-4" stroke-linejoin="round" d="m557.61 82.256h235.27v-40.766h-235.27v40.766z" stroke="#000" stroke-miterlimit="10" stroke-width="1.3845" fill="none"/>
- <g font-size="12.45px" font-family="&apos;Courier New&apos;">
+ <g font-family="&apos;Courier New&apos;">
   <text id="text4542-7-0" y="71.585136" x="642.30469" fill="#000000">
    <tspan id="tspan4544-8-1" y="71.585136" x="642.30469">(</tspan>
   </text>
@@ -157,10 +157,10 @@
  </g>
  <g stroke="#000" fill="none">
   <path id="path6763-6" marker-end="url(#Arrow1Lend-8)" d="m1.6587 120.99 648.34-0.2" marker-start="url(#Arrow1Lstart)" stroke-width=".91343"/>
-  <path id="path6763-9-5" opacity="0.695" d="m14.787 70.194 871.68-0.177" stroke-opacity=".39053" transform="matrix(.71640 0 0 1.8852 2.9224 -9.4981)" filter="url(#filter10326-6)" stroke-width=".99959"/>
+  <path id="path6763-9-5" opacity="0.695" d="m14.787 70.194 871.68-0.177" stroke-opacity=".39053" transform="matrix(.7164 0 0 1.8852 2.9224 -9.4981)" filter="url(#filter10326-6)" stroke-width=".99959"/>
   <path id="path4520-8" stroke-linejoin="round" d="m206.16 190.32h219.4v-40.812h-219.4v40.812z" stroke-miterlimit="10" stroke-width="1.3377"/>
  </g>
- <g font-size="12.45px" font-family="&apos;Courier New&apos;">
+ <g font-family="&apos;Courier New&apos;">
   <text id="text4530-9" y="164.90395" x="219.14594" fill="#000000">
    <tspan id="tspan4532-5">batchTableBinaryByteLength</tspan>
   </text>
@@ -171,14 +171,14 @@
    <tspan id="tspan4556-1" y="180.70015" x="281.99664 289.49664 296.99664 304.49664 311.99664 319.49664">uint32</tspan>
   </text>
  </g>
- <g font-size="12.45px" font-family="&apos;Courier New&apos;" fill="#000000">
+ <g font-family="&apos;Courier New&apos;" fill="#000000">
   <text id="text4566-5" y="180.70015" x="326.99667">
    <tspan id="tspan4568-3" y="180.70015" x="326.99667">)</tspan>
   </text>
   <text id="text4530-2-3" y="7.8845944" x="280.02338">
    <tspan id="tspan4532-9-0">36-byte header (first 20 bytes)</tspan>
   </text>
-  <text id="text4530-2-3-4" y="114.42043" x="279.81305">
+  <text id="text4530-2-3-4" y="114.42043" x="221.94817">
    <tspan id="tspan4532-9-0-6">36-byte header (next 16 bytes)</tspan>
   </text>
  </g>
