@@ -26,8 +26,6 @@ A tile is composed of a header section immediately followed by a body section.
 
 ![body layout](figures/body-layout.png)
 
-![instance layout](figures/instance-layout.png)
-
 ## Header
 
 The 76-byte header contains the following fields:
