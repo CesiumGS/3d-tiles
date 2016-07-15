@@ -37,8 +37,8 @@ The 36-byte header contains the following fields:
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
 | `featureTableJSONByteLength` | `uint32` | The length of the feature table JSON section in bytes. |
 | `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. |
-| `batchTableByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates that there is no batch table. |
-| `featureTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes.
+| `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates that there is no batch table. |
+| `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes.
 | `gltfByteLength` | `uint32` | The length of the glTF field in bytes. |
 | `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the glTF section below. |
 
