@@ -20,8 +20,6 @@ Instanced 3D Model maps well to the [ANGLE_instanced_arrays](https://www.khronos
 
 A tile is composed of a header section immediately followed by a body section.
 
-Instances are organized as a structure of arrays where the fields from each instance are grouped together.
-
 **Figure 1**: Instanced 3D Model layout (dashes indicate optional fields).
 
 ![header layout](figures/header-layout.png)
@@ -29,7 +27,6 @@ Instances are organized as a structure of arrays where the fields from each inst
 ![body layout](figures/body-layout.png)
 
 ![instance layout](figures/instance-layout.png)
-
 
 ## Header
 
@@ -40,66 +37,116 @@ The 76-byte header contains the following fields:
 | `magic` | 4-byte ANSI string | `"i3dm"`.  This can be used to identify the arraybuffer as an Instanced 3D Model tile. |
 | `version` | `uint32` | The version of the Instanced 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
-| `batchTableByteLength` | `uint32` | The length of the batch table in bytes. Zero indicates there is not a batch table. |
+| `featureTableByteLength` | `uint32` | The length of the feature table in bytes. |
+| `batchTableByteLength` | `uint32` | The length of the batch table in bytes. Zero indicates that there is no batch table. |
 | `gltfByteLength` | `uint32` | The length of the glTF field in bytes. |
 | `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the glTF section below. |
-| `instancesLength` | `uint32` | The number of instances, also called features, in the tile. |
-| `offset.x` | `double` | The `x` coordinate of the offset for the quantized volume. |
-| `offset.y` | `double` | The `y` coordinate of the offset for the quantized volume. |
-| `offset.z` | `double` | The `z` coordinate of the offset for the quantized volume. |
-| `scale.x` | `double` | The length in the `x` direction covered by the quantized volume. |
-| `scale.y` | `double` | The length in the `y` direction covered by the quantized volume. |
-| `scale.z` | `double` | The length in the `z` direction covered by the quantized volume. |
+
+If either `featureTableByteLength` or `gltfByteLength` equal zero, the tile does not need to be rendered.
+
+The body section immediately follows the header section, and is composed of three fields: `Feature Table`, `Batch Table`, and `glTF`.
 
 Code for reading the header can be found in
 [Instanced3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Instanced3DModel3DTileContent.js#L170)
 in the Cesium implementation of 3D Tiles.
 
-If either `gltfByteLength` or `instancesLength` equal zero, the tile does not need to be rendered.
+## Feature Table
 
-The body section immediately follows the header section, and is composed of three fields: `Batch Table`, `glTF`, and `instances`.
+Contains values for `i3dm` semantics used to create instanced models.
 
-## Quantized Volume
+See the [Feature Table](TODO:add link) reference for more information.
 
-Instances are placed by their position relative to the quantized volume defined by the `offset` and `scale` fields in the header.
+### Semantics
 
-**Figure 2:** The quantized volume defined by `offset` and `scale`.
+#### Instance Semantics
 
-![](figures/instance-region.png)
+These semantics map to an array of feature values that are used to create instances. The length of these arrays must be the same for all semantics.
+
+If a semantic has a dependency on another semantic, that semantic must be defined in order to be used.
+
+| Semantic | Data Type | Dependencies | Description |
+| --- | --- | --- | --- |
+| `POSITION` | `float32[3]` | `none` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the instance. |
+| `POSITION_QUANTIZED` | `uint16[3]` | `QUANTIZED_VOLUME_OFFSET`, `QUANTIZED_VOLUME_SCALE` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the instance. |
+| `NORMAL_UP` | `float32[3]` | `NORMAL_RIGHT` | A unit vector defining the `up` direction for the orientation of the instance. |
+| `NORMAL_UP_OCT32P` | `uint16[2]` | `NORMAL_RIGHT_OCT32P` | An oct-encoded unit vector with 32-bits of precision defining the `up` direction for the orientation of the instance. |
+| `NORMAL_RIGHT` | `float32[3]` | `NORMAL_UP` | A unit vector defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. |
+| `NORMAL_RIGHT_OCT32P` | `uint16[2]` | `NORMAL_UP_OCT32P` | An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. |
+| `SCALE` | `float32` | `none` | A number defining a scale to apply to all axes of the instance. |
+| `SCALE_NON_UNIFORM` | `float32[3]` | `none` | A 3-component array of numbers defining the scale to apply to the `x`, `y`, and `z` axes of the instance. |
+| `BATCH_ID` | `unit16` | `none` | The `batchId` of the instance that can be used to retrieve metadata from the `Batch Table`.
+
+#### Global Semantics
+
+These semantics define global properties for all instances.
+
+| Semantic | Data Type | Required | Description |
+| --- | --- | --- | --- |
+| `INSTANCES_LENGTH`| `uint32` | `yes` | The number of instances to generate. The length of each array value for an instance semantic should be equal to this. |
+| `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | `no` | A 3-component array of numbers defining the offset for the quantized volume.
+| `QUANTIZED_VOLUME_SCALE` | `float32[3]` | `no` | A 3-component array of numbers defining the scale for the quantized volume.
+
+### Instance Orientation
+
+An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. If `NORMAL_UP` and `NORMAL_RIGHT` are not present,
+the instance will default to `east/north/up` for its position projected onto `WGS84`.
+
+The `x` vector in the standard basis maps onto the `right` vector in the transformed basis, and the `y` vector maps on to the `up` vector.
+The `z` vector would map onto a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
+
+**Figure 2**: A box in the standard basis.
+
+![box standard basis](figures/box-standard-basis.png)
+
+**Figure 3**: A box transformed into a rotated basis.
+
+![box rotated basis](figures/box-rotated-basis.png)
+
+#### Oct-encoded Normal Vectors
+
+If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientation may be stored as oct-encoded normals in `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P`.
+
+These define `up` and `right` using the oct-encoding described in
+[*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/).
+
+An implementation for encoding and decoding these unit vectors can be found in Cesium's
+[AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
+module.
+
+### Instance Position
+
+`POSITION` defines the location where an instance should be placed in Cartesian space.
+
+#### Quantized Positions
+
+If `POSITION` is not defined for an instance, its position may be stored in `POSITION_QUANTIZED` which defines the instance position relative to the quantized volume.
+If neither `POSITION` or `POSITION_QUANTIZED` are defined, the instance will not be created.
+
+A quantized volume is defined by `offset` and `scale` to map quantized positions into model space.
+
+**Figure 4**: A quantized volume based on `offset` and `scale`.
+
+![quantized volume](figures/quantized-volume.png)
+
+`offset` is stored in the global semantic `QUANTIZED_VOLUME_OFFSET`, and `scale` is stored in the global semantic `QUANTIZED_VOLUME_SCALE`.
+If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.
+
+Quantized positions can be mapped to model space using the formula:
+
+`POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE + QUANTIZED_VOLUME_OFFSET`
+
+### Instance Scaling
+
+Scaling can be applied to instances using the `SCALE` and `SCALE_NON_UNIFORM` semantics.
+`SCALE` applies a uniform scale along all axes, and `SCALE_NON_UNIFORM` applies scaling to the `x`, `y`, and `z` axes independently.
+
+If `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scaling operations will be applied.
 
 ## Batch Table
 
-_TODO: create a separate Batch Table spec that b3dm, i3dm, etc. can reference, [#32](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/32)?_
+Contains metadata organized by `batchId` that can be used for declarative styling.
 
-The batch table is a `UTF-8` string containing JSON.  It immediately follows the header.  It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
-
-Each property in the object is an array with its length equal to `header.batchLength`.  Array elements can be any valid JSON data type, including objects and arrays.  Elements may be `null`.
-
-An instance's `batchId` is used to access elements in each array and extract the corresponding properties.  For example, the following batch table has properties for two instances:
-```json
-{
-    "id" : ["unique id", "another unique id"],
-    "displayName" : ["Tree species", "Another tree species"],
-    "yearPlanted" : [1999, 2003],
-    "location" : [{"x" : 1, "y" : 2}, {"x" : 3, "y" : 4}]
-}
-```
-
-The properties for the instance with `batchId = 0` are
-```javascript
-id[0] = 'unique id';
-displayName[0] = 'Tree species';
-yearBuilt[0] = 1999;
-location[0] = {x : 1, y : 2};
-```
-
-The properties for `batchId = 1` are
-```javascript
-id[1] = 'another unique id';
-displayName[1] = 'Another tree species';
-yearBuilt[1] = 2003;
-location[1] = {x : 3, y : 4};
-```
+See the [Batch Table](TODO:add link) reference for more information.
 
 ## glTF
 
@@ -116,56 +163,6 @@ When the value of `header.gltfFormat` is `1`, the glTF field is
 * a binary blob containing binary glTF.
 
 In either case, `header.gltfByteLength` contains the length of the glTF field in bytes.
-
-## Instances
-
-The `instances` field immediately follows the `glTF` field (which may be omitted when `header.gltfByteLength` is `0`).
-
-The `instances` field contains `header.instancesLength` of each instance field which are stored in groups of each field.
-
-Each instance has the following fields:
-
-| Field name | Data type | Description | Required |
-| --- | --- | --- | --- |
-| `position.x` | `uint16` | The x-coordinate in quantized Cartesian coordinates. | `yes` |
-| `position.y` | `uint16` | The y-coordinate in quantized Cartesian coordinates. | `yes` |
-| `position.z` | `uint16` | The z-coordinate in quantized Cartesian coordinates. | `yes` |
-| `encodedAxis.x` | `uint` | The first component of the oct-encoded `axis` vector. | `yes` |
-| `encodedAxis.y` | `uint` | The second component of the oct-encoded `axis` vector. | `yes` |
-| `encodedAngle` | `uint` | The angle to rotate about the axis from `0` to `2π` scaled to fill a single byte. | `yes` |
-| `batchId` | `uint16` | ID in the range `[0, length of arrays in the Batch Table)`, which indicates the corresponding properties. | `if header.batchTableByteLength > 0`
-
-### Position for Translation
-
-`position.x`, `position.y`, and `position.z` are stored as `uint16` positions in the [quantized volume](#quantized-volume) defined by the `offset` and `scale` fields in the header.
-
-Transforming `position` in instance region space to `position_m` in model space can be done using the formula:
-
-`position_m` = `offset` + [`position` * `scale` / (`2^16-1`)].
-
-### Axis and Angle for Rotation
-
-`encodedAxis` is stored as two components in oct-encoded format as described in
-[*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/)
-The [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
-module in Cesium contains an implementation for encoding and decoding vectors in this fashion.
-
-`encodedAngle` is the rotation about the axis, from `0` to `2π` scaled to a range of `0` to `255`. It can be decoded to using the formula:
-
-`decodedAngle = encodedAngle * 2π / 255.0`.
-
-This format can be easily converted to a quaternion or [a rotation matrix](#creating-a-rotation-matrix-for-an-instance).
-
-### Scaling using TILES3D_SCALE and TILES3D_NON_UNIFORM_SCALE
-
-Scaling can be done using the special batch semantics `TILES3D_SCALE` and `TILES3D_NON_UNIFORM_SCALE`.
-
-`TILES3D_SCALE` is a number stored for a `batchId` in the batch table.
-If present, all instances with that `batchId` will have their dimensions scaled by the number.
-
-`TILES3D_NON_UNIFORM_SCALE` is an array of numbers stored for a `batchId` in the batch table.
-If present, all instances with that `batchId` will have their dimensions
-in the `x`, `y`, and `z` directions scaled by the first, second, and third components of the array, respectively.
 
 ## File Extension
 
@@ -187,7 +184,7 @@ _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 ### Cesium
 
-#### Generating Axis-Angle Rotation from Longitude, Latitude, and Height
+#### Generating `up` and `right` from `longitude`, `latitude`, and `height`
 
 ```javascript
 var position = Cartesian3.fromRadians(longitude, latitude, height);
@@ -214,44 +211,33 @@ Matrix3.multiplyByVector(orient, forward, forward);
 // Cross up and forward to get right
 Cartesian3.cross(up, forward, right);
 Cartesian3.normalize(right, right);
+```
 
-// Place the basis we just created into a rotation matrix
+#### Construct a model-matrix for an instance
+```javascript
+// Cross right and up to get forward
+var forward = new Cartesian3();
+Cartesian3.cross(right, up, forward);
+
+// Place the basis into a rotation matrix
 var rotation = new Matrix3();
 Matrix3.setColumn(rotation, 0, right, rotation);
 Matrix3.setColumn(rotation, 1, up, rotation);
 Matrix3.setColumn(rotation, 2, forward, rotation);
 
-// Convert to a quaternion
-var quaternion = new Quaternion();
-Quaternion.fromRotationMatrix(rotation, quaternion);
+// Get the scale
+var scale = Matrix3.IDENTITY.clone();
+if (defined(uniformScale)) {
+    Matrix3.multiplyByScalar(scale, uniformScale, scale);
+}
+if (defined(nonUniformScale)) {
+    Matrix3.multiplyByVector(scale, nonUniformScale, scale);
+}
 
-// Convert quaternion to axis angle
-var axis = new Cartesian3();
-Quaternion.computeAxis(quaternion, axis);
-var angle = Quaternion.computeAngle(quaternion);
-
-// Encode the axis and angle
-var encodedAxis = new Cartesian2();
-AttributeCompression.octEncode(axis, encodedAxis);
-var encodedAngle = Math.round(angle * 255.0 / (2.0 * Math.PI));
+// Generate the model matrix
+var modelMatrix = new Matrix4();
+Matrix4.fromTranslationRotationScale(
+    new TranslationRotationScale(position, rotation, scale),
+    modelMatrix
+);
 ```
-
-#### Creating a Rotation Matrix for an Instance
-
-```javascript
-// Decode compressed axis
-var axis = new Cartesian3();
-AttributeCompression.octDecode(encodedAxis.x, encodedAxis.y, axis);
-
-// Decode angle
-var angle = angle * (2.0 * Math.PI)/ 255.0;
-
-// Create quaternion from axis angle
-var quaternion = new Quaternion();
-Quaternion.fromAxisAngle(axis, angle, quaternion);
-
-// Convert to a rotation matrix
-var rotation = new Matrix3();
-Matrix3.fromQuaternion(quaternion, rotation);
-```
-

@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="50.414mm" viewBox="0 0 877.65001 178.63161" width="247.69mm" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="24.151mm" viewBox="0 0 917.22614 85.575757" width="258.86mm" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
  <defs id="defs4">
-  <marker id="Arrow1Lstart" refY="0" refX="0" overflow="visible" orient="auto">
+  <marker id="Arrow1Lend" refY="0" refX="0" orient="auto" overflow="visible">
+   <path id="path4833" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#000" stroke-width="1pt"/>
+  </marker>
+  <marker id="Arrow1Lstart" refY="0" refX="0" orient="auto" overflow="visible">
    <path id="path6466" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(.8 0 0 .8 10 0)" stroke="#000" stroke-width="1pt"/>
   </marker>
-  <clipPath id="clipPath4162" clipPathUnits="userSpaceOnUse">
-   <path id="path4164" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4174" clipPathUnits="userSpaceOnUse">
-   <path id="path4176" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4186" clipPathUnits="userSpaceOnUse">
-   <path id="path4188" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4198" clipPathUnits="userSpaceOnUse">
-   <path id="path4200" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
   <clipPath id="clipPath4212" clipPathUnits="userSpaceOnUse">
    <path id="path4214" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
   </clipPath>
@@ -101,95 +92,23 @@
   <clipPath id="clipPath4728" clipPathUnits="userSpaceOnUse">
    <path id="path4730" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
   </clipPath>
-  <clipPath id="clipPath4678-8" clipPathUnits="userSpaceOnUse">
-   <path id="path4680-6" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4666-6" clipPathUnits="userSpaceOnUse">
-   <path id="path4668-6" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4654-1" clipPathUnits="userSpaceOnUse">
-   <path id="path4656-3" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4642-3" clipPathUnits="userSpaceOnUse">
-   <path id="path4644-0" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4678-8-0" clipPathUnits="userSpaceOnUse">
-   <path id="path4680-6-8" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4666-6-9" clipPathUnits="userSpaceOnUse">
-   <path id="path4668-6-7" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4654-1-1" clipPathUnits="userSpaceOnUse">
-   <path id="path4656-3-6" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4642-3-6" clipPathUnits="userSpaceOnUse">
-   <path id="path4644-0-9" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4678-8-0-0" clipPathUnits="userSpaceOnUse">
-   <path id="path4680-6-8-8" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4666-6-9-3" clipPathUnits="userSpaceOnUse">
-   <path id="path4668-6-7-2" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4654-1-1-7" clipPathUnits="userSpaceOnUse">
-   <path id="path4656-3-6-3" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4642-3-6-7" clipPathUnits="userSpaceOnUse">
-   <path id="path4644-0-9-5" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4678-8-0-0-5" clipPathUnits="userSpaceOnUse">
-   <path id="path4680-6-8-8-3" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4666-6-9-3-7" clipPathUnits="userSpaceOnUse">
-   <path id="path4668-6-7-2-4" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4654-1-1-7-0" clipPathUnits="userSpaceOnUse">
-   <path id="path4656-3-6-3-7" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4642-3-6-7-0" clipPathUnits="userSpaceOnUse">
-   <path id="path4644-0-9-5-0" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4678-8-0-1" clipPathUnits="userSpaceOnUse">
-   <path id="path4680-6-8-5" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4666-6-9-5" clipPathUnits="userSpaceOnUse">
-   <path id="path4668-6-7-5" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4654-1-1-5" clipPathUnits="userSpaceOnUse">
-   <path id="path4656-3-6-2" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4642-3-6-2" clipPathUnits="userSpaceOnUse">
-   <path id="path4644-0-9-6" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4678-8-3" clipPathUnits="userSpaceOnUse">
-   <path id="path4680-6-5" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4666-6-96" clipPathUnits="userSpaceOnUse">
-   <path id="path4668-6-1" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4654-1-6" clipPathUnits="userSpaceOnUse">
-   <path id="path4656-3-69" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4642-3-8" clipPathUnits="userSpaceOnUse">
-   <path id="path4644-0-97" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
-  <clipPath id="clipPath4740-2" clipPathUnits="userSpaceOnUse">
-   <path id="path4742-5" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
-  </clipPath>
   <clipPath id="clipPath4740-27" clipPathUnits="userSpaceOnUse">
    <path id="path4742-4" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
   </clipPath>
   <filter id="filter10326" style="color-interpolation-filters:sRGB" height="24.619" width="1.0048" y="-11.809" x="-.0023949">
    <feGaussianBlur id="feGaussianBlur10328" stdDeviation="0.86984367"/>
   </filter>
-  <marker id="Arrow1Lstart-7" refY="0" refX="0" overflow="visible" orient="auto">
-   <path id="path6466-9" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(.8 0 0 .8 10 0)" stroke="#000" stroke-width="1pt"/>
-  </marker>
-  <filter id="filter10326-1" style="color-interpolation-filters:sRGB" height="24.619" width="1.0048" y="-11.809" x="-.0023949">
-   <feGaussianBlur id="feGaussianBlur10328-6" stdDeviation="0.86984367"/>
-  </filter>
-  <clipPath id="clipPath4740-27-4" clipPathUnits="userSpaceOnUse">
-   <path id="path4742-4-5" clip-rule="evenodd" d="m0.000010729 0h720v540h-720v-540z"/>
+  <clipPath id="clipPath4562-4" clipPathUnits="userSpaceOnUse">
+   <path id="path4564-3" d="m0.000010729 0h720v540h-720v-540z" clip-rule="evenodd"/>
+  </clipPath>
+  <clipPath id="clipPath4550-8" clipPathUnits="userSpaceOnUse">
+   <path id="path4552-0" d="m0.000010729 0h720v540h-720v-540z" clip-rule="evenodd"/>
+  </clipPath>
+  <clipPath id="clipPath4538-3" clipPathUnits="userSpaceOnUse">
+   <path id="path4540-0" d="m0.000010729 0h720v540h-720v-540z" clip-rule="evenodd"/>
+  </clipPath>
+  <clipPath id="clipPath4526-1" clipPathUnits="userSpaceOnUse">
+   <path id="path4528-8" d="m0.000010729 0h720v540h-720v-540z" clip-rule="evenodd"/>
   </clipPath>
  </defs>
  <metadata id="metadata7">
@@ -201,437 +120,182 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <path id="path4156" stroke-linejoin="round" marker-end="" d="m740.55 88.083h136.5v-40.95h-136.5v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
- <g id="g4158" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4160" clip-path="url(#clipPath4162)">
-   <text id="text4166" font-size="9.96px" transform="matrix(1,0,0,-1,605.14,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4168" y="0" x="0 6 12 18 24 30 36 42 48 54 60 66 72 78 84">instancesLength</tspan>
-   </text>
-  </g>
+ <path id="path4206" stroke-linejoin="round" marker-end="" d="m0.6 84.856h160.2v-40.95h-160.2v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
+ <g id="g4210" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4212)">
+  <text id="text4216" transform="matrix(1,0,0,-1,52.464,474.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4218" y="0" x="0">m</tspan>
+  </text>
  </g>
- <g id="g4170" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4172" clip-path="url(#clipPath4174)">
-   <text id="text4178" font-size="9.96px" transform="matrix(1,0,0,-1,626.14,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4180" y="0" x="0">(</tspan>
-   </text>
-  </g>
+ <g id="g4222" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4224)">
+  <text id="text4228" transform="matrix(1,0,0,-1,58.464,474.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4230" y="0" x="0 6.0240002 12.048 18.072001">agic</tspan>
+  </text>
  </g>
- <g id="g4182" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4184" clip-path="url(#clipPath4186)">
-   <text id="text4190" font-size="9.96px" transform="matrix(1,0,0,-1,632.14,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4192" y="0" x="0 6 12 18 24 30">uint32</tspan>
-   </text>
-  </g>
+ <g id="g4234" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4236)">
+  <text id="text4240" transform="matrix(1,0,0,-1,13.464,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4242" y="0" x="0">(</tspan>
+  </text>
  </g>
- <g id="g4194" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4196" clip-path="url(#clipPath4198)">
-   <text id="text4202" font-size="9.96px" transform="matrix(1,0,0,-1,668.14,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4204" y="0" x="0">)</tspan>
-   </text>
-  </g>
+ <g id="g4246" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4248)">
+  <text id="text4252" transform="matrix(1,0,0,-1,19.464,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#558ed5">
+   <tspan id="tspan4254" y="0" x="0 6 12 18 24 30 36 42 48 54 60 66 72">unsigned char</tspan>
+  </text>
  </g>
- <path id="path4206" stroke-linejoin="round" marker-end="" d="m0.6001 88.083h160.2v-40.95h-160.2v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
- <g id="g4208" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4210" clip-path="url(#clipPath4212)">
-   <text id="text4216" font-size="9.96px" transform="matrix(1,0,0,-1,52.464,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4218" y="0" x="0">m</tspan>
-   </text>
-  </g>
+ <g id="g4258" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4260)">
+  <text id="text4264" transform="matrix(1,0,0,-1,97.488,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4266" y="0" x="0 6 12 18">[4])</tspan>
+  </text>
  </g>
- <g id="g4220" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4222" clip-path="url(#clipPath4224)">
-   <text id="text4228" font-size="9.96px" transform="matrix(1,0,0,-1,58.464,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4230" y="0" x="0 6.0240002 12.048 18.072001">agic</tspan>
-   </text>
-  </g>
+ <path id="path4268" stroke-linejoin="round" marker-end="" d="m160.5 84.856h81.3v-40.95h-81.3v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
+ <g id="g4272" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4274)">
+  <text id="text4278" transform="matrix(1,0,0,-1,142.97,474.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4280" y="0" x="0 6 12 18 24 30 36">version</tspan>
+  </text>
  </g>
- <g id="g4232" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4234" clip-path="url(#clipPath4236)">
-   <text id="text4240" font-size="9.96px" transform="matrix(1,0,0,-1,13.464,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4242" y="0" x="0">(</tspan>
-   </text>
-  </g>
+ <g id="g4284" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4286)">
+  <text id="text4290" transform="matrix(1,0,0,-1,139.97,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4292" y="0" x="0">(</tspan>
+  </text>
  </g>
- <g id="g4244" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4246" clip-path="url(#clipPath4248)">
-   <text id="text4252" font-size="9.96px" transform="matrix(1,0,0,-1,19.464,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4254" y="0" x="0 6 12 18 24 30 36 42 48 54 60 66 72">unsigned char</tspan>
-   </text>
-  </g>
+ <g id="g4296" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4298)">
+  <text id="text4302" transform="matrix(1,0,0,-1,145.97,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#558ed5">
+   <tspan id="tspan4304" y="0" x="0 6 12 18 24 30">uint32</tspan>
+  </text>
  </g>
- <g id="g4256" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4258" clip-path="url(#clipPath4260)">
-   <text id="text4264" font-size="9.96px" transform="matrix(1,0,0,-1,97.488,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4266" y="0" x="0 6 12 18">[4])</tspan>
-   </text>
-  </g>
+ <g id="g4308" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4310)">
+  <text id="text4314" transform="matrix(1,0,0,-1,181.97,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4316" y="0" x="0">)</tspan>
+  </text>
  </g>
- <path id="path4268" stroke-linejoin="round" marker-end="" d="m160.5 88.083h81.3v-40.95h-81.3v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
- <g id="g4270" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4272" clip-path="url(#clipPath4274)">
-   <text id="text4278" font-size="9.96px" transform="matrix(1,0,0,-1,142.97,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4280" y="0" x="0 6 12 18 24 30 36">version</tspan>
-   </text>
-  </g>
+ <g id="g4468" transform="matrix(1.25 0 0 -1.25 18.876 655.24)" clip-path="url(#clipPath4470)">
+  <text id="text4474" transform="matrix(1,0,0,-1,318.02,517.94)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4476" y="0" x="0">28</tspan>
+   <tspan id="tspan4824" y="0" x="0"/>
+  </text>
  </g>
- <g id="g4282" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4284" clip-path="url(#clipPath4286)">
-   <text id="text4290" font-size="9.96px" transform="matrix(1,0,0,-1,139.97,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4292" y="0" x="0">(</tspan>
-   </text>
-  </g>
+ <g id="g4480" transform="matrix(1.25 0 0 -1.25 18.876 655.24)" clip-path="url(#clipPath4482)">
+  <text id="text4486" transform="matrix(1,0,0,-1,330.02,517.94)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4488" y="0" x="0">-</tspan>
+  </text>
  </g>
- <g id="g4294" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4296" clip-path="url(#clipPath4298)">
-   <text id="text4302" font-size="9.96px" transform="matrix(1,0,0,-1,145.97,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4304" y="0" x="0 6 12 18 24 30">uint32</tspan>
-   </text>
-  </g>
+ <g id="g4492" transform="matrix(1.25 0 0 -1.25 18.876 655.24)" clip-path="url(#clipPath4494)">
+  <text id="text4498" transform="matrix(1,0,0,-1,336.02,517.94)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4500" y="0" x="0 6 12 18 24 30 36 42 48 54 60">byte header</tspan>
+  </text>
  </g>
- <g id="g4306" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4308" clip-path="url(#clipPath4310)">
-   <text id="text4314" font-size="9.96px" transform="matrix(1,0,0,-1,181.97,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4316" y="0" x="0">)</tspan>
-   </text>
-  </g>
+ <path id="path4520" stroke-linejoin="round" marker-end="" d="m514.93 84.976h175.95v-40.95h-175.95v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
+ <g id="g4524" transform="matrix(1.25 0 0 -1.25 172.33 652.12)" clip-path="url(#clipPath4526)">
+  <text id="text4530" transform="matrix(1,0,0,-1,284.52,474.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4532" y="0" x="0 6 12 18 24 30 36 42 48 54 60 66 72 78 84 90 96 102 108 114">batchTableByteLength</tspan>
+  </text>
  </g>
- <g id="g4466" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4468" clip-path="url(#clipPath4470)">
-   <text id="text4474" font-size="9.96px" transform="matrix(1,0,0,-1,318.02,517.94)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4476" y="0" x="0">76</tspan>
-   </text>
-  </g>
+ <g id="g4536" transform="matrix(1.25 0 0 -1.25 172.33 652.12)" clip-path="url(#clipPath4538)">
+  <text id="text4542" transform="matrix(1,0,0,-1,320.52,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4544" y="0" x="0">(</tspan>
+  </text>
  </g>
- <g id="g4478" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4480" clip-path="url(#clipPath4482)">
-   <text id="text4486" font-size="9.96px" transform="matrix(1,0,0,-1,330.02,517.94)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4488" y="0" x="0">-</tspan>
-   </text>
-  </g>
+ <g id="g4548" transform="matrix(1.25 0 0 -1.25 172.33 652.12)" clip-path="url(#clipPath4550)">
+  <text id="text4554" transform="matrix(1,0,0,-1,326.52,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#558ed5">
+   <tspan id="tspan4556" y="0" x="0 6 12 18 24 30">uint32</tspan>
+  </text>
  </g>
- <g id="g4490" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4492" clip-path="url(#clipPath4494)">
-   <text id="text4498" font-size="9.96px" transform="matrix(1,0,0,-1,336.02,517.94)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4500" y="0" x="0 6 12 18 24 30 36 42 48 54 60">byte header</tspan>
-   </text>
-  </g>
+ <g id="g4560" transform="matrix(1.25 0 0 -1.25 172.33 652.12)" clip-path="url(#clipPath4562)">
+  <text id="text4566" transform="matrix(1,0,0,-1,362.52,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4568" y="0" x="0">)</tspan>
+  </text>
  </g>
- <path id="path4520" stroke-linejoin="round" marker-end="" d="m338.85 88.083h175.95v-40.95h-175.95v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
- <g id="g4522" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4524" clip-path="url(#clipPath4526)">
-   <text id="text4530" font-size="9.96px" transform="matrix(1,0,0,-1,284.52,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4532" y="0" x="0 6 12 18 24 30 36 42 48 54 60 66 72 78 84 90 96 102 108 114">batchTableByteLength</tspan>
-   </text>
-  </g>
+ <path id="path4586" stroke-linejoin="round" marker-end="" d="m241.8 84.856h97.05v-40.95h-97.05v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
+ <g id="g4590" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4592)">
+  <text id="text4596" transform="matrix(1,0,0,-1,205.25,474.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4598" y="0" x="0 6 12 18 24 30 36 42 48 54">byteLength</tspan>
+  </text>
  </g>
- <g id="g4534" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4536" clip-path="url(#clipPath4538)">
-   <text id="text4542" font-size="9.96px" transform="matrix(1,0,0,-1,320.52,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4544" y="0" x="0">(</tspan>
-   </text>
-  </g>
+ <g id="g4602" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4604)">
+  <text id="text4608" transform="matrix(1,0,0,-1,211.25,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4610" y="0" x="0">(</tspan>
+  </text>
  </g>
- <g id="g4546" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4548" clip-path="url(#clipPath4550)">
-   <text id="text4554" font-size="9.96px" transform="matrix(1,0,0,-1,326.52,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4556" y="0" x="0 6 12 18 24 30">uint32</tspan>
-   </text>
-  </g>
+ <g id="g4614" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4616)">
+  <text id="text4620" transform="matrix(1,0,0,-1,217.25,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#558ed5">
+   <tspan id="tspan4622" y="0" x="0 6 12 18 24 30">uint32</tspan>
+  </text>
  </g>
- <g id="g4558" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4560" clip-path="url(#clipPath4562)">
-   <text id="text4566" font-size="9.96px" transform="matrix(1,0,0,-1,362.52,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4568" y="0" x="0">)</tspan>
-   </text>
-  </g>
+ <g id="g4626" transform="matrix(1.25 0 0 -1.25 -3.7501 652)" clip-path="url(#clipPath4628)">
+  <text id="text4632" transform="matrix(1,0,0,-1,253.25,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4634" y="0" x="0">)</tspan>
+  </text>
  </g>
- <path id="path4586" stroke-linejoin="round" marker-end="" d="m241.8 88.083h97.05v-40.95h-97.05v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
- <g id="g4588" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4590" clip-path="url(#clipPath4592)">
-   <text id="text4596" font-size="9.96px" transform="matrix(1,0,0,-1,205.25,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4598" y="0" x="0 6 12 18 24 30 36 42 48 54">byteLength</tspan>
-   </text>
-  </g>
+ <path id="path4636" stroke-linejoin="round" marker-end="" d="m690.88 84.976h128.7v-40.95h-128.7v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
+ <g id="g4640" transform="matrix(1.25 0 0 -1.25 172.33 652.12)" clip-path="url(#clipPath4642)">
+  <text id="text4646" transform="matrix(1,0,0,-1,424.34,474.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4648" y="0" x="0 6 12 18 24 30 36 42 48 54 60 66 72 78">gltfByteLength</tspan>
+  </text>
  </g>
- <g id="g4600" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4602" clip-path="url(#clipPath4604)">
-   <text id="text4608" font-size="9.96px" transform="matrix(1,0,0,-1,211.25,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4610" y="0" x="0">(</tspan>
-   </text>
-  </g>
+ <g id="g4652" transform="matrix(1.25 0 0 -1.25 172.33 652.12)" clip-path="url(#clipPath4654)">
+  <text id="text4658" transform="matrix(1,0,0,-1,442.34,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4660" y="0" x="0">(</tspan>
+  </text>
  </g>
- <g id="g4612" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4614" clip-path="url(#clipPath4616)">
-   <text id="text4620" font-size="9.96px" transform="matrix(1,0,0,-1,217.25,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4622" y="0" x="0 6 12 18 24 30">uint32</tspan>
-   </text>
-  </g>
+ <g id="g4664" transform="matrix(1.25 0 0 -1.25 172.33 652.12)" clip-path="url(#clipPath4666)">
+  <text id="text4670" transform="matrix(1,0,0,-1,448.34,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#558ed5">
+   <tspan id="tspan4672" y="0" x="0 6 12 18 24 30">uint32</tspan>
+  </text>
  </g>
- <g id="g4624" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4626" clip-path="url(#clipPath4628)">
-   <text id="text4632" font-size="9.96px" transform="matrix(1,0,0,-1,253.25,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4634" y="0" x="0">)</tspan>
-   </text>
-  </g>
+ <g id="g4676" transform="matrix(1.25 0 0 -1.25 172.33 652.12)" clip-path="url(#clipPath4678)">
+  <text id="text4682" transform="matrix(1,0,0,-1,484.34,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4684" y="0" x="0">)</tspan>
+  </text>
  </g>
- <path id="path4636" stroke-linejoin="round" marker-end="" d="m514.8 88.083h128.7v-40.95h-128.7v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
- <g id="g4638" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4640" clip-path="url(#clipPath4642)">
-   <text id="text4646" font-size="9.96px" transform="matrix(1,0,0,-1,424.34,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4648" y="0" x="0 6 12 18 24 30 36 42 48 54 60 66 72 78">gltfByteLength</tspan>
-   </text>
-  </g>
+ <path id="path4686" stroke-linejoin="round" marker-end="" d="m819.58 84.976h97.05v-40.95h-97.05v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
+ <g id="g4690" transform="matrix(1.25 0 0 -1.25 172.33 652.12)" clip-path="url(#clipPath4692)">
+  <text id="text4696" transform="matrix(1,0,0,-1,526.58,474.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4698" y="0" x="0 6 12 18 24 30 36 42 48 54">gltfFormat</tspan>
+  </text>
  </g>
- <g id="g4650" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4652" clip-path="url(#clipPath4654)">
-   <text id="text4658" font-size="9.96px" transform="matrix(1,0,0,-1,442.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4660" y="0" x="0">(</tspan>
-   </text>
-  </g>
+ <g id="g4702" transform="matrix(1.25 0 0 -1.25 172.33 652.12)" clip-path="url(#clipPath4704)">
+  <text id="text4708" transform="matrix(1,0,0,-1,532.58,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4710" y="0" x="0">(</tspan>
+  </text>
  </g>
- <g id="g4662" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4664" clip-path="url(#clipPath4666)">
-   <text id="text4670" font-size="9.96px" transform="matrix(1,0,0,-1,448.34,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4672" y="0" x="0 6 12 18 24 30">uint32</tspan>
-   </text>
-  </g>
+ <g id="g4714" transform="matrix(1.25 0 0 -1.25 172.33 652.12)" clip-path="url(#clipPath4716)">
+  <text id="text4720" transform="matrix(1,0,0,-1,538.58,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#558ed5">
+   <tspan id="tspan4722" y="0" x="0 6.0240002 12.048 18.072001 24.096001 30.120001">uint32</tspan>
+  </text>
  </g>
- <g id="g4674" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4676" clip-path="url(#clipPath4678)">
-   <text id="text4682" font-size="9.96px" transform="matrix(1,0,0,-1,484.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4684" y="0" x="0">)</tspan>
-   </text>
-  </g>
+ <g id="g4726" transform="matrix(1.25 0 0 -1.25 172.33 652.12)" clip-path="url(#clipPath4728)">
+  <text id="text4732" transform="matrix(1,0,0,-1,574.61,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4734" y="0" x="0">)</tspan>
+  </text>
  </g>
- <path id="path4686" stroke-linejoin="round" marker-end="" d="m643.5 88.083h97.05v-40.95h-97.05v40.95z" stroke="#000" stroke-miterlimit="10" stroke-width="1.2" fill="none"/>
- <g id="g4688" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4690" clip-path="url(#clipPath4692)">
-   <text id="text4696" font-size="9.96px" transform="matrix(1,0,0,-1,526.58,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4698" y="0" x="0 6 12 18 24 30 36 42 48 54">gltfFormat</tspan>
-   </text>
-  </g>
+ <flowRoot id="flowRoot5950" style="word-spacing:0px;letter-spacing:0px" transform="translate(-9.893 -51.424)" xml:space="preserve" font-size="40px" font-family="sans-serif" line-height="125%" fill="#000000"><flowRegion id="flowRegion5952"><rect id="rect5954" y="85.362" x="884" height="51" width="286"/></flowRegion><flowPara id="flowPara5956"/></flowRoot>
+ <g id="g4738-4" transform="matrix(1.25 0 0 -1.25 -22.857 610.66)" clip-path="url(#clipPath4740-27)">
+  <text id="text4744-3" transform="matrix(1,0,0,-1,706.39,474.84)" font-size="10.56px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4746-4" y="0" x="0">…</tspan>
+  </text>
  </g>
- <g id="g4700" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4702" clip-path="url(#clipPath4704)">
-   <text id="text4708" font-size="9.96px" transform="matrix(1,0,0,-1,532.58,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4710" y="0" x="0">(</tspan>
-   </text>
-  </g>
+ <g stroke="#000" fill="none">
+  <path id="path6763" marker-end="url(#Arrow1Lend)" d="m3.857 16.29 910.86-0.173" marker-start="url(#Arrow1Lstart)" stroke-width="1.0105"/>
+  <path id="path6763-9" opacity="0.695" d="m14.787 70.194 871.68-0.177" stroke-opacity=".39053" transform="matrix(1.0131 0 0 1.5553 .80275 -91.056)" filter="url(#filter10326)" stroke-width=".99978"/>
+  <path id="path4520-2" stroke-linejoin="round" d="m339 84.907h175.95v-40.95h-175.95v40.95z" stroke-miterlimit="10" stroke-width="1.2"/>
  </g>
- <g id="g4712" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4714" clip-path="url(#clipPath4716)">
-   <text id="text4720" font-size="9.96px" transform="matrix(1,0,0,-1,538.58,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4722" y="0" x="0 6.0240002 12.048 18.072001 24.096001 30.120001">uint32</tspan>
-   </text>
-  </g>
+ <g id="g4536-0" transform="matrix(1.25 0 0 -1.25 -3.6023 652.05)" clip-path="url(#clipPath4538-3)">
+  <text id="text4542-7" transform="matrix(1,0,0,-1,320.52,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4544-8" y="0" x="0">(</tspan>
+  </text>
  </g>
- <g id="g4724" transform="matrix(1.25 0 0 -1.25 -3.75 655.23)">
-  <g id="g4726" clip-path="url(#clipPath4728)">
-   <text id="text4732" font-size="9.96px" transform="matrix(1,0,0,-1,574.61,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4734" y="0" x="0">)</tspan>
-   </text>
-  </g>
+ <g id="g4548-8" transform="matrix(1.25 0 0 -1.25 -3.6023 652.05)" clip-path="url(#clipPath4550-8)">
+  <text id="text4554-1" transform="matrix(1,0,0,-1,326.52,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#558ed5">
+   <tspan id="tspan4556-9" y="0" x="0 6 12 18 24 30">uint32</tspan>
+  </text>
  </g>
- <path id="path4636-1" stroke-linejoin="round" marker-end="" d="m1.3441 178.15h82.934v-41.184h-82.934v41.184z" stroke="#000" stroke-miterlimit="10" stroke-width=".96604" fill="none"/>
- <g id="g4638-3" transform="matrix(1.25 0 0 -1.25 -517.09 745.18)">
-  <g id="g4640-4" clip-path="url(#clipPath4642-3)">
-   <text id="text4646-4" font-size="9.96px" transform="matrix(1,0,0,-1,424.34,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4648-6" y="0" x="0">offset.x</tspan>
-   </text>
-  </g>
+ <g id="g4560-9" transform="matrix(1.25 0 0 -1.25 -3.6023 652.05)" clip-path="url(#clipPath4562-4)">
+  <text id="text4566-0" transform="matrix(1,0,0,-1,362.52,462.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4568-5" y="0" x="0">)</tspan>
+  </text>
  </g>
- <g id="g4650-9" transform="matrix(1.25 0 0 -1.25 -540.09 744.18)">
-  <g id="g4652-4" clip-path="url(#clipPath4654-1)">
-   <text id="text4658-0" font-size="9.96px" transform="matrix(1,0,0,-1,442.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4660-4" y="0" x="0">(</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4662-8" transform="matrix(1.25 0 0 -1.25 -540.09 744.18)">
-  <g id="g4664-0" clip-path="url(#clipPath4666-6)">
-   <text id="text4670-8" font-size="9.96px" transform="matrix(1,0,0,-1,448.34,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4672-2" y="0" x="0">double</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4674-3" transform="matrix(1.25 0 0 -1.25 -540.09 744.18)">
-  <g id="g4676-6" clip-path="url(#clipPath4678-8)">
-   <text id="text4682-9" font-size="9.96px" transform="matrix(1,0,0,-1,484.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4684-4" y="0" x="0">)</tspan>
-   </text>
-  </g>
- </g>
- <path id="path4636-1-5" stroke-linejoin="round" marker-end="" d="m84.299 178.12h82.934v-41.184h-82.934v41.184z" stroke="#000" stroke-miterlimit="10" stroke-width=".96604" fill="none"/>
- <g id="g4638-3-2" transform="matrix(1.25 0 0 -1.25 -434.13 745.16)">
-  <g id="g4640-4-8" clip-path="url(#clipPath4642-3-6)">
-   <text id="text4646-4-4" font-size="9.96px" transform="matrix(1,0,0,-1,424.34,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4648-6-4" y="0" x="0">offset.y</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4650-9-5" transform="matrix(1.25 0 0 -1.25 -457.13 744.16)">
-  <g id="g4652-4-5" clip-path="url(#clipPath4654-1-1)">
-   <text id="text4658-0-9" font-size="9.96px" transform="matrix(1,0,0,-1,442.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4660-4-4" y="0" x="0">(</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4662-8-4" transform="matrix(1.25 0 0 -1.25 -457.13 744.16)">
-  <g id="g4664-0-1" clip-path="url(#clipPath4666-6-9)">
-   <text id="text4670-8-1" font-size="9.96px" transform="matrix(1,0,0,-1,448.34,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4672-2-5" y="0" x="0">double</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4674-3-6" transform="matrix(1.25 0 0 -1.25 -457.13 744.16)">
-  <g id="g4676-6-6" clip-path="url(#clipPath4678-8-0)">
-   <text id="text4682-9-9" font-size="9.96px" transform="matrix(1,0,0,-1,484.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4684-4-6" y="0" x="0">)</tspan>
-   </text>
-  </g>
- </g>
- <path id="path4636-1-5-4" stroke-linejoin="round" marker-end="" d="m167.25 178.11h82.934v-41.184h-82.934v41.184z" stroke="#000" stroke-miterlimit="10" stroke-width=".96604" fill="none"/>
- <g id="g4638-3-2-9" transform="matrix(1.25 0 0 -1.25 -351.19 745.14)">
-  <g id="g4640-4-8-1" clip-path="url(#clipPath4642-3-6-7)">
-   <text id="text4646-4-4-8" font-size="9.96px" transform="matrix(1,0,0,-1,424.34,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4648-6-4-4" y="0" x="0">offset.z</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4650-9-5-0" transform="matrix(1.25 0 0 -1.25 -374.19 744.14)">
-  <g id="g4652-4-5-7" clip-path="url(#clipPath4654-1-1-7)">
-   <text id="text4658-0-9-8" font-size="9.96px" transform="matrix(1,0,0,-1,442.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4660-4-4-8" y="0" x="0">(</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4662-8-4-0" transform="matrix(1.25 0 0 -1.25 -374.19 744.14)">
-  <g id="g4664-0-1-4" clip-path="url(#clipPath4666-6-9-3)">
-   <text id="text4670-8-1-5" font-size="9.96px" transform="matrix(1,0,0,-1,448.34,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4672-2-5-7" y="0" x="0">double</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4674-3-6-0" transform="matrix(1.25 0 0 -1.25 -374.19 744.14)">
-  <g id="g4676-6-6-8" clip-path="url(#clipPath4678-8-0-0)">
-   <text id="text4682-9-9-6" font-size="9.96px" transform="matrix(1,0,0,-1,484.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4684-4-6-5" y="0" x="0">)</tspan>
-   </text>
-  </g>
- </g>
- <flowRoot id="flowRoot5950" style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" transform="translate(-9.8929,-48.197)" font-size="40px" font-family="sans-serif" line-height="125%" fill="#000000"><flowRegion id="flowRegion5952"><rect id="rect5954" y="85.362" x="884" width="286" height="51"/></flowRegion><flowPara id="flowPara5956"/></flowRoot>
- <path id="path4636-1-0" stroke-linejoin="round" marker-end="" d="m250.21 178.07h82.934v-41.184h-82.934v41.184z" stroke="#000" stroke-miterlimit="10" stroke-width=".96604" fill="none"/>
- <g id="g4638-3-1" transform="matrix(1.25 0 0 -1.25 -273.57 746.63)">
-  <g id="g4640-4-7" clip-path="url(#clipPath4642-3-8)">
-   <text id="text4646-4-3" font-size="9.96px" transform="scale(1,-1)" y="-474.66568" x="429.43118" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4648-6-6" y="-474.66568" x="429.43118">scale.x</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4650-9-6" transform="matrix(1.25 0 0 -1.25 -291.23 744.1)">
-  <g id="g4652-4-1" clip-path="url(#clipPath4654-1-6)">
-   <text id="text4658-0-3" font-size="9.96px" transform="matrix(1,0,0,-1,442.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4660-4-7" y="0" x="0">(</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4662-8-5" transform="matrix(1.25 0 0 -1.25 -291.23 744.1)">
-  <g id="g4664-0-9" clip-path="url(#clipPath4666-6-96)">
-   <text id="text4670-8-7" font-size="9.96px" transform="matrix(1,0,0,-1,448.34,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4672-2-7" y="0" x="0">double</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4674-3-2" transform="matrix(1.25 0 0 -1.25 -291.23 744.1)">
-  <g id="g4676-6-69" clip-path="url(#clipPath4678-8-3)">
-   <text id="text4682-9-8" font-size="9.96px" transform="matrix(1,0,0,-1,484.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4684-4-2" y="0" x="0">)</tspan>
-   </text>
-  </g>
- </g>
- <path id="path4636-1-5-1" stroke-linejoin="round" marker-end="" d="m333.16 178.05h82.934v-41.184h-82.934v41.184z" stroke="#000" stroke-miterlimit="10" stroke-width=".96604" fill="none"/>
- <g id="g4638-3-2-3" transform="matrix(1.25 0 0 -1.25 -182.66 745.91)">
-  <g id="g4640-4-8-18" clip-path="url(#clipPath4642-3-6-2)">
-   <text id="text4646-4-4-84" font-size="9.96px" transform="matrix(1,0,0,-1,424.34,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4648-6-4-9" y="0" x="0">scale.y</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4650-9-5-6" transform="matrix(1.25 0 0 -1.25 -208.27 744.08)">
-  <g id="g4652-4-5-8" clip-path="url(#clipPath4654-1-1-5)">
-   <text id="text4658-0-9-5" font-size="9.96px" transform="matrix(1,0,0,-1,442.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4660-4-4-80" y="0" x="0">(</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4662-8-4-8" transform="matrix(1.25 0 0 -1.25 -208.27 744.08)">
-  <g id="g4664-0-1-7" clip-path="url(#clipPath4666-6-9-5)">
-   <text id="text4670-8-1-9" font-size="9.96px" transform="matrix(1,0,0,-1,448.34,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4672-2-5-1" y="0" x="0">double</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4674-3-6-07" transform="matrix(1.25 0 0 -1.25 -208.27 744.08)">
-  <g id="g4676-6-6-2" clip-path="url(#clipPath4678-8-0-1)">
-   <text id="text4682-9-9-3" font-size="9.96px" transform="matrix(1,0,0,-1,484.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4684-4-6-6" y="0" x="0">)</tspan>
-   </text>
-  </g>
- </g>
- <path id="path4636-1-5-4-0" stroke-linejoin="round" marker-end="" d="m416.11 178.04h82.934v-41.184h-82.934v41.184z" stroke="#000" stroke-miterlimit="10" stroke-width=".96604" fill="none"/>
- <g id="g4638-3-2-9-6" transform="matrix(1.25 0 0 -1.25 -99.719 745.83)">
-  <g id="g4640-4-8-1-3" clip-path="url(#clipPath4642-3-6-7-0)">
-   <text id="text4646-4-4-8-7" font-size="9.96px" transform="matrix(1,0,0,-1,424.34,474.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4648-6-4-4-3" y="0" x="0">scale.z</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4650-9-5-0-2" transform="matrix(1.25 0 0 -1.25 -125.33 744.07)">
-  <g id="g4652-4-5-7-3" clip-path="url(#clipPath4654-1-1-7-0)">
-   <text id="text4658-0-9-8-9" font-size="9.96px" transform="matrix(1,0,0,-1,442.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4660-4-4-8-2" y="0" x="0">(</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4662-8-4-0-6" transform="matrix(1.25 0 0 -1.25 -125.33 744.07)">
-  <g id="g4664-0-1-4-7" clip-path="url(#clipPath4666-6-9-3-7)">
-   <text id="text4670-8-1-5-1" font-size="9.96px" transform="matrix(1,0,0,-1,448.34,462.1)" font-family="&apos;Courier New&apos;" fill="#558ed5">
-    <tspan id="tspan4672-2-5-7-8" y="0" x="0">double</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4674-3-6-0-1" transform="matrix(1.25 0 0 -1.25 -125.33 744.07)">
-  <g id="g4676-6-6-8-3" clip-path="url(#clipPath4678-8-0-0-5)">
-   <text id="text4682-9-9-6-2" font-size="9.96px" transform="matrix(1,0,0,-1,484.34,462.1)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4684-4-6-5-4" y="0" x="0">)</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4736-6" transform="matrix(1.25 0 0 -1.25 -379.94 753.89)">
-  <g id="g4738-0" clip-path="url(#clipPath4740-2)">
-   <text id="text4744-7" font-size="10.56px" transform="matrix(1,0,0,-1,706.39,474.84)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4746-7" y="0" x="0">…</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4736-66" transform="matrix(1.25 0 0 -1.25 -22.857 613.89)">
-  <g id="g4738-4" clip-path="url(#clipPath4740-27)">
-   <text id="text4744-3" font-size="10.56px" transform="matrix(1,0,0,-1,706.39,474.84)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4746-4" y="0" x="0">…</tspan>
-   </text>
-  </g>
- </g>
- <g id="g4736-66-8" transform="matrix(1.25 0 0 -1.25 -875.62 704.4)">
-  <g id="g4738-4-0" clip-path="url(#clipPath4740-27-4)">
-   <text id="text4744-3-0" font-size="10.56px" transform="matrix(1,0,0,-1,706.39,474.84)" font-family="&apos;Courier New&apos;" fill="#000000">
-    <tspan id="tspan4746-4-7" y="0" x="0">…</tspan>
-   </text>
-  </g>
- </g>
- <g id="layer2" stroke="#000" fill="none" transform="translate(-9.8929 -48.197)">
-  <path id="path6763" marker-start="url(#Arrow1Lstart)" stroke-width=".99009" d="m13.776 67.716 848.32-0.178"/>
-  <path id="path6763-9" opacity=".695" d="m14.787 70.194 871.68-0.177" stroke-opacity=".39053" transform="matrix(.95874 0 0 1.6071 12.582 -43.267)" filter="url(#filter10326)" stroke-width=".99987"/>
-  <path id="path6763-2" marker-start="url(#Arrow1Lstart-7)" stroke-width=".79535" d="m508.77 158.58-479.73-0.2"/>
-  <path id="path6763-9-9" opacity=".695" d="m14.787 70.194 871.68-0.177" stroke-opacity=".39053" transform="matrix(.53899 0 0 2.2668 21.239 1.5758)" filter="url(#filter10326-1)" stroke-width=".99987"/>
+ <g id="g4524-0" transform="matrix(1.25 0 0 -1.25 -12.607 652.2)" clip-path="url(#clipPath4526-1)">
+  <text id="text4530-2" transform="matrix(1,0,0,-1,284.52,474.1)" font-size="9.96px" font-family="&apos;Courier New&apos;" fill="#000000">
+   <tspan id="tspan4532-9">featureTableByteLength</tspan>
+  </text>
  </g>
 </svg>
