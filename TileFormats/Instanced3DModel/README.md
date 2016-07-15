@@ -28,19 +28,21 @@ A tile is composed of a header section immediately followed by a body section.
 
 ## Header
 
-The 76-byte header contains the following fields:
+The 36-byte header contains the following fields:
 
 | Field name | Data type | Description |
 | --- | --- | --- |
 | `magic` | 4-byte ANSI string | `"i3dm"`.  This can be used to identify the arraybuffer as an Instanced 3D Model tile. |
 | `version` | `uint32` | The version of the Instanced 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
-| `featureTableByteLength` | `uint32` | The length of the feature table in bytes. |
-| `batchTableByteLength` | `uint32` | The length of the batch table in bytes. Zero indicates that there is no batch table. |
+| `featureTableJSONByteLength` | `uint32` | The length of the feature table JSON section in bytes. |
+| `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. |
+| `batchTableByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates that there is no batch table. |
+| `featureTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes.
 | `gltfByteLength` | `uint32` | The length of the glTF field in bytes. |
 | `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the glTF section below. |
 
-If either `featureTableByteLength` or `gltfByteLength` equal zero, the tile does not need to be rendered.
+If either `featureTableJSONByteLength` or `gltfByteLength` equal zero, the tile does not need to be rendered.
 
 The body section immediately follows the header section, and is composed of three fields: `Feature Table`, `Batch Table`, and `glTF`.
 
@@ -58,31 +60,31 @@ See the [Feature Table](TODO:add link) reference for more information.
 
 #### Instance Semantics
 
-These semantics map to an array of feature values that are used to create instances. The length of these arrays must be the same for all semantics.
+These semantics map to an array of feature values that are used to create instances. The length of these arrays must be the same for all semantics and is equal to the number of instances.
 
 If a semantic has a dependency on another semantic, that semantic must be defined in order to be used.
 
-| Semantic | Data Type | Dependencies | Description |
-| --- | --- | --- | --- |
-| `POSITION` | `float32[3]` | `none` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the instance. |
-| `POSITION_QUANTIZED` | `uint16[3]` | `QUANTIZED_VOLUME_OFFSET`, `QUANTIZED_VOLUME_SCALE` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the instance. |
-| `NORMAL_UP` | `float32[3]` | `NORMAL_RIGHT` | A unit vector defining the `up` direction for the orientation of the instance. |
-| `NORMAL_UP_OCT32P` | `uint16[2]` | `NORMAL_RIGHT_OCT32P` | An oct-encoded unit vector with 32-bits of precision defining the `up` direction for the orientation of the instance. |
-| `NORMAL_RIGHT` | `float32[3]` | `NORMAL_UP` | A unit vector defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. |
-| `NORMAL_RIGHT_OCT32P` | `uint16[2]` | `NORMAL_UP_OCT32P` | An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. |
-| `SCALE` | `float32` | `none` | A number defining a scale to apply to all axes of the instance. |
-| `SCALE_NON_UNIFORM` | `float32[3]` | `none` | A 3-component array of numbers defining the scale to apply to the `x`, `y`, and `z` axes of the instance. |
-| `BATCH_ID` | `unit16` | `none` | The `batchId` of the instance that can be used to retrieve metadata from the `Batch Table`.
+| Semantic | Data Type | Dependencies | Description | Required |
+| --- | --- | --- | --- | --- |
+| `POSITION` | `float32[3]` | | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, if `POSITION_QUANTIZED` is not defined |
+| `POSITION_QUANTIZED` | `uint16[3]` | `QUANTIZED_VOLUME_OFFSET`, `QUANTIZED_VOLUME_SCALE` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, if `POSITION` is not defined |
+| `NORMAL_UP` | `float32[3]` | `NORMAL_RIGHT` | A unit vector defining the `up` direction for the orientation of the instance. | No |
+| `NORMAL_RIGHT` | `float32[3]` | `NORMAL_UP` | A unit vector defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | No |
+| `NORMAL_UP_OCT32P` | `uint16[2]` | `NORMAL_RIGHT_OCT32P` | An oct-encoded unit vector with 32-bits of precision defining the `up` direction for the orientation of the instance. | No |
+| `NORMAL_RIGHT_OCT32P` | `uint16[2]` | `NORMAL_UP_OCT32P` | An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | No |
+| `SCALE` | `float32` | `none` | A number defining a scale to apply to all axes of the instance. | No |
+| `SCALE_NON_UNIFORM` | `float32[3]` | `none` | A 3-component array of numbers defining the scale to apply to the `x`, `y`, and `z` axes of the instance. | No |
+| `BATCH_ID` | `unit16` | `none` | The `batchId` of the instance that can be used to retrieve metadata from the `Batch Table`. | No |
 
 #### Global Semantics
 
 These semantics define global properties for all instances.
 
-| Semantic | Data Type | Required | Description |
+| Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `INSTANCES_LENGTH`| `uint32` | `yes` | The number of instances to generate. The length of each array value for an instance semantic should be equal to this. |
-| `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | `no` | A 3-component array of numbers defining the offset for the quantized volume.
-| `QUANTIZED_VOLUME_SCALE` | `float32[3]` | `no` | A 3-component array of numbers defining the scale for the quantized volume.
+| `INSTANCES_LENGTH`| `uint32` | The number of instances to generate. The length of each array value for an instance semantic should be equal to this. | Yes |
+| `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | No |
+| `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. | No |
 
 ### Instance Orientation
 
