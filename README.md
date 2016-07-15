@@ -219,7 +219,7 @@ When a tile points to an external tileset, the tile
 * Is semantically the same as the external tileset's root tile so
     * `root.geometricError === tile.geometricError`,
     * `root.refine === tile.refine`, and
-    * `root.box === tile.content.box` (or `root.box === tile.box` when `tile.content.box` is `undefined`).
+    * `root.boundingVolume === tile.content.boundingVolume` (or `root.boundingVolume === tile.boundingVolume` when `tile.content.boundingVolume` is `undefined`).
 * Cannot be used to create cycles, for example, by pointing to the same tileset.json containing the tile or by pointing to another tileset.json that then points back to the tileset.json containing the tile.
 
 ![](figures/tilesets.jpg)
