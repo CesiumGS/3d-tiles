@@ -14,12 +14,17 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
 
 ![](figures/users/AGI.jpg) [AGI](http://www.agi.com/products/) | ![](figures/users/CC3D.jpg) [CyberCity3D](http://www.cybercity3d.com/)
 |:---:|:---:|
-![](figures/users/virtualcitySYSTEMS.jpg) **[virtualcitySYSTEMS](http://www.virtualcitysystems.de/en/)**  | ![](figures/users/Cityzenith.jpg) **[Cityzenith](http://www.cityzenith.com/)**
-![](figures/users/Fraunhofer.jpg) **[Fraunhofer](http://www.fraunhofer.de/en.html)**  | ![](figures/users/Vricon.jpg) **[Vricon](http://www.vricon.com/)**
+![](figures/users/virtualcitySYSTEMS.jpg) [virtualcitySYSTEMS](http://www.virtualcitysystems.de/en/)  | ![](figures/users/Cityzenith.jpg) [Cityzenith](http://www.cityzenith.com/)
+![](figures/users/Fraunhofer.jpg) [Fraunhofer](http://www.fraunhofer.de/en.html)  | ![](figures/users/Vricon.jpg) [Vricon](http://www.vricon.com/)
+![](figures/users/swisstopo.jpg) Federal Office of Topography <br/> [swisstopo](https://map.geo.admin.ch) (work in progress)  | ![](figures/users/BentleyContextCapture.jpg) [Bentley ContextCapture](https://www.linkedin.com/pulse/contextcapture-web-publishing-cesium-aude-camus)
 
 Live apps
-* [Berlin Atlas of Economy ](http://www.businesslocationcenter.de/wab/maps/main/) (switch to 3D and zoom in) by virtualcitySYSTEMS
+* [NYC](https://cesiumjs.org/NewYork/index.html) by AGI
+* **virtualcityMAP** by virtualcitySYSTEMS.  [Textured buildings](http://hosting.virtualcitysystems.de/demos/berlin/vcm/?lang=en), [Textured buildings + point clouds](http://hosting.virtualcitysystems.de/demos/berlin/vcm/?lang=en&startingmap=cesium&layerToActivate=pointcloud&cameraPosition=13.34412,52.51329,177.65660&groundPosition=13.35305,52.51461,33.70784&distance=640.35&pitch=-12.99&heading=76.44&roll=0.18%20https://www.linkedin.com/pulse/contextcapture-web-publishing-cesium-aude-camus)
+* [Berlin Atlas of Economy](http://www.businesslocationcenter.de/wab/maps/main/) (switch to 3D and zoom in) by virtualcitySYSTEMS
 * [Downtown Miami](http://cybercity3d.s3-website-us-east-1.amazonaws.com/?city=Miami) by CyberCity3D and AGI
+* [Orlando](https://d3h9zulrmcj1j6.cloudfront.net/Orlando_Cesium/App/index.html) by Bentley ContextCapture
+* [Marseille](https://d3h9zulrmcj1j6.cloudfront.net/Marseille_Cesium/App/index.html) by Bentley ContextCapture
 
 ## Contents
 
