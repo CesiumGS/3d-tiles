@@ -14,9 +14,9 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
 
 ![](figures/users/AGI.jpg) [AGI](http://www.agi.com/products/) | ![](figures/users/CC3D.jpg) [CyberCity3D](http://www.cybercity3d.com/)
 |:---:|:---:|
-![](figures/users/virtualcitySYSTEMS.jpg) **[virtualcitySYSTEMS](http://www.virtualcitysystems.de/en/)**  | ![](figures/users/Cityzenith.jpg) **[Cityzenith](http://www.cityzenith.com/)**
-![](figures/users/Fraunhofer.jpg) **[Fraunhofer](http://www.fraunhofer.de/en.html)**  | ![](figures/users/Vricon.jpg) **[Vricon](http://www.vricon.com/)**
-![](figures/users/swisstopo.jpg) **Federal Office of Topography [swisstopo](https://map.geo.admin.ch) (work in progress)**  | ![](figures/users/BentleyContextCapture.jpg) **[Bentley ContextCapture](https://www.linkedin.com/pulse/contextcapture-web-publishing-cesium-aude-camus)**
+![](figures/users/virtualcitySYSTEMS.jpg) [virtualcitySYSTEMS](http://www.virtualcitysystems.de/en/)  | ![](figures/users/Cityzenith.jpg) [Cityzenith](http://www.cityzenith.com/)
+![](figures/users/Fraunhofer.jpg) [Fraunhofer](http://www.fraunhofer.de/en.html)  | ![](figures/users/Vricon.jpg) [Vricon](http://www.vricon.com/)
+![](figures/users/swisstopo.jpg) Federal Office of Topography <br/> [swisstopo](https://map.geo.admin.ch) (work in progress)  | ![](figures/users/BentleyContextCapture.jpg) [Bentley ContextCapture](https://www.linkedin.com/pulse/contextcapture-web-publishing-cesium-aude-camus)
 
 Live apps
 * [Berlin Atlas of Economy ](http://www.businesslocationcenter.de/wab/maps/main/) (switch to 3D and zoom in) by virtualcitySYSTEMS
