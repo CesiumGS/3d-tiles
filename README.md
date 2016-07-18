@@ -16,10 +16,13 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
 |:---:|:---:|
 ![](figures/users/virtualcitySYSTEMS.jpg) **[virtualcitySYSTEMS](http://www.virtualcitysystems.de/en/)**  | ![](figures/users/Cityzenith.jpg) **[Cityzenith](http://www.cityzenith.com/)**
 ![](figures/users/Fraunhofer.jpg) **[Fraunhofer](http://www.fraunhofer.de/en.html)**  | ![](figures/users/Vricon.jpg) **[Vricon](http://www.vricon.com/)**
+![](figures/users/BentleyContextCapture.jpg) **Federal Office of Topography [swisstopo](https://map.geo.admin.ch) (work in progress)**  | ![](figures/users/swisstopo.jpg) **[Bentley ContextCapture](https://www.linkedin.com/pulse/contextcapture-web-publishing-cesium-aude-camus)**
 
 Live apps
 * [Berlin Atlas of Economy ](http://www.businesslocationcenter.de/wab/maps/main/) (switch to 3D and zoom in) by virtualcitySYSTEMS
 * [Downtown Miami](http://cybercity3d.s3-website-us-east-1.amazonaws.com/?city=Miami) by CyberCity3D and AGI
+* [Orlando](https://d3h9zulrmcj1j6.cloudfront.net/Orlando_Cesium/App/index.html) by Bentley ContextCapture
+* [Marseille](https://d3h9zulrmcj1j6.cloudfront.net/Marseille_Cesium/App/index.html) by Bentley ContextCapture
 
 ## Contents
 
