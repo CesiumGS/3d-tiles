@@ -26,6 +26,8 @@ Live apps
 * [Orlando](https://d3h9zulrmcj1j6.cloudfront.net/Orlando_Cesium/App/index.html) by Bentley ContextCapture
 * [Marseille](https://d3h9zulrmcj1j6.cloudfront.net/Marseille_Cesium/App/index.html) by Bentley ContextCapture
 
+Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE).
+
 ## Contents
 
 * [Resources](#resources)
