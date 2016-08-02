@@ -17,6 +17,7 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
 ![](figures/users/virtualcitySYSTEMS.jpg) [virtualcitySYSTEMS](http://www.virtualcitysystems.de/en/)  | ![](figures/users/Cityzenith.jpg) [Cityzenith](http://www.cityzenith.com/)
 ![](figures/users/Fraunhofer.jpg) [Fraunhofer](http://www.fraunhofer.de/en.html)  | ![](figures/users/Vricon.jpg) [Vricon](http://www.vricon.com/)
 ![](figures/users/swisstopo.jpg) Federal Office of Topography <br/> [swisstopo](https://map.geo.admin.ch) (work in progress)  | ![](figures/users/BentleyContextCapture.jpg) [Bentley ContextCapture](https://www.linkedin.com/pulse/contextcapture-web-publishing-cesium-aude-camus)
+![](figures/users/aero3dpro.jpg) [aero3Dpro](http://aero3dpro.com.au/)  |
 
 Live apps
 * [NYC](https://cesiumjs.org/NewYork/index.html) by AGI
@@ -25,6 +26,7 @@ Live apps
 * [Downtown Miami](http://cybercity3d.s3-website-us-east-1.amazonaws.com/?city=Miami) by CyberCity3D and AGI
 * [Orlando](https://d3h9zulrmcj1j6.cloudfront.net/Orlando_Cesium/App/index.html) by Bentley ContextCapture
 * [Marseille](https://d3h9zulrmcj1j6.cloudfront.net/Marseille_Cesium/App/index.html) by Bentley ContextCapture
+* [Impact Of Coastal Erosion in NightCliff, Darwin](http://aero3dpro-demo.s3-website-ap-southeast-2.amazonaws.com/NightCliffe_2016/App/index.html) by aero3Dpro
 
 Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE).
 
