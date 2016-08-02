@@ -17,7 +17,7 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
 ![](figures/users/virtualcitySYSTEMS.jpg) [virtualcitySYSTEMS](http://www.virtualcitysystems.de/en/)  | ![](figures/users/Cityzenith.jpg) [Cityzenith](http://www.cityzenith.com/)
 ![](figures/users/Fraunhofer.jpg) [Fraunhofer](http://www.fraunhofer.de/en.html)  | ![](figures/users/Vricon.jpg) [Vricon](http://www.vricon.com/)
 ![](figures/users/swisstopo.jpg) Federal Office of Topography <br/> [swisstopo](https://map.geo.admin.ch) (work in progress)  | ![](figures/users/BentleyContextCapture.jpg) [Bentley ContextCapture](https://www.linkedin.com/pulse/contextcapture-web-publishing-cesium-aude-camus)
-![](figures/users/aero3dpro.jpg) aero3Dpro  |
+![](figures/users/aero3dpro.jpg) [aero3Dpro](http://aero3dpro.com.au/)  |
 
 Live apps
 * [NYC](https://cesiumjs.org/NewYork/index.html) by AGI
