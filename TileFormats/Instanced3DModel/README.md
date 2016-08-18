@@ -54,8 +54,6 @@ in the Cesium implementation of 3D Tiles.
 
 Contains values for `i3dm` semantics used to create instanced models.
 
-See the [Feature Table](TODO:add link) reference for more information.
-
 ### Semantics
 
 #### Instance Semantics
@@ -142,15 +140,62 @@ Scaling can be applied to instances using the `SCALE` and `SCALE_NON_UNIFORM` se
 
 If `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scaling operations will be applied.
 
+### Examples
+
+#### Positions Only
+
+In this minimal example, we place 4 instances on the corners of a unit length square with the default orientation.
+
+```json
+{
+    // global
+    INSTANCES_LENGTH : 4,
+    
+    // instance
+    POSITION : [
+        [0.0, 0.0, 0.0], 
+        [1.0, 0.0, 0.0], 
+        [0.0, 0.0, 1.0], 
+        [1.0, 0.0, 1.0]
+    ]
+}
+```
+
+#### Quantized Positions and Oct-Encoded Normals
+
+In this example, the 4 instances will be placed with an orientation `up` of `[0.0, 1.0, 0.0]` and `right` of `[1.0, 0.0, 0.0]` in oct-encoded format 
+and they will be placed on the corners of a quantized volume that spans from -250.0 to 250.0 units in the `x` and `z` directions.
+
+```json
+{
+    // global
+    INSTANCES_LENGTH : 4,
+    QUANTIZED_VOLUME_OFFSET : [-250.0, 0, -250],
+    QUANTIZED_VOLUME_SPAN : [500.0, 0, 500.0],
+    
+    // instance
+    POSITION_QUANTIZED : [
+        [0, 0, 0],
+        [65535, 0, 0],
+        [0, 0, 65535],
+        [65535, 0, 65535]
+    ],
+    NORMAL_UP_OCT32P : [
+    ],
+    NORMAL_RIGHT_OCT32P : [
+    ]
+}
+```
+
 ## Batch Table
 
 Contains metadata organized by `batchId` that can be used for declarative styling.
 
-See the [Batch Table](TODO:add link) reference for more information.
+See the [Batch Table](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/master/TileFormats/Batched3DModel#batch-table) reference for more information.
 
 ## glTF
 
-The glTF field immediately follows the batch table (or immediately follows the header, if `header.batchTableByteLength` is zero).
+The glTF asset to be instanced is stored after the feature table and batch table.
 
 [glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL.  [Binary glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) is an extension defining a binary container for glTF.  Instanced 3D Model uses glTF 1.0 with the [KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) extension.
 
