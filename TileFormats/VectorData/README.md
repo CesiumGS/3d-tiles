@@ -14,3 +14,7 @@
 * Metadata for cracking, morphing, and perhaps label declutter.
 
 Could also name this a `Geometry` tile.
+
+**Implementation work-in-progress**
+* Polygons: https://github.com/AnalyticalGraphicsInc/cesium/pull/4186
+* Polylines: https://github.com/AnalyticalGraphicsInc/cesium/pull/4208
