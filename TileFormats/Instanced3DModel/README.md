@@ -148,8 +148,8 @@ In this minimal example, we place 4 instances on the corners of a unit length sq
 
 ```json
 {
-    INSTANCES_LENGTH : 4,
-    POSITION : [
+    "INSTANCES_LENGTH" : 4,
+    "POSITION" : [
         0.0, 0.0, 0.0, 
         1.0, 0.0, 0.0, 
         0.0, 0.0, 1.0, 
@@ -165,22 +165,22 @@ and they will be placed on the corners of a quantized volume that spans from -25
 
 ```json
 {
-    INSTANCES_LENGTH : 4,
-    QUANTIZED_VOLUME_OFFSET : [-250.0, 0, -250],
-    QUANTIZED_VOLUME_SPAN : [500.0, 0, 500.0],
-    POSITION_QUANTIZED : [
+    "INSTANCES_LENGTH" : 4,
+    "QUANTIZED_VOLUME_OFFSET" : [-250.0, 0, -250],
+    "QUANTIZED_VOLUME_SCALE" : [500.0, 0, 500.0],
+    "POSITION_QUANTIZED" : [
         0, 0, 0,
         65535, 0, 0,
         0, 0, 65535,
         65535, 0, 65535
     ],
-    NORMAL_UP_OCT32P : [
+    "NORMAL_UP_OCT32P" : [
         32768, 65535,
         32768, 65535,
         32768, 65535,
         32768, 65535
     ],
-    NORMAL_RIGHT_OCT32P : [
+    "NORMAL_RIGHT_OCT32P" : [
         65535, 32768,
         65535, 32768,
         65535, 32768,
