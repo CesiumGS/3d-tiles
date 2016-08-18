@@ -9,7 +9,7 @@
 
 ## Overview
 
-The _Point_ tile format enables efficient streaming of point cloud data. Each point is defined by a position and optional attributes like color and normal.
+The _Point_ tile format enables efficient streaming of point cloud data. Each point is defined by a position and optional properties like color and normal.
 
 ## Layout
 
@@ -103,6 +103,49 @@ Oct-encoding is described in [*A Survey of Efficient Representations of Independ
 An implementation for encoding and decoding these unit vectors can be found in Cesium's
 [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module.
+
+### Examples
+
+Note: these examples use JSON arrays for illustration purposes but for best performance per-point properties like `POSITIONS` and `RGB` should be stored in the `featureTableBinary`.
+
+#### Positions Only
+
+In this minimal example, we place 4 points on the corners of a unit length square.
+
+```json
+{
+    "POINTS_LENGTH" : 4,
+    "POSITION" : [
+        0.0, 0.0, 0.0, 
+        1.0, 0.0, 0.0, 
+        0.0, 0.0, 1.0, 
+        1.0, 0.0, 1.0
+    ]
+}
+```
+
+### Position and Color
+
+In this example, we place 4 points (red, green, blue, and yellow) above the globe. Their positions are defined relative-to-center.
+
+```json
+{
+    "POINTS_LENGTH" : 4,
+    "POSITION" : [
+        0.0, 0.0, 0.0, 
+        1.0, 0.0, 0.0, 
+        0.0, 0.0, 1.0, 
+        1.0, 0.0, 1.0
+    ],
+    "RGB" : [
+        255, 0, 0,
+        0, 255, 0,
+        0, 0, 255,
+        255, 255, 0,
+    ],
+    "RTC_CENTER" : [1215013.8, -4736316.7, 4081608.4]
+}
+```
 
 ## File Extension
 
