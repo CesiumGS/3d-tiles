@@ -165,12 +165,9 @@ and they will be placed on the corners of a quantized volume that spans from -25
 
 ```json
 {
-    // global
     INSTANCES_LENGTH : 4,
     QUANTIZED_VOLUME_OFFSET : [-250.0, 0, -250],
     QUANTIZED_VOLUME_SPAN : [500.0, 0, 500.0],
-    
-    // instance
     POSITION_QUANTIZED : [
         0, 0, 0,
         65535, 0, 0,
