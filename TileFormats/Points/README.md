@@ -9,27 +9,100 @@
 
 ## Overview
 
-_TODO, [#22](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/22)_
+The _Point_ tile format enables efficient streaming of point cloud data. Each point is defined by a position and optional attributes like color and normal.
 
 ## Layout
 
-**Figure 1**: Points layout
+A tile is composed of a header section immediately followed by a body section.
+
+**Figure 1**: Points layout (dashes indicate optional fields).
 
 ![](figures/layout.png)
 
-Positions are defined for high-precision rendering with [RTC](http://blogs.agi.com/insight3d/index.php/2008/09/03/precisions-precisions/). [#10](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/10)
+## Header
 
-## Batch Table Semantics
+The 20-byte header contains the following fields:
 
-* `TILES3D_RGBA` - per-point colors, tightly packed interleaved RGBA `uint8` (32-bits per point).  Byte length: `header.pointsLength * 4`
-* `TILES3D_RGB` - per-point colors, tightly packed interleaved RGB `uint8` (24-bits per point).  Byte length: `header.pointsLength * 3`
-* `TILES3D_COLOR` - constant color for all points.  RGBA `uint8`.  Byte length: `4`
+| Field name | Data type | Description |
+| --- | --- | --- |
+| `magic` | 4-byte ANSI string | `"pnts"`.  This can be used to identify the arraybuffer as a Points tile. |
+| `version` | `uint32` | The version of the Points format. It is currently `1`. |
+| `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
+| `featureTableJSONByteLength` | `uint32` | The length of the feature table JSON section in bytes. |
+| `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
 
-If more than one color semantic is defined, the precedence order is `TILES3D_RGBA`, `TILES3D_RGB`, then `TILES3D_COLOR`.  For example, if a tile's batch table contains both `TILES3D_RGBA` and `TILES3D_COLOR` properties, the runtime would render with per-point colors using `TILES3D_RGBA`.
+If `featureTableJSONByteLength` equals zero, the tile does not need to be rendered.
+
+The body section immediately follows the header section, and is composed of a `Feature Table`.
+
+## Feature Table
+
+Contains values for `pnts` semantics used to render points.
+
+### Semantics
+
+#### Point Semantics
+
+These semantics map to an array of feature values that are used to create points. The length of these arrays must be the same for all semantics and is equal to the number of points.
+
+If a semantic has a dependency on another semantic, that semantic must be defined in order to be a valid tile.
+
+| Semantic | Data Type  | Description | Required |
+| --- | --- | --- | --- | --- |
+| `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the point. | :white_check_mark: Yes, if `POSITION_QUANTIZED` is not defined|
+| `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the point. | :white_check_mark: Yes, if `POSITION` is not defined <br> :large_blue_diamond: Depends on `QUANTIZED_VOLUME_OFFSET` <br> :large_blue_diamond: Depends on `QUANTIZED_VOLUME_SCALE` |
+| `RGBA` | `uint8[4]` | A 4-component array of values containing the `RGBA` color of the point. | :red_circle: No |
+| `RGB` | `uint8[3]` | A 3-component array of values containing the `RGB` color of the point. | :red_circle: No |
+| `NORMAL` | `float32[3]`| A unit vector defining the normal of the point. | :red_circle: No |
+| `NORMAL_OCT16P` | `uint8[2]` | An oct-encoded unit vector with 16-bits of precision defining the normal of the point. | :red_circle: No |
+
+#### Global Semantics
+
+These semantics define global properties for all points.
+
+| Semantic | Data Type | Description | Required |
+| --- | --- | --- | --- |
+| `POINTS_LENGTH`| `uint32` | The number of points to render. The length of each array value for a point semantic should be equal to this. | :white_check_mark: Yes |
+| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when point positions are defined relative-to-center. | :red_circle: No |
+| `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No |
+| `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. | :red_circle: No |
+| `CONSTANT_RGBA` | `uint8[4]` | A 4-component array of values defining a constant `RGBA` color for all points in the tile. | :red_circle: No |
+
+#### Point Colors
+
+If more than one color semantic is defined, the precedence order is `RGBA`, `RGB`, then `CONSTANT_RGBA`. For example, if a tile's feature table contains both `RGBA` and `CONSTANT_RGBA` properties, the runtime would render with per-point colors using `RGBA`.
 
 If no color semantics are defined, the runtime is free to color points using an application-specific default color.
 
 In any case, [3D Tiles Styling](../../Styling/README.md) may be used to change the final rendered color and other visual properties at runtime.
+
+### Point Positions
+
+`POSITION` defines the location where a point should be placed in Cartesian space. Positions may be defined relative-to-center for high-precision rendering. `RTC_CENTER` defines the center position in Cartesian space.
+
+#### Quantized Positions
+
+If `POSITION` is not defined for a point, its position may be stored in `POSITION_QUANTIZED` which defines the point position relative to the quantized volume.
+If neither `POSITION` or `POSITION_QUANTIZED` are defined, the point will not be created.
+
+A quantized volume is defined by `offset` and `scale` to map quantized positions into model space.
+
+`offset` is stored in the global semantic `QUANTIZED_VOLUME_OFFSET`, and `scale` is stored in the global semantic `QUANTIZED_VOLUME_SCALE`.
+If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.
+
+Quantized positions can be mapped to model space using the formula:
+
+`POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE + QUANTIZED_VOLUME_OFFSET`
+
+#### Point Normals
+
+Point normals are an optional property that can help improve the visual quality of points by enabling diffuse and specular lighting.
+
+Oct-encoding is described in [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/).
+
+An implementation for encoding and decoding these unit vectors can be found in Cesium's
+[AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
+module.
 
 ## File Extension
 
@@ -40,3 +113,9 @@ In any case, [3D Tiles Styling](../../Styling/README.md) may be used to change t
 _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`
+
+## Resources
+
+1. [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/)
+2. [*Mesh Geometry Compression for Mobile Graphics* by Jongseok Lee et al.](http://cg.postech.ac.kr/research/mesh_comp_mobile/mesh_comp_mobile_conference.pdf)
+3. Cesium [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js) module for oct-encoding
