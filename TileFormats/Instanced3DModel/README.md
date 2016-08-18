@@ -24,8 +24,6 @@ A tile is composed of a header section immediately followed by a body section.
 
 ![header layout](figures/header-layout.png)
 
-![body layout](figures/body-layout.png)
-
 ## Header
 
 The 36-byte header contains the following fields:
@@ -161,7 +159,7 @@ In this minimal example, we place 4 instances on the corners of a unit length sq
 #### Quantized Positions and Oct-Encoded Normals
 
 In this example, the 4 instances will be placed with an orientation `up` of `[0.0, 1.0, 0.0]` and `right` of `[1.0, 0.0, 0.0]` in oct-encoded format 
-and they will be placed on the corners of a quantized volume that spans from -250.0 to 250.0 units in the `x` and `z` directions.
+and they will be placed on the corners of a quantized volume that spans from `-250.0` to `250.0` units in the `x` and `z` directions.
 
 ```json
 {
