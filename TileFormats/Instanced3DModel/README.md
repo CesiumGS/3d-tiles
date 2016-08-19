@@ -174,7 +174,7 @@ and they will be placed on the corners of a quantized volume that spans from `-2
 var featureTableJSON = {
     INSTANCES_LENGTH : 4,
     QUANTIZED_VOLUME_OFFSET : [-250.0, 0.0, -250.0],
-    QUANTIZED_VOLUM_SCALE : [500.0, 0.0, 500.0],
+    QUANTIZED_VOLUME_SCALE : [500.0, 0.0, 500.0],
     POSITION_QUANTIZED : {
         byteOffset : 0
     },
