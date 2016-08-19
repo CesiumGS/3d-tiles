@@ -61,6 +61,8 @@ These semantics map to an array of feature values that are used to create instan
 
 If a semantic has a dependency on another semantic, that semantic must be defined.
 If both `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scaling operations will be applied.
+If both `POSITION` and `POSITION_QUANTIZED` are defined for an instance, the higher precision `POSITION` will be used.
+If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` are defined for an instance, the higher precision `NORMAL_UP`, and `NORMAL_RIGHT` will be used.
 
 | Semantic | Data Type  | Description | Required |
 | --- | --- | --- | --- | --- |
