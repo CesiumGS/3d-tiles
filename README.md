@@ -79,9 +79,9 @@ The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in tileset.json). 
 
 Topic  | Status
 ---|---
-[tileset.json](#tileset.json)  | :white_check_mark: **Good starting point**, will expand as we add new tile formats
+[tileset.json](#tileset.json)  | :white_check_mark: :white_check_mark: **Solid base**, a few more features expected
 [Batched 3D Model](TileFormats/Batched3DModel/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
-[Point Cloud](TileFormats/Points/README.md) (pnts)  | :rocket: **Prototype**, needs compression and additional attributes
+[Point Cloud](TileFormats/Points/README.md) (pnts)  | :white_check_mark: **Solid base**, only minor changes expected
 [Composite](TileFormats/Composite/README.md) (cmpt) | :white_check_mark: **Solid base**, only minor changes expected
 [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (i3dm) | :rocket: **Prototype**, needs optimizations, [#33](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/33)
 [Vector Data](TileFormats/VectorData/README.md)  | :white_circle: **In progress**, [#25](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/25)
