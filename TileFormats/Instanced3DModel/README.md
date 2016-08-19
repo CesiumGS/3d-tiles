@@ -60,7 +60,7 @@ Contains values for `i3dm` semantics used to create instanced models.
 These semantics map to an array of feature values that are used to create instances. The length of these arrays must be the same for all semantics and is equal to the number of instances.
 
 If a semantic has a dependency on another semantic, that semantic must be defined.
-If `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scaling operations will be applied.
+If both `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scaling operations will be applied.
 
 | Semantic | Data Type  | Description | Required |
 | --- | --- | --- | --- | --- |
@@ -81,8 +81,8 @@ These semantics define global properties for all instances.
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
 | `INSTANCES_LENGTH`| `uint32` | The number of instances to generate. The length of each array value for an instance semantic should be equal to this. | :white_check_mark: Yes |
-| `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
-| `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. |:red_circle: No, unless `POSITION_QUANTIZED` is defined. |
+| `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined |
+| `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. |:red_circle: No, unless `POSITION_QUANTIZED` is defined |
 
 ### Instance Orientation
 
@@ -102,7 +102,7 @@ The `z` vector would map onto a `forward` vector, but it is omitted because it w
 
 #### Oct-encoded Normal Vectors
 
-If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientation may be stored as oct-encoded normals in `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P`.d
+If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientation may be stored as oct-encoded normals in `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P`.
 These define `up` and `right` using the oct-encoding described in
 [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/).
 An implementation for encoding and decoding these unit vectors can be found in Cesium's
