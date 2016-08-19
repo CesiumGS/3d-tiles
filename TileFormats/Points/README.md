@@ -146,7 +146,7 @@ var featureTableJSON = {
     },
     RGB : {
         byteOffset : 48
-    }
+    },
     RTC_CENTER : [1215013.8, -4736316.7, 4081608.4]
 };
 
