@@ -2,14 +2,14 @@
 
 ## Contributors
 
+* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 * Dan Bagnell, [@bagnell](https://github.com/bagnell)
-* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 
 ## Overview
 
-The _Point_ tile format enables efficient streaming of point cloud data. Each point is defined by a position and optional properties like color and normal.
+The _Point Cloud_ tile format enables efficient streaming of massive point cloud for 3D visualization. Each point is defined by a position and optional properties used to define its appearance, such as color and normal, and optional properties that defined application-specific metadata.
 
 ## Layout
 
@@ -26,7 +26,7 @@ The 20-byte header contains the following fields:
 | Field name | Data type | Description |
 | --- | --- | --- |
 | `magic` | 4-byte ANSI string | `"pnts"`.  This can be used to identify the arraybuffer as a Points tile. |
-| `version` | `uint32` | The version of the Points format. It is currently `1`. |
+| `version` | `uint32` | The version of the Point Cloud format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
 | `featureTableJSONByteLength` | `uint32` | The length of the feature table JSON section in bytes. |
 | `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
@@ -37,7 +37,7 @@ The body section immediately follows the header section, and is composed of a `F
 
 ## Feature Table
 
-Contains values for `pnts` semantics used to render points.
+Contains per-tile and per-point values that define where and how to render points.
 
 ### Semantics
 
@@ -96,11 +96,7 @@ Quantized positions can be mapped to model space using the formula:
 
 #### Point Normals
 
-Point normals are an optional property that can help improve the visual quality of points by enabling diffuse and specular lighting.
-
-Oct-encoding is described in [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/).
-
-An implementation for encoding and decoding these unit vectors can be found in Cesium's
+Per-point normals are an optional property that can help improve the visual quality of points by enabling lighting, hidden surface removal, and other rendering techniques.  Oct-encoding is described in [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/).  An implementation for encoding and decoding these unit vectors can be found in Cesium's
 [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module.
 
