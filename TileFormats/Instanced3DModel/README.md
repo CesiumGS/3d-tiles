@@ -45,12 +45,13 @@ If either `featureTableJSONByteLength` or `gltfByteLength` equal zero, the tile 
 The body section immediately follows the header section, and is composed of three fields: `Feature Table`, `Batch Table`, and `glTF`.
 
 Code for reading the header can be found in
-[Instanced3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Instanced3DModel3DTileContent.js#L170)
+[Instanced3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Instanced3DModel3DTileContent.js)
 in the Cesium implementation of 3D Tiles.
 
 ## Feature Table
 
 Contains values for `i3dm` semantics used to create instanced models.
+[//]: # "TODO: Change this link to the feature table specification URL"
 
 ### Semantics
 
@@ -58,7 +59,8 @@ Contains values for `i3dm` semantics used to create instanced models.
 
 These semantics map to an array of feature values that are used to create instances. The length of these arrays must be the same for all semantics and is equal to the number of instances.
 
-If a semantic has a dependency on another semantic, that semantic must be defined in order to be a valid tile.
+If a semantic has a dependency on another semantic, that semantic must be defined.
+If `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scaling operations will be applied.
 
 | Semantic | Data Type  | Description | Required |
 | --- | --- | --- | --- | --- |
@@ -79,13 +81,13 @@ These semantics define global properties for all instances.
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
 | `INSTANCES_LENGTH`| `uint32` | The number of instances to generate. The length of each array value for an instance semantic should be equal to this. | :white_check_mark: Yes |
-| `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No |
-| `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. |:red_circle: No |
+| `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
+| `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. |:red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 
 ### Instance Orientation
 
 An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. If `NORMAL_UP` and `NORMAL_RIGHT` or `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P` are not present,
-the instance will default to the `east/north/up` reference frame's orientation for the instance's Cartographic position (`x`, `y`, `z` converted to `longitude` and `latitude` on the `WGS84` ellipsoid).
+the instance will default to the `east/north/up` reference frame's orientation for the instance's Cartographic position (`x`, `y`, `z`) with the tileset transform applied, converted to `longitude` and `latitude` on the `WGS84` ellipsoid).
 
 The `x` vector in the standard basis maps onto the `right` vector in the transformed basis, and the `y` vector maps on to the `up` vector.
 The `z` vector would map onto a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
@@ -100,11 +102,9 @@ The `z` vector would map onto a `forward` vector, but it is omitted because it w
 
 #### Oct-encoded Normal Vectors
 
-If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientation may be stored as oct-encoded normals in `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P`.
-
+If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientation may be stored as oct-encoded normals in `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P`.d
 These define `up` and `right` using the oct-encoding described in
 [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/).
-
 An implementation for encoding and decoding these unit vectors can be found in Cesium's
 [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module.
@@ -135,8 +135,6 @@ Quantized positions can be mapped to model space using the formula:
 
 Scaling can be applied to instances using the `SCALE` and `SCALE_NON_UNIFORM` semantics.
 `SCALE` applies a uniform scale along all axes, and `SCALE_NON_UNIFORM` applies scaling to the `x`, `y`, and `z` axes independently.
-
-If `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scaling operations will be applied.
 
 ### Examples
 
@@ -191,7 +189,8 @@ and they will be placed on the corners of a quantized volume that spans from `-2
 
 Contains metadata organized by `batchId` that can be used for declarative styling.
 
-See the [Batch Table](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/master/TileFormats/Batched3DModel#batch-table) reference for more information.
+See the [Batch Table](..//Batched3DModel#batch-table) reference for more information.
+[//]: # "TODO: Change this link to the batch table specification URL"
 
 ## glTF
 
