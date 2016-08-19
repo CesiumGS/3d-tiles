@@ -9,7 +9,7 @@
 
 ## Overview
 
-The _Point Cloud_ tile format enables efficient streaming of massive point cloud for 3D visualization. Each point is defined by a position and optional properties used to define its appearance, such as color and normal, and optional properties that defined application-specific metadata.
+The _Point Cloud_ tile format enables efficient streaming of massive point cloud for 3D visualization. Each point is defined by a position and optional properties used to define its appearance, such as color and normal, and optional properties that define application-specific metadata.
 
 ## Layout
 
@@ -35,6 +35,8 @@ If `featureTableJSONByteLength` equals zero, the tile does not need to be render
 
 The body section immediately follows the header section, and is composed of a `Feature Table`.
 
+Code for reading the header can be found in [Points3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Points3DTileContent.js) in the Cesium implementation of 3D Tiles.
+
 ## Feature Table
 
 Contains per-tile and per-point values that define where and how to render points.
@@ -45,16 +47,18 @@ Contains per-tile and per-point values that define where and how to render point
 
 These semantics map to an array of feature values that are used to create points. The length of these arrays must be the same for all semantics and is equal to the number of points.
 
-If a semantic has a dependency on another semantic, that semantic must be defined in order to be a valid tile.
+If a semantic has a dependency on another semantic, that semantic must be defined.
+If both `POSITION` and `POSITION_QUANTIZED` are defined for a point, the higher precision `POSITION` will be used.
+If both `NORMAL` and `NORMAL_OCT16P` are defined for a point, the higher precision `NORMAL` will be used.
 
 | Semantic | Data Type  | Description | Required |
 | --- | --- | --- | --- | --- |
-| `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the point. | :white_check_mark: Yes, if `POSITION_QUANTIZED` is not defined|
-| `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the point. | :white_check_mark: Yes, if `POSITION` is not defined <br> :large_blue_diamond: Depends on `QUANTIZED_VOLUME_OFFSET` <br> :large_blue_diamond: Depends on `QUANTIZED_VOLUME_SCALE` |
-| `RGBA` | `uint8[4]` | A 4-component array of values containing the `RGBA` color of the point. | :red_circle: No |
-| `RGB` | `uint8[3]` | A 3-component array of values containing the `RGB` color of the point. | :red_circle: No |
-| `NORMAL` | `float32[3]`| A unit vector defining the normal of the point. | :red_circle: No |
-| `NORMAL_OCT16P` | `uint8[2]` | An oct-encoded unit vector with 16-bits of precision defining the normal of the point. | :red_circle: No |
+| `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the point. | :white_check_mark: Yes, unless `POSITION_QUANTIZED` is defined. |
+| `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the point. | :white_check_mark: Yes, unless `POSITION` is defined. |
+| `RGBA` | `uint8[4]` | A 4-component array of values containing the `RGBA` color of the point. | :red_circle: No. |
+| `RGB` | `uint8[3]` | A 3-component array of values containing the `RGB` color of the point. | :red_circle: No. |
+| `NORMAL` | `float32[3]`| A unit vector defining the normal of the point. | :red_circle: No. |
+| `NORMAL_OCT16P` | `uint8[2]` | An oct-encoded unit vector with 16-bits of precision defining the normal of the point. | :red_circle: No. |
 
 #### Global Semantics
 
@@ -62,13 +66,15 @@ These semantics define global properties for all points.
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `POINTS_LENGTH`| `uint32` | The number of points to render. The length of each array value for a point semantic should be equal to this. | :white_check_mark: Yes |
-| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when point positions are defined relative-to-center. | :red_circle: No |
-| `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No |
-| `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. | :red_circle: No |
-| `CONSTANT_RGBA` | `uint8[4]` | A 4-component array of values defining a constant `RGBA` color for all points in the tile. | :red_circle: No |
+| `POINTS_LENGTH`| `uint32` | The number of points to render. The length of each array value for a point semantic should be equal to this. | :white_check_mark: Yes. |
+| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when point positions are defined relative-to-center. | :red_circle: No. |
+| `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
+| `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
+| `CONSTANT_RGBA` | `uint8[4]` | A 4-component array of values defining a constant `RGBA` color for all points in the tile. | :red_circle: No. |
 
-#### Point Colors
+Examples using these semantics can be found in the [examples section](#examples).
+
+### Point Colors
 
 If more than one color semantic is defined, the precedence order is `RGBA`, `RGB`, then `CONSTANT_RGBA`. For example, if a tile's feature table contains both `RGBA` and `CONSTANT_RGBA` properties, the runtime would render with per-point colors using `RGBA`.
 
@@ -78,7 +84,7 @@ In any case, [3D Tiles Styling](../../Styling/README.md) may be used to change t
 
 ### Point Positions
 
-`POSITION` defines the location where a point should be placed in Cartesian space. Positions may be defined relative-to-center for high-precision rendering. `RTC_CENTER` defines the center position in Cartesian space.
+`POSITION` defines the location for a point before any tileset transforms are applied. Positions may be defined relative-to-center for high-precision rendering. `RTC_CENTER` defines the center location.
 
 #### Quantized Positions
 
@@ -94,53 +100,71 @@ Quantized positions can be mapped to model space using the formula:
 
 `POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE + QUANTIZED_VOLUME_OFFSET`
 
-#### Point Normals
+### Point Normals
 
-Per-point normals are an optional property that can help improve the visual quality of points by enabling lighting, hidden surface removal, and other rendering techniques.  Oct-encoding is described in [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/).  An implementation for encoding and decoding these unit vectors can be found in Cesium's
+Per-point normals are an optional property that can help improve the visual quality of points by enabling lighting, hidden surface removal, and other rendering techniques.
+The normals will be transformed using the inverse transpose of the tileset transform.
+
+#### Oct-encoded Normal Vectors
+Oct-encoding is described in [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/). An implementation for encoding and decoding these unit vectors can be found in Cesium's
 [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module.
 
 ### Examples
 
-Note: these examples use JSON arrays for illustration purposes but for best performance per-point properties like `POSITIONS` and `RGB` should be stored in the `featureTableBinary`.
+These examples show how to generate JSON and binary buffers for the feature table.
 
 #### Positions Only
 
 In this minimal example, we place 4 points on the corners of a unit length square.
 
-```json
-{
-    "POINTS_LENGTH" : 4,
-    "POSITION" : [
-        0.0, 0.0, 0.0, 
-        1.0, 0.0, 0.0, 
-        0.0, 0.0, 1.0, 
-        1.0, 0.0, 1.0
-    ]
-}
+```javascript
+var featureTableJSON = {
+    POINTS_LENGTH : 4,
+    POSITION : {
+        byteOffset : 0
+    }
+};
+
+var featureTableBinary = new Buffer(new Float32Array([
+    0.0, 0.0, 0.0, 
+    1.0, 0.0, 0.0,
+    0.0, 0.0, 1.0,
+    1.0, 0.0, 1.0
+]).buffer);
 ```
 
-### Position and Color
+#### Positions and Colors
 
 In this example, we place 4 points (red, green, blue, and yellow) above the globe. Their positions are defined relative-to-center.
 
-```json
-{
-    "POINTS_LENGTH" : 4,
-    "POSITION" : [
-        0.0, 0.0, 0.0, 
-        1.0, 0.0, 0.0, 
-        0.0, 0.0, 1.0, 
-        1.0, 0.0, 1.0
-    ],
-    "RGB" : [
-        255, 0, 0,
-        0, 255, 0,
-        0, 0, 255,
-        255, 255, 0,
-    ],
-    "RTC_CENTER" : [1215013.8, -4736316.7, 4081608.4]
-}
+```javascript
+var featureTableJSON = {
+    POINTS_LENGTH : 4,
+    POSITION : {
+        byteOffset : 0
+    },
+    RGB : {
+        byteOffset : 48
+    }
+    RTC_CENTER : [1215013.8, -4736316.7, 4081608.4]
+};
+
+var positionBinary = new Buffer(new Float32Array([
+    0.0, 0.0, 0.0, 
+    1.0, 0.0, 0.0, 
+    0.0, 0.0, 1.0, 
+    1.0, 0.0, 1.0
+]).buffer);
+
+var colorBinary = new Buffer(new Uint8Array([
+    255, 0, 0,
+    0, 255, 0,
+    0, 0, 255,
+    255, 255, 0,
+]).buffer);
+
+var featureTableBinary = Buffer.concat([positionBinary, colorBinary]);
 ```
 
 ## File Extension
