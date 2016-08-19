@@ -111,7 +111,7 @@ module.
 
 ### Instance Position
 
-`POSITION` defines the location where an instance should be placed in Cartesian space.
+`POSITION` defines the location for an instance before and tileset transforms are applied.
 
 #### Quantized Positions
 
@@ -137,6 +137,18 @@ Scaling can be applied to instances using the `SCALE` and `SCALE_NON_UNIFORM` se
 `SCALE` applies a uniform scale along all axes, and `SCALE_NON_UNIFORM` applies scaling to the `x`, `y`, and `z` axes independently.
 
 ### Examples
+
+In these examples, the semantic values are shown as JSON arrays. This is done to make the examples more human readable, and is still a valid feature table.
+In practice, for performance reasons, these arrays should be stored in the feature table binary with a JSON value pointing to the beginning byteOffset in the binary.
+
+```json
+{
+    "INSTANCES_LENGTH" : 2,
+    "POSITION" : {
+        byteOffset : 0
+    }
+}
+```
 
 #### Positions Only
 
