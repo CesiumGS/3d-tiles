@@ -88,6 +88,8 @@ These semantics define global properties for all instances.
 
 An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. If `NORMAL_UP` and `NORMAL_RIGHT` or `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P` are not present,
 the instance will default to the `east/north/up` reference frame's orientation for the instance's Cartographic position (`x`, `y`, `z`) with the tileset transform applied, converted to `longitude` and `latitude` on the `WGS84` ellipsoid).
+The normals will be transformed using the inverse transpose of the tileset transform.
+[//]: # "TODO: Link to tileset transform spec"
 
 The `x` vector in the standard basis maps onto the `right` vector in the transformed basis, and the `y` vector maps on to the `up` vector.
 The `z` vector would map onto a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
@@ -111,7 +113,7 @@ module.
 
 ### Instance Position
 
-`POSITION` defines the location for an instance before and tileset transforms are applied.
+`POSITION` defines the location for an instance before any tileset transforms are applied. 
 
 #### Quantized Positions
 
