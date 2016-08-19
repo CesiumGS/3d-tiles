@@ -144,8 +144,7 @@ Scaling can be applied to instances using the `SCALE` and `SCALE_NON_UNIFORM` se
 
 ### Examples
 
-In these examples, the semantic values are shown as JSON arrays. This is done to make the examples more human readable, and is still a valid feature table.
-In practice, for performance reasons, these arrays should be stored in the feature table binary with a JSON value pointing to the beginning byteOffset in the binary.
+These examples show how to generate JSON and binary buffers for the feature table.
 
 #### Positions Only
 
