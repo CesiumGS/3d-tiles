@@ -70,8 +70,8 @@ If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` ar
 | `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, unless `POSITION` is defined. |
 | `NORMAL_UP` | `float32[3]`| A unit vector defining the `up` direction for the orientation of the instance. | :red_circle: No, unless `NORMAL_RIGHT` is defined. |
 | `NORMAL_RIGHT` | `float32[3]` | A unit vector defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | :red_circle: No, unless `NORMAL_UP` is defined. |
-| `NORMAL_UP_OCT32P` | `uint16[2]` | An oct-encoded unit vector with 32-bits of precision defining the `up` direction for the orientation of the instance. | :red_circle: No, unless `NORMAL_UP_OCT32P` is defined. |
-| `NORMAL_RIGHT_OCT32P` | `uint16[2]` | An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | :red_circle: No, unless `NORMAL_RIGHT_OCT32P` is defined. |
+| `NORMAL_UP_OCT32P` | `uint16[2]` | An oct-encoded unit vector with 32-bits of precision defining the `up` direction for the orientation of the instance. | :red_circle: No, unless `NORMAL_RIGHT_OCT32P` is defined. |
+| `NORMAL_RIGHT_OCT32P` | `uint16[2]` | An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | :red_circle: No, unless `NORMAL_UP_OCT32P` is defined. |
 | `SCALE` | `float32` | A number defining a scale to apply to all axes of the instance. | :red_circle: No |
 | `SCALE_NON_UNIFORM` | `float32[3]` | A 3-component array of numbers defining the scale to apply to the `x`, `y`, and `z` axes of the instance. | :red_circle: No |
 | `BATCH_ID` | `unit16` | The `batchId` of the instance that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No |
