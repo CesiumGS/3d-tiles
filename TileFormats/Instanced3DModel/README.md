@@ -145,7 +145,7 @@ In practice, for performance reasons, these arrays should be stored in the featu
 {
     "INSTANCES_LENGTH" : 2,
     "POSITION" : {
-        byteOffset : 0
+        "byteOffset" : 0
     }
 }
 ```
