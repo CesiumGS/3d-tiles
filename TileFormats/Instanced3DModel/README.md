@@ -86,6 +86,8 @@ These semantics define global properties for all instances.
 | `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 | `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. |:red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 
+Examples using these semantics can be found in the [examples section](#examples).
+
 ### Instance Orientation
 
 An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. If `NORMAL_UP` and `NORMAL_RIGHT` or `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P` are not present,
