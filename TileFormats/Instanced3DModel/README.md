@@ -64,12 +64,12 @@ If both `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scalin
 
 | Semantic | Data Type  | Description | Required |
 | --- | --- | --- | --- | --- |
-| `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, if `POSITION_QUANTIZED` is not defined|
-| `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, if `POSITION` is not defined <br> :large_blue_diamond: Depends on `QUANTIZED_VOLUME_OFFSET` <br> :large_blue_diamond: Depends on `QUANTIZED_VOLUME_SCALE` |
-| `NORMAL_UP` | `float32[3]`| A unit vector defining the `up` direction for the orientation of the instance. | :red_circle: No <br> :large_blue_diamond: Depends on `NORMAL_RIGHT` |
-| `NORMAL_RIGHT` | `float32[3]` | A unit vector defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | :red_circle: No <br> :large_blue_diamond: Depends on `NORMAL_UP` |
-| `NORMAL_UP_OCT32P` | `uint16[2]` | An oct-encoded unit vector with 32-bits of precision defining the `up` direction for the orientation of the instance. | :red_circle: No <br> :large_blue_diamond: Depends on `NORMAL_UP_OCT32P` |
-| `NORMAL_RIGHT_OCT32P` | `uint16[2]` | An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | :red_circle: No <br> :large_blue_diamond: Depends on `NORMAL_RIGHT_OCT32P` |
+| `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, unless `POSITION_QUANTIZED` is defined. |
+| `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, unless `POSITION` is defined. |
+| `NORMAL_UP` | `float32[3]`| A unit vector defining the `up` direction for the orientation of the instance. | :red_circle: No, unless `NORMAL_RIGHT` is defined. |
+| `NORMAL_RIGHT` | `float32[3]` | A unit vector defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | :red_circle: No, unless `NORMAL_UP` is defined. |
+| `NORMAL_UP_OCT32P` | `uint16[2]` | An oct-encoded unit vector with 32-bits of precision defining the `up` direction for the orientation of the instance. | :red_circle: No, unless `NORMAL_UP_OCT32P` is defined. |
+| `NORMAL_RIGHT_OCT32P` | `uint16[2]` | An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | :red_circle: No, unless `NORMAL_RIGHT_OCT32P` is defined. |
 | `SCALE` | `float32` | A number defining a scale to apply to all axes of the instance. | :red_circle: No |
 | `SCALE_NON_UNIFORM` | `float32[3]` | A 3-component array of numbers defining the scale to apply to the `x`, `y`, and `z` axes of the instance. | :red_circle: No |
 | `BATCH_ID` | `unit16` | The `batchId` of the instance that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No |
@@ -143,29 +143,24 @@ Scaling can be applied to instances using the `SCALE` and `SCALE_NON_UNIFORM` se
 In these examples, the semantic values are shown as JSON arrays. This is done to make the examples more human readable, and is still a valid feature table.
 In practice, for performance reasons, these arrays should be stored in the feature table binary with a JSON value pointing to the beginning byteOffset in the binary.
 
-```json
-{
-    "INSTANCES_LENGTH" : 2,
-    "POSITION" : {
-        "byteOffset" : 0
-    }
-}
-```
-
 #### Positions Only
 
 In this minimal example, we place 4 instances on the corners of a unit length square with the default orientation.
 
-```json
-{
-    "INSTANCES_LENGTH" : 4,
-    "POSITION" : [
-        0.0, 0.0, 0.0, 
-        1.0, 0.0, 0.0, 
-        0.0, 0.0, 1.0, 
-        1.0, 0.0, 1.0
-    ]
-}
+```javascript
+var featureTableJSON = {
+    INSTANCES_LENGTH : 4,
+    POSITION : {
+        byteOffset : 0
+    }
+};
+
+var featureTableBinary = new Buffer(new Float32Array([
+    0.0, 0.0, 0.0, 
+    1.0, 0.0, 0.0,
+    0.0, 0.0, 1.0,
+    1.0, 0.0, 1.0
+]).buffer);
 ```
 
 #### Quantized Positions and Oct-Encoded Normals
@@ -173,30 +168,44 @@ In this minimal example, we place 4 instances on the corners of a unit length sq
 In this example, the 4 instances will be placed with an orientation `up` of `[0.0, 1.0, 0.0]` and `right` of `[1.0, 0.0, 0.0]` in oct-encoded format 
 and they will be placed on the corners of a quantized volume that spans from `-250.0` to `250.0` units in the `x` and `z` directions.
 
-```json
-{
-    "INSTANCES_LENGTH" : 4,
-    "QUANTIZED_VOLUME_OFFSET" : [-250.0, 0, -250],
-    "QUANTIZED_VOLUME_SCALE" : [500.0, 0, 500.0],
-    "POSITION_QUANTIZED" : [
-        0, 0, 0,
-        65535, 0, 0,
-        0, 0, 65535,
-        65535, 0, 65535
-    ],
-    "NORMAL_UP_OCT32P" : [
-        32768, 65535,
-        32768, 65535,
-        32768, 65535,
-        32768, 65535
-    ],
-    "NORMAL_RIGHT_OCT32P" : [
-        65535, 32768,
-        65535, 32768,
-        65535, 32768,
-        65535, 32768
-    ]
-}
+```javascript
+var featureTableJSON = {
+    INSTANCES_LENGTH : 4,
+    QUANTIZED_VOLUME_OFFSET : [-250.0, 0.0, -250.0],
+    QUANTIZED_VOLUM_SCALE : [500.0, 0.0, 500.0],
+    POSITION_QUANTIZED : {
+        byteOffset : 0
+    },
+    NORMAL_UP_OCT32P : {
+        byteOffset : 24
+    },
+    NORMAL_RIGHT_OCT32P : {
+        byteOffset : 40
+    }
+};
+
+var positionQuantizedBinary = new Buffer(new UInt16Array([
+    0, 0, 0,
+    65535, 0, 0,
+    0, 0, 65535,
+    65535, 0, 65535
+]).buffer);
+
+var normalUpOct32PBinary = new Buffer(new UInt16Array([
+    32768, 65535,
+    32768, 65535,
+    32768, 65535,
+    32768, 65535
+]).buffer);
+
+var normalRightOct32PBinary = new Buffer(new UInt16Array([
+    65535, 32768,
+    65535, 32768,
+    65535, 32768,
+    65535, 32768
+]).buffer);
+
+var featureTableBinary = Buffer.concat([positionQuantizedBinary, normalUpOct32PBinary, normalRightOct32PBinary]);
 ```
 
 ## Batch Table
