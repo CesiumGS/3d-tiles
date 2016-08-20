@@ -87,7 +87,7 @@ If neither `POSITION` or `POSITION_QUANTIZED` are defined, the tile does not nee
 
 A quantized volume is defined by `offset` and `scale` to map quantized positions into model space.
 
-**Figure 4**: A quantized volume based on `offset` and `scale`.
+**Figure 2**: A quantized volume based on `offset` and `scale`.
 
 ![quantized volume](figures/quantized-volume.png)
 
