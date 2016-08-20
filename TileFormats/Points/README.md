@@ -1,4 +1,4 @@
-# Points
+# Point Cloud
 
 ## Contributors
 
@@ -9,13 +9,15 @@
 
 ## Overview
 
-The _Point Cloud_ tile format enables efficient streaming of massive point cloud for 3D visualization. Each point is defined by a position and optional properties used to define its appearance, such as color and normal, and optional properties that define application-specific metadata.
+The _Point Cloud_ tile format enables efficient streaming of massive point clouds for 3D visualization. Each point is defined by a position and optional properties used to define its appearance, such as color and normal, and optional properties that define application-specific metadata.
+
+Using 3D Tiles terminology, each point is a _feature_.
 
 ## Layout
 
 A tile is composed of a header section immediately followed by a body section.
 
-**Figure 1**: Points layout (dashes indicate optional fields).
+**Figure 1**: Point Cloud layout (dashes indicate optional fields).
 
 ![](figures/layout.png)
 
@@ -25,7 +27,7 @@ The 20-byte header contains the following fields:
 
 | Field name | Data type | Description |
 | --- | --- | --- |
-| `magic` | 4-byte ANSI string | `"pnts"`.  This can be used to identify the arraybuffer as a Points tile. |
+| `magic` | 4-byte ANSI string | `"pnts"`.  This can be used to identify the arraybuffer as a Point Cloud tile. |
 | `version` | `uint32` | The version of the Point Cloud format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
 | `featureTableJSONByteLength` | `uint32` | The length of the feature table JSON section in bytes. |
@@ -35,7 +37,7 @@ If `featureTableJSONByteLength` equals zero, the tile does not need to be render
 
 The body section immediately follows the header section, and is composed of a `Feature Table`.
 
-Code for reading the header can be found in [Points3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Points3DTileContent.js) in the Cesium implementation of 3D Tiles.
+Code for reading the header can be found in [Points3DModelTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Points3DTileContent.js) in the Cesium implementation of 3D Tiles.
 
 ## Feature Table
 
@@ -45,7 +47,7 @@ Contains per-tile and per-point values that define where and how to render point
 
 #### Point Semantics
 
-These semantics map to an array of feature values that are used to create points. The length of these arrays must be the same for all semantics and is equal to the number of points.
+These semantics map to an array of feature values that are define each point. The length of these arrays must be the same for all semantics and is equal to the number of points.
 
 If a semantic has a dependency on another semantic, that semantic must be defined.
 If both `POSITION` and `POSITION_QUANTIZED` are defined for a point, the higher precision `POSITION` will be used.
@@ -72,24 +74,16 @@ These semantics define global properties for all points.
 | `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 | `CONSTANT_RGBA` | `uint8[4]` | A 4-component array of values defining a constant `RGBA` color for all points in the tile. | :red_circle: No. |
 
-Examples using these semantics can be found in the [examples section](#examples).
-
-### Point Colors
-
-If more than one color semantic is defined, the precedence order is `RGBA`, `RGB`, then `CONSTANT_RGBA`. For example, if a tile's feature table contains both `RGBA` and `CONSTANT_RGBA` properties, the runtime would render with per-point colors using `RGBA`.
-
-If no color semantics are defined, the runtime is free to color points using an application-specific default color.
-
-In any case, [3D Tiles Styling](../../Styling/README.md) may be used to change the final rendered color and other visual properties at runtime.
+Examples using these semantics can be found in the [examples section](#examples) below.
 
 ### Point Positions
 
-`POSITION` defines the location for a point before any tileset transforms are applied. Positions may be defined relative-to-center for high-precision rendering. `RTC_CENTER` defines the center location.
+`POSITION` defines the position for a point before any tileset transforms are applied. Positions may be defined relative-to-center for high-precision rendering [4]. `RTC_CENTER` defines the center position.
 
 #### Quantized Positions
 
-If `POSITION` is not defined for a point, its position may be stored in `POSITION_QUANTIZED` which defines the point position relative to the quantized volume.
-If neither `POSITION` or `POSITION_QUANTIZED` are defined, the point will not be created.
+If `POSITION` is not defined, positions may be stored in `POSITION_QUANTIZED` which defines point positions relative to the quantized volume.
+If neither `POSITION` or `POSITION_QUANTIZED` are defined, the tile does not need to be rendered.
 
 A quantized volume is defined by `offset` and `scale` to map quantized positions into model space.
 
@@ -99,6 +93,14 @@ If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.
 Quantized positions can be mapped to model space using the formula:
 
 `POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE + QUANTIZED_VOLUME_OFFSET`
+
+### Point Colors
+
+If more than one color semantic is defined, the precedence order is `RGBA`, `RGB`, then `CONSTANT_RGBA`. For example, if a tile's feature table contains both `RGBA` and `CONSTANT_RGBA` properties, the runtime would render with per-point colors using `RGBA`.
+
+If no color semantics are defined, the runtime is free to color points using an application-specific default color.
+
+In any case, [3D Tiles Styling](../../Styling/README.md) may be used to change the final rendered color and other visual properties at runtime.
 
 ### Point Normals
 
@@ -116,7 +118,7 @@ These examples show how to generate JSON and binary buffers for the feature tabl
 
 #### Positions Only
 
-In this minimal example, we place 4 points on the corners of a unit length square.
+This minimal example has four points on the corners of a unit length square.
 
 ```javascript
 var featureTableJSON = {
@@ -136,7 +138,7 @@ var featureTableBinary = new Buffer(new Float32Array([
 
 #### Positions and Colors
 
-In this example, we place 4 points (red, green, blue, and yellow) above the globe. Their positions are defined relative-to-center.
+The following example has four points (red, green, blue, and yellow) above the globe. Their positions are defined relative-to-center.
 
 ```javascript
 var featureTableJSON = {
@@ -182,3 +184,4 @@ _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 1. [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/)
 2. [*Mesh Geometry Compression for Mobile Graphics* by Jongseok Lee et al.](http://cg.postech.ac.kr/research/mesh_comp_mobile/mesh_comp_mobile_conference.pdf)
 3. Cesium [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js) module for oct-encoding
+4. [Precisions, Precisions](http://blogs.agi.com/insight3d/index.php/2008/09/03/precisions-precisions/)
