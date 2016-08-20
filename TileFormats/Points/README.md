@@ -87,6 +87,10 @@ If neither `POSITION` or `POSITION_QUANTIZED` are defined, the tile does not nee
 
 A quantized volume is defined by `offset` and `scale` to map quantized positions into model space.
 
+**Figure 4**: A quantized volume based on `offset` and `scale`.
+
+![quantized volume](figures/quantized-volume.png)
+
 `offset` is stored in the global semantic `QUANTIZED_VOLUME_OFFSET`, and `scale` is stored in the global semantic `QUANTIZED_VOLUME_SCALE`.
 If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.
 
@@ -143,13 +147,13 @@ The following example has four points (red, green, blue, and yellow) above the g
 ```javascript
 var featureTableJSON = {
     POINTS_LENGTH : 4,
+    RTC_CENTER : [1215013.8, -4736316.7, 4081608.4],
     POSITION : {
         byteOffset : 0
     },
     RGB : {
         byteOffset : 48
-    },
-    RTC_CENTER : [1215013.8, -4736316.7, 4081608.4]
+    }
 };
 
 var positionBinary = new Buffer(new Float32Array([
@@ -168,7 +172,39 @@ var colorBinary = new Buffer(new Uint8Array([
 
 var featureTableBinary = Buffer.concat([positionBinary, colorBinary]);
 ```
+#### Quantized Positions and Oct-Encoded Normals
 
+In this example, the 4 points will have normals pointing up `[0.0, 1.0, 0.0]` in oct-encoded format and they will be placed on the corners of a quantized volme that spans from `-500.0` to `0.0` units in the `x` and `z` directions.
+
+```javascript
+var featureTableJSON = {
+    POINTS_LENGTH : 4,
+    QUANTIZED_VOLUME_OFFSET : [-250.0, 0.0, -250.0],
+    QUANTIZED_VOLUME_SCALE : [500.0, 0.0, 500.0],
+    POSITION_QUANTIZED : {
+        byteOffset : 0
+    },
+    NORMAL_OCT16P : {
+        byteOffset : 24
+    }
+};
+
+var positionQuantizedBinary = new Buffer(new Uint16Array([
+    0, 0, 0,
+    65535, 0, 0,
+    0, 0, 65535,
+    65535, 0, 65535
+]).buffer);
+
+var normalOct16PBinary = new Buffer(new Uint8Array([
+    128, 255,
+    128, 255,
+    128, 255,
+    128, 255
+]).buffer);
+
+var featureTableBinary = Buffer.concat([positionQuantizedBinary, normalOct16PBinary]);
+```
 ## File Extension
 
 `.pnts`
