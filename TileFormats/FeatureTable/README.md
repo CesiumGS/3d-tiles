@@ -60,5 +60,5 @@ This may vary between implementations, but in javascript, a `TypedArray` cannot 
 This means that a `Float32Array` must be stored in memory such that its data begins on a byte multiple of four since each `float` contains four bytes.
 The data types used in 3D Tiles have a maximum length of four bytes, so padding to a multiple of four will work for all cases, since smaller types with lengths of one and two will also be byte-aligned.
 
-If the string generated from the JSON header has a length that is not a multiple of four, it can be padded with space characters in order to ensure that the binary body is byte-aligned.
+If the string generated from the JSON header has a length that is not a multiple of four, it should be padded with space characters in order to ensure that the binary body is byte-aligned.
 The binary body should also be padded to a multiple of four when there is data following the Feature Table.
