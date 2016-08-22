@@ -8,7 +8,7 @@
 
 ## Overview
 
-The _Feature Table_ is used by the [Instanced 3D Model]('../Instanced3DModel') and [Point Cloud]('../Points) tile formats to define special behavior for each feature in the tile.
+The _Feature Table_ is used by the [Instanced 3D Model](../Instanced3DModel) and [Point Cloud](../Points) tile formats to define special behavior for each feature in the tile.
 
 For Instanced 3D Models, each instance is a feature, and for Point Clouds, each point is a feature. The features are defined through the use of Feature Table semantics which can be found in the tile format specification.
 
