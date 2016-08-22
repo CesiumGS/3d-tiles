@@ -187,21 +187,21 @@ var featureTableJSON = {
     }
 };
 
-var positionQuantizedBinary = new Buffer(new UInt16Array([
+var positionQuantizedBinary = new Buffer(new Uint16Array([
     0, 0, 0,
     65535, 0, 0,
     0, 0, 65535,
     65535, 0, 65535
 ]).buffer);
 
-var normalUpOct32PBinary = new Buffer(new UInt16Array([
+var normalUpOct32PBinary = new Buffer(new Uint16Array([
     32768, 65535,
     32768, 65535,
     32768, 65535,
     32768, 65535
 ]).buffer);
 
-var normalRightOct32PBinary = new Buffer(new UInt16Array([
+var normalRightOct32PBinary = new Buffer(new Uint16Array([
     65535, 32768,
     65535, 32768,
     65535, 32768,
