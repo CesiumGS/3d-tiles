@@ -51,7 +51,7 @@ in the Cesium implementation of 3D Tiles.
 ## Feature Table
 
 Contains values for `i3dm` semantics used to create instanced models.
-[//]: # "TODO: Change this link to the feature table specification URL"
+More information is available in the [Feature Table specification](../FeatureTable).
 
 ### Semantics
 
