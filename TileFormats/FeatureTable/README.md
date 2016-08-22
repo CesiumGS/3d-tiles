@@ -3,37 +3,44 @@
 ## Contributors
 
 * Sean Lilley, [@lilleyse](https://twitter.com/lilleyse)
-* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 * Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
+* Dan Bagnell, [@bagnell](https://github.com/bagnell)
+* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
 ## Overview
 
-The _Feature Table_ is used by the [Instanced 3D Model](../Instanced3DModel) and [Point Cloud](../Points) tile formats to define special behavior for each feature in the tile.
+The _Feature Table_ describes position and appearance properties for each feature in a tile, compared to the _Batch Table_ (TODO: link), which contains per-feature application-specific metadata not necessarily used for rendering.
 
-For Instanced 3D Models, each instance is a feature, and for Point Clouds, each point is a feature. The features are defined through the use of Feature Table semantics which can be found in the tile format specification.
+The Feature Table is used by the following tile formats:
+* [Instanced 3D Model](../Instanced3DModel) (i3dm) - each model instance is a feature.
+* [Point Cloud](../PointCloud) (pnts) - each point is a feature.
+* [Vector](../VectorData) (vctr) - each point/polyline/polygon is a feature.
+
+Per-feature properties are defined using tile-format-specific semantics defined in each tile format's specification.  For example, in _Instanced 3D Model_, `SCALE_NON_UNIFORM` defines the non-uniform scale applied to each instance.
 
 ## Layout
 
-The Feature Table is composed of two parts: a JSON header and a binary body. The JSON keys are tile format semantics, and the values can either be defined directly in the JSON, or refer to locations in the binary.
-The binary body is a tightly packed binary buffer containing data used by the header. It is more efficient to store long arrays of data in the binary.
+The Feature Table is composed of two parts: a JSON header and an optional binary body. The JSON keys are tile-format-specific semantics, and the values can either be defined directly in the JSON, or refer to sections in the binary body.
+The binary body is a tightly packed binary buffer containing data used by the header. It is more efficient to store long numeric arrays in the binary body.
 
 **Figure 1**: Feature Table layout
 
 ![feature table layout](figures/feature-table-layout.png)
 
-Code for reading the Feature Table can be found in [Cesium3DTileFeatureTableResources](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Cesium3DTileFeatureTableResources.js) in the Cesium implementation of 3D tiles.
+Code for reading the Feature Table can be found in [Cesium3DTileFeatureTableResources.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Cesium3DTileFeatureTableResources.js) in the Cesium implementation of 3D Tiles.
 
 ## JSON Header
 
 Feature table values can be defined in the JSON header in three different ways.
 
-1. A single JSON value. (e.g. `INSTANCES_LENGTH` : `4`)
-  * This is common for global semantics like `INSTANCES_LENGTH` and `POINTS_LENGTH`.
-2. A JSON array of values. (e.g. `POSITION` : `[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]`)
-  * `POSITION` refers to a `float32[3]` data type. This example shows three features: `POSITION(0)`=`[1.0, 0.0, 0.0]`, `POSITION(1)`=`[0.0, 1.0, 0.0]`, `POSITION(2)`=`[0.0, 0.0, 1.0]`.
-  * Feature values are always stored as a single, flat array, not an array of arrays.
-3. A reference to the binary. (e.g. `SCALE` : { `byteOffset` : `24` } )
+1. A single JSON value. (e.g. `"INSTANCES_LENGTH" : 4`)
+  * This is common for global semantics like `"INSTANCES_LENGTH"` and `"POINTS_LENGTH"`.
+2. A JSON array of values. (e.g. `"POSITION" : [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]`)
+    * Feature values are always stored as a single, flat array, not an array of arrays.  Above, each `POSITION` refers to a `float32[3]` data type so there are three features: `Feature 0's position`=`(1.0, 0.0, 0.0)`, `Feature 1's position`=`(0.0, 1.0, 0.0)`, `Feature 2's position`=`(0.0, 0.0, 1.0)`.
+3. A reference to data in the binary body, denoated by an object with a `byteOffset` property. (e.g. `"SCALE" : { "byteOffset" : 24` } )
   * `byteOffset` is always relative to the start of the binary body.
+
+The only valid keys in the JSON header are the defined semantics by the tile format.  Application-specific data should be stored in the Batch Table.
 
 ## Binary Body
 
@@ -43,7 +50,7 @@ When the JSON header includes a reference to the binary, the provided `byteOffse
 
 ![feature table binary index](figures/feature-table-binary-index.png)
 
-The value can be retrieved using knowledge of the number of features: `featuresLength`, the desired feature id `featureId`, and the data type for the feature semantic.
+Values can be retrieved using the number of features, `featuresLength`, the desired feature id, `featureId`, and the data type for the feature semantic.
 
 For example, using the `POSITION` semantic, which has a `float32[3]` data type:
 
@@ -51,13 +58,13 @@ For example, using the `POSITION` semantic, which has a `float32[3]` data type:
 var byteOffset = featureTableJSON.POSTION.byteOffset;
 
 var positionArray = new Float32Array(featureTableBinary.buffer, byteOffset, featuresLength * 3); // There are three components for each POSITION feature.
-var position = positionArray.subarray(featureId * 3, featureId * 3 + 3); // Using subarray creates a view into the array data, and not a new array, which is better for performance.
+var position = positionArray.subarray(featureId * 3, featureId * 3 + 3); // Using subarray creates a view into the array, and not a new array.
 ```
 
 ## Implementation Notes
 
-This may vary between implementations, but in javascript, a `TypedArray` cannot be created on data unless it is byte-aligned.
-This means that a `Float32Array` must be stored in memory such that its data begins on a byte multiple of four since each `float` contains four bytes.
+In JavaScript, a `TypedArray` cannot be created on data unless it is byte-aligned to the data type.
+For example, a `Float32Array` must be stored in memory such that its data begins on a byte multiple of four since each `float` contains four bytes.
 The data types used in 3D Tiles have a maximum length of four bytes, so padding to a multiple of four will work for all cases, since smaller types with lengths of one and two will also be byte-aligned.
 
 If the string generated from the JSON header has a length that is not a multiple of four, it should be padded with space characters in order to ensure that the binary body is byte-aligned.
