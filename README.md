@@ -82,7 +82,7 @@ Topic  | Status
 [tileset.json](#tileset.json)  | :white_check_mark: **Solid base**, a few more features expected
 [Batched 3D Model](TileFormats/Batched3DModel/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
 [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (i3dm) | :white_check_mark: **Solid base**, only minor changes expected
-[Point Cloud](TileFormats/Points/README.md) (pnts)  | :white_check_mark: **Solid base**, only minor changes expected
+[Point Cloud](TileFormats/PointCloud/README.md) (pnts)  | :white_check_mark: **Solid base**, only minor changes expected
 [Vector Data](TileFormats/VectorData/README.md)  | :white_circle: **In progress**, [#25](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/25)
 [Composite](TileFormats/Composite/README.md) (cmpt) | :white_check_mark: **Solid base**, only minor changes expected
 [Declarative Styling](Styling/README.md)  | :white_check_mark: **Solid base**, will add features/functions as needed, [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
