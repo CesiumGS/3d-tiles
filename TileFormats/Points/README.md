@@ -174,7 +174,7 @@ var featureTableBinary = Buffer.concat([positionBinary, colorBinary]);
 ```
 #### Quantized Positions and Oct-Encoded Normals
 
-In this example, the 4 points will have normals pointing up `[0.0, 1.0, 0.0]` in oct-encoded format and they will be placed on the corners of a quantized volme that spans from `-500.0` to `0.0` units in the `x` and `z` directions.
+In this example, the 4 points will have normals pointing up `[0.0, 1.0, 0.0]` in oct-encoded format and they will be placed on the corners of a quantized volme that spans from `-250.0` to `250.0` units in the `x` and `z` directions.
 
 ```javascript
 var featureTableJSON = {

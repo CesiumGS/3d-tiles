@@ -169,7 +169,7 @@ var featureTableBinary = new Buffer(new Float32Array([
 #### Quantized Positions and Oct-Encoded Normals
 
 In this example, the 4 instances will be placed with an orientation `up` of `[0.0, 1.0, 0.0]` and `right` of `[1.0, 0.0, 0.0]` in oct-encoded format 
-and they will be placed on the corners of a quantized volume that spans from `-500.0` to `0.0` units in the `x` and `z` directions.
+and they will be placed on the corners of a quantized volume that spans from `-250.0` to `250.0` units in the `x` and `z` directions.
 
 ```javascript
 var featureTableJSON = {
