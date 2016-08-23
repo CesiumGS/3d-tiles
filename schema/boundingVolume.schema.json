@@ -1,6 +1,7 @@
 {
-    "$schema" : "http://json-schema.org/draft-03/schema",
-    "title" : "boundingVolume",
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "boundingVolume.schema.json",
+    "title" : "Bounding Volume",
     "type" : "object",
     "description" : "A bounding volume that encloses a tile or its contents.  At least one property is required.  If more than one property is defined, the runtime can determine which to use.",
     "properties" : {

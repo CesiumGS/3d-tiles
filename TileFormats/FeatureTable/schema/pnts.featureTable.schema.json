@@ -1,12 +1,12 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id" : "pnts.featureTable",
-  "title": "pnts featureTable",
-  "type": "object",
-  "description": "A set of Point Cloud semantics containing per-tile and per-point values that define where and how to render points.",
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "id" : "pnts.featureTable.schema.json",
+  "title" : "Point Cloud Feature Table",
+  "type" : "object",
+  "description" : "A set of Point Cloud semantics containing per-tile and per-point values that define where and how to render points.",
   "allOf" : [
     {
-      "$ref" : "featureTable"
+      "$ref" : "featureTable.schema.json"
     },
     {
       "properties": {
@@ -38,7 +38,7 @@
         "POSITION_QUANTIZED": [
           "QUANTIZED_VOLUME_OFFSET",
           "QUANTIZED_VOLUME_SCALE"
-        ],
+        ]
       },
       "required": [
         "POINTS_LENGTH"

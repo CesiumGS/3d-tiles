@@ -1,7 +1,7 @@
 {
     "$schema" : "http://json-schema.org/draft-04/schema#",
-    "id" : "featureTable",
-    "title" : "featureTable",
+    "id" : "featureTable.schema.json",
+    "title" : "Feature Table",
     "type" : "object",
     "description" : "A set of semantics containing per-tile and per-point values defining custom behavior for features.",
     "patternProperties" : {

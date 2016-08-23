@@ -1,12 +1,12 @@
 {
   "$schema" : "http://json-schema.org/draft-04/schema#",
-  "id" : "i3dm.featureTable",
-  "title" : "i3dm featureTable",
+  "id" : "i3dm.featureTable.schema.json",
+  "title" : "Instanced 3D Model Feature Table",
   "type" : "object",
-  "description": "A set of Instanced3DModel semantics containing per-tile and per-point values that define where and how to render instanced models.",
+  "description": "A set of Instanced 3D Model semantics containing per-tile and per-point values that define where and how to render instanced models.",
   "allOf" : [
     {
-      "$ref" : "featureTable.schema.json#/featureTable"
+      "$ref" : "featureTable.schema.json"
     },
     {
       "properties": {

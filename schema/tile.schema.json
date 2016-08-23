@@ -1,19 +1,18 @@
 {
-    "$schema" : "http://json-schema.org/draft-03/schema",
-    "title" : "tile",
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "tile.schema.json",
+    "title" : "Tile",
     "type" : "object",
     "description" : "A tile in a 3D Tiles tileset.",
     "properties" : {
         "boundingVolume" : {
-            "extends" : { "$ref" : "boundingVolume.schema.json" },
             "description" : "The bounding volume that encloses the tile.",
-            "required" : true
+            "$ref" : "boundingVolume.schema.json"
         },
         "geometricError" : {
             "type" : "number",
             "description" : "The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute Screen-Space Error (SSE), i.e., the error measured in pixels.",
-            "minimum" : 0,
-            "required" : true
+            "minimum" : 0
         },
         "refine" : {
             "type" : "string",
@@ -21,8 +20,8 @@
             "enum" : ["add", "replace"]
         },
         "content" : {
-            "extends" : { "$ref" : "tile.content.schema.json" },
-            "description" : "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. This is required for leaf tiles."
+            "description" : "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. This is required for leaf tiles.",
+            "$ref" : "tile.content.schema.json"
         },
         "children" : {
             "type" : "array",
@@ -33,5 +32,6 @@
             "uniqueItems" : true
         }
     },
+    "required" : ["boundingVolume", "geometricError"],
     "additionalProperties" : false
 }
