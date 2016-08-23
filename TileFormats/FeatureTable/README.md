@@ -9,9 +9,9 @@
 
 ## Overview
 
-The _Feature Table_ describes position and appearance properties for each feature in a tile, compared to the _Batch Table_ (TODO: link), which contains per-feature application-specific metadata not necessarily used for rendering.
+A _Feature Table_ describes position and appearance properties for each feature in a tile.  The _Batch Table_ (TODO: link), on the other hand, contains per-feature application-specific metadata not necessarily used for rendering.
 
-The Feature Table is used by the following tile formats:
+A Feature Table is used by the following tile formats:
 * [Instanced 3D Model](../Instanced3DModel) (i3dm) - each model instance is a feature.
 * [Point Cloud](../PointCloud) (pnts) - each point is a feature.
 * [Vector](../VectorData) (vctr) - each point/polyline/polygon is a feature.
@@ -20,26 +20,26 @@ Per-feature properties are defined using tile-format-specific semantics defined 
 
 ## Layout
 
-The Feature Table is composed of two parts: a JSON header and an optional binary body. The JSON keys are tile-format-specific semantics, and the values can either be defined directly in the JSON, or refer to sections in the binary body.
-The binary body is a tightly packed binary buffer containing data used by the header. It is more efficient to store long numeric arrays in the binary body.
+A Feature Table is composed of two parts: a JSON header and an optional binary body. The JSON keys are tile-format-specific semantics, and the values can either be defined directly in the JSON, or refer to sections in the binary body.
+The binary body is a binary buffer containing data referenced by the header. It is more efficient to store long numeric arrays in the binary body.
 
 **Figure 1**: Feature Table layout
 
 ![feature table layout](figures/feature-table-layout.png)
 
-A tile utilizing a feature table will contain the `featureTableJSONByteLength` and `featureTableBinaryByteLength` fields in its header which can be used to extract each respective part of the Feature Table.
+When a tile format includes a Feature Table, the Feature Table immediately follows the header.  The header will also contain `featureTableJSONByteLength` and `featureTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the Feature Table.
 Code for reading the Feature Table can be found in [Cesium3DTileFeatureTableResources.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Cesium3DTileFeatureTableResources.js) in the Cesium implementation of 3D Tiles.
 
 ## JSON Header
 
-Feature table values can be defined in the JSON header in three different ways.
+Feature Table values can be represented in the JSON header in three different ways.
 
 1. A single JSON value. (e.g. `"INSTANCES_LENGTH" : 4`)
-  * This is common for global semantics like `"INSTANCES_LENGTH"` and `"POINTS_LENGTH"`.
+  * This is common for global semantics like `"INSTANCES_LENGTH"`, which defines the number of model instances in an Instanced 3D Moel tile.
 2. A JSON array of values. (e.g. `"POSITION" : [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]`)
     * Feature values are always stored as a single, flat array, not an array of arrays.  Above, each `POSITION` refers to a `float32[3]` data type so there are three features: `Feature 0's position`=`(1.0, 0.0, 0.0)`, `Feature 1's position`=`(0.0, 1.0, 0.0)`, `Feature 2's position`=`(0.0, 0.0, 1.0)`.
 3. A reference to data in the binary body, denoted by an object with a `byteOffset` property. (e.g. `"SCALE" : { "byteOffset" : 24` } )
-  * `byteOffset` is always relative to the start of the binary body.
+  * `byteOffset` is a zero-based offset relative to the start of the binary body.
 
 The only valid keys in the JSON header are the defined semantics by the tile format.  Application-specific data should be stored in the Batch Table.
 
@@ -47,7 +47,7 @@ The only valid keys in the JSON header are the defined semantics by the tile for
 
 When the JSON header includes a reference to the binary, the provided `byteOffset` is used to index into the data. 
 
-**Figure 2**: Indexing into the Feature Table binary
+**Figure 2**: Indexing into the Feature Table binary body
 
 ![feature table binary index](figures/feature-table-binary-index.png)
 
