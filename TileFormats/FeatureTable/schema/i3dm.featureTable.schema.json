@@ -1,0 +1,62 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "id" : "i3dm.featureTable",
+  "title" : "i3dm featureTable",
+  "type" : "object",
+  "description": "A set of Instanced3DModel semantics containing per-tile and per-point values that define where and how to render instanced models.",
+  "allOf" : [
+    {
+      "$ref" : "featureTable.schema.json#/featureTable"
+    },
+    {
+      "properties": {
+        "POSITION": {},
+        "POSITION_QUANTIZED": {},
+        "NORMAL_UP": {},
+        "NORMAL_RIGHT": {},
+        "NORMAL_UP_OCT32P": {},
+        "NORMAL_RIGHT_OCT32P": {},
+        "SCALE": {},
+        "SCALE_NON_UNIFORM": {},
+        "BATCH_ID": {},
+        "INSTANCES_LENGTH": {},
+        "QUANTIZED_VOLUME_OFFSET": {},
+        "QUANTIZED_VOLUME_SCALE": {}
+      },
+      "oneOf": [
+        {
+          "required": [
+            "POSITION"
+          ]
+        },
+        {
+          "required": [
+            "POSITION_QUANTIZED"
+          ]
+        }
+      ],
+      "dependencies": {
+        "POSITION_QUANTIZED": [
+          "QUANTIZED_VOLUME_OFFSET",
+          "QUANTIZED_VOLUME_SCALE"
+        ],
+        "NORMAL_UP": [
+          "NORMAL_RIGHT"
+        ],
+        "NORMAL_RIGHT": [
+          "NORMAL_UP"
+        ],
+        "NORMAL_UP_OCT32P": [
+          "NORMAL_RIGHT_OCT32P"
+        ],
+        "NORMAL_RIGHT_OCT32P": [
+          "NORMAL_UP_OCT32P"
+        ]
+      },
+      "required": [
+        "INSTANCES_LENGTH"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

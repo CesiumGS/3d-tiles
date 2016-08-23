@@ -1,0 +1,18 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema#",
+    "id" : "featureTable",
+    "title" : "featureTable",
+    "type" : "object",
+    "description" : "A set of semantics containing per-tile and per-point values defining custom behavior for features.",
+    "patternProperties" : {
+        ".*" : {
+            "properties" : {
+                "byteOffset" : {
+                    "type" : "integer",
+                    "minimum" : 0
+                }
+            },
+            "required" : ["byteOffset"]
+        }
+    }
+}

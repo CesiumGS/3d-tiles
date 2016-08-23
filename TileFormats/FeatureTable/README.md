@@ -27,6 +27,7 @@ The binary body is a tightly packed binary buffer containing data used by the he
 
 ![feature table layout](figures/feature-table-layout.png)
 
+A tile utilizing a feature table will contain the `featureTableJSONByteLength` and `featureTableBinaryByteLength` fields in its header which can be used to extract each respective part of the Feature Table.
 Code for reading the Feature Table can be found in [Cesium3DTileFeatureTableResources.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Cesium3DTileFeatureTableResources.js) in the Cesium implementation of 3D Tiles.
 
 ## JSON Header
@@ -37,7 +38,7 @@ Feature table values can be defined in the JSON header in three different ways.
   * This is common for global semantics like `"INSTANCES_LENGTH"` and `"POINTS_LENGTH"`.
 2. A JSON array of values. (e.g. `"POSITION" : [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]`)
     * Feature values are always stored as a single, flat array, not an array of arrays.  Above, each `POSITION` refers to a `float32[3]` data type so there are three features: `Feature 0's position`=`(1.0, 0.0, 0.0)`, `Feature 1's position`=`(0.0, 1.0, 0.0)`, `Feature 2's position`=`(0.0, 0.0, 1.0)`.
-3. A reference to data in the binary body, denoated by an object with a `byteOffset` property. (e.g. `"SCALE" : { "byteOffset" : 24` } )
+3. A reference to data in the binary body, denoted by an object with a `byteOffset` property. (e.g. `"SCALE" : { "byteOffset" : 24` } )
   * `byteOffset` is always relative to the start of the binary body.
 
 The only valid keys in the JSON header are the defined semantics by the tile format.  Application-specific data should be stored in the Batch Table.
@@ -65,7 +66,6 @@ var position = positionArray.subarray(featureId * 3, featureId * 3 + 3); // Usin
 
 In JavaScript, a `TypedArray` cannot be created on data unless it is byte-aligned to the data type.
 For example, a `Float32Array` must be stored in memory such that its data begins on a byte multiple of four since each `float` contains four bytes.
-The data types used in 3D Tiles have a maximum length of four bytes, so padding to a multiple of four will work for all cases, since smaller types with lengths of one and two will also be byte-aligned.
 
-If the string generated from the JSON header has a length that is not a multiple of four, it should be padded with space characters in order to ensure that the binary body is byte-aligned.
-The binary body should also be padded to a multiple of four when there is data following the Feature Table.
+The string generated from the JSON header should be padded with space characters in order to ensure that the binary body is byte-aligned.
+The binary body should also be padded if necessary when there is data following the Feature Table.

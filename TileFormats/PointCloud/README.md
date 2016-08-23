@@ -42,6 +42,7 @@ Code for reading the header can be found in [Points3DModelTileContent.js](https:
 ## Feature Table
 
 Contains per-tile and per-point values that define where and how to render points.
+More information is available in the [Feature Table specification](../FeatureTable).
 
 ### Semantics
 
