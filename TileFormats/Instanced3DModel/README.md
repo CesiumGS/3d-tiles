@@ -26,7 +26,7 @@ A tile is composed of a header section immediately followed by a body section.
 
 ## Header
 
-The 36-byte header contains the following fields:
+The 32-byte header contains the following fields:
 
 | Field name | Data type | Description |
 | --- | --- | --- |
@@ -37,10 +37,9 @@ The 36-byte header contains the following fields:
 | `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
 | `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates that there is no batch table. |
 | `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
-| `gltfByteLength` | `uint32` | The length of the glTF field in bytes. |
 | `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the glTF section below. |
 
-If either `featureTableJSONByteLength` or `gltfByteLength` equal zero, the tile does not need to be rendered.
+If `featureTableJSONByteLength` equals zero, or there is no `glTF`, the tile does not need to be rendered.
 
 The body section immediately follows the header section, and is composed of three fields: `Feature Table`, `Batch Table`, and `glTF`.
 
