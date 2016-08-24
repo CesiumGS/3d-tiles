@@ -2,7 +2,7 @@
     "$schema" : "http://json-schema.org/draft-03/schema",
     "title" : "boundingVolume",
     "type" : "object",
-    "description" : "A bounding volume that encloses a tile or its contents.  At least one property is required.  If more than one property is defined, the runtime can determine which to use.",
+    "description" : "A bounding volume that encloses a tile or its contents.  Exactly one property is required.",
     "properties" : {
         "box" : {
             "type" : "array",
