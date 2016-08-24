@@ -11,8 +11,81 @@
                     "type" : "integer",
                     "minimum" : 0
                 }
-            },
+            }
+        }
+    },
+    "definitions" : {
+        "featureReference" : {
+            "type" : "object",
             "required" : ["byteOffset"]
+        },
+        "featureArray" : {
+            "type" : "array",
+            "items" : {
+                "type" : "number"
+            }
+        },
+        "feature" : {
+            "oneOf" : [
+                {
+                    "$ref" : "#/definitions/featureReference"
+                },{
+                    "$ref" : "#/definitions/featureArray"
+                }
+            ]
+        },
+        "featureGlobalScalar" : {
+            "oneOf" : [
+                {
+                    "$ref" : "#/definitions/featureReference"
+                },{
+                    "allOf" : [
+                        {
+                            "$ref" : "#/definitions/featureArray"
+                        },{
+                            "minItems" : 1,
+                            "maxItems" : 1
+                        }
+                    ]
+                },{
+                    "type" : "integer",
+                    "minimum" : 0
+                }
+            ]
+        },
+        "featureGlobalCartesian3" : {
+            "oneOf" : [
+                {
+                    "$ref" : "#/definitions/featureReference"
+                },
+                {
+                    "allOf" : [
+                        {
+                            "$ref": "#/definitions/featureArray"
+                        },{
+                            "minItems" : 3,
+                            "maxItems" : 3
+                        }
+                    ]
+                }
+            ]
+        },
+        "featureGlobalCartesian4" : {
+            "oneOf" : [
+                {
+                    "$ref" : "#/definitions/featureReference"
+                },
+                {
+                    "allOf" : [
+                        {
+                            "$ref": "#/definitions/featureArray"
+                        },{
+                            "minItems" : 4,
+                            "maxItems" : 4
+                        }
+                    ]
+                }
+            ]
         }
     }
 }

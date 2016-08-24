@@ -1,49 +1,65 @@
 {
-  "$schema" : "http://json-schema.org/draft-04/schema#",
-  "id" : "pnts.featureTable.schema.json",
-  "title" : "Point Cloud Feature Table",
-  "type" : "object",
-  "description": "A set of Point Cloud semantics that contains values defining the position and appearance properties for points in a tile.",
-  "allOf" : [
-    {
-      "$ref" : "featureTable.schema.json"
-    },
-    {
-      "properties": {
-        "POSITION": {},
-        "POSITION_QUANTIZED": {},
-        "RGBA": {},
-        "RGB": {},
-        "NORMAL": {},
-        "NORMAL_OCT16P": {},
-        "POINTS_LENGTH": {},
-        "RTC_CENTER": {},
-        "QUANTIZED_VOLUME_OFFSET": {},
-        "QUANTIZED_VOLUME_SCALE": {},
-        "CONSTANT_RGBA": {}
-      },
-      "anyOf": [
+    "$schema" : "http://json-schema.org/draft-04/schema#",
+    "id" : "pnts.featureTable.schema.json",
+    "title" : "Point Cloud Feature Table",
+    "type" : "object",
+    "description" : "A set of Point Cloud semantics that contains values defining the position and appearance properties for points in a tile.",
+    "allOf" : [
         {
-          "required": [
-            "POSITION"
-          ]
+           "$ref" : "featureTable.schema.json"
         },
         {
-          "required": [
-            "POSITION_QUANTIZED"
-          ]
+            "properties" : {
+                "POSITION" : {
+                    "$ref" : "featureTable.schema.json#/definitions/feature"
+                },
+                "POSITION_QUANTIZED": {
+                    "$ref" : "featureTable.schema.json#/definitions/feature"
+                },
+                "RGBA" : {
+                    "$ref" : "featureTable.schema.json#/definitions/feature"
+                },
+                "RGB" : {
+                    "$ref" : "featureTable.schema.json#/definitions/feature"
+                },
+                "NORMAL" : {
+                    "$ref" : "featureTable.schema.json#/definitions/feature"
+                },
+                "NORMAL_OCT16P" : {
+                    "$ref" : "featureTable.schema.json#/definitions/feature"
+                },
+                "POINTS_LENGTH" : {
+                    "$ref" : "featureTable.schema.json#/definitions/featureGlobalScalar"
+                },
+                "RTC_CENTER" : {
+                    "$ref" : "featureTable.schema.json#/definitions/featureGlobalCartesian3"
+                },
+                "QUANTIZED_VOLUME_OFFSET" : {
+                    "$ref" : "featureTable.schema.json#/definitions/featureGlobalCartesian3"
+                },
+                "QUANTIZED_VOLUME_SCALE" : {
+                    "$ref" : "featureTable.schema.json#/definitions/featureGlobalCartesian3"
+                },
+                "CONSTANT_RGBA" : {
+                    "$ref" : "featureTable.schema.json#/definitions/featureGlobalCartesian4"
+                }
+            },
+            "anyOf" : [
+                {
+                    "required" : ["POSITION"]
+                },
+                {
+                    "required" : ["POSITION_QUANTIZED"]
+                }
+            ],
+            "dependencies" : {
+                "POSITION_QUANTIZED" : [
+                    "QUANTIZED_VOLUME_OFFSET",
+                    "QUANTIZED_VOLUME_SCALE"
+                ]
+            },
+            "required" : ["POINTS_LENGTH"],
+            "additionalProperties": false
         }
-      ],
-      "dependencies": {
-        "POSITION_QUANTIZED": [
-          "QUANTIZED_VOLUME_OFFSET",
-          "QUANTIZED_VOLUME_SCALE"
-        ]
-      },
-      "required": [
-        "POINTS_LENGTH"
-      ],
-      "additionalProperties": false
-    }
-  ]
+    ]
 }
