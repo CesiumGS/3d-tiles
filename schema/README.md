@@ -1,6 +1,6 @@
 # 3D Tiles JSON Schema
 
-Parts of 3D Tiles, such as `tileset.json and the [Feature Table](../TileFormats/FeatureTable) header, are represented with JSON.  The JSON schema is defined using [JSON Schema](http://json-schema.org/) draft v4 in schema subdirectories.
+Parts of 3D Tiles, such as [tileset.json](../#tilesetjson) and the [Feature Table](../TileFormats/FeatureTable) header, are represented with JSON.  The JSON schema is defined using [JSON Schema](http://json-schema.org/) draft v4 in schema subdirectories.
 
 ## Usage
 
