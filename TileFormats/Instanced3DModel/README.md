@@ -52,7 +52,7 @@ in the Cesium implementation of 3D Tiles.
 Contains values for `i3dm` semantics used to create instanced models.
 More information is available in the [Feature Table specification](../FeatureTable).
 
-The `i3dm` Feature Table JSON Schema is defined in [i3dm.featureTable.schema.json](../../../schema/i3dm.featureTable.schema.json).
+The `i3dm` Feature Table JSON Schema is defined in [i3dm.featureTable.schema.json](../../schema/i3dm.featureTable.schema.json).
 
 ### Semantics
 
