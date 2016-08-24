@@ -9,6 +9,10 @@
             "description" : "The bounding volume that encloses the tile.",
             "required" : true
         },
+        "viewerRequestVolume" : {
+            "extends" : { "$ref" : "boundingVolume.schema.json" },
+            "description" : "Optional bounding volume that defines the volume that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError."
+        },
         "geometricError" : {
             "type" : "number",
             "description" : "The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute Screen-Space Error (SSE), i.e., the error measured in pixels.",

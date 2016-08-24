@@ -36,6 +36,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * [Spec status](#spec-status)
 * [Introduction](#introduction)
 * [Tile metadata](#tile-metadata)
+   * [Viewer request volume](#viewer-request-volume)
 * [tileset.json](#tilesetjson)
    * [External tilesets](#external-tilesets)
    * [Bounding volume spatial coherence](#bounding-volume-spatial-coherence)
@@ -147,6 +148,8 @@ The `boundingVolume.region` property is an array of six numbers that define the 
 
 The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
 
+An optional `viewerRequestVolume` (not included above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
+
 The `refine` property is a string that is either `"replace"` for replacement refinement or `"add"` for additive refinement.  It is required for the root tile of a tileset; it is optional for all other tiles.  When `refine` is omitted, it is inherited from the parent tile.
 
 The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
@@ -157,11 +160,61 @@ The file extension of `content.url` defines the [tile format](#tileFormats).  Th
 
 ![](figures/contentsBox.png)
 
-`content` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#Grids)).
+`content` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
 
 `children` is an array of objects that define child tiles.  See the [section below](#tileset.json).
 
 ![](figures/tile.png)
+
+### Viewer request volume
+
+A tile's `viewerRequestVolume` can be used for combining heterogeneous datasets, and can be combined with [external tilesets](#external-tilesets).
+
+The following example has a building in a `b3dm` tile and a point cloud inside the building in a `pnts` tile.  The point cloud tile's `boundingVolume` is a sphere with a radius of `1.25`.  It also has a larger sphere with a radius of `15` for the `viewerRequestVolume`.  Since the `geometricError` is zero, the point cloud tile's content is always rendered (and initially requested) when the viewer is inside the large sphere defined by `viewerRequestVolume`.
+
+```javascript
+"children": [{
+  "transform": [
+     4.843178171884396,   1.2424271388626869, 0,                  0,
+    -0.7993325488216595,  3.1159251367235608, 3.8278032889280675, 0,
+     0.9511533376784163, -3.7077466670407433, 3.2168186118075526, 0,
+     1215001.7612985559, -4736269.697480114,  4081650.708604793,  1
+  ],
+  "boundingVolume": {
+    "box": [
+      0,     0,    6.701,
+      3.738, 0,    0,
+      0,     3.72, 0,
+      0,     0,    13.402
+    ]
+  },
+  "geometricError": 32,
+  "content": {
+    "url": "building.b3dm"
+  }
+}, {
+  "transform": [
+     0.968635634376879,    0.24848542777253732, 0,                  0,
+    -0.15986650990768783,  0.6231850279035362,  0.7655606573007809, 0,
+     0.19023066741520941, -0.7415493329385225,  0.6433637229384295, 0,
+     1215002.0371330238,  -4736270.772726648,   4081651.6414821907, 1
+  ],
+  "viewerRequestVolume": {
+    "sphere": [0, 0, 0, 15]
+  },
+  "boundingVolume": {
+    "sphere": [0, 0, 0, 1.25]
+  },
+  "geometricError": 0,
+  "content": {
+    "url": "points.pnts"
+  }
+}]
+```
+
+_TODO: screenshot showing the request vs. bounding volume_
+
+For more on request volumes, see the [sample tileset](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples/tree/master/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
 
 ## tileset.json
 
