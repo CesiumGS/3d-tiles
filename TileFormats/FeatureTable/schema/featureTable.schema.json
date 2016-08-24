@@ -15,54 +15,46 @@
         }
     },
     "definitions" : {
-        "featureReference" : {
+        "binaryReference" : {
             "type" : "object",
             "required" : ["byteOffset"]
         },
-        "featureArray" : {
+        "numericArray" : {
             "type" : "array",
             "items" : {
                 "type" : "number"
             }
         },
-        "feature" : {
-            "oneOf" : [
-                {
-                    "$ref" : "#/definitions/featureReference"
-                },{
-                    "$ref" : "#/definitions/featureArray"
+        "perFeaturePropertyNumeric" : {
+            "oneOf" : [{
+                    "$ref" : "#/definitions/binaryReference"
+                }, {
+                    "$ref" : "#/definitions/numericArray"
                 }
             ]
         },
-        "featureGlobalScalar" : {
-            "oneOf" : [
-                {
-                    "$ref" : "#/definitions/featureReference"
-                },{
-                    "allOf" : [
-                        {
-                            "$ref" : "#/definitions/featureArray"
-                        },{
-                            "minItems" : 1,
-                            "maxItems" : 1
-                        }
-                    ]
-                },{
-                    "type" : "integer",
-                    "minimum" : 0
-                }
-            ]
+        "globalPropertyScalar" : {
+            "oneOf" : [{
+                "$ref" : "#/definitions/binaryReference"
+            }, {
+                "allOf" : [{
+                    "$ref" : "#/definitions/numericArray"
+                }, {
+                    "minItems" : 1,
+                    "maxItems" : 1
+                }]
+            }, {
+                "type" : "integer",
+                "minimum" : 0
+            }]
         },
-        "featureGlobalCartesian3" : {
-            "oneOf" : [
-                {
-                    "$ref" : "#/definitions/featureReference"
-                },
-                {
-                    "allOf" : [
-                        {
-                            "$ref": "#/definitions/featureArray"
-                        },{
+        "globalPropertyCartesian3" : {
+            "oneOf" : [{
+                    "$ref" : "#/definitions/binaryReference"
+                }, {
+                    "allOf" : [{
+                            "$ref": "#/definitions/numericArray"
+                        }, {
                             "minItems" : 3,
                             "maxItems" : 3
                         }
@@ -70,22 +62,17 @@
                 }
             ]
         },
-        "featureGlobalCartesian4" : {
-            "oneOf" : [
-                {
-                    "$ref" : "#/definitions/featureReference"
-                },
-                {
-                    "allOf" : [
-                        {
-                            "$ref": "#/definitions/featureArray"
-                        },{
-                            "minItems" : 4,
-                            "maxItems" : 4
-                        }
-                    ]
-                }
-            ]
+        "globalPropertyCartesian4" : {
+            "oneOf" : [{
+                "$ref" : "#/definitions/binaryReference"
+            }, {
+                "allOf": [{
+                    "$ref": "#/definitions/numericArray"
+                }, {
+                    "minItems": 4,
+                    "maxItems": 4
+                }]
+            }]
         }
     }
 }

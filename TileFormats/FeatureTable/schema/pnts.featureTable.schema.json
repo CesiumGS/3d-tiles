@@ -4,62 +4,56 @@
     "title" : "Point Cloud Feature Table",
     "type" : "object",
     "description" : "A set of Point Cloud semantics that contains values defining the position and appearance properties for points in a tile.",
-    "allOf" : [
-        {
-           "$ref" : "featureTable.schema.json"
+    "allOf" : [{
+        "$ref" : "featureTable.schema.json"
+    }, {
+        "properties" : {
+            "POSITION" : {
+                "$ref" : "featureTable.schema.json#/definitions/perFeaturePropertyNumeric"
+            },
+            "POSITION_QUANTIZED": {
+                "$ref" : "featureTable.schema.json#/definitions/perFeaturePropertyNumeric"
+            },
+            "RGBA" : {
+                "$ref" : "featureTable.schema.json#/definitions/perFeaturePropertyNumeric"
+            },
+            "RGB" : {
+                "$ref" : "featureTable.schema.json#/definitions/perFeaturePropertyNumeric"
+            },
+            "NORMAL" : {
+                "$ref" : "featureTable.schema.json#/definitions/perFeaturePropertyNumeric"
+            },
+            "NORMAL_OCT16P" : {
+                "$ref" : "featureTable.schema.json#/definitions/perFeaturePropertyNumeric"
+            },
+            "POINTS_LENGTH" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+            },
+            "RTC_CENTER" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+            },
+            "QUANTIZED_VOLUME_OFFSET" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+            },
+            "QUANTIZED_VOLUME_SCALE" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+            },
+            "CONSTANT_RGBA" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+            }
         },
-        {
-            "properties" : {
-                "POSITION" : {
-                    "$ref" : "featureTable.schema.json#/definitions/feature"
-                },
-                "POSITION_QUANTIZED": {
-                    "$ref" : "featureTable.schema.json#/definitions/feature"
-                },
-                "RGBA" : {
-                    "$ref" : "featureTable.schema.json#/definitions/feature"
-                },
-                "RGB" : {
-                    "$ref" : "featureTable.schema.json#/definitions/feature"
-                },
-                "NORMAL" : {
-                    "$ref" : "featureTable.schema.json#/definitions/feature"
-                },
-                "NORMAL_OCT16P" : {
-                    "$ref" : "featureTable.schema.json#/definitions/feature"
-                },
-                "POINTS_LENGTH" : {
-                    "$ref" : "featureTable.schema.json#/definitions/featureGlobalScalar"
-                },
-                "RTC_CENTER" : {
-                    "$ref" : "featureTable.schema.json#/definitions/featureGlobalCartesian3"
-                },
-                "QUANTIZED_VOLUME_OFFSET" : {
-                    "$ref" : "featureTable.schema.json#/definitions/featureGlobalCartesian3"
-                },
-                "QUANTIZED_VOLUME_SCALE" : {
-                    "$ref" : "featureTable.schema.json#/definitions/featureGlobalCartesian3"
-                },
-                "CONSTANT_RGBA" : {
-                    "$ref" : "featureTable.schema.json#/definitions/featureGlobalCartesian4"
-                }
-            },
-            "anyOf" : [
-                {
-                    "required" : ["POSITION"]
-                },
-                {
-                    "required" : ["POSITION_QUANTIZED"]
-                }
-            ],
-            "dependencies" : {
-                "POSITION_QUANTIZED" : [
-                    "QUANTIZED_VOLUME_OFFSET",
-                    "QUANTIZED_VOLUME_SCALE"
-                ]
-            },
-            "required" : ["POINTS_LENGTH"],
-            "additionalProperties": false
-        }
-    ]
+        "anyOf" : [{
+            "required" : ["POSITION"]
+        }, {
+            "required" : ["POSITION_QUANTIZED"]
+        }],
+        "dependencies" : {
+            "POSITION_QUANTIZED" : [
+                "QUANTIZED_VOLUME_OFFSET",
+                "QUANTIZED_VOLUME_SCALE"
+            ]
+        },
+        "required" : ["POINTS_LENGTH"],
+        "additionalProperties": false
+    }]
 }
