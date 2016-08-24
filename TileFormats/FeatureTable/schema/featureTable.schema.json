@@ -50,17 +50,15 @@
         },
         "globalPropertyCartesian3" : {
             "oneOf" : [{
-                    "$ref" : "#/definitions/binaryReference"
+                "$ref" : "#/definitions/binaryReference"
+            }, {
+                "allOf" : [{
+                    "$ref": "#/definitions/numericArray"
                 }, {
-                    "allOf" : [{
-                            "$ref": "#/definitions/numericArray"
-                        }, {
-                            "minItems" : 3,
-                            "maxItems" : 3
-                        }
-                    ]
-                }
-            ]
+                    "minItems" : 3,
+                    "maxItems" : 3
+                }]
+            }]
         },
         "globalPropertyCartesian4" : {
             "oneOf" : [{
