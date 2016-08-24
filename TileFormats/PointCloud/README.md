@@ -44,6 +44,8 @@ Code for reading the header can be found in [Points3DModelTileContent.js](https:
 Contains per-tile and per-point values that define where and how to render points.
 More information is available in the [Feature Table specification](../FeatureTable).
 
+The `pnts` Feature Table JSON Schema is defined in [pnts.featureTable.schema.json](../../../schema/pnts.featureTable.schema.json)
+
 ### Semantics
 
 #### Point Semantics

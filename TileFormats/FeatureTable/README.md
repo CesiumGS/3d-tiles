@@ -43,6 +43,8 @@ Feature Table values can be represented in the JSON header in three different wa
    * The semantic defines the allowed data type, e.g., when `"POSITION"` in Instanced Model refers to the binary body, the component type is `float32` and the number of components is `3`.
 The only valid properties in the JSON header are the defined semantics by the tile format.  Application-specific data should be stored in the Batch Table.
 
+JSON Schema Feature Table definitions can be found in [featureTable.schema.json](../../../schema/featureTable.schema.json)
+
 ## Binary Body
 
 When the JSON header includes a reference to the binary, the provided `byteOffset` is used to index into the data. 
