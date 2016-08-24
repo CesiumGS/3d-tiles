@@ -27,7 +27,7 @@
                 },
                 "NORMAL_RIGHT_OCT32P" : {
                     "$ref" : "featureTable.schema.json#/definitions/feature"
-                  },
+                },
                 "SCALE" : {
                     "$ref" : "featureTable.schema.json#/definitions/feature"
                 },
