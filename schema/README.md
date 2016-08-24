@@ -2,7 +2,7 @@
 
 ## Overview
 
-3D Tiles JSON assets, like `tileset.json`, or the JSON header of a [Feature Table](../TileFormats/FeatureTable) have certain definition rules they must abide by.
+3D Tiles JSON assets, like `tileset.json`, or the JSON header of a [Feature Table](../TileFormats/FeatureTable) have rules.
 Those rules are expressed in human-readable form throughout the specification, but assets can also be verified using JSON Schema.
 
 Every JSON asset in 3D Tiles has an accompanying schema document conforming to [JSON Schema](http://json-schema.org/) draft v4.
