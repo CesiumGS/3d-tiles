@@ -41,7 +41,7 @@ Feature Table values can be represented in the JSON header in three different wa
 3. A reference to data in the binary body, denoted by an object with a `byteOffset` property. (e.g. `"SCALE" : { "byteOffset" : 24}`).
    * `byteOffset` is a zero-based offset relative to the start of the binary body.
    * The semantic defines the allowed data type, e.g., when `"POSITION"` in Instanced Model refers to the binary body, the component type is `float32` and the number of components is `3`.
-The only valid keys in the JSON header are the defined semantics by the tile format.  Application-specific data should be stored in the Batch Table.
+The only valid properties in the JSON header are the defined semantics by the tile format.  Application-specific data should be stored in the Batch Table.
 
 ## Binary Body
 
