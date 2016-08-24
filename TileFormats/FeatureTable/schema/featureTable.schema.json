@@ -15,7 +15,7 @@
         }
     },
     "definitions" : {
-        "binaryReference" : {
+        "binaryBodyReference" : {
             "type" : "object",
             "required" : ["byteOffset"]
         },
@@ -27,7 +27,7 @@
         },
         "perFeaturePropertyNumeric" : {
             "oneOf" : [{
-                    "$ref" : "#/definitions/binaryReference"
+                    "$ref" : "#/definitions/binaryBodyReference"
                 }, {
                     "$ref" : "#/definitions/numericArray"
                 }
@@ -35,7 +35,7 @@
         },
         "globalPropertyScalar" : {
             "oneOf" : [{
-                "$ref" : "#/definitions/binaryReference"
+                "$ref" : "#/definitions/binaryBodyReference"
             }, {
                 "allOf" : [{
                     "$ref" : "#/definitions/numericArray"
@@ -50,7 +50,7 @@
         },
         "globalPropertyCartesian3" : {
             "oneOf" : [{
-                "$ref" : "#/definitions/binaryReference"
+                "$ref" : "#/definitions/binaryBodyReference"
             }, {
                 "allOf" : [{
                     "$ref": "#/definitions/numericArray"
@@ -62,7 +62,7 @@
         },
         "globalPropertyCartesian4" : {
             "oneOf" : [{
-                "$ref" : "#/definitions/binaryReference"
+                "$ref" : "#/definitions/binaryBodyReference"
             }, {
                 "allOf": [{
                     "$ref": "#/definitions/numericArray"
