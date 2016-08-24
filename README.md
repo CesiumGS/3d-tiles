@@ -148,7 +148,7 @@ The `boundingVolume.region` property is an array of six numbers that define the 
 
 The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
 
-An optional `viewerRequestVolume` (not included above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
+An optional `viewerRequestVolume` (not included above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
 
 The `refine` property is a string that is either `"replace"` for replacement refinement or `"add"` for additive refinement.  It is required for the root tile of a tileset; it is optional for all other tiles.  When `refine` is omitted, it is inherited from the parent tile.
 
