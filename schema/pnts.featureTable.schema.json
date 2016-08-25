@@ -9,22 +9,22 @@
     }, {
         "properties" : {
             "POSITION" : {
-                "$ref" : "featureTable.schema.json#/definitions/perFeaturePropertyNumeric"
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
             },
             "POSITION_QUANTIZED": {
-                "$ref" : "featureTable.schema.json#/definitions/perFeaturePropertyNumeric"
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
             },
             "RGBA" : {
-                "$ref" : "featureTable.schema.json#/definitions/perFeaturePropertyNumeric"
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
             },
             "RGB" : {
-                "$ref" : "featureTable.schema.json#/definitions/perFeaturePropertyNumeric"
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
             },
             "NORMAL" : {
-                "$ref" : "featureTable.schema.json#/definitions/perFeaturePropertyNumeric"
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
             },
             "NORMAL_OCT16P" : {
-                "$ref" : "featureTable.schema.json#/definitions/perFeaturePropertyNumeric"
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
             },
             "POINTS_LENGTH" : {
                 "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"

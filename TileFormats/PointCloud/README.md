@@ -51,6 +51,7 @@ The `pnts` Feature Table JSON Schema is defined in [pnts.featureTable.schema.jso
 #### Point Semantics
 
 These semantics map to an array of feature values that are define each point. The length of these arrays must be the same for all semantics and is equal to the number of points.
+The value for each point semantic must be a reference to the Feature Table Binary Body; they cannot be embedded in the Feature Table JSON Header.
 
 If a semantic has a dependency on another semantic, that semantic must be defined.
 If both `POSITION` and `POSITION_QUANTIZED` are defined for a point, the higher precision `POSITION` will be used.

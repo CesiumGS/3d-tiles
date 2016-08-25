@@ -25,14 +25,6 @@
                 "type" : "number"
             }
         },
-        "perFeaturePropertyNumeric" : {
-            "oneOf" : [{
-                    "$ref" : "#/definitions/binaryBodyReference"
-                }, {
-                    "$ref" : "#/definitions/numericArray"
-                }
-            ]
-        },
         "globalPropertyScalar" : {
             "oneOf" : [{
                 "$ref" : "#/definitions/binaryBodyReference"
