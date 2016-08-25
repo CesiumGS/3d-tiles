@@ -211,19 +211,14 @@ The transformation from each tile's local coordinate to the tileset's global coo
 The following JavaScript code shows how to compute this using Cesium's [Matrix4](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix4.js) and [Matrix3](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix3.js) types.
 
 ```javascript
-var stack = [];
+function computeTransforms(tileset) {
+    var t = tileset.root;
+    var transformToRoot = defined(t.transform) ? Matrix4.fromArray(t.transform) : Matrix4.IDENTITY;
 
-var t = rootTile; // root tile of 3D Tiles tileset
-stack.push({
-    tile : t,
-    transformToRoot : defined(t.transform) ? Matrix4.fromArray(t.transform) : Matrix4.IDENTITY;
-});
+    computeTransforms(t, transformToRoot);
+}
 
-while (stack.length > 0) {
-    var tt = stack.pop();
-    t = tt.tile;
-
-    var transformToRoot = tt.transformToRoot;
+function computeTransform(tile, transformToRoot) {
     // Apply 4x4 transformToRoot to this tile's positions and bounding volumes
 
     var inverseTransform = Matrix4.inverse(transformToRoot, new Matrix4());
@@ -231,16 +226,13 @@ while (stack.length > 0) {
     normalTransform = Matrix3.transpose(normalTransform, normalTransform);
     // Apply 3x3 normalTransform to this tile's normals
 
-    var children = t.children;
+    var children = tile.children;
     var length = children.length;
     for (var k = 0; k < length; ++k) {
         var child = children[k];
         var childToRoot = defined(child.transform) ? Matrix4.fromArray(child.transform) : Matrix4.IDENTITY;
         childToRoot = Matrix4.multiplyTransformation(transformToRoot, childToRoot, childToRoot);
-        stack.push({
-            tile : child,
-            transformToRoot : childToRoot
-        });        
+        computeTransform(child, childToRoot);
     }
 }
 ```
