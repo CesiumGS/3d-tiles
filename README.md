@@ -36,6 +36,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * [Spec status](#spec-status)
 * [Introduction](#introduction)
 * [Tile metadata](#tile-metadata)
+   * [Coordinate System and Units](#coordinate-system-and-units)
    * [Tile transform](#tile-transform)
    * [Viewer request volume](#viewer-request-volume)
 * [tileset.json](#tilesetjson)
@@ -177,7 +178,7 @@ The units for all linear distances are meters.
 
 All angles are in radians.
 
-3D Tiles do not explicitly store Cartographic coordinates (longitude, latitude, and height); these values are implicit in WGS84 coordinates, which are efficient for the GPU to render without a non-affine coordinate transformation.  A 3D Tiles tileset can include application-specific metadata, such as Cartographic coordinates, bu the semantics are not part of the 3D Tiles specification.
+3D Tiles do not explicitly store Cartographic coordinates (longitude, latitude, and height); these values are implicit in WGS84 coordinates, which are efficient for the GPU to render since they do not require a non-affine coordinate transformation.  A 3D Tiles tileset can include application-specific metadata, such as Cartographic coordinates, but the semantics are not part of the 3D Tiles specification.
 
 ### Tile transform
 
