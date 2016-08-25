@@ -169,6 +169,16 @@ An optional `transform` property (not shown above) defines a 4x4 affine transfor
 
 ![](figures/tile.png)
 
+### Coordinate System and Units
+
+Like glTF, 3D Tiles use a right-handed Cartesian coordinate system, that is, the cross product of x and y yields z. Also like glTF, 3D Tiles define the y axis as up for local Cartesian coordinate systems (see the [Tile transform](#tile-transform) section).  A tileset's global coordinate system will often be [WGS84 coordinates](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for using with a modeling tool without a geospatial context.
+
+The units for all linear distances are meters.
+
+All angles are in radians.
+
+3D Tiles do not explicitly store Cartographic coordinates (longitude, latitude, and height); these values are implicit in WGS84 coordinates, which are efficient for the GPU to render without a non-affine coordinate transformation.  A 3D Tiles tileset can include application-specific metadata, such as Cartographic coordinates, bu the semantics are not part of the 3D Tiles specification.
+
 ### Tile transform
 
 To support local coordinate systems, e.g., so a building tileset inside a city tileset can be defined in its own coordinate system, and a point cloud tileset inside the building could, again, be defined in its own coordinate system, each tile has an optional `transform` property.
@@ -195,7 +205,7 @@ When `transform` is not defined, it defaults to the identity matrix:
 ]
 ```
 
-The transformation from each tile's local coordinate to the tileset's global coordinate system is computed by a top-down traversal of the tileset and post-multiplying a child's `transform` with its parent's `transform` like a traditional scene graph or node hierarchy in computer graphics.  A tileset's global coordinate system will often be [WGS84 coordinates](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for using with a modeling tool without a full geospatial context.
+The transformation from each tile's local coordinate to the tileset's global coordinate system is computed by a top-down traversal of the tileset and post-multiplying a child's `transform` with its parent's `transform` like a traditional scene graph or node hierarchy in computer graphics.
 
 The following JavaScript code shows how to compute this using Cesium's [Matrix4](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix4.js) and [Matrix3](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix3.js) types.
 
@@ -256,8 +266,6 @@ Therefore, the full computed transforms for the above example are:
 * `T2`: `[T0][T2][pnts-specific Feature Table properties-derived transform]`
 * `T3`: `[T0][T1][T3][b3dm-specific transform, including the the glTF node hierarchy]`
 * `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance Feature Table properties-derived transform and the glTF node hierarchy]`
-
-TODO: z up?
 
 ### Viewer request volume
 
