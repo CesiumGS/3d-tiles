@@ -36,6 +36,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * [Spec status](#spec-status)
 * [Introduction](#introduction)
 * [Tile metadata](#tile-metadata)
+   * [Tile transform](#tile-transform)
    * [Viewer request volume](#viewer-request-volume)
 * [tileset.json](#tilesetjson)
    * [External tilesets](#external-tilesets)
@@ -148,7 +149,7 @@ The `boundingVolume.region` property is an array of six numbers that define the 
 
 The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
 
-An optional `viewerRequestVolume` (not included above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
+An optional `viewerRequestVolume` property (not shown above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
 
 The `refine` property is a string that is either `"replace"` for replacement refinement or `"add"` for additive refinement.  It is required for the root tile of a tileset; it is optional for all other tiles.  When `refine` is omitted, it is inherited from the parent tile.
 
@@ -162,9 +163,46 @@ The file extension of `content.url` defines the [tile format](#tileFormats).  Th
 
 `content` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
 
+An optional `transform` property (not shown above) defines a 4x4 transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
+
 `children` is an array of objects that define child tiles.  See the [section below](#tileset.json).
 
 ![](figures/tile.png)
+
+### Tile transform
+
+To support local coordinate systems, e.g., so a building tileset inside a city tileset can be defined in its own coordinate system, and a point cloud tileset inside the building could, again, be defined in its own coordinate system, each tile has an optional `transform` property.
+
+The `transform` property is a 4x4 transformation matrix, stored in column-major order, that transforms from the tile's local coordinate system to the parent tile's coordinate system, or tileset's coordinate system in the case of the root tile.
+
+The `transform` property applies to:
+* `tile.content`
+   * Each feature's position.
+   * Each feature's normal should be transformed by the top-left 3x3 matrix of the inverse-transpose of `transform` to account for [correct vector transforms when scale is used](http://www.realtimerendering.com/resources/RTNews/html/rtnews1a.html#art4).
+   * `content.boundingVolume`, except when `content.boundingVolume.region` is defined, which is explicitly in WGS84 coordinates.
+* `tile.boundingVolume`, except when `tile.boundingVolume` is defined, which is explicitly in WGS84 coordinates.
+* `tile.viewerRequestVolume`, except when `tile.viewerRequestVolume` is defined, which is explicitly in WGS84 coordinates.
+
+The `transform` property does not apply to `geometricError`, i.e., the scale defined by `transform` does not scale the geometric error; the geometric error is always defined in meters.
+
+When `transform` is not defined, it defaults to the identity matrix:
+```json
+[
+1.0, 0.0, 0.0, 0.0,
+0.0, 1.0, 0.0, 0.0,
+0.0, 0.0, 1.0, 0.0,
+0.0, 0.0, 0.0, 1.0
+]
+```
+
+The positions and normals in a tile's content may have tile-specific transformations applied to them _before_ the tile's `transform`.  Some examples, including:
+* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy, where each node has a transform.  These are applied before `tile.transform`.
+* `i3dm`'s Feature Table defines per-instance position, normals, and scales.  These are used to create a 4x4 transform matrix that are applied to each tile before `tile.transform`.
+* Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm`, `pnts`, and `vctr`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
+
+TODO: examples of the above.
+TODO: example of top down building matrix.
+TODO: diagram?
 
 ### Viewer request volume
 
