@@ -257,7 +257,6 @@ Therefore, the full computed transforms for the above example are:
 * `T3`: `[T0][T1][T3][b3dm-specific transform, including the the glTF node hierarchy]`
 * `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance Feature Table properties-derived transform and the glTF node hierarchy]`
 
-TODO: tilesets of tilesets section
 TODO: global coordinate system
 TODO: z up?
 
@@ -376,16 +375,20 @@ See the [Q&A below](#Will-tileset.json-be-part-of-the-final-3D-Tiles-spec) for h
 
 To create a tree of trees, a tile's `content.url` can point to an external tileset (another tileset.json).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
 
+![](figures/tilesets.jpg)
+
 When a tile points to an external tileset, the tile
 
 * Cannot have any children, `tile.children` must be `undefined` or an empty array.
-* Is semantically the same as the external tileset's root tile so
+* Has several properties that match the external tileset's root tile:
     * `root.geometricError === tile.geometricError`,
     * `root.refine === tile.refine`, and
     * `root.boundingVolume === tile.content.boundingVolume` (or `root.boundingVolume === tile.boundingVolume` when `tile.content.boundingVolume` is `undefined`).
+    * `root.viewerRequestVolume === tile.viewerRequestVolume` or `root.viewerRequestVolume` is `undefined`.
 * Cannot be used to create cycles, for example, by pointing to the same tileset.json containing the tile or by pointing to another tileset.json that then points back to the tileset.json containing the tile.
+* Both the tile's `transform` and root tile's `transform` are applied.  For example, in the following tileset referencing an external tileset, the computed transform for `T3 is `[T0][T1][T2][T3]`.
 
-![](figures/tilesets.jpg)
+![](figures/tileTransformExternalTileset.png)
 
 ### Bounding volume spatial coherence
 
