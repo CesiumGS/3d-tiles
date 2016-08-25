@@ -265,7 +265,7 @@ Therefore, the full computed transforms for the above example are:
 * `TO`: `[T0]`
 * `T1`: `[T0][T1]`
 * `T2`: `[T0][T2][pnts-specific Feature Table properties-derived transform]`
-* `T3`: `[T0][T1][T3][b3dm-specific transform, including the the glTF node hierarchy]`
+* `T3`: `[T0][T1][T3][b3dm-specific transform, including the glTF node hierarchy]`
 * `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance Feature Table properties-derived transform and the glTF node hierarchy]`
 
 ### Viewer request volume
