@@ -33,5 +33,12 @@
             "maxItems" : 4
         }
     },
+    "oneOf" : [{
+        "required" : ["box"]
+    }, {
+        "required" : ["region"]
+    }, {
+        "required" : ["sphere"]
+    }],
     "additionalProperties" : false
 }
