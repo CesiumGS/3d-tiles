@@ -163,7 +163,7 @@ The file extension of `content.url` defines the [tile format](#tileFormats).  Th
 
 `content` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
 
-An optional `transform` property (not shown above) defines a 4x4 transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
+An optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
 
 `children` is an array of objects that define child tiles.  See the [section below](#tileset.json).
 
@@ -173,15 +173,15 @@ An optional `transform` property (not shown above) defines a 4x4 transformation 
 
 To support local coordinate systems, e.g., so a building tileset inside a city tileset can be defined in its own coordinate system, and a point cloud tileset inside the building could, again, be defined in its own coordinate system, each tile has an optional `transform` property.
 
-The `transform` property is a 4x4 transformation matrix, stored in column-major order, that transforms from the tile's local coordinate system to the parent tile's coordinate system, or tileset's coordinate system in the case of the root tile.
+The `transform` property is a 4x4 affine transformation matrix, stored in column-major order, that transforms from the tile's local coordinate system to the parent tile's coordinate system, or tileset's coordinate system in the case of the root tile.
 
 The `transform` property applies to:
 * `tile.content`
    * Each feature's position.
    * Each feature's normal should be transformed by the top-left 3x3 matrix of the inverse-transpose of `transform` to account for [correct vector transforms when scale is used](http://www.realtimerendering.com/resources/RTNews/html/rtnews1a.html#art4).
    * `content.boundingVolume`, except when `content.boundingVolume.region` is defined, which is explicitly in WGS84 coordinates.
-* `tile.boundingVolume`, except when `tile.boundingVolume` is defined, which is explicitly in WGS84 coordinates.
-* `tile.viewerRequestVolume`, except when `tile.viewerRequestVolume` is defined, which is explicitly in WGS84 coordinates.
+* `tile.boundingVolume`, except when `tile.boundingVolume.region` is defined, which is explicitly in WGS84 coordinates.
+* `tile.viewerRequestVolume`, except when `tile.viewerRequestVolume.region` is defined, which is explicitly in WGS84 coordinates.
 
 The `transform` property does not apply to `geometricError`, i.e., the scale defined by `transform` does not scale the geometric error; the geometric error is always defined in meters.
 
@@ -195,7 +195,7 @@ When `transform` is not defined, it defaults to the identity matrix:
 ]
 ```
 
-The transformation from each tile's local coordinate to the tileset's global coordinate system is computed by a top-down traversal of the tileset and post-multiplying a child's `transform` with its parent like a traditional scene graph or node hierarchy in computer graphics.
+The transformation from each tile's local coordinate to the tileset's global coordinate system is computed by a top-down traversal of the tileset and post-multiplying a child's `transform` with its parent's `transform` like a traditional scene graph or node hierarchy in computer graphics.
 
 The following JavaScript code shows how to compute this using Cesium's [Matrix4](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix4.js) and [Matrix3](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix3.js) types.
 
@@ -205,36 +205,36 @@ var stack = [];
 var t = rootTile; // root tile of 3D Tiles tileset
 stack.push({
     tile : t,
-    transformToRoot : Matrix4.fromArray(t.transform)
+    transformToRoot : defined(t.transform) ? Matrix4.fromArray(t.transform) : Matrix4.IDENTITY;
 });
 
 while (stack.length > 0) {
-    var element = stack.pop();
-    t = element.tile;
+    var tt = stack.pop();
+    t = tt.tile;
 
-    var transformToRoot = element.transformToRoot;
-    // Apply 4x4 transformToRoot to positions and bounding volumes
+    var transformToRoot = tt.transformToRoot;
+    // Apply 4x4 transformToRoot to this tile's positions and bounding volumes
 
     var inverseTransform = Matrix4.inverse(transformToRoot, new Matrix4());
     var normalTransform = Matrix4.getRotation(inverseTransform, new Matrix3());
     normalTransform = Matrix3.transpose(normalTransform, normalTransform);
-    // Apply 3x3 normalTransform to normals
+    // Apply 3x3 normalTransform to this tile's normals
 
     var children = t.children;
     var length = children.length;
     for (var k = 0; k < length; ++k) {
         var child = children[k];
-        var childTransformToRoot = Matrix4.fromArray(child.transform);
-        childTransformToRoot = Matrix4.multiplyTransformation(transformToRoot, childTransformToRoot, childTransformToRoot);
+        var childToRoot = defined(child.transform) ? Matrix4.fromArray(child.transform) : Matrix4.IDENTITY;
+        childToRoot = Matrix4.multiplyTransformation(transformToRoot, childToRoot, childToRoot);
         stack.push({
             tile : child,
-            transformToRoot : childTransformToRoot
+            transformToRoot : childToRoot
         });        
     }
 }
 ```
 
-For an example of the computed transforms (`transformToRoot` in the code above), consider the following tileset:
+For an example of the computed transforms (`transformToRoot` in the code above) for a tileset, consider:
 
 ![](figures/tileTransform.png)
 
@@ -245,17 +245,17 @@ The computed transform for each tile is:
 * `T3`: `[T0][T1][T3]`
 * `T4`: `[T0][T1][T4]`
 
-The positions and normals in a tile's content may have tile-specific transformations applied to them _before_ the tile's `transform`.  Some examples, including:
+The positions and normals in a tile's content may also have tile-specific transformations applied to them _before_ the tile's `transform` (before indicates post-multiplying for affine transformations).  Some examples are:
 * `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy, where each node has a transform.  These are applied before `tile.transform`.
-* `i3dm`'s Feature Table defines per-instance position, normals, and scales.  These are used to create a 4x4 transform matrix that are applied to each tile before `tile.transform`.
+* `i3dm`'s Feature Table defines per-instance position, normals, and scales.  These are used to create per-instance 4x4 affine transform matrices that are applied to each instance before `tile.transform`.
 * Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm`, `pnts`, and `vctr`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
 
-Therefore, the full computed transform for the above example are:
+Therefore, the full computed transforms for the above example are:
 * `TO`: `[T0]`
 * `T1`: `[T0][T1]`
 * `T2`: `[T0][T2][pnts-specific Feature Table properties-derived transform]`
 * `T3`: `[T0][T1][T3][b3dm-specific transform, including the the glTF node hierarchy]`
-* `T4`: `[T0][T1][T4][i3dm-specific transform, including Feature Table properties-derived transform and the glTF node hierarchy]`
+* `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance Feature Table properties-derived transform and the glTF node hierarchy]`
 
 TODO: tilesets of tilesets section
 TODO: global coordinate system
