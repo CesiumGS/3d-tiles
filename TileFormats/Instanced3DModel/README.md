@@ -236,6 +236,8 @@ When the value of `header.gltfFormat` is `1`, the glTF field is
 
 In either case, `header.gltfByteLength` contains the length of the glTF field in bytes.
 
+If the glTF asset is embedded, it must be 8-byte aligned so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
+
 ## File Extension
 
 `.i3dm`
