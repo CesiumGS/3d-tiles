@@ -215,7 +215,7 @@ function computeTransforms(tileset) {
     var t = tileset.root;
     var transformToRoot = defined(t.transform) ? Matrix4.fromArray(t.transform) : Matrix4.IDENTITY;
 
-    computeTransforms(t, transformToRoot);
+    computeTransform(t, transformToRoot);
 }
 
 function computeTransform(tile, transformToRoot) {
@@ -230,7 +230,7 @@ function computeTransform(tile, transformToRoot) {
     var length = children.length;
     for (var k = 0; k < length; ++k) {
         var child = children[k];
-        var childToRoot = defined(child.transform) ? Matrix4.fromArray(child.transform) : Matrix4.IDENTITY;
+        var childToRoot = defined(child.transform) ? Matrix4.fromArray(child.transform) : Matrix4.clone(Matrix4.IDENTITY);
         childToRoot = Matrix4.multiplyTransformation(transformToRoot, childToRoot, childToRoot);
         computeTransform(child, childToRoot);
     }
