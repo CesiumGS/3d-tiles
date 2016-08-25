@@ -70,4 +70,4 @@ In JavaScript, a `TypedArray` cannot be created on data unless it is byte-aligne
 For example, a `Float32Array` must be stored in memory such that its data begins on a byte multiple of four since each `float` contains four bytes.
 
 The string generated from the JSON header should be padded with space characters in order to ensure that the binary body is byte-aligned.
-The binary body should also be padded if necessary when there is data following the Feature Table.
+The binary body should also be padded to a multiple of eight bytes so that any data following it will be byte aligned.
