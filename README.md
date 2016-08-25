@@ -195,14 +195,71 @@ When `transform` is not defined, it defaults to the identity matrix:
 ]
 ```
 
+The transformation from each tile's local coordinate to the tileset's global coordinate system is computed by a top-down traversal of the tileset and post-multiplying a child's `transform` with its parent like a traditional scene graph or node hierarchy in computer graphics.
+
+The following JavaScript code shows how to compute this using Cesium's [Matrix4](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix4.js) and [Matrix3](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix3.js) types.
+
+```javascript
+var stack = [];
+
+var t = rootTile; // root tile of 3D Tiles tileset
+stack.push({
+    tile : t,
+    transformToRoot : Matrix4.fromArray(t.transform)
+});
+
+while (stack.length > 0) {
+    var element = stack.pop();
+    t = element.tile;
+
+    var transformToRoot = element.transformToRoot;
+    // Apply 4x4 transformToRoot to positions and bounding volumes
+
+    var inverseTransform = Matrix4.inverse(transformToRoot, new Matrix4());
+    var normalTransform = Matrix4.getRotation(inverseTransform, new Matrix3());
+    normalTransform = Matrix3.transpose(normalTransform, normalTransform);
+    // Apply 3x3 normalTransform to normals
+
+    var children = t.children;
+    var length = children.length;
+    for (var k = 0; k < length; ++k) {
+        var child = children[k];
+        var childTransformToRoot = Matrix4.fromArray(child.transform);
+        childTransformToRoot = Matrix4.multiplyTransformation(transformToRoot, childTransformToRoot, childTransformToRoot);
+        stack.push({
+            tile : child,
+            transformToRoot : childTransformToRoot
+        });        
+    }
+}
+```
+
+For an example of the computed transforms (`transformToRoot` in the code above), consider the following tileset:
+
+![](figures/tileTransform.png)
+
+The computed transform for each tile is:
+* `TO`: `[T0]`
+* `T1`: `[T0][T1]`
+* `T2`: `[T0][T2]`
+* `T3`: `[T0][T1][T3]`
+* `T4`: `[T0][T1][T4]`
+
 The positions and normals in a tile's content may have tile-specific transformations applied to them _before_ the tile's `transform`.  Some examples, including:
 * `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy, where each node has a transform.  These are applied before `tile.transform`.
 * `i3dm`'s Feature Table defines per-instance position, normals, and scales.  These are used to create a 4x4 transform matrix that are applied to each tile before `tile.transform`.
 * Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm`, `pnts`, and `vctr`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
 
-TODO: examples of the above.
-TODO: example of top down building matrix.
-TODO: diagram?
+Therefore, the full computed transform for the above example are:
+* `TO`: `[T0]`
+* `T1`: `[T0][T1]`
+* `T2`: `[T0][T2][pnts-specific Feature Table properties-derived transform]`
+* `T3`: `[T0][T1][T3][b3dm-specific transform, including the the glTF node hierarchy]`
+* `T4`: `[T0][T1][T4][i3dm-specific transform, including Feature Table properties-derived transform and the glTF node hierarchy]`
+
+TODO: tilesets of tilesets section
+TODO: global coordinate system
+TODO: z up?
 
 ### Viewer request volume
 
