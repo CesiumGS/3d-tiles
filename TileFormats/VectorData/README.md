@@ -66,10 +66,10 @@ Multiple geometry types may be defined in a single Vector tile using multiple `L
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `POLYGON_COUNT` | `uint32` | The number of points that belong to each polygon. This refers to `POLYGON_INDICES` if it is defined, otherwise it refers to `POSITION`. | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is not defined. |
+| `POLYGON_COUNT` | `uint32` | The number of points that belong to each polygon. This refers to `POLYGON_INDICES` if it is defined, otherwise it refers to `POSITION` or `POSITION_QUANTIZED`. | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is not defined. |
 | `POLYGON_INDICES` | `uint32` | An index into the `POSITION` or `POSITION_QUANTIZED` array. | :red_circle: No. |
 | `POLYGON_BATCH_ID` | `uint16` | The `batchId` of the polygon that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
-| `POLYLINE_COUNT` | `uint32` | The number of points that belong to each polyline. This refers to `POLYLINE_INDICES` if it is defined, otherwise it refers to `POLYGON_POSITION`. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is not defined. |
+| `POLYLINE_COUNT` | `uint32` | The number of points that belong to each polyline. This refers to `POLYLINE_INDICES` if it is defined, otherwise it refers to `POSITION`  or `POSITION_QUANTIZED`. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is not defined. |
 | `POLYLINE_INDICES` | `uint32` | An index into the `POSITION` or `POSITION_QUANTIZED` array. | :red_circle: No. |
 | `POLYLINE_BATCH_ID` | `uint16` | The `batchId` of the polyline that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
 | `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for positions. If an `INDICES` semantic is not defined, these values are used to create the geometry in order. | :white_check_mark: Yes, unles  `POSITION_QUANTIZED` is defined. |
