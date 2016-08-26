@@ -124,7 +124,7 @@ Quantized positions can be mapped to model space using the formula:
 
 The `CLAMP_TO_GROUND` semantic is a flag declaring that the geometry in the vector tile should be projected onto a surface.
 This is usually the WGS84 ellipsoid, but could also be custom terrain data.
-With this flag enabled, the Cartesian x, y, and z coordinates should be mapped to the longitude and latitude of the surface.
+With this flag enabled, the Cartesian `x`, `y`, and `z` coordinates should be mapped to the longitude and latitude of the surface.
 
 The `MINIMUM_HEIGHT` and `MAXIMUM_HEIGHT` semantics place bounds on the height from the surface for the projection. 
 For example, `MINIMUM_HEIGHT` could be set to `10.0` to have the rendered vector graphics float uniformly `10.0` units off of a flat surface.
@@ -140,13 +140,13 @@ In this example, four features are defined, a line, two triangles connected to e
 
 **Figure 2**: Example polyline plot.
 
-![vector polyline plot](figure/vector-polyline-plot.png)
+![vector polyline plot](figures/vector-polyline-plot.png)
 
 A data layout using indices is shown in Figure 3. This is typically the best approach since duplicate points do not need to have their data repeated.
 
 **Figure 3**: Example polyline data layout.
 
-![vector polyline diagram](figure/vector-polyline-diagram.png)
+![vector polyline diagram](figures/vector-polyline-diagram.png)
 
 A feature table can also be easily generated for this example.
 
