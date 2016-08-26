@@ -8,9 +8,9 @@
 
 ## Overview
 
-The _Vector_ tile format allows streaming of vector graphics data like polygons and polylines. 
+The _Vector_ tile format allows streaming of vector datasets including points, polylines, and polygons.  Points can be represented with a combination of billboard, label, and point graphics primitives.
 
-Each vector graphics element is a _feature_ in the core 3D Tiles spec language. 
+Each point, poyline, and polygon is a _feature_ in the 3D Tiles specification language. 
 
 ## Layout
 
@@ -27,7 +27,7 @@ The 28-byte header contains the following fields:
 | Field name | Data type | Description |
 | --- | --- | --- |
 | `magic` | 4-byte ANSI string | `"vctr"`. This can be used to identify the arraybuffer as a Vector tile. |
-| `version` | `uint32` | The version of the Instanced 3D Model format. It is currently `1`. |
+| `version` | `uint32` | The version of the Vector Data format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
 | `featureTableJSONByteLength` | `uint32` | The length of the feature table JSON section in bytes. |
 | `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
@@ -39,13 +39,12 @@ If `featureTableJSONByteLength` equals zero, the tile does not need to be render
 The body section immediately follows the header section, and is composed of two fields: `Feature Table` and `Batch Table`.
 
 Code for reading the header can be found in
-[Vector3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Instanced3DModel3DTileContent.js)
+[Vector3DModelTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Vector3DModelTileContent.js)
 in the Cesium implementation of 3D Tiles.
 
 ## Feature Table
 
-Contains values for `vctr` semantics used to create vector elements.
-More information is available in the [Feature Table specification](../FeatureTable).
+Contains values for `vctr` semantics used to render features.  The general layout of a Feature Table is described in the [Feature Table specification](../FeatureTable).
 
 The `vctr` Feature Table JSON schema is defined in [vctr.featureTable.schema.json](../../schema/vctr.featureTable.schema.json).
 
@@ -53,14 +52,14 @@ TODO: Write schema after this gets looked over a bit.
 
 ### Semantics
 
-If a semantic has a dependency on another semantic, that semantic must be defined.
+If a semantic has a dependency on another semantic, that semantic must be defined as well.
 If both `POSITION` and `POSITION_QUANTIZED` are defined, the higher precision `POSITION` will be used.
-Per-feature semantics specific to a vector geometry type are prefixed with the name of the geometry type. e.g. `POLYGON` for polygons and `POLYLINE` for polylines.
+Per-feature semantics specific to a feature type are prefixed with the name of the feature type. e.g. `POLYGON` for polygons and `POLYLINE` for polylines.
 
 At least one global `LENGTH` semantic must be defined. 
 If `POLYGONS_LENGTH` is not defined, or zero, no polygons will be rendered. 
-If `POLYLINES_LENGTH` is not defined, or zero, no polylines will be rendered.
-Multiple geometry types may be defined in a single Vector tile using multiple `LENGTH` semantics, and in that case, all specified geometry types will be rendered.
+Likewise, if `POLYLINES_LENGTH` is not defined, or zero, no polylines will be rendered.
+Multiple feature types may be defined in a single Vector tile using multiple `LENGTH` semantics, and in that case, all specified feature types will be rendered.
 
 #### Vector Semantics
 
@@ -72,8 +71,8 @@ Multiple geometry types may be defined in a single Vector tile using multiple `L
 | `POLYLINE_COUNT` | `uint32` | The number of points that belong to each polyline. This refers to `POLYLINE_INDICES` if it is defined, otherwise it refers to `POSITION`  or `POSITION_QUANTIZED`. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is not defined. |
 | `POLYLINE_INDICES` | `uint32` | An index into the `POSITION` or `POSITION_QUANTIZED` array. | :red_circle: No. |
 | `POLYLINE_BATCH_ID` | `uint16` | The `batchId` of the polyline that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
-| `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for positions. If an `INDICES` semantic is not defined, these values are used to create the geometry in order. | :white_check_mark: Yes, unles  `POSITION_QUANTIZED` is defined. |
-| `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y` and `z` in quantized Cartesian coordinates for positions. If an `INDICES` semantic is not defined, these values are used to create the geometry in order. | :white_check_mark: Yes, unless `POSITION` is defined. |
+| `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for positions. If an `INDICES` semantic is not defined, these values are used to create the feature in order. | :white_check_mark: Yes, unles  `POSITION_QUANTIZED` is defined. |
+| `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y` and `z` in quantized Cartesian coordinates for positions. If an `INDICES` semantic is not defined, these values are used to create the feature in order. | :white_check_mark: Yes, unless `POSITION` is defined. |
 
 #### Global Semantics
 
@@ -81,25 +80,25 @@ The semantics define global properties for all vector elements.
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `POLYGONS_LENGTH` | `uint32` | The number of polygons to generate. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is defined. |
-| `POLYLINES_LENGTH` | `uint32` | The number of polylines to generate. | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is defined. |
+| `POLYGONS_LENGTH` | `uint32` | The number of polygons in the tile. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is defined. |
+| `POLYLINES_LENGTH` | `uint32` | The number of polylines in the tile. | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is defined. |
 | `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when point positions are defined relative-to-center. | :red_circle: No. |
 | `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 | `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
-| `CLAMP_TO_GROUND` | `bool` | A boolean flag declaring that the vector geometry should be projected onto an application-specific surface. `false` by default. | :red_circle: No. |
-| `MINIMUM_HEIGHT` | `float32` | The minimum height to allow when projecting the vector geometry onto a surface. | :red_circle: No. |
-| `MAXIMUM_HEIGHT` | `float32` | The maximum height to allow when projecting the vector geometry onto a surface. | :red_circle: No. |
+| `CLAMP_TO_GROUND` | `bool` | A boolean flag declaring that the feature should be projected onto an application-specific surface. `false` by default. | :red_circle: No. |
+| `MINIMUM_HEIGHT` | `float32` | The minimum terrain height for this tiles' region in meters above the WGS84 ellipsoid. | :red_circle: No. |
+| `MAXIMUM_HEIGHT` | `float32` | The maximum terrain height for this tiles' region in meters above the WGS84 ellipsoid. | :red_circle: No. |
 
 Examples using these semantics can be found in the [examples section](#examples).
 
 ### Positions
 
-Vector geometry is generated using the same procedure for both polygons and polylines. 
+Features are generated using the same procedure for both polygons and polylines. 
 
-Vector geometry is generated as features using the data included in the Feature Table. 
+Features are generated using the data included in the Feature Table. 
 The `POLYGONS_LENGTH` semantic defines the length of the `POLYGON_COUNT` array.
 The `POLYLINES_LENGTH` semantic defines the length of the `POLYLINE_COUNT` array.
-`COUNT` defines how many points to sequentially read and add to a geometry before creating a new one.
+`COUNT` defines how many points to sequentially read and add to a feature before creating a new one.
 Points are read using `INDICES` to retrieve positions by index, if it is defined. 
 
 `POSITION` may be defined relative to a center point using the global semantic `RTC_CENTER` for high-precision rendering [4].
@@ -122,7 +121,7 @@ Quantized positions can be mapped to model space using the formula:
 
 ### Clamping to Ground
 
-The `CLAMP_TO_GROUND` semantic is a flag declaring that the geometry in the vector tile should be projected onto a surface.
+The `CLAMP_TO_GROUND` semantic is a flag declaring that the feature in the vector tile should be projected onto a surface.
 This is usually the WGS84 ellipsoid, but could also be custom terrain data.
 With this flag enabled, the Cartesian `x`, `y`, and `z` coordinates should be mapped to the longitude and latitude of the surface.
 
