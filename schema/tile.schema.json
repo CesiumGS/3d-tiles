@@ -26,7 +26,7 @@
         },
         "transform" : {
             "type" : "array",
-            "description" : "A floating-point 4x4 transformation matrix, stored in column-major order, that transforms the tile's content, i.e., its features and content.boundingVolume, and boundingVolume and viewerRequestVolume from the tile's local coordinate system to the parent tile's coordinate system, or tileset's coordinate system in the case of the root tile.  transform does not apply to geometricError nor does it apply any volume property when the volume is a region, which is defined in WGS84.",
+            "description" : "A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content, i.e., its features and content.boundingVolume, and boundingVolume and viewerRequestVolume from the tile's local coordinate system to the parent tile's coordinate system, or tileset's coordinate system in the case of the root tile.  transform does not apply to geometricError nor does it apply any volume property when the volume is a region, which is defined in WGS84.",
             "items" : {
                 "type": "number"
             },
