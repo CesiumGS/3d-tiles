@@ -36,6 +36,8 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * [Spec status](#spec-status)
 * [Introduction](#introduction)
 * [Tile metadata](#tile-metadata)
+   * [Coordinate System and Units](#coordinate-system-and-units)
+   * [Tile transform](#tile-transform)
    * [Viewer request volume](#viewer-request-volume)
 * [tileset.json](#tilesetjson)
    * [External tilesets](#external-tilesets)
@@ -144,11 +146,11 @@ The metadata for each tile - not the actual contents - are defined in JSON.  For
   "children": [...]
 }
 ```
-The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.  Besides `region`, other bounding volumes, such as `box` and `sphere`, may be used.
+The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the [WGS84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).  Besides `region`, other bounding volumes, such as `box` and `sphere`, may be used.
 
 The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
 
-An optional `viewerRequestVolume` (not included above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
+An optional `viewerRequestVolume` property (not shown above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
 
 The `refine` property is a string that is either `"replace"` for replacement refinement or `"add"` for additive refinement.  It is required for the root tile of a tileset; it is optional for all other tiles.  When `refine` is omitted, it is inherited from the parent tile.
 
@@ -162,9 +164,101 @@ The file extension of `content.url` defines the [tile format](#tileFormats).  Th
 
 `content` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
 
+An optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
+
 `children` is an array of objects that define child tiles.  See the [section below](#tileset.json).
 
 ![](figures/tile.png)
+
+### Coordinate System and Units
+
+Like glTF, 3D Tiles use a right-handed Cartesian coordinate system, that is, the cross product of x and y yields z. Also like glTF, 3D Tiles define the y axis as up for local Cartesian coordinate systems (see the [Tile transform](#tile-transform) section).  A tileset's global coordinate system will often be [WGS84 coordinates](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for using with a modeling tool without a geospatial context.
+
+The units for all linear distances are meters.
+
+All angles are in radians.
+
+3D Tiles do not explicitly store Cartographic coordinates (longitude, latitude, and height); these values are implicit in WGS84 coordinates, which are efficient for the GPU to render since they do not require a non-affine coordinate transformation.  A 3D Tiles tileset can include application-specific metadata, such as Cartographic coordinates, but the semantics are not part of the 3D Tiles specification.
+
+### Tile transform
+
+To support local coordinate systems, e.g., so a building tileset inside a city tileset can be defined in its own coordinate system, and a point cloud tileset inside the building could, again, be defined in its own coordinate system, each tile has an optional `transform` property.
+
+The `transform` property is a 4x4 affine transformation matrix, stored in column-major order, that transforms from the tile's local coordinate system to the parent tile's coordinate system, or tileset's coordinate system in the case of the root tile.
+
+The `transform` property applies to:
+* `tile.content`
+   * Each feature's position.
+   * Each feature's normal should be transformed by the top-left 3x3 matrix of the inverse-transpose of `transform` to account for [correct vector transforms when scale is used](http://www.realtimerendering.com/resources/RTNews/html/rtnews1a.html#art4).
+   * `content.boundingVolume`, except when `content.boundingVolume.region` is defined, which is explicitly in [WGS84 coordinates](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).
+* `tile.boundingVolume`, except when `tile.boundingVolume.region` is defined, which is explicitly in WGS84 coordinates.
+* `tile.viewerRequestVolume`, except when `tile.viewerRequestVolume.region` is defined, which is explicitly in WGS84 coordinates.
+
+The `transform` property does not apply to `geometricError`, i.e., the scale defined by `transform` does not scale the geometric error; the geometric error is always defined in meters.
+
+When `transform` is not defined, it defaults to the identity matrix:
+```json
+[
+1.0, 0.0, 0.0, 0.0,
+0.0, 1.0, 0.0, 0.0,
+0.0, 0.0, 1.0, 0.0,
+0.0, 0.0, 0.0, 1.0
+]
+```
+
+The transformation from each tile's local coordinate to the tileset's global coordinate system is computed by a top-down traversal of the tileset and post-multiplying a child's `transform` with its parent's `transform` like a traditional scene graph or node hierarchy in computer graphics.
+
+The following JavaScript code shows how to compute this using Cesium's [Matrix4](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix4.js) and [Matrix3](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix3.js) types.
+
+```javascript
+function computeTransforms(tileset) {
+    var t = tileset.root;
+    var transformToRoot = defined(t.transform) ? Matrix4.fromArray(t.transform) : Matrix4.IDENTITY;
+
+    computeTransform(t, transformToRoot);
+}
+
+function computeTransform(tile, transformToRoot) {
+    // Apply 4x4 transformToRoot to this tile's positions and bounding volumes
+
+    var inverseTransform = Matrix4.inverse(transformToRoot, new Matrix4());
+    var normalTransform = Matrix4.getRotation(inverseTransform, new Matrix3());
+    normalTransform = Matrix3.transpose(normalTransform, normalTransform);
+    // Apply 3x3 normalTransform to this tile's normals
+
+    var children = tile.children;
+    var length = children.length;
+    for (var k = 0; k < length; ++k) {
+        var child = children[k];
+        var childToRoot = defined(child.transform) ? Matrix4.fromArray(child.transform) : Matrix4.clone(Matrix4.IDENTITY);
+        childToRoot = Matrix4.multiplyTransformation(transformToRoot, childToRoot, childToRoot);
+        computeTransform(child, childToRoot);
+    }
+}
+```
+
+For an example of the computed transforms (`transformToRoot` in the code above) for a tileset, consider:
+
+![](figures/tileTransform.png)
+
+The computed transform for each tile is:
+* `TO`: `[T0]`
+* `T1`: `[T0][T1]`
+* `T2`: `[T0][T2]`
+* `T3`: `[T0][T1][T3]`
+* `T4`: `[T0][T1][T4]`
+
+The positions and normals in a tile's content may also have tile-specific transformations applied to them _before_ the tile's `transform` (before indicates post-multiplying for affine transformations).  Some examples are:
+* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy, where each node has a transform.  These are applied before `tile.transform`.
+* `i3dm`'s Feature Table defines per-instance position, normals, and scales.  These are used to create per-instance 4x4 affine transform matrices that are applied to each instance before `tile.transform`.
+* Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm`, `pnts`, and `vctr`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
+
+Therefore, the full computed transforms for the above example are:
+* `TO`: `[T0]`
+* `T1`: `[T0][T1]`
+* `T2`: `[T0][T2][pnts-specific Feature Table properties-derived transform]`
+* `T3`: `[T0][T1][T3][b3dm-specific transform, including the glTF node hierarchy]`
+* `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance Feature Table properties-derived transform and the glTF node hierarchy]`
 
 ### Viewer request volume
 
@@ -281,16 +375,20 @@ See the [Q&A below](#Will-tileset.json-be-part-of-the-final-3D-Tiles-spec) for h
 
 To create a tree of trees, a tile's `content.url` can point to an external tileset (another tileset.json).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
 
+![](figures/tilesets.jpg)
+
 When a tile points to an external tileset, the tile
 
 * Cannot have any children, `tile.children` must be `undefined` or an empty array.
-* Is semantically the same as the external tileset's root tile so
+* Has several properties that match the external tileset's root tile:
     * `root.geometricError === tile.geometricError`,
     * `root.refine === tile.refine`, and
     * `root.boundingVolume === tile.content.boundingVolume` (or `root.boundingVolume === tile.boundingVolume` when `tile.content.boundingVolume` is `undefined`).
+    * `root.viewerRequestVolume === tile.viewerRequestVolume` or `root.viewerRequestVolume` is `undefined`.
 * Cannot be used to create cycles, for example, by pointing to the same tileset.json containing the tile or by pointing to another tileset.json that then points back to the tileset.json containing the tile.
+* Both the tile's `transform` and root tile's `transform` are applied.  For example, in the following tileset referencing an external tileset, the computed transform for `T3` is `[T0][T1][T2][T3]`.
 
-![](figures/tilesets.jpg)
+![](figures/tileTransformExternalTileset.png)
 
 ### Bounding volume spatial coherence
 
