@@ -81,8 +81,8 @@ The semantics define global properties for all vector elements.
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `POLYGONS_LENGTH` | `uint32` | The number of polygons to generate. The length of each array value for a `POLYGON` semantic should be equal to this. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is defined. |
-| `POLYLINES_LENGTH` | `uint32` | The number of polylines to generate. The length of each array value for a `POLYLINE` semantic should be equal to this. | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is defined. |
+| `POLYGONS_LENGTH` | `uint32` | The number of polygons to generate. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is defined. |
+| `POLYLINES_LENGTH` | `uint32` | The number of polylines to generate. | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is defined. |
 | `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when point positions are defined relative-to-center. | :red_circle: No. |
 | `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 | `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
