@@ -1,6 +1,7 @@
 {
-    "$schema" : "http://json-schema.org/draft-03/schema",
-    "title" : "boundingVolume",
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "boundingVolume.schema.json",
+    "title" : "Bounding Volume",
     "type" : "object",
     "description" : "A bounding volume that encloses a tile or its contents.  Exactly one property is required.",
     "properties" : {
@@ -32,5 +33,12 @@
             "maxItems" : 4
         }
     },
+    "oneOf" : [{
+        "required" : ["box"]
+    }, {
+        "required" : ["region"]
+    }, {
+        "required" : ["sphere"]
+    }],
     "additionalProperties" : false
 }

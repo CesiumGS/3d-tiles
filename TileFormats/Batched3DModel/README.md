@@ -79,6 +79,8 @@ address[1] = {street : 'Main Street', houseNumber : '2'};
 
 Binary glTF immediately follows the batch table.  It begins `20 + batchTableByteLength` bytes from the start of the arraybuffer and continues for the rest of arraybuffer.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
+The glTF asset must be 8-byte aligned so that glTF's byte-alignment guarantees are met. This can be done by padding the Batch Table if it is present.
+
 As described above, each vertex has a `batchId` attribute indicating the model to which it belongs.  For example, vertices for a batch with three models may look like this:
 ```
 batchId:  [0,   0,   0,   ..., 1,   1,   1,   ..., 2,   2,   2,   ...]

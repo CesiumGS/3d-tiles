@@ -50,20 +50,23 @@ in the Cesium implementation of 3D Tiles.
 ## Feature Table
 
 Contains values for `i3dm` semantics used to create instanced models.
-[//]: # "TODO: Change this link to the feature table specification URL"
+More information is available in the [Feature Table specification](../FeatureTable).
+
+The `i3dm` Feature Table JSON Schema is defined in [i3dm.featureTable.schema.json](../../schema/i3dm.featureTable.schema.json).
 
 ### Semantics
 
 #### Instance Semantics
 
 These semantics map to an array of feature values that are used to create instances. The length of these arrays must be the same for all semantics and is equal to the number of instances.
+The value for each instance semantic must be a reference to the Feature Table Binary Body; they cannot be embedded in the Feature Table JSON Header.
 
 If a semantic has a dependency on another semantic, that semantic must be defined.
 If both `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scaling operations will be applied.
 If both `POSITION` and `POSITION_QUANTIZED` are defined for an instance, the higher precision `POSITION` will be used.
 If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` are defined for an instance, the higher precision `NORMAL_UP`, and `NORMAL_RIGHT` will be used.
 
-| Semantic | Data Type  | Description | Required |
+| Semantic | Data Type | Description | Required | 
 | --- | --- | --- | --- | --- |
 | `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, unless `POSITION_QUANTIZED` is defined. |
 | `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, unless `POSITION` is defined. |
@@ -232,6 +235,8 @@ When the value of `header.gltfFormat` is `1`, the glTF field is
 * a binary blob containing binary glTF.
 
 In either case, `header.gltfByteLength` contains the length of the glTF field in bytes.
+
+If the glTF asset is embedded, it must be 8-byte aligned so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
 ## File Extension
 
