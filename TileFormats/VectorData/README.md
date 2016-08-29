@@ -85,7 +85,6 @@ The semantics define global properties for all vector elements.
 | `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when point positions are defined relative-to-center. | :red_circle: No. |
 | `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 | `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
-| `CLAMP_TO_GROUND` | `bool` | A boolean flag declaring that the feature should be projected onto an application-specific surface. `false` by default. | :red_circle: No. |
 | `MINIMUM_HEIGHT` | `float32` | The minimum terrain height for this tiles' region in meters above the WGS84 ellipsoid. | :red_circle: No. |
 | `MAXIMUM_HEIGHT` | `float32` | The maximum terrain height for this tiles' region in meters above the WGS84 ellipsoid. | :red_circle: No. |
 
@@ -93,15 +92,13 @@ Examples using these semantics can be found in the [examples section](#examples)
 
 ### Positions
 
-Features are generated using the same procedure for both polygons and polylines. 
-
-Features are generated using the data included in the Feature Table. 
+Features are defined in the Feature Table. 
 The `POLYGONS_LENGTH` semantic defines the length of the `POLYGON_COUNT` array.
-The `POLYLINES_LENGTH` semantic defines the length of the `POLYLINE_COUNT` array.
+Likewise, the `POLYLINES_LENGTH` semantic defines the length of the `POLYLINE_COUNT` array.
 `COUNT` defines how many points to sequentially read and add to a feature before creating a new one.
 Points are read using `INDICES` to retrieve positions by index, if it is defined. 
 
-`POSITION` may be defined relative to a center point using the global semantic `RTC_CENTER` for high-precision rendering [4].
+`POSITION` may be defined relative to a center point using the global semantic `RTC_CENTER` for high-precision rendering  [2].
 
 #### Quantized Positions
 
@@ -118,17 +115,6 @@ If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.
 Quantized positions can be mapped to model space using the formula:
 
 `POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE / 65535.0 + QUANTIZED_VOLUME_OFFSET`
-
-### Clamping to Ground
-
-The `CLAMP_TO_GROUND` semantic is a flag declaring that the feature in the vector tile should be projected onto a surface.
-This is usually the WGS84 ellipsoid, but could also be custom terrain data.
-With this flag enabled, the Cartesian `x`, `y`, and `z` coordinates should be mapped to the longitude and latitude of the surface.
-
-The `MINIMUM_HEIGHT` and `MAXIMUM_HEIGHT` semantics place bounds on the height from the surface for the projection. 
-For example, `MINIMUM_HEIGHT` could be set to `10.0` to have the rendered vector graphics float uniformly `10.0` units off of a flat surface.
- 
-This behavior is disabled by default, but is useful for rendering things like roads and borders onto a globe.
 
 ### Examples
 
