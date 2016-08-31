@@ -1,0 +1,37 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema#",
+    "id" : "batchTable.schema.json",
+    "title" : "Batch Table",
+    "type" : "object",
+    "description" : "A set of properties defining application-specific metadata for features in a tile.",
+    "patternProperties" : {
+        ".*" : {
+            "properties" : {
+                "byteOffset" : {
+                    "type" : "integer",
+                    "minimum" : 0
+                },
+                "componentType" : {
+                    "type" : "string",
+                    "enum" : ["BYTE", "UNSIGNED_BYTE", "SHORT", "UNSIGNED_SHORT", "INT", "UNSIGNED_INT", "FLOAT", "DOUBLE"]
+                },
+                "type" : {
+                    "type" : "string",
+                    "enum" : ["SCALAR", "VEC2", "VEC3", "VEC4", "MAT2", "MAT3", "MAT4"]
+                }
+            }
+        }
+    },
+    "definitions" : {
+        "binaryBodyReference" : {
+            "type" : "object",
+            "required" : ["byteOffset", "componentType", "type"]
+        },
+        "numericArray" : {
+            "type" : "array",
+            "items" : {
+                "type" : {}
+            }
+        }
+    }
+}

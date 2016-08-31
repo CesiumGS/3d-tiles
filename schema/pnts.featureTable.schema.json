@@ -26,6 +26,9 @@
             "NORMAL_OCT16P" : {
                 "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
             },
+            "BATCH_ID" : {
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+            },
             "POINTS_LENGTH" : {
                 "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
             },
@@ -40,6 +43,9 @@
             },
             "CONSTANT_RGBA" : {
                 "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+            },
+            "BATCH_LENGTH" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
             }
         },
         "anyOf" : [{
@@ -51,6 +57,9 @@
             "POSITION_QUANTIZED" : [
                 "QUANTIZED_VOLUME_OFFSET",
                 "QUANTIZED_VOLUME_SCALE"
+            ],
+            "BATCH_ID" : [
+                "BATCH_LENGTH"
             ]
         },
         "required" : ["POINTS_LENGTH"],

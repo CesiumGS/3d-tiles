@@ -23,7 +23,7 @@ A tile is composed of a header section immediately followed by a body section.
 
 ## Header
 
-The 20-byte header contains the following fields:
+The 28-byte header contains the following fields:
 
 | Field name | Data type | Description |
 | --- | --- | --- |
@@ -32,17 +32,19 @@ The 20-byte header contains the following fields:
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
 | `featureTableJSONByteLength` | `uint32` | The length of the feature table JSON section in bytes. |
 | `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
+| `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates that there is no batch table. |
+| `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
 
 If `featureTableJSONByteLength` equals zero, the tile does not need to be rendered.
 
-The body section immediately follows the header section, and is composed of a `Feature Table`.
+The body section immediately follows the header section, and is composed of a `Feature Table` and `Batch Table`.
 
-Code for reading the header can be found in [Points3DModelTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Points3DTileContent.js) in the Cesium implementation of 3D Tiles.
+Code for reading the header can be found in [PointCloud3DModelTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/PointCloud3DTileContent.js) in the Cesium implementation of 3D Tiles.
 
 ## Feature Table
 
 Contains per-tile and per-point values that define where and how to render points.
-More information is available in the [Feature Table specification](../FeatureTable).
+More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
 The `pnts` Feature Table JSON Schema is defined in [pnts.featureTable.schema.json](../../schema/pnts.featureTable.schema.json).
 
@@ -65,6 +67,7 @@ If both `NORMAL` and `NORMAL_OCT16P` are defined for a point, the higher precisi
 | `RGB` | `uint8[3]` | A 3-component array of values containing the `RGB` color of the point. | :red_circle: No. |
 | `NORMAL` | `float32[3]`| A unit vector defining the normal of the point. | :red_circle: No. |
 | `NORMAL_OCT16P` | `uint8[2]` | An oct-encoded unit vector with 16-bits of precision defining the normal of the point. | :red_circle: No. |
+| `BATCH_ID` | `uint8`, `unit16` (default), or `uint32` | The `batchId` of the point that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
 
 #### Global Semantics
 
@@ -77,6 +80,7 @@ These semantics define global properties for all points.
 | `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 | `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 | `CONSTANT_RGBA` | `uint8[4]` | A 4-component array of values defining a constant `RGBA` color for all points in the tile. | :red_circle: No. |
+| `BATCH_LENGTH` | `uint32` | The number of unique `BATCH_ID` values. | :red_circle: No, unless `BATCH_ID` is defined. |
 
 Examples using these semantics can be found in the [examples section](#examples) below.
 
@@ -119,6 +123,12 @@ The normals will be transformed using the inverse transpose of the tileset trans
 Oct-encoding is described in [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/). An implementation for encoding and decoding these unit vectors can be found in Cesium's
 [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module.
+
+### Batched Points
+
+Points that make up distinct sections of the point cloud may be batched together using the `BATCH_ID` semantic. For example, the points that make up a door in a house will all be assigned the same `BATCH_ID`, whereas points that make up a window will be assigned a different `BATCH_ID`.
+This is useful for styling and storing metadata for individual sections rather than individual points. The `BATCH_ID` semantic may have a `componentType` of `UNSIGNED_BYTE`, `UNSIGNED_SHORT`, or `UNSIGNED_INT`. When `componentType` is not present, `UNSIGNED_SHORT` is used.
+The global semantic `BATCH_LENGTH` defines the number of unique `batchId` values, similar to the `batchLength` field in the [Batched 3D Model](./Batched3DModel/README.md) header.
 
 ### Examples
 
@@ -178,7 +188,7 @@ var featureTableBinary = Buffer.concat([positionBinary, colorBinary]);
 ```
 #### Quantized Positions and Oct-Encoded Normals
 
-In this example, the 4 points will have normals pointing up `[0.0, 1.0, 0.0]` in oct-encoded format and they will be placed on the corners of a quantized volme that spans from `-250.0` to `250.0` units in the `x` and `z` directions.
+In this example, the 4 points will have normals pointing up `[0.0, 1.0, 0.0]` in oct-encoded format and they will be placed on the corners of a quantized volume that spans from `-250.0` to `250.0` units in the `x` and `z` directions.
 
 ```javascript
 var featureTableJSON = {
@@ -209,6 +219,77 @@ var normalOct16PBinary = new Buffer(new Uint8Array([
 
 var featureTableBinary = Buffer.concat([positionQuantizedBinary, normalOct16PBinary]);
 ```
+
+#### Batched Points
+
+In this example, the first two points have a `batchId` of 0, and the next two points have a `batchId` of 1. Note that the batch table only has two names.
+
+```javascript
+var featureTableJSON = {
+    POINTS_LENGTH : 4,
+    BATCH_LENGTH : 2,
+    POSITION : {
+        byteOffset : 0
+    },
+    BATCH_ID : {
+        byteOffset : 48,
+        componentType : "UNSIGNED_BYTE"
+    }
+};
+
+var positionBinary = new Buffer(new Float32Array([
+    0.0, 0.0, 0.0,
+    1.0, 0.0, 0.0,
+    0.0, 0.0, 1.0,
+    1.0, 0.0, 1.0
+]).buffer);
+
+var batchIdBinary = new Buffer(new Uint8Array([
+    0,
+    0,
+    1,
+    1
+]).buffer);
+
+var featureTableBinary = Buffer.concat([positionBinary, batchIdBinary]);
+
+var batchTableJSON = {
+    names : ['section1', 'section2']
+};
+```
+
+#### Per-point properties
+
+In this example, each of the 4 points will have metadata stored in the batch table JSON and binary.
+
+```javascript
+var featureTableJSON = {
+    POINTS_LENGTH : 4,
+    POSITION : {
+        byteOffset : 0
+    }
+};
+
+var featureTableBinary = new Buffer(new Float32Array([
+    0.0, 0.0, 0.0,
+    1.0, 0.0, 0.0,
+    0.0, 0.0, 1.0,
+    1.0, 0.0, 1.0
+]).buffer);
+
+var batchTableJSON = {
+    names : ['point1', 'point2', 'point3', 'point4']
+};
+```
+
+## Batch Table
+
+Contains metadata organized by `batchId` that can be used for declarative styling.
+If the `BATCH_ID` semantic is defined, the batch table will store metadata for each `batchId` and the length of the batch table arrays will equal `BATCH_LENGTH`.
+If the `BATCH_ID` semantic is not defined, then the batch table stores per-point metadata and the length of the batch table arrays will equal `POINTS_LENGTH`.
+
+See the [Batch Table](../BatchTable/README.md) reference for more information.
+
 ## File Extension
 
 `.pnts`
