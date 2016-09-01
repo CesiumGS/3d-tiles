@@ -89,7 +89,3 @@ Although not strictly required, clients may find the glTF [CESIUM_RTC](https://g
 _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`
-
-## Acknowledgments
-
-* Jannes Bolling, [@jbo023](https://github.com/jbo023)
