@@ -87,7 +87,7 @@ These semantics define global properties for all instances.
 | `INSTANCES_LENGTH` | `uint32` | The number of instances to generate. The length of each array value for an instance semantic should be equal to this. | :white_check_mark: Yes. |
 | `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 | `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. |:red_circle: No, unless `POSITION_QUANTIZED` is defined. |
-| `EAST_NORTH_UP` | `boolean` | When instance orientation is not defined the instance will default to the `east/north/up` reference frame's orientation on the `WGS84` ellipsoid.
+| `EAST_NORTH_UP` | `boolean` | When `true` and per-instance orientation is not defined, each instance will default to the `east/north/up` reference frame's orientation on the `WGS84` ellipsoid. | :red_circle: No. |
 
 Examples using these semantics can be found in the [examples section](#examples).
 
@@ -118,7 +118,7 @@ module.
 #### Default Orientation
 
 If `NORMAL_UP` and `NORMAL_RIGHT` or `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P` are not present,
-the instance will not have a custom orientation. If `EAST_NORTH_UP` is true the instance is assumed to be on the `WGS84` ellipsoid and its orientation will default to the `east/north/up` reference frame at its Cartographic position.
+the instance will not have a custom orientation. If `EAST_NORTH_UP` is `true` the instance is assumed to be on the `WGS84` ellipsoid and its orientation will default to the `east/north/up` reference frame at its Cartographic position.
 This is suitable for instanced models like trees whose orientation is always facing up from their position on the ellipsoid's surface.
 
 ### Instance Position
