@@ -36,7 +36,7 @@ Batch Table values can be represented in the JSON header in two different ways.
 
 1. An array of values. (e.g. `"name" : ['name1', 'name2', 'name3']` or `"height" : [10.0, 20.0, 15.0]`)
     * Array elements can be any valid JSON data type, including objects and arrays.  Elements may be `null`.
-    * The length of each array is equal to `batchLength` which is specified in each tile format.  This is the number of features in the tile.  For example, `batchLength` may be the number of models in a b3dm tile, the number of instances in a i3dm tile, or the number of points (or number of sections) in a pnts tile.
+    * The length of each array is equal to `batchLength` which is specified in each tile format.  This is the number of features in the tile.  For example, `batchLength` may be the number of models in a b3dm tile, the number of instances in a i3dm tile, or the number of points (or number of objects) in a pnts tile.
 2. A reference to data in the binary body, denoted by an object with `byteOffset`, `componentType`, and `type` properties property. (e.g. `"height" : { "byteOffset" : 24, "componentType" : "FLOAT", "type" : "SCALAR"}`).
     * `byteOffset` is a zero-based offset relative to the start of the binary body.
     * `componentType` is the datatype of components in the attribute. Allowed values are `"BYTE"`, `"UNSIGNED_BYTE"`, `"SHORT"`, `"UNSIGNED_SHORT"`, `"INT"`, `"UNSIGNED_INT"`, `"FLOAT"`, and `"DOUBLE"`.
