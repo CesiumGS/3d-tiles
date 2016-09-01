@@ -126,8 +126,10 @@ module.
 
 ### Batched Points
 
-Points that make up distinct sections of the point cloud may be batched together using the `BATCH_ID` semantic. For example, the points that make up a door in a house will all be assigned the same `BATCH_ID`, whereas points that make up a window will be assigned a different `BATCH_ID`.
-This is useful for styling and storing metadata for individual sections rather than individual points. The `BATCH_ID` semantic may have a `componentType` of `UNSIGNED_BYTE`, `UNSIGNED_SHORT`, or `UNSIGNED_INT`. When `componentType` is not present, `UNSIGNED_SHORT` is used.
+Points that make up distinct features of the point cloud may be batched together using the `BATCH_ID` semantic. For example, the points that make up a door in a house would all be assigned the same `BATCH_ID`, whereas points that make up a window would be assigned a different `BATCH_ID`.
+This is useful for per-object picking and storing application-specific metadata for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request on a per-object instead of per-point basis.
+
+The `BATCH_ID` semantic may have a `componentType` of `UNSIGNED_BYTE`, `UNSIGNED_SHORT`, or `UNSIGNED_INT`. When `componentType` is not present, `UNSIGNED_SHORT` is used.
 The global semantic `BATCH_LENGTH` defines the number of unique `batchId` values, similar to the `batchLength` field in the [Batched 3D Model](./Batched3DModel/README.md) header.
 
 ### Examples
@@ -254,7 +256,7 @@ var batchIdBinary = new Buffer(new Uint8Array([
 var featureTableBinary = Buffer.concat([positionBinary, batchIdBinary]);
 
 var batchTableJSON = {
-    names : ['section1', 'section2']
+    names : ['object1', 'object2']
 };
 ```
 
@@ -284,9 +286,10 @@ var batchTableJSON = {
 
 ## Batch Table
 
-Contains metadata organized by `batchId` that can be used for declarative styling.
-If the `BATCH_ID` semantic is defined, the batch table will store metadata for each `batchId` and the length of the batch table arrays will equal `BATCH_LENGTH`.
-If the `BATCH_ID` semantic is not defined, then the batch table stores per-point metadata and the length of the batch table arrays will equal `POINTS_LENGTH`.
+The _Batch Table_ contains application-specific metadata, indexable by `batchId`, that can be used for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.
+
+If the `BATCH_ID` semantic is defined, the Batch Table stores metadata for each `batchId`, and the length of the Batch Table arrays will equal `BATCH_LENGTH`.
+If the `BATCH_ID` semantic is not defined, then the batch table stores per-point metadata, and the length of the Batch Table arrays will equal `POINTS_LENGTH`.
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
 
