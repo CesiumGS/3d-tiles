@@ -4,6 +4,8 @@
 
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
+* Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
+* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
 ## Overview
 
@@ -156,3 +158,7 @@ For example, a `Float32Array` must be stored in memory such that its data begins
 
 The string generated from the JSON header should be padded with space characters in order to ensure that the binary body is byte-aligned.
 The binary body should also be padded if necessary when there is data following the Batch Table.
+
+## Acknowledgments
+
+* Jannes Bolling, [@jbo023](https://github.com/jbo023)
