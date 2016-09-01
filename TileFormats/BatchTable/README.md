@@ -9,8 +9,7 @@
 
 ## Overview
 
-A _Batch Table_ contains application-specific metadata for each feature in a tile. These properties may be queried at runtime for dynamic styling and application-specific purposes.
-Example batch table properties may include building heights, cartographic coordinates, or database ids.
+A _Batch Table_ contains per-feature application-specific metadata in a tile. These properties may be queried at runtime for dynamic styling and application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, cartographic coordinates, and database primary keys.
 
 A Batch Table is used by the following tile formats:
 * [Batched 3D Model](../Batched3DModel/README.md) (b3dm)
@@ -26,7 +25,7 @@ A Batch Table is composed of two parts: a JSON header and an optional binary bod
 
 ![batch table layout](figures/batch-table-layout.png)
 
-When a tile format includes a Batch Table, the Batch Table immediately follows the tile's feature table if it exists, otherwise the tile's header.
+When a tile format includes a Batch Table, the Batch Table immediately follows the tile's Feature Table if it exists.  Otherwise, the Batch Table immediately follows the tile's header.
 The header will also contain `batchTableJSONByteLength` and `batchTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the Batch Table.
 
 Code for reading the Batch Table can be found in [Cesium3DTileBatchTable.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
@@ -37,7 +36,7 @@ Batch Table values can be represented in the JSON header in two different ways.
 
 1. An array of values. (e.g. `"name" : ['name1', 'name2', 'name3']` or `"height" : [10.0, 20.0, 15.0]`)
     * Array elements can be any valid JSON data type, including objects and arrays.  Elements may be `null`.
-    * The length of each array is equal to `batchLength` which is specified in each tile format. For example, `batchLength` may be the number of models in a b3dm tile, the number of instances in a i3dm tile, or the number of points (or number of sections) in a pnts tile.
+    * The length of each array is equal to `batchLength` which is specified in each tile format.  This is the number of features in the tile.  For example, `batchLength` may be the number of models in a b3dm tile, the number of instances in a i3dm tile, or the number of points (or number of sections) in a pnts tile.
 2. A reference to data in the binary body, denoted by an object with `byteOffset`, `componentType`, and `type` properties property. (e.g. `"height" : { "byteOffset" : 24, "componentType" : "FLOAT", "type" : "SCALAR"}`).
     * `byteOffset` is a zero-based offset relative to the start of the binary body.
     * `componentType` is the datatype of components in the attribute. Allowed values are `"BYTE"`, `"UNSIGNED_BYTE"`, `"SHORT"`, `"UNSIGNED_SHORT"`, `"INT"`, `"UNSIGNED_INT"`, `"FLOAT"`, and `"DOUBLE"`.
@@ -45,7 +44,7 @@ Batch Table values can be represented in the JSON header in two different ways.
 
 The Batch Table JSON is a `UTF-8` string containing JSON. It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 
-A `batchId` is used to access elements in each array and extract the corresponding properties. For example, the following batch table has properties for a batch of two features:
+A `batchId` is used to access elements in each array and extract the corresponding properties. For example, the following Batch Table has properties for a batch of two features:
 ```json
 {
     "id" : ["unique id", "another unique id"],
@@ -75,13 +74,13 @@ JSON Schema Batch Table definitions can be found in [batchTable.schema.json](../
 
 ## Binary Body
 
-When the JSON header includes a reference to the binary, the provided `byteOffset` is used to index into the data. 
+When the JSON header includes a reference to the binary section, the provided `byteOffset` is used to index into the data. 
 
 **Figure 2**: Indexing into the Batch Table binary body
 
 ![batch table binary index](figures/batch-table-binary-index.png)
 
-Values can be retrieved using the number of batches, `batchLength`, the desired batch id, `batchId`, and the `componentType` and `type` defined in the JSON header.
+Values can be retrieved using the number of features, `batchLength`, the desired batch id, `batchId`, and the `componentType` and `type` defined in the JSON header.
 
 The following tables can be used to compute the byte size of a property.
 
@@ -123,7 +122,7 @@ For example, given the following Batch Table JSON with `batchLength` of 10
 }
 ```
 
-To get the "height" values:
+To get the `"height"` values:
 
 ```javascript
 var height = batchTableJSON.height;
@@ -136,7 +135,7 @@ var heightArray = new Float32Array(batchTableBinary.buffer, byteOffset, heightAr
 var heightOfFeature = heightArray[batchId];
 ```
 
-To get the "cartographic" values:
+To get the `"cartographic"` values:
 
 ```javascript
 var cartographic = batchTableJSON.cartographic;
