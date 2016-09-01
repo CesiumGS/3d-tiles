@@ -9,7 +9,7 @@
 
 ## Overview
 
-A _Batch Table_ contains per-feature application-specific metadata in a tile. These properties may be queried at runtime for dynamic styling and application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, cartographic coordinates, and database primary keys.
+A _Batch Table_ contains per-feature application-specific metadata in a tile. These properties may be queried at runtime for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, cartographic coordinates, and database primary keys.
 
 A Batch Table is used by the following tile formats:
 * [Batched 3D Model](../Batched3DModel/README.md) (b3dm)
