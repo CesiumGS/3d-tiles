@@ -4,8 +4,15 @@
     "title" : "Batch Table",
     "type" : "object",
     "description" : "A set of properties defining application-specific metadata for features in a tile.",
-    "patternProperties" : {
-        ".*" : {
+    "additionalProperties" : {
+        "anyOf": [
+            { "$ref": "#/definitions/binaryBodyReference" },
+            { "type" : "array" }
+        ]
+    },
+    "definitions" : {
+        "binaryBodyReference" : {
+            "type" : "object",
             "properties" : {
                 "byteOffset" : {
                     "type" : "integer",
@@ -19,19 +26,8 @@
                     "type" : "string",
                     "enum" : ["SCALAR", "VEC2", "VEC3", "VEC4", "MAT2", "MAT3", "MAT4"]
                 }
-            }
-        }
-    },
-    "definitions" : {
-        "binaryBodyReference" : {
-            "type" : "object",
+            },
             "required" : ["byteOffset", "componentType", "type"]
-        },
-        "numericArray" : {
-            "type" : "array",
-            "items" : {
-                "type" : {}
-            }
         }
     }
 }

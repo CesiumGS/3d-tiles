@@ -4,19 +4,23 @@
     "title" : "Feature Table",
     "type" : "object",
     "description" : "A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.",
-    "patternProperties" : {
-        ".*" : {
+    "additionalProperties" : {
+        "anyOf": [
+            { "$ref": "#/definitions/binaryBodyReference" },
+            { "$ref": "#/definitions/globalPropertyScalar" },
+            { "$ref": "#/definitions/globalPropertyCartesian3" },
+            { "$ref": "#/definitions/globalPropertyCartesian4" }
+        ]
+    },
+    "definitions" : {
+        "binaryBodyReference" : {
+            "type" : "object",
             "properties" : {
                 "byteOffset" : {
                     "type" : "integer",
                     "minimum" : 0
                 }
-            }
-        }
-    },
-    "definitions" : {
-        "binaryBodyReference" : {
-            "type" : "object",
+            },
             "required" : ["byteOffset"]
         },
         "numericArray" : {
