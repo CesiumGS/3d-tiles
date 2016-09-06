@@ -23,55 +23,28 @@ A tile is composed of two sections: a header immediately followed by a body.
 
 ## Header
 
-The 20-byte header contains the following fields:
+The 24-byte header contains the following fields:
 
 |Field name|Data type|Description|
 |----------|---------|-----------|
 | `magic` | 4-byte ANSI string | `"b3dm"`.  This can be used to identify the arraybuffer as a Batched 3D Model tile. |
 | `version` | `uint32` | The version of the Batched 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
+| `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates there is no batch table. |
+| `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
 | `batchLength` | `unit32` | The number of models, also called features, in the batch. |
-| `batchTableByteLength` | `uint32` | The length of the batch table in bytes. Zero indicates there is not a batch table. |
-
-_TODO: Link to Cesium code for reading header_
 
 The body section immediately follows the header section, and is composed of two fields: `Batch Table` and `Binary glTF`.
 
+Code for reading the header can be found in
+[Batched3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Batched3DModel3DTileContent.js)
+in the Cesium implementation of 3D Tiles.
+
 ## Batch Table
 
-In the Binary glTF section, each vertex has an unsigned short `batchId` attribute in the range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
+The _Batch Table_ contains per-model application-specific metadata, indexable by `batchId`, that can be used for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  In the Binary glTF section, each vertex has an unsigned short `batchId` attribute in the range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
 
-The batch table maps each `batchId` to per-model properties.  If present, the batch table immediately follows the header and is `batchTableByteLength` bytes long.
-
-The batch table is a `UTF-8` string containing JSON.  It immediately follows the header.  It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
-
-Each property in the object is an array with its length equal to `header.batchLength`.  Array elements can be any valid JSON data type, including objects and arrays.  Elements may be `null`.
-
-A vertex's `batchId` is used to access elements in each array and extract the corresponding properties.  For example, the following batch table has properties for a batch of two models.
-```json
-{
-    "id" : ["unique id", "another unique id"],
-    "displayName" : ["Building name", "Another building name"],
-    "yearBuilt" : [1999, 2015],
-    "address" : [{"street" : "Main Street", "houseNumber" : "1"}, {"street" : "Main Street", "houseNumber" : "2"}]
-}
-```
-
-The properties for the model with `batchId = 0` are
-```javascript
-id[0] = 'unique id';
-displayName[0] = 'Building name';
-yearBuilt[0] = 1999;
-address[0] = {street : 'Main Street', houseNumber : '1'};
-```
-
-The properties for `batchId = 1` are
-```javascript
-id[1] = 'another unique id';
-displayName[1] = 'Another building name';
-yearBuilt[1] = 2015;
-address[1] = {street : 'Main Street', houseNumber : '2'};
-```
+See the [Batch Table](../BatchTable/README.md) reference for more information.
 
 ## Binary glTF
 
@@ -114,7 +87,3 @@ Although not strictly required, clients may find the glTF [CESIUM_RTC](https://g
 _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`
-
-## Acknowledgments
-
-* Jannes Bolling, [@jbo023](https://github.com/jbo023)

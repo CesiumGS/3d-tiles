@@ -2,7 +2,7 @@
 
 ## Contributors
 
-* Sean Lilley, [@lilleyse](https://twitter.com/lilleyse)
+* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
 ## Overview

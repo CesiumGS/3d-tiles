@@ -2,7 +2,7 @@
 
 ## Contributors
 
-* Sean Lilley, [@lilleyse](https://twitter.com/lilleyse)
+* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 * Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
 
@@ -50,7 +50,7 @@ in the Cesium implementation of 3D Tiles.
 ## Feature Table
 
 Contains values for `i3dm` semantics used to create instanced models.
-More information is available in the [Feature Table specification](../FeatureTable).
+More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
 The `i3dm` Feature Table JSON Schema is defined in [i3dm.featureTable.schema.json](../../schema/i3dm.featureTable.schema.json).
 
@@ -84,18 +84,16 @@ These semantics define global properties for all instances.
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `INSTANCES_LENGTH`| `uint32` | The number of instances to generate. The length of each array value for an instance semantic should be equal to this. | :white_check_mark: Yes. |
+| `INSTANCES_LENGTH` | `uint32` | The number of instances to generate. The length of each array value for an instance semantic should be equal to this. | :white_check_mark: Yes. |
 | `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 | `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. |:red_circle: No, unless `POSITION_QUANTIZED` is defined. |
+| `EAST_NORTH_UP` | `boolean` | When `true` and per-instance orientation is not defined, each instance will default to the `east/north/up` reference frame's orientation on the `WGS84` ellipsoid. | :red_circle: No. |
 
 Examples using these semantics can be found in the [examples section](#examples).
 
 ### Instance Orientation
 
-An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. If `NORMAL_UP` and `NORMAL_RIGHT` or `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P` are not present,
-the instance will default to the `east/north/up` reference frame's orientation for the instance's Cartographic position (`x`, `y`, `z`) with the tileset transform applied, converted to `longitude` and `latitude` on the `WGS84` ellipsoid).
-The normals will be transformed using the inverse transpose of the tileset transform.
-[//]: # "TODO: Link to tileset transform spec"
+An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. The orientation will be transformed by the [tile transform] (../../#tile-transform).
 
 The `x` vector in the standard basis maps onto the `right` vector in the transformed basis, and the `y` vector maps on to the `up` vector.
 The `z` vector would map onto a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
@@ -117,9 +115,15 @@ An implementation for encoding and decoding these unit vectors can be found in C
 [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module.
 
+#### Default Orientation
+
+If `NORMAL_UP` and `NORMAL_RIGHT` or `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P` are not present,
+the instance will not have a custom orientation. If `EAST_NORTH_UP` is `true` the instance is assumed to be on the `WGS84` ellipsoid and its orientation will default to the `east/north/up` reference frame at its Cartographic position.
+This is suitable for instanced models like trees whose orientation is always facing up from their position on the ellipsoid's surface.
+
 ### Instance Position
 
-`POSITION` defines the location for an instance before any tileset transforms are applied. 
+`POSITION` defines the location for an instance before any tile transforms are applied.
 
 #### Quantized Positions
 
@@ -217,8 +221,7 @@ var featureTableBinary = Buffer.concat([positionQuantizedBinary, normalUpOct32PB
 
 Contains metadata organized by `batchId` that can be used for declarative styling.
 
-See the [Batch Table](..//Batched3DModel#batch-table) reference for more information.
-[//]: # "TODO: Change this link to the batch table specification URL"
+See the [Batch Table](../BatchTable/README.md) reference for more information.
 
 ## glTF
 
