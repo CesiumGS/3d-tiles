@@ -57,6 +57,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 
 * [Introducing 3D Tiles](http://cesiumjs.org/2015/08/10/Introducing-3D-Tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
 * **News**
+   * [3D Tiles and the OGC](http://cesiumjs.org/2016/09/06/3D-Tiles-and-the-OGC/), September 2016
    * [3D Tiles thread on the Cesium forum](https://groups.google.com/forum/#!topic/cesium-dev/tCCooBxpZFU) - get the latest 3D Tiles news and ask questions here.
 * **Cesium implementation**
    * [Roadmap](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241).
