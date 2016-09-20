@@ -20,6 +20,9 @@
             "RGB" : {
                 "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
             },
+            "RGB565" : {
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+            },
             "NORMAL" : {
                 "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
             },
