@@ -1,5 +1,5 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema#",
+    "$schema" : "http://json-schema.org/draft-04/schema",
     "id" : "i3dm.featureTable.schema.json",
     "title" : "Instanced 3D Model Feature Table",
     "type" : "object",

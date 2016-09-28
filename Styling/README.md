@@ -7,11 +7,11 @@
 {
     "show" : "${Area} > 0",
     "color" : {
-        "conditions" : {
-            "${Height} < 60" : "color('#13293D')",
-            "${Height} < 120" : "color('#1B98E0')",
-            "true" : "color('#E8F1F2', 0.5)"
-        }
+        "conditions" : [
+            ["${Height} < 60", "color('#13293D')"],
+            ["${Height} < 120", "color('#1B98E0')"],
+            ["true", "color('#E8F1F2', 0.5)"]
+        ]
     }
 }
 ```
@@ -101,11 +101,11 @@ For example, here's a color map that maps an ID property to colors:
 {
     "color" : {
         "expression" : "regExp('^1(\\d)').exec(${id})",
-        "conditions" : {
-            "${expression} === '1'" : "color('#FF0000')",
-            "${expression} === '2'" : "color('#00FF00')",
-            "true" : "color('#FFFFFF')"
-        }
+        "conditions" : [
+            ["${expression} === '1'", "color('#FF0000')"],
+            ["${expression} === '2'", "color('#00FF00')"],
+            ["true", "color('#FFFFFF')"]
+        ]
     }
 }
 ```
@@ -116,28 +116,28 @@ The next example shows how to use conditions to create a color ramp using interv
 ```json
 "color" : {
     "expression" : "${Height}",
-    "conditions" : {
-        "(${expression} >= 1.0)  && (${expression} < 10.0)" : "color('#FF00FF')",
-        "(${expression} >= 10.0) && (${expression} < 30.0)" : "color('#FF0000')",
-        "(${expression} >= 30.0) && (${expression} < 50.0)" : "color('#FFFF00')",
-        "(${expression} >= 50.0) && (${expression} < 70.0)" : "color('#00FF00')",
-        "(${expression} >= 70.0) && (${expression} < 100.0)" : "color('#00FFFF')",
-        "(${expression} >= 100.0)" : "color('#0000FF')"
-    }
+    "conditions" : [
+        ["(${expression} >= 1.0)  && (${expression} < 10.0)", "color('#FF00FF')"],
+        ["(${expression} >= 10.0) && (${expression} < 30.0)", "color('#FF0000')"],
+        ["(${expression} >= 30.0) && (${expression} < 50.0)", "color('#FFFF00')"],
+        ["(${expression} >= 50.0) && (${expression} < 70.0)", "color('#00FF00')"],
+        ["(${expression} >= 70.0) && (${expression} < 100.0)", "color('#00FFFF')"],
+        ["(${expression} >= 100.0)", "color('#0000FF')"]
+    ]
 }
 ```
 
 Since `expression` is optional and conditions are evaluated in order, the above can more concisely be written as:
 ```json
 "color" : {
-    "conditions" : {
-        "(${Height} >= 100.0)" : "color('#0000FF')",
-        "(${Height} >= 70.0)" : "color('#00FFFF')",
-        "(${Height} >= 50.0)" : "color('#00FF00')",
-        "(${Height} >= 30.0)" : "color('#FFFF00')",
-        "(${Height} >= 10.0)" : "color('#FF0000')",
-        "(${Height} >= 1.0)" : "color('#FF00FF')"
-    }
+    "conditions" : [
+        ["(${Height} >= 100.0)", "color('#0000FF')"],
+        ["(${Height} >= 70.0)", "color('#00FFFF')"],
+        ["(${Height} >= 50.0)", "color('#00FF00')"],
+        ["(${Height} >= 30.0)", "color('#FFFF00')"],
+        ["(${Height} >= 10.0)", "color('#FF0000')"],
+        ["(${Height} >= 1.0)", "color('#FF00FF')"]
+    ]
 }
 ```
 

@@ -1,11 +1,12 @@
 {
-    "$schema" : "http://json-schema.org/draft-03/schema",
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "style.schema.json",
     "title" : "style",
     "type" : "object",
     "description" : "A 3D Tiles style.",
     "properties" : {
         "show" : {
-            "type" : [{
+            "oneOf" : [{
                 "$ref" : "style.booleanExpression.schema.json"
             }, {
                 "$ref" : "style.condition.schema.json"
@@ -14,7 +15,7 @@
             "default" : "true"
         },
         "color" : {
-            "type" : [{
+            "oneOf" : [{
                 "$ref" : "style.colorExpression.schema.json"
             }, {
                 "$ref" : "style.condition.schema.json"
@@ -23,9 +24,7 @@
             "default" : "Color('#FFFFFF')"
         },
         "meta" : {
-            "type" : {
-                "$ref" : "style.meta.schema.json"
-            },
+            "$ref" : "style.meta.schema.json",
             "description" : "Determines the values of non-visual properties of the feature."
         }
     },
