@@ -1,7 +1,8 @@
 {
-    "$schema" : "http://json-schema.org/draft-03/schema",
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "style.condition.condition.schema.json",
     "title" : "condition",
-    "type" : [{
+    "anyOf" : [{
         "$ref" : "style.booleanExpression.schema.json"
     }, {
         "$ref" : "style.colorExpression.schema.json"

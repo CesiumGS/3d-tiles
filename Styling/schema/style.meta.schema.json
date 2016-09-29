@@ -1,5 +1,6 @@
 {
-    "$schema" : "http://json-schema.org/draft-03/schema",
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "style.meta.schema.json",
     "title" : "meta",
     "type" : "object",
     "description" : "A series of property names and the expression to evaluate for the value of each property.",

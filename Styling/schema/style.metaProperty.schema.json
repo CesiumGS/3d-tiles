@@ -1,7 +1,10 @@
 {
-    "$schema" : "http://json-schema.org/draft-03/schema",
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "style.metaProperty.schema.json",
     "title" : "metaProperty",
-    "type" : ["string", {
+    "anyOf" : [{
+        "type" : "string"
+    }, {
         "$ref" : "style.expression.schema.json"
     }],
     "description" : "A property name and the expression to be evaluated for the value of that property."

@@ -1,25 +1,31 @@
 {
-    "$schema" : "http://json-schema.org/draft-03/schema",
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "style.condition.schema.json",
     "title" : "condition",
     "type" : "object",
     "description" : "A series of conditions evaluated in order like a series of if...else statements that result in an expression being evaluated.",
     "properties" : {
         "expression" : {
-            "type" : [{
+            "anyOf" : [{
                 "$ref" : "style.booleanExpression.schema.json"
             }, {
                 "$ref" : "style.colorExpression.schema.json"
             }],
-            "description" : "An optional expression that is evaluated once and then can be accessed in the conditions as the ${expression} variable.  If expression is not defined, ${expression} evaluates to `undefined`.  If a feature has a property named 'expression`, use ${feature.expression} to access it.",
+            "description" : "An optional expression that is evaluated once and then can be accessed in the conditions as the ${expression} variable.  If expression is not defined, ${expression} evaluates to `undefined`.  If a feature has a property named 'expression`, use ${feature.expression} to access it."
         },
         "conditions" : {
-            "type" : "object",
-            "description" : "A series of boolean conditions evaluated in order.  For the first one that evaluates to true, its value, the 'result', (which is also an expression) is evaluated and returned.  Result expressions must all be the same type.  If no condition evaluates to true, the result is `undefined`.  When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.",
-            "properties" : {
+            "type" : "array",
+            "items" : {
+                "type" : "array",
+                "items" : [{
+                    "$ref" : "style.booleanExpression.schema.json"
+                }, {
+                    "$ref" : "style.condition.condition.schema.json"
+                }],
+                "minItems" : 2,
+                "maxItems" : 2
             },
-            "additionalProperties" : {
-                "$ref" : "style.condition.condition.schema.json"
-            }
+            "description" : "A series of boolean conditions evaluated in order.  For the first one that evaluates to true, its value, the 'result', (which is also an expression) is evaluated and returned.  Result expressions must all be the same type.  If no condition evaluates to true, the result is `undefined`.  When conditions is `undefined`, `null`, or an empty object, the result is `undefined`."
         }
     },
     "additionalProperties" : false
