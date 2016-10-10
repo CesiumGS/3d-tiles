@@ -64,7 +64,7 @@ The following style assigns the default show and color properties to each featur
 Instead of showing all features, `show` can be an expression dependent on a feature's properties, for example:
 ```json
 {
-    "show" : "${ZipCode} === '19341'"
+    "show" : "${ZipCode} == '19341'"
 }
 ```
 
@@ -102,8 +102,8 @@ For example, here's a color map that maps an ID property to colors:
     "color" : {
         "expression" : "regExp('^1(\\d)').exec(${id})",
         "conditions" : [
-            ["${expression} === '1'", "color('#FF0000')"],
-            ["${expression} === '2'", "color('#00FF00')"],
+            ["${expression} == '1'", "color('#FF0000')"],
+            ["${expression} == '2'", "color('#00FF00')"],
             ["true", "color('#FFFFFF')"]
         ]
     }
@@ -188,7 +188,7 @@ The following operators are supported with the same semantics and precedence as 
 
 * Unary: `+`, `-`, `!`
    * Not supported: `~`
-* Binary: `||`, `&&`, `===`, `!==`, `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/`, `%`, `=~`, `!~` 
+* Binary: `||`, `&&`, `==`, `!=`, `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/`, `%`, `=~`, `!~` 
    * Not supported: `|`, `^`, `&`, `==`, `!=`, `<<`, `>>`, and `>>>`
 * Ternary: `? :`
 
@@ -228,9 +228,9 @@ Explicit conversions between primitive types are handled with `Boolean`, `Number
 For example:
 
 ```
-Boolean(1) === true
-Number('1') === 1
-String(1) === '1'
+Boolean(1) == true
+Number('1') == 1
+String(1) == '1'
 ```
 
 These are essentially casts, not constructor functions.
@@ -281,7 +281,7 @@ Colors store rgba components internally, where each component is in the range `0
 
 For example: `color.red`.
 
-Colors support the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `color() === color()` is true since the red, green, blue, and alpha components are equal.  This is not the same behavior as a JavaScript `Object`, where, for example, reference equality would be used.  Operators are essentially overloaded for `Color`.
+Colors support the following binary operators by performing component-wise operations: `==`, `!=`, `+`, `-`, `*`, `/`, and `%`.  For example `color() == color()` is true since the red, green, blue, and alpha components are equal.  This is not the same behavior as a JavaScript `Object`, where, for example, reference equality would be used.  Operators are essentially overloaded for `Color`.
 
 Colors have a `toString` function for explicit (and implicit) conversion to strings in the format `'(red, green, blue, alpha)'`.
 * `toString() : String`
@@ -316,9 +316,9 @@ For example:
 ```
 
 ```
-regExp('a').test('abc') === true
-regExp('a(.)', 'i').exec('Abc') === 'b'
-regExp('Building\s(\d)').exec(${Name}) === '1'
+regExp('a').test('abc') == true
+regExp('a(.)', 'i').exec('Abc') == 'b'
+regExp('Building\s(\d)').exec(${Name}) == '1'
 ```
 
 Regular expressions have a `toString` function for explicit (and implicit) conversion to strings in the format `'pattern'`.
@@ -346,9 +346,9 @@ Regular expressions are treated as `NaN` when performing operations with operato
 
 ### Conversions
 
-Style expressions follow JavaScript conversion rules.  To minimize unexpected type coercion, `==` and `!=` operators are not supported.
+Style expressions follow JavaScript conversion rules.
 
-For conversions involving `Color` or `RegExp`, they are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `>`, `>=`, `<`, and `<=` operators.  In Boolean expressions, a `Color` implicitly converts to `true`, e.g., `!!color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
+For conversions involving `Color` or `RegExp`, they are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `>`, `>=`, `<`, and `<=` operators.  In Boolean expressions, a `Color` implicitly converts to `true`, e.g., `!!color() == true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
 
 ### Variables
 
@@ -379,10 +379,10 @@ For example:
 ```
 
 ```
-${enabled} === true
-${description} === null
-${order} === 1
-${name} === 'Feature name'
+${enabled} == true
+${description} == null
+${order} == 1
+${name} == 'Feature name'
 ```
 
 Variables can be used to construct colors, for example:
@@ -402,11 +402,11 @@ Dot or bracket notation is used to access feature subproperties.  For example:
 ```
 
 ```
-${address.street} === `Example street`
-${address['street']} === `Example street`
+${address.street} == `Example street`
+${address['street']} == `Example street`
 
-${address.city} === `Example city`
-${address['city']} === `Example city`
+${address.city} == `Example city`
+${address['city']} == `Example city`
 ```
 
 Bracket notation supports only string literals.
@@ -423,10 +423,10 @@ Top-level properties can be accessed with bracket notation by explicitly using t
 ```
 
 ```
-${address.street} === `Oak Street`
-${feature.address.street} === `Oak Street`
-${feature['address'].street} === `Oak Street`
-${feature['address.street']} === `Maple Street`
+${address.street} == `Oak Street`
+${feature.address.street} == `Oak Street`
+${feature['address'].street} == `Oak Street`
+${feature['address.street']} == `Maple Street`
 ```
 
 To access a feature named `feature`, use the variable `${feature}`. This is equivalent to accessing `${feature.feature}`
@@ -438,8 +438,8 @@ To access a feature named `feature`, use the variable `${feature}`. This is equi
 ```
 
 ```
-${feature} === `building`
-${feature.feature} === `building`
+${feature} == `building`
+${feature.feature} == `building`
 ```
 
 Variables can also be substituted inside strings defined with backticks, for example:
@@ -464,9 +464,9 @@ Bracket notation is used to access feature subproperties or arrays.  For example
 ```
 
 ```
-${temperatures['scale']} === 'fahrenheit'
-${temperatures.values[0]} === 70
-${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
+${temperatures['scale']} == 'fahrenheit'
+${temperatures.values[0]} == 70
+${temperatures['values'][0]} == 70 // Same as (temperatures[values])[0] and temperatures.values[0]
 ```
 
 ### Notes
