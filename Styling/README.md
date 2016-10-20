@@ -24,6 +24,7 @@ Example: Creating a color ramp based on building height.
 * Matt Amato, [@matt_amato](https://twitter.com/matt_amato)
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
+* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 
 
 Contents:
@@ -40,6 +41,7 @@ Contents:
       * [RegExp](#regexp)
    * [Conversions](#conversions)
    * [Variables](#variables)
+   * [Point Cloud](#point-cloud)
    * [Notes](#notes)
 * [File Extension](#file-extension)
 * [MIME Type](#mime-type)
@@ -468,6 +470,37 @@ ${temperatures['scale']} === 'fahrenheit'
 ${temperatures.values[0]} === 70
 ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
 ```
+
+### Point Cloud
+
+In addition to evaluating a point's `color` and `show` properties, a point cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
+```json
+{
+    "color" : "color('red')",
+    "pointSize" : "${Temperature} * 0.5"
+}
+```
+
+Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`.
+
+Point cloud styles may also reference per-point semantics including position, color, and normal to allow for more flexible styling of the source data.
+* `${POSITION}` is an array of three values representing the xyz coordinates of the point before the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `${POSITION}` refers to the position after the `QUANTIZED_VOLUME_SCALE` is applied, but before `QUANTIZED_VOLUME_OFFSET` is applied.
+* `${COLOR}` evaluates to a Color type, where each of the rgba color components are in the range `0.0` to `1.0`.
+* `${NORMAL}` is an array of three values representing the normal of the point before the tile transform is applied. When normals are oct-encoded `${NORMAL}` refers to the decoded normal.
+
+For example:
+
+```json
+{
+    "color" : "${COLOR} * color('red')'",
+    "show" : "${POSITION}[0] > 0.5",
+    "pointSize" : "${NORMAL}[0] > 0 ? 2 : 1"
+}
+```
+
+#### Point Cloud Shader Styling
+
+**TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/cesium/issues/3241**
 
 ### Notes
 
