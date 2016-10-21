@@ -23,9 +23,8 @@ Example: Creating a color ramp based on building height.
 * Gabby Getz, [@ggetz](https://github.com/ggetz)
 * Matt Amato, [@matt_amato](https://twitter.com/matt_amato)
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
-* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
-
+* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
 Contents:
 
