@@ -61,3 +61,6 @@ Refer to the spec for each tile format for more details.
 _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`
+
+## Resources
+1. [Python `packcmpt` tool in gltf2glb toolset](https://github.com/Geopipe/gltf2glb)
