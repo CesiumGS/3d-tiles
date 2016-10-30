@@ -29,14 +29,14 @@ The 16-byte header section contains the following fields:
 |----------|---------|-----------|
 | `magic` | 4-byte ANSI string | `"cmpt"`.  This can be used to identify the arraybuffer as a Composite tile. |
 | `version` | `uint32` | The version of the Composite format. It is currently `1`. |
-| `byteLength` | `uint32` | The length of the entire Composite tile, including the header and each inner tile, in bytes. |
+| `byteLength` | `uint32` | The length of the entire Composite tile, including this header and each inner tile, in bytes. |
 | `tilesLength` | `uint32` | The number of tiles in the Composite. |
 
 _TODO: code example reading header_
 
 ## Inner Tiles
 
-Inner tile fields are stored tightly packed immediately following the header section.
+Inner tile fields are stored tightly packed immediately following the header section. No additional header is added on top of the tiles' preexisting headers (eg, b3dm or i3dm headers). However, the following information describes general characteristics of the existing contents of relevant files' headers to explain common information which a composite tile reader might exploit to find the boundaries of the inner tiles.
 
 Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See the [main 3D Tiles spec](../../README.md) for a list of tile formats.  Composite tiles can contain Composite tiles.
 
