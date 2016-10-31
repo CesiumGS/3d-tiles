@@ -469,6 +469,20 @@ ${temperatures.values[0]} === 70
 ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
 ```
 
+### Built-in functions
+
+#### abs
+
+`abs(value : Number) : Number`
+
+Returns the absolute value of the number.
+
+```json
+{
+    "show" : "abs(${temperature}) > 20.0"
+}
+```
+
 ### Notes
 
 Comments are not supported.
