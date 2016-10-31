@@ -38,11 +38,9 @@ _TODO: code example reading header_
 
 Inner tile fields are stored tightly packed immediately following the header section. No additional header is added on top of the tiles' preexisting headers (eg, b3dm or i3dm headers). However, the following information describes general characteristics of the existing contents of relevant files' headers to explain common information which a composite tile reader might exploit to find the boundaries of the inner tiles.
 
-Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See the [main 3D Tiles spec](../../README.md) for a list of tile formats.  Composite tiles can contain Composite tiles.
-
-Each tile's header contains a `uint32` `byteLength`, which defines the length of the inner tile, including its header, in bytes.  This can be used to traverse the inner tiles.
-
-For any tile format's version 1, the first 12-bytes of all tiles is the following fields:
+* Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See the [main 3D Tiles spec](../../README.md) for a list of tile formats.  Composite tiles can contain Composite tiles.
+* Each tile's header contains a `uint32` `byteLength`, which defines the length of the inner tile, including its header, in bytes.  This can be used to traverse the inner tiles.
+* For any tile format's version 1, the first 12-bytes of all tiles is the following fields:
 
 |Field name|Data type|Description|
 |----------|---------|-----------|
@@ -62,5 +60,10 @@ _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`
 
+## Acknowledgments
+
+* [Christopher Mitchell, Ph.D.](https://github.com/KermMartian)
+
 ## Resources
+
 1. [Python `packcmpt` tool in gltf2glb toolset](https://github.com/Geopipe/gltf2glb)
