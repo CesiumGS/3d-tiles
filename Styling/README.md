@@ -40,6 +40,7 @@ Contents:
       * [RegExp](#regexp)
    * [Conversions](#conversions)
    * [Variables](#variables)
+   * [Built-in Functions](#built-in-functions)
    * [Notes](#notes)
 * [File Extension](#file-extension)
 * [MIME Type](#mime-type)
@@ -49,7 +50,7 @@ Contents:
 
 3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's batch table.
 
-Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling.
+Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling. Additionally the styling language provides a set of built-in functions to support common math operations.
 
 ## Examples
 
@@ -467,6 +468,24 @@ Bracket notation is used to access feature subproperties or arrays.  For example
 ${temperatures['scale']} === 'fahrenheit'
 ${temperatures.values[0]} === 70
 ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
+```
+
+### Built-in Functions
+
+The following built-in functions are supported by the styling language:
+
+* [`abs`](#abs)
+
+#### abs
+
+`abs(value : Number) : Number`
+
+Returns the absolute value of the number.
+
+```json
+{
+    "show" : "abs(${temperature}) > 20.0"
+}
 ```
 
 ### Notes
