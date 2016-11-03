@@ -475,6 +475,7 @@ ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and tem
 The following built-in functions are supported by the styling language:
 
 * [`abs`](#abs)
+* [`cos`](#cos)
 
 #### abs
 
@@ -485,6 +486,18 @@ Returns the absolute value of the number.
 ```json
 {
     "show" : "abs(${temperature}) > 20.0"
+}
+```
+
+#### cos 
+
+`cos(value : Number) : Number`
+
+Returns the cosine value of the number (in radians).
+
+```json
+{
+    "show" : "cos(${temperature}) > 1.0"
 }
 ```
 
