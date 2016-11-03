@@ -68,13 +68,31 @@ normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 ```
 Note that a vertex can't belong to more than one model; in that case, the vertex needs to be duplicated so the `batchId`s can be assigned.
 
-The `batchId` is identified by the glTF technique parameter semantic `BATCHID`.  In the vertex shader, the attribute is named `a_batchId` and is declared as:
+The `batchId` is identified by the glTF technique parameter semantic `BATCHID`.  For example:
+
+```JSON
+"technique": {
+    "attributes": {
+        "a_batchId": "batchId"
+    },
+    "parameters": {
+        "batchId": {
+            "semantic": "BATCHID",
+            "type": 5123
+        }
+    }
+}
+```
+
+For this example the attribute is named `a_batchId`, and is declared in the vertex shader as:
+
 ```glsl
 attribute float a_batchId;
 ```
+
 The vertex shader can be modified at runtime to use `a_batchId` to access individual models in the batch, e.g., to change their color.
 
-When a Batch Table is present, the `a_batchId` attribute (with the parameter semantic `BATCHID`) is required; otherwise, it is not.
+When a Batch Table is present, the `batchId` attribute (with the parameter semantic `BATCHID`) is required; otherwise, it is not.
 
 Although not strictly required, clients may find the glTF [CESIUM_RTC](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_RTC/README.md) extension useful for high-precision rendering.
 
