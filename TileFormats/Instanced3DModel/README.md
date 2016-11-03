@@ -93,7 +93,7 @@ Examples using these semantics can be found in the [examples section](#examples)
 
 ### Instance Orientation
 
-An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. The orientation will be transformed by the [tile transform] (../../#tile-transform).
+An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. The orientation will be transformed by the [tile transform] (../../README.md#tile-transform).
 
 The `x` vector in the standard basis maps onto the `right` vector in the transformed basis, and the `y` vector maps on to the `up` vector.
 The `z` vector would map onto a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
