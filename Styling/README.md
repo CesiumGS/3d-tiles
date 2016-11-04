@@ -476,6 +476,7 @@ The following built-in functions are supported by the styling language:
 
 * [`abs`](#abs)
 * [`cos`](#cos)
+* [`sqrt`](#sqrt)
 
 #### abs
 
@@ -498,6 +499,18 @@ Returns the cosine value of the number (in radians).
 ```json
 {
     "show" : "cos(${temperature}) > 0.0"
+}
+```
+
+#### sqrt 
+
+`sqrt(value : Number) : Number`
+
+Returns the square root value of the number.
+
+```json
+{
+    "show" : "sqrt(${temperature}) > 0.0"
 }
 ```
 
