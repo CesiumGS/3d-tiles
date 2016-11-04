@@ -497,7 +497,7 @@ Returns the cosine value of the number (in radians).
 
 ```json
 {
-    "show" : "cos(${temperature}) > 1.0"
+    "show" : "cos(${temperature}) > 0.0"
 }
 ```
 
