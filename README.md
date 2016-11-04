@@ -636,6 +636,7 @@ See [#11](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/11).
 * [Erik Andersson](https://github.com/e-andersson)
 * [Sarah Chow](http://cesiumjs.org/team/SarahChow.html)
 * [Kevin Ring](http://www.kotachrome.com/kevin/)
+* [Dylan Brown](http://www.github.com/Dylan-Brown)
 
 ## Data credits
 
