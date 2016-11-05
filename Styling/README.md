@@ -506,11 +506,20 @@ Returns the cosine value of the number (in radians).
 
 `sqrt(value : Number) : Number`
 
-Returns the square root value of the number.
+Returns the square root of value if value >= 0. Returns NaN when value < 0.
 
 ```json
 {
-    "show" : "sqrt(${temperature}) > 0.0"
+    "color" : {
+    "conditions" : [
+        ["sqrt(${temperature} >= 15.0)", "color('#0000FF')"],
+        ["sqrt(${temperature} >= 10.0)", "color('#00FFFF')"],
+        ["sqrt(${temperature} >= 5.0)", "color('#00FF00')"],
+        ["sqrt(${temperature} >= 2.0)", "color('#FFFF00')"],
+        ["sqrt(${temperature} >= 1.0)", "color('#FF0000')"],
+        ["sqrt(${temperature} >= 0.0)", "color('#FF00FF')"]
+    ]
+}
 }
 ```
 
