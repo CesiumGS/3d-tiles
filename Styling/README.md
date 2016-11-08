@@ -511,11 +511,11 @@ Returns the square root of value if value >= 0. Returns NaN when value < 0.
 ```json
 {
     "color" : {
-    "expression" : "sqrt(${temperature}",
-    "conditions" : [
-        ["${expression} >= 0.5", "color('#00FFFF')"],
-        ["${expression} >= 0.0", "color('#FF00FF')"]
-    ]
+        "expression" : "sqrt(${temperature}",
+        "conditions" : [
+            ["${expression} >= 0.5", "color('#00FFFF')"],
+            ["${expression} >= 0.0", "color('#FF00FF')"]
+        ]
     }
 }
 ```
