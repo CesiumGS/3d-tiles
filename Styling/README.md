@@ -517,7 +517,7 @@ Returns the square root of value if value >= 0. Returns NaN when value < 0.
         ["${expression} >= '0.0'", "color('#FF00FF')"],
         ["true", "color('#FFFFFF')"]
     ]
-}
+	}
 }
 ```
 
