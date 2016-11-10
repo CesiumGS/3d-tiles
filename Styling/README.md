@@ -376,7 +376,7 @@ Euler's constant and the base of the natural logarithm, approximately `2.71828`.
 
 ```json
 {
-    "color" : "color() * pow(E/2, ${Temperature})"
+    "color" : "color() * pow(E / 2.0, ${Temperature})"
 }
 ```
 
@@ -557,7 +557,7 @@ The follow built-in variables are supported by the styling language:
 
 #### TILES3D_TILESET_TIME
 
-Gets the time, in seconds, since the tileset is first loaded. This is useful for creating dynamic styles that change with time.
+Gets the time, in seconds, since the tileset was first loaded. This is useful for creating dynamic styles that change with time.
 
 ```json
 {
