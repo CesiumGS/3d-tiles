@@ -39,7 +39,9 @@ Contents:
       * [Color](#color)
       * [RegExp](#regexp)
    * [Conversions](#conversions)
+   * [Constants](#constants)
    * [Variables](#variables)
+   * [Built-in Variables](#built-in-variables)
    * [Built-in Functions](#built-in-functions)
    * [Notes](#notes)
 * [File Extension](#file-extension)
@@ -142,7 +144,7 @@ Since `expression` is optional and conditions are evaluated in order, the above 
 }
 ```
 
-Non-visual properties of a feature can be defined using the `meta` property. 
+Non-visual properties of a feature can be defined using the `meta` property.
 
 For example, to set a `description` meta property to a string containing the feature name:
 ```json
@@ -158,7 +160,7 @@ A meta property expression can evaluate to any type. For example:
 {
     "meta" : {
         "featureColor" : "rgb(${red}, ${green}, ${blue})",
-        "featureVolume" : "${height} * ${width} * ${depth}" 
+        "featureVolume" : "${height} * ${width} * ${depth}"
     }
 }
 ```
@@ -306,7 +308,7 @@ If specified, `flags` can have any combination of the following values:
 * `y`- sticky
 
 Regular expressions support these functions:
-* `test(string: String) : Boolean` - Tests the specified string for a match.  
+* `test(string: String) : Boolean` - Tests the specified string for a match.
 * `exec(string: String) : String` - Executes a search for a match in the specified string. If the search succeeds, it returns the first instance of a captured `String`. If the search fails, it returns `null`
 
 For example:
@@ -342,7 +344,7 @@ If no `RegExp` is supplied as and operand, both operators will return `false`.
 
 If both operands are of type `RegExp`, the left operand will be treated as the regular expression which is performing the match, and the right operand will be treated as the object which the test is being performed on. For example, `regExp('a') =~ regExp('abc')` will match the behavior of `regExp('a').test(regExp('abc'))`.
 
-Regular expressions are treated as `NaN` when performing operations with operators other than `=~` and `!~`. 
+Regular expressions are treated as `NaN` when performing operations with operators other than `=~` and `!~`.
 
 
 ### Conversions
@@ -350,6 +352,33 @@ Regular expressions are treated as `NaN` when performing operations with operato
 Style expressions follow JavaScript conversion rules.
 
 For conversions involving `Color` or `RegExp`, they are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `==`, `!=`, `>`, `>=`, `<`, and `<=` operators.  In Boolean expressions, a `Color` implicitly converts to `true`, e.g., `!!color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
+
+### Constants
+
+The following constants are supported by the styling language:
+
+* [`PI`](#pi)
+* [`E`](#e)
+
+#### PI
+
+The mathematical constant PI, which represents a circle's circumference divided by its diameter, approximately `3.14159`.
+
+```json
+{
+    "show" : "cos(${Angle} + PI) < 0"
+}
+```
+
+#### E
+
+Euler's constant and the base of the natural logarithm, approximately `2.71828`.
+
+```json
+{
+    "color" : "color() * pow(E/2, ${Temperature})"
+}
+```
 
 ### Variables
 
@@ -517,6 +546,22 @@ Returns the square root of value if value >= 0. Returns NaN when value < 0.
             ["${expression} >= 0.0", "color('#FF00FF')"]
         ]
     }
+}
+```
+
+### Built-in Variables
+
+The follow built-in variables are supported by the styling language:
+
+* [`TILES3D_TILESET_TIME`](#TILES3D_TILESET_TIME)
+
+#### TILES3D_TILESET_TIME
+
+Gets the time, in seconds, since the tileset is first loaded. This is useful for creating dynamic styles that change with time.
+
+```json
+{
+    "color" : "color() * abs(cos(${Temperature} + TILES3D_TILESET_TIME))"
 }
 ```
 
