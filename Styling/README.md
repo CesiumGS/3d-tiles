@@ -538,7 +538,6 @@ Returns the cosine value of the number (in radians).
 }
 ```
 
-<<<<<<< HEAD
 #### sin 
 
 `sin(value : Number) : Number`
@@ -603,7 +602,7 @@ Returns the arctangent value of the number (in radians).
 
 `radians(value : Number) : Number`
 
-Returns the value of the number converted into radians.
+Returns the value of the number in degrees converted into radians.
 
 ```json
 {
@@ -615,12 +614,13 @@ Returns the value of the number converted into radians.
 
 `degrees(value : Number) : Number`
 
-Returns the value of the number converted into degrees.
+Returns the value of the number in radians converted into degrees.
 
 ```json
 {
     "show" : "degrees(${temperature}) > 45.0"
-=======
+}
+
 #### sqrt 
 
 `sqrt(value : Number) : Number`
@@ -652,7 +652,6 @@ Gets the time, in seconds, since the tileset was first loaded. This is useful fo
 ```json
 {
     "color" : "color() * abs(cos(${Temperature} + TILES3D_TILESET_TIME))"
->>>>>>> upstream/math-functions
 }
 ```
 
