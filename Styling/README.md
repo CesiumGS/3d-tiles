@@ -534,7 +534,7 @@ Returns the cosine value of the number (in radians).
 
 ```json
 {
-    "show" : "cos(${temperature}) > 0.0"
+    "show" : "cos(${Angle}) > 0.0"
 }
 ```
 
@@ -546,7 +546,7 @@ Returns the sine value of the number (in radians).
 
 ```json
 {
-    "show" : "sin(${temperature}) > 0.0"
+    "show" : "sin(${Angle}) > 0.0"
 }
 ```
 
@@ -558,7 +558,7 @@ Returns the tangent value of the number (in radians).
 
 ```json
 {
-    "show" : "tan(${temperature}) > 0.0"
+    "show" : "tan(${Angle}) > 0.0"
 }
 ```
 
@@ -570,7 +570,7 @@ Returns the arccosine value of the number (in radians).
 
 ```json
 {
-    "show" : "acos(${temperature}) > 0.0"
+    "show" : "acos(${Angle}) > 0.0"
 }
 ```
 
@@ -582,7 +582,7 @@ Returns the arcsine value of the number (in radians).
 
 ```json
 {
-    "show" : "asin(${temperature}) > 0.0"
+    "show" : "asin(${Angle}) > 0.0"
 }
 ```
 
@@ -594,7 +594,7 @@ Returns the arctangent value of the number (in radians).
 
 ```json
 {
-    "show" : "atan(${temperature}) > 0.0"
+    "show" : "atan(${Angle}) > 0.0"
 }
 ```
 
@@ -606,7 +606,7 @@ Converts the number from degrees to radians.
 
 ```json
 {
-    "show" : "radians(${temperature}) > 0.5"
+    "show" : "radians(${Angle}) > 0.5"
 }
 ```
 
@@ -618,7 +618,7 @@ Converts the number from radians to degrees.
 
 ```json
 {
-    "show" : "degrees(${temperature}) > 45.0"
+    "show" : "degrees(${Angle}) > 45.0"
 }
 
 #### sqrt 
