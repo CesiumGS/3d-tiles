@@ -602,7 +602,7 @@ Returns the arctangent value of the number (in radians).
 
 `radians(value : Number) : Number`
 
-Returns the value of the number in degrees converted into radians.
+Converts the number from degrees to radians.
 
 ```json
 {
@@ -614,7 +614,7 @@ Returns the value of the number in degrees converted into radians.
 
 `degrees(value : Number) : Number`
 
-Returns the value of the number in radians converted into degrees.
+Converts the number from radians to degrees.
 
 ```json
 {
