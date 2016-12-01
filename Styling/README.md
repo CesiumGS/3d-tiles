@@ -504,8 +504,15 @@ ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and tem
 The following built-in functions are supported by the styling language:
 
 * [`abs`](#abs)
-* [`cos`](#cos)
 * [`sqrt`](#sqrt)
+* [`cos`](#cos)
+* [`sin`](#sin)
+* [`tan`](#tan)
+* [`acos`](#acos)
+* [`asin`](#asin)
+* [`atan`](#atan)
+* [`radians`](#radians)
+* [`degrees`](#degrees)
 
 #### abs
 
@@ -527,7 +534,91 @@ Returns the cosine value of the number (in radians).
 
 ```json
 {
-    "show" : "cos(${temperature}) > 0.0"
+    "show" : "cos(${Angle}) > 0.0"
+}
+```
+
+#### sin 
+
+`sin(value : Number) : Number`
+
+Returns the sine value of the number (in radians).
+
+```json
+{
+    "show" : "sin(${Angle}) > 0.0"
+}
+```
+
+#### tan
+
+`tan(value : Number) : Number`
+
+Returns the tangent value of the number (in radians).
+
+```json
+{
+    "show" : "tan(${Angle}) > 0.0"
+}
+```
+
+#### acos 
+
+`acos(value : Number) : Number`
+
+Returns the arccosine value of the number (in radians).
+
+```json
+{
+    "show" : "acos(${Angle}) > 0.0"
+}
+```
+
+#### asin 
+
+`asin(value : Number) : Number`
+
+Returns the arcsine value of the number (in radians).
+
+```json
+{
+    "show" : "asin(${Angle}) > 0.0"
+}
+```
+
+#### atan
+
+`atan(value : Number) : Number`
+
+Returns the arctangent value of the number (in radians).
+
+```json
+{
+    "show" : "atan(${Angle}) > 0.0"
+}
+```
+
+#### radians
+
+`radians(value : Number) : Number`
+
+Converts the number from degrees to radians.
+
+```json
+{
+    "show" : "radians(${Angle}) > 0.5"
+}
+```
+
+#### degrees
+
+`degrees(value : Number) : Number`
+
+Converts the number from radians to degrees.
+
+```json
+{
+    "show" : "degrees(${Angle}) > 45.0"
 }
 ```
 
