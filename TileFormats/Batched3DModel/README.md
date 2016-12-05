@@ -78,7 +78,7 @@ The `batchId` is identified by the glTF technique parameter semantic `BATCHID`. 
     "parameters": {
         "batchId": {
             "semantic": "BATCHID",
-            "type": 5123
+            "type": 5126
         }
     }
 }
