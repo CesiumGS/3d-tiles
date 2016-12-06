@@ -513,6 +513,10 @@ The following built-in functions are supported by the styling language:
 * [`atan`](#atan)
 * [`radians`](#radians)
 * [`degrees`](#degrees)
+* [`atan2`](#atan2)
+* [`pow`](#pow)
+* [`min`](#min)
+* [`max`](#max)
 
 #### abs
 
@@ -626,7 +630,7 @@ Converts the number from radians to degrees.
 
 `sqrt(value : Number) : Number`
 
-Returns the square root of value if value >= 0. Returns NaN when value < 0.
+Returns the square root of `value` if `value >= 0`. Returns NaN when `value < 0`.
 
 ```json
 {
@@ -637,6 +641,54 @@ Returns the square root of value if value >= 0. Returns NaN when value < 0.
             ["${expression} >= 0.0", "color('#FF00FF')"]
         ]
     }
+}
+```
+
+#### atan2
+
+`atan2(value1 : Number, value2 : Number) : Number`
+
+Returns the angle `theta` in polar coordinates `(r, theta)` for a point with Cartesian coordinates `(value1, value2)`.
+
+```json
+{
+    "show" : "atan2(${Angle}, ${temperature}) > 0.0"
+}
+```
+
+#### pow
+
+`pow(value1 : Number, value2 : Number) : Number`
+
+Returns `value1` raised to the power of `value2`.
+
+```json
+{
+    "show" : "pow(${Angle}, ${temperature}) > 1.0"
+}
+```
+
+#### min
+
+`min(value1 : Number, value2 : Number) : Number`
+
+Returns `value1` if `value1 < value 2` and `value2` if `value2 < value1`.
+
+```json
+{
+    "show" : "min(${Angle}, ${temperature}) > 0.0"
+}
+```
+
+#### max
+
+`max(value1 : Number, value2 : Number) : Number`
+
+Returns `value1` if `value1 > value 2` and `value2` if `value2 > value1`.
+
+```json
+{
+    "show" : "max(${Angle}, ${temperature}) > 0.0"
 }
 ```
 
