@@ -511,9 +511,9 @@ The following built-in functions are supported by the styling language:
 * [`acos`](#acos)
 * [`asin`](#asin)
 * [`atan`](#atan)
+* [`atan2`](#atan2)
 * [`radians`](#radians)
 * [`degrees`](#degrees)
-* [`atan2`](#atan2)
 * [`pow`](#pow)
 * [`min`](#min)
 * [`max`](#max)
@@ -527,6 +527,24 @@ Returns the absolute value of the number.
 ```json
 {
     "show" : "abs(${temperature}) > 20.0"
+}
+```
+
+#### sqrt 
+
+`sqrt(value : Number) : Number`
+
+Returns the square root of `value` if `value >= 0`. Returns `NaN` when `value < 0`.
+
+```json
+{
+    "color" : {
+        "expression" : "sqrt(${temperature}",
+        "conditions" : [
+            ["${expression} >= 0.5", "color('#00FFFF')"],
+            ["${expression} >= 0.0", "color('#FF00FF')"]
+        ]
+    }
 }
 ```
 
@@ -602,6 +620,18 @@ Returns the arctangent value of the number (in radians).
 }
 ```
 
+#### atan2
+
+`atan2(y : Number, x : Number) : Number`
+
+Returns the arctangent of the quotient of `y` and `x` (in radians).
+
+```json
+{
+    "show" : "atan2(${Angle}, ${temperature}) > 0.0"
+}
+```
+
 #### radians
 
 `radians(value : Number) : Number`
@@ -626,45 +656,15 @@ Converts the number from radians to degrees.
 }
 ```
 
-#### sqrt 
-
-`sqrt(value : Number) : Number`
-
-Returns the square root of `value` if `value >= 0`. Returns NaN when `value < 0`.
-
-```json
-{
-    "color" : {
-        "expression" : "sqrt(${temperature}",
-        "conditions" : [
-            ["${expression} >= 0.5", "color('#00FFFF')"],
-            ["${expression} >= 0.0", "color('#FF00FF')"]
-        ]
-    }
-}
-```
-
-#### atan2
-
-`atan2(value1 : Number, value2 : Number) : Number`
-
-Returns the angle `theta` in polar coordinates `(r, theta)` for a point with Cartesian coordinates `(value1, value2)`.
-
-```json
-{
-    "show" : "atan2(${Angle}, ${temperature}) > 0.0"
-}
-```
-
 #### pow
 
-`pow(value1 : Number, value2 : Number) : Number`
+`pow(base : Number, exponent : Number) : Number`
 
-Returns `value1` raised to the power of `value2`.
+Returns `base` raised to the power of `exponent`.
 
 ```json
 {
-    "show" : "pow(${Angle}, ${temperature}) > 1.0"
+    "show" : "pow(${Density}, ${Temperature}) > 1.0"
 }
 ```
 
@@ -672,11 +672,11 @@ Returns `value1` raised to the power of `value2`.
 
 `min(value1 : Number, value2 : Number) : Number`
 
-Returns `value1` if `value1 < value 2` and `value2` if `value2 < value1`.
+Returns the smaller of the two arguments.
 
 ```json
 {
-    "show" : "min(${Angle}, ${temperature}) > 0.0"
+    "show" : "min(${Width}, ${Height}) > 0.0"
 }
 ```
 
@@ -684,11 +684,11 @@ Returns `value1` if `value1 < value 2` and `value2` if `value2 < value1`.
 
 `max(value1 : Number, value2 : Number) : Number`
 
-Returns `value1` if `value1 > value 2` and `value2` if `value2 > value1`.
+Returns the larger of the two arguments.
 
 ```json
 {
-    "show" : "max(${Angle}, ${temperature}) > 0.0"
+    "show" : "max(${Width}, ${Height}) > 0.0"
 }
 ```
 
