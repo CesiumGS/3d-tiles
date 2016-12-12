@@ -86,7 +86,7 @@ The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in tileset.json). 
 
 Topic  | Status
 ---|---
-[tileset.json](#tileset.json)  | :white_check_mark: **Solid base**, a few more features expected
+[tileset.json](#tilesetjson)  | :white_check_mark: **Solid base**, a few more features expected
 [Batched 3D Model](TileFormats/Batched3DModel/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
 [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (i3dm) | :white_check_mark: **Solid base**, only minor changes expected
 [Point Cloud](TileFormats/PointCloud/README.md) (pnts)  | :white_check_mark: **Solid base**, only minor changes expected
@@ -170,7 +170,7 @@ The file extension of `content.url` defines the [tile format](#tileFormats).  Th
 
 An optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
 
-`children` is an array of objects that define child tiles.  See the [section below](#tileset.json).
+`children` is an array of objects that define child tiles.  See the [section below](#tilesetjson).
 
 ![](figures/tile.png)
 
