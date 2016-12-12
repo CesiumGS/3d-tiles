@@ -22,7 +22,7 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
 
 Live apps
 * [NYC](https://cesiumjs.org/NewYork/index.html) by AGI
-* **virtualcityMAP** by virtualcitySYSTEMS.  [Textured buildings](http://hosting.virtualcitysystems.de/demos/berlin/vcm/?lang=en), [Textured buildings + point clouds](http://hosting.virtualcitysystems.de/demos/berlin/vcm/?lang=en&startingmap=cesium&layerToActivate=pointcloud&cameraPosition=13.34412,52.51329,177.65660&groundPosition=13.35305,52.51461,33.70784&distance=640.35&pitch=-12.99&heading=76.44&roll=0.18%20https://www.linkedin.com/pulse/contextcapture-web-publishing-cesium-aude-camus), [building solar potential](https://t.co/o2P6FXcW7L)
+* **virtualcityMAP** by virtualcitySYSTEMS.  [Textured buildings](http://demo.virtualcitymap.de/?lang=en&layerToActivate=buildings&layerToDeactivate=buildings_untextured), [Textured buildings + point clouds](http://demo.virtualcitymap.de/?lang=en&layerToActivate=buildings&layerToActivate=pointcloud&layerToDeactivate=buildings_untextured&cameraPosition=13.36091%2C52.50023%2C1614.17078&groundPosition=13.36085%2C52.51388%2C33.22668&distance=2192.72&pitch=-46.14&heading=359.84&roll=360.00), [building solar potential](https://t.co/o2P6FXcW7L)
 * [Berlin Atlas of Economy](http://www.businesslocationcenter.de/wab/maps/main/) (switch to 3D and zoom in) by virtualcitySYSTEMS
 * [Downtown Miami](http://cybercity3d.s3-website-us-east-1.amazonaws.com/?city=Miami) by CyberCity3D and AGI
 * [Orlando](https://d3h9zulrmcj1j6.cloudfront.net/Orlando_Cesium/App/index.html) by Bentley ContextCapture
@@ -86,7 +86,7 @@ The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in tileset.json). 
 
 Topic  | Status
 ---|---
-[tileset.json](#tileset.json)  | :white_check_mark: **Solid base**, a few more features expected
+[tileset.json](#tilesetjson)  | :white_check_mark: **Solid base**, a few more features expected
 [Batched 3D Model](TileFormats/Batched3DModel/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
 [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (i3dm) | :white_check_mark: **Solid base**, only minor changes expected
 [Point Cloud](TileFormats/PointCloud/README.md) (pnts)  | :white_check_mark: **Solid base**, only minor changes expected
@@ -170,7 +170,7 @@ The file extension of `content.url` defines the [tile format](#tileFormats).  Th
 
 An optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
 
-`children` is an array of objects that define child tiles.  See the [section below](#tileset.json).
+`children` is an array of objects that define child tiles.  See the [section below](#tilesetjson).
 
 ![](figures/tile.png)
 
