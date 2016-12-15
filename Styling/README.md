@@ -513,6 +513,8 @@ The following built-in functions are supported by the styling language:
 * [`atan`](#atan)
 * [`radians`](#radians)
 * [`degrees`](#degrees)
+* [`clamp`](#clamp)
+* [`mix`](#mix)
 
 #### abs
 
@@ -619,6 +621,31 @@ Converts the number from radians to degrees.
 ```json
 {
     "show" : "degrees(${Angle}) > 45.0"
+}
+```
+
+#### clamp
+
+`clamp(value : Number,  min : Number, max : Number) : Number`
+
+Returns value if it is greater than min and less than max. Otherwise, if value is less than min, min is returned, and if value is greater than max, max is returned.
+
+```json
+{
+    "show" : "clamp(${Angle}, 0.0, 90.0) > 45.0"
+}
+```
+
+#### mix
+
+`clamp(p : Number,  q : Number, time : Number) : Number`
+
+Computes the linear interpolation of p and q.
+
+```json
+{
+
+    "show" : "mix(20.0, ${Angle}, 0.5) > 25.0"
 }
 ```
 
