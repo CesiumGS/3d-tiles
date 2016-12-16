@@ -628,23 +628,22 @@ Converts the number from radians to degrees.
 
 `clamp(value : Number,  min : Number, max : Number) : Number`
 
-Returns value if it is greater than min and less than max. Otherwise, if value is less than min, min is returned, and if value is greater than max, max is returned.
+Constrains a value to lie between two values.
 
 ```json
 {
-    "show" : "clamp(${Angle}, 0.0, 90.0) > 45.0"
+    "show" : "(clamp(${Angle}, 0.0, 90.0) / 90.0) > 0.5"
 }
 ```
 
 #### mix
 
-`clamp(p : Number,  q : Number, time : Number) : Number`
+`mix(x : Number,  y : Number, a: Number) : Number`
 
-Computes the linear interpolation of p and q.
+Computes the linear interpolation of x and y.
 
 ```json
 {
-
     "show" : "mix(20.0, ${Angle}, 0.5) > 25.0"
 }
 ```
