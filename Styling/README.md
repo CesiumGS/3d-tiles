@@ -622,9 +622,9 @@ Returns the arctangent value of the number (in radians).
 
 #### atan2
 
-`atan2(y : Number, x : Number) : Number`
+`atan2(GridY : Number, GridX : Number) : Number`
 
-Returns the arctangent of the quotient of `y` and `x` (in radians).
+Returns the arctangent of the quotient of `GridY` and `GridX` (in radians).
 
 ```json
 {
@@ -676,7 +676,7 @@ Returns the smaller of the two arguments.
 
 ```json
 {
-    "show" : "min(${Width}, ${Height}) > 0.0"
+    "show" : "min(${Width}, ${Height}) > 10.0"
 }
 ```
 
@@ -688,7 +688,7 @@ Returns the larger of the two arguments.
 
 ```json
 {
-    "show" : "max(${Width}, ${Height}) > 0.0"
+    "show" : "max(${Width}, ${Height}) > 10.0"
 }
 ```
 
