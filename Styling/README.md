@@ -517,6 +517,8 @@ The following built-in functions are supported by the styling language:
 * [`pow`](#pow)
 * [`min`](#min)
 * [`max`](#max)
+* [`clamp`](#clamp)
+* [`mix`](#mix)
 
 #### abs
 
@@ -530,7 +532,7 @@ Returns the absolute value of the number.
 }
 ```
 
-#### sqrt 
+#### sqrt
 
 `sqrt(value : Number) : Number`
 
@@ -548,7 +550,7 @@ Returns the square root of `value` if `value >= 0`. Returns `NaN` when `value < 
 }
 ```
 
-#### cos 
+#### cos
 
 `cos(value : Number) : Number`
 
@@ -560,7 +562,7 @@ Returns the cosine value of the number (in radians).
 }
 ```
 
-#### sin 
+#### sin
 
 `sin(value : Number) : Number`
 
@@ -584,7 +586,7 @@ Returns the tangent value of the number (in radians).
 }
 ```
 
-#### acos 
+#### acos
 
 `acos(value : Number) : Number`
 
@@ -596,7 +598,7 @@ Returns the arccosine value of the number (in radians).
 }
 ```
 
-#### asin 
+#### asin
 
 `asin(value : Number) : Number`
 
@@ -689,6 +691,30 @@ Returns the larger of the two arguments.
 ```json
 {
     "show" : "max(${Width}, ${Height}) > 10.0"
+}
+```
+
+#### clamp
+
+`clamp(value : Number,  min : Number, max : Number) : Number`
+
+Constrains a value to lie between two values.
+
+```json
+{
+    "color" : "color() * clamp(${temperature}, 0.1, 0.2)"
+}
+```
+
+#### mix
+
+`mix(x : Number,  y : Number, a: Number) : Number`
+
+Computes the linear interpolation of x and y.
+
+```json
+{
+    "show" : "mix(20.0, ${Angle}, 0.5) > 25.0"
 }
 ```
 
