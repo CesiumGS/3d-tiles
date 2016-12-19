@@ -714,7 +714,7 @@ Computes the linear interpolation of x and y.
 
 ```json
 {
-    "show" : "mix(20.0, ${Angle}, 0.5) > 25.0"
+    "color" : "color() * clamp(${temperature}, 0.1, 0.2)"
 }
 ```
 
