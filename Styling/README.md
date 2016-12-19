@@ -702,7 +702,7 @@ Constrains a value to lie between two values.
 
 ```json
 {
-    "show" : "(clamp(${Angle}, 0.0, 90.0) / 90.0) > 0.5"
+    "color" : "color() * clamp(${temperature}, 0.1, 0.2)"
 }
 ```
 
@@ -714,7 +714,7 @@ Computes the linear interpolation of x and y.
 
 ```json
 {
-    "color" : "color() * clamp(${temperature}, 0.1, 0.2)"
+    "show" : "mix(20.0, ${Angle}, 0.5) > 25.0"
 }
 ```
 
