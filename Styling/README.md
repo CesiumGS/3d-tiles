@@ -622,13 +622,13 @@ Returns the arctangent value of the number (in radians).
 
 #### atan2
 
-`atan2(GridY : Number, GridX : Number) : Number`
+`atan2(y : Number, x : Number) : Number`
 
-Returns the arctangent of the quotient of `GridY` and `GridX` (in radians).
+Returns the arctangent of the quotient of y and x (in radians).
 
 ```json
 {
-    "show" : "atan2(${Angle}, ${temperature}) > 0.0"
+    "show" : "atan2(${GridY}, ${GridX}) > 0.0"
 }
 ```
 
