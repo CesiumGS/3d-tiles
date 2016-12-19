@@ -511,8 +511,12 @@ The following built-in functions are supported by the styling language:
 * [`acos`](#acos)
 * [`asin`](#asin)
 * [`atan`](#atan)
+* [`atan2`](#atan2)
 * [`radians`](#radians)
 * [`degrees`](#degrees)
+* [`pow`](#pow)
+* [`min`](#min)
+* [`max`](#max)
 * [`clamp`](#clamp)
 * [`mix`](#mix)
 
@@ -528,7 +532,25 @@ Returns the absolute value of the number.
 }
 ```
 
-#### cos 
+#### sqrt
+
+`sqrt(value : Number) : Number`
+
+Returns the square root of `value` if `value >= 0`. Returns `NaN` when `value < 0`.
+
+```json
+{
+    "color" : {
+        "expression" : "sqrt(${temperature}",
+        "conditions" : [
+            ["${expression} >= 0.5", "color('#00FFFF')"],
+            ["${expression} >= 0.0", "color('#FF00FF')"]
+        ]
+    }
+}
+```
+
+#### cos
 
 `cos(value : Number) : Number`
 
@@ -540,7 +562,7 @@ Returns the cosine value of the number (in radians).
 }
 ```
 
-#### sin 
+#### sin
 
 `sin(value : Number) : Number`
 
@@ -564,7 +586,7 @@ Returns the tangent value of the number (in radians).
 }
 ```
 
-#### acos 
+#### acos
 
 `acos(value : Number) : Number`
 
@@ -576,7 +598,7 @@ Returns the arccosine value of the number (in radians).
 }
 ```
 
-#### asin 
+#### asin
 
 `asin(value : Number) : Number`
 
@@ -597,6 +619,18 @@ Returns the arctangent value of the number (in radians).
 ```json
 {
     "show" : "atan(${Angle}) > 0.0"
+}
+```
+
+#### atan2
+
+`atan2(y : Number, x : Number) : Number`
+
+Returns the arctangent of the quotient of y and x (in radians).
+
+```json
+{
+    "show" : "atan2(${GridY}, ${GridX}) > 0.0"
 }
 ```
 
@@ -624,6 +658,42 @@ Converts the number from radians to degrees.
 }
 ```
 
+#### pow
+
+`pow(base : Number, exponent : Number) : Number`
+
+Returns `base` raised to the power of `exponent`.
+
+```json
+{
+    "show" : "pow(${Density}, ${Temperature}) > 1.0"
+}
+```
+
+#### min
+
+`min(value1 : Number, value2 : Number) : Number`
+
+Returns the smaller of the two arguments.
+
+```json
+{
+    "show" : "min(${Width}, ${Height}) > 10.0"
+}
+```
+
+#### max
+
+`max(value1 : Number, value2 : Number) : Number`
+
+Returns the larger of the two arguments.
+
+```json
+{
+    "show" : "max(${Width}, ${Height}) > 10.0"
+}
+```
+
 #### clamp
 
 `clamp(value : Number,  min : Number, max : Number) : Number`
@@ -645,24 +715,6 @@ Computes the linear interpolation of x and y.
 ```json
 {
     "show" : "mix(20.0, ${Angle}, 0.5) > 25.0"
-}
-```
-
-#### sqrt 
-
-`sqrt(value : Number) : Number`
-
-Returns the square root of value if value >= 0. Returns NaN when value < 0.
-
-```json
-{
-    "color" : {
-        "expression" : "sqrt(${temperature}",
-        "conditions" : [
-            ["${expression} >= 0.5", "color('#00FFFF')"],
-            ["${expression} >= 0.0", "color('#FF00FF')"]
-        ]
-    }
 }
 ```
 
