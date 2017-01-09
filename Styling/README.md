@@ -472,7 +472,7 @@ ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and tem
 
 ### Point Cloud
 
-In addition to evaluating a point's `color` and `show` properties, a point cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
+A [Point Cloud](../TileFormats/PointCloud/README.md) is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a point cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
 ```json
 {
     "color" : "color('red')",
@@ -480,20 +480,20 @@ In addition to evaluating a point's `color` and `show` properties, a point cloud
 }
 ```
 
-Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`.
+Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`. A `pointSize` of `1.0` must be supported.
 
-Point cloud styles may also reference per-point semantics including position, color, and normal to allow for more flexible styling of the source data.
-* `${POSITION}` is an array of three values representing the xyz coordinates of the point before the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `${POSITION}` refers to the position after the `QUANTIZED_VOLUME_SCALE` is applied, but before `QUANTIZED_VOLUME_OFFSET` is applied.
-* `${COLOR}` evaluates to a Color type, where each of the rgba color components are in the range `0.0` to `1.0`.
-* `${NORMAL}` is an array of three values representing the normal of the point before the tile transform is applied. When normals are oct-encoded `${NORMAL}` refers to the decoded normal.
+Point cloud styles may also reference semantics from the [Feature Table](../TileFormats/PointCloud/README.md#feature-table) including position, color, and normal to allow for more flexible styling of the source data.
+* `${POSITION}` is a `vec3` storing the xyz Cartesian coordinates of the point before the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `${POSITION}` refers to the position after the `QUANTIZED_VOLUME_SCALE` is applied, but before `QUANTIZED_VOLUME_OFFSET` is applied.
+* `${COLOR}` evaluates to a `Color` storing the rgba color of the point. When the feature table's color semantic is `RGB` or `RGB565`, `${COLOR}.alpha` is `1.0`. If no color semantic is defined, `${COLOR}` evaluates to the application-specific default color.
+* `${NORMAL}` is a `vec3` storing the normal, in Cartesian coordinates, of the point before the tile transform is applied. When normals are oct-encoded `${NORMAL}` refers to the decoded normal. If no normal semantic is defined in the feature table, `${NORMAL}` evaluates to `undefined`.
 
 For example:
 
 ```json
 {
     "color" : "${COLOR} * color('red')'",
-    "show" : "${POSITION}[0] > 0.5",
-    "pointSize" : "${NORMAL}[0] > 0 ? 2 : 1"
+    "show" : "${POSITION}.x > 0.5",
+    "pointSize" : "${NORMAL}.x > 0 ? 2 : 1"
 }
 ```
 
