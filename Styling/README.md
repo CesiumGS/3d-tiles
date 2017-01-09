@@ -23,6 +23,7 @@ Example: Creating a color ramp based on building height.
 * Gabby Getz, [@ggetz](https://github.com/ggetz)
 * Matt Amato, [@matt_amato](https://twitter.com/matt_amato)
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
+* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
 
@@ -37,6 +38,9 @@ Contents:
    * [Types](#types)
       * [Number](#number)
       * [Color](#color)
+      * [vec2](#vector)
+      * [vec3](#vector)
+      * [vec4](#vector)
       * [RegExp](#regexp)
    * [Conversions](#conversions)
    * [Variables](#variables)
@@ -170,7 +174,7 @@ Also, see the [JSON schema](schema).
 
 ## Expressions
 
-The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)), plus native color and regular expression types and access to tileset feature properties in the form of readonly variables.
+The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)), plus native color, vector, and regular expression types and access to tileset feature properties in the form of readonly variables.
 
 _Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
 
@@ -207,9 +211,12 @@ The following types are supported:
 * `Number`
 * `String`
 * `Color`
+* `vec2`
+* `vec3`
+* `vec4`
 * `RegExp`
 
-All of the types except `Color` and `RegExp` have the same syntax and runtime behavior as JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and behaves similarly to a JavaScript `Object` (see the [Color section](#color)).  `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
+All of the types except `Color`, `vec2`, `vec3`, `vec4`, and `RegExp` have the same syntax and runtime behavior as JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and behaves similarly to a JavaScript `Object` (see the [Color section](#color)).  `vec2`, `vec3`, and `vec4` are derived from GLSL vectors and behave similarly to JavaScript `Object` (see the [Vector section](#vector)).  `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
 
 Example expressions for different types include the following:
 * `true`, `false`
@@ -218,6 +225,9 @@ Example expressions for different types include the following:
 * `1.0`, `NaN`, `Infinity`
 * `'Cesium'`, `"Cesium"`
 * `color('#00FFFF')`
+* `vec2(1.0, 2.0)`
+* `vec3(1.0, 2.0, 3.0)`
+* `vec4(1.0, 2.0, 3.0, 4.0)`
 * `regExp('^Chest'))`
 
 Explicit conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions.
@@ -281,12 +291,65 @@ Colors store rgba components internally, where each component is in the range `0
 
 For example: `color.red`.
 
+Color components may also be accessed with `.x`, `.y`, `.z`, `.w` and `[0]`, `[1]`, `[2]`, `[3]`.
+
 Colors support the following binary operators by performing component-wise operations: `===`, `==`, `!==`, `!=`, `+`, `-`, `*`, `/`, and `%`.  For example `color() === color()` is true since the red, green, blue, and alpha components are equal.  This is not the same behavior as a JavaScript `Object`, where, for example, reference equality would be used.  Operators are essentially overloaded for `Color`.
 
 Colors have a `toString` function for explicit (and implicit) conversion to strings in the format `'(red, green, blue, alpha)'`.
 * `toString() : String`
 
 Colors do not expose any other functions or a `prototype` object.
+
+#### Vector
+
+The styling language includes 2, 3, and 4 component floating-point vector types: `vec2`, `vec3`, and `vec4`. Vector constructors share the same rules as GLSL:
+
+##### vec2
+
+* `vec2(Number)` - initialize each component with the number
+* `vec2(Number, Number)` - initialize with two numbers
+* `vec2(vec2)` - initialize with another `vec2`
+* `vec2(vec3)` - drops the third component of a `vec3`
+* `vec2(vec4)` - drops the third and fourth component of a `vec4`
+
+##### vec3
+
+* `vec3(Number)` - initialize each component with the number
+* `vec3(Number, Number, Number)` - initialize with three numbers
+* `vec3(vec3)` - initialize with another `vec3`
+* `vec3(vec4)` - drops the fourth component of a `vec4`
+* `vec3(vec2, Number)` - initialize with a `vec2` and number
+* `vec3(Number, vec2)` - initialize with a `vec2` and number
+
+##### vec4
+
+* `vec4(Number)` - initialize each component with the number
+* `vec4(Number, Number, Number, Number)` - initialize with four numbers
+* `vec4(vec4)` - initialize with another `vec4`
+* `vec4(vec2, Number, Number)` - initialize with a `vec2` and two numbers
+* `vec4(Number, vec2, Number)` - initialize with a `vec2` and two numbers
+* `vec4(Number, Number, vec2)` - initialize with a `vec2` and two numbers
+* `vec4(vec3, Number)` - initialize with a `vec3` and number
+* `vec4(Number, vec3)` - initialize with a `vec3` and number
+
+`vec2` components may be accessed with `.x`, `.y` and `[0]`, `[1]`.
+
+`vec3` components may be accessed with `.x`, `.y`, `.z` and `[0]`, `[1]`, `[2]`.
+
+`vec4` components may be accessed with `.x`, `.y`, `.z`, `.w` and `[0]`, `[1]`, `[2]`, `[3]`.
+
+Unlike GLSL, the styling language does not support swizzling. For example `vec3(1.0).xy` is not supported.
+
+Vectors support the following unary operators: `-`, `+`.
+
+Vectors support the following binary operators by performing component-wise operations: `===`, `==`, `!==`, `!=`, `+`, `-`, `*`, `/`, and `%`.  For example `vec4(1.0) === vec4(1.0)` is true since the x, y, z, and w components are equal.  This is not the same behavior as a JavaScript `Object`, where, for example, reference equality would be used.  Operators are essentially overloaded for `vec2`, `vec3`, and `vec4`.
+
+Operations between vectors of different types will not evaluate component-wise, but instead will evaluate as JavaScript objects. For example `vec2(1.0) === vec3(1.0)` is false and `vec2(1.0) * vec4(1.0)` is `NaN`. See the [Conversions](#conversions) section for more details.
+
+`vec2`, `vec3`, and `vec4` have a `toString` function for explicit (and implicit) conversion to strings in the format `'(x, y)'`, `'(x, y, z)'`, and `'(x, y, z, w)'`.
+* `toString() : String`
+
+`vec2`, `vec3`, and `vec4` do not expose any other functions or a `prototype` object.
 
 #### RegExp
 
@@ -348,7 +411,7 @@ Regular expressions are treated as `NaN` when performing operations with operato
 
 Style expressions follow JavaScript conversion rules.
 
-For conversions involving `Color` or `RegExp`, they are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `==`, `!=`, `>`, `>=`, `<`, and `<=` operators.  In Boolean expressions, a `Color` implicitly converts to `true`, e.g., `!!color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
+For conversions involving `Color`, `vec2`, `vec3`, `vec4`, and `RegExp`, they are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `==`, `!=`, `>`, `>=`, `<`, and `<=` operators.  In Boolean expressions, `Color`, `vec2`, `vec3`, and `vec4` implicitly convert to `true`, e.g., `!!color() === true`.  In string expressions, `Color`, `vec2`, `vec3`, and `vec4` implicitly converts to `String` using their `toString` function.
 
 ### Variables
 
@@ -384,6 +447,14 @@ ${description} === null
 ${order} === 1
 ${name} === 'Feature name'
 ```
+
+Additionally, variables originating from vector properties stored in the [Batch Table Binary](../TileFormats/BatchTable/README.md#binary-body) are treated as vector types:
+
+| `componentType` | variable type |
+| --- | --- |
+| `"VEC2"` | `vec2` |
+| `"VEC3"` | `vec3` |
+| `"VEC4"` | `vec4` |
 
 Variables can be used to construct colors, for example:
 ```
