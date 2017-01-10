@@ -20,7 +20,7 @@
             }, {
                 "$ref" : "style.condition.schema.json"
             }],
-            "description" : "Determines the 'highlight color' multiplied with the feature's intrinsic color.",
+            "description" : "Determines the color blended with the feature's intrinsic color.",
             "default" : "Color('#FFFFFF')"
         },
         "meta" : {

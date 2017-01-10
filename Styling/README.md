@@ -23,8 +23,8 @@ Example: Creating a color ramp based on building height.
 * Gabby Getz, [@ggetz](https://github.com/ggetz)
 * Matt Amato, [@matt_amato](https://twitter.com/matt_amato)
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
+* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
-
 
 Contents:
 
@@ -40,6 +40,7 @@ Contents:
       * [RegExp](#regexp)
    * [Conversions](#conversions)
    * [Variables](#variables)
+   * [Point Cloud](#point-cloud)
    * [Notes](#notes)
 * [File Extension](#file-extension)
 * [MIME Type](#mime-type)
@@ -468,6 +469,37 @@ ${temperatures['scale']} === 'fahrenheit'
 ${temperatures.values[0]} === 70
 ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
 ```
+
+### Point Cloud
+
+A [Point Cloud](../TileFormats/PointCloud/README.md) is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a point cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
+```json
+{
+    "color" : "color('red')",
+    "pointSize" : "${Temperature} * 0.5"
+}
+```
+
+Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`. A `pointSize` of `1.0` must be supported.
+
+Point cloud styles may also reference semantics from the [Feature Table](../TileFormats/PointCloud/README.md#feature-table) including position, color, and normal to allow for more flexible styling of the source data.
+* `${POSITION}` is a `vec3` storing the xyz Cartesian coordinates of the point before the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `${POSITION}` refers to the position after the `QUANTIZED_VOLUME_SCALE` is applied, but before `QUANTIZED_VOLUME_OFFSET` is applied.
+* `${COLOR}` evaluates to a `Color` storing the rgba color of the point. When the feature table's color semantic is `RGB` or `RGB565`, `${COLOR}.alpha` is `1.0`. If no color semantic is defined, `${COLOR}` evaluates to the application-specific default color.
+* `${NORMAL}` is a `vec3` storing the normal, in Cartesian coordinates, of the point before the tile transform is applied. When normals are oct-encoded `${NORMAL}` refers to the decoded normal. If no normal semantic is defined in the feature table, `${NORMAL}` evaluates to `undefined`.
+
+For example:
+
+```json
+{
+    "color" : "${COLOR} * color('red')'",
+    "show" : "${POSITION}.x > 0.5",
+    "pointSize" : "${NORMAL}.x > 0 ? 2 : 1"
+}
+```
+
+#### Point Cloud Shader Styling
+
+**TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/cesium/issues/3241**
 
 ### Notes
 
