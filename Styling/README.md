@@ -767,7 +767,7 @@ Returns the base 2 logarithm of the number.
 
 `fract(value : Number) : Number`
 
-Returns the fractional part of the number.
+Returns the fractional part of the number. Equivalent to `value - floor(value)`.
 
 ```json
 {
