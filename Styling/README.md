@@ -514,6 +514,15 @@ The following built-in functions are supported by the styling language:
 * [`atan2`](#atan2)
 * [`radians`](#radians)
 * [`degrees`](#degrees)
+* [`sign`](#sign)
+* [`floor`](#floor)
+* [`ceil`](#ceil)
+* [`round`](#round)
+* [`exp`](#exp)
+* [`log`](#log)
+* [`exp2`](#exp2)
+* [`log2`](#log2)
+* [`fract`](#fract)
 * [`pow`](#pow)
 * [`min`](#min)
 * [`max`](#max)
@@ -655,6 +664,114 @@ Converts the number from radians to degrees.
 ```json
 {
     "show" : "degrees(${Angle}) > 45.0"
+}
+```
+
+#### sign
+
+`sign(value : Number) : Number`
+
+Returns 1.0 when the number is positive, 0.0 when the number is zero, and -1.0 when the number is negative.
+
+```json
+{
+    "show" : "sign(${Temperature}) * sign(${Velocity}) === 1.0"
+}
+```
+
+#### floor
+
+`floor(value : Number) : Number`
+
+Returns the nearest integer less than or equal to the number.
+
+```json
+{
+    "show" : "floor(${Position}) === 0"
+}
+```
+
+#### ceil
+
+`ceil(value : Number) : Number`
+
+Returns the nearest integer greater than or equal to the number.
+
+```json
+{
+    "show" : "ceil(${Position}) === 1"
+}
+```
+
+#### round
+
+`round(value : Number) : Number`
+
+Returns the nearest integer to the number. A number with a fraction of 0.5 will round in an implementation-defined direction.
+
+```json
+{
+    "show" : "round(${Position}) === 1"
+}
+```
+
+#### exp
+
+`exp(value : Number) : Number`
+
+Returns `e` to the power of the number, where `e` is Euler's constant, approximately `2.71828`.
+
+```json
+{
+    "show" : "exp(${Density}) > 1.0"
+}
+```
+
+#### log
+
+`log(value : Number) : Number`
+
+Returns the natural logarithm (base `e`) of the number.
+
+```json
+{
+    "show" : "log(${Density}) > 1.0"
+}
+```
+
+#### exp2
+
+`exp2(value : Number) : Number`
+
+Returns 2 to the power of the number.
+
+```json
+{
+    "show" : "exp2(${Density}) > 1.0"
+}
+```
+
+#### log2
+
+`log2(value : Number) : Number`
+
+Returns the base 2 logarithm of the number.
+
+```json
+{
+    "show" : "log2(${Density}) > 1.0"
+}
+```
+
+#### fract
+
+`fract(value : Number) : Number`
+
+Returns the fractional part of the number. Equivalent to `value - floor(value)`.
+
+```json
+{
+    "color" : "color() * fract(${Density})"
 }
 ```
 
