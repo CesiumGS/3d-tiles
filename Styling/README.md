@@ -671,7 +671,7 @@ Converts the number from radians to degrees.
 
 `sign(value : Number) : Number`
 
-Returns 1.0 when the number if positive, 0.0 when the number is zero, and -1.0 when the number is negative.
+Returns 1.0 when the number is positive, 0.0 when the number is zero, and -1.0 when the number is negative.
 
 ```json
 {
@@ -719,7 +719,7 @@ Returns the nearest integer to the number. A number with a fraction of 0.5 will 
 
 `exp(value : Number) : Number`
 
-Returns e to the power of the number, where e is Euler's constant, approximately `2.71828`.
+Returns `e` to the power of the number, where `e` is Euler's constant, approximately `2.71828`.
 
 ```json
 {
@@ -731,7 +731,7 @@ Returns e to the power of the number, where e is Euler's constant, approximately
 
 `log(value : Number) : Number`
 
-Returns the natural logarithm (base e) of the number.
+Returns the natural logarithm (base `e`) of the number.
 
 ```json
 {
