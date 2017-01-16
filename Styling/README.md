@@ -332,6 +332,8 @@ The styling language includes 2, 3, and 4 component floating-point vector types:
 * `vec4(vec3, Number)` - initialize with a `vec3` and number
 * `vec4(Number, vec3)` - initialize with a `vec3` and number
 
+##### Vector usage
+
 `vec2` components may be accessed with `.x`, `.y` and `[0]`, `[1]`.
 
 `vec3` components may be accessed with `.x`, `.y`, `.z` and `[0]`, `[1]`, `[2]`.
