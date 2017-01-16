@@ -284,11 +284,20 @@ The styling language includes 2, 3, and 4 component floating-point vector types:
 
 ##### Vector usage
 
-`vec2` components may be accessed with `.x`, `.y`; `.r`, `.g`; or `[0]`, `[1]`.
+`vec2` components may be accessed with
+* `.x`, `.y`
+* `.r`, `.g`
+* `[0]`, `[1]`
 
-`vec3` components may be accessed with `.x`, `.y`, `.z`; `.r`, `.g`, `.b`; or `[0]`, `[1]`, `[2]`.
+`vec3` components may be accessed with
+* `.x`, `.y`, `.z`
+* `.r`, `.g`, `.b`
+* `[0]`, `[1]`, `[2]`
 
-`vec4` components may be accessed with `.x`, `.y`, `.z`, `.w`; `.r`, `.g`, `.b`, `.a`; or `[0]`, `[1]`, `[2]`, `[3]`.
+`vec4` components may be accessed with
+* `.x`, `.y`, `.z`, `.w`
+* `.r`, `.g`, `.b`, `.a`
+* `[0]`, `[1]`, `[2]`, `[3]`
 
 Unlike GLSL, the styling language does not support swizzling. For example `vec3(1.0).xy` is not supported.
 
@@ -305,7 +314,7 @@ Operations between vectors of different types will not evaluate component-wise, 
 
 #### Color
 
-Colors are created with one of the following functions:
+Colors are implemented as `vec4` and are created with one of the following functions:
 * `color() : Color`
 * `color(keyword : String, [alpha : Number]) : Color`
 * `color(6-digit-hex : String, [alpha : Number]) : Color`
@@ -335,10 +344,10 @@ Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha com
 * `rgba(100, 255, 190, 0.25)`
 * `hsla(1.0, 0.6, 0.7, 0.75)`
 
-Colors are implemented as `vec4` and share the same functions, operators, and component accessors. Color components are stored in the range `0.0` to `1.0`.
+Colors are equivalent to the `vec4` type and share the same functions, operators, and component accessors. Color components are stored in the range `0.0` to `1.0`.
 
 For example:
-* `color('red').x`, `color('red').r`, and `color('red')[0]` evaluate to `1.0`.
+* `color('red').x`, `color('red').r`, and `color('red')[0]` all evaluate to `1.0`.
 * `color('red').toString()` evaluates to `(1.0, 0.0, 0.0, 1.0)`
 * `color('red') * vec4(0.5)` is equivalent to `vec4(0.5, 0.0, 0.0, 1.0)`
 
