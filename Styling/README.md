@@ -528,12 +528,24 @@ The following built-in functions are supported by the styling language:
 * [`max`](#max)
 * [`clamp`](#clamp)
 * [`mix`](#mix)
+* [`length`](#length)
+* [`distance`](#distance)
+* [`normalize`](#normalize)
+* [`dot`](#dot)
+* [`cross`](#cross)
+
+Many of the built-in functions take either scalars or vectors as arguments. For vector arguments the function is applied component-wise and the resulting vector is returned.
 
 #### abs
 
-`abs(value : Number) : Number`
+```
+abs(x : Number) : Number
+abs(x : vec2) : vec2
+abs(x : vec3) : vec3
+abs(x : vec4) : vec4
+```
 
-Returns the absolute value of the number.
+Returns the absolute value of `x`.
 
 ```json
 {
@@ -543,9 +555,14 @@ Returns the absolute value of the number.
 
 #### sqrt
 
-`sqrt(value : Number) : Number`
+```
+sqrt(x : Number) : Number
+sqrt(x : vec2) : vec2
+sqrt(x : vec3) : vec3
+sqrt(x : vec4) : vec4
+```
 
-Returns the square root of `value` if `value >= 0`. Returns `NaN` when `value < 0`.
+Returns the square root of `x` when `x >= 0`. Returns `NaN` when `x < 0`.
 
 ```json
 {
@@ -561,9 +578,14 @@ Returns the square root of `value` if `value >= 0`. Returns `NaN` when `value < 
 
 #### cos
 
-`cos(value : Number) : Number`
+```
+cos(angle : Number) : Number
+cos(angle : vec2) : vec2
+cos(angle : vec3) : vec3
+cos(angle : vec4) : vec4
+```
 
-Returns the cosine value of the number (in radians).
+Returns the cosine of `angle` in radians.
 
 ```json
 {
@@ -573,9 +595,14 @@ Returns the cosine value of the number (in radians).
 
 #### sin
 
-`sin(value : Number) : Number`
+```
+sin(angle : Number) : Number
+sin(angle : vec2) : vec2
+sin(angle : vec3) : vec3
+sin(angle : vec4) : vec4
+```
 
-Returns the sine value of the number (in radians).
+Returns the sine of `angle` in radians.
 
 ```json
 {
@@ -585,9 +612,14 @@ Returns the sine value of the number (in radians).
 
 #### tan
 
-`tan(value : Number) : Number`
+```
+tan(angle : Number) : Number
+tan(angle : vec2) : vec2
+tan(angle : vec3) : vec3
+tan(angle : vec4) : vec4
+```
 
-Returns the tangent value of the number (in radians).
+Returns the tangent of `angle` in radians.
 
 ```json
 {
@@ -597,9 +629,14 @@ Returns the tangent value of the number (in radians).
 
 #### acos
 
-`acos(value : Number) : Number`
+```
+acos(angle : Number) : Number
+acos(angle : vec2) : vec2
+acos(angle : vec3) : vec3
+acos(angle : vec4) : vec4
+```
 
-Returns the arccosine value of the number (in radians).
+Returns the arccosine of `angle` in radians.
 
 ```json
 {
@@ -609,9 +646,14 @@ Returns the arccosine value of the number (in radians).
 
 #### asin
 
-`asin(value : Number) : Number`
+```
+asin(angle : Number) : Number
+asin(angle : vec2) : vec2
+asin(angle : vec3) : vec3
+asin(angle : vec4) : vec4
+```
 
-Returns the arcsine value of the number (in radians).
+Returns the arcsine of `angle` in radians.
 
 ```json
 {
@@ -621,9 +663,14 @@ Returns the arcsine value of the number (in radians).
 
 #### atan
 
-`atan(value : Number) : Number`
+```
+atan(angle : Number) : Number
+atan(angle : vec2) : vec2
+atan(angle : vec3) : vec3
+atan(angle : vec4) : vec4
+```
 
-Returns the arctangent value of the number (in radians).
+Returns the arctangent of `angle` in radians.
 
 ```json
 {
@@ -633,9 +680,14 @@ Returns the arctangent value of the number (in radians).
 
 #### atan2
 
-`atan2(y : Number, x : Number) : Number`
+```
+atan2(y : Number, x : Number) : Number
+atan2(y : vec2, x : vec2) : vec2
+atan2(y : vec3, x : vec3) : vec3
+atan2(y : vec4, x : vec4) : vec4
+```
 
-Returns the arctangent of the quotient of y and x (in radians).
+Returns the arctangent of the quotient of `y` and `x`.
 
 ```json
 {
@@ -645,9 +697,14 @@ Returns the arctangent of the quotient of y and x (in radians).
 
 #### radians
 
-`radians(value : Number) : Number`
+```
+radians(angle : Number) : Number
+radians(angle : vec2) : vec2
+radians(angle : vec3) : vec3
+radians(angle : vec4) : vec4
+```
 
-Converts the number from degrees to radians.
+Converts `angle` from degrees to radians.
 
 ```json
 {
@@ -657,9 +714,14 @@ Converts the number from degrees to radians.
 
 #### degrees
 
-`degrees(value : Number) : Number`
+```
+degrees(angle : Number) : Number
+degrees(angle : vec2) : vec2
+degrees(angle : vec3) : vec3
+degrees(angle : vec4) : vec4
+```
 
-Converts the number from radians to degrees.
+Converts `angle` from radians to degrees.
 
 ```json
 {
@@ -669,9 +731,14 @@ Converts the number from radians to degrees.
 
 #### sign
 
-`sign(value : Number) : Number`
+```
+sign(x : Number) : Number
+sign(x : vec2) : vec2
+sign(x : vec3) : vec3
+sign(x : vec4) : vec4
+```
 
-Returns 1.0 when the number is positive, 0.0 when the number is zero, and -1.0 when the number is negative.
+Returns 1.0 when `x` is positive, 0.0 when `x` is zero, and -1.0 when `x` is negative.
 
 ```json
 {
@@ -681,9 +748,14 @@ Returns 1.0 when the number is positive, 0.0 when the number is zero, and -1.0 w
 
 #### floor
 
-`floor(value : Number) : Number`
+```
+floor(x : Number) : Number
+floor(x : vec2) : vec2
+floor(x : vec3) : vec3
+floor(x : vec4) : vec4
+```
 
-Returns the nearest integer less than or equal to the number.
+Returns the nearest integer less than or equal to `x`.
 
 ```json
 {
@@ -693,9 +765,14 @@ Returns the nearest integer less than or equal to the number.
 
 #### ceil
 
-`ceil(value : Number) : Number`
+```
+ceil(x : Number) : Number
+ceil(x : vec2) : vec2
+ceil(x : vec3) : vec3
+ceil(x : vec4) : vec4
+```
 
-Returns the nearest integer greater than or equal to the number.
+Returns the nearest integer greater than or equal to `x`.
 
 ```json
 {
@@ -705,9 +782,14 @@ Returns the nearest integer greater than or equal to the number.
 
 #### round
 
-`round(value : Number) : Number`
+```
+round(x : Number) : Number
+round(x : vec2) : vec2
+round(x : vec3) : vec3
+round(x : vec4) : vec4
+```
 
-Returns the nearest integer to the number. A number with a fraction of 0.5 will round in an implementation-defined direction.
+Returns the nearest integer to `x`. A number with a fraction of 0.5 will round in an implementation-defined direction.
 
 ```json
 {
@@ -717,9 +799,14 @@ Returns the nearest integer to the number. A number with a fraction of 0.5 will 
 
 #### exp
 
-`exp(value : Number) : Number`
+```
+exp(x : Number) : Number
+exp(x : vec2) : vec2
+exp(x : vec3) : vec3
+exp(x : vec4) : vec4
+```
 
-Returns `e` to the power of the number, where `e` is Euler's constant, approximately `2.71828`.
+Returns `e` to the power of `x`, where `e` is Euler's constant, approximately `2.71828`.
 
 ```json
 {
@@ -729,9 +816,14 @@ Returns `e` to the power of the number, where `e` is Euler's constant, approxima
 
 #### log
 
-`log(value : Number) : Number`
+```
+log(x : Number) : Number
+log(x : vec2) : vec2
+log(x : vec3) : vec3
+log(x : vec4) : vec4
+```
 
-Returns the natural logarithm (base `e`) of the number.
+Returns the natural logarithm (base `e`) of `x`.
 
 ```json
 {
@@ -741,9 +833,14 @@ Returns the natural logarithm (base `e`) of the number.
 
 #### exp2
 
-`exp2(value : Number) : Number`
+```
+exp2(x : Number) : Number
+exp2(x : vec2) : vec2
+exp2(x : vec3) : vec3
+exp2(x : vec4) : vec4
+```
 
-Returns 2 to the power of the number.
+Returns 2 to the power of `x`.
 
 ```json
 {
@@ -753,9 +850,14 @@ Returns 2 to the power of the number.
 
 #### log2
 
-`log2(value : Number) : Number`
+```
+log2(x : Number) : Number
+log2(x : vec2) : vec2
+log2(x : vec3) : vec3
+log2(x : vec4) : vec4
+```
 
-Returns the base 2 logarithm of the number.
+Returns the base 2 logarithm of `x`.
 
 ```json
 {
@@ -765,9 +867,14 @@ Returns the base 2 logarithm of the number.
 
 #### fract
 
-`fract(value : Number) : Number`
+```
+fract(x : Number) : Number
+fract(x : vec2) : vec2
+fract(x : vec3) : vec3
+fract(x : vec4) : vec4
+```
 
-Returns the fractional part of the number. Equivalent to `value - floor(value)`.
+Returns the fractional part of `x`. Equivalent to `x - floor(x)`.
 
 ```json
 {
@@ -777,7 +884,12 @@ Returns the fractional part of the number. Equivalent to `value - floor(value)`.
 
 #### pow
 
-`pow(base : Number, exponent : Number) : Number`
+```
+pow(base : Number, exponent : Number) : Number
+pow(base : vec2, exponent : vec2) : vec2
+pow(base : vec3, exponent : vec3) : vec3
+pow(base : vec4, exponent : vec4) : vec4
+```
 
 Returns `base` raised to the power of `exponent`.
 
@@ -789,9 +901,21 @@ Returns `base` raised to the power of `exponent`.
 
 #### min
 
-`min(value1 : Number, value2 : Number) : Number`
+```
+min(x : Number, y : Number) : Number
+min(x : vec2, y : vec2) : vec2
+min(x : vec3, y : vec3) : vec3
+min(x : vec4, y : vec4) : vec4
+```
 
-Returns the smaller of the two arguments.
+```
+min(x : Number, y : Number) : Number
+min(x : vec2, y : Number) : vec2
+min(x : vec3, y : Number) : vec3
+min(x : vec4, y : Number) : vec4
+```
+
+Returns the smaller of `x` and `y`.
 
 ```json
 {
@@ -801,9 +925,21 @@ Returns the smaller of the two arguments.
 
 #### max
 
-`max(value1 : Number, value2 : Number) : Number`
+```
+max(x : Number, y : Number) : Number
+max(x : vec2, y : vec2) : vec2
+max(x : vec3, y : vec3) : vec3
+max(x : vec4, y : vec4) : vec4
+```
 
-Returns the larger of the two arguments.
+```
+max(x : Number, y : Number) : Number
+max(x : vec2, y : Number) : vec2
+max(x : vec3, y : Number) : vec3
+max(x : vec4, y : Number) : vec4
+```
+
+Returns the larger of `x` and `y`.
 
 ```json
 {
@@ -813,9 +949,21 @@ Returns the larger of the two arguments.
 
 #### clamp
 
-`clamp(value : Number,  min : Number, max : Number) : Number`
+```
+clamp(x : Number,  min : Number, max : Number) : Number
+clamp(x : vec2,  min : vec2, max : vec2) : vec2
+clamp(x : vec3,  min : vec3, max : vec3) : vec3
+clamp(x : vec4,  min : vec4, max : vec4) : vec4
+```
 
-Constrains a value to lie between two values.
+```
+clamp(x : Number,  min : Number, max : Number) : Number
+clamp(x : vec2,  min : Number, max : Number) : vec2
+clamp(x : vec3,  min : Number, max : Number) : vec3
+clamp(x : vec4,  min : Number, max : Number) : vec4
+```
+
+Constrains `x` to lie between `min` and `max`.
 
 ```json
 {
@@ -825,13 +973,105 @@ Constrains a value to lie between two values.
 
 #### mix
 
-`mix(x : Number,  y : Number, a: Number) : Number`
+```
+mix(x : Number,  y : Number, a : Number) : Number
+mix(x : vec2,  y : vec2, a : vec2) : vec2
+mix(x : vec3,  y : vec3, a : vec3) : vec3
+mix(x : vec4,  y : vec4, a : vec4) : vec4
+```
 
-Computes the linear interpolation of x and y.
+```
+mix(x : Number,  y : Number, a : Number) : Number
+mix(x : vec2,  y : vec2, a : Number) : vec2
+mix(x : vec3,  y : vec3, a : Number) : vec3
+mix(x : vec4,  y : vec4, a : Number) : vec4
+```
+
+Computes the linear interpolation of `x` and `y`.
 
 ```json
 {
     "show" : "mix(20.0, ${Angle}, 0.5) > 25.0"
+}
+```
+
+#### length
+
+```
+length(x : Number) : Number
+length(x : vec2) : vec2
+length(x : vec3) : vec3
+length(x : vec4) : vec4
+```
+
+Computes the length of vector `x`, i.e. the square root of the sum of the squared components. If `x` is a number, `length` returns `x`.
+
+```json
+{
+    "show" : "length(${Dimensions}) > 10.0"
+}
+```
+
+#### distance
+
+```
+pow(x : Number, y : Number) : Number
+pow(x : vec2, y : vec2) : vec2
+pow(x : vec3, y : vec3) : vec3
+pow(x : vec4, y : vec4) : vec4
+```
+
+Computes the distance between two points `x` and `y`, i.e. `length(x - y)`.
+
+```json
+{
+    "show" : "distance(${BottomRight}, ${UpperLeft}) > 50.0"
+}
+```
+
+#### normalize
+
+```
+normalize(x : Number) : Number
+normalize(x : vec2) : vec2
+normalize(x : vec3) : vec3
+normalize(x : vec4) : vec4
+```
+Returns a vector with length 1.0 that is parallel to `x`. When `x` is a number, `normalize` returns 1.0.
+
+```json
+{
+    "show" : "normalize(${RightVector}, ${UpVector}) > 0.5"
+}
+```
+
+#### dot
+
+```
+dot(x : Number, y : Number) : Number
+dot(x : vec2, y : vec2) : vec2
+dot(x : vec3, y : vec3) : vec3
+dot(x : vec4, y : vec4) : vec4
+```
+Computes the dot product of `x` and `y`.
+
+```json
+{
+    "show" : "dot(${RightVector}, ${UpVector}) > 0.5"
+}
+```
+
+#### cross
+
+```
+cross(x : vec3, y : vec3) : vec3
+```
+
+Computes the cross product of `x` and `y`. This function only accepts `vec3` arguments.
+
+```json
+{
+    "color" : "vec4(cross(${RightVector}, ${UpVector}), 1.0)"
 }
 ```
 
