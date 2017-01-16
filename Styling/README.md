@@ -23,8 +23,8 @@ Example: Creating a color ramp based on building height.
 * Gabby Getz, [@ggetz](https://github.com/ggetz)
 * Matt Amato, [@matt_amato](https://twitter.com/matt_amato)
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
+* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
-
 
 Contents:
 
@@ -36,6 +36,9 @@ Contents:
    * [Operators](#operators)
    * [Types](#types)
       * [Number](#number)
+      * [vec2](#vector)
+      * [vec3](#vector)
+      * [vec4](#vector)
       * [Color](#color)
       * [RegExp](#regexp)
    * [Conversions](#conversions)
@@ -43,6 +46,7 @@ Contents:
    * [Variables](#variables)
    * [Built-in Variables](#built-in-variables)
    * [Built-in Functions](#built-in-functions)
+   * [Point Cloud](#point-cloud)
    * [Notes](#notes)
 * [File Extension](#file-extension)
 * [MIME Type](#mime-type)
@@ -173,15 +177,15 @@ Also, see the [JSON schema](schema).
 
 ## Expressions
 
-The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)), plus native color and regular expression types and access to tileset feature properties in the form of readonly variables.
+The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)), plus native vector and regular expression types and access to tileset feature properties in the form of readonly variables.
 
 _Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
 
 ### Semantics
 
-Dot notation is used to access properties by name, e.g., `color.red`.
+Dot notation is used to access properties by name, e.g., `building.name`.
 
-Bracket notation (`[]`) is also used to access properties, e.g., `color['red']`, or arrays, e.g., `temperatures[1]`.
+Bracket notation (`[]`) is also used to access properties, e.g., `building['name']`, or arrays, e.g., `temperatures[1]`.
 
 Functions are called with parenthesis (`()`) and comma-separated arguments, e.g., (`isNaN(0.0)`, `color('cyan', 0.5)`).
 
@@ -209,10 +213,12 @@ The following types are supported:
 * `Undefined`
 * `Number`
 * `String`
-* `Color`
+* `vec2`
+* `vec3`
+* `vec4`
 * `RegExp`
 
-All of the types except `Color` and `RegExp` have the same syntax and runtime behavior as JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and behaves similarly to a JavaScript `Object` (see the [Color section](#color)).  `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
+All of the types except `vec2`, `vec3`, `vec4`, and `RegExp` have the same syntax and runtime behavior as JavaScript.  `vec2`, `vec3`, and `vec4` are derived from GLSL vectors and behave similarly to JavaScript `Object` (see the [Vector section](#vector)).  Colors derive from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and are implemented as `vec4`. `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
 
 Example expressions for different types include the following:
 * `true`, `false`
@@ -220,6 +226,9 @@ Example expressions for different types include the following:
 * `undefined`
 * `1.0`, `NaN`, `Infinity`
 * `'Cesium'`, `"Cesium"`
+* `vec2(1.0, 2.0)`
+* `vec3(1.0, 2.0, 3.0)`
+* `vec4(1.0, 2.0, 3.0, 4.0)`
 * `color('#00FFFF')`
 * `regExp('^Chest'))`
 
@@ -244,9 +253,71 @@ As in JavaScript, numbers can be `NaN` or `Infinity`.  The following test functi
 * `isNaN(testValue : Number) : Boolean`
 * `isFinite(testValue : Number) : Boolean`
 
+#### Vector
+
+The styling language includes 2, 3, and 4 component floating-point vector types: `vec2`, `vec3`, and `vec4`. Vector constructors share the same rules as GLSL:
+
+##### vec2
+
+* `vec2(Number)` - initialize each component with the number
+* `vec2(Number, Number)` - initialize with two numbers
+* `vec2(vec2)` - initialize with another `vec2`
+* `vec2(vec3)` - drops the third component of a `vec3`
+* `vec2(vec4)` - drops the third and fourth component of a `vec4`
+
+##### vec3
+
+* `vec3(Number)` - initialize each component with the number
+* `vec3(Number, Number, Number)` - initialize with three numbers
+* `vec3(vec3)` - initialize with another `vec3`
+* `vec3(vec4)` - drops the fourth component of a `vec4`
+* `vec3(vec2, Number)` - initialize with a `vec2` and number
+* `vec3(Number, vec2)` - initialize with a `vec2` and number
+
+##### vec4
+
+* `vec4(Number)` - initialize each component with the number
+* `vec4(Number, Number, Number, Number)` - initialize with four numbers
+* `vec4(vec4)` - initialize with another `vec4`
+* `vec4(vec2, Number, Number)` - initialize with a `vec2` and two numbers
+* `vec4(Number, vec2, Number)` - initialize with a `vec2` and two numbers
+* `vec4(Number, Number, vec2)` - initialize with a `vec2` and two numbers
+* `vec4(vec3, Number)` - initialize with a `vec3` and number
+* `vec4(Number, vec3)` - initialize with a `vec3` and number
+
+##### Vector usage
+
+`vec2` components may be accessed with
+* `.x`, `.y`
+* `.r`, `.g`
+* `[0]`, `[1]`
+
+`vec3` components may be accessed with
+* `.x`, `.y`, `.z`
+* `.r`, `.g`, `.b`
+* `[0]`, `[1]`, `[2]`
+
+`vec4` components may be accessed with
+* `.x`, `.y`, `.z`, `.w`
+* `.r`, `.g`, `.b`, `.a`
+* `[0]`, `[1]`, `[2]`, `[3]`
+
+Unlike GLSL, the styling language does not support swizzling. For example `vec3(1.0).xy` is not supported.
+
+Vectors support the following unary operators: `-`, `+`.
+
+Vectors support the following binary operators by performing component-wise operations: `===`, `==`, `!==`, `!=`, `+`, `-`, `*`, `/`, and `%`.  For example `vec4(1.0) === vec4(1.0)` is true since the x, y, z, and w components are equal.  This is not the same behavior as a JavaScript `Object`, where, for example, reference equality would be used.  Operators are essentially overloaded for `vec2`, `vec3`, and `vec4`.
+
+Operations between vectors of different types will not evaluate component-wise, but instead will evaluate as JavaScript objects. For example `vec2(1.0) === vec3(1.0)` is false and `vec2(1.0) * vec4(1.0)` is `NaN`. See the [Conversions](#conversions) section for more details.
+
+`vec2`, `vec3`, and `vec4` have a `toString` function for explicit (and implicit) conversion to strings in the format `'(x, y)'`, `'(x, y, z)'`, and `'(x, y, z, w)'`.
+* `toString() : String`
+
+`vec2`, `vec3`, and `vec4` do not expose any other functions or a `prototype` object.
+
 #### Color
 
-Colors are created with one of the following functions:
+Colors are implemented as `vec4` and are created with one of the following functions:
 * `color() : Color`
 * `color(keyword : String, [alpha : Number]) : Color`
 * `color(6-digit-hex : String, [alpha : Number]) : Color`
@@ -276,20 +347,12 @@ Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha com
 * `rgba(100, 255, 190, 0.25)`
 * `hsla(1.0, 0.6, 0.7, 0.75)`
 
-Colors store rgba components internally, where each component is in the range `0.0` to `1.0`.  They are accessed with readonly properties:
-* `red : Number`
-* `green : Number`
-* `blue : Number`
-* `alpha : Number`
+Colors are equivalent to the `vec4` type and share the same functions, operators, and component accessors. Color components are stored in the range `0.0` to `1.0`.
 
-For example: `color.red`.
-
-Colors support the following binary operators by performing component-wise operations: `===`, `==`, `!==`, `!=`, `+`, `-`, `*`, `/`, and `%`.  For example `color() === color()` is true since the red, green, blue, and alpha components are equal.  This is not the same behavior as a JavaScript `Object`, where, for example, reference equality would be used.  Operators are essentially overloaded for `Color`.
-
-Colors have a `toString` function for explicit (and implicit) conversion to strings in the format `'(red, green, blue, alpha)'`.
-* `toString() : String`
-
-Colors do not expose any other functions or a `prototype` object.
+For example:
+* `color('red').x`, `color('red').r`, and `color('red')[0]` all evaluate to `1.0`.
+* `color('red').toString()` evaluates to `(1.0, 0.0, 0.0, 1.0)`
+* `color('red') * vec4(0.5)` is equivalent to `vec4(0.5, 0.0, 0.0, 1.0)`
 
 #### RegExp
 
@@ -351,7 +414,7 @@ Regular expressions are treated as `NaN` when performing operations with operato
 
 Style expressions follow JavaScript conversion rules.
 
-For conversions involving `Color` or `RegExp`, they are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `==`, `!=`, `>`, `>=`, `<`, and `<=` operators.  In Boolean expressions, a `Color` implicitly converts to `true`, e.g., `!!color() === true`.  In string expressions, `Color` implicitly converts to `String` using its `toString` function.
+For conversions involving vec2`, `vec3`, `vec4`, and `RegExp`, they are treated as JavaScript objects.  For example, `vec4` implicitly converts to `NaN` with `===`, `==`, `!==`, `!=`, `>`, `>=`, `<`, and `<=` operators.  In Boolean expressions, `vec2`, `vec3`, and `vec4` implicitly convert to `true`, e.g., `!!vec4(1.0) === true`.  In string expressions, `vec2`, `vec3`, and `vec4` implicitly converts to `String` using their `toString` function.
 
 ### Constants
 
@@ -415,10 +478,18 @@ ${order} === 1
 ${name} === 'Feature name'
 ```
 
-Variables can be used to construct colors, for example:
+Additionally, variables originating from vector properties stored in the [Batch Table Binary](../TileFormats/BatchTable/README.md#binary-body) are treated as vector types:
+
+| `componentType` | variable type |
+| --- | --- |
+| `"VEC2"` | `vec2` |
+| `"VEC3"` | `vec3` |
+| `"VEC4"` | `vec4` |
+
+Variables can be used to construct colors or vectors, for example:
 ```
 rgba(${red}, ${green}, ${blue}, ${alpha})
-color(${colorKeyword})
+vec4(${temperature})
 ```
 
 Dot or bracket notation is used to access feature subproperties.  For example:
@@ -497,6 +568,22 @@ Bracket notation is used to access feature subproperties or arrays.  For example
 ${temperatures['scale']} === 'fahrenheit'
 ${temperatures.values[0]} === 70
 ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
+```
+
+### Built-in Variables
+
+The follow built-in variables are supported by the styling language:
+
+* [`TILES3D_TILESET_TIME`](#TILES3D_TILESET_TIME)
+
+#### TILES3D_TILESET_TIME
+
+Gets the time, in seconds, since the tileset was first loaded. This is useful for creating dynamic styles that change with time.
+
+```json
+{
+    "color" : "color() * abs(cos(${Temperature} + TILES3D_TILESET_TIME))"
+}
 ```
 
 ### Built-in Functions
@@ -1015,10 +1102,10 @@ Computes the length of vector `x`, i.e. the square root of the sum of the square
 #### distance
 
 ```
-pow(x : Number, y : Number) : Number
-pow(x : vec2, y : vec2) : vec2
-pow(x : vec3, y : vec3) : vec3
-pow(x : vec4, y : vec4) : vec4
+distance(x : Number, y : Number) : Number
+distance(x : vec2, y : vec2) : vec2
+distance(x : vec3, y : vec3) : vec3
+distance(x : vec4, y : vec4) : vec4
 ```
 
 Computes the distance between two points `x` and `y`, i.e. `length(x - y)`.
@@ -1075,21 +1162,36 @@ Computes the cross product of `x` and `y`. This function only accepts `vec3` arg
 }
 ```
 
-### Built-in Variables
+### Point Cloud
 
-The follow built-in variables are supported by the styling language:
+A [Point Cloud](../TileFormats/PointCloud/README.md) is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a point cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
+```json
+{
+    "color" : "color('red')",
+    "pointSize" : "${Temperature} * 0.5"
+}
+```
 
-* [`TILES3D_TILESET_TIME`](#TILES3D_TILESET_TIME)
+Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`. A `pointSize` of `1.0` must be supported.
 
-#### TILES3D_TILESET_TIME
+Point cloud styles may also reference semantics from the [Feature Table](../TileFormats/PointCloud/README.md#feature-table) including position, color, and normal to allow for more flexible styling of the source data.
+* `${POSITION}` is a `vec3` storing the xyz Cartesian coordinates of the point before the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `${POSITION}` refers to the position after the `QUANTIZED_VOLUME_SCALE` is applied, but before `QUANTIZED_VOLUME_OFFSET` is applied.
+* `${COLOR}` evaluates to a `Color` storing the rgba color of the point. When the feature table's color semantic is `RGB` or `RGB565`, `${COLOR}.alpha` is `1.0`. If no color semantic is defined, `${COLOR}` evaluates to the application-specific default color.
+* `${NORMAL}` is a `vec3` storing the normal, in Cartesian coordinates, of the point before the tile transform is applied. When normals are oct-encoded `${NORMAL}` refers to the decoded normal. If no normal semantic is defined in the feature table, `${NORMAL}` evaluates to `undefined`.
 
-Gets the time, in seconds, since the tileset was first loaded. This is useful for creating dynamic styles that change with time.
+For example:
 
 ```json
 {
-    "color" : "color() * abs(cos(${Temperature} + TILES3D_TILESET_TIME))"
+    "color" : "${COLOR} * color('red')'",
+    "show" : "${POSITION}.x > 0.5",
+    "pointSize" : "${NORMAL}.x > 0 ? 2 : 1"
 }
 ```
+
+#### Point Cloud Shader Styling
+
+**TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/cesium/issues/3241**
 
 ### Notes
 
