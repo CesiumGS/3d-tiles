@@ -37,10 +37,10 @@ Contents:
    * [Operators](#operators)
    * [Types](#types)
       * [Number](#number)
-      * [Color](#color)
       * [vec2](#vector)
       * [vec3](#vector)
       * [vec4](#vector)
+      * [Color](#color)
       * [RegExp](#regexp)
    * [Conversions](#conversions)
    * [Variables](#variables)
@@ -174,15 +174,15 @@ Also, see the [JSON schema](schema).
 
 ## Expressions
 
-The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)), plus native color, vector, and regular expression types and access to tileset feature properties in the form of readonly variables.
+The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)), plus native vector and regular expression types and access to tileset feature properties in the form of readonly variables.
 
 _Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
 
 ### Semantics
 
-Dot notation is used to access properties by name, e.g., `color.red`.
+Dot notation is used to access properties by name, e.g., `building.name`.
 
-Bracket notation (`[]`) is also used to access properties, e.g., `color['red']`, or arrays, e.g., `temperatures[1]`.
+Bracket notation (`[]`) is also used to access properties, e.g., `building['name']`, or arrays, e.g., `temperatures[1]`.
 
 Functions are called with parenthesis (`()`) and comma-separated arguments, e.g., (`isNaN(0.0)`, `color('cyan', 0.5)`).
 
@@ -210,13 +210,12 @@ The following types are supported:
 * `Undefined`
 * `Number`
 * `String`
-* `Color`
 * `vec2`
 * `vec3`
 * `vec4`
 * `RegExp`
 
-All of the types except `Color`, `vec2`, `vec3`, `vec4`, and `RegExp` have the same syntax and runtime behavior as JavaScript.  `Color` is derived from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and behaves similarly to a JavaScript `Object` (see the [Color section](#color)).  `vec2`, `vec3`, and `vec4` are derived from GLSL vectors and behave similarly to JavaScript `Object` (see the [Vector section](#vector)).  `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
+All of the types except `vec2`, `vec3`, `vec4`, and `RegExp` have the same syntax and runtime behavior as JavaScript.  `vec2`, `vec3`, and `vec4` are derived from GLSL vectors and behave similarly to JavaScript `Object` (see the [Vector section](#vector)).  Colors derive from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and are implemented as `vec4`. `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
 
 Example expressions for different types include the following:
 * `true`, `false`
@@ -224,10 +223,10 @@ Example expressions for different types include the following:
 * `undefined`
 * `1.0`, `NaN`, `Infinity`
 * `'Cesium'`, `"Cesium"`
-* `color('#00FFFF')`
 * `vec2(1.0, 2.0)`
 * `vec3(1.0, 2.0, 3.0)`
 * `vec4(1.0, 2.0, 3.0, 4.0)`
+* `color('#00FFFF')`
 * `regExp('^Chest'))`
 
 Explicit conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions.
@@ -250,55 +249,6 @@ These are essentially casts, not constructor functions.
 As in JavaScript, numbers can be `NaN` or `Infinity`.  The following test functions are supported:
 * `isNaN(testValue : Number) : Boolean`
 * `isFinite(testValue : Number) : Boolean`
-
-#### Color
-
-Colors are created with one of the following functions:
-* `color() : Color`
-* `color(keyword : String, [alpha : Number]) : Color`
-* `color(6-digit-hex : String, [alpha : Number]) : Color`
-* `color(3-digit-hex : String, [alpha : Number]) : Color`
-* `rgb(red : Number, green : Number, blue : number) : Color`
-* `rgba(red : Number, green : Number, blue : number, alpha : Number) : Color`
-* `hsl(hue : Number, saturation : Number, lightness : Number) : Color`
-* `hsla(hue : Number, saturation : Number, lightness : Number, alpha : Number) : Color`
-
-Calling `color()` with no arguments is the same as calling `color('#FFFFFF')`.
-
-Colors defined by a case-insensitive keyword (e.g., `'cyan'`) or hex rgb are passed as strings to the `color` function.  For example:
-* `color('cyan')`
-* `color('#00FFFF')`
-* `color('#0FF')`
-
-These `color` functions have an optional second argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
-* `color('cyan', 0.5)`
-
-Colors defined with decimal rgb or hsl are created with `rgb` and `hsl` functions, respectively, just as in CSS (but with percentage ranges from `0.0` to `1.0` for `0%` to `100%`, respectively).  For example:
-* `rgb(100, 255, 190)`
-* `hsl(1.0, 0.6, 0.7)`
-
-The range for rgb components is `0` to `255`, inclusive.  For `hsl`, the range for hue, saturation, and lightness is `0.0` to `1.0`, inclusive.
-
-Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
-* `rgba(100, 255, 190, 0.25)`
-* `hsla(1.0, 0.6, 0.7, 0.75)`
-
-Colors store rgba components internally, where each component is in the range `0.0` to `1.0`.  They are accessed with readonly properties:
-* `red : Number`
-* `green : Number`
-* `blue : Number`
-* `alpha : Number`
-
-For example: `color.red`.
-
-Color components may also be accessed with `.x`, `.y`, `.z`, `.w` and `[0]`, `[1]`, `[2]`, `[3]`.
-
-Colors support the following binary operators by performing component-wise operations: `===`, `==`, `!==`, `!=`, `+`, `-`, `*`, `/`, and `%`.  For example `color() === color()` is true since the red, green, blue, and alpha components are equal.  This is not the same behavior as a JavaScript `Object`, where, for example, reference equality would be used.  Operators are essentially overloaded for `Color`.
-
-Colors have a `toString` function for explicit (and implicit) conversion to strings in the format `'(red, green, blue, alpha)'`.
-* `toString() : String`
-
-Colors do not expose any other functions or a `prototype` object.
 
 #### Vector
 
@@ -334,11 +284,11 @@ The styling language includes 2, 3, and 4 component floating-point vector types:
 
 ##### Vector usage
 
-`vec2` components may be accessed with `.x`, `.y` and `[0]`, `[1]`.
+`vec2` components may be accessed with `.x`, `.y`; `.r`, `.g`; or `[0]`, `[1]`.
 
-`vec3` components may be accessed with `.x`, `.y`, `.z` and `[0]`, `[1]`, `[2]`.
+`vec3` components may be accessed with `.x`, `.y`, `.z`; `.r`, `.g`, `.b`; or `[0]`, `[1]`, `[2]`.
 
-`vec4` components may be accessed with `.x`, `.y`, `.z`, `.w` and `[0]`, `[1]`, `[2]`, `[3]`.
+`vec4` components may be accessed with `.x`, `.y`, `.z`, `.w`; `.r`, `.g`, `.b`, `.a`; or `[0]`, `[1]`, `[2]`, `[3]`.
 
 Unlike GLSL, the styling language does not support swizzling. For example `vec3(1.0).xy` is not supported.
 
@@ -352,6 +302,45 @@ Operations between vectors of different types will not evaluate component-wise, 
 * `toString() : String`
 
 `vec2`, `vec3`, and `vec4` do not expose any other functions or a `prototype` object.
+
+#### Color
+
+Colors are created with one of the following functions:
+* `color() : Color`
+* `color(keyword : String, [alpha : Number]) : Color`
+* `color(6-digit-hex : String, [alpha : Number]) : Color`
+* `color(3-digit-hex : String, [alpha : Number]) : Color`
+* `rgb(red : Number, green : Number, blue : number) : Color`
+* `rgba(red : Number, green : Number, blue : number, alpha : Number) : Color`
+* `hsl(hue : Number, saturation : Number, lightness : Number) : Color`
+* `hsla(hue : Number, saturation : Number, lightness : Number, alpha : Number) : Color`
+
+Calling `color()` with no arguments is the same as calling `color('#FFFFFF')`.
+
+Colors defined by a case-insensitive keyword (e.g., `'cyan'`) or hex rgb are passed as strings to the `color` function.  For example:
+* `color('cyan')`
+* `color('#00FFFF')`
+* `color('#0FF')`
+
+These `color` functions have an optional second argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
+* `color('cyan', 0.5)`
+
+Colors defined with decimal rgb or hsl are created with `rgb` and `hsl` functions, respectively, just as in CSS (but with percentage ranges from `0.0` to `1.0` for `0%` to `100%`, respectively).  For example:
+* `rgb(100, 255, 190)`
+* `hsl(1.0, 0.6, 0.7)`
+
+The range for rgb components is `0` to `255`, inclusive.  For `hsl`, the range for hue, saturation, and lightness is `0.0` to `1.0`, inclusive.
+
+Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
+* `rgba(100, 255, 190, 0.25)`
+* `hsla(1.0, 0.6, 0.7, 0.75)`
+
+Colors are implemented as `vec4` and share the same functions, operators, and component accessors. Color components are stored in the range `0.0` to `1.0`.
+
+For example:
+* `color('red').x`, `color('red').r`, and `color('red')[0]` evaluate to `1.0`.
+* `color('red').toString()` evaluates to `(1.0, 0.0, 0.0, 1.0)`
+* `color('red') * vec4(0.5)` is equivalent to `vec4(0.5, 0.0, 0.0, 1.0)`
 
 #### RegExp
 
@@ -413,7 +402,7 @@ Regular expressions are treated as `NaN` when performing operations with operato
 
 Style expressions follow JavaScript conversion rules.
 
-For conversions involving `Color`, `vec2`, `vec3`, `vec4`, and `RegExp`, they are treated as JavaScript objects.  For example, `Color` implicitly converts to `NaN` with `==`, `!=`, `>`, `>=`, `<`, and `<=` operators.  In Boolean expressions, `Color`, `vec2`, `vec3`, and `vec4` implicitly convert to `true`, e.g., `!!color() === true`.  In string expressions, `Color`, `vec2`, `vec3`, and `vec4` implicitly converts to `String` using their `toString` function.
+For conversions involving vec2`, `vec3`, `vec4`, and `RegExp`, they are treated as JavaScript objects.  For example, `vec4` implicitly converts to `NaN` with `===`, `==`, `!==`, `!=`, `>`, `>=`, `<`, and `<=` operators.  In Boolean expressions, `vec2`, `vec3`, and `vec4` implicitly convert to `true`, e.g., `!!vec4(1.0) === true`.  In string expressions, `vec2`, `vec3`, and `vec4` implicitly converts to `String` using their `toString` function.
 
 ### Variables
 
@@ -458,10 +447,10 @@ Additionally, variables originating from vector properties stored in the [Batch 
 | `"VEC3"` | `vec3` |
 | `"VEC4"` | `vec4` |
 
-Variables can be used to construct colors, for example:
+Variables can be used to construct colors or vectors, for example:
 ```
 rgba(${red}, ${green}, ${blue}, ${alpha})
-color(${colorKeyword})
+vec4(${temperature})
 ```
 
 Dot or bracket notation is used to access feature subproperties.  For example:
