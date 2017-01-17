@@ -420,8 +420,8 @@ For conversions involving vec2`, `vec3`, `vec4`, and `RegExp`, they are treated 
 
 The following constants are supported by the styling language:
 
-* [`PI`](#pi)
-* [`E`](#e)
+* [`Math.PI`](#pi)
+* [`Math.E`](#e)
 
 #### PI
 
@@ -429,7 +429,7 @@ The mathematical constant PI, which represents a circle's circumference divided 
 
 ```json
 {
-    "show" : "cos(${Angle} + PI) < 0"
+    "show" : "cos(${Angle} + Math.PI) < 0"
 }
 ```
 
@@ -439,7 +439,7 @@ Euler's constant and the base of the natural logarithm, approximately `2.71828`.
 
 ```json
 {
-    "color" : "color() * pow(E / 2.0, ${Temperature})"
+    "color" : "color() * pow(Math.E / 2.0, ${Temperature})"
 }
 ```
 
@@ -572,17 +572,17 @@ ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and tem
 
 ### Built-in Variables
 
-The follow built-in variables are supported by the styling language:
+Built-in variables are prefixed with `tiles3d_`. The following built-in variables are supported by the styling language:
 
-* [`TILES3D_TILESET_TIME`](#TILES3D_TILESET_TIME)
+* [`tiles3d_tileset_time`](#tiles3d_tileset_time)
 
-#### TILES3D_TILESET_TIME
+#### tiles3d_tileset_time
 
 Gets the time, in seconds, since the tileset was first loaded. This is useful for creating dynamic styles that change with time.
 
 ```json
 {
-    "color" : "color() * abs(cos(${Temperature} + TILES3D_TILESET_TIME))"
+    "color" : "color() * abs(cos(${Temperature} + ${tiles3d_tileset_time}))"
 }
 ```
 
