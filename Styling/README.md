@@ -572,7 +572,7 @@ ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and tem
 
 ### Built-in Variables
 
-Built-in variables are prefixed with `tiles3d_`. The following built-in variables are supported by the styling language:
+The prefix `tiles3d_` is reserved for built-in variables. The following built-in variables are supported by the styling language:
 
 * [`tiles3d_tileset_time`](#tiles3d_tileset_time)
 
