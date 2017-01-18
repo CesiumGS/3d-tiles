@@ -42,7 +42,10 @@ Contents:
       * [Color](#color)
       * [RegExp](#regexp)
    * [Conversions](#conversions)
+   * [Constants](#constants)
    * [Variables](#variables)
+   * [Built-in Variables](#built-in-variables)
+   * [Built-in Functions](#built-in-functions)
    * [Point Cloud](#point-cloud)
    * [Notes](#notes)
 * [File Extension](#file-extension)
@@ -53,7 +56,7 @@ Contents:
 
 3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's batch table.
 
-Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling.
+Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling. Additionally the styling language provides a set of built-in functions to support common math operations.
 
 ## Examples
 
@@ -145,7 +148,7 @@ Since `expression` is optional and conditions are evaluated in order, the above 
 }
 ```
 
-Non-visual properties of a feature can be defined using the `meta` property. 
+Non-visual properties of a feature can be defined using the `meta` property.
 
 For example, to set a `description` meta property to a string containing the feature name:
 ```json
@@ -161,7 +164,7 @@ A meta property expression can evaluate to any type. For example:
 {
     "meta" : {
         "featureColor" : "rgb(${red}, ${green}, ${blue})",
-        "featureVolume" : "${height} * ${width} * ${depth}" 
+        "featureVolume" : "${height} * ${width} * ${depth}"
     }
 }
 ```
@@ -368,7 +371,7 @@ If specified, `flags` can have any combination of the following values:
 * `y`- sticky
 
 Regular expressions support these functions:
-* `test(string: String) : Boolean` - Tests the specified string for a match.  
+* `test(string: String) : Boolean` - Tests the specified string for a match.
 * `exec(string: String) : String` - Executes a search for a match in the specified string. If the search succeeds, it returns the first instance of a captured `String`. If the search fails, it returns `null`
 
 For example:
@@ -404,7 +407,7 @@ If no `RegExp` is supplied as and operand, both operators will return `false`.
 
 If both operands are of type `RegExp`, the left operand will be treated as the regular expression which is performing the match, and the right operand will be treated as the object which the test is being performed on. For example, `regExp('a') =~ regExp('abc')` will match the behavior of `regExp('a').test(regExp('abc'))`.
 
-Regular expressions are treated as `NaN` when performing operations with operators other than `=~` and `!~`. 
+Regular expressions are treated as `NaN` when performing operations with operators other than `=~` and `!~`.
 
 
 ### Conversions
@@ -412,6 +415,33 @@ Regular expressions are treated as `NaN` when performing operations with operato
 Style expressions follow JavaScript conversion rules.
 
 For conversions involving vec2`, `vec3`, `vec4`, and `RegExp`, they are treated as JavaScript objects.  For example, `vec4` implicitly converts to `NaN` with `===`, `==`, `!==`, `!=`, `>`, `>=`, `<`, and `<=` operators.  In Boolean expressions, `vec2`, `vec3`, and `vec4` implicitly convert to `true`, e.g., `!!vec4(1.0) === true`.  In string expressions, `vec2`, `vec3`, and `vec4` implicitly converts to `String` using their `toString` function.
+
+### Constants
+
+The following constants are supported by the styling language:
+
+* [`Math.PI`](#pi)
+* [`Math.E`](#e)
+
+#### PI
+
+The mathematical constant PI, which represents a circle's circumference divided by its diameter, approximately `3.14159`.
+
+```json
+{
+    "show" : "cos(${Angle} + Math.PI) < 0"
+}
+```
+
+#### E
+
+Euler's constant and the base of the natural logarithm, approximately `2.71828`.
+
+```json
+{
+    "color" : "color() * pow(Math.E / 2.0, ${Temperature})"
+}
+```
 
 ### Variables
 
@@ -538,6 +568,598 @@ Bracket notation is used to access feature subproperties or arrays.  For example
 ${temperatures['scale']} === 'fahrenheit'
 ${temperatures.values[0]} === 70
 ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
+```
+
+### Built-in Variables
+
+Built-in variables are prefixed with `tiles3d_`. The following built-in variables are supported by the styling language:
+
+* [`tiles3d_tileset_time`](#tiles3d_tileset_time)
+
+#### tiles3d_tileset_time
+
+Gets the time, in seconds, since the tileset was first loaded. This is useful for creating dynamic styles that change with time.
+
+```json
+{
+    "color" : "color() * abs(cos(${Temperature} + ${tiles3d_tileset_time}))"
+}
+```
+
+### Built-in Functions
+
+The following built-in functions are supported by the styling language:
+
+* [`abs`](#abs)
+* [`sqrt`](#sqrt)
+* [`cos`](#cos)
+* [`sin`](#sin)
+* [`tan`](#tan)
+* [`acos`](#acos)
+* [`asin`](#asin)
+* [`atan`](#atan)
+* [`atan2`](#atan2)
+* [`radians`](#radians)
+* [`degrees`](#degrees)
+* [`sign`](#sign)
+* [`floor`](#floor)
+* [`ceil`](#ceil)
+* [`round`](#round)
+* [`exp`](#exp)
+* [`log`](#log)
+* [`exp2`](#exp2)
+* [`log2`](#log2)
+* [`fract`](#fract)
+* [`pow`](#pow)
+* [`min`](#min)
+* [`max`](#max)
+* [`clamp`](#clamp)
+* [`mix`](#mix)
+* [`length`](#length)
+* [`distance`](#distance)
+* [`normalize`](#normalize)
+* [`dot`](#dot)
+* [`cross`](#cross)
+
+Many of the built-in functions take either scalars or vectors as arguments. For vector arguments the function is applied component-wise and the resulting vector is returned.
+
+#### abs
+
+```
+abs(x : Number) : Number
+abs(x : vec2) : vec2
+abs(x : vec3) : vec3
+abs(x : vec4) : vec4
+```
+
+Returns the absolute value of `x`.
+
+```json
+{
+    "show" : "abs(${temperature}) > 20.0"
+}
+```
+
+#### sqrt
+
+```
+sqrt(x : Number) : Number
+sqrt(x : vec2) : vec2
+sqrt(x : vec3) : vec3
+sqrt(x : vec4) : vec4
+```
+
+Returns the square root of `x` when `x >= 0`. Returns `NaN` when `x < 0`.
+
+```json
+{
+    "color" : {
+        "expression" : "sqrt(${temperature}",
+        "conditions" : [
+            ["${expression} >= 0.5", "color('#00FFFF')"],
+            ["${expression} >= 0.0", "color('#FF00FF')"]
+        ]
+    }
+}
+```
+
+#### cos
+
+```
+cos(angle : Number) : Number
+cos(angle : vec2) : vec2
+cos(angle : vec3) : vec3
+cos(angle : vec4) : vec4
+```
+
+Returns the cosine of `angle` in radians.
+
+```json
+{
+    "show" : "cos(${Angle}) > 0.0"
+}
+```
+
+#### sin
+
+```
+sin(angle : Number) : Number
+sin(angle : vec2) : vec2
+sin(angle : vec3) : vec3
+sin(angle : vec4) : vec4
+```
+
+Returns the sine of `angle` in radians.
+
+```json
+{
+    "show" : "sin(${Angle}) > 0.0"
+}
+```
+
+#### tan
+
+```
+tan(angle : Number) : Number
+tan(angle : vec2) : vec2
+tan(angle : vec3) : vec3
+tan(angle : vec4) : vec4
+```
+
+Returns the tangent of `angle` in radians.
+
+```json
+{
+    "show" : "tan(${Angle}) > 0.0"
+}
+```
+
+#### acos
+
+```
+acos(angle : Number) : Number
+acos(angle : vec2) : vec2
+acos(angle : vec3) : vec3
+acos(angle : vec4) : vec4
+```
+
+Returns the arccosine of `angle` in radians.
+
+```json
+{
+    "show" : "acos(${Angle}) > 0.0"
+}
+```
+
+#### asin
+
+```
+asin(angle : Number) : Number
+asin(angle : vec2) : vec2
+asin(angle : vec3) : vec3
+asin(angle : vec4) : vec4
+```
+
+Returns the arcsine of `angle` in radians.
+
+```json
+{
+    "show" : "asin(${Angle}) > 0.0"
+}
+```
+
+#### atan
+
+```
+atan(angle : Number) : Number
+atan(angle : vec2) : vec2
+atan(angle : vec3) : vec3
+atan(angle : vec4) : vec4
+```
+
+Returns the arctangent of `angle` in radians.
+
+```json
+{
+    "show" : "atan(${Angle}) > 0.0"
+}
+```
+
+#### atan2
+
+```
+atan2(y : Number, x : Number) : Number
+atan2(y : vec2, x : vec2) : vec2
+atan2(y : vec3, x : vec3) : vec3
+atan2(y : vec4, x : vec4) : vec4
+```
+
+Returns the arctangent of the quotient of `y` and `x`.
+
+```json
+{
+    "show" : "atan2(${GridY}, ${GridX}) > 0.0"
+}
+```
+
+#### radians
+
+```
+radians(angle : Number) : Number
+radians(angle : vec2) : vec2
+radians(angle : vec3) : vec3
+radians(angle : vec4) : vec4
+```
+
+Converts `angle` from degrees to radians.
+
+```json
+{
+    "show" : "radians(${Angle}) > 0.5"
+}
+```
+
+#### degrees
+
+```
+degrees(angle : Number) : Number
+degrees(angle : vec2) : vec2
+degrees(angle : vec3) : vec3
+degrees(angle : vec4) : vec4
+```
+
+Converts `angle` from radians to degrees.
+
+```json
+{
+    "show" : "degrees(${Angle}) > 45.0"
+}
+```
+
+#### sign
+
+```
+sign(x : Number) : Number
+sign(x : vec2) : vec2
+sign(x : vec3) : vec3
+sign(x : vec4) : vec4
+```
+
+Returns 1.0 when `x` is positive, 0.0 when `x` is zero, and -1.0 when `x` is negative.
+
+```json
+{
+    "show" : "sign(${Temperature}) * sign(${Velocity}) === 1.0"
+}
+```
+
+#### floor
+
+```
+floor(x : Number) : Number
+floor(x : vec2) : vec2
+floor(x : vec3) : vec3
+floor(x : vec4) : vec4
+```
+
+Returns the nearest integer less than or equal to `x`.
+
+```json
+{
+    "show" : "floor(${Position}) === 0"
+}
+```
+
+#### ceil
+
+```
+ceil(x : Number) : Number
+ceil(x : vec2) : vec2
+ceil(x : vec3) : vec3
+ceil(x : vec4) : vec4
+```
+
+Returns the nearest integer greater than or equal to `x`.
+
+```json
+{
+    "show" : "ceil(${Position}) === 1"
+}
+```
+
+#### round
+
+```
+round(x : Number) : Number
+round(x : vec2) : vec2
+round(x : vec3) : vec3
+round(x : vec4) : vec4
+```
+
+Returns the nearest integer to `x`. A number with a fraction of 0.5 will round in an implementation-defined direction.
+
+```json
+{
+    "show" : "round(${Position}) === 1"
+}
+```
+
+#### exp
+
+```
+exp(x : Number) : Number
+exp(x : vec2) : vec2
+exp(x : vec3) : vec3
+exp(x : vec4) : vec4
+```
+
+Returns `e` to the power of `x`, where `e` is Euler's constant, approximately `2.71828`.
+
+```json
+{
+    "show" : "exp(${Density}) > 1.0"
+}
+```
+
+#### log
+
+```
+log(x : Number) : Number
+log(x : vec2) : vec2
+log(x : vec3) : vec3
+log(x : vec4) : vec4
+```
+
+Returns the natural logarithm (base `e`) of `x`.
+
+```json
+{
+    "show" : "log(${Density}) > 1.0"
+}
+```
+
+#### exp2
+
+```
+exp2(x : Number) : Number
+exp2(x : vec2) : vec2
+exp2(x : vec3) : vec3
+exp2(x : vec4) : vec4
+```
+
+Returns 2 to the power of `x`.
+
+```json
+{
+    "show" : "exp2(${Density}) > 1.0"
+}
+```
+
+#### log2
+
+```
+log2(x : Number) : Number
+log2(x : vec2) : vec2
+log2(x : vec3) : vec3
+log2(x : vec4) : vec4
+```
+
+Returns the base 2 logarithm of `x`.
+
+```json
+{
+    "show" : "log2(${Density}) > 1.0"
+}
+```
+
+#### fract
+
+```
+fract(x : Number) : Number
+fract(x : vec2) : vec2
+fract(x : vec3) : vec3
+fract(x : vec4) : vec4
+```
+
+Returns the fractional part of `x`. Equivalent to `x - floor(x)`.
+
+```json
+{
+    "color" : "color() * fract(${Density})"
+}
+```
+
+#### pow
+
+```
+pow(base : Number, exponent : Number) : Number
+pow(base : vec2, exponent : vec2) : vec2
+pow(base : vec3, exponent : vec3) : vec3
+pow(base : vec4, exponent : vec4) : vec4
+```
+
+Returns `base` raised to the power of `exponent`.
+
+```json
+{
+    "show" : "pow(${Density}, ${Temperature}) > 1.0"
+}
+```
+
+#### min
+
+```
+min(x : Number, y : Number) : Number
+min(x : vec2, y : vec2) : vec2
+min(x : vec3, y : vec3) : vec3
+min(x : vec4, y : vec4) : vec4
+```
+
+```
+min(x : Number, y : Number) : Number
+min(x : vec2, y : Number) : vec2
+min(x : vec3, y : Number) : vec3
+min(x : vec4, y : Number) : vec4
+```
+
+Returns the smaller of `x` and `y`.
+
+```json
+{
+    "show" : "min(${Width}, ${Height}) > 10.0"
+}
+```
+
+#### max
+
+```
+max(x : Number, y : Number) : Number
+max(x : vec2, y : vec2) : vec2
+max(x : vec3, y : vec3) : vec3
+max(x : vec4, y : vec4) : vec4
+```
+
+```
+max(x : Number, y : Number) : Number
+max(x : vec2, y : Number) : vec2
+max(x : vec3, y : Number) : vec3
+max(x : vec4, y : Number) : vec4
+```
+
+Returns the larger of `x` and `y`.
+
+```json
+{
+    "show" : "max(${Width}, ${Height}) > 10.0"
+}
+```
+
+#### clamp
+
+```
+clamp(x : Number,  min : Number, max : Number) : Number
+clamp(x : vec2,  min : vec2, max : vec2) : vec2
+clamp(x : vec3,  min : vec3, max : vec3) : vec3
+clamp(x : vec4,  min : vec4, max : vec4) : vec4
+```
+
+```
+clamp(x : Number,  min : Number, max : Number) : Number
+clamp(x : vec2,  min : Number, max : Number) : vec2
+clamp(x : vec3,  min : Number, max : Number) : vec3
+clamp(x : vec4,  min : Number, max : Number) : vec4
+```
+
+Constrains `x` to lie between `min` and `max`.
+
+```json
+{
+    "color" : "color() * clamp(${temperature}, 0.1, 0.2)"
+}
+```
+
+#### mix
+
+```
+mix(x : Number,  y : Number, a : Number) : Number
+mix(x : vec2,  y : vec2, a : vec2) : vec2
+mix(x : vec3,  y : vec3, a : vec3) : vec3
+mix(x : vec4,  y : vec4, a : vec4) : vec4
+```
+
+```
+mix(x : Number,  y : Number, a : Number) : Number
+mix(x : vec2,  y : vec2, a : Number) : vec2
+mix(x : vec3,  y : vec3, a : Number) : vec3
+mix(x : vec4,  y : vec4, a : Number) : vec4
+```
+
+Computes the linear interpolation of `x` and `y`.
+
+```json
+{
+    "show" : "mix(20.0, ${Angle}, 0.5) > 25.0"
+}
+```
+
+#### length
+
+```
+length(x : Number) : Number
+length(x : vec2) : vec2
+length(x : vec3) : vec3
+length(x : vec4) : vec4
+```
+
+Computes the length of vector `x`, i.e. the square root of the sum of the squared components. If `x` is a number, `length` returns `x`.
+
+```json
+{
+    "show" : "length(${Dimensions}) > 10.0"
+}
+```
+
+#### distance
+
+```
+distance(x : Number, y : Number) : Number
+distance(x : vec2, y : vec2) : vec2
+distance(x : vec3, y : vec3) : vec3
+distance(x : vec4, y : vec4) : vec4
+```
+
+Computes the distance between two points `x` and `y`, i.e. `length(x - y)`.
+
+```json
+{
+    "show" : "distance(${BottomRight}, ${UpperLeft}) > 50.0"
+}
+```
+
+#### normalize
+
+```
+normalize(x : Number) : Number
+normalize(x : vec2) : vec2
+normalize(x : vec3) : vec3
+normalize(x : vec4) : vec4
+```
+Returns a vector with length 1.0 that is parallel to `x`. When `x` is a number, `normalize` returns 1.0.
+
+```json
+{
+    "show" : "normalize(${RightVector}, ${UpVector}) > 0.5"
+}
+```
+
+#### dot
+
+```
+dot(x : Number, y : Number) : Number
+dot(x : vec2, y : vec2) : vec2
+dot(x : vec3, y : vec3) : vec3
+dot(x : vec4, y : vec4) : vec4
+```
+Computes the dot product of `x` and `y`.
+
+```json
+{
+    "show" : "dot(${RightVector}, ${UpVector}) > 0.5"
+}
+```
+
+#### cross
+
+```
+cross(x : vec3, y : vec3) : vec3
+```
+
+Computes the cross product of `x` and `y`. This function only accepts `vec3` arguments.
+
+```json
+{
+    "color" : "vec4(cross(${RightVector}, ${UpVector}), 1.0)"
+}
 ```
 
 ### Point Cloud
