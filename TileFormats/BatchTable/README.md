@@ -152,11 +152,11 @@ var cartographicOfFeature = positionArray.subarray(batchId * numberOfComponents,
 
 ## Hierarchy
 
-The standard batch table is suitable for homogeneous data sets composed of features with the same sets of properties. However some data sets have more complex metadata structures like feature types or feature hierarchies that are not easy to represent as simple property arrays. The batch table hierarchy provides more flexibility for these cases.
+The standard batch table is suitable for homogeneous datasets composed of features with the same sets of properties. However some datasets have more complex metadata structures such as feature types or feature hierarchies that are not easy to represent as parallel arrays of properties. The batch table hierarchy provides more flexibility for these cases.
 
 ### Classes
 
-A key concept of the batch table hierarchy is the separation of features into classes. A tile of a parking lot may have three distinct feature types - cars, lamp posts, and trees - each with their own set of properties.
+In a batch table hierarchy, features and classes are separate. A tile of a parking lot may have three distinct feature types - cars, lamp posts, and trees - each with their own set of properties.
 
 With the standard batch table, this might look like:
 
@@ -171,7 +171,7 @@ With the standard batch table, this might look like:
 }
 ```
 
-A common workaround is to store properties as JSON objects. However, this becomes bulky as the number of properties grows:
+In this example, several `""` and `0` array values are stored so each array has the same number of elements.  A potential workaround is to store properties as JSON objects; however, this becomes bulky as the number of properties grows:
 
 ```json
 {
@@ -249,7 +249,7 @@ Instead a `HIERARCHY` object may be added to the batch table that allows for gro
 }
 ```
 
-`classes` is an array of objects, where each object contains the following information:
+`classes` is an array of objects, where each object contains the following properties:
 * `name` - the name of the class
 * `length` - the number of instances of the class
 * `instances` - metadata for the instances. This section is similar to a standard batch table; properties may be stored as an array of values or a reference to data in the binary body.
@@ -258,11 +258,11 @@ Instead a `HIERARCHY` object may be added to the batch table that allows for gro
 
 `classIds` is an array of integers of length `instancesLength`. Each `classId` specifies the instances's class as an index in the `classes` array.
 
-In the example above 0 indicates a "Lamp" instance, 1 indicates a "Car" instance, and 2 indicates a "Tree" instance.
+In the example above, 0 indicates a "Lamp" instance, 1 indicates a "Car" instance, and 2 indicates a "Tree" instance.
 
 A feature's `batchId` is used to access its class in the `classIds` array. Therefore features with a `batchId` of 0, 1, 2 are "Lamp" instances, features with a `batchId` of 3, 4, 5 are "Car" instances, and features with `batchId` of 6, 7 are "Tree" instances.
 
-Note that the batch table hierarchy does not directly provide an instances's index into its class's `instances` array. Instead the index can be inferred by the number of instances with the same `classId` that have appeared before it. An implementation may want to compute these indices at load time so that property access is as fast as possible.
+**Implementation Note**: The batch table hierarchy does not directly provide an instances's index into its class's `instances` array. Instead the index can be inferred by the number of instances with the same `classId` that have appeared before it. An implementation may want to compute these indices at load time so that property access is as fast as possible.
 
 To put this more concretely using the current example:
 
@@ -315,7 +315,7 @@ A tree diagram of the hierarchy might look like:
     - roof
 
 
-The tile's features are limited to the geometric components of the tile - the doors, walls, and roofs. In order to select a door and retrieve properties from its building, the door metadata must also include building metadata. Essentially the three-level hierarchy must be flattened into each feature, resulting in a lot of duplicate entries.
+The tile's features are limited to the geometric components of the tile: the doors, walls, and roofs. In order to select a door and retrieve properties from its building, the door metadata must also include building metadata. Essentially the three-level hierarchy must be flattened into each feature, resulting in a lot of duplicate entries.
 
 An standard batch table with two doors per building and three buildings per block might look like:
 
