@@ -1179,7 +1179,7 @@ getExactClassName() : String
 
 Returns the feature's class name, or `undefined` if the feature is not a class instance.
 
-This style will color all doorknobs yellow, all doors green, and all other features gray.
+For example, the following style will color all doorknobs yellow, all doors green, and all other features gray.
 
 ```json
 "color" : {
@@ -1199,7 +1199,9 @@ This style will color all doorknobs yellow, all doors green, and all other featu
 isExactClass(name : String) : Boolean
 ```
 
-Returns `true` is the feature's class is called `name`, otherwise `false`. The style below will color all doors, but not features that are children of doors (like doorknobs).
+Returns `true` is the feature's class is equal to `name`, otherwise `false`.
+
+For example, the following style will color all doors, but not features that are children of doors (like doorknobs).
 
 ```json
 "color" : {
@@ -1216,7 +1218,9 @@ Returns `true` is the feature's class is called `name`, otherwise `false`. The s
 isClass(name : String) : Boolean
 ```
 
-Returns `true` is the feature's class, or any of its ancestors' classes, are called `name`. The style below will color all doors and doorknobs.
+Returns `true` is the feature's class, or any of its ancestors' classes, are equal to `name`.
+
+For example, the style below will color all doors and doorknobs.
 
 ```json
 "color" : {
