@@ -40,7 +40,7 @@ Batch Table values can be represented in the JSON header in two different ways.
 2. A reference to data in the binary body, denoted by an object with `byteOffset`, `componentType`, and `type` properties property. (e.g. `"height" : { "byteOffset" : 24, "componentType" : "FLOAT", "type" : "SCALAR"}`).
     * `byteOffset` is a zero-based offset relative to the start of the binary body.
     * `componentType` is the datatype of components in the attribute. Allowed values are `"BYTE"`, `"UNSIGNED_BYTE"`, `"SHORT"`, `"UNSIGNED_SHORT"`, `"INT"`, `"UNSIGNED_INT"`, `"FLOAT"`, and `"DOUBLE"`.
-    * `type` specifies if the property is a scalar, vector, or matrix. Allowed values are `"SCALAR"`, `"VEC2"`, `"VEC3"`, `"VEC4"`, `"MAT2"`, `"MAT3"`, and `"MAT4"`. Matrices are stored in the binary body in column-major order.
+    * `type` specifies if the property is a scalar or vector. Allowed values are `"SCALAR"`, `"VEC2"`, `"VEC3"`, and `"VEC4"`.
 
 The Batch Table JSON is a `UTF-8` string containing JSON. It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 
@@ -101,9 +101,6 @@ The following tables can be used to compute the byte size of a property.
 | `"VEC2"` | 2 |
 | `"VEC3"` | 3 |
 | `"VEC4"` | 4 |
-| `"MAT2"` | 4 |
-| `"MAT3"` | 9 |
-| `"MAT4"` | 16 |
 
 For example, given the following Batch Table JSON with `batchLength` of 10
 
