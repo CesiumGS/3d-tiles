@@ -32,8 +32,7 @@ The 24-byte header contains the following fields:
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
 | `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates there is no batch table. |
 | `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
-| `batchLength` | `unit32` | The number of models, also called features, in the batch. |
-
+| `batchLength` | `unit32` | The number of separate models, also called features, in the batch.  If the Binary glTF does not have a `batchId` attribute, this field _must_ be `0`. |
 The body section immediately follows the header section, and is composed of two fields: `Batch Table` and `Binary glTF`.
 
 Code for reading the header can be found in
@@ -92,7 +91,7 @@ attribute float a_batchId;
 
 The vertex shader can be modified at runtime to use `a_batchId` to access individual models in the batch, e.g., to change their color.
 
-When a Batch Table is present, the `batchId` attribute (with the parameter semantic `_BATCHID`) is required; otherwise, it is not.
+When a Batch Table is present or the `batchLength` property is greater than `0`, the `batchId` attribute (with the parameter semantic `_BATCHID`) is required; otherwise, it is not.
 
 Although not strictly required, clients may find the glTF [CESIUM_RTC](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_RTC/README.md) extension useful for high-precision rendering.
 
