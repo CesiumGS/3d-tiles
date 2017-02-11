@@ -32,7 +32,7 @@ The 24-byte header contains the following fields:
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
 | `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates there is no batch table. |
 | `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
-| `batchLength` | `unit32` | The number of separate models, also called features, in the batch.  If the Binary glTF does not have a `batchId` attribute, this field _must_ be `0`. |
+| `batchLength` | `unit32` | The number of distinguishable models, also called features, in the batch.  If the Binary glTF does not have a `batchId` attribute, this field _must_ be `0`. |
 The body section immediately follows the header section, and is composed of two fields: `Batch Table` and `Binary glTF`.
 
 Code for reading the header can be found in
