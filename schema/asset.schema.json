@@ -12,6 +12,12 @@
         "tilesetVersion" : {
             "type" : "string",
             "description" : "Application-specific version of this tileset, e.g., for when an existing tileset is updated."
+        },
+        "gltfUpAxis" : {
+            "type" : "string",
+            "description" : "Specifies the up-axis of glTF models.",
+            "enum" : ["X", "Y", "Z"],
+            "default" : "Y"
         }
     },
     "required" : ["version"],

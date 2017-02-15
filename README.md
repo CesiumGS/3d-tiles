@@ -178,6 +178,8 @@ An optional `transform` property (not shown above) defines a 4x4 affine transfor
 
 3D Tiles use a right-handed Cartesian coordinate system, that is, the cross product of x and y yields z. 3D Tiles define the z axis as up for local Cartesian coordinate systems (see the [Tile transform](#tile-transform) section).  A tileset's global coordinate system will often be [WGS84 coordinates](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for using with a modeling tool without a geospatial context.
 
+`b3dm` and `i3dm` tiles embed glTF. According to the [glTF spec](https://github.com/KhronosGroup/glTF/tree/master/specification/1.0#coordinate-system-and-units) glTF uses a right-handed coordinate system and defines the y axis as up. By default embedded models are considered to be y-up, but in order to support a variety of source data, including models defined directly in WGS84 coordinates, embedded glTF models may be defined as x-up, y-up, or z-up with the `asset.gltfUpAxis` property of `tileset.json`. In general an implementation should transform glTF assets to z-up at runtime to be consistent with the z-up coordinate system of the bounding volume hierarchy.
+
 The units for all linear distances are meters.
 
 All angles are in radians.
@@ -321,7 +323,8 @@ _tileset.json_ defines a tileset.  Here is a subset of the tileset.json used for
 {
   "asset" : {
     "version": "0.0",
-    "tilesetVersion": "e575c6f1-a45b-420a-b172-6449fa6e0a59"
+    "tilesetVersion": "e575c6f1-a45b-420a-b172-6449fa6e0a59",
+    "gltfUpAxis": "Y"
   },
   "properties": {
     "Height": {
@@ -361,7 +364,7 @@ _tileset.json_ defines a tileset.  Here is a subset of the tileset.json used for
 ```
 The top-level object in tileset.json has four properties: `asset`, `properties`, `geometricError`, and `root`.
 
-`asset` is an object containing properties with metadata about the entire tileset.  Its `version` property is a string that defines the 3D Tiles version.  The version defines the JSON schema for tileset.json and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated.
+`asset` is an object containing properties with metadata about the entire tileset.  Its `version` property is a string that defines the 3D Tiles version.  The version defines the JSON schema for tileset.json and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated. The `gltfUpAxis` property is an optional string that specifies the up-axis of glTF models contained in the tileset.
 
 `properties` is an object containing objects for each per-feature property in the tileset.  This tileset.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see (Batch Table)[TileFormats/BatchTable/README.md]).  The name of each object in `properties` matches the name of a per-feature property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
