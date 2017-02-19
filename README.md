@@ -3,6 +3,7 @@
 Specification for streaming massive heterogeneous **3D** geospatial datasets.
 
 3D Tiles has entered the Open Geospatial Consortium (OGC) [Community Standard](http://cesiumjs.org/2016/09/06/3D-Tiles-and-the-OGC/) process.
+
 ---
 
 Created by the <a href="http://cesiumjs.org/">Cesium team</a> and built on <a href="https://www.khronos.org/gltf">glTF</a>.<br/>
