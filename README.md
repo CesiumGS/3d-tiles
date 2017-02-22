@@ -98,13 +98,13 @@ The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in tileset.json). 
 
 Topic  | Status
 ---|---
-[tileset.json](#tilesetjson)  | :white_check_mark: **Solid base**, will add features as needed
+[tileset.json](#tilesetjson)<br /><br />The tileset's spatial hierarchy  | :white_check_mark: **Solid base**, will add features as needed
 [Batched 3D Model](TileFormats/Batched3DModel/README.md) (*.b3dm)<br /><br />Textured terrain and surfaces, 3D buildings, massive models, ...  | :white_check_mark: **Solid base**, only minor, if any, changes expected
 [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (*.i3dm)<br /><br />Trees, windmills, bolts, ... | :white_check_mark: **Solid base**, only minor, if any, changes expected
 [Point Cloud](TileFormats/PointCloud/README.md) (*.pnts)<br /><br />Massive amount of points | :white_check_mark: **Solid base**, only minor, if any, changes expected
 [Vector Data](TileFormats/VectorData/README.md) (*.vctr)<br /><br />Polygons, polylines, and placemarks | :white_circle: **In progress**, [#124](https://github.com/AnalyticalGraphicsInc/3d-tiles/pull/124/files)
 [Composite](TileFormats/Composite/README.md) (*.cmpt)<br /><br />Combine heterogeneous tile formats | :white_check_mark: **Solid base**, only minor, if any, changes expected
-[Declarative Styling](Styling/README.md)  | :white_check_mark: **Solid base**, will add features/functions as needed, [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
+[Declarative Styling](Styling/README.md)<br/><br/>Style features using per-feature metadata  | :white_check_mark: **Solid base**, will add features/functions as needed, [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
 
 **Post Draft 1.0 Plans**
 
