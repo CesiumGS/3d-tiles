@@ -98,21 +98,20 @@ The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in tileset.json). 
 
 Topic  | Status
 ---|---
-[tileset.json](#tilesetjson)  | :white_check_mark: **Solid base**, a few more features expected
-[Batched 3D Model](TileFormats/Batched3DModel/README.md) (b3dm)  | :white_check_mark: **Solid base**, only minor changes expected
-[Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (i3dm) | :white_check_mark: **Solid base**, only minor changes expected
-[Point Cloud](TileFormats/PointCloud/README.md) (pnts)  | :white_check_mark: **Solid base**, only minor changes expected
-[Vector Data](TileFormats/VectorData/README.md) (vctr)  | :white_circle: **In progress**, [#25](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/25)
-[Composite](TileFormats/Composite/README.md) (cmpt) | :white_check_mark: **Solid base**, only minor changes expected
+[tileset.json](#tilesetjson)  | :white_check_mark: **Solid base**, will add features as needed
+[Batched 3D Model](TileFormats/Batched3DModel/README.md) (*.b3dm)<br />Textured terrain and surfaces, 3D buildings, massive models, ...  | :white_check_mark: **Solid base**, only minor, if any, changes expected
+[Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (*.i3dm)<br />Trees, windmills, bolts, ... | :white_check_mark: **Solid base**, only minor, if any, changes expected
+[Point Cloud](TileFormats/PointCloud/README.md) (*.pnts)<br />Massive amount of points | :white_check_mark: **Solid base**, only minor, if any, changes expected
+[Vector Data](TileFormats/VectorData/README.md) (*.vctr)<br />Polygons, polylines, and placemarks | :white_circle: **In progress**, [#124](https://github.com/AnalyticalGraphicsInc/3d-tiles/pull/124/files)
+[Composite](TileFormats/Composite/README.md) (*.cmpt)<br />Combine heterogeneous tile formats | :white_check_mark: **Solid base**, only minor, if any, changes expected
 [Declarative Styling](Styling/README.md)  | :white_check_mark: **Solid base**, will add features/functions as needed, [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
 
 **Post Draft 1.0 Plans**
 
 Topic  | Status
 ---|---
-Terrain  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point; in the meantime, folks are using [Batched 3D Model](TileFormats/Batched3DModel/README.md)
-[OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started**
-[Massive Model](TileFormats/MassiveModel/README.md)  | :white_circle: **Not started**, might just use `b3dm`
+Terrain v2  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point; in the meantime, folks are using [Batched 3D Model](TileFormats/Batched3DModel/README.md)
+[OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started** Currently folks are using [Batched 3D Model](TileFormats/Batched3DModel/README.md)
 Stars  | :white_circle: **Not started**
 
 For spec work in progress, [watch this repo](https://github.com/AnalyticalGraphicsInc/3d-tiles/subscription) and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
