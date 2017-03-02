@@ -7,6 +7,23 @@
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
+Contents:
+
+* [Overview](#overview)
+* [Layout](#layout)
+   * [JSON Header](#json-header)
+   * [Binary Body](#binary-body)
+* [Batch Table Hierarchy](#batch-table-hierarchy)
+   * [Motivation](#motivation)
+   * [Hierarchy](#hierarchy)
+   * [Examples](#examples)
+      * [Feature Classes](#feature-classes)
+      * [Feature Hierarchy](#feature-hierarchy)
+   * [Styling](#styling)
+   * [Notes](#notes)
+* [Implementation Notes](#implementation-notes)
+* [Acknowledgments](#acknowledgments)
+
 ## Overview
 
 A _Batch Table_ contains per-feature application-specific metadata in a tile. These properties may be queried at runtime for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, cartographic coordinates, and database primary keys.
@@ -30,7 +47,7 @@ The header will also contain `batchTableJSONByteLength` and `batchTableBinaryByt
 
 Code for reading the Batch Table can be found in [Cesium3DTileBatchTable.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
 
-## JSON Header
+### JSON Header
 
 Batch Table values can be represented in the JSON header in two different ways.
 
@@ -72,7 +89,7 @@ address[1] = {street : 'Main Street', houseNumber : '2'};
 
 JSON Schema Batch Table definitions can be found in [batchTable.schema.json](../../schema/batchTable.schema.json).
 
-## Binary Body
+### Binary Body
 
 When the JSON header includes a reference to the binary section, the provided `byteOffset` is used to index into the data. 
 
@@ -147,7 +164,7 @@ var cartographicArray = new Float64Array(batchTableBinary.buffer, byteOffset, ca
 var cartographicOfFeature = positionArray.subarray(batchId * numberOfComponents, batchId * numberOfComponents + numberOfComponents); // Using subarray creates a view into the array, and not a new array.
 ```
 
-## Hierarchy
+## Batch Table Hierarchy
 
 The standard batch table is suitable for datasets composed of features with the same sets of properties. However some datasets have more complex metadata structures such as feature types or feature hierarchies that are not easy to represent as parallel arrays of properties. The batch table hierarchy provides more flexibility for these cases.
 
@@ -245,7 +262,7 @@ A standard batch table with two walls per building and three buildings per block
 
 Both cases above illustrate the benefit of supporting feature types and a feature hierarchy within the batch table.
 
-### Hierarchy Object
+### Hierarchy
 
 The standard batch table may be extended to include a `HIERARCHY` object that defines a set of classes and a tree structure for class instances.
 
@@ -319,7 +336,7 @@ Finally, `classIds`, `parentCounts`, and `parentIds` may instead be references t
 
 ### Examples
 
-#### Grouping features by class
+#### Feature Classes
 
 Going back to the example of a parking lot with car, lamp post, and tree features, a batch table might look like:
 
@@ -375,7 +392,7 @@ carColor : "red"
 
 ![batch table hierarchy parking lot](figures/batch-table-hierarchy-parking-lot.png)
 
-#### Feature hierarchy
+#### Feature Hierarchy
 
 The city block example would now look like:
 
