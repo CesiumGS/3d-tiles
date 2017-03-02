@@ -26,7 +26,7 @@
                 },
                 "type" : {
                     "type" : "string",
-                    "enum" : ["SCALAR", "VEC2", "VEC3", "VEC4", "MAT2", "MAT3", "MAT4"]
+                    "enum" : ["SCALAR", "VEC2", "VEC3", "VEC4"]
                 }
             },
             "required" : ["byteOffset", "componentType", "type"]

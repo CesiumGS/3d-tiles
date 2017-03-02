@@ -41,7 +41,9 @@ Contents:
       * [vec4](#vector)
       * [Color](#color)
       * [RegExp](#regexp)
-   * [Conversions](#conversions)
+   * [Operator Rules](#operator-rules)
+   * [Type Conversions](#type-conversions)
+   * [String Conversion](#string-conversions)
    * [Constants](#constants)
    * [Variables](#variables)
    * [Built-in Variables](#built-in-variables)
@@ -196,7 +198,7 @@ The following operators are supported with the same semantics and precedence as 
 
 * Unary: `+`, `-`, `!`
    * Not supported: `~`
-* Binary: `||`, `&&`, `===`, `==`, `!==`, `!=`, `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/`, `%`, `=~`, `!~`
+* Binary: `||`, `&&`, `===`, `!==`, `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/`, `%`, `=~`, `!~`
    * Not supported: `|`, `^`, `&`, `<<`, `>>`, and `>>>`
 * Ternary: `? :`
 
@@ -214,6 +216,7 @@ The following types are supported:
 * `Undefined`
 * `Number`
 * `String`
+* `Array`
 * `vec2`
 * `vec3`
 * `vec4`
@@ -227,26 +230,12 @@ Example expressions for different types include the following:
 * `undefined`
 * `1.0`, `NaN`, `Infinity`
 * `'Cesium'`, `"Cesium"`
+* `[0, 1, 2]`
 * `vec2(1.0, 2.0)`
 * `vec3(1.0, 2.0, 3.0)`
 * `vec4(1.0, 2.0, 3.0, 4.0)`
 * `color('#00FFFF')`
 * `regExp('^Chest'))`
-
-Explicit conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions.
-* `Boolean(value : Any) : Boolean`
-* `Number(value : Any) : Number`
-* `String(value : Any) : String`
-
-For example:
-
-```
-Boolean(1) === true
-Number('1') === 1
-String(1) === '1'
-```
-
-These are essentially casts, not constructor functions.
 
 #### Number
 
@@ -260,31 +249,31 @@ The styling language includes 2, 3, and 4 component floating-point vector types:
 
 ##### vec2
 
-* `vec2(Number)` - initialize each component with the number
-* `vec2(Number, Number)` - initialize with two numbers
-* `vec2(vec2)` - initialize with another `vec2`
-* `vec2(vec3)` - drops the third component of a `vec3`
-* `vec2(vec4)` - drops the third and fourth component of a `vec4`
+* `vec2(xy : Number)` - initialize each component with the number
+* `vec2(x : Number, y : Number)` - initialize with two numbers
+* `vec2(xy : vec2)` - initialize with another `vec2`
+* `vec2(xyz : vec3)` - drops the third component of a `vec3`
+* `vec2(xyzw : vec4)` - drops the third and fourth component of a `vec4`
 
 ##### vec3
 
-* `vec3(Number)` - initialize each component with the number
-* `vec3(Number, Number, Number)` - initialize with three numbers
-* `vec3(vec3)` - initialize with another `vec3`
-* `vec3(vec4)` - drops the fourth component of a `vec4`
-* `vec3(vec2, Number)` - initialize with a `vec2` and number
-* `vec3(Number, vec2)` - initialize with a `vec2` and number
+* `vec3(xyz : Number)` - initialize each component with the number
+* `vec3(x : Number, y : Number, z : Number)` - initialize with three numbers
+* `vec3(xyz : vec3)` - initialize with another `vec3`
+* `vec3(xyzw : vec4)` - drops the fourth component of a `vec4`
+* `vec3(xy : vec2, z : Number)` - initialize with a `vec2` and number
+* `vec3(x : Number, yz : vec2)` - initialize with a `vec2` and number
 
 ##### vec4
 
-* `vec4(Number)` - initialize each component with the number
-* `vec4(Number, Number, Number, Number)` - initialize with four numbers
-* `vec4(vec4)` - initialize with another `vec4`
-* `vec4(vec2, Number, Number)` - initialize with a `vec2` and two numbers
-* `vec4(Number, vec2, Number)` - initialize with a `vec2` and two numbers
-* `vec4(Number, Number, vec2)` - initialize with a `vec2` and two numbers
-* `vec4(vec3, Number)` - initialize with a `vec3` and number
-* `vec4(Number, vec3)` - initialize with a `vec3` and number
+* `vec4(xyzw : Number)` - initialize each component with the number
+* `vec4(x : Number, y : Number, z : Number, w : Number)` - initialize with four numbers
+* `vec4(xyzw : vec4)` - initialize with another `vec4`
+* `vec4(xy : vec2, z : Number, w : Number)` - initialize with a `vec2` and two numbers
+* `vec4(x : Number, yz : vec2, w : Number)` - initialize with a `vec2` and two numbers
+* `vec4(x : Number, y : Number, zw : vec2)` - initialize with a `vec2` and two numbers
+* `vec4(xyz : vec3, w : Number)` - initialize with a `vec3` and number
+* `vec4(x : Number, yzw : vec3)` - initialize with a `vec3` and number
 
 ##### Vector usage
 
@@ -307,9 +296,7 @@ Unlike GLSL, the styling language does not support swizzling. For example `vec3(
 
 Vectors support the following unary operators: `-`, `+`.
 
-Vectors support the following binary operators by performing component-wise operations: `===`, `==`, `!==`, `!=`, `+`, `-`, `*`, `/`, and `%`.  For example `vec4(1.0) === vec4(1.0)` is true since the x, y, z, and w components are equal.  This is not the same behavior as a JavaScript `Object`, where, for example, reference equality would be used.  Operators are essentially overloaded for `vec2`, `vec3`, and `vec4`.
-
-Operations between vectors of different types will not evaluate component-wise, but instead will evaluate as JavaScript objects. For example `vec2(1.0) === vec3(1.0)` is false and `vec2(1.0) * vec4(1.0)` is `NaN`. See the [Conversions](#conversions) section for more details.
+Vectors support the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `vec4(1.0) === vec4(1.0)` is true since the x, y, z, and w components are equal.  Operators are essentially overloaded for `vec2`, `vec3`, and `vec4`.
 
 `vec2`, `vec3`, and `vec4` have a `toString` function for explicit (and implicit) conversion to strings in the format `'(x, y)'`, `'(x, y, z)'`, and `'(x, y, z, w)'`.
 * `toString() : String`
@@ -372,8 +359,8 @@ If specified, `flags` can have any combination of the following values:
 * `y`- sticky
 
 Regular expressions support these functions:
-* `test(string: String) : Boolean` - Tests the specified string for a match.
-* `exec(string: String) : String` - Executes a search for a match in the specified string. If the search succeeds, it returns the first instance of a captured `String`. If the search fails, it returns `null`
+* `test(string : String) : Boolean` - Tests the specified string for a match.
+* `exec(string : String) : String` - Executes a search for a match in the specified string. If the search succeeds, it returns the first instance of a captured `String`. If the search fails, it returns `null`
 
 For example:
 ```json
@@ -393,7 +380,7 @@ Regular expressions have a `toString` function for explicit (and implicit) conve
 
 Regular expressions do not expose any other functions or a `prototype` object.
 
-The operators `=~` and `!~` are overloaded for regular expressions. The `=~` operator matches the behavior of the `test` function, and tests the specified string for a match. It returns `true` if one is found, and `false` if not found. The `!~` operator is the inverse of the `=~` operator. It returns `true` if no matches are found, and `false` if a match is found. Both operators are communitive.
+The operators `=~` and `!~` are overloaded for regular expressions. The `=~` operator matches the behavior of the `test` function, and tests the specified string for a match. It returns `true` if one is found, and `false` if not found. The `!~` operator is the inverse of the `=~` operator. It returns `true` if no matches are found, and `false` if a match is found. Both operators are commutative.
 
 For example, the following expressions all evaluate to true:
 ```
@@ -404,18 +391,72 @@ regExp('a') !~ 'bcd'
 'bcd' !~ regExp('a')
 ```
 
-If no `RegExp` is supplied as and operand, both operators will return `false`.
+### Operator Rules
 
-If both operands are of type `RegExp`, the left operand will be treated as the regular expression which is performing the match, and the right operand will be treated as the object which the test is being performed on. For example, `regExp('a') =~ regExp('abc')` will match the behavior of `regExp('a').test(regExp('abc'))`.
+* Unary operators `+` and `-` operate only on number and vector expressions.
+* Unary operator `!` operates only on boolean expressions.
+* Binary operators `<`, `<=`, `>`, and `>=` operate only on number expressions.
+* Binary operators `||` and `&&` operate only on boolean expressions.
+* Binary operator `+` operates on the following expressions:
+    * Number expressions
+    * Vector expressions of the same type
+    * If at least one expressions is a string, the other expressions is converted to a string following [String Conversions](#string-conversions) and the operation returns a concatenated string. E.g. `"name" + 10` evaluates to `"name10"`.
+* Binary operator `-` operates on the following expressions
+    * Number expressions
+    * Vector expressions of the same type
+* Binary operator `*` operates on the following expressions
+    * Number expressions
+    * Vector expressions of the same type
+    * Mix of number expression and vector expression. E.g. `3 * vec3(1.0)` and `vec2(1.0) * 3`.
+* Binary operator `/` operates on the following expressions
+    * Number expressions
+    * Vector expressions of the same type
+    * Vector expression followed by number expression. E.g.`vec3(1.0) / 3`.
+* Binary operator `%` operates on the following expressions
+    * Number expressions
+    * Vector expressions of the same type
+* Binary equality operators `===` and `!==` operate on any expressions. The operation returns `false` if the expression types do not match.
+* Binary regexp operators `=~` and `!~` requires one argument to be a string expression and the other to be a RegExp expression.
+* Ternary operator `? :` conditional argument must be a boolean expression.
 
-Regular expressions are treated as `NaN` when performing operations with operators other than `=~` and `!~`.
+### Type Conversions
 
+Explicit conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions.
+* `Boolean(value : Any) : Boolean`
+* `Number(value : Any) : Number`
+* `String(value : Any) : String`
 
-### Conversions
+For example:
 
-Style expressions follow JavaScript conversion rules.
+```
+Boolean(1) === true
+Number('1') === 1
+String(1) === '1'
+```
 
-For conversions involving vec2`, `vec3`, `vec4`, and `RegExp`, they are treated as JavaScript objects.  For example, `vec4` implicitly converts to `NaN` with `===`, `==`, `!==`, `!=`, `>`, `>=`, `<`, and `<=` operators.  In Boolean expressions, `vec2`, `vec3`, and `vec4` implicitly convert to `true`, e.g., `!!vec4(1.0) === true`.  In string expressions, `vec2`, `vec3`, and `vec4` implicitly converts to `String` using their `toString` function.
+`Boolean` and `Number` follow JavaScript conventions. `String` follows [String Conversions](#string-conversions).
+
+These are essentially casts, not constructor functions.
+
+The styling language does not allow for implicit type conversions, unless stated above. Expressions like `vec3(1.0) === vec4(1.0)` and `"5" < 6` are not valid.
+
+### String Conversions
+
+`vec2`, `vec3`, `vec4` and `RegExp` expressions are converted to strings using their `toString` methods. All other types follow JavaScript conventions.
+
+* `true` - `"true"`
+* `false` - `"false"`
+* `null` - `"null"`
+* `undefined` - `"undefined"`
+* `5.0` - `"5"`
+* `NaN` - `"NaN"`
+* `Infinity` - `"Infinity"`
+* `"name"` - `"name"`
+* `[0, 1, 2]` - `"[0, 1, 2]"`
+* `vec2(1, 2)` - `"(1, 2)"`
+* `vec3(1, 2, 3)` - `"(1, 2, 3)"`
+* `vec4(1, 2, 3, 4)` - `"(1, 2, 3, 4)"`
+* `RegExp('a')` - `"/a/"`
 
 ### Constants
 
@@ -461,6 +502,7 @@ Variables may be any of the supported native JavaScript types:
 * `Undefined`
 * `Number`
 * `String`
+* `Array`
 
 For example:
 ```json
@@ -1260,7 +1302,7 @@ For example:
 
 #### Point Cloud Shader Styling
 
-**TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/cesium/issues/3241**
+**TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/140**
 
 ### Notes
 
