@@ -16,10 +16,10 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.1 r15371"
-   sodipodi:docname="batch-table-hierarchy-1.svg"
-   inkscape:export-filename="C:\Users\slilley\Desktop\batch-table-hierarchy-1.png"
-   inkscape:export-xdpi="87.569519"
-   inkscape:export-ydpi="87.569519">
+   sodipodi:docname="batch-table-hierarchy-parking-lot.svg"
+   inkscape:export-filename="C:\Code\3d-tiles\TileFormats\BatchTable\figures\batch-table-hierarchy-parking-lot.png"
+   inkscape:export-xdpi="59.871426"
+   inkscape:export-ydpi="59.871426">
   <defs
      id="defs2">
     <linearGradient
@@ -467,17 +467,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="176.2245"
-     inkscape:cy="373.74392"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="532.62194"
+     inkscape:cy="283.85063"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      showguides="false"
      inkscape:window-width="2085"
      inkscape:window-height="1273"
-     inkscape:window-x="835"
-     inkscape:window-y="231"
+     inkscape:window-x="1011"
+     inkscape:window-y="511"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata5">
@@ -487,7 +487,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1011,13 +1011,6 @@
        d="m 239.54241,276.11681 3.01547,-1.32836 1.04777,2.93476"
        id="path4702"
        inkscape:connector-curvature="0" />
-    <ellipse
-       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#ff0000;stroke-width:0.60004544;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path4712"
-       cx="268.17303"
-       cy="188.64824"
-       rx="12.622685"
-       ry="8.937418" />
     <rect
        style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#ff0000;stroke-width:0.66623056;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect4746"
@@ -1045,5 +1038,19 @@
          id="flowPara4756"
          style="font-size:21.33333397px">Labelled by <flowSpan
    style="-inkscape-font-specification:'sans-serif Italic';font-family:sans-serif;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
-   id="flowSpan4758">batchId</flowSpan></flowPara></flowRoot>  </g>
+   id="flowSpan4758">batchId</flowSpan></flowPara></flowRoot>    <rect
+       style="opacity:1;vector-effect:none;fill:#f60000;fill-opacity:1;stroke:none;stroke-width:0.13484414;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4605-7-60"
+       width="10.441428"
+       height="0.71780515"
+       x="262.82587"
+       y="195.06476" />
+    <rect
+       style="opacity:1;vector-effect:none;fill:#f60000;fill-opacity:1;stroke:none;stroke-width:0.1699381;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4605-7-60-6"
+       width="16.583542"
+       height="0.71780515"
+       x="258.0397"
+       y="189.10687" />
+  </g>
 </svg>

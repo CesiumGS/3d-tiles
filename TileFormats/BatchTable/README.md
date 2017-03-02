@@ -245,13 +245,13 @@ A standard batch table with two walls per building and three buildings per block
 
 Both cases above illustrate the benefit of supporting feature types and a feature hierarchy within the batch table.
 
-### Hierarchy (TODO : change heading name - already used)
+### Hierarchy Object
 
 The standard batch table may be extended to include a `HIERARCHY` object that defines a set of classes and a tree structure for class instances.
 
 Sample batch table:
 
-``json
+```json
 {
   "HIERARCHY" : {
     "classes" : [
@@ -288,11 +288,13 @@ Sample batch table:
 ```
 
 `classes` is an array of objects, where each object contains the following properties:
-* `name` - The name of the class
+* `name` - A string representing the name of the class
 * `length` - The number of instances of the class
 * `instances` - An object containing instance properties. Properties may be stored as an array of values or a reference to data in the binary body.
 
-`instancesLength` is the total number of instances. It is equal to the sum of the `length`s of the classes. Note that this is different than a tile's `batchLength`, which is the total number of features. While all features are instances, not all instances are features; the hierarchy may contain instances that don't have a physical basis in the tile's geometry but still contribute to the metadata hierarchy.
+`instancesLength` is the total number of instances. It is equal to the sum of the `length` properties of the classes.
+
+Note that this is different than a tile's `batchLength`, which is the total number of features. While all features are instances, not all instances are features; the hierarchy may contain instances that don't have a physical basis in the tile's geometry but still contribute to the metadata hierarchy.
 
 `classIds` is an array of integers of length `instancesLength`. Each value specifies the instances's class as an index in the `classes` array.
 
@@ -300,7 +302,7 @@ Sample batch table:
 
 `parentCounts` is an array of integers of length `instancesLength`. Each value specifies the number of parents that instance has. If ommitted, `parentCounts` is implicity an array of length `instancesLength` where all values are 1.
 
-`parentIds` is an array of integers whose length equals the sum of the values in `parentCounts`. Parent ids are placed sequentially by instance; i.e. instance 0's parent ids are followed by instance 1's parent ids. Each value specifies the instance's parent as an index into the `classIds` array.
+`parentIds` is an array of integers whose length equals the sum of the values in `parentCounts`. Parent ids are placed sequentially by instance - instance 0's parent ids are followed by instance 1's parent ids. Each value specifies the instance's parent as an index into the `classIds` array.
 
 Cylical hierarchies are not allowed. When an instance's `parentId` points to itself, then it has no parent. When `parentIds` is omitted the instances do not have parents.
 
@@ -416,7 +418,7 @@ The city block example would now look like:
 
 The tile's `batchLength` is 6 and `instancesLength` is 10. The building and block instances are not features of the tile, but contain properties that are inherited by the six wall features.
 
-`parentCounts` is not included in the batch table since no tiles have multiple parents.
+`parentCounts` is not included since every instance has at most one parent.
 
 A feature with `batchId = 3` has the following properties:
 
@@ -469,24 +471,19 @@ More detailed descriptions are provided in the [Styling Spec](../../Styling/READ
 
 ### Notes
 
-In some cases a feature may have multiple ancestors of the same class, or ancestors of different classes with the same property names. It is up to the implemantation to decide how to handle overloaded properties.
-
-Since the batch table hierarchy is an extension to the standard batch table, it is still possible to store per-feature properties alongside the `HIERARCHY` object:
+* In some cases a feature may have multiple ancestors of the same class, or ancestors of different classes with the same property names. It is up to the implemantation to decide how to handle overloaded properties.
+* Since the batch table hierarchy is an extension to the standard batch table, it is still possible to store per-feature properties alongside the `HIERARCHY` object:
 
 ```
 {
   "Height" : [...],
   "Longitude" : [...],
   "Latitude" : [...],
-  "HIERARCHY" : {
-    "classes" : [...],
-    "instancesLength" : 10,
-    "classIds" : [...]
-  }
+  "HIERARCHY" : {...}
 }
 ```
 
-The batch table hierarchy is self-contained within the tile. It is not possible to form metadata hierarchy across different tiles in the tileset.
+* The batch table hierarchy is self-contained within the tile. It is not possible to form metadata hierarchy across different tiles in the tileset.
 
 ## Implementation Notes
 
