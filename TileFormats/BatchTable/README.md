@@ -317,13 +317,17 @@ Note that this is different than a tile's `batchLength`, which is the total numb
 
 **Implementation Note**: The batch table hierarchy does not directly provide an instances's index into its class's `instances` array. Instead the index can be inferred by the number of instances with the same `classId` that have appeared before it. An implementation may want to compute these indices at load time so that property access is as fast as possible.
 
-`parentCounts` is an array of integers of length `instancesLength`. Each value specifies the number of parents that instance has. If ommitted, `parentCounts` is implicity an array of length `instancesLength` where all values are 1.
+`parentCounts` is an array of integers of length `instancesLength`. Each value specifies the number of parents that instance has. If omitted, `parentCounts` is implicitly an array of length `instancesLength` where all values are 1.
 
 `parentIds` is an array of integers whose length equals the sum of the values in `parentCounts`. Parent ids are placed sequentially by instance - instance 0's parent ids are followed by instance 1's parent ids. Each value specifies the instance's parent as an index into the `classIds` array.
 
-Cylical hierarchies are not allowed. When an instance's `parentId` points to itself, then it has no parent. When `parentIds` is omitted the instances do not have parents.
+Cyclical hierarchies are not allowed. When an instance's `parentId` points to itself, then it has no parent. When `parentIds` is omitted the instances do not have parents.
 
 A feature's `batchId` is used to access its `classId` and `parentCount`. Therefore the values in the `classIds` and `parentCounts` arrays are initially ordered by `batchId` and followed by non-feature instances.
+
+The `parentCounts` and `parentIds` arrays form an instance hierarchy. A feature's properties includes those defined by its own class and any properties from ancestor instances.
+
+In some cases multiple ancestors may share the same property name. This can occur if two ancestors are the same class or are different classes with the same property names. For example if every class defined the property "id" then it would be an overloaded property. In such cases it is up to the implementation to decide which value to return.
 
 Finally, `classIds`, `parentCounts`, and `parentIds` may instead be references to data in the binary body. If omitted, `componentType` defaults to `UNSIGNED_SHORT`. `type` is implicitly `SCALAR`.
 
@@ -488,7 +492,6 @@ More detailed descriptions are provided in the [Styling Spec](../../Styling/READ
 
 ### Notes
 
-* In some cases a feature may have multiple ancestors of the same class, or ancestors of different classes with the same property names. It is up to the implemantation to decide how to handle overloaded properties.
 * Since the batch table hierarchy is an extension to the standard batch table, it is still possible to store per-feature properties alongside the `HIERARCHY` object:
 
 ```
