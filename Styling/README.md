@@ -48,9 +48,9 @@ Contents:
    * [Variables](#variables)
    * [Built-in Variables](#built-in-variables)
    * [Built-in Functions](#built-in-functions)
-   * [Batch Table Hierarchy](#batch-table-hierarchy)
-   * [Point Cloud](#point-cloud)
    * [Notes](#notes)
+* [Batch Table Hierarchy](#batch-table-hierarchy)
+* [Point Cloud](#point-cloud)
 * [File Extension](#file-extension)
 * [MIME Type](#mime-type)
 * [Acknowledgments](#acknowledgments)
@@ -1205,9 +1205,13 @@ Computes the cross product of `x` and `y`. This function only accepts `vec3` arg
 }
 ```
 
-### Batch Table Hierarchy
+### Notes
 
-The styling language provides the following built-in functions intended for use with the [Batch Table Hierarchy](../TileFormats/BatchTable/README.md#hierarchy):
+Comments are not supported.
+
+## Batch Table Hierarchy
+
+The styling language provides the following built-in functions intended for use with the [Batch Table Hierarchy](../TileFormats/BatchTable/README.md#batch-table-hierarchy):
 
 * [`getExactClassName`](#getexactclassname)
 * [`isExactClass`](#isexactclass)
@@ -1273,7 +1277,7 @@ For example, the style below will color all doors and doorknobs.
 }
 ```
 
-### Point Cloud
+## Point Cloud
 
 A [Point Cloud](../TileFormats/PointCloud/README.md) is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a point cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
 ```json
@@ -1303,10 +1307,6 @@ For example:
 #### Point Cloud Shader Styling
 
 **TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/140**
-
-### Notes
-
-Comments are not supported.
 
 ## File Extension
 
