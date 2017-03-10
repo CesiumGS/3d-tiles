@@ -85,6 +85,7 @@ These semantics define global properties for all instances.
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
 | `INSTANCES_LENGTH` | `uint32` | The number of instances to generate. The length of each array value for an instance semantic should be equal to this. | :white_check_mark: Yes. |
+| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when instance positions are defined relative-to-center. | :red_circle: No. |
 | `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 | `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. |:red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 | `EAST_NORTH_UP` | `boolean` | When `true` and per-instance orientation is not defined, each instance will default to the `east/north/up` reference frame's orientation on the `WGS84` ellipsoid. | :red_circle: No. |
@@ -123,7 +124,7 @@ This is suitable for instanced models like trees whose orientation is always fac
 
 ### Instance Position
 
-`POSITION` defines the location for an instance before any tile transforms are applied.
+`POSITION` defines the location for an instance before any tile transforms are applied. Positions may be defined relative-to-center for high-precision rendering [4]. `RTC_CENTER` defines the center position.
 
 #### Quantized Positions
 
@@ -256,6 +257,7 @@ _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 1. [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/)
 2. [*Mesh Geometry Compression for Mobile Graphics* by Jongseok Lee et al.](http://cg.postech.ac.kr/research/mesh_comp_mobile/mesh_comp_mobile_conference.pdf)
 3. Cesium [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js) module for oct-encoding
+4. [Precisions, Precisions](http://blogs.agi.com/insight3d/index.php/2008/09/03/precisions-precisions/)
 
 ## Implementation Examples
 
