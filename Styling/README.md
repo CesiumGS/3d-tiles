@@ -48,8 +48,9 @@ Contents:
    * [Variables](#variables)
    * [Built-in Variables](#built-in-variables)
    * [Built-in Functions](#built-in-functions)
-   * [Point Cloud](#point-cloud)
    * [Notes](#notes)
+* [Batch Table Hierarchy](#batch-table-hierarchy)
+* [Point Cloud](#point-cloud)
 * [File Extension](#file-extension)
 * [MIME Type](#mime-type)
 * [Acknowledgments](#acknowledgments)
@@ -1204,7 +1205,79 @@ Computes the cross product of `x` and `y`. This function only accepts `vec3` arg
 }
 ```
 
-### Point Cloud
+### Notes
+
+Comments are not supported.
+
+## Batch Table Hierarchy
+
+The styling language provides the following built-in functions intended for use with the [Batch Table Hierarchy](../TileFormats/BatchTable/README.md#batch-table-hierarchy):
+
+* [`getExactClassName`](#getexactclassname)
+* [`isExactClass`](#isexactclass)
+* [`isClass`](#isclass)
+
+#### getExactClassName
+
+```
+getExactClassName() : String
+```
+
+Returns the feature's class name, or `undefined` if the feature is not a class instance.
+
+For example, the following style will color all doorknobs yellow, all doors green, and all other features gray.
+
+```json
+"color" : {
+    "expression" : "regExp('door(.*)').exec(getExactClassName())",
+    "conditions" : [
+        ["${expression} === 'knob'", "color('yellow')"],
+        ["${expression} === ''", "color('green')"],
+        ["${expression} === null", "color('gray')"],
+        ["true", "color('blue'"]
+    ]
+}
+```
+
+#### isExactClass
+
+```
+isExactClass(name : String) : Boolean
+```
+
+Returns `true` is the feature's class is equal to `name`, otherwise `false`.
+
+For example, the following style will color all doors, but not features that are children of doors (like doorknobs).
+
+```json
+"color" : {
+    "conditions" : [
+        ["isExactClass('door')", "color('red')"],
+        ["true", "color('white')"]
+    ]
+}
+```
+
+#### isClass
+
+```
+isClass(name : String) : Boolean
+```
+
+Returns `true` is the feature's class, or any of its ancestors' classes, are equal to `name`.
+
+For example, the style below will color all doors and doorknobs.
+
+```json
+"color" : {
+    "conditions" : [
+        ["isClass('door')", "color('blue')"],
+        ["true", "color('white')"]
+    ]
+}
+```
+
+## Point Cloud
 
 A [Point Cloud](../TileFormats/PointCloud/README.md) is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a point cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
 ```json
@@ -1234,10 +1307,6 @@ For example:
 #### Point Cloud Shader Styling
 
 **TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/140**
-
-### Notes
-
-Comments are not supported.
 
 ## File Extension
 
