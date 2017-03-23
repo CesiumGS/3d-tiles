@@ -67,7 +67,7 @@ If both `POSITION` and `POSITION_QUANTIZED` are defined for an instance, the hig
 If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` are defined for an instance, the higher precision `NORMAL_UP`, and `NORMAL_RIGHT` will be used.
 
 | Semantic | Data Type | Description | Required | 
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, unless `POSITION_QUANTIZED` is defined. |
 | `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, unless `POSITION` is defined. |
 | `NORMAL_UP` | `float32[3]`| A unit vector defining the `up` direction for the orientation of the instance. | :red_circle: No, unless `NORMAL_RIGHT` is defined. |
