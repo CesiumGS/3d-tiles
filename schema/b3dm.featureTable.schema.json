@@ -1,0 +1,18 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "b3dm.featureTable.schema.json",
+    "title" : "Batched 3D Model Feature Table",
+    "type" : "object",
+    "description" : "A set of Batched 3D Model semantics that contain additional information about features in a tile.",
+    "allOf" : [{
+        "$ref" : "featureTable.schema.json"
+    }, {
+        "properties" : {
+            "BATCH_LENGTH" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+            }
+        },
+        "required" : ["BATCH_LENGTH"],
+        "additionalProperties" : false
+    }]
+}
