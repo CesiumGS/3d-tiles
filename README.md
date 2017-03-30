@@ -87,6 +87,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
    * 3D Tiles motivation and ecosystem update ([pdf](http://cesiumjs.org/presentations/3D-Tiles-OGC-DC.pdf)) at the OGC Technical Committee Meeting (March 2016).
    * 3D Tiles intro ([pdf](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
 * **Selected Articles**
+   * [What's new in 3D Tiles?](http://cesiumjs.org/2017/03/29/Whats-New-in-3D-Tiles/). March 2017
    * [Streaming 3D Capture Data using 3D Tiles](http://cesiumjs.org/2017/03/06/3D-Scans/). March 2017.
    * [Visualizing Massive Models using 3D Tiles](http://cesiumjs.org/2017/02/21/Massive-Models/). February 2017.
    * [Bringing City Models to Life with 3D Tiles](https://medium.com/@CyberCity3D/bringing-city-models-to-life-with-3d-tiles-620d5884edf3#.mqxuj7kqd). September 2016.
