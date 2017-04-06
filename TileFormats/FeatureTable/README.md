@@ -12,6 +12,7 @@
 A _Feature Table_ describes position and appearance properties for each feature in a tile.  The [Batch Table](../BatchTable/README.md), on the other hand, contains per-feature application-specific metadata not necessarily used for rendering.
 
 A Feature Table is used by the following tile formats:
+* [Batched 3D Model](../Batched3DModel/README.md) (b3dm) - each model is a feature.
 * [Instanced 3D Model](../Instanced3DModel/README.md) (i3dm) - each model instance is a feature.
 * [Point Cloud](../PointCloud/README.md) (pnts) - each point is a feature.
 * [Vector](../VectorData/README.md) (vctr) - each point/polyline/polygon is a feature.
