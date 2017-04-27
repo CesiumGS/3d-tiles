@@ -179,7 +179,9 @@ The `refine` property is a string that is either `"replace"` for replacement ref
 
 The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
 
-The file extension of `content.url` defines the [tile format](#tileFormats).  The url can be another tileset.json file to create a tileset of tilesets.  See [External tilesets](#external-tilesets)
+The url can be another tileset.json file to create a tileset of tilesets.  See [External tilesets](#external-tilesets).
+
+A file extension is not required for `content.url`.  A content's [tile format](#tile-formats) can be identified by the `magic` field in its header, or otherwise as an external tileset if the content is JSON.
 
 `content.boundingVolume` defines an optional bounding volume similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's contents.  This is used for replacement refinement; `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
 

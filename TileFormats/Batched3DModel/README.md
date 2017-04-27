@@ -125,6 +125,8 @@ Although not strictly required, clients may find the glTF [CESIUM_RTC](https://g
 
 `.b3dm`
 
+The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
+
 ## MIME Type
 
 _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
