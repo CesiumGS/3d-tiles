@@ -246,6 +246,8 @@ If the glTF asset is embedded, it must be 8-byte aligned so that glTF's byte-ali
 
 `.i3dm`
 
+The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
+
 ## MIME Type
 
 _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
