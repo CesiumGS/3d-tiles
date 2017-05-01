@@ -55,6 +55,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
    * [Coordinate System and Units](#coordinate-system-and-units)
    * [Tile transform](#tile-transform)
    * [Viewer request volume](#viewer-request-volume)
+   * [Tile expiration](#tile-expiration)
 * [tileset.json](#tilesetjson)
    * [External tilesets](#external-tilesets)
    * [Bounding volume spatial coherence](#bounding-volume-spatial-coherence)
@@ -169,6 +170,8 @@ The `boundingVolume.region` property is an array of six numbers that define the 
 The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
 
 An optional `viewerRequestVolume` property (not shown above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
+
+An optional `expire` property (not shown above) marks when a tile's content expires and should be re-requested.  See the [Tile Expiration](#tile-expiration) section.
 
 The `refine` property is a string that is either `"replace"` for replacement refinement or `"add"` for additive refinement.  It is required for the root tile of a tileset; it is optional for all other tiles.  When `refine` is omitted, it is inherited from the parent tile.
 
@@ -331,6 +334,48 @@ The following example has a building in a `b3dm` tile and a point cloud inside t
 _TODO: screenshot showing the request vs. bounding volume_
 
 For more on request volumes, see the [sample tileset](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples/tree/master/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
+
+### Tile Expiration
+
+A tile's `expire` property enables dynamic updates of tile content.  The tile's expiration may be defined as a fixed date or a duration in seconds.
+
+Date:
+
+```javascript
+  "content": {
+    "url": "points.pnts"
+  },
+  "expire" : {
+    "date" : "2012-04-30T12:02Z"
+  }
+}]
+```
+
+Duration:
+
+```javascript
+  "content": {
+    "url": "points.pnts"
+  },
+  "expire" : {
+    "duration" : "4.5"
+  }
+}]
+```
+
+Where:
+* `date` is an [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) representation of the date at which the tile's content expires.
+* `duration` is the number of seconds since the tile's content is loaded when the tile's content expires.
+
+If both properties are present, the sooner value is used.
+
+When the tile's content expires, its `content.url` is re-requested. Browser-based implementations may find it helpful to append a GUID or timestamp as a query parameter to the url to prevent caching.
+
+The runtime may show the expired content while waiting for the new tile request. Once the request completes successfully the new content is shown and the expired content is unloaded. If the request fails, the runtime may continue to show the expired content or unload it.
+
+If an expired tile's `content.url` had pointed to an [external tileset](#external-tilesets), its subtree is destroyed before new content is loaded in its place.
+
+For more on tile expiration, see the [sample tileset](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples/tree/master/tilesets/TilesetWithExpiration) and [demo video](https://www.youtube.com/watch?v=JlPLRtFzn5g).
 
 ## tileset.json
 

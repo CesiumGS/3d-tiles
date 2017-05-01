@@ -13,6 +13,26 @@
             "extends" : { "$ref" : "boundingVolume.schema.json" },
             "description" : "Optional bounding volume that defines the volume that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError."
         },
+        "expire" : {
+            "type" : "object",
+            "description" : "Defines when a tile's content expires and should be re-requested. If both date and duration are present, the sooner value is used.",
+            "properties" : {
+                "date" : {
+                    "type" : "string",
+                    "description" : "The ISO8601 representation of the date at which the tile's content expires."
+                },
+                "duration" : {
+                    "type" : "number",
+                    "description" : "The number of seconds since the tile's content is loaded when the tile's content expires.",
+                    "minimum" : 0
+                }
+            },
+            "oneOf" : [{
+                "required" : ["date"]
+            }, {
+                "required" : ["duration"]
+            }]
+        },
         "geometricError" : {
             "type" : "number",
             "description" : "The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute Screen-Space Error (SSE), i.e., the error measured in pixels.",
