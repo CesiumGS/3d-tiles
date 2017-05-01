@@ -87,6 +87,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
    * 3D Tiles motivation and ecosystem update ([pdf](http://cesiumjs.org/presentations/3D-Tiles-OGC-DC.pdf)) at the OGC Technical Committee Meeting (March 2016).
    * 3D Tiles intro ([pdf](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
 * **Selected Articles**
+   * [Infrastructure Visualisation using 3D Tiles](http://www.sitesee.com.au/news/3dtiles). April 2017.
    * [SiteSee Photogrammetry and 3D Tiles](http://cesiumjs.org/2017/04/12/Site-See-3D-Tiles/). April 2017.
    * [Optimizing Spatial Subdivisions in Practice](http://cesiumjs.org/2017/04/04/Spatial-Subdivision-In-Practice/). April 2017.
    * [Optimizing Subdivisions in Spatial Data Structures](http://cesiumjs.org/2017/03/30/Spatial-Subdivision/). March 2017.
