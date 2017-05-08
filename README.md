@@ -23,7 +23,8 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
 ![](figures/users/aero3dpro.jpg) [aero3Dpro](http://aero3dpro.com.au/) | ![](figures/users/entwine.jpg) [Entwine](http://cesium.entwine.io/) |
 ![](figures/users/3dps.jpg) [GeoRocket](https://georocket.io/) 3DPS | ![](figures/users/osgjs.jpg) [OSGJS](http://osgjs.org/) (in progress) |
 ![](figures/users/data61.jpg) [CSIRO Data61](https://www.data61.csiro.au/) | ![](figures/users/gamesim.jpg) [GameSim Conform](https://www.gamesim.com/3d-geospatial-conform/) |
-![](figures/users/sitesee.jpg) [SiteSee](http://www.sitesee.com.au/) (using three.js) | |
+![](figures/users/sitesee.jpg) [SiteSee](http://www.sitesee.com.au/) (using three.js) | [Safe FME](https://www.safe.com/how-it-works/) |
+[Peaxy](https://peaxy.net/) | ![](figures/users/pointcloudconverter.jpg) [Prototype Point Cloud Converter](https://github.com/mattshax/cesium_pnt_generator) |
 
 ## Live Apps
 
@@ -87,6 +88,11 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
    * 3D Tiles motivation and ecosystem update ([pdf](http://cesiumjs.org/presentations/3D-Tiles-OGC-DC.pdf)) at the OGC Technical Committee Meeting (March 2016).
    * 3D Tiles intro ([pdf](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
 * **Selected Articles**
+   * [Infrastructure Visualisation using 3D Tiles](http://www.sitesee.com.au/news/3dtiles). April 2017.
+   * [SiteSee Photogrammetry and 3D Tiles](http://cesiumjs.org/2017/04/12/Site-See-3D-Tiles/). April 2017.
+   * [Optimizing Spatial Subdivisions in Practice](http://cesiumjs.org/2017/04/04/Spatial-Subdivision-In-Practice/). April 2017.
+   * [Optimizing Subdivisions in Spatial Data Structures](http://cesiumjs.org/2017/03/30/Spatial-Subdivision/). March 2017.
+   * [What's new in 3D Tiles?](http://cesiumjs.org/2017/03/29/Whats-New-in-3D-Tiles/). March 2017.
    * [Streaming 3D Capture Data using 3D Tiles](http://cesiumjs.org/2017/03/06/3D-Scans/). March 2017.
    * [Visualizing Massive Models using 3D Tiles](http://cesiumjs.org/2017/02/21/Massive-Models/). February 2017.
    * [Bringing City Models to Life with 3D Tiles](https://medium.com/@CyberCity3D/bringing-city-models-to-life-with-3d-tiles-620d5884edf3#.mqxuj7kqd). September 2016.
@@ -427,7 +433,7 @@ The top-level object in tileset.json has four properties: `asset`, `properties`,
 
 `asset` is an object containing properties with metadata about the entire tileset.  Its `version` property is a string that defines the 3D Tiles version.  The version defines the JSON schema for tileset.json and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated. The `gltfUpAxis` property is an optional string that specifies the up-axis of glTF models contained in the tileset.
 
-`properties` is an object containing objects for each per-feature property in the tileset.  This tileset.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see (Batch Table)[TileFormats/BatchTable/README.md]).  The name of each object in `properties` matches the name of a per-feature property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
+`properties` is an object containing objects for each per-feature property in the tileset.  This tileset.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see [Batch Table](TileFormats/BatchTable/README.md)).  The name of each object in `properties` matches the name of a per-feature property, and defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
 `geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered.
 
