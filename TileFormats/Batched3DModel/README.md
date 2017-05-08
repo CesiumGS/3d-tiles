@@ -64,6 +64,7 @@ These semantics define global properties for all features.
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
 | `BATCH_LENGTH` | `uint32` | The number of distinguishable models, also called features, in the batch. If the Binary glTF does not have a `batchId` attribute, this field _must_ be `0`. | :white_check_mark: Yes. |
+| `TILE_METADATA` | `object` | A json object containing tile metadata. The data layout of this object is identical to a tile defined in the tileset.json, but without the `content` and `children` properties. | :red_circle: No. |
 
 ## Batch Table
 

@@ -10,6 +10,9 @@
         "properties" : {
             "BATCH_LENGTH" : {
                 "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+            },
+            "TILE_METADATA" : {
+                "$ref" : "tileMetadata.schema.json"
             }
         },
         "required" : ["BATCH_LENGTH"],

@@ -377,6 +377,20 @@ If both properties are present, the sooner value is used.
 
 When the tile's content expires, its `content.url` is re-requested. Browser-based implementations may find it helpful to append a GUID or timestamp as a query parameter to the url to prevent caching.
 
+A tile's expiration may be stored directly in the content's feature table. This allows the tile expiration date to change from request to request.
+
+Sample b3dm feature table:
+```javascript
+{
+  "BATCH_LENGTH": 10,
+  "TILE_METADATA": {
+    "expire" : {
+      "date" : "2012-04-30T12:02Z"
+    }
+  }
+}
+```
+
 The runtime may show the expired content while waiting for the new tile request. Once the request completes successfully the new content is shown and the expired content is unloaded. If the request fails, the runtime may continue to show the expired content or unload it.
 
 If an expired tile's `content.url` had pointed to an [external tileset](#external-tilesets), its subtree is destroyed before new content is loaded in its place.

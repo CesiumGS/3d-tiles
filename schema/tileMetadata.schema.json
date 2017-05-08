@@ -1,9 +1,9 @@
 {
     "$schema" : "http://json-schema.org/draft-04/schema",
-    "id" : "tile.schema.json",
-    "title" : "Tile",
+    "id" : "tileMetadata.schema.json",
+    "title" : "Tile Metadata",
     "type" : "object",
-    "description" : "A tile in a 3D Tiles tileset.",
+    "description" : "Tile metadata.",
     "properties" : {
         "boundingVolume" : {
             "description" : "The bounding volume that encloses the tile.",
@@ -52,20 +52,7 @@
             "minItems" : 16,
             "maxItems" : 16,
             "default" : [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ]
-        },
-        "content" : {
-            "description" : "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. This is required for leaf tiles.",
-            "$ref" : "tile.content.schema.json"
-        },
-        "children" : {
-            "type" : "array",
-            "description" : "An array of objects that define child tiles. Each child tile has a box fully enclosed by its parent tile's box and, generally, a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.",
-            "items" : {
-                "$ref" : "tile.schema.json"
-            },
-            "uniqueItems" : true
         }
     },
-    "required" : ["boundingVolume", "geometricError"],
     "additionalProperties" : false
 }
