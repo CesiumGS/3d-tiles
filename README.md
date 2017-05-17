@@ -170,7 +170,7 @@ The metadata for each tile - not the actual contents - are defined in JSON.  For
   "children": [...]
 }
 ```
-The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the [WGS84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).  Besides `region`, other bounding volumes, such as `box` and `sphere`, may be used.
+The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region in EPSG:4326 coordinates with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the [WGS84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).  Besides `region`, other bounding volumes, such as `box` and `sphere`, may be used.
 
 The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
 
@@ -198,15 +198,15 @@ An optional `transform` property (not shown above) defines a 4x4 affine transfor
 
 ### Coordinate System and Units
 
-3D Tiles use a right-handed Cartesian coordinate system, that is, the cross product of x and y yields z. 3D Tiles define the z axis as up for local Cartesian coordinate systems (see the [Tile transform](#tile-transform) section).  A tileset's global coordinate system will often be [WGS84 coordinates](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for using with a modeling tool without a geospatial context.
+3D Tiles use a right-handed Cartesian coordinate system, that is, the cross product of x and y yields z. 3D Tiles define the z axis as up for local Cartesian coordinate systems (see the [Tile transform](#tile-transform) section).  A tileset's global coordinate system will often be [ECEF](https://en.wikipedia.org/wiki/ECEF) coordinates, but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for using with a modeling tool without a geospatial context.
 
-`b3dm` and `i3dm` tiles embed glTF. According to the [glTF spec](https://github.com/KhronosGroup/glTF/tree/master/specification/1.0#coordinate-system-and-units) glTF uses a right-handed coordinate system and defines the y axis as up. By default embedded models are considered to be y-up, but in order to support a variety of source data, including models defined directly in WGS84 coordinates, embedded glTF models may be defined as x-up, y-up, or z-up with the `asset.gltfUpAxis` property of `tileset.json`. In general an implementation should transform glTF assets to z-up at runtime to be consistent with the z-up coordinate system of the bounding volume hierarchy.
+`b3dm` and `i3dm` tiles embed glTF. According to the [glTF spec](https://github.com/KhronosGroup/glTF/tree/master/specification/1.0#coordinate-system-and-units) glTF uses a right-handed coordinate system and defines the y axis as up. By default embedded models are considered to be y-up, but in order to support a variety of source data, including models defined directly in [ECEF](https://en.wikipedia.org/wiki/ECEF) coordinates, embedded glTF models may be defined as x-up, y-up, or z-up with the `asset.gltfUpAxis` property of `tileset.json`. In general an implementation should transform glTF assets to z-up at runtime to be consistent with the z-up coordinate system of the bounding volume hierarchy.
 
 The units for all linear distances are meters.
 
 All angles are in radians.
 
-3D Tiles do not explicitly store Cartographic coordinates (longitude, latitude, and height); these values are implicit in WGS84 coordinates, which are efficient for the GPU to render since they do not require a non-affine coordinate transformation.  A 3D Tiles tileset can include application-specific metadata, such as Cartographic coordinates, but the semantics are not part of the 3D Tiles specification.
+3D Tiles do not explicitly store Cartographic coordinates (longitude, latitude, and height); these values are implicit in ECEF coordinates, which are efficient for the GPU to render since they do not require a non-affine coordinate transformation.  A 3D Tiles tileset can include application-specific metadata, such as Cartographic coordinates, but the semantics are not part of the 3D Tiles specification.
 
 ### Tile transform
 
@@ -218,9 +218,9 @@ The `transform` property applies to:
 * `tile.content`
    * Each feature's position.
    * Each feature's normal should be transformed by the top-left 3x3 matrix of the inverse-transpose of `transform` to account for [correct vector transforms when scale is used](http://www.realtimerendering.com/resources/RTNews/html/rtnews1a.html#art4).
-   * `content.boundingVolume`, except when `content.boundingVolume.region` is defined, which is explicitly in [WGS84 coordinates](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).
-* `tile.boundingVolume`, except when `tile.boundingVolume.region` is defined, which is explicitly in WGS84 coordinates.
-* `tile.viewerRequestVolume`, except when `tile.viewerRequestVolume.region` is defined, which is explicitly in WGS84 coordinates.
+   * `content.boundingVolume`, except when `content.boundingVolume.region` is defined, which is explicitly in [EPSG:4326 coordinates](http://spatialreference.org/ref/epsg/wgs-84/).
+* `tile.boundingVolume`, except when `tile.boundingVolume.region` is defined, which is explicitly in EPSG:4326 coordinates.
+* `tile.viewerRequestVolume`, except when `tile.viewerRequestVolume.region` is defined, which is explicitly in EPSG:4326 coordinates.
 
 The `transform` property does not apply to `geometricError`, i.e., the scale defined by `transform` does not scale the geometric error; the geometric error is always defined in meters.
 
