@@ -27,7 +27,7 @@ A Feature Table is composed of two parts: a JSON header and an optional binary b
 
 ![feature table layout](figures/feature-table-layout.png)
 
-See [Implementation Notes](#implementation-notes) for details about padding between the json and binary sections.
+See [Implementation Notes](#implementation-notes) for details about padding between the JSON and binary sections.
 
 When a tile format includes a Feature Table, the Feature Table immediately follows the tile's header.  The header will also contain `featureTableJSONByteLength` and `featureTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the Feature Table.
 
