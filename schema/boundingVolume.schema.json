@@ -16,7 +16,7 @@
         },
         "region" : {
             "type" : "array",
-            "description" : "An array of six numbers that define a bounding geographic region with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.",
+            "description" : "An array of six numbers that define a bounding geographic region in WGS84 / EPSG:4326 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.",
             "items" : {
                 "type" : "number"
             },
