@@ -92,6 +92,8 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
    * 3D Tiles motivation and ecosystem update ([pdf](http://cesiumjs.org/presentations/3D-Tiles-OGC-DC.pdf)) at the OGC Technical Committee Meeting (March 2016).
    * 3D Tiles intro ([pdf](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
 * **Selected Articles**
+   * [Duke Using 3D Tiles for Excavation in Vulci](http://cesiumjs.org/2017/05/22/Duke-Vulci-Photogrammetry/). May 2017.
+   * [GERST Engineers, Agisoft PhotoScan, and 3D Tiles](http://cesiumjs.org/2017/05/19/GERST-engineers/). May 2017.
    * [Skipping Levels of Detail](http://cesiumjs.org/2017/05/05/Skipping-Levels-of-Detail/). May 2017.
    * [Infrastructure Visualisation using 3D Tiles](http://www.sitesee.com.au/news/3dtiles). April 2017.
    * [SiteSee Photogrammetry and 3D Tiles](http://cesiumjs.org/2017/04/12/Site-See-3D-Tiles/). April 2017.
