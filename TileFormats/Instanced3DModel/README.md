@@ -142,7 +142,7 @@ If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.
 
 Quantized positions can be mapped to model space using the formula:
 
-`POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE + QUANTIZED_VOLUME_OFFSET`
+`POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE / 65535.0 + QUANTIZED_VOLUME_OFFSET`
 
 ### Instance Scaling
 
