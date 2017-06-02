@@ -91,15 +91,21 @@ Contains metadata organized by `batchId` that can be used for declarative stylin
 
 ### Indices
 
+TODO: `uint16` indices.
+
+The indices are a buffer of `uint32` values. The byte length is given by `indicesByteLength` in the header. Each count in `POLYGON_INDEX_COUNT` represents a contiguous section of the array that represents a triangulated polygon. 
+For example, let the first two polygons have 6 and 12 for their index counts. The first polygon has 6 indices starting at byte offset `0` and ending at byte offset `6 * byteSize - 1`.
+The second polygon has 12 indices starting at byte offset `6 * byteSize` and ending at `6 * byteSize + 12 * byteSize`.
+
+** Figure 1**: Example index buffer.
+
+![indices](figures/indices.jpg)
+
+The number of indices must be a multiple of three. Each consecutive list of three indices is a triangle that must be ordered counter-clockwise. Each index is from the start of the buffer, **NOT** from the offset of the first position of the polygon.
+
 ### Positions
 
-Features are defined in the Feature Table. 
-The `POLYGONS_LENGTH` semantic defines the length of the `POLYGON_COUNT` array.
-Likewise, the `POLYLINES_LENGTH` semantic defines the length of the `POLYLINE_COUNT` array.
-`COUNT` defines how many points to sequentially read and add to a feature before creating a new one.
-Points are read using `INDICES` to retrieve positions by index, if it is defined. 
 
-`POSITION` may be defined relative to a center point using the global semantic `RTC_CENTER` for high-precision rendering  [2].
 
 ### Examples
 
