@@ -16,10 +16,6 @@ Each point, poyline, and polygon is a _feature_ in the 3D Tiles specification la
 
 A tile is composed of a header section immediately followed by a body section.
 
-**Figure 1**: Vector layout (dashes indicate optional fields). 
-
-![header layout](figures/header-layout.png)
-
 ## Header
 
 The 28-byte header contains the following fields:
@@ -33,46 +29,35 @@ The 28-byte header contains the following fields:
 | `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
 | `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates that there is no batch table. |
 | `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. | 
+| `indicesByteLength` | `uint32` | The length of the polygon indices buffer. |
+| `polygonPositionsByteLength` | `uint32` | The length of the polygon positions buffer. |
+| `polylinePositionsByteLength` | `uint32` | The length of the polyline positions buffer. |
+| `pointPositionsByteLength` | `uint32` | The length of the point positions buffer. |
 
 If `featureTableJSONByteLength` equals zero, the tile does not need to be rendered.
 
-The body section immediately follows the header section, and is composed of two fields: `Feature Table` and `Batch Table`.
+The body section immediately follows the header section, and is composed of four fields: `Feature Table`, `Batch Table`, `Indices`, and `Positions`.
 
 Code for reading the header can be found in
-[Vector3DModelTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Vector3DModelTileContent.js)
+[Vector3DModelTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/vector-tiles/Source/Scene/Vector3DTileContent.js)
 in the Cesium implementation of 3D Tiles.
 
 ## Feature Table
 
 Contains values for `vctr` semantics used to render features.  The general layout of a Feature Table is described in the [Feature Table specification](../FeatureTable).
 
-The `vctr` Feature Table JSON schema is defined in [vctr.featureTable.schema.json](../../schema/vctr.featureTable.schema.json).
-
-TODO: Write schema after this gets looked over a bit.
+TODO: The `vctr` Feature Table JSON schema is defined in [vctr.featureTable.schema.json](../../schema/vctr.featureTable.schema.json).
 
 ### Semantics
 
 If a semantic has a dependency on another semantic, that semantic must be defined as well.
-If both `POSITION` and `POSITION_QUANTIZED` are defined, the higher precision `POSITION` will be used.
-Per-feature semantics specific to a feature type are prefixed with the name of the feature type. e.g. `POLYGON` for polygons and `POLYLINE` for polylines.
+Per-feature semantics specific to a feature type are prefixed with the name of the feature type. e.g. `POLYGON` for polygons, `POLYLINE` for polylines and `POINT` for points.
 
 At least one global `LENGTH` semantic must be defined. 
 If `POLYGONS_LENGTH` is not defined, or zero, no polygons will be rendered. 
-Likewise, if `POLYLINES_LENGTH` is not defined, or zero, no polylines will be rendered.
+If `POLYLINES_LENGTH` is not defined, or zero, no polylines will be rendered.
+If `POINTS_LENGTH` is not defined, or zero, no points will be rendered.
 Multiple feature types may be defined in a single Vector tile using multiple `LENGTH` semantics, and in that case, all specified feature types will be rendered.
-
-#### Vector Semantics
-
-| Semantic | Data Type | Description | Required |
-| --- | --- | --- | --- |
-| `POLYGON_COUNT` | `uint32` | The number of points that belong to each polygon. This refers to `POLYGON_INDICES` if it is defined, otherwise it refers to `POSITION` or `POSITION_QUANTIZED`. | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is not defined. |
-| `POLYGON_INDICES` | `uint32` | An index into the `POSITION` or `POSITION_QUANTIZED` array. | :red_circle: No. |
-| `POLYGON_BATCH_ID` | `uint16` | The `batchId` of the polygon that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
-| `POLYLINE_COUNT` | `uint32` | The number of points that belong to each polyline. This refers to `POLYLINE_INDICES` if it is defined, otherwise it refers to `POSITION`  or `POSITION_QUANTIZED`. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is not defined. |
-| `POLYLINE_INDICES` | `uint32` | An index into the `POSITION` or `POSITION_QUANTIZED` array. | :red_circle: No. |
-| `POLYLINE_BATCH_ID` | `uint16` | The `batchId` of the polyline that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
-| `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for positions. If an `INDICES` semantic is not defined, these values are used to create the feature in order. | :white_check_mark: Yes, unles  `POSITION_QUANTIZED` is defined. |
-| `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y` and `z` in quantized Cartesian coordinates for positions. If an `INDICES` semantic is not defined, these values are used to create the feature in order. | :white_check_mark: Yes, unless `POSITION` is defined. |
 
 #### Global Semantics
 
@@ -80,15 +65,31 @@ The semantics define global properties for all vector elements.
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `POLYGONS_LENGTH` | `uint32` | The number of polygons in the tile. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is defined. |
-| `POLYLINES_LENGTH` | `uint32` | The number of polylines in the tile. | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is defined. |
-| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when point positions are defined relative-to-center. | :red_circle: No. |
-| `QUANTIZED_VOLUME_OFFSET` | `float32[3]` | A 3-component array of numbers defining the offset for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
-| `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
-| `MINIMUM_HEIGHT` | `float32` | The minimum terrain height for this tiles' region in meters above the WGS84 ellipsoid. | :red_circle: No. |
-| `MAXIMUM_HEIGHT` | `float32` | The maximum terrain height for this tiles' region in meters above the WGS84 ellipsoid. | :red_circle: No. |
+| `POLYGONS_LENGTH` | `uint32` | The number of polygons in the tile. | :white_check_mark: Yes, unless one of `POLYLINES_LENGTH` or `POINTS_LENGTH` is defined. |
+| `POLYLINES_LENGTH` | `uint32` | The number of polylines in the tile. | :white_check_mark: Yes, unless one of `POLYGONS_LENGTH` or `POINTS_LENGTH` is defined.  |
+| `POINTS_LENGTH` | `uint32` | The number of points in the tile. | :white_check_mark: Yes, unless one of `POLYGONS_LENGTH` or `POLYLINES_LENGTH` is defined.  |
+| `MINIMUM_HEIGHT` | `float32` | The minimum terrain height for this tiles' region in meters above the WGS84 ellipsoid. | :white_check_mark: Yes. |
+| `MAXIMUM_HEIGHT` | `float32` | The maximum terrain height for this tiles' region in meters above the WGS84 ellipsoid. | :white_check_mark: Yes. |
 
 Examples using these semantics can be found in the [examples section](#examples).
+
+#### Vector Semantics
+
+| Semantic | Data Type | Description | Required |
+| --- | --- | --- | --- |
+| `POLYGON_COUNT` | `uint32` | The number of points that belong to each polygon. This refers to the polygon section of the positions buffer in the body. Each polygon count refers to a contiguous number of points in the position buffer that represents the polygon.  | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is zero or not defined. |
+| `POLYGON_INDEX_COUNT` | `uint32` | The number of indices that belong to each polygon. This refers to the indices buffer of the body. Each index count refers to a contiguous number of indices that represent the triangulated polygon. | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is zero or not defined. |
+| `POLYGON_MINIMUM_HEIGHT` | `float32` | The minimum height of each polygon. | :red_circle: No. If the minimum height for each polygon is not specified, the global `MINIMUM_HEIGHT` will be used. |
+| `POLYGON_MAXIMUM_HEIGHT` | `float32` | The maximum height of each polygon. | :red_cricle: No. If the maximum height for each polygon is not specified, the global `MAXIMUM_HEIGHT` will be used. |
+| `POLYGON_BATCH_ID` | `uint16` | The `batchId` of the polygon that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+| `POLYLINE_COUNT` | `uint32` | The number of points that belong to each polyline. This refers to the polyline section of the positions buffer in the body. Each polyline count refers to a contiguous number of points in the position buffer that represents the polyline. Each point is the start of a segment of the polyline with the next being the end of the segment. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is not defined. |
+| `POLYLINE_BATCH_ID` | `uint16` | The `batchId` of the polyline that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+
+## Batch Table
+
+Contains metadata organized by `batchId` that can be used for declarative styling. See the [Batch Table specification](../BatchTable) reference for more information.
+
+### Indices
 
 ### Positions
 
@@ -99,22 +100,6 @@ Likewise, the `POLYLINES_LENGTH` semantic defines the length of the `POLYLINE_CO
 Points are read using `INDICES` to retrieve positions by index, if it is defined. 
 
 `POSITION` may be defined relative to a center point using the global semantic `RTC_CENTER` for high-precision rendering  [2].
-
-#### Quantized Positions
-
-`POSITION_QUANTIZED` may be defined instead of `POSITION` which defines points relative to the quantized volume.
-Either `POSITION` or `POSITION_QUANTIZED` must be defined.
-
-A quantized volume is defined by `offset` and `scale` to map quantized positions into model space.
-
-![quantized volume](figures/quantized-volume.png)
-
-`offset` is stored in the global semantic `QUANTIZED_VOLUME_OFFSET`, and `scale` is stored in the global semantic `QUANTIZED_VOLUME_SCALE`.
-If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.
-
-Quantized positions can be mapped to model space using the formula:
-
-`POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE / 65535.0 + QUANTIZED_VOLUME_OFFSET`
 
 ### Examples
 
@@ -170,19 +155,6 @@ var positionBinary = new Buffer(new Float32Array([
 
 var featureTableBinary = Buffer.concat([polylineCountBinary, polylineIndicesBinary, positionBinary]);
 ```
-
-## Batch Table
-
-Contains metadata organized by `batchId` that can be used for declarative styling.
-
-See the [Batch Table](..//Batched3DModel#batch-table) reference for more information.
-[//]: # "TODO: Change this link to the batch table specification URL"
-
-## File Extension
-
-`.vctr`
-
-The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
 
 ## MIME Type
 
