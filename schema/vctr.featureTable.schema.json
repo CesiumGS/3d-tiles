@@ -1,0 +1,70 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema",
+  "id" : "vctr.featureTable.schema.json",
+  "title" : "Vector Feature Table",
+  "type" : "object",
+  "description" : "A set of Vector semantics that contain additional information about features in a tile.",
+  "allOf" : [{
+    "$ref" : "featureTable.schema.json"
+  }, {
+    "properties" : {
+      "MINIMUM_HEIGHT" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "MAXIMUM_HEIGHT" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "POLYGONS_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "POLYLINES_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "POINTS_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "POLYGON_COUNT" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POLYGON_INDEX_COUNT" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POLYGON_MINIMUM_HEIGHT" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POLYGON_MAXIMUM_HEIGHT" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POLYGON_BATCH_ID" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POLYLINE_COUNT" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POLYLINE_BATCH_ID" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POINT_BATCH_ID" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      }
+    },
+    "anyOf" : [{
+      "required" : ["POLYGONS_LENGTH"]
+    }, {
+      "required" : ["POLYLINES_LENGTH"]
+    }, {
+      "required" : ["POINTS_LENGTH"]
+    }],
+    "dependencies" : {
+      "POLYGONS_LENGTH" : [
+        "POLYGON_COUNT",
+        "POLYGON_INDEX_COUNT"
+      ],
+      "POLYLINES_LENGTH" : [
+        "POLYLINE_COUNT"
+      ]
+    },
+    "required" : ["MINIMUM_HEIGHT", "MAXIMUM_HEIGHT"],
+    "additionalProperties" : false
+  }]
+}
