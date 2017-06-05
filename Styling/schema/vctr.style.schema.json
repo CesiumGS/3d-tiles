@@ -1,0 +1,77 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema",
+  "id" : "vctr.style.schema.json",
+  "title" : "Vector Style",
+  "type" : "object",
+  "description" : "A 3D Tiles style with additional properties for Vector data.",
+  "allOf" : [{
+    "$ref" : "style.schema.json"
+  }, {
+    "properties" : {
+      "pointSize" : {
+        "oneOf" : [{
+          "$ref" : "style.numberExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "Determines the size of points in pixels.",
+        "default" : 8.0
+      },
+      "outlineColor" : {
+        "oneOf" : [{
+          "$ref" : "style.colorExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "Determines the outline color for point text.",
+        "default" : "Color('#FFFFFF')"
+      },
+      "outlineWidth" : {
+        "oneOf" : [{
+          "$ref" : "style.numberExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "Determines the outline width for point text.",
+        "default" : 1.0
+      },
+      "labelStyle" : {
+        "oneOf" : [{
+          "$ref" : "style.numberExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "Determines the style (fill, outline or both) of point text.",
+        "default" : 0
+      },
+      "font" : {
+        "oneOf" : [{
+          "type" : "string"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "Determines the font of the point text.",
+        "default" : "'30px sans-serif'"
+      },
+      "text" : {
+        "oneOf" : [{
+          "type" : "string"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "Determines the text of the point.",
+        "default" : "' '"
+      },
+      "image" : {
+        "oneOf" : [{
+          "type" : "string"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "Determines the url to the image to be displayed instead of a point.",
+        "default" : "' '"
+      }
+    }
+  }],
+  "additionalProperties" : false
+}

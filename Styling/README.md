@@ -1309,6 +1309,20 @@ For example:
 
 **TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/140**
 
+#### Vector Data
+
+A [Vector Tile](../TileFormats/VectorData/README.md) is a collection of points, polygons, and polylines. All vector data can be styled similar to other features with `color` and `show`. Points have several other styling options:
+
+| Style | Description | Default |
+| --- | --- | --- |
+| pointSize | The size of the point in pixels. | 8.0 |
+| image | A URL to an image to be displayed instead of a point. | " " |
+| text | The text to display for the point | " " |
+| font | The font of the displayed text. | "30px sans-serif" |
+| labelStyle | The label style: fill(0), outline(1), or both(2). | 0 |
+| outlineColor | The color of the text outline. | color('#FFFFFF') |
+| outlineWidth | The width of the text outline. | 1.0 |
+
 ## File Extension
 
 TBA
