@@ -104,40 +104,38 @@ The color's alpha component defines the feature's opacity, for example:
 ```
 This sets the feature's RGB color components from the feature's properties and makes features with volume greater than 100 transparent.
 
-In addition to a string containing an expression, `color` and `show` can be an object defining a series of conditions (think of them as `if...else` statements).  Conditions can, for example, be used to make color maps and color ramps with any type of inclusive/exclusive intervals.
+In addition to a string containing an expression, `color` and `show` can be an array defining a series of conditions (think of them as `if...else` statements).  Conditions can, for example, be used to make color maps and color ramps with any type of inclusive/exclusive intervals.
 
 For example, here's a color map that maps an ID property to colors:
 ```json
 {
     "color" : {
-        "expression" : "regExp('^1(\\d)').exec(${id})",
         "conditions" : [
-            ["${expression} === '1'", "color('#FF0000')"],
-            ["${expression} === '2'", "color('#00FF00')"],
+            ["${id} === '1'", "color('#FF0000')"],
+            ["${id} === '2'", "color('#00FF00')"],
             ["true", "color('#FFFFFF')"]
         ]
     }
 }
 ```
 
-Conditions are evaluated in order so, above, if `${expression}` is not `'1'` or `'2'`, the `"true"` condition returns white. If no conditions are met, the color of the feature will be `undefined`.
+Conditions are evaluated in order so, above, if `${id}` is not `'1'` or `'2'`, the `"true"` condition returns white. If no conditions are met, the color of the feature will be `undefined`.
 
 The next example shows how to use conditions to create a color ramp using intervals with an inclusive lower bound and exclusive upper bound.
 ```json
 "color" : {
-    "expression" : "${Height}",
     "conditions" : [
-        ["(${expression} >= 1.0)  && (${expression} < 10.0)", "color('#FF00FF')"],
-        ["(${expression} >= 10.0) && (${expression} < 30.0)", "color('#FF0000')"],
-        ["(${expression} >= 30.0) && (${expression} < 50.0)", "color('#FFFF00')"],
-        ["(${expression} >= 50.0) && (${expression} < 70.0)", "color('#00FF00')"],
-        ["(${expression} >= 70.0) && (${expression} < 100.0)", "color('#00FFFF')"],
-        ["(${expression} >= 100.0)", "color('#0000FF')"]
+        ["(${Height} >= 1.0)  && (${Height} < 10.0)", "color('#FF00FF')"],
+        ["(${Height} >= 10.0) && (${Height} < 30.0)", "color('#FF0000')"],
+        ["(${Height} >= 30.0) && (${Height} < 50.0)", "color('#FFFF00')"],
+        ["(${Height} >= 50.0) && (${Height} < 70.0)", "color('#00FF00')"],
+        ["(${Height} >= 70.0) && (${Height} < 100.0)", "color('#00FFFF')"],
+        ["(${Height} >= 100.0)", "color('#0000FF')"]
     ]
 }
 ```
 
-Since `expression` is optional and conditions are evaluated in order, the above can more concisely be written as:
+Since conditions are evaluated in order, the above can more concisely be written as:
 ```json
 "color" : {
     "conditions" : [
@@ -150,6 +148,40 @@ Since `expression` is optional and conditions are evaluated in order, the above 
     ]
 }
 ```
+
+Commonly used expressions may be stored in a `defines` object. If a variable references a define, it gets the result of the define's evaluated expression.
+```json
+{
+    "defines" : {
+        "NewHeight" : "clamp((${Height} - 0.5) / 2.0, 1.0, 255.0)",
+        "HeightColor" : "rgb(${Height}, ${Height}, ${Height})",
+    },
+    "color" : {
+        "conditions" : [
+            ["(${NewHeight} >= 100.0)", "color('#0000FF') * ${HeightColor}"],
+            ["(${NewHeight} >= 50.0)", "color('#00FF00') * ${HeightColor}"],
+            ["(${NewHeight} >= 1.0)", "color('#FF0000') * ${HeightColor}"]
+        ]
+    },
+    "show" : "${NewHeight} < 200.0"
+}
+```
+
+A define expression may not reference other defines, however it may reference feature properties with the same name. In the style below a feature of height 150 gets the color red.
+```json
+{
+    "defines" : {
+        "Height" : "${Height}/2.0}",
+    },
+    "color" : {
+        "conditions" : [
+            ["(${Height} >= 100.0)", "color('#0000FF')"],
+            ["(${Height} >= 1.0)", "color('#FF0000')"]
+        ]
+    }
+}
+```
+
 
 Non-visual properties of a feature can be defined using the `meta` property.
 
@@ -697,10 +729,9 @@ Returns the square root of `x` when `x >= 0`. Returns `NaN` when `x < 0`.
 ```json
 {
     "color" : {
-        "expression" : "sqrt(${temperature}",
         "conditions" : [
-            ["${expression} >= 0.5", "color('#00FFFF')"],
-            ["${expression} >= 0.0", "color('#FF00FF')"]
+            ["${temperature} >= 0.5", "color('#00FFFF')"],
+            ["${temperature} >= 0.0", "color('#FF00FF')"]
         ]
     }
 }
@@ -1228,14 +1259,18 @@ Returns the feature's class name, or `undefined` if the feature is not a class i
 For example, the following style will color all doorknobs yellow, all doors green, and all other features gray.
 
 ```json
-"color" : {
-    "expression" : "regExp('door(.*)').exec(getExactClassName())",
-    "conditions" : [
-        ["${expression} === 'knob'", "color('yellow')"],
-        ["${expression} === ''", "color('green')"],
-        ["${expression} === null", "color('gray')"],
-        ["true", "color('blue'"]
-    ]
+{
+    "defines" : {
+        "suffix" : "regExp('door(.*)').exec(getExactClassName())"
+    },
+    "color" : {
+        "conditions" : [
+            ["${suffix} === 'knob'", "color('yellow')"],
+            ["${suffix} === ''", "color('green')"],
+            ["${suffix} === null", "color('gray')"],
+            ["true", "color('blue'"]
+        ]
+    }
 }
 ```
 
