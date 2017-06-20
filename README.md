@@ -108,10 +108,6 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * **News**
    * [3D Tiles thread on the Cesium forum](https://groups.google.com/forum/#!topic/cesium-dev/tCCooBxpZFU) - get the latest 3D Tiles news and ask questions here.
 
-## Spec status
-
-The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in tileset.json).  We expect a draft 1.0 version and the Cesium implementation to stabilize in 2017; see the [remaining items](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues?q=is%3Aissue+is%3Aopen+label%3A%22draft+1.0%22).
-
 **Draft 1.0 Plans**
 
 Topic  | Status
@@ -353,7 +349,7 @@ _tileset.json_ defines a tileset.  Here is a subset of the tileset.json used for
 ```json
 {
   "asset" : {
-    "version": "0.0",
+    "version": "1.0",
     "tilesetVersion": "e575c6f1-a45b-420a-b172-6449fa6e0a59",
     "gltfUpAxis": "Y"
   },
@@ -376,6 +372,7 @@ _tileset.json_ defines a tileset.  Here is a subset of the tileset.json used for
       ]
     },
     "geometricError": 268.37878244706053,
+    "refine": "ADD",
     "content": {
       "url": "0/0/0.b3dm",
       "boundingVolume": {
