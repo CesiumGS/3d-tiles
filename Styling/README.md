@@ -653,7 +653,7 @@ The prefix `tiles3d_` is reserved for built-in variables. The following built-in
 
 #### tiles3d_tileset_time
 
-Gets the time, in seconds, since the tileset was first loaded. This is useful for creating dynamic styles that change with time.
+Gets the time, in milliseconds, since the tileset was first loaded. This is useful for creating dynamic styles that change with time.
 
 ```json
 {
