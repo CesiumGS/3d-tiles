@@ -623,8 +623,6 @@ The prefix `tiles3d_` is reserved for built-in variables. The following built-in
 
 Gets the time, in milliseconds, since the tileset was first loaded. This is useful for creating dynamic styles that change with time.
 
-_Implementation note: If this value is stored as a 32-bit floating point number, be aware of increasing loss of precision over time._
-
 ```json
 {
     "color" : "color() * abs(cos(${Temperature} + ${tiles3d_tileset_time}))"
