@@ -154,7 +154,7 @@ Commonly used expressions may be stored in a `defines` object. If a variable ref
 {
     "defines" : {
         "NewHeight" : "clamp((${Height} - 0.5) / 2.0, 1.0, 255.0)",
-        "HeightColor" : "rgb(${Height}, ${Height}, ${Height})",
+        "HeightColor" : "rgb(${Height}, ${Height}, ${Height})"
     },
     "color" : {
         "conditions" : [
