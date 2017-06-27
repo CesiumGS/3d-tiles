@@ -51,6 +51,7 @@ Contents:
    * [Notes](#notes)
 * [Batch Table Hierarchy](#batch-table-hierarchy)
 * [Point Cloud](#point-cloud)
+* [Vector Data](#vector-data)
 * [File Extension](#file-extension)
 * [MIME Type](#mime-type)
 * [Acknowledgments](#acknowledgments)
@@ -1344,19 +1345,57 @@ For example:
 
 **TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/140**
 
-#### Vector Data
+## Vector Data
 
-A [Vector Tile](../TileFormats/VectorData/README.md) is a collection of points, polygons, and polylines. All vector data can be styled similar to other features with `color` and `show`. Points have several other styling options:
+A [Vector Tile](../TileFormats/VectorData/README.md) is a collection of vector features such as points, polygons, and polylines. All vector data can be styled similar to other features with `color` and `show`. Points have several other styling options:
 
-| Style | Description | Default |
+**TODO : generate this table from the JSON schema
+
+Valid styles applied to geometry features:
+
+| Style | Type | Description | Default |
+| --- | --- | --- | --- |
+| show | `Boolean` | Whether or not to show the feature. | true|
+| color | `vec4` | The color of the feature. | color('#FFFFFF') |
+
+Valid styles applied to point features:
+
+| Style | Type | Description | Default |
+| --- | --- | --- | --- |
+| show | `Boolean` | Whether or not to show the feature. | true|
+| color | `vec4` | The color of the feature. | color('#FFFFFF') |
+| pointSize | `Number` | The size of the point in pixels. `pointSize` is ignored when `image` is defined. | 8.0 |
+| pointColor | `vec4` | The color of the point. `pointColor` is ignored when `image` is defined. | color('#FFFFFF') |
+| pointOutlineColor | `vec4` | The color of the point outline. `pointOutlineColor` is ignored when `image` is defined. | color('#000000') |
+| pointOutlineWidth | `Number` | The width, in pixels, of the point outline. `pointOutlineWidth` is ignored when `image` is defined. | 0.0 |
+| labelText | `String` | The text to display for the point | undefined |
+| labelStyle | `Number` | The label style: fill(0), outline(1), or both(2). This is ignored when `labelText` is undefined. | 0 |
+| labelOutlineColor | `vec` | The color of the text outline. This is ignored when `labelText` is undefined. | color('#FFFFFF') |
+| labelOutlineWidth | `Number` | The width of the text outline. This is ignored when `labelText` is undefined. | 1.0 |
+| font | `String` | The font of the displayed text. This is ignored when `labelText` is undefined. | "30px sans-serif" |
+| backgroundColor | `vec4` | The label background color. This is ignored when `labelText` is undefined. | rgba(42, 42, 42, 0.8) |
+| backgroundPadding | `vec2` | The background padding, in pixels, of this label.  The `x` value controls horizontal padding, and the `y` value controls vertical padding. This is ignored when `labelText` is undefined. | vec2(7, 5) |
+| backgroundEnabled | `Boolean` | Whether or not to display the label background. This is ignored when `labelText` is undefined. | false |
+| scaleByDistance | `vec4` | Sets near and far scaling properties of a feature based on the features's distance from the camera. A feature's scale will interpolate between the `y` and `w` values while the camera distance falls within the upper and lower bounds of the specified `x` and `z` value. Outside of these ranges, the features's scale remains clamped to the nearest bound.  If undefined, `scaleByDistance` will be disabled. | undefined |
+| translucencyByDistance | `vec4` | Sets near and far translucency properties of a feature based on the feature's distance from the camera. A feature's translucency will interpolate between the `y` and `w` while the camera distance falls within the upper and lower bounds of the specified `x` and `z`. Outside of these ranges the feature's translucency remains clamped to the nearest bound.  If undefined, `translucencyByDistance` will be disabled. | undefined |
+| distanceDisplayCondition | `vec2` | Sets the condition specifying at what distance from the camera that this feature will be displayed. The `x` value is the smallest distance in the interval where the feature is visible. The `y` value is the largest distance in the interval where the object is visible. If undefined, `distanceDisplayCondition` will be disabled. | undefined |
+| heightOffset | `Number` | The distance, in meters, to offset the height. This is ignored if the valuse is less than or equal to zero. | 0.0 |
+| anchorLineEnabled | `Boolean` | Whether or not to display a line from the feature to the point on terrain. This is ignored unless `heightOffset` is greater than zero. | false |
+| anchorLineColor | `vec4` | The color of the line from the feature to terrain. This is ignored unless `heightOffset` is greater than 0.0. | color('#FFFFFF') |
+| image | `String` | A URL to an image or a data URI to be displayed instead of a point. | undefined |
+
+For example:
+
+```json
+{
+    "show" : "${ZIP_CODE} === '19341'",
+    "text" : "${ADDRESS}"
+}
+```
+
+| Fill | Outline | Fill and Outline |
 | --- | --- | --- |
-| pointSize | The size of the point in pixels. | 8.0 |
-| image | A URL to an image to be displayed instead of a point. | " " |
-| text | The text to display for the point | " " |
-| font | The font of the displayed text. | "30px sans-serif" |
-| labelStyle | The label style: fill(0), outline(1), or both(2). | 0 |
-| outlineColor | The color of the text outline. | color('#FFFFFF') |
-| outlineWidth | The width of the text outline. | 1.0 |
+| ![](figures/label_fill.jpg) | ![](figures/label_outline.jpg) | ![](figures/label_fill_outline.jpg) |
 
 ## File Extension
 

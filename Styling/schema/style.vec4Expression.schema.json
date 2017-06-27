@@ -1,0 +1,7 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema",
+  "id" : "style.vec4Expression.schema.json",
+  "title" : "vec4 expression",
+  "type" : "string",
+  "description" : "3D Tiles style expression that evaluates to a vec4."
+}

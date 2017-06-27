@@ -8,32 +8,68 @@
     "$ref" : "style.schema.json"
   }, {
     "properties" : {
+      "show" : {
+        "oneOf" : [{
+          "$ref" : "style.booleanExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "If a feature should be shown.",
+        "default" : "true"
+      },
+      "color" : {
+        "oneOf" : [{
+          "$ref" : "style.colorExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The color blended with the feature's intrinsic color.",
+        "default" : "Color('#FFFFFF')"
+      },
       "pointSize" : {
         "oneOf" : [{
           "$ref" : "style.numberExpression.schema.json"
         }, {
           "$ref" : "style.condition.schema.json"
         }],
-        "description" : "Determines the size of points in pixels.",
+        "description" : "The size of points in pixels.",
         "default" : 8.0
       },
-      "outlineColor" : {
+      "pointColor" : {
         "oneOf" : [{
           "$ref" : "style.colorExpression.schema.json"
         }, {
           "$ref" : "style.condition.schema.json"
         }],
-        "description" : "Determines the outline color for point text.",
+        "description" : "The color of the point.",
         "default" : "Color('#FFFFFF')"
       },
-      "outlineWidth" : {
+      "pointOutlineColor" : {
+        "oneOf" : [{
+          "$ref" : "style.colorExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The color of the point outline.",
+        "default" : "Color('#000000')"
+      },
+      "pointOutlineWidth" : {
         "oneOf" : [{
           "$ref" : "style.numberExpression.schema.json"
         }, {
           "$ref" : "style.condition.schema.json"
         }],
-        "description" : "Determines the outline width for point text.",
-        "default" : 1.0
+        "description" : "The width, in pixels, of the point outline.",
+        "default" : 0.0
+      },
+      "labelText" : {
+        "oneOf" : [{
+          "type" : "string"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The label text to display.",
+        "default" : "Undefined"
       },
       "labelStyle" : {
         "oneOf" : [{
@@ -41,8 +77,26 @@
         }, {
           "$ref" : "style.condition.schema.json"
         }],
-        "description" : "Determines the style (fill, outline or both) of point text.",
+        "description" : "The label style: fill(0), outline(1), or both(2).",
         "default" : 0
+      },
+      "labelOutlineColor" : {
+        "oneOf" : [{
+          "$ref" : "style.colorExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The color of the text outline.",
+        "default" : "Color('#FFFFFF')"
+      },
+      "labelOutlineWidth" : {
+        "oneOf" : [{
+          "$ref" : "style.numberExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The width of the text outline.",
+        "default" : 1.0
       },
       "font" : {
         "oneOf" : [{
@@ -50,17 +104,89 @@
         }, {
           "$ref" : "style.condition.schema.json"
         }],
-        "description" : "Determines the font of the point text.",
+        "description" : "The font of the displayed text.",
         "default" : "'30px sans-serif'"
       },
-      "text" : {
+      "backgroundColor" : {
         "oneOf" : [{
-          "type" : "string"
+          "$ref" : "style.colorExpression.schema.json"
         }, {
           "$ref" : "style.condition.schema.json"
         }],
-        "description" : "Determines the text of the point.",
-        "default" : "' '"
+        "description" : "The label background color.",
+        "default" : "rgba(42, 42, 42, 0.8)"
+      },
+      "backgroundPadding" : {
+        "oneOf" : [{
+          "$ref" : "style.vec2Expression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The background padding, in pixels, of this label.  The `x` value controls horizontal padding, and the `y` value controls vertical padding.",
+        "default" : "vec2(7, 5)"
+      },
+      "backgroundEnabled" : {
+        "oneOf" : [{
+          "$ref" : "style.booleanExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "Whether or not to display the label background.",
+        "default" : "false"
+      },
+      "scaleByDistance" : {
+        "oneOf" : [{
+          "$ref" : "style.vec4Expression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "Sets near and far scaling properties of a feature based on the features's distance from the camera. A feature's scale will interpolate between the `y` and `w` values while the camera distance falls within the upper and lower bounds of the specified `x` and `z` value. Outside of these ranges, the features's scale remains clamped to the nearest bound.  If undefined, `scaleByDistance` will be disabled.",
+        "default" : "Undefined"
+      },
+      "translucencyByDistance" : {
+        "oneOf" : [{
+          "$ref" : "style.vec4Expression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "Sets near and far translucency properties of a feature based on the feature's distance from the camera. A feature's translucency will interpolate between the `y` and `w` while the camera distance falls within the upper and lower bounds of the specified `x` and `z`. Outside of these ranges the feature's translucency remains clamped to the nearest bound.  If undefined, `translucencyByDistance` will be disabled.",
+        "default" : "Undefined"
+      },
+      "distanceDisplayCondition" : {
+        "oneOf" : [{
+          "$ref" : "style.vec2Expression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "Sets the condition specifying at what distance from the camera that this feature will be displayed. The `x` value is the smallest distance in the interval where the feature is visible. The `y` value is the largest distance in the interval where the object is visible. If undefined, `distanceDisplayCondition` will be disabled.",
+        "default" : "Undefined"
+      },
+      "heightOffset" : {
+        "oneOf" : [{
+          "$ref" : "style.numberExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The distance, in meters, to offset the height. This is ignored if the valuse is less than or equal to zero.",
+        "default" : 0.0
+      },
+      "anchorLineEnabled" : {
+        "oneOf" : [{
+          "$ref" : "style.booleanExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "Whether or not to display a line from the feature to the point on terrain. This is ignored unless `heightOffset` is greater than zero.",
+        "default" : "false"
+      },
+      "anchorLineColor" : {
+        "oneOf" : [{
+          "$ref" : "style.colorExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The color of the line from the feature to terrain. This is ignored unless `heightOffset` is greater than 0.0.",
+        "default" : "Color('#FFFFFF)"
       },
       "image" : {
         "oneOf" : [{
@@ -68,9 +194,20 @@
         }, {
           "$ref" : "style.condition.schema.json"
         }],
-        "description" : "Determines the url to the image to be displayed instead of a point.",
-        "default" : "' '"
+        "description" : "A URL to an image or a data URI to be displayed instead of a point.",
+        "default" : "Undefined"
       }
+    },
+    "dependencies" : {
+      "labelText" : [
+        "labelStyle",
+        "labelOutlineColor",
+        "labelOutlineWidth",
+        "font",
+        "backgroundColor",
+        "backgroundPadding",
+        "backgroundEnabled"
+      ]
     }
   }],
   "additionalProperties" : false
