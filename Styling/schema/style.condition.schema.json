@@ -5,14 +5,6 @@
     "type" : "object",
     "description" : "A series of conditions evaluated in order like a series of if...else statements that result in an expression being evaluated.",
     "properties" : {
-        "expression" : {
-            "anyOf" : [{
-                "$ref" : "style.booleanExpression.schema.json"
-            }, {
-                "$ref" : "style.colorExpression.schema.json"
-            }],
-            "description" : "An optional expression that is evaluated once and then can be accessed in the conditions as the ${expression} variable.  If expression is not defined, ${expression} evaluates to `undefined`.  If a feature has a property named 'expression`, use ${feature.expression} to access it."
-        },
         "conditions" : {
             "type" : "array",
             "items" : {
