@@ -17,11 +17,11 @@ Each point, poyline, and polygon is a _feature_ in the 3D Tiles specification la
 A tile is composed of two sections: a header immediately followed by a body.
 
 **Figure1**: Vector tile layout.
-![layout](figures/layout.jpg)
+![](figures/layout.jpg)
 
 ## Header
 
-The 28-byte header contains the following fields:
+The 44-byte header contains the following fields:
 
 | Field name | Data type | Description |
 | --- | --- | --- |
@@ -32,7 +32,7 @@ The 28-byte header contains the following fields:
 | `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
 | `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates that there is no batch table. |
 | `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. | 
-| `indicesByteLength` | `uint32` | The length of the polygon indices buffer. |
+| `polygonIndicesByteLength` | `uint32` | The length of the polygon indices buffer. |
 | `polygonPositionsByteLength` | `uint32` | The length of the polygon positions buffer. |
 | `polylinePositionsByteLength` | `uint32` | The length of the polyline positions buffer. |
 | `pointPositionsByteLength` | `uint32` | The length of the point positions buffer. |
@@ -53,8 +53,7 @@ The `vctr` Feature Table JSON schema is defined in [vctr.featureTable.schema.jso
 
 ### Semantics
 
-If a semantic has a dependency on another semantic, that semantic must be defined as well.
-Per-feature semantics specific to a feature type are prefixed with the name of the feature type. e.g. `POLYGON` for polygons, `POLYLINE` for polylines and `POINT` for points.
+Per-feature semantics specific to a feature type are prefixed with the name of the feature type. e.g. `POLYGON` for pre-triangulated polygons, `POLYLINE` for polylines and `POINT` for points.
 
 At least one global `LENGTH` semantic must be defined. 
 If `POLYGONS_LENGTH` is not defined, or zero, no polygons will be rendered. 
@@ -62,59 +61,63 @@ If `POLYLINES_LENGTH` is not defined, or zero, no polylines will be rendered.
 If `POINTS_LENGTH` is not defined, or zero, no points will be rendered.
 Multiple feature types may be defined in a single Vector tile using multiple `LENGTH` semantics, and in that case, all specified feature types will be rendered.
 
+If a semantic has a dependency on another semantic, that semantic must be defined as well.
+
 #### Global Semantics
 
 The semantics define global properties for all vector elements.
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `POLYGONS_LENGTH` | `uint32` | The number of polygons in the tile. | :white_check_mark: Yes, unless one of `POLYLINES_LENGTH` or `POINTS_LENGTH` is defined. |
+| `POLYGONS_LENGTH` | `uint32` | The number of pre-triangulated polygons in the tile. | :white_check_mark: Yes, unless one of `POLYLINES_LENGTH` or `POINTS_LENGTH` is defined. |
 | `POLYLINES_LENGTH` | `uint32` | The number of polylines in the tile. | :white_check_mark: Yes, unless one of `POLYGONS_LENGTH` or `POINTS_LENGTH` is defined.  |
 | `POINTS_LENGTH` | `uint32` | The number of points in the tile. | :white_check_mark: Yes, unless one of `POLYGONS_LENGTH` or `POLYLINES_LENGTH` is defined.  |
-| `MINIMUM_HEIGHT` | `float32` | The minimum terrain height for this tiles' region in meters above the WGS84 ellipsoid. | :white_check_mark: Yes. |
-| `MAXIMUM_HEIGHT` | `float32` | The maximum terrain height for this tiles' region in meters above the WGS84 ellipsoid. | :white_check_mark: Yes. |
+| `MINIMUM_HEIGHT` | `float32` | The minimum height for this tiles' region in meters above the WGS84 ellipsoid. | :white_check_mark: Yes. |
+| `MAXIMUM_HEIGHT` | `float32` | The maximum height for this tiles' region in meters above the WGS84 ellipsoid. | :white_check_mark: Yes. |
 
 #### Vector Semantics
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `POLYGON_COUNT` | `uint32` | The number of points that belong to each polygon. This refers to the polygon section of the positions buffer in the body. Each polygon count refers to a contiguous number of points in the position buffer that represents the polygon.  | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is zero or not defined. |
-| `POLYGON_INDEX_COUNT` | `uint32` | The number of indices that belong to each polygon. This refers to the indices buffer of the body. Each index count refers to a contiguous number of indices that represent the triangulated polygon. | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is zero or not defined. |
-| `POLYGON_MINIMUM_HEIGHT` | `float32` | The minimum height of each polygon. | :red_circle: No. If the minimum height for each polygon is not specified, the global `MINIMUM_HEIGHT` will be used. |
-| `POLYGON_MAXIMUM_HEIGHT` | `float32` | The maximum height of each polygon. | :red_cricle: No. If the maximum height for each polygon is not specified, the global `MAXIMUM_HEIGHT` will be used. |
-| `POLYGON_BATCH_ID` | `uint16` | The `batchId` of the polygon that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
-| `POLYLINE_COUNT` | `uint32` | The number of points that belong to each polyline. This refers to the polyline section of the positions buffer in the body. Each polyline count refers to a contiguous number of points in the position buffer that represents the polyline. Each point is the start of a segment of the polyline with the next being the end of the segment. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is not defined. |
-| `POLYLINE_BATCH_ID` | `uint16` | The `batchId` of the polyline that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
-| `POINT_BATCH_ID` | `uint16` | The `batchId` of the point that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+| `POLYGON_COUNTS` | `uint32[]` | The number of vertices that belong to each polygon. This refers to the polygon section of the positions buffer in the body. Each polygon count refers to a contiguous number of vertices in the position buffer that represents the polygon.  | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is zero or not defined. |
+| `POLYGON_INDEX_COUNTS` | `uint32[]` | The number of indices that belong to each polygon. This refers to the indices buffer of the body. Each index count refers to a contiguous number of indices that represent the triangulated polygon. | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is zero or not defined. |
+| `POLYGON_MINIMUM_HEIGHTS` | `float32[]` | The minimum height of each polygon in meters above the WGS84 ellipsoid. | :red_circle: No. If the minimum height for each polygon is not specified, the global `MINIMUM_HEIGHT` will be used. |
+| `POLYGON_MAXIMUM_HEIGHTS` | `float32[]` | The maximum height of each polygon in meters above the WGS84 ellipsoid. | :red_cricle: No. If the maximum height for each polygon is not specified, the global `MAXIMUM_HEIGHT` will be used. |
+| `POLYGON_BATCH_IDS` | `uint16[]` | The `batchId` of the polygon that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+| `POLYLINE_COUNTS` | `uint32[]` | The number of vertices that belong to each polyline. This refers to the polyline section of the positions buffer in the body. Each polyline count refers to a contiguous number of vertices in the position buffer that represents the polyline. Each vertex is the start of a segment of the polyline with the next being the end of the segment. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is not defined. |
+| `POLYLINE_BATCH_IDS` | `uint16[]` | The `batchId` of the polyline that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+| `POINT_BATCH_IDS` | `uint16[]` | The `batchId` of the point that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
 
 ## Batch Table
 
-Contains metadata organized by `batchId` that can be used for declarative styling. See the [Batch Table specification](../BatchTable) reference for more information.
+The _Batch Table_ contains application-specific metadata, indexable by `batchId`, that can be used for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.
+
+See the [Batch Table](../BatchTable/README.md) reference for more information.
 
 ### Indices
 
 TODO: `uint16` indices.
 
-The indices are a buffer of `uint32` values. The byte length is given by `indicesByteLength` in the header. Each count in `POLYGON_INDEX_COUNT` represents a contiguous section of the array that represents a triangulated polygon. 
+The indices are a buffer of `uint32` values. The byte length is given by `polygonIndicesByteLength` in the header. Each count in `POLYGON_INDEX_COUNT` represents a contiguous section of the array that represents a triangulated polygon. 
 For example, let the first two polygons have 6 and 12 for their index counts. The first polygon has 6 indices starting at byte offset `0` and ending at byte offset `6 * byteSize - 1`.
 The second polygon has 12 indices starting at byte offset `6 * byteSize` and ending at `6 * byteSize + 12 * byteSize`.
 
 **Figure 2**: Example index buffer.
 
-![indices](figures/indices.jpg)
+![](figures/indices.jpg)
 
 The number of indices must be a multiple of three. Each consecutive list of three indices is a triangle that must be ordered counter-clockwise. Each index is from the start of the buffer, **NOT** from the offset of the first position of the polygon.
 
 ### Positions
 
-The positions buffer contains up to three sub-buffers for the polygons, polylines and points. The positions are encoded according to the quantized-mesh-1.0 format[1].
+The positions buffer contains up to three sub-buffers for the polygons, polylines, and points.
 
-The bounding volume for the tile must be a tile bounding region containing the north, south, east, and west bounds of the tile. The positions are represented by u, v, and height values that are quantized and delta encoded.
+The bounding volume for the tile must be a tile bounding region containing the west, south, east, north bounds of the tile. The positions are represented by u, v, and height values that are quantized and delta encoded.
 
 | Field | Meaning |
 | --- | --- |
-| u | The horizontal coordinate of the vertex in the tile. When the u value is 0, the vertex is on the Western edge of the tile. Then the value is 32767, the vertex is on the Eastern edge of the tile. For other values, the vertex's longitude is a linear interpolation between the longitudes of the Western and Eastern edges of the tile. |
-| v | The vertical coordinate of the vertex in the tile. When the v value is 0, the vertex is on the Southern edge of the tile. When the value is 32767, the vertex is on the Northern edge of the tile. For other values, the vertex's latitude is a linear interpolation between the latitudes of the Southern and Northern edges of the tile. |
+| u | The horizontal coordinate of the vertex in the tile. When the u value is 0, the vertex is on the western edge of the tile. Then the value is 32767, the vertex is on the eastern edge of the tile. For other values, the vertex's longitude is a linear interpolation between the longitudes of the western and eastern edges of the tile. |
+| v | The vertical coordinate of the vertex in the tile. When the v value is 0, the vertex is on the southern edge of the tile. When the value is 32767, the vertex is on the northern edge of the tile. For other values, the vertex's latitude is a linear interpolation between the latitudes of the southern and northern edges of the tile. |
 | height | The height of the vertex of the tile. When the height value is 0, the vertex's height is equal to `MINIMUM_HEIGHT` from the feature table. When the value is 32767, the vertex's height is equal to `MAXIMUM_HEIGHT` from the feature table. For other values, the vertex's height is a linear interpolation of the minimum and maximum heights. |
 
 The values are then delta and ZigZag encoded. The delta encoding ensures the values are small integers. The ZigZag encoding ensure the values are positive integers. Example encoding code is listed below:
@@ -165,8 +168,11 @@ for (var i = 0; i < length; ++i) {
 
 #### Polygon positions
 
-The first section of the positions buffer, from offset 0 to `polygonPositionsByteLength`, contains the polygon positions. Polygon positions only have u and v values. The u values are from offset `0` to `polygonPositionsByteLength / 2`. The v values are from offset `polygonPositionsByteLength /2` to `polygonPositionsByteLength`. The number of positions for each polygon is determined by the value of its `POLYGON_COUNT`. 
-For example, let the first polygon count be 5. The first polygons u values start at offset `0` and end at `5 * byteSize`. Its v values start at `polygonPositionsByteLength / 2` and end at `polygonPositionsByteLength / 2 + 5 * byteSize`.
+**Figure 3**: Polygon layout.
+
+![](figures/polygon.jpg)
+
+The number of positions for each polygon is determined by the value of its `POLYGON_COUNT`. For example, let the first polygon count be 5. The first polygons u values start at offset `0` and end at `5 * byteSize`. Its v values start at `polygonPositionsByteLength / 2` and end at `polygonPositionsByteLength / 2 + 5 * byteSize`.
 
 The positions of the polygons must be the outer ring positions listed in counter-clockwise order.
 
@@ -174,12 +180,18 @@ TODO: polygons with holes?
 
 #### Polyline positions
 
-Polyline positions follow immediatley after the polygon positions. They start at `polygonPositionsByteLength` and end at `polygonPositionsByteLength + polylinePositionsByteLength`. The polyline positions are similar to polygon positions, but they also contain height values. The u values are from offset `0` to `polylinePositionsByteLength / 3`. The v values are from offset `polylinePositionsByteLength / 3` to `2 * polygonPositionsByteLength / 3`. The height values are from offset `2 * polylinePositionsByteLength / 3` to `polygonPositionsByteLength`. The number of positions for each polyline is determined by the value of its `POLYLINE_COUNT`. 
-From the first point on the polyline, each successive point creates a segment connected to the previous.
+**Figure 4**: Polyline layout.
+
+![](figures/polyline.jpg)
+
+The number of positions for each polyline is determined by the value of its `POLYLINE_COUNT`. From the first point on the polyline, each successive point creates a segment connected to the previous.
 
 #### Point positions
 
-Point positions follow immediatley after the polyline positions. They start at `polygonPositionsByteLength + polylinePositionByteLength` and end at `polygonPositionsByteLength + polylinePositionByteLength + pointPositionsByteLength`. Point positions have the exact same layout as polyline positions.
+**Figure 5**: Point layout.
+
+![](figures/point.jpg)
+
 Each `u, v, height` triple is a single point.
 
 ## File Extension
