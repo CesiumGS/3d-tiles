@@ -3,7 +3,7 @@
   "id" : "vctr.style.schema.json",
   "title" : "Vector Style",
   "type" : "object",
-  "description" : "A 3D Tiles style with additional properties for Vector data.",
+  "description" : "A 3D Tiles style with additional properties for vector data.",
   "allOf" : [{
     "$ref" : "style.schema.json"
   }, {
@@ -77,7 +77,7 @@
         }, {
           "$ref" : "style.condition.schema.json"
         }],
-        "description" : "The label style: fill(0), outline(1), or both(2).",
+        "description" : "The label style: fill (0), outline (1), or both (2).",
         "default" : 0
       },
       "labelOutlineColor" : {
