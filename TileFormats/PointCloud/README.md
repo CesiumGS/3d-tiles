@@ -39,7 +39,7 @@ If `featureTableJSONByteLength` equals zero, the tile does not need to be render
 
 The body section immediately follows the header section, and is composed of a `Feature Table` and `Batch Table`.
 
-Code for reading the header can be found in [PointCloud3DModelTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/PointCloud3DTileContent.js) in the Cesium implementation of 3D Tiles.
+Code for reading the header can be found in [PointCloud3DModelTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/PointCloud3DTileContent.js) in the Cesium implementation of 3D Tiles.
 
 ## Feature Table
 

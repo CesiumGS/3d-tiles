@@ -29,7 +29,7 @@ A Feature Table is composed of two parts: a JSON header and an optional binary b
 
 When a tile format includes a Feature Table, the Feature Table immediately follows the tile's header.  The header will also contain `featureTableJSONByteLength` and `featureTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the Feature Table.
 
-Code for reading the Feature Table can be found in [Cesium3DTileFeatureTable.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Cesium3DTileFeatureTable.js) in the Cesium implementation of 3D Tiles.
+Code for reading the Feature Table can be found in [Cesium3DTileFeatureTable.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileFeatureTable.js) in the Cesium implementation of 3D Tiles.
 
 ## JSON Header
 
