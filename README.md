@@ -82,7 +82,9 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 ## Resources
 
 * [Introducing 3D Tiles](http://cesiumjs.org/2015/08/10/Introducing-3D-Tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
+* [The Next Generation of 3D Tiles](http://cesiumjs.org/2017/07/12/The-next-generation-of-3D-Tiles/) - future plans for 3D Tiles.
 * **Cesium implementation**
+   * Download [Cesium 1.35 or later](http://cesiumjs.org/downloads.html) and check out the [Sandcastle examples labeled '3D Tiles'](http://cesiumjs.org/Cesium/Apps/Sandcastle/index.html?src=3D%20Tiles%20BIM.html&label=3D%20Tiles).
    * [Roadmap](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241).
 * **Sample data**
    * [3d-tiles-samples](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples) - sample tilesets for learning how to use 3D Tiles
