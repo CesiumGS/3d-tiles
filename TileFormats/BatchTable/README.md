@@ -297,7 +297,7 @@ Sample batch table:
       }
     ],
     "instancesLength" : 12,
-    "classIds" : [0, 0, 0, 0, 0, 0, 1, 1, 1, 3, 3, 3],
+    "classIds" : [0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2],
     "parentCounts" : [1, 3, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0],
     "parentIds" : [6, 6, 10, 11, 7, 11, 7, 8, 8, 10, 10, 9]
   }
