@@ -51,6 +51,7 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
    * [10cm Melbourne, Australia metro](http://sample.aero3dpro.com.au/Melbourne/App/index.html)
    * [Gold Coast, Australia](http://sample.aero3dpro.com.au/Gold_Coast_Cesium/App/index.html)
    * [10cm Sydney, Australia](http://sample.aero3dpro.com.au/Sydney/App/index.html)
+   * [Philadelphia](https://sample.aero3dpro.com.au/PHL_Cesium/App/index.html)
 * **VirtualGIS**: [2200 Miles of Pipeline](http://kxldemo.virtualgis.io)
 
 Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE).
