@@ -101,6 +101,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
    * 3D Tiles motivation and ecosystem update ([pdf](http://cesiumjs.org/presentations/3D-Tiles-OGC-DC.pdf)) at the OGC Technical Committee Meeting (March 2016).
    * 3D Tiles intro ([pdf](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
 * **Selected Articles**
+   * [3D Tiles in Action](https://cesium.com/presentations/files/3DTilesInAction.pdf). August 2017.
    * [Adaptive Subdivision of 3D Tiles](https://cesium.com/blog/2017/08/11/Adaptive-Subdivision-of-3D-Tiles/). August 2017.
    * [Aerometrex and 3D Tiles](https://cesiumjs.org/2017/07/26/Aerometrex-Melbourne/). July 2017.
    * [Duke Using 3D Tiles for Excavation in Vulci](http://cesiumjs.org/2017/05/22/Duke-Vulci-Photogrammetry/). May 2017.
