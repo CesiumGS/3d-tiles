@@ -54,6 +54,7 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
    * [Philadelphia](https://sample.aero3dpro.com.au/PHL_Cesium/App/index.html)
    * [10cm Brisbane](https://sample.aero3dpro.com.au/BrisbaneCBD/App/index.html)
 * **VirtualGIS**: [2200 Miles of Pipeline](http://kxldemo.virtualgis.io)
+* [UrbISOnline: 230,000 buildings Brussels](https://urbisonline.brussels/) ([article](http://bric.brussels/en/news_publications/news/urbis-adm-3d?set_language=en))
 
 Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE).
 
