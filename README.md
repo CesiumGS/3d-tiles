@@ -209,7 +209,7 @@ A file extension is not required for `content.url`.  A content's [tile format](#
 
 ![](figures/contentsBox.png)
 
-`content` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
+`content.boundingVolume` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
 
 An optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
 
