@@ -201,8 +201,6 @@ The number of positions for each polygon is determined by the value of its `POLY
 
 The positions of the polygons must be the outer ring positions listed in counter-clockwise order.
 
-TODO: polygons with holes?
-
 #### Polyline positions
 
 **Figure 4**: Polyline layout.
@@ -218,6 +216,10 @@ The number of positions for each polyline is determined by the value of its `POL
 ![](figures/point.jpg)
 
 Each `u, v, height` triple is a single point.
+
+### Meshes
+
+The indices are a buffer of `uint32` values. The indices for each mesh must be contiguous in the buffer. For example, the first mesh would have indices starting at the byte offset given by the first element in `MESH_INDEX_OFFSETS` and end after the first element in `MESH_INDEX_COUNTS`. After the indices is a `float32[]` containing positions of tall of the meshes. The number of positions in the buffer is given by `MESH_POSITION_COUNT`. Unlike polygons, there are no restrictions on where a mesh can index into the position buffer.
 
 ## File Extension
 
