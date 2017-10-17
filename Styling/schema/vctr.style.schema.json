@@ -17,15 +17,6 @@
         "description" : "If a feature should be shown.",
         "default" : "true"
       },
-      "color" : {
-        "oneOf" : [{
-          "$ref" : "style.colorExpression.schema.json"
-        }, {
-          "$ref" : "style.condition.schema.json"
-        }],
-        "description" : "The color blended with the feature's intrinsic color.",
-        "default" : "Color('#FFFFFF')"
-      },
       "pointSize" : {
         "oneOf" : [{
           "$ref" : "style.numberExpression.schema.json"
@@ -70,6 +61,15 @@
         }],
         "description" : "The label text to display.",
         "default" : "Undefined"
+      },
+      "labelColor" : {
+        "oneOf" : [{
+          "$ref" : "style.colorExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The color of the label.",
+        "default" : "Color('#FFFFFF')"
       },
       "labelStyle" : {
         "oneOf" : [{
@@ -196,13 +196,42 @@
         }],
         "description" : "A URL to an image or a data URI to be displayed instead of a point.",
         "default" : "Undefined"
+      },
+      "disableDepthTestDistance" : {
+        "oneOf" : [{
+          "$ref" : "style.numberExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The distance from that camera at which the depth test will be disabled.",
+        "default" : "Undefined"
+      },
+      "origin" : {
+        "oneOf" : [{
+          "$ref" : "style.numberExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The horizontal origin of the point: center ('0'), left ('1'), or right ('-1').",
+        "default" : "0"
+      },
+      "labelOrigin" : {
+        "oneOf" : [{
+          "$ref" : "style.numberExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The horizontal origin of the label: center ('0'), left ('1'), or right ('-1').",
+        "default" : "0"
       }
     },
     "dependencies" : {
       "labelText" : [
         "labelStyle",
+        "labelColor",
         "labelOutlineColor",
         "labelOutlineWidth",
+        "labelOrigin",
         "font",
         "backgroundColor",
         "backgroundPadding",

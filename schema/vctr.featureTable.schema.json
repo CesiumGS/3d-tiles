@@ -14,6 +14,24 @@
       "MAXIMUM_HEIGHT" : {
         "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
       },
+      "RECTANGLE" : {
+        "type" : "array",
+        "description" : "A floating-point 4 element array that defines a rectangle bounding all of the vector data. The elements in the array are, in order, west, south, east, and north.",
+        "items" : {
+          "type": "number"
+        },
+        "minItems" : 4,
+        "maxItems" : 4
+      },
+      "RTC_CENTER" : {
+        "type" : "array",
+        "description" : "A floating-point 3 element array that defines the center for RTC rendering.",
+        "items" : {
+          "type": "number"
+        },
+        "minItems" : 3,
+        "maxItems" : 3
+      },
       "POLYGONS_LENGTH" : {
         "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
       },
@@ -23,38 +41,82 @@
       "POINTS_LENGTH" : {
         "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
       },
-      "POLYGON_COUNT" : {
+      "MESHES_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "BOXES_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "CYLINDERS_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "ELLIPSOIDS_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "SPHERES_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "POLYGON_COUNTS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POLYGON_INDEX_COUNT" : {
+      "POLYGON_INDEX_COUNTS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POLYGON_MINIMUM_HEIGHT" : {
+      "POLYGON_MINIMUM_HEIGHTS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POLYGON_MAXIMUM_HEIGHT" : {
+      "POLYGON_MAXIMUM_HEIGHTS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POLYGON_BATCH_ID" : {
+      "POLYGON_BATCH_IDS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POLYLINE_COUNT" : {
+      "POLYLINE_COUNTS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POLYLINE_BATCH_ID" : {
+      "POLYLINE_BATCH_IDS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POINT_BATCH_ID" : {
+      "POINT_BATCH_IDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "MESH_INDEX_OFFSETS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "MESH_INDEX_COUNTS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "MESH_POSITION_COUNT" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "MESH_BATCH_IDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "BOXES" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "BOX_BATCH_IDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "CYLINDERS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "CYLINDER_BATCH_IDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "ELLIPSOIDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "ELLIPSOID_BATCH_IDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "SPHERES" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "SPHERE_BATCH_IDS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       }
     },
-    "anyOf" : [{
-      "required" : ["POLYGONS_LENGTH"]
-    }, {
-      "required" : ["POLYLINES_LENGTH"]
-    }, {
-      "required" : ["POINTS_LENGTH"]
-    }],
     "dependencies" : {
       "POLYGONS_LENGTH" : [
         "POLYGON_COUNT",
@@ -62,9 +124,26 @@
       ],
       "POLYLINES_LENGTH" : [
         "POLYLINE_COUNT"
+      ],
+      "MESHES_LENGTH" : [
+        "MESH_INDEX_OFFSETS",
+        "MESH_INDEX_COUNTS",
+        "MESH_POSITION_COUNT"
+      ],
+      "BOXES_LENGTH" : [
+        "BOXES"
+      ],
+      "CYLINDERS_LENGTH" : [
+        "CYLINDERS"
+      ],
+      "ELLIPSOIDS_LENGTH" : [
+        "ELLIPSOIDS"
+      ],
+      "SPHERES_LENGTH" : [
+        "SPHERES"
       ]
     },
-    "required" : ["MINIMUM_HEIGHT", "MAXIMUM_HEIGHT"],
+    "required" : ["MINIMUM_HEIGHT", "MAXIMUM_HEIGHT", "RECTANGLE"],
     "additionalProperties" : false
   }]
 }

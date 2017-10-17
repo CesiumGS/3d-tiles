@@ -1396,8 +1396,8 @@ For example:
     "labelText" : "${DISPLAY_TEXT}",
     "labelColor" : "color('#FFFF00')",
     "labelStyle" : "2",
-    "image" : "'http://example.com/url/to/image.jpg'"
-    "origin" : "1"
+    "image" : "'http://example.com/url/to/image.jpg'",
+    "origin" : "1",
     "labelOrigin" : "-1"
 }
 ```
