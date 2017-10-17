@@ -39,7 +39,7 @@ The 44-byte header contains the following fields:
 
 If `featureTableJSONByteLength` equals zero, the tile does not need to be rendered.
 
-The body section immediately follows the header section, and is composed of four fields: `Feature Table`, `Batch Table`, `Indices`, and `Positions`.
+The body section immediately follows the header section, and is composed, in order, of four fields: `Feature Table`, `Batch Table`, `Indices`, `Positions`, and `Meshes`.
 
 Code for reading the header can be found in
 [Vector3DModelTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/vector-tiles/Source/Scene/Vector3DTileContent.js)
@@ -59,6 +59,11 @@ At least one global `LENGTH` semantic must be defined.
 If `POLYGONS_LENGTH` is not defined, or zero, no polygons will be rendered. 
 If `POLYLINES_LENGTH` is not defined, or zero, no polylines will be rendered.
 If `POINTS_LENGTH` is not defined, or zero, no points will be rendered.
+If `MESHES_LENGTH` in not defined, or zero, no meshes will be rendered.
+If `BOXES_LENGTH` in not defined, or zero, no boxes will be rendered.
+If `CYLINDERS_LENGTH` in not defined, or zero, no cylinders will be rendered.
+If `ELLIPSOIDS_LENGTH` in not defined, or zero, no ellipsoids will be rendered.
+If `SPHERES_LENGTH` in not defined, or zero, no spheres will be rendered.
 Multiple feature types may be defined in a single Vector tile using multiple `LENGTH` semantics, and in that case, all specified feature types will be rendered.
 
 If a semantic has a dependency on another semantic, that semantic must be defined as well.
@@ -69,24 +74,44 @@ The semantics define global properties for all vector elements.
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `POLYGONS_LENGTH` | `uint32` | The number of pre-triangulated polygons in the tile. | :white_check_mark: Yes, unless one of `POLYLINES_LENGTH` or `POINTS_LENGTH` is defined. |
-| `POLYLINES_LENGTH` | `uint32` | The number of polylines in the tile. | :white_check_mark: Yes, unless one of `POLYGONS_LENGTH` or `POINTS_LENGTH` is defined.  |
-| `POINTS_LENGTH` | `uint32` | The number of points in the tile. | :white_check_mark: Yes, unless one of `POLYGONS_LENGTH` or `POLYLINES_LENGTH` is defined.  |
+| `POLYGONS_LENGTH` | `uint32` | The number of pre-triangulated polygons in the tile. | :red_circle: No. |
+| `POLYLINES_LENGTH` | `uint32` | The number of polylines in the tile. | :red_circle: No. |
+| `POINTS_LENGTH` | `uint32` | The number of points in the tile. | :red_circle: No. |
+| `MESHES_LENGTH` | `uint32` | The number of meshes in the tile. | :red_circle: No. |
+| `BOXES_LENGTH` | `uint32` | The number of boxes in the tile. | :red_circle: No. |
+| `CYLINDERS_LENGTH` | `uint32` | The number of cylinders in the tile. | :red_circle: No. |
+| `ELLIPSOIDS_LENGTH` | `uint32` | The number of ellipsoids in the tile. | :red_circle: No. |
+| `SPHERES_LENGTH` | `uint32` | The number of spheres in the tile. | :red_circle: No. |
 | `MINIMUM_HEIGHT` | `float32` | The minimum height for this tiles' region in meters above the WGS84 ellipsoid. | :white_check_mark: Yes. |
 | `MAXIMUM_HEIGHT` | `float32` | The maximum height for this tiles' region in meters above the WGS84 ellipsoid. | :white_check_mark: Yes. |
+| `RECTANGLE` | `float32[]` | The rectangle containing the geometry in the tile. It is an array with the four elements west, south, east, and north (in that order). | :white_check_mark: Yes. |
+| `RTC_CENTER` | `float32[]` | The center used for RTC rendering. | :red_circle: No. If no center is supplied, the center of the global `RECTANGLE` will be used. |
 
 #### Vector Semantics
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `POLYGON_COUNTS` | `uint32[]` | The number of vertices that belong to each polygon. This refers to the polygon section of the positions buffer in the body. Each polygon count refers to a contiguous number of vertices in the position buffer that represents the polygon.  | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is zero or not defined. |
-| `POLYGON_INDEX_COUNTS` | `uint32[]` | The number of indices that belong to each polygon. This refers to the indices buffer of the body. Each index count refers to a contiguous number of indices that represent the triangulated polygon. | :white_check_mark: Yes, unless `POLYGONS_LENGTH` is zero or not defined. |
+| `POLYGON_COUNTS` | `uint32[]` | The number of vertices that belong to each polygon. This refers to the polygon section of the positions buffer in the body. Each polygon count refers to a contiguous number of vertices in the position buffer that represents the polygon.  | :white_check_mark: Yes, when the global `POLYGONS_LENGTH` is greater than zero. |
+| `POLYGON_INDEX_COUNTS` | `uint32[]` | The number of indices that belong to each polygon. This refers to the indices buffer of the body. Each index count refers to a contiguous number of indices that represent the triangulated polygon. | :white_check_mark: Yes, when the global `POLYGONS_LENGTH` is greater than zero. |
 | `POLYGON_MINIMUM_HEIGHTS` | `float32[]` | The minimum height of each polygon in meters above the WGS84 ellipsoid. | :red_circle: No. If the minimum height for each polygon is not specified, the global `MINIMUM_HEIGHT` will be used. |
-| `POLYGON_MAXIMUM_HEIGHTS` | `float32[]` | The maximum height of each polygon in meters above the WGS84 ellipsoid. | :red_cricle: No. If the maximum height for each polygon is not specified, the global `MAXIMUM_HEIGHT` will be used. |
+| `POLYGON_MAXIMUM_HEIGHTS` | `float32[]` | The maximum height of each polygon in meters above the WGS84 ellipsoid. | :red_circle: No. If the maximum height for each polygon is not specified, the global `MAXIMUM_HEIGHT` will be used. |
 | `POLYGON_BATCH_IDS` | `uint16[]` | The `batchId` of the polygon that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
-| `POLYLINE_COUNTS` | `uint32[]` | The number of vertices that belong to each polyline. This refers to the polyline section of the positions buffer in the body. Each polyline count refers to a contiguous number of vertices in the position buffer that represents the polyline. Each vertex is the start of a segment of the polyline with the next being the end of the segment. | :white_check_mark: Yes, unless `POLYLINES_LENGTH` is not defined. |
+| `POLYLINE_COUNTS` | `uint32[]` | The number of vertices that belong to each polyline. This refers to the polyline section of the positions buffer in the body. Each polyline count refers to a contiguous number of vertices in the position buffer that represents the polyline. Each vertex is the start of a segment of the polyline with the next being the end of the segment. | :white_check_mark: Yes, when the global `POLYLINES_LENGTH` is greater than zero. |
+| `POLYLINE_WIDTHS` | `uint16[]` | The width of each polyline in pixels. | :red_circle: No. The default width for every polyline is `2.0`. |
 | `POLYLINE_BATCH_IDS` | `uint16[]` | The `batchId` of the polyline that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
 | `POINT_BATCH_IDS` | `uint16[]` | The `batchId` of the point that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+| `MESH_INDEX_OFFSETS` | `uint32[]` | The offset of the first index in the indices buffer of each mesh. | :white_check_mark: Yes, when the global `MESHES_LENGTH` is greater than zero. |
+| `MESH_INDEX_COUNTS` | `uint32[]` | The number of indices for each mesh. | :white_check_mark: Yes, when the global `MESHES_LENGTH` is greater than zero. |
+| `MESH_POSITION_COUNT` | `uint32` | The number of positions of all meshes. | :white_check_mark: Yes, when the global `MESHES_LENGTH` is greater than zero. |
+| `MESH_BATCH_IDS` | `uint16[]` | The `batchId` of the mesh that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+| `BOXES` | `float32[]` | The boxes in the tile. The length of the array will be `19 * BOXES_LENGTH`. The first three elements of each box are the x, y, and z dimensions. The following 16 elements are the model matrix of the box. | :white_check_mark: Yes, when the global `BOXES_LENGTH` is greater than zero. |
+| `BOX_BATCH_IDS` | `uint16[]` | The `batchId` of the box that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+| `CYLINDERS` | `float32[]` | The cylinders in the tile. The length of the array will be `18 * CYLINDERS_LENGTH`. The first element is the radius of the cylinder. The second element is the length along the z axis. The following 16 elements are the model matrix. | :white_check_mark: Yes, when the global `CYLINDERS_LENGTH` is greater than zero. |
+| `CYLINDER_BATCH_IDS` | `uint16[]` | The `batchId` of the cylinder that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+| `ELLIPSOIDS` | `float32[]` | The ellipsoids in the tile. The length of the array will be `19 * ELLIPSOIDS_LENGTH`. The first three elements are the radii in the x, y, and z axes. The following 16 elements are the model matrix. | :white_check_mark: Yes, when the global `ELLIPSOIDS_LENGTH` is greater than zero. |
+| `ELLIPSOID_BATCH_IDS` | `uint16[]` | The `batchId` of the ellipsoid that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+| `SPHERES` | `float32[]` | The spheres in the tile. The length of the array will be `17 * SPHERES_LENGTH`. The first element is the radius. The following 16 elements are the model matrix. | :white_check_mark: Yes, when the global `SPHERES_LENGTH` is greater than zero. |
+| `SPHERE_BATCH_IDS` | `uint16[]` | The `batchId` of the sphere that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
 
 ## Batch Table
 
@@ -94,9 +119,9 @@ The _Batch Table_ contains application-specific metadata, indexable by `batchId`
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
 
-### Indices
+### Polygon Indices
 
-TODO: `uint16` indices.
+TODO: `uint16` indices?
 
 The indices are a buffer of `uint32` values. The byte length is given by `polygonIndicesByteLength` in the header. Each count in `POLYGON_INDEX_COUNT` represents a contiguous section of the array that represents a triangulated polygon. 
 For example, let the first two polygons have 6 and 12 for their index counts. The first polygon has 6 indices starting at byte offset `0` and ending at byte offset `6 * byteSize - 1`.
@@ -205,6 +230,13 @@ The file extension is optional. Valid implementations ignore it and identify a c
 _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`
+
+## Implementation Notes
+
+In JavaScript, a `TypedArray` cannot be created on data unless it is byte-aligned to the data type.
+For example, a `Float32Array` must be stored in memory such that its data begins on a byte multiple of four since each `float` contains four bytes.
+
+The string generated from the JSON and each array should be padded is necessary to ensure byte alignment.
  
 ## Resources
 1. [quantized-mesh-1.0 terrain format](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html)

@@ -25,6 +25,7 @@ Example: Creating a color ramp based on building height.
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
+* Dan Bagnell, [@bagnell](https://github.com/bagnell)
 
 Contents:
 
@@ -255,7 +256,7 @@ The following types are supported:
 * `vec4`
 * `RegExp`
 
-All of the types except `vec2`, `vec3`, `vec4`, and `RegExp` have the same syntax and runtime behavior as JavaScript.  `vec2`, `vec3`, and `vec4` are derived from GLSL vectors and behave similarly to JavaScript `Object` (see the [Vector section](#vector)).  Colors derive from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and are implemented as `vec4`. `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
+All of the types except `vec2`, `vec3`, `vec4`, and `RegExp` have the same syntax and runtime behavior as JavaScript.  `vec2`, `vec3`, and `vec4` are derived from GLSL vectors and behave similarly to JavaScript `Object` (see the [Vector section](#vector)).  Colors derive from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and are implemented as `vec4`. Fonts derive from [CSS3 Fonts](https://www.w3.org/TR/css-fonts-3/) and are implemented as `String`. RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
 
 Example expressions for different types include the following:
 * `true`, `false`
@@ -269,6 +270,7 @@ Example expressions for different types include the following:
 * `vec4(1.0, 2.0, 3.0, 4.0)`
 * `color('#00FFFF')`
 * `regExp('^Chest'))`
+* `"30px sans-serif"`
 
 #### Number
 
@@ -1363,12 +1365,12 @@ The following style properties apply to point features in vector tiles:
 | Style | Type | Description | Default |
 | --- | --- | --- | --- |
 | `show` | `Boolean` | Whether or not to show the feature. | `true` |
-| `color` | `vec4` | The color of the feature. | `color('#FFFFFF')` |
 | `pointSize` | `Number` | The size of the point in pixels. `pointSize` is ignored when `image` is defined. | `8.0` |
 | `pointColor` | `vec4` | The color of the point. `pointColor` is ignored when `image` is defined. | `color('#FFFFFF')` |
 | `pointOutlineColor` | `vec4` | The color of the point outline. `pointOutlineColor` is ignored when `image` is defined. | `color('#000000')` |
 | `pointOutlineWidth` | `Number` | The width, in pixels, of the point outline. `pointOutlineWidth` is ignored when `image` is defined. | `0.0` |
-| `labelText` | `String` | The text to display for the point | `undefined` |
+| `labelText` | `String` | The text to display for the point. | `undefined` |
+| `labelColor` | `vec4` | The color of the label. This is ignored when `labelText` is undefined. | `color('#FFFFFF')` |
 | `labelStyle` | `Number` | The label style: **fill** (`0`), **outline** (`1`), or **both** (`2`). This is ignored when `labelText` is undefined. | `0` |
 | `labelOutlineColor` | `vec` | The color of the text outline. This is ignored when `labelText` is undefined. | `color('#FFFFFF')` |
 | `labelOutlineWidth` | `Number` | The width of the text outline. This is ignored when `labelText` is undefined. | `1.0` |
@@ -1383,13 +1385,20 @@ The following style properties apply to point features in vector tiles:
 | `anchorLineEnabled` | `Boolean` | Whether or not to display a line from the feature to the point on terrain. This is ignored unless `heightOffset` is greater than zero. | `false` |
 | `anchorLineColor` | `vec4` | The color of the line from the feature to terrain. This is ignored unless `heightOffset` is greater than 0.0. | `color('#FFFFFF')` |
 | `image` | `String` | A URL to an image or a data URI to be displayed instead of a point. | `undefined` |
+| `disableDepthTestDistance` | `Number` | The distance where depth testing for a point will be disabled. | `undefined` |
+| `origin` | `Number` | The horizontal origin of the point: **center** (`0`), **left** (`1`), or **right** (`-1`). | `0` |
+| `labelOrigin` | The horizontal origin of the label: **center** (`0`), **left** (`1`), or **right** (`-1`). This is ignored when `labelText` is undefined. | `0` |
 
 For example:
 
 ```json
 {
-    "show" : "${ZIP_CODE} === '19341'",
-    "text" : "${ADDRESS}"
+    "labelText" : "${DISPLAY_TEXT}",
+    "labelColor" : "color('#FFFF00')",
+    "labelStyle" : "2",
+    "image" : "'http://example.com/url/to/image.jpg'"
+    "origin" : "1"
+    "labelOrigin" : "-1"
 }
 ```
 
