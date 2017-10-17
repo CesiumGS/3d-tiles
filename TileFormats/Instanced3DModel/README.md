@@ -44,7 +44,7 @@ If `featureTableJSONByteLength` equals zero, or there is no `glTF`, the tile doe
 The body section immediately follows the header section, and is composed of three fields: `Feature Table`, `Batch Table`, and `glTF`.
 
 Code for reading the header can be found in
-[Instanced3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Instanced3DModel3DTileContent.js)
+[Instanced3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Instanced3DModel3DTileContent.js)
 in the Cesium implementation of 3D Tiles.
 
 ## Feature Table

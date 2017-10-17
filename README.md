@@ -2,7 +2,7 @@
 
 Specification for streaming massive heterogeneous **3D** geospatial datasets.
 
-3D Tiles has entered the Open Geospatial Consortium (OGC) [Community Standard](http://cesiumjs.org/2016/09/06/3D-Tiles-and-the-OGC/) process.
+3D Tiles has entered the Open Geospatial Consortium (OGC) [Community Standard](https://cesium.com/blog/2016/09/06/3d-tiles-and-the-ogc/) process.
 
 ---
 
@@ -26,6 +26,7 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
 ![](figures/users/sitesee.jpg) [SiteSee](http://www.sitesee.com.au/) (using three.js) | [Safe FME](https://www.safe.com/how-it-works/) |
 [Peaxy](https://peaxy.net/) | ![](figures/users/pointcloudconverter.jpg) [Prototype Point Cloud Converter](https://github.com/mattshax/cesium_pnt_generator) |
 ![](figures/users/virtualgis.jpg) [VirtualGIS](https://www.virtualgis.io/) | ![](figures/users/grandlyon.jpg) [LOPoCS ](https://github.com/Oslandia/lopocs) and [py3dtiles](https://github.com/Oslandia/py3dtiles)
+![](figures/users/itowns.jpg) [iTowns 2](https://github.com/iTowns/itowns) | ![](figures/users/osm-cesium-3d-tiles.jpg) [osm-cesium-3d-tiles](https://github.com/kiselev-dv/osm-cesium-3d-tiles)
 
 ## Live Apps
 
@@ -34,7 +35,9 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
 * Bentley **ContextCapture**
    * [Orlando](https://d3h9zulrmcj1j6.cloudfront.net/Orlando_Cesium/App/index.html)
    * [Marseille](https://d3h9zulrmcj1j6.cloudfront.net/Marseille_Cesium/App/index.html)
-* **aero3Dpro**: [Impact Of Coastal Erosion in NightCliff, Darwin](https://sample.aero3dpro.com.au/NightCliffe_2016/App/index.html), [Adelaide](https://adelaide.aero3d.com.au/App/index.html)
+* **aero3Dpro**
+   * [Impact Of Coastal Erosion in NightCliff, Darwin](https://sample.aero3dpro.com.au/NightCliffe_2016/App/index.html), [Adelaide](https://adelaide.aero3d.com.au/App/index.html)
+   * [Future buildings in Melbourne](https://sample.aero3dpro.com.au/Melbourne/App/index_kml.html)
 * **virtualcityMAP** by virtualcitySYSTEMS
    * [10.1 million buildings](http://nrw.virtualcitymap.de/) in North Rhine-Westphalia (34.098 km²)
    * [Textured buildings](http://demo.virtualcitymap.de/?lang=en&layerToActivate=buildings&layerToDeactivate=buildings_untextured)
@@ -47,7 +50,11 @@ Editor: Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com]
    * [Impact Of Coastal Erosion in NightCliff, Darwin](https://sample.aero3dpro.com.au/NightCliffe_2016/App/index.html)
    * [10cm Melbourne, Australia metro](http://sample.aero3dpro.com.au/Melbourne/App/index.html)
    * [Gold Coast, Australia](http://sample.aero3dpro.com.au/Gold_Coast_Cesium/App/index.html)
+   * [10cm Sydney, Australia](http://sample.aero3dpro.com.au/Sydney/App/index.html)
+   * [Philadelphia](https://sample.aero3dpro.com.au/PHL_Cesium/App/index.html)
+   * [10cm Brisbane](https://sample.aero3dpro.com.au/BrisbaneCBD/App/index.html)
 * **VirtualGIS**: [2200 Miles of Pipeline](http://kxldemo.virtualgis.io)
+* [UrbISOnline: 230,000 buildings Brussels](https://urbisonline.brussels/) ([article](http://bric.brussels/en/news_publications/news/urbis-adm-3d?set_language=en))
 
 Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE).
 
@@ -78,33 +85,38 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 
 ## Resources
 
-* [Introducing 3D Tiles](http://cesiumjs.org/2015/08/10/Introducing-3D-Tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
+* [Introducing 3D Tiles](https://cesium.com/blog/2015/08/10/introducing-3d-tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
+* [The Next Generation of 3D Tiles](https://cesium.com/blog/2017/07/12/the-next-generation-of-3d-tiles/) - future plans for 3D Tiles.
 * **Cesium implementation**
+   * Download [Cesium 1.35 or later](https://cesiumjs.org/downloads/) and check out the [Sandcastle examples labeled '3D Tiles'](http://cesiumjs.org/Cesium/Apps/Sandcastle/index.html?src=3D%20Tiles%20BIM.html&label=3D%20Tiles).
    * [Roadmap](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241).
-   * [3d-tiles](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles) branch.
 * **Sample data**
    * [3d-tiles-samples](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples) - sample tilesets for learning how to use 3D Tiles
-   * [Simple 3D tilesets](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles/Specs/Data/Cesium3DTiles) used in the Cesium unit tests.
+   * [Simple 3D tilesets](https://github.com/AnalyticalGraphicsInc/cesium/tree/master/Specs/Data/Cesium3DTiles) used in the Cesium unit tests.
 * **Tools**
    * [3d-tiles-tools](https://github.com/AnalyticalGraphicsInc/3d-tiles-tools) - upcoming tools for debugging, analyzing, and validating 3D Tiles tilesets.
 * **Selected Talks**
-   * _The Open Cesium 3D Tiles Specification: Bringing Massive Geospatial 3D Scenes to the Web_ ([pptx](http://cesiumjs.org/presentations/Web3D-2016-3DTilesTutorial.pptx), [example tilesets](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples)) at Web3D 2016.  90-minute technical tutorial.
-   * _3D Tiles: Beyond 2D Tiling_ ([pdf](http://cesiumjs.org/presentations/FOSS4GNA2016/3DTiles.pdf), [video](https://www.youtube.com/watch?v=I1vYCrMKKEE)) at FOSS4G NA 2016.
-   * 3D Tiles motivation and ecosystem update ([pdf](http://cesiumjs.org/presentations/3D-Tiles-OGC-DC.pdf)) at the OGC Technical Committee Meeting (March 2016).
-   * 3D Tiles intro ([pdf](http://cesiumjs.org/presentations/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
+   * _3D Tiles in Action_ ([pdf](https://cesium.com/presentations/files/3DTilesInAction.pdf)) at FOSS4G 2017.
+   * _Point Clouds with 3D Tiles_ ([pdf](https://cesium.com/presentations/files/PointCloudsWith3DTiles.pdf)) at the OGC Technical Committee Meeting (June 2017).
+   * _The Open Cesium 3D Tiles Specification: Bringing Massive Geospatial 3D Scenes to the Web_ ([pptx](https://cesium.com/presentations/files/Web3D-2016-3DTilesTutorial.pptx), [example tilesets](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples)) at Web3D 2016.  90-minute technical tutorial.
+   * _3D Tiles: Beyond 2D Tiling_ ([pdf](https://cesium.com/presentations/files/FOSS4GNA2016/3DTiles.pdf), [video](https://www.youtube.com/watch?v=I1vYCrMKKEE)) at FOSS4G NA 2016.
+   * 3D Tiles motivation and ecosystem update ([pdf](https://cesium.com/presentations/files/3D-Tiles-OGC-DC.pdf)) at the OGC Technical Committee Meeting (March 2016).
+   * 3D Tiles intro ([pdf](https://cesium.com/presentations/files/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
 * **Selected Articles**
-   * [Duke Using 3D Tiles for Excavation in Vulci](http://cesiumjs.org/2017/05/22/Duke-Vulci-Photogrammetry/). May 2017.
-   * [GERST Engineers, Agisoft PhotoScan, and 3D Tiles](http://cesiumjs.org/2017/05/19/GERST-engineers/). May 2017.
-   * [Skipping Levels of Detail](http://cesiumjs.org/2017/05/05/Skipping-Levels-of-Detail/). May 2017.
+   * [Adaptive Subdivision of 3D Tiles](https://cesium.com/blog/2017/08/11/Adaptive-Subdivision-of-3D-Tiles/). August 2017.
+   * [Aerometrex and 3D Tiles](https://cesium.com/blog/2017/07/26/aerometrex-melbourne/). July 2017.
+   * [Duke Using 3D Tiles for Excavation in Vulci](https://cesium.com/blog/2017/05/22/duke-vulci-photogrammetry/). May 2017.
+   * [GERST Engineers, Agisoft PhotoScan, and 3D Tiles](https://cesium.com/blog/2017/05/19/gerst-engineers/). May 2017.
+   * [Skipping Levels of Detail](https://cesium.com/blog/2017/05/05/skipping-levels-of-detail/). May 2017.
    * [Infrastructure Visualisation using 3D Tiles](http://www.sitesee.com.au/news/3dtiles). April 2017.
-   * [SiteSee Photogrammetry and 3D Tiles](http://cesiumjs.org/2017/04/12/Site-See-3D-Tiles/). April 2017.
-   * [Optimizing Spatial Subdivisions in Practice](http://cesiumjs.org/2017/04/04/Spatial-Subdivision-In-Practice/). April 2017.
-   * [Optimizing Subdivisions in Spatial Data Structures](http://cesiumjs.org/2017/03/30/Spatial-Subdivision/). March 2017.
-   * [What's new in 3D Tiles?](http://cesiumjs.org/2017/03/29/Whats-New-in-3D-Tiles/). March 2017.
-   * [Streaming 3D Capture Data using 3D Tiles](http://cesiumjs.org/2017/03/06/3D-Scans/). March 2017.
-   * [Visualizing Massive Models using 3D Tiles](http://cesiumjs.org/2017/02/21/Massive-Models/). February 2017.
+   * [SiteSee Photogrammetry and 3D Tiles](https://cesium.com/blog/2017/04/12/site-see-3d-tiles/). April 2017.
+   * [Optimizing Spatial Subdivisions in Practice](https://cesium.com/blog/2017/04/04/spatial-subdivision-in-practice/). April 2017.
+   * [Optimizing Subdivisions in Spatial Data Structures](https://cesium.com/blog/2017/03/30/spatial-subdivision/). March 2017.
+   * [What's new in 3D Tiles?](https://cesium.com/blog/2017/03/29/whats-new-in-3d-tiles/). March 2017.
+   * [Streaming 3D Capture Data using 3D Tiles](https://cesium.com/blog/2017/03/06/3d-scans/). March 2017.
+   * [Visualizing Massive Models using 3D Tiles](https://cesium.com/blog/2017/02/21/massive-models/). February 2017.
    * [Bringing City Models to Life with 3D Tiles](https://medium.com/@CyberCity3D/bringing-city-models-to-life-with-3d-tiles-620d5884edf3#.mqxuj7kqd). September 2016.
-   * [Using Quantization with 3D Models](http://cesiumjs.org/2016/08/08/Cesium-web3d-quantized-attributes/). August 2016.
+   * [Using Quantization with 3D Models](https://cesium.com/blog/2016/08/08/cesium-web3d-quantized-attributes/). August 2016.
 * **News**
    * [3D Tiles thread on the Cesium forum](https://groups.google.com/forum/#!topic/cesium-dev/tCCooBxpZFU) - get the latest 3D Tiles news and ask questions here.
 
@@ -197,7 +209,7 @@ A file extension is not required for `content.url`.  A content's [tile format](#
 
 ![](figures/contentsBox.png)
 
-`content` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
+`content.boundingVolume` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
 
 An optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
 
@@ -565,7 +577,7 @@ For complete details, see the [Declarative Styling](Styling/README.md) spec.
 
 #### Can I use 3D Tiles today?
 
-We expect the initial 3D Tiles spec to evolve until fall 2016.  If you are OK with things changing, then yes, jump in.  The Cesium implementation is in the [3d-tiles](https://github.com/AnalyticalGraphicsInc/cesium/tree/3d-tiles) branch.
+We expect the initial 3D Tiles spec to evolve until fall 2016.  If you are OK with things changing, then yes, jump in.
 
 #### Are 3D Tiles specific to Cesium?
 
@@ -631,7 +643,7 @@ This 3D Tiles topic needs additional research, but the answer is basically the s
 
 #### Will 3D Tiles support horizon culling?
 
-Since [horizon culling](http://cesiumjs.org/2013/04/25/Horizon-culling/) is useful for terrain, 3D Tiles will likely support the metadata needed for it.  We haven't considered it yet since our initial work with 3D Tiles is for 3D buildings where horizon culling is not effective.
+Since [horizon culling](https://cesium.com/blog/2013/04/25/horizon-culling/) is useful for terrain, 3D Tiles will likely support the metadata needed for it.  We haven't considered it yet since our initial work with 3D Tiles is for 3D buildings where horizon culling is not effective.
 
 #### Is Screen-Space Error the only metric used to drive refinement?
 
@@ -668,7 +680,7 @@ See [#11](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/11).
 ## Acknowledgments
 
 * [Erik Andersson](https://github.com/e-andersson)
-* [Sarah Chow](http://cesiumjs.org/team/SarahChow.html)
+* [Sarah Chow](https://cesium.com/team/SarahChow/)
 * [Kevin Ring](http://www.kotachrome.com/kevin/)
 * [Dylan Brown](http://www.github.com/Dylan-Brown)
 * [Leesa Fini](http://www.github.com/LeesaFini)

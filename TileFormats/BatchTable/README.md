@@ -45,7 +45,7 @@ A Batch Table is composed of two parts: a JSON header and an optional binary bod
 When a tile format includes a Batch Table, the Batch Table immediately follows the tile's Feature Table if it exists.  Otherwise, the Batch Table immediately follows the tile's header.
 The header will also contain `batchTableJSONByteLength` and `batchTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the Batch Table.
 
-Code for reading the Batch Table can be found in [Cesium3DTileBatchTable.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
+Code for reading the Batch Table can be found in [Cesium3DTileBatchTable.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
 
 ### JSON Header
 
@@ -297,7 +297,7 @@ Sample batch table:
       }
     ],
     "instancesLength" : 12,
-    "classIds" : [0, 0, 0, 0, 0, 0, 1, 1, 1, 3, 3, 3],
+    "classIds" : [0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2],
     "parentCounts" : [1, 3, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0],
     "parentIds" : [6, 6, 10, 11, 7, 11, 7, 8, 8, 10, 10, 9]
   }
