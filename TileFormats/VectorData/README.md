@@ -219,6 +219,10 @@ Each `u, v, height` triple is a single point.
 
 ### Meshes
 
+**Figure 6**: Mesh layout
+
+![](figures/mesh.jpg)
+
 The indices are a buffer of `uint32` values. The indices for each mesh must be contiguous in the buffer. For example, the first mesh would have indices starting at the byte offset given by the first element in `MESH_INDEX_OFFSETS` and end after the first element in `MESH_INDEX_COUNTS`. After the indices is a `float32[]` containing positions of tall of the meshes. The number of positions in the buffer is given by `MESH_POSITION_COUNT`. Unlike polygons, there are no restrictions on where a mesh can index into the position buffer.
 
 ## File Extension
