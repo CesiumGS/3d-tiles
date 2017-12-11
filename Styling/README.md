@@ -1370,7 +1370,7 @@ The following style properties apply to point features in vector tiles:
 | `pointOutlineColor` | `vec4` | The color of the point outline. `pointOutlineColor` is ignored when `image` is defined. | `color('#000000')` |
 | `pointOutlineWidth` | `Number` | The width, in pixels, of the point outline. `pointOutlineWidth` is ignored when `image` is defined. | `0.0` |
 | `labelText` | `String` | The text to display for the point. | `undefined` |
-| `labelColor` | `vec4` | The color of the label. This is ignored when `labelText` is undefined. | `color('#FFFFFF')` |
+| `labelColor` | `vec4` | The color of the label's text. This is ignored when `labelText` is undefined. | `color('#FFFFFF')` |
 | `labelStyle` | `Number` | The label style: **fill** (`0`), **outline** (`1`), or **both** (`2`). This is ignored when `labelText` is undefined. | `0` |
 | `labelOutlineColor` | `vec` | The color of the text outline. This is ignored when `labelText` is undefined. | `color('#FFFFFF')` |
 | `labelOutlineWidth` | `Number` | The width of the text outline. This is ignored when `labelText` is undefined. | `1.0` |
@@ -1378,16 +1378,18 @@ The following style properties apply to point features in vector tiles:
 | `backgroundColor` | `vec4` | The label background color. This is ignored when `labelText` is undefined. | `rgba(42, 42, 42, 0.8)` |
 | `backgroundPadding` | `vec2` | The background padding, in pixels, of this label.  The `x` value controls horizontal padding, and the `y` value controls vertical padding. This is ignored when `labelText` is undefined. | `vec2(7, 5)` |
 | `backgroundEnabled` | `Boolean` | Whether or not to display the label background. This is ignored when `labelText` is undefined. | `false` |
-| `scaleByDistance` | `vec4` | Sets near and far scaling properties of a feature based on the features's distance from the camera. A feature's scale will interpolate between the `y` and `w` values while the camera distance falls within the upper and lower bounds of the specified `x` and `z` value. Outside of these ranges, the features's scale remains clamped to the nearest bound.  If undefined, `scaleByDistance` will be disabled. | `undefined` |
+| `scaleByDistance` | `vec4` | Sets near and far scaling properties of a feature based on the features's distance from the camera. A feature's scale will interpolate between the `y` and `w` values while the camera distance falls within the lower, `x`, and upper, `z`, bounds. Outside of these ranges, the features's scale remains clamped to the nearest bound.  If undefined, `scaleByDistance` will be disabled. | `undefined` |
 | `translucencyByDistance` | `vec4` | Sets near and far translucency properties of a feature based on the feature's distance from the camera. A feature's translucency will interpolate between the `y` and `w` while the camera distance falls within the upper and lower bounds of the specified `x` and `z`. Outside of these ranges the feature's translucency remains clamped to the nearest bound.  If undefined, `translucencyByDistance` will be disabled. | `undefined` |
 | `distanceDisplayCondition` | `vec2` | Sets the condition specifying at what distance from the camera that this feature will be displayed. The `x` value is the smallest distance in the interval where the feature is visible. The `y` value is the largest distance in the interval where the object is visible. If undefined, `distanceDisplayCondition` will be disabled. | `undefined` |
-| `heightOffset` | `Number` | The distance, in meters, to offset the height. This is ignored if the valuse is less than or equal to zero. | `0.0` |
+| `heightOffset` | `Number` | The distance, in meters, to offset the height from the original height of the point. This is ignored if the value is less than or equal to zero. | `0.0` |
 | `anchorLineEnabled` | `Boolean` | Whether or not to display a line from the feature to the point on terrain. This is ignored unless `heightOffset` is greater than zero. | `false` |
 | `anchorLineColor` | `vec4` | The color of the line from the feature to terrain. This is ignored unless `heightOffset` is greater than 0.0. | `color('#FFFFFF')` |
 | `image` | `String` | A URL to an image or a data URI to be displayed instead of a point. | `undefined` |
-| `disableDepthTestDistance` | `Number` | The distance where depth testing for a point will be disabled. | `undefined` |
-| `origin` | `Number` | The horizontal origin of the point: **center** (`0`), **left** (`1`), or **right** (`-1`). | `0` |
-| `labelOrigin` | The horizontal origin of the label: **center** (`0`), **left** (`1`), or **right** (`-1`). This is ignored when `labelText` is undefined. | `0` |
+| `disableDepthTestDistance` | `Number` | The distance from the camera at which to disable the depth test to, for example, prevent clipping against terrain. When set to zero or `undefined`, the depth test is always applied. When set to Number.POSITIVE_INFINITY, the depth test is never applied. | `undefined` |
+| `horizontalOrigin` | `Number` | The horizontal origin of the point: **center** (`0`), **left** (`1`), or **right** (`-1`). | `0` |
+| `verticalOrigin` | `Number` | The vertical origin of the point: **center** (`0`), **Bottom** (`1`), or **top** (`-1`). | `0` |
+| `labelHorizontalOrigin` | `Number` | The horizontal origin of the label: **center** (`0`), **left** (`1`), or **right** (`-1`). This is ignored when `labelText` is undefined. | `0` |
+| `labelVerticalOrigin` | `Number` | The vertical origin of the label: **center** (`0`), **bottom** (`1`), **top** (`-1`), or **baseline** (`2`). This is ignored when `labelText` is undefined. | `0` |
 
 For example:
 
