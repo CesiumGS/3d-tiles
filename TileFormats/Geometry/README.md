@@ -10,7 +10,9 @@
 
 The _Geometry_ tile format allows streaming of geometry datasets including boxes, cylinders, ellipsoids, and spheres.
 
-Each box, cylinder, ellipsoid, and sphere is a _feature_ in the 3D Tiles specification language. 
+Each box, cylinder, ellipsoid, and sphere is a _feature_ in the 3D Tiles specification language.
+
+In addition to rendering the geometry, the geometry can be used for classifying geometry of other 3D Tiles tilesets.
 
 ## Layout
 
