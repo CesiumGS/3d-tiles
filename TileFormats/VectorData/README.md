@@ -211,6 +211,3 @@ In JavaScript, a `TypedArray` cannot be created on data unless it is byte-aligne
 For example, a `Float32Array` must be stored in memory such that its data begins on a byte multiple of four since each `float` contains four bytes.
 
 The string generated from the JSON and each array should be padded is necessary to ensure byte alignment.
- 
-## Resources
-1. [quantized-mesh-1.0 terrain format](https://github.com/AnalyticalGraphicsInc/quantized-mesh)
