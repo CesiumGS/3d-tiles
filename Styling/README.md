@@ -1363,8 +1363,8 @@ The following style properties apply to point features in vector tiles:
 | Style | Type | Description | Default |
 | --- | --- | --- | --- |
 | `show` | `Boolean` | Whether or not to show the feature. | `true` |
+| `color` | `vec4` | The color of the point. `color` is ignored when `image` is defined. | `color('#FFFFFF')` |
 | `pointSize` | `Number` | The size of the point in pixels. `pointSize` is ignored when `image` is defined. | `8.0` |
-| `pointColor` | `vec4` | The color of the point. `pointColor` is ignored when `image` is defined. | `color('#FFFFFF')` |
 | `pointOutlineColor` | `vec4` | The color of the point outline. `pointOutlineColor` is ignored when `image` is defined. | `color('#000000')` |
 | `pointOutlineWidth` | `Number` | The width, in pixels, of the point outline. `pointOutlineWidth` is ignored when `image` is defined. | `0.0` |
 | `labelText` | `String` | The text to display for the point. `'\n'` can be added to separate lines of text. | `undefined` |
