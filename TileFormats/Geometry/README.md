@@ -1,4 +1,4 @@
-# Geometry Data
+# Geometry
 
 ## Contributors
 
@@ -35,7 +35,7 @@ If `featureTableJSONByteLength` equals zero, the tile does not need to be render
 The body section immediately follows the header section, and is composed, in order, of two fields: `Feature Table` and  `Batch Table`.
 
 Code for reading the header can be found in
-[Geometry3DTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/vector-tiles/Source/Scene/Geometry3DTileContent.js)
+[Geometry3DTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Geometry3DTileContent.js)
 in the Cesium implementation of 3D Tiles.
 
 ## Feature Table
@@ -46,13 +46,13 @@ The `geom` Feature Table JSON schema is defined in [geom.featureTable.schema.jso
 
 ### Semantics
 
-Per-feature semantics specific to a feature type are prefixed with the name of the feature type. e.g. `BOXES` for boxes, `CYLINDERS` for cylinders and `ELLIPSOIDS` for ellipsoids.
+Per-feature semantics specific to a feature type are prefixed with the name of the feature type. e.g. `BOXES` for boxes, `CYLINDERS` for cylinders, and `ELLIPSOIDS` for ellipsoids.
 
 At least one global `LENGTH` semantic must be defined. 
-If `BOXES_LENGTH` in not defined, or zero, no boxes will be rendered.
-If `CYLINDERS_LENGTH` in not defined, or zero, no cylinders will be rendered.
-If `ELLIPSOIDS_LENGTH` in not defined, or zero, no ellipsoids will be rendered.
-If `SPHERES_LENGTH` in not defined, or zero, no spheres will be rendered.
+* If `BOXES_LENGTH` in not defined, or zero, no boxes will be rendered.
+* If `CYLINDERS_LENGTH` in not defined, or zero, no cylinders will be rendered.
+* If `ELLIPSOIDS_LENGTH` in not defined, or zero, no ellipsoids will be rendered.
+* If `SPHERES_LENGTH` in not defined, or zero, no spheres will be rendered.
 Multiple feature types may be defined in a single Geometry tile using multiple `LENGTH` semantics, and in that case, all specified feature types will be rendered.
 
 If a semantic has a dependency on another semantic, that semantic must be defined as well.
@@ -61,13 +61,13 @@ If a semantic has a dependency on another semantic, that semantic must be define
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `BOXES` | `float32[]` | The boxes in the tile. The length of the array will be `19 * BOXES_LENGTH`. The first three elements of each box are the x, y, and z dimensions. The following 16 elements are the 4x4 model matrix in column-major order. | :white_check_mark: Yes, when the global `BOXES_LENGTH` is greater than zero. |
+| `BOXES` | `float32[]` | The boxes in the tile. The length of the array will be `16 * BOXES_LENGTH`. The 16 elements are the 4x4 model matrix in column-major order. | :white_check_mark: Yes, when the global `BOXES_LENGTH` is greater than zero. |
 | `BOX_BATCH_IDS` | `uint16[]` | The `batchId` of the box that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
-| `CYLINDERS` | `float32[]` | The cylinders in the tile. The length of the array will be `18 * CYLINDERS_LENGTH`. The first element is the radius of the cylinder. The second element is the length along the z axis. The following 16 elements are the 4x4 model matrix in column-major order. | :white_check_mark: Yes, when the global `CYLINDERS_LENGTH` is greater than zero. |
+| `CYLINDERS` | `float32[]` | The cylinders in the tile. The length of the array will be `16 * CYLINDERS_LENGTH`. The 16 elements are the 4x4 model matrix in column-major order. The scale of the x and y axis will be the radius of the cylinder. Scaling the z axis will change the length of the cylinder. | :white_check_mark: Yes, when the global `CYLINDERS_LENGTH` is greater than zero. |
 | `CYLINDER_BATCH_IDS` | `uint16[]` | The `batchId` of the cylinder that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
-| `ELLIPSOIDS` | `float32[]` | The ellipsoids in the tile. The length of the array will be `19 * ELLIPSOIDS_LENGTH`. The first three elements are the radii in the x, y, and z axes. The following 16 elements are the 4x4 model matrix in column-major order. | :white_check_mark: Yes, when the global `ELLIPSOIDS_LENGTH` is greater than zero. |
+| `ELLIPSOIDS` | `float32[]` | The ellipsoids in the tile. The length of the array will be `16 * ELLIPSOIDS_LENGTH`. The 16 elements are the 4x4 model matrix in column-major order. | :white_check_mark: Yes, when the global `ELLIPSOIDS_LENGTH` is greater than zero. |
 | `ELLIPSOID_BATCH_IDS` | `uint16[]` | The `batchId` of the ellipsoid that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
-| `SPHERES` | `float32[]` | The spheres in the tile. The length of the array will be `4 * SPHERES_LENGTH`. The first element is the radius. The following 3 elements are the translation of the sphere. | :white_check_mark: Yes, when the global `SPHERES_LENGTH` is greater than zero. |
+| `SPHERES` | `float32[]` | The spheres in the tile. The length of the array will be `3 * SPHERES_LENGTH`. The 3 elements are the translation of the sphere. | :white_check_mark: Yes, when the global `SPHERES_LENGTH` is greater than zero. |
 | `SPHERE_BATCH_IDS` | `uint16[]` | The `batchId` of the sphere that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
 
 #### Global Semantics
