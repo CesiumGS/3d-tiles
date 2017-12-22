@@ -10,8 +10,8 @@
             "$ref" : "boundingVolume.schema.json"
         },
         "viewerRequestVolume" : {
-            "extends" : { "$ref" : "boundingVolume.schema.json" },
-            "description" : "Optional bounding volume that defines the volume that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError."
+            "description" : "Optional bounding volume that defines the volume that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.",
+            "$ref" : "boundingVolume.schema.json"
         },
         "geometricError" : {
             "type" : "number",
