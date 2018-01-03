@@ -1,28 +1,13 @@
 {
   "$schema" : "http://json-schema.org/draft-04/schema",
-  "id" : "vctr.featureTable.schema.json",
-  "title" : "Vector Feature Table",
+  "id" : "geom.featureTable.schema.json",
+  "title" : "Geometry Feature Table",
   "type" : "object",
-  "description" : "A set of Vector semantics that contain additional information about features in a tile.",
+  "description" : "A set of Geometry semantics that contain additional information about features in a tile.",
   "allOf" : [{
     "$ref" : "featureTable.schema.json"
   }, {
     "properties" : {
-      "MINIMUM_HEIGHT" : {
-        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
-      },
-      "MAXIMUM_HEIGHT" : {
-        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
-      },
-      "REGION" : {
-        "type" : "array",
-        "description" : "An array of six numbers that define a bounding geographic region in WGS84 / EPSG:4326 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.",
-        "items" : {
-          "type" : "number"
-        },
-        "minItems" : 6,
-        "maxItems" : 6
-      },
       "RTC_CENTER" : {
         "type" : "array",
         "description" : "A floating-point 3 element array that defines the center for RTC rendering.",
@@ -32,50 +17,57 @@
         "minItems" : 3,
         "maxItems" : 3
       },
-      "POLYGONS_LENGTH" : {
+      "BOXES_LENGTH" : {
         "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
       },
-      "POLYLINES_LENGTH" : {
+      "CYLINDERS_LENGTH" : {
         "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
       },
-      "POINTS_LENGTH" : {
+      "ELLIPSOIDS_LENGTH" : {
         "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
       },
-      "POLYGON_COUNTS" : {
+      "SPHERES_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "BOXES" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POLYGON_INDEX_COUNTS" : {
+      "BOX_BATCH_IDS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POLYGON_MINIMUM_HEIGHTS" : {
+      "CYLINDERS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POLYGON_MAXIMUM_HEIGHTS" : {
+      "CYLINDER_BATCH_IDS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POLYGON_BATCH_IDS" : {
+      "ELLIPSOIDS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POLYLINE_COUNTS" : {
+      "ELLIPSOID_BATCH_IDS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POLYLINE_BATCH_IDS" : {
+      "SPHERES" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       },
-      "POINT_BATCH_IDS" : {
+      "SPHERE_BATCH_IDS" : {
         "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
       }
     },
     "dependencies" : {
-      "POLYGONS_LENGTH" : [
-        "POLYGON_COUNT",
-        "POLYGON_INDEX_COUNT"
+      "BOXES_LENGTH" : [
+        "BOXES"
       ],
-      "POLYLINES_LENGTH" : [
-        "POLYLINE_COUNT"
+      "CYLINDERS_LENGTH" : [
+        "CYLINDERS"
+      ],
+      "ELLIPSOIDS_LENGTH" : [
+        "ELLIPSOIDS"
+      ],
+      "SPHERES_LENGTH" : [
+        "SPHERES"
       ]
     },
-    "required" : ["MINIMUM_HEIGHT", "MAXIMUM_HEIGHT", "REGION"],
     "additionalProperties" : false
   }]
 }

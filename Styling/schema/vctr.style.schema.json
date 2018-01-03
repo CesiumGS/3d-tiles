@@ -26,14 +26,14 @@
         "description" : "The size of points in pixels.",
         "default" : 8.0
       },
-      "pointColor" : {
+      "color" : {
         "oneOf" : [{
           "$ref" : "style.colorExpression.schema.json"
         }, {
           "$ref" : "style.condition.schema.json"
         }],
         "description" : "The color of the point.",
-        "default" : "Color('#FFFFFF')"
+        "default" : "color('#FFFFFF')"
       },
       "pointOutlineColor" : {
         "oneOf" : [{
@@ -42,7 +42,7 @@
           "$ref" : "style.condition.schema.json"
         }],
         "description" : "The color of the point outline.",
-        "default" : "Color('#000000')"
+        "default" : "color('#000000')"
       },
       "pointOutlineWidth" : {
         "oneOf" : [{
@@ -60,7 +60,7 @@
           "$ref" : "style.condition.schema.json"
         }],
         "description" : "The label text to display.",
-        "default" : "Undefined"
+        "default" : "undefined"
       },
       "labelColor" : {
         "oneOf" : [{
@@ -69,7 +69,7 @@
           "$ref" : "style.condition.schema.json"
         }],
         "description" : "The color of the label.",
-        "default" : "Color('#FFFFFF')"
+        "default" : "color('#FFFFFF')"
       },
       "labelStyle" : {
         "oneOf" : [{
@@ -87,7 +87,7 @@
           "$ref" : "style.condition.schema.json"
         }],
         "description" : "The color of the text outline.",
-        "default" : "Color('#FFFFFF')"
+        "default" : "color('#FFFFFF')"
       },
       "labelOutlineWidth" : {
         "oneOf" : [{
@@ -141,7 +141,7 @@
           "$ref" : "style.condition.schema.json"
         }],
         "description" : "Sets near and far scaling properties of a feature based on the features's distance from the camera. A feature's scale will interpolate between the `y` and `w` values while the camera distance falls within the upper and lower bounds of the specified `x` and `z` value. Outside of these ranges, the features's scale remains clamped to the nearest bound.  If undefined, `scaleByDistance` will be disabled.",
-        "default" : "Undefined"
+        "default" : "undefined"
       },
       "translucencyByDistance" : {
         "oneOf" : [{
@@ -150,7 +150,7 @@
           "$ref" : "style.condition.schema.json"
         }],
         "description" : "Sets near and far translucency properties of a feature based on the feature's distance from the camera. A feature's translucency will interpolate between the `y` and `w` while the camera distance falls within the upper and lower bounds of the specified `x` and `z`. Outside of these ranges the feature's translucency remains clamped to the nearest bound.  If undefined, `translucencyByDistance` will be disabled.",
-        "default" : "Undefined"
+        "default" : "undefined"
       },
       "distanceDisplayCondition" : {
         "oneOf" : [{
@@ -159,7 +159,7 @@
           "$ref" : "style.condition.schema.json"
         }],
         "description" : "Sets the condition specifying at what distance from the camera that this feature will be displayed. The `x` value is the smallest distance in the interval where the feature is visible. The `y` value is the largest distance in the interval where the object is visible. If undefined, `distanceDisplayCondition` will be disabled.",
-        "default" : "Undefined"
+        "default" : "undefined"
       },
       "heightOffset" : {
         "oneOf" : [{
@@ -186,7 +186,7 @@
           "$ref" : "style.condition.schema.json"
         }],
         "description" : "The color of the line from the feature to terrain. This is ignored unless `heightOffset` is greater than 0.0.",
-        "default" : "Color('#FFFFFF)"
+        "default" : "color('#FFFFFF)"
       },
       "image" : {
         "oneOf" : [{
@@ -195,7 +195,7 @@
           "$ref" : "style.condition.schema.json"
         }],
         "description" : "A URL to an image or a data URI to be displayed instead of a point.",
-        "default" : "Undefined"
+        "default" : "undefined"
       },
       "disableDepthTestDistance" : {
         "oneOf" : [{
@@ -204,9 +204,9 @@
           "$ref" : "style.condition.schema.json"
         }],
         "description" : "The distance from that camera at which the depth test will be disabled.",
-        "default" : "Undefined"
+        "default" : "undefined"
       },
-      "origin" : {
+      "horizontalOrigin" : {
         "oneOf" : [{
           "$ref" : "style.numberExpression.schema.json"
         }, {
@@ -215,7 +215,16 @@
         "description" : "The horizontal origin of the point: center ('0'), left ('1'), or right ('-1').",
         "default" : "0"
       },
-      "labelOrigin" : {
+      "verticalOrigin" : {
+        "oneOf" : [{
+          "$ref" : "style.numberExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The horizontal origin of the point: center ('0'), bottom ('1'), or top ('-1').",
+        "default" : "0"
+      },
+      "labelHorizontalOrigin" : {
         "oneOf" : [{
           "$ref" : "style.numberExpression.schema.json"
         }, {
@@ -223,7 +232,16 @@
         }],
         "description" : "The horizontal origin of the label: center ('0'), left ('1'), or right ('-1').",
         "default" : "0"
-      }
+      },
+      "labelVerticalOrigin" : {
+        "oneOf" : [{
+          "$ref" : "style.numberExpression.schema.json"
+        }, {
+          "$ref" : "style.condition.schema.json"
+        }],
+        "description" : "The horizontal origin of the label: center ('0'), bottom ('1'), top ('-1'), or baseline ('2').",
+        "default" : "0"
+      },
     },
     "dependencies" : {
       "labelText" : [
@@ -231,7 +249,8 @@
         "labelColor",
         "labelOutlineColor",
         "labelOutlineWidth",
-        "labelOrigin",
+        "labelHorizontalOrigin",
+        "labelVerticalOrigin",
         "font",
         "backgroundColor",
         "backgroundPadding",

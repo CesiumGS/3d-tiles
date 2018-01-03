@@ -89,7 +89,7 @@ The semantics define global properties for all vector elements.
 | `POLYLINES_LENGTH` | `uint32` | The number of polylines in the tile. | :red_circle: No |
 | `POINTS_LENGTH` | `uint32` | The number of points in the tile. | :red_circle: No |
 | `REGION` | `float32[]` | An array of six numbers that define the bounding geographic region in WGS84 / EPSG:4326 coordinates with the order `[west, south, east, north, minimum height, maximum height]`. Longitudes and latitudes are in radians, and heights are in meters above (or below) the [WGS84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf). | :white_check_mark: Yes |
-| `RTC_CENTER` | `float32[]` | The center used for RTC rendering. | :red_circle: No. If no center is supplied, the center of the global `RECTANGLE` will be used. |
+| `RTC_CENTER` | `float32[]` | The center used for RTC rendering. | :red_circle: No. If no center is supplied, the center of the global `REGION` will be used. |
 
 ## Batch Table
 
