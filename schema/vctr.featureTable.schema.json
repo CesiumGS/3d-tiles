@@ -8,12 +8,6 @@
     "$ref" : "featureTable.schema.json"
   }, {
     "properties" : {
-      "MINIMUM_HEIGHT" : {
-        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
-      },
-      "MAXIMUM_HEIGHT" : {
-        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
-      },
       "REGION" : {
         "type" : "array",
         "description" : "An array of six numbers that define a bounding geographic region in WGS84 / EPSG:4326 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.",
@@ -75,7 +69,7 @@
         "POLYLINE_COUNT"
       ]
     },
-    "required" : ["MINIMUM_HEIGHT", "MAXIMUM_HEIGHT", "REGION"],
+    "required" : ["REGION"],
     "additionalProperties" : false
   }]
 }
