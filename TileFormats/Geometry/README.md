@@ -67,11 +67,11 @@ If a semantic has a dependency on another semantic, that semantic must be define
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `BOXES` | `float32[]` | The boxes in the tile. The length of the array will be `16 * BOXES_LENGTH`. The 16 elements are the 4x4 model matrix in column-major order. | :white_check_mark: Yes, when the global `BOXES_LENGTH` is greater than zero. |
+| `BOXES` | `float32[]` | The boxes in the tile. The length of the array will be `16 * BOXES_LENGTH`. The 16 elements are the 4x4 affine transformation matrix in column-major order. | :white_check_mark: Yes, when the global `BOXES_LENGTH` is greater than zero. |
 | `BOX_BATCH_IDS` | `uint16[]` | The `batchId` of the box that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
-| `CYLINDERS` | `float32[]` | The cylinders in the tile. The length of the array will be `16 * CYLINDERS_LENGTH`. The 16 elements are the 4x4 model matrix in column-major order. The scale of the x and y axis will be the radius of the cylinder. Scaling the z axis will change the length of the cylinder. | :white_check_mark: Yes, when the global `CYLINDERS_LENGTH` is greater than zero. |
+| `CYLINDERS` | `float32[]` | The cylinders in the tile. The length of the array will be `16 * CYLINDERS_LENGTH`. The 16 elements are the 4x4 affine transformation matrix in column-major order. The scale of the x and y axis will be the radius of the cylinder. Scaling the z axis will change the length of the cylinder. | :white_check_mark: Yes, when the global `CYLINDERS_LENGTH` is greater than zero. |
 | `CYLINDER_BATCH_IDS` | `uint16[]` | The `batchId` of the cylinder that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
-| `ELLIPSOIDS` | `float32[]` | The ellipsoids in the tile. The length of the array will be `16 * ELLIPSOIDS_LENGTH`. The 16 elements are the 4x4 model matrix in column-major order. | :white_check_mark: Yes, when the global `ELLIPSOIDS_LENGTH` is greater than zero. |
+| `ELLIPSOIDS` | `float32[]` | The ellipsoids in the tile. The length of the array will be `16 * ELLIPSOIDS_LENGTH`. The 16 elements are the 4x4 affine transformation matrix in column-major order. | :white_check_mark: Yes, when the global `ELLIPSOIDS_LENGTH` is greater than zero. |
 | `ELLIPSOID_BATCH_IDS` | `uint16[]` | The `batchId` of the ellipsoid that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
 | `SPHERES` | `float32[]` | The spheres in the tile. The length of the array will be `4 * SPHERES_LENGTH`. The first element is the scale of the sphere. The following 3 elements are the translation of the sphere. | :white_check_mark: Yes, when the global `SPHERES_LENGTH` is greater than zero. |
 | `SPHERE_BATCH_IDS` | `uint16[]` | The `batchId` of the sphere that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
@@ -86,7 +86,7 @@ The semantics define global properties for all geometry elements.
 | `CYLINDERS_LENGTH` | `uint32` | The number of cylinders in the tile. | :red_circle: No. |
 | `ELLIPSOIDS_LENGTH` | `uint32` | The number of ellipsoids in the tile. | :red_circle: No. |
 | `SPHERES_LENGTH` | `uint32` | The number of spheres in the tile. | :red_circle: No. |
-| `RTC_CENTER` | `float32[]` | The center used for RTC rendering. | :red_circle: No. If no center is supplied, the center of the global `RECTANGLE` will be used. |
+| `RTC_CENTER` | `float32[]` | The center used for RTC rendering. | :red_circle: No. |
 
 ## Batch Table
 
