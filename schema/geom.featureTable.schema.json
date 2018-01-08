@@ -1,0 +1,73 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema",
+  "id" : "geom.featureTable.schema.json",
+  "title" : "Geometry Feature Table",
+  "type" : "object",
+  "description" : "A set of Geometry semantics that contain additional information about features in a tile.",
+  "allOf" : [{
+    "$ref" : "featureTable.schema.json"
+  }, {
+    "properties" : {
+      "RTC_CENTER" : {
+        "type" : "array",
+        "description" : "A floating-point 3 element array that defines the center for RTC rendering.",
+        "items" : {
+          "type": "number"
+        },
+        "minItems" : 3,
+        "maxItems" : 3
+      },
+      "BOXES_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "CYLINDERS_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "ELLIPSOIDS_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "SPHERES_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "BOXES" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "BOX_BATCH_IDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "CYLINDERS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "CYLINDER_BATCH_IDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "ELLIPSOIDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "ELLIPSOID_BATCH_IDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "SPHERES" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "SPHERE_BATCH_IDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      }
+    },
+    "dependencies" : {
+      "BOXES_LENGTH" : [
+        "BOXES"
+      ],
+      "CYLINDERS_LENGTH" : [
+        "CYLINDERS"
+      ],
+      "ELLIPSOIDS_LENGTH" : [
+        "ELLIPSOIDS"
+      ],
+      "SPHERES_LENGTH" : [
+        "SPHERES"
+      ]
+    },
+    "additionalProperties" : false
+  }]
+}

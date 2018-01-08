@@ -25,6 +25,7 @@ Example: Creating a color ramp based on building height.
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
+* Dan Bagnell, [@bagnell](https://github.com/bagnell)
 
 Contents:
 
@@ -51,6 +52,7 @@ Contents:
    * [Notes](#notes)
 * [Batch Table Hierarchy](#batch-table-hierarchy)
 * [Point Cloud](#point-cloud)
+* [Vector Data](#vector-data)
 * [File Extension](#file-extension)
 * [MIME Type](#mime-type)
 * [Acknowledgments](#acknowledgments)
@@ -254,7 +256,7 @@ The following types are supported:
 * `vec4`
 * `RegExp`
 
-All of the types except `vec2`, `vec3`, `vec4`, and `RegExp` have the same syntax and runtime behavior as JavaScript.  `vec2`, `vec3`, and `vec4` are derived from GLSL vectors and behave similarly to JavaScript `Object` (see the [Vector section](#vector)).  Colors derive from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and are implemented as `vec4`. `RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
+All of the types except `vec2`, `vec3`, `vec4`, and `RegExp` have the same syntax and runtime behavior as JavaScript.  `vec2`, `vec3`, and `vec4` are derived from GLSL vectors and behave similarly to JavaScript `Object` (see the [Vector section](#vector)).  Colors derive from [CSS3 Colors](https://www.w3.org/TR/css3-color/) and are implemented as `vec4`. Fonts derive from [CSS3 Fonts](https://www.w3.org/TR/css-fonts-3/) and are implemented as `String`. RegExp` is derived from JavaScript and described in the [RegExp section](#regexp).
 
 Example expressions for different types include the following:
 * `true`, `false`
@@ -268,6 +270,7 @@ Example expressions for different types include the following:
 * `vec4(1.0, 2.0, 3.0, 4.0)`
 * `color('#00FFFF')`
 * `regExp('^Chest'))`
+* `"30px sans-serif"`
 
 #### Number
 
@@ -496,6 +499,7 @@ The following constants are supported by the styling language:
 
 * [`Math.PI`](#pi)
 * [`Math.E`](#e)
+* [`Number.POSITIVE_INFINITY`](#positive-infinity)
 
 #### PI
 
@@ -514,6 +518,16 @@ Euler's constant and the base of the natural logarithm, approximately `2.71828`.
 ```json
 {
     "color" : "color() * pow(Math.E / 2.0, ${Temperature})"
+}
+```
+
+#### Positive Infinity
+
+A constant that represents positive infinity.
+
+```json
+{
+    "disableDepthTestDistance" : "Number.POSITIVE_INFINITY"
 }
 ```
 
@@ -1343,6 +1357,66 @@ For example:
 #### Point Cloud Shader Styling
 
 **TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/140**
+
+## Vector Data
+
+A [Vector Tile](../TileFormats/VectorData/README.md) is a collection of vector features such as points, polygons, and polylines. Vector features can be styled similar to other features with `color` and `show`. Points have several other styling options:
+
+The following style properties apply to polygon and polyline features in vector tiles:
+
+| Style | Type | Description | Default |
+| --- | --- | --- | --- |
+| `show` | `Boolean` | Whether or not to show the feature. | `true` |
+| `color` | `vec4` | The color of the feature. | `color('#FFFFFF')` |
+
+The following style properties apply to point features in vector tiles:
+
+| Style | Type | Description | Default |
+| --- | --- | --- | --- |
+| `show` | `Boolean` | Whether or not to show the feature. | `true` |
+| `color` | `vec4` | The color of the point. `color` is ignored when `image` is defined. | `color('#FFFFFF')` |
+| `pointSize` | `Number` | The size of the point in pixels. `pointSize` is ignored when `image` is defined. | `8.0` |
+| `pointOutlineColor` | `vec4` | The color of the point outline. `pointOutlineColor` is ignored when `image` is defined. | `color('#000000')` |
+| `pointOutlineWidth` | `Number` | The width of the point outline in pixels. `pointOutlineWidth` is ignored when `image` is defined. | `0.0` |
+| `labelText` | `String` | The text to display for the point. `'\n'` can be added to separate lines of text. | `undefined` |
+| `labelColor` | `vec4` | The color of the label's text. | `color('#FFFFFF')` |
+| `labelStyle` | `Number` | The label style: **fill** (`0`), **outline** (`1`), or **both** (`2`). See **Table1**.| `0` |
+| `labelOutlineColor` | `vec4` | The color of the text outline. | `color('#FFFFFF')` |
+| `labelOutlineWidth` | `Number` | The width of the text outline in pixels. | `1.0` |
+| `font` | `String` | The font of the displayed text. | `"30px sans-serif"` |
+| `backgroundColor` | `vec4` | The label background color. | `rgba(#FFFF00)` |
+| `backgroundPadding` | `vec2` | The background padding, in pixels, of this label.  The `x` value controls horizontal padding, and the `y` value controls vertical padding. The number of `x` pixels is added to both sides. The number of `y` pixels is added to the top and bottom. | `vec2(7, 5)` |
+| `backgroundEnabled` | `Boolean` | Whether or not to display the label background. | `false` |
+| `scaleByDistance` | `vec4` | Sets near and far scaling properties of a feature based on the features's distance from the camera in meters. A feature's scale will interpolate between the `y` and `w` values while the camera distance falls within the lower, `x`, and upper, `z`, bounds. Outside of these ranges, the features's scale remains clamped to the nearest bound.  If undefined, `scaleByDistance` will be disabled. | `undefined` |
+| `translucencyByDistance` | `vec4` | Sets near and far translucency properties of a feature based on the feature's distance from the camera in meters. Translucency describes how transparent the point will be, where `0.0` means the point is completely transparant and `1.0` means the point is completely opaque. A feature's translucency will interpolate between the `y` and `w` while the camera distance falls within the upper and lower bounds of the specified `x` and `z`. Outside of these ranges the feature's translucency remains clamped to the nearest bound.  If undefined, `translucencyByDistance` will be disabled. | `undefined` |
+| `distanceDisplayCondition` | `vec2` | Sets the condition specifying at what distance from the camera in meters that this feature will be displayed. The `x` value is the smallest distance in the interval where the feature is visible. The `y` value is the largest distance in the interval where the object is visible. If undefined, `distanceDisplayCondition` will be disabled. | `undefined` |
+| `heightOffset` | `Number` | The distance, in meters, to offset the height from the original height of the point. This is ignored if the value is less than or equal to zero. | `0.0` |
+| `anchorLineEnabled` | `Boolean` | Whether or not to display a line from the feature to the point's original position. This is ignored unless `heightOffset` is greater than zero. | `false` |
+| `anchorLineColor` | `vec4` | The color of the line from the feature to the point's original position. This is ignored unless `heightOffset` is greater than 0.0. | `color('#FFFFFF')` |
+| `image` | `String` | A URL to an image or a data URI to be displayed instead of a point. | `undefined` |
+| `disableDepthTestDistance` | `Number` | The distance from the camera in meters at which to disable the depth test to, for example, prevent clipping against terrain. When set to zero or `undefined`, the depth test is always applied. When set to Number.POSITIVE_INFINITY, the depth test is never applied. | `undefined` |
+| `horizontalOrigin` | `Number` | The horizontal origin of the point: **center** (`0`), **left** (`1`), or **right** (`-1`). | `0` |
+| `verticalOrigin` | `Number` | The vertical origin of the point: **center** (`0`), **Bottom** (`1`), or **top** (`-1`). | `0` |
+| `labelHorizontalOrigin` | `Number` | The horizontal origin of the label: **center** (`0`), **left** (`1`), or **right** (`-1`). | `0` |
+| `labelVerticalOrigin` | `Number` | The vertical origin of the label: **center** (`0`), **bottom** (`1`), **top** (`-1`), or **baseline** (`2`). | `0` |
+
+For example:
+
+```json
+{
+    "labelText" : "${DISPLAY_TEXT}",
+    "labelColor" : "color('#FFFF00')",
+    "labelStyle" : "2",
+    "image" : "'http://example.com/url/to/image.jpg'",
+    "origin" : "1",
+    "labelOrigin" : "-1"
+}
+```
+
+| Fill | Outline | Fill and Outline |
+| --- | --- | --- |
+| ![](figures/label_fill.jpg) | ![](figures/label_outline.jpg) | ![](figures/label_fill_outline.jpg) |
+**Table1**: Label text style options.
 
 ## File Extension
 
