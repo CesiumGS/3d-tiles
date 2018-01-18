@@ -28,4 +28,4 @@ byteLength       // uint32,   length, in bytes, of the entire tile.
 
 ## Code of Conduct
 
-The Code of Conduct can be found [here](CODE_OF_CONDUCT.md).
+Cesium's Code of Conduct is [here](CODE_OF_CONDUCT.md).
