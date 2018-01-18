@@ -25,3 +25,7 @@ byteLength       // uint32,   length, in bytes, of the entire tile.
 ## Binary
 
 * All binary data, e.g., tile formats, are in little endian.
+
+## Code of Conduct
+
+Cesium's Code of Conduct is [here](./CODE_OF_CONDUCT.md).
