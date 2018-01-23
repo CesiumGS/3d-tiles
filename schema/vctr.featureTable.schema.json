@@ -1,0 +1,75 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema",
+  "id" : "vctr.featureTable.schema.json",
+  "title" : "Vector Feature Table",
+  "type" : "object",
+  "description" : "A set of Vector semantics that contain additional information about features in a tile.",
+  "allOf" : [{
+    "$ref" : "featureTable.schema.json"
+  }, {
+    "properties" : {
+      "REGION" : {
+        "type" : "array",
+        "description" : "An array of six numbers that define a bounding geographic region in WGS84 / EPSG:4326 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.",
+        "items" : {
+          "type" : "number"
+        },
+        "minItems" : 6,
+        "maxItems" : 6
+      },
+      "RTC_CENTER" : {
+        "type" : "array",
+        "description" : "A floating-point 3 element array that defines the center for RTC rendering.",
+        "items" : {
+          "type": "number"
+        },
+        "minItems" : 3,
+        "maxItems" : 3
+      },
+      "POLYGONS_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "POLYLINES_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "POINTS_LENGTH" : {
+        "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+      },
+      "POLYGON_COUNTS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POLYGON_INDEX_COUNTS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POLYGON_MINIMUM_HEIGHTS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POLYGON_MAXIMUM_HEIGHTS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POLYGON_BATCH_IDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POLYLINE_COUNTS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POLYLINE_BATCH_IDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      },
+      "POINT_BATCH_IDS" : {
+        "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+      }
+    },
+    "dependencies" : {
+      "POLYGONS_LENGTH" : [
+        "POLYGON_COUNT",
+        "POLYGON_INDEX_COUNT"
+      ],
+      "POLYLINES_LENGTH" : [
+        "POLYLINE_COUNT"
+      ]
+    },
+    "required" : ["REGION"],
+    "additionalProperties" : false
+  }]
+}
