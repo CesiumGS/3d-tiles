@@ -2,7 +2,7 @@
 
 ## Contributors
 
-* Sean Lilley, [@lilleyse](https://twitter.com/lilleyse)
+* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
 ## Overview
@@ -29,20 +29,18 @@ The 16-byte header section contains the following fields:
 |----------|---------|-----------|
 | `magic` | 4-byte ANSI string | `"cmpt"`.  This can be used to identify the arraybuffer as a Composite tile. |
 | `version` | `uint32` | The version of the Composite format. It is currently `1`. |
-| `byteLength` | `uint32` | The length of the entire Composite tile, including the header and each inner tile, in bytes. |
+| `byteLength` | `uint32` | The length of the entire Composite tile, including this header and each inner tile, in bytes. |
 | `tilesLength` | `uint32` | The number of tiles in the Composite. |
 
 _TODO: code example reading header_
 
 ## Inner Tiles
 
-Inner tile fields are stored tightly packed immediately following the header section.
+Inner tile fields are stored tightly packed immediately following the header section. No additional header is added on top of the tiles' preexisting headers (eg, b3dm or i3dm headers). However, the following information describes general characteristics of the existing contents of relevant files' headers to explain common information which a composite tile reader might exploit to find the boundaries of the inner tiles.
 
-Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See the [main 3D Tiles spec](../../README.md) for a list of tile formats.  Composite tiles can contain Composite tiles.
-
-Each tile's header contains a `uint32` `byteLength`, which defines the length of the inner tile, including its header, in bytes.  This can be used to traverse the inner tiles.
-
-For any tile format's version 1, the first 12-bytes of all tiles is the following fields:
+* Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See the [main 3D Tiles spec](../../README.md) for a list of tile formats.  Composite tiles can contain Composite tiles.
+* Each tile's header contains a `uint32` `byteLength`, which defines the length of the inner tile, including its header, in bytes.  This can be used to traverse the inner tiles.
+* For any tile format's version 1, the first 12-bytes of all tiles is the following fields:
 
 |Field name|Data type|Description|
 |----------|---------|-----------|
@@ -56,8 +54,18 @@ Refer to the spec for each tile format for more details.
 
 `.cmpt`
 
+The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
+
 ## MIME Type
 
 _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
 `application/octet-stream`
+
+## Acknowledgments
+
+* [Christopher Mitchell, Ph.D.](https://github.com/KermMartian)
+
+## Resources
+
+1. [Python `packcmpt` tool in gltf2glb toolset](https://github.com/Geopipe/gltf2glb)

@@ -1,0 +1,7 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "style.colorExpression.schema.json",
+    "title" : "color expression",
+    "type" : "string",
+    "description" : "3D Tiles style expression that evaluates to a Color."
+}

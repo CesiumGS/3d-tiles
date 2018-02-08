@@ -1,28 +1,41 @@
 {
-    "$schema" : "http://json-schema.org/draft-03/schema",
-    "title" : "tile",
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "tile.schema.json",
+    "title" : "Tile",
     "type" : "object",
     "description" : "A tile in a 3D Tiles tileset.",
     "properties" : {
         "boundingVolume" : {
-            "extends" : { "$ref" : "boundingVolume.schema.json" },
             "description" : "The bounding volume that encloses the tile.",
-            "required" : true
+            "$ref" : "boundingVolume.schema.json"
+        },
+        "viewerRequestVolume" : {
+            "description" : "Optional bounding volume that defines the volume that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.",
+            "$ref" : "boundingVolume.schema.json"
         },
         "geometricError" : {
             "type" : "number",
             "description" : "The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute Screen-Space Error (SSE), i.e., the error measured in pixels.",
-            "minimum" : 0,
-            "required" : true
+            "minimum" : 0
         },
         "refine" : {
             "type" : "string",
             "description" : "Specifies if additive or replacement refinement is used when traversing the tileset for rendering.  This property is required for the root tile of a tileset; it is optional for all other tiles.  The default is to inherit from the parent tile.",
-            "enum" : ["add", "replace"]
+            "enum" : ["ADD", "REPLACE"]
+        },
+        "transform" : {
+            "type" : "array",
+            "description" : "A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content, i.e., its features and content.boundingVolume, and boundingVolume and viewerRequestVolume from the tile's local coordinate system to the parent tile's coordinate system, or tileset's coordinate system in the case of the root tile.  transform does not apply to geometricError nor does it apply any volume property when the volume is a region, which is defined in WGS84 / EPSG:4326 coordinates.",
+            "items" : {
+                "type": "number"
+            },
+            "minItems" : 16,
+            "maxItems" : 16,
+            "default" : [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ]
         },
         "content" : {
-            "extends" : { "$ref" : "tile.content.schema.json" },
-            "description" : "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. This is required for leaf tiles."
+            "description" : "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. This is required for leaf tiles.",
+            "$ref" : "tile.content.schema.json"
         },
         "children" : {
             "type" : "array",
@@ -33,5 +46,6 @@
             "uniqueItems" : true
         }
     },
+    "required" : ["boundingVolume", "geometricError"],
     "additionalProperties" : false
 }

@@ -1,0 +1,71 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "pnts.featureTable.schema.json",
+    "title" : "Point Cloud Feature Table",
+    "type" : "object",
+    "description" : "A set of Point Cloud semantics that contains values defining the position and appearance properties for points in a tile.",
+    "allOf" : [{
+        "$ref" : "featureTable.schema.json"
+    }, {
+        "properties" : {
+            "POSITION" : {
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+            },
+            "POSITION_QUANTIZED": {
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+            },
+            "RGBA" : {
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+            },
+            "RGB" : {
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+            },
+            "RGB565" : {
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+            },
+            "NORMAL" : {
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+            },
+            "NORMAL_OCT16P" : {
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+            },
+            "BATCH_ID" : {
+                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+            },
+            "POINTS_LENGTH" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+            },
+            "RTC_CENTER" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+            },
+            "QUANTIZED_VOLUME_OFFSET" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+            },
+            "QUANTIZED_VOLUME_SCALE" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+            },
+            "CONSTANT_RGBA" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+            },
+            "BATCH_LENGTH" : {
+                "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+            }
+        },
+        "anyOf" : [{
+            "required" : ["POSITION"]
+        }, {
+            "required" : ["POSITION_QUANTIZED"]
+        }],
+        "dependencies" : {
+            "POSITION_QUANTIZED" : [
+                "QUANTIZED_VOLUME_OFFSET",
+                "QUANTIZED_VOLUME_SCALE"
+            ],
+            "BATCH_ID" : [
+                "BATCH_LENGTH"
+            ]
+        },
+        "required" : ["POINTS_LENGTH"],
+        "additionalProperties": false
+    }]
+}

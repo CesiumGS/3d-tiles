@@ -1,0 +1,109 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "batchTable.schema.json",
+    "title" : "Batch Table",
+    "type" : "object",
+    "description" : "A set of properties defining application-specific metadata for features in a tile.",
+    "properties" : {
+        "HIERARCHY" : {
+            "$ref" : "#/definitions/hierarchy"
+        }
+    },
+    "additionalProperties" : {
+        "$ref" : "#/definitions/property"
+    },
+    "definitions" : {
+        "binaryBodyReference" : {
+            "type" : "object",
+            "properties" : {
+                "byteOffset" : {
+                    "type" : "integer",
+                    "minimum" : 0
+                },
+                "componentType" : {
+                    "type" : "string",
+                    "enum" : ["BYTE", "UNSIGNED_BYTE", "SHORT", "UNSIGNED_SHORT", "INT", "UNSIGNED_INT", "FLOAT", "DOUBLE"]
+                },
+                "type" : {
+                    "type" : "string",
+                    "enum" : ["SCALAR", "VEC2", "VEC3", "VEC4"]
+                }
+            },
+            "required" : ["byteOffset", "componentType", "type"]
+        },
+        "property" : {
+            "anyOf" : [
+                { "$ref" : "#/definitions/binaryBodyReference" },
+                { "type" : "array" }
+            ]
+        },
+        "integerArray" : {
+            "type" : "array",
+            "items" : {
+                "type" : "number",
+                "minimum" : 0
+            }
+        },
+        "integerBinaryBodyReference" : {
+            "type" : "object",
+            "properties" : {
+                "byteOffset" : {
+                    "type" : "integer",
+                    "minimum" : 0
+                },
+                "componentType" : {
+                    "type" : "string",
+                    "enum" : ["UNSIGNED_BYTE", "UNSIGNED_SHORT", "UNSIGNED_INT"]
+                }
+            },
+            "required" : ["byteOffset"]
+        },
+        "integerProperty" : {
+            "anyOf" : [
+                { "$ref" : "#/definitions/integerBinaryBodyReference" },
+                { "$ref" : "#/definitions/integerArray" }
+            ]
+        },
+        "hierarchy" : {
+            "type" : "object",
+            "properties" : {
+                "classes" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "object",
+                        "properties" : {
+                            "name" : {
+                                "type" : "string"
+                            },
+                            "length" : {
+                                "type" : "number",
+                                "minimum" : 0
+                            },
+                            "instances" : {
+                                "type" : "object",
+                                "additionalProperties" : {
+                                    "$ref" : "#/definitions/property"
+                                }
+                            }
+                        },
+                        "required" : ["name", "length", "instances"]
+                    }
+                },
+                "instancesLength" : {
+                    "type" : "number",
+                    "minimum" : 0
+                },
+                "classIds" : {
+                    "$ref" : "#/definitions/integerProperty"
+                },
+                "parentCounts" : {
+                    "$ref" : "#/definitions/integerProperty"
+                },
+                "parentIds" : {
+                    "$ref" : "#/definitions/integerProperty"
+                }
+            },
+            "required" : ["classes", "instancesLength", "classIds"]
+        }
+    }
+}

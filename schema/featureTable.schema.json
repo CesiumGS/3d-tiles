@@ -1,0 +1,64 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "featureTable.schema.json",
+    "title" : "Feature Table",
+    "type" : "object",
+    "description" : "A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.",
+    "definitions" : {
+        "binaryBodyReference" : {
+            "type" : "object",
+            "properties" : {
+                "byteOffset" : {
+                    "type" : "integer",
+                    "minimum" : 0
+                }
+            },
+            "required" : ["byteOffset"]
+        },
+        "numericArray" : {
+            "type" : "array",
+            "items" : {
+                "type" : "number"
+            }
+        },
+        "globalPropertyScalar" : {
+            "oneOf" : [{
+                "$ref" : "#/definitions/binaryBodyReference"
+            }, {
+                "allOf" : [{
+                    "$ref" : "#/definitions/numericArray"
+                }, {
+                    "minItems" : 1,
+                    "maxItems" : 1
+                }]
+            }, {
+                "type" : "integer",
+                "minimum" : 0
+            }]
+        },
+        "globalPropertyCartesian3" : {
+            "oneOf" : [{
+                "$ref" : "#/definitions/binaryBodyReference"
+            }, {
+                "allOf" : [{
+                    "$ref": "#/definitions/numericArray"
+                }, {
+                    "minItems" : 3,
+                    "maxItems" : 3
+                }]
+            }]
+        },
+        "globalPropertyCartesian4" : {
+            "oneOf" : [{
+                "$ref" : "#/definitions/binaryBodyReference"
+            }, {
+                "allOf": [{
+                    "$ref": "#/definitions/numericArray"
+                }, {
+                    "minItems": 4,
+                    "maxItems": 4
+                }]
+            }]
+        }
+    }
+}
