@@ -68,7 +68,7 @@ If both `NORMAL` and `NORMAL_OCT16P` are defined for a point, the higher precisi
 | `RGB565` | `uint16` | A lossy compressed color format that packs the `RGB` color into 16 bits, providing 5 bits for red, 6 bits for green, and 5 bits for blue. | :red_circle: No. |
 | `NORMAL` | `float32[3]`| A unit vector defining the normal of the point. | :red_circle: No. |
 | `NORMAL_OCT16P` | `uint8[2]` | An oct-encoded unit vector with 16-bits of precision defining the normal of the point. | :red_circle: No. |
-| `BATCH_ID` | `uint8`, `unit16` (default), or `uint32` | The `batchId` of the point that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+| `BATCH_ID` | `uint8`, `uint16` (default), or `uint32` | The `batchId` of the point that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
 
 #### Global Semantics
 

@@ -76,7 +76,7 @@ If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` ar
 | `NORMAL_RIGHT_OCT32P` | `uint16[2]` | An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | :red_circle: No, unless `NORMAL_UP_OCT32P` is defined. |
 | `SCALE` | `float32` | A number defining a scale to apply to all axes of the instance. | :red_circle: No. |
 | `SCALE_NON_UNIFORM` | `float32[3]` | A 3-component array of numbers defining the scale to apply to the `x`, `y`, and `z` axes of the instance. | :red_circle: No. |
-| `BATCH_ID` | `uint8`, `unit16` (default), or `uint32` | The `batchId` of the instance that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+| `BATCH_ID` | `uint8`, `uint16` (default), or `uint32` | The `batchId` of the instance that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
 
 #### Global Semantics
 
