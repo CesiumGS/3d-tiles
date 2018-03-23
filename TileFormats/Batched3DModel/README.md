@@ -119,7 +119,7 @@ The vertex shader can be modified at runtime to use `a_batchId` to access indivi
 
 When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`, the `batchId` attribute (with the parameter semantic `_BATCHID`) is required; otherwise, it is not.
 
-Although not strictly required, clients may find the glTF [CESIUM_RTC](https://github.com/KhronosGroup/glTF/blob/new-extensions/extensions/CESIUM_RTC/README.md) extension useful for high-precision rendering.
+Although not strictly required, clients may find the glTF [CESIUM_RTC](https://github.com/KhronosGroup/glTF/tree/master/extensions/1.0/Vendor/CESIUM_RTC) extension useful for high-precision rendering.
 
 ## File Extension
 
