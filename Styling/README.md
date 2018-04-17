@@ -57,9 +57,11 @@ Contents:
 
 ## Overview
 
-3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's batch table.
+3D Tiles styles provide concise declarative styling of tileset.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties or class as stored in the tile's [Batch Table](../BatchTable/README.md).
 
-Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling. Additionally the styling language provides a set of built-in functions to support common math operations.
+While a style may be created for and reference properties of a tileset, a style is independent of a tileset, such that any style can be applied to any tileset.
+
+Styles are defined with JSON and expressions written in the styling expression syntax specified below, a small subset of JavaScript augmented for styling. Additionally the styling language provides a set of built-in functions to support common math operations.
 
 ## Examples
 
@@ -1340,19 +1342,11 @@ For example:
 }
 ```
 
-#### Point Cloud Shader Styling
+> Implementation Note: Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Features that must account for these inconsistencies include evaluation of `isNan` and `isFinite` (GLSL 2.0+ supports `isnan` and `isinf` for these functions respectively); the types `null` and `undefined`; strings, including accessing object properties (`color()['r']`) and batch table values; regular expressions; arrays of lengths other than 2, 3, or 4; mismatched type comparisons (`float` to `bool`); and handling of "index out of bounds" errors.
 
-**TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/140**
-
-## File Extension
-
-TBA
-
-## MIME Type
-
-_TBA, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
-
-`application/json`
+## File Extensions and MIME Types
+ 
+* Tileset styles use the `.json` extension and the `application/json` mime type.
 
 ## Acknowledgments
 

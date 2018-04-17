@@ -12,6 +12,12 @@
         "minimum" : {
             "type" : "number",
             "description" : "The minimum value of this property of all the features in the tileset."
+        },
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
         }
     },
     "required" : ["maximum", "minimum"],

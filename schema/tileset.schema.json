@@ -24,6 +24,12 @@
         "root" : {
             "description" : "The root node.",
             "$ref" : "tile.schema.json"
+        },
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
         }
     },
     "required" : ["asset", "geometricError", "root"],

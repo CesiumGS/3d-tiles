@@ -121,7 +121,9 @@ Per-point normals are an optional property that can help improve the visual qual
 The normals will be transformed using the inverse transpose of the tileset transform.
 
 #### Oct-encoded Normal Vectors
-Oct-encoding is described in [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/). An implementation for encoding and decoding these unit vectors can be found in Cesium's
+Oct-encoding is described in [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/). Oct-encoded values are stored in unsigned, unnormalized range ([0, 65535] or [0, 255]) and then converted to a signed normalized range ([-1.0, 1.0]) at runtime.
+
+> An implementation for encoding and decoding these unit vectors can be found in Cesium's
 [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module.
 
@@ -294,17 +296,11 @@ If the `BATCH_ID` semantic is not defined, then the batch table stores per-point
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
 
-## File Extension
+## File Extension and MIME Type
 
-`.pnts`
+Point cloud tiles use the `.pnts` extension and `application/octet-stream` MIME type.
 
 The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
-
-## MIME Type
-
-_TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
-
-`application/octet-stream`
 
 ## Resources
 

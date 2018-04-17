@@ -44,6 +44,12 @@
                 "$ref" : "tile.schema.json"
             },
             "uniqueItems" : true
+        },
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
         }
     },
     "required" : ["boundingVolume", "geometricError"],

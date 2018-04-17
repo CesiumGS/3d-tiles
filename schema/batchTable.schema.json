@@ -7,6 +7,12 @@
     "properties" : {
         "HIERARCHY" : {
             "$ref" : "#/definitions/hierarchy"
+        },
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
         }
     },
     "additionalProperties" : {
@@ -101,6 +107,12 @@
                 },
                 "parentIds" : {
                     "$ref" : "#/definitions/integerProperty"
+                },
+                "extensions" : {
+                    "$ref": "extension.schema.json"
+                },
+                "extras" : {
+                    "$ref": "extras.schema.json"
                 }
             },
             "required" : ["classes", "instancesLength", "classIds"]

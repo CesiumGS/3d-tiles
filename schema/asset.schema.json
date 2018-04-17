@@ -18,6 +18,12 @@
             "description" : "Specifies the up-axis of glTF models.",
             "enum" : ["X", "Y", "Z"],
             "default" : "Y"
+        },
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
         }
     },
     "required" : ["version"],

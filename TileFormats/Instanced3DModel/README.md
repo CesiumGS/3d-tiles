@@ -111,8 +111,9 @@ The `z` vector would map onto a `forward` vector, but it is omitted because it w
 
 If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientation may be stored as oct-encoded normals in `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P`.
 These define `up` and `right` using the oct-encoding described in
-[*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/).
-An implementation for encoding and decoding these unit vectors can be found in Cesium's
+[*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/). Oct-encoded values are stored in unsigned, unnormalized range ([0, 65535] or [0, 255]) and then converted to a signed normalized range ([-1.0, 1.0]) at runtime.
+
+> An implementation for encoding and decoding these unit vectors can be found in Cesium's
 [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module.
 
@@ -228,7 +229,9 @@ See the [Batch Table](../BatchTable/README.md) reference for more information.
 
 The glTF asset to be instanced is stored after the feature table and batch table.
 
-[glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL.  [Binary glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) is an extension defining a binary container for glTF.  Instanced 3D Model uses glTF 1.0 with the [KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) extension.
+[glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL. Instanced 3D Models uses [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) to embed model data.
+
+The [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout) immediately follows the feature table and batch table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
 `header.gltfFormat` determines the format of the glTF field.  When it is `0`, the glTF field is
 
@@ -242,17 +245,11 @@ In either case, `header.gltfByteLength` contains the length of the glTF field in
 
 If the glTF asset is embedded, it must be 8-byte aligned so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
-## File Extension
+## File Extension and MIME Type
 
-`.i3dm`
+Instanced 3D modela tiles use the `.i3dm` extension and `application/octet-stream` MIME type.
 
 The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
-
-## MIME Type
-
-_TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
-
-`application/octet-stream`
 
 ## Resources
 

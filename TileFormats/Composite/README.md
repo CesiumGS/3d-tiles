@@ -50,17 +50,11 @@ Inner tile fields are stored tightly packed immediately following the header sec
 
 Refer to the spec for each tile format for more details.
 
-## File Extension
+## File Extension and MIME Type
 
-`.cmpt`
+Composite tiles use the `.cmpt` extension and `application/octet-stream` MIME type.
 
 The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
-
-## MIME Type
-
-_TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
-
-`application/octet-stream`
 
 ## Acknowledgments
 

@@ -40,7 +40,7 @@ If `featureTableJSONByteLength` equals zero, the tile does not need to be render
 
 The body section immediately follows the header section, and is composed of three fields: `Feature Table`, `Batch Table` and `Binary glTF`.
 
-Code for reading the header can be found in
+> Implementation Note: Code for reading the header can be found in
 [Batched3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Batched3DModel3DTileContent.js)
 in the Cesium implementation of 3D Tiles.
 
@@ -64,18 +64,19 @@ These semantics define global properties for all features.
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
 | `BATCH_LENGTH` | `uint32` | The number of distinguishable models, also called features, in the batch. If the Binary glTF does not have a `batchId` attribute, this field _must_ be `0`. | :white_check_mark: Yes. |
+| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when instance positions are defined relative-to-center. | :red_circle: No. |
 
 ## Batch Table
 
-The _Batch Table_ contains per-model application-specific metadata, indexable by `batchId`, that can be used for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  In the Binary glTF section, each vertex has an numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
+The _Batch Table_ contains per-model application-specific metadata, indexable by `batchId`, that can be used for [declarative styling](../../Styling/README.md) and application-specific use cases such as populating a UI or issuing a REST API request.  In the Binary glTF section, each vertex has an numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
 
 ## Binary glTF
 
-[glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL.  [Binary glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) is an extension defining a binary container for glTF.  Batched 3D Model uses glTF 1.0 with the [KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) extension.
+Batched 3D Model uses [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) to embed model data.
 
-The binary glTF immediately follows the feature table and batch table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
+The [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout) immediately follows the feature table and batch table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
 The glTF asset must be 8-byte aligned so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
@@ -119,16 +120,20 @@ The vertex shader can be modified at runtime to use `a_batchId` to access indivi
 
 When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`, the `batchId` attribute (with the parameter semantic `_BATCHID`) is required; otherwise, it is not.
 
-Although not strictly required, clients may find the glTF [CESIUM_RTC](https://github.com/KhronosGroup/glTF/tree/master/extensions/1.0/Vendor/CESIUM_RTC) extension useful for high-precision rendering.
+### Coordinate Reference System (CRS)
 
-## File Extension
+Vertex positions are defined according to a right-handed coordinate system where Y-axis is up. [glTF Coordinate System and Units](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units)
 
-`.b3dm`
+Vertex positions may be defined relative-to-center for high-precision rendering [1]. If defined, `RTC_CENTER` specifies the center position and all vertex positions are treated as relative to this value.
+
+> Implementation Note: Clients may also use the glTF [CESIUM_RTC](https://github.com/KhronosGroup/glTF/tree/master/extensions/1.0/Vendor/CESIUM_RTC) extension and define points relative to center.
+
+## File Extension and MIME Type
+
+Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` MIME type.
 
 The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
 
-## MIME Type
+## Resources
 
-_TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
-
-`application/octet-stream`
+1. [Precisions, Precisions](http://blogs.agi.com/insight3d/index.php/2008/09/03/precisions-precisions/)
