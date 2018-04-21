@@ -29,9 +29,9 @@ Per-feature properties are defined using tile format-specific semantics defined 
 
 ## Layout
 
-A feature table is composed of two parts: a JSON header and an optional binary body. The JSON property names are tile format-specific semantics, and their values can either be defined directly in the JSON, or refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body.
+A feature table is composed of two parts: a JSON header and an optional binary body. The JSON property names are tile format-specific semantics, and their values can either be defined directly in the JSON, or refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body. The following figure shows the feature table layout:
 
-![feature table layout](figures/feature-table-layout.png)_Feature table layout._
+![feature table layout](figures/feature-table-layout.png)
 
 When a tile format includes a feature table, the feature table immediately follows the tile's header.  The header will also contain `featureTableJSONByteLength` and `featureTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the feature table.
 
@@ -55,9 +55,9 @@ JSON schema feature table definitions can be found in [featureTable.schema.json]
 
 ### Binary body
 
-When the JSON header includes a reference to the binary, the provided `byteOffset` is used to index into the data. 
+When the JSON header includes a reference to the binary, the provided `byteOffset` is used to index into the data. The following figure shows indexing into the feature table binary body:
 
-![feature table binary index](figures/feature-table-binary-index.png)_Indexing into the feature table binary body._
+![feature table binary index](figures/feature-table-binary-index.png)
 
 Values can be retrieved using the number of features, `featuresLength`; the desired feature id, `featureId`; and the data type (component type and number of components) for the feature semantic.
 

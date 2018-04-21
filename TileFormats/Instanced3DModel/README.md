@@ -20,9 +20,9 @@
         * [Default orientation](#default-orientation)  
     * [Instance position](#instance-position)
         * [Quantized positions](#quantized-positions)
-    * [Instance scaling](#instance-position)
+    * [Instance scaling](#instance-scaling)
     * [Examples](#examples)
-        * [Positions only](#position-only) 
+        * [Positions only](#positions-only) 
         * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)   
 * [Batch table](#batch-table)
 * [glTF](#gltf)                            
@@ -43,9 +43,9 @@ Instanced 3D model maps well to the [ANGLE_instanced_arrays](https://www.khronos
 
 ## Layout
 
-A tile is composed of a header section immediately followed by a body section.
+A tile is composed of a header section immediately followed by a body section. The following figure shows the instanced 3D model layout (dashes indicate optional fields):
 
-![header layout](figures/header-layout.png)_Instanced 3D model layout (dashes indicate optional fields)._
+![header layout](figures/header-layout.png)
 
 ## Header
 
@@ -122,9 +122,11 @@ An instance's orientation is defined by an orthonormal basis created by an `up` 
 The `x` vector in the standard basis maps onto the `right` vector in the transformed basis, and the `y` vector maps on to the `up` vector.
 The `z` vector would map onto a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
 
-![box standard basis](figures/box-standard-basis.png)_A box in the standard basis._ 
+A box in the standard basis:
+![box standard basis](figures/box-standard-basis.png)
 
-![box rotated basis](figures/box-rotated-basis.png)_A box transformed into a rotated basis._
+A box transformed into a rotated basis
+![box rotated basis](figures/box-rotated-basis.png)
 
 #### Oct-encoded normal vectors
 
@@ -150,9 +152,9 @@ This is suitable for instanced models such as trees whose orientation is always 
 If `POSITION` is not defined for an instance, its position may be stored in `POSITION_QUANTIZED`, which defines the instance position relative to the quantized volume.
 If neither `POSITION` or `POSITION_QUANTIZED` are defined, the instance will not be created.
 
-A quantized volume is defined by `offset` and `scale` to map quantized positions into model space.
+A quantized volume is defined by `offset` and `scale` to map quantized positions into model space, as shown in the following figure:
 
-![quantized volume](figures/quantized-volume.png)_A quantized volume based on `offset` and `scale`._
+![quantized volume](figures/quantized-volume.png)
 
 `offset` is stored in the global semantic `QUANTIZED_VOLUME_OFFSET`, and `scale` is stored in the global semantic `QUANTIZED_VOLUME_SCALE`.
 If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.

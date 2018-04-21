@@ -23,7 +23,7 @@
         * [Oct-encoded normal vectors](#oct-encoded-normal-vectors)
     * [Batched points](#batched-points)
     * [Examples](#examples)
-        * [Positions only](#position-only) 
+        * [Positions only](#positions-only) 
         * [Positions and colors](#positions-and-colors)
         * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)
         * [Batched points](#batched-points)         
@@ -40,9 +40,9 @@ Using 3D Tiles terminology, each point is a _feature_.
 
 ## Layout
 
-A tile is composed of a header section immediately followed by a body section.
+A tile is composed of a header section immediately followed by a body section. The following figure shows the point cloud layout (dashes indicate optional fields). 
 
-![](figures/layout.png)_Point cloud layout (dashes indicate optional fields)._
+![](figures/layout.png)
 
 ## Header
 
@@ -67,7 +67,7 @@ Code for reading the header can be found in [PointCloud3DModelTileContent.js](ht
 ## Feature table
 
 Contains per-tile and per-point values that define where and how to render points.
-More information is available in the [Feature table specification](../FeatureTable/README.md).
+More information is available in the [feature table specification](../FeatureTable/README.md).
 
 The `pnts` feature table JSON schema is defined in [pnts.featureTable.schema.json](../../schema/pnts.featureTable.schema.json).
 
@@ -117,9 +117,9 @@ Examples using these semantics can be found in the [examples section](#examples)
 If `POSITION` is not defined, positions may be stored in `POSITION_QUANTIZED`, which defines point positions relative to the quantized volume.
 If neither `POSITION` nor `POSITION_QUANTIZED` is defined, the tile does not need to be rendered.
 
-A quantized volume is defined by `offset` and `scale` to map quantized positions into model space.
+A quantized volume is defined by `offset` and `scale` to map quantized positions into model space. The following figure shows a quantized volume based on `offset` and `scale`:
 
-![quantized volume](figures/quantized-volume.png)_A quantized volume based on `offset` and `scale`._
+![quantized volume](figures/quantized-volume.png)
 
 `offset` is stored in the global semantic `QUANTIZED_VOLUME_OFFSET`, and `scale` is stored in the global semantic `QUANTIZED_VOLUME_SCALE`.
 If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.

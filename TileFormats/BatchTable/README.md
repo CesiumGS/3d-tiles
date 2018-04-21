@@ -36,9 +36,9 @@ A batch table is used by the following tile formats:
 
 ## Layout
 
-A batch table is composed of two parts: a JSON header and an optional binary body. The JSON describes the properties, whose values either can be defined directly in the JSON as an array, or can refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body.
+A batch table is composed of two parts: a JSON header and an optional binary body. The JSON describes the properties, whose values either can be defined directly in the JSON as an array, or can refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body. The following figure shows the batch table layout:
 
-![batch table layout](figures/batch-table-layout.png)_Batch table layout._
+![batch table layout](figures/batch-table-layout.png)
 
 When a tile format includes a batch table, the batch table immediately follows the tile's feature table if it exists.  Otherwise, the batch table immediately follows the tile's header.
 The header will also contain `batchTableJSONByteLength` and `batchTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the batch table.
@@ -89,9 +89,9 @@ JSON schema batch table definitions can be found in [batchTable.schema.json](../
 
 ### Binary body
 
-When the JSON header includes a reference to the binary section, the provided `byteOffset` is used to index into the data. 
+When the JSON header includes a reference to the binary section, the provided `byteOffset` is used to index into the data, as shown in the following figure:
 
-![batch table binary index](figures/batch-table-binary-index.png)_Indexing into the batch table binary body._
+![batch table binary index](figures/batch-table-binary-index.png)
 
 Values can be retrieved using the number of features, `batchLength`; the desired batch id, `batchId`; and the `componentType` and `type` defined in the JSON header.
 
@@ -383,7 +383,9 @@ carType : "sedan"
 carColor : "red"
 ```
 
-![batch table hierarchy parking lot](figures/batch-table-hierarchy-parking-lot.png)_Batch table hierarchy: parking lot._
+Batch table hierarchy, parking lot: 
+
+![batch table hierarchy parking lot](figures/batch-table-hierarchy-parking-lot.png)
 
 #### Feature hierarchy
 
@@ -465,7 +467,9 @@ block_district : ["central"]
 
 Since the block's `parentId` is also 9, it does not have a parent and the traversal is complete.
 
-![batch table hierarchy block](figures/batch-table-hierarchy-block.png)_Batch table hierarchy: block._
+Batch table hierarchy, block:
+
+![batch table hierarchy block](figures/batch-table-hierarchy-block.png)
 
 ### Styling
 
