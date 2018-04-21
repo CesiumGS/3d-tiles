@@ -40,7 +40,7 @@ Using 3D Tiles terminology, each point is a _feature_.
 
 ## Layout
 
-A tile is composed of a header section immediately followed by a body section. The following figure shows the point cloud layout (dashes indicate optional fields). 
+A tile is composed of a header section immediately followed by a body section. The following figure shows the point cloud layout (dashes indicate optional fields):
 
 ![](figures/layout.png)
 

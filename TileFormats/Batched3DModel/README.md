@@ -30,7 +30,7 @@ Batched 3D model, or just the _batch_, is a binary blob in little endian accesse
 
 ## Layout
 
-A tile is composed of two sections: a header immediately followed by a body. The following figures shows the batched 3D model layout (dashes indicate optional fields).
+A tile is composed of two sections: a header immediately followed by a body. The following figure shows the batched 3D model layout (dashes indicate optional fields):
 
 ![](figures/layout.png)
 
