@@ -7,61 +7,59 @@
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
-Contents:
+## Contents
 
 * [Overview](#overview)
 * [Layout](#layout)
-   * [JSON Header](#json-header)
-   * [Binary Body](#binary-body)
-* [Batch Table Hierarchy](#batch-table-hierarchy)
+   * [JSON header](#json-header)
+   * [Binary body](#binary-body)
+* [Batch table hierarchy](#batch-table-hierarchy)
    * [Motivation](#motivation)
    * [Hierarchy](#hierarchy)
    * [Examples](#examples)
-      * [Feature Classes](#feature-classes)
-      * [Feature Hierarchy](#feature-hierarchy)
+      * [Feature classes](#feature-classes)
+      * [Feature hierarchy](#feature-hierarchy)
    * [Styling](#styling)
    * [Notes](#notes)
-* [Implementation Notes](#implementation-notes)
+* [Implementation notes](#implementation-notes)
 * [Acknowledgments](#acknowledgments)
 
 ## Overview
 
-A _Batch Table_ contains per-feature application-specific metadata in a tile. These properties may be queried at runtime for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, cartographic coordinates, and database primary keys.
+A _batch table_ contains per-feature application-specific metadata in a tile. These properties may be queried at runtime for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  Some example batch table properties are building heights, cartographic coordinates, and database primary keys.
 
-A Batch Table is used by the following tile formats:
-* [Batched 3D Model](../Batched3DModel/README.md) (b3dm)
-* [Instanced 3D Model](../Instanced3DModel/README.md) (i3dm)
-* [Point Cloud](../PointCloud/README.md) (pnts)
+A batch table is used by the following tile formats:
+* [Batched 3D model](../Batched3DModel/README.md) (b3dm)
+* [Instanced 3D model](../Instanced3DModel/README.md) (i3dm)
+* [Point cloud](../PointCloud/README.md) (pnts)
 * [Vector](../VectorData/README.md) (vctr)
 
 ## Layout
 
-A Batch Table is composed of two parts: a JSON header and an optional binary body. The JSON describes the properties, whose values can either be defined directly in the JSON as an array, or refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body.
+A batch table is composed of two parts: a JSON header and an optional binary body. The JSON describes the properties, whose values either can be defined directly in the JSON as an array, or can refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body.
 
-**Figure 1**: Batch Table layout
+![batch table layout](figures/batch-table-layout.png)_Batch table layout._
 
-![batch table layout](figures/batch-table-layout.png)
+When a tile format includes a batch table, the batch table immediately follows the tile's feature table if it exists.  Otherwise, the batch table immediately follows the tile's header.
+The header will also contain `batchTableJSONByteLength` and `batchTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the batch table.
 
-When a tile format includes a Batch Table, the Batch Table immediately follows the tile's Feature Table if it exists.  Otherwise, the Batch Table immediately follows the tile's header.
-The header will also contain `batchTableJSONByteLength` and `batchTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the Batch Table.
+Code for reading the batch table can be found in [Cesium3DTileBatchTable.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
 
-Code for reading the Batch Table can be found in [Cesium3DTileBatchTable.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
+### JSON header
 
-### JSON Header
+Batch table values can be represented in the JSON header in two different ways:
 
-Batch Table values can be represented in the JSON header in two different ways.
-
-1. An array of values. (e.g. `"name" : ['name1', 'name2', 'name3']` or `"height" : [10.0, 20.0, 15.0]`)
+1. An array of values, e.g., `"name" : ['name1', 'name2', 'name3']` or `"height" : [10.0, 20.0, 15.0]`.
     * Array elements can be any valid JSON data type, including objects and arrays.  Elements may be `null`.
-    * The length of each array is equal to `batchLength` which is specified in each tile format.  This is the number of features in the tile.  For example, `batchLength` may be the number of models in a b3dm tile, the number of instances in a i3dm tile, or the number of points (or number of objects) in a pnts tile.
-2. A reference to data in the binary body, denoted by an object with `byteOffset`, `componentType`, and `type` properties property. (e.g. `"height" : { "byteOffset" : 24, "componentType" : "FLOAT", "type" : "SCALAR"}`).
+    * The length of each array is equal to `batchLength`, which is specified in each tile format.  This is the number of features in the tile.  For example, `batchLength` may be the number of models in a b3dm tile, the number of instances in a i3dm tile, or the number of points (or number of objects) in a pnts tile.
+2. A reference to data in the binary body, denoted by an object with `byteOffset`, `componentType`, and `type` properties,  e.g., `"height" : { "byteOffset" : 24, "componentType" : "FLOAT", "type" : "SCALAR"}`.
     * `byteOffset` is a zero-based offset relative to the start of the binary body.
     * `componentType` is the datatype of components in the attribute. Allowed values are `"BYTE"`, `"UNSIGNED_BYTE"`, `"SHORT"`, `"UNSIGNED_SHORT"`, `"INT"`, `"UNSIGNED_INT"`, `"FLOAT"`, and `"DOUBLE"`.
     * `type` specifies if the property is a scalar or vector. Allowed values are `"SCALAR"`, `"VEC2"`, `"VEC3"`, and `"VEC4"`.
 
-The Batch Table JSON is a `UTF-8` string containing JSON. It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
+The batch table JSON is a `UTF-8` string containing JSON. It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 
-A `batchId` is used to access elements in each array and extract the corresponding properties. For example, the following Batch Table has properties for a batch of two features:
+A `batchId` is used to access elements in each array and extract the corresponding properties. For example, the following batch table has properties for a batch of two features:
 ```json
 {
     "id" : ["unique id", "another unique id"],
@@ -87,17 +85,15 @@ yearBuilt[1] = 2015;
 address[1] = {street : 'Main Street', houseNumber : '2'};
 ```
 
-JSON Schema Batch Table definitions can be found in [batchTable.schema.json](../../schema/batchTable.schema.json).
+JSON schema batch table definitions can be found in [batchTable.schema.json](../../schema/batchTable.schema.json).
 
-### Binary Body
+### Binary body
 
 When the JSON header includes a reference to the binary section, the provided `byteOffset` is used to index into the data. 
 
-**Figure 2**: Indexing into the Batch Table binary body
+![batch table binary index](figures/batch-table-binary-index.png)_Indexing into the batch table binary body._
 
-![batch table binary index](figures/batch-table-binary-index.png)
-
-Values can be retrieved using the number of features, `batchLength`, the desired batch id, `batchId`, and the `componentType` and `type` defined in the JSON header.
+Values can be retrieved using the number of features, `batchLength`; the desired batch id, `batchId`; and the `componentType` and `type` defined in the JSON header.
 
 The following tables can be used to compute the byte size of a property.
 
@@ -119,7 +115,7 @@ The following tables can be used to compute the byte size of a property.
 | `"VEC3"` | 3 |
 | `"VEC4"` | 4 |
 
-For example, given the following Batch Table JSON with `batchLength` of 10
+For example, given the following batch table JSON with `batchLength` of 10:
 
 ```json
 {
@@ -164,15 +160,13 @@ var cartographicArray = new Float64Array(batchTableBinary.buffer, byteOffset, ca
 var cartographicOfFeature = positionArray.subarray(batchId * numberOfComponents, batchId * numberOfComponents + numberOfComponents); // Using subarray creates a view into the array, and not a new array.
 ```
 
-## Batch Table Hierarchy
+## Batch table hierarchy
 
-The standard batch table is suitable for datasets composed of features with the same sets of properties. However some datasets have more complex metadata structures such as feature types or feature hierarchies that are not easy to represent as parallel arrays of properties. The batch table hierarchy provides more flexibility for these cases.
+The standard batch table is suitable for datasets composed of features with the same sets of properties. However, some datasets have more complex metadata structures such as feature types or feature hierarchies that are not easy to represent as parallel arrays of properties. The batch table hierarchy provides more flexibility for these cases.
 
 ### Motivation
 
-Consider a tile whose features fit into multiple categories that do not share the same properties. A parking lot tile may have three types of features: cars, lamp posts, and trees.
-
-With the standard batch table, this might look like:
+Consider a tile whose features fit into multiple categories that do not share the same properties. A parking lot tile may have three types of features: cars, lamp posts, and trees. With the standard batch table, this might look like the following:
 
 ```json
 {
@@ -226,11 +220,8 @@ In this example, several `""` and `0` array values are stored so each array has 
 }
 ```
 
-Another limitation of the standard batch table is the difficulty in expressing metadata hierarchies.
-
-For example consider a tile that represents a city block. The block itself contains metadata, the individual buildings contain metadata, and the building walls contain metadata.
-
-A tree diagram of the hierarchy might look like:
+Another limitation of the standard batch table is the difficulty in expressing metadata hierarchies. 
+For example, consider a tile that represents a city block. The block itself contains metadata, the individual buildings contain metadata, and the building walls contain metadata. A tree diagram of the hierarchy might look like this:
 
 - block
   - building
@@ -246,7 +237,7 @@ A tree diagram of the hierarchy might look like:
 
 In order to select a wall and retrieve properties from its building, the wall metadata must also include building metadata. Essentially the three-level hierarchy must be flattened into each feature, resulting in a lot of duplicate entries.
 
-A standard batch table with two walls per building and three buildings per block might look like:
+A standard batch table with two walls per building and three buildings per block might look like this:
 
 ```json
 {
@@ -260,7 +251,7 @@ A standard batch table with two walls per building and three buildings per block
 }
 ```
 
-Both cases above illustrate the benefit of supporting feature types and a feature hierarchy within the batch table.
+Both these cases illustrate the benefit of supporting feature types and a feature hierarchy within the batch table.
 
 ### Hierarchy
 
@@ -317,17 +308,17 @@ Note that this is different than a tile's `batchLength`, which is the total numb
 
 **Implementation Note**: The batch table hierarchy does not directly provide an instances's index into its class's `instances` array. Instead the index can be inferred by the number of instances with the same `classId` that have appeared before it. An implementation may want to compute these indices at load time so that property access is as fast as possible.
 
-`parentCounts` is an array of integers of length `instancesLength`. Each value specifies the number of parents that instance has. If omitted, `parentCounts` is implicitly an array of length `instancesLength` where all values are 1.
+`parentCounts` is an array of integers of length `instancesLength`. Each value specifies the number of parents that instance has. If omitted, `parentCounts` is implicitly an array of length `instancesLength`, where all values are 1.
 
 `parentIds` is an array of integers whose length equals the sum of the values in `parentCounts`. Parent ids are placed sequentially by instance - instance 0's parent ids are followed by instance 1's parent ids. Each value specifies the instance's parent as an index into the `classIds` array.
 
-Cyclical hierarchies are not allowed. When an instance's `parentId` points to itself, then it has no parent. When `parentIds` is omitted the instances do not have parents.
+Cyclical hierarchies are not allowed. When an instance's `parentId` points to itself, then it has no parent. When `parentIds` is omitted, the instances do not have parents.
 
-A feature's `batchId` is used to access its `classId` and `parentCount`. Therefore the values in the `classIds` and `parentCounts` arrays are initially ordered by `batchId` and followed by non-feature instances.
+A feature's `batchId` is used to access its `classId` and `parentCount`. Therefore, the values in the `classIds` and `parentCounts` arrays are initially ordered by `batchId` and followed by non-feature instances.
 
-The `parentCounts` and `parentIds` arrays form an instance hierarchy. A feature's properties includes those defined by its own class and any properties from ancestor instances.
+The `parentCounts` and `parentIds` arrays form an instance hierarchy. A feature's properties include those defined by its own class and any properties from ancestor instances.
 
-In some cases multiple ancestors may share the same property name. This can occur if two ancestors are the same class or are different classes with the same property names. For example if every class defined the property "id" then it would be an overloaded property. In such cases it is up to the implementation to decide which value to return.
+In some cases multiple ancestors may share the same property name. This can occur if two ancestors are the same class or are different classes with the same property names. For example, if every class defined the property "id", then it would be an overloaded property. In such cases it is up to the implementation to decide which value to return.
 
 Finally, `classIds`, `parentCounts`, and `parentIds` may instead be references to data in the binary body. If omitted, `componentType` defaults to `UNSIGNED_SHORT`. `type` is implicitly `SCALAR`.
 
@@ -340,9 +331,9 @@ Finally, `classIds`, `parentCounts`, and `parentIds` may instead be references t
 
 ### Examples
 
-#### Feature Classes
+#### Feature classes
 
-Going back to the example of a parking lot with car, lamp post, and tree features, a batch table might look like:
+Going back to the example of a parking lot with car, lamp post, and tree features, a batch table might look like this:
 
 ```json
 {
@@ -379,7 +370,7 @@ Going back to the example of a parking lot with car, lamp post, and tree feature
 }
 ```
 
-Since this example does not contain any sort of hierarchy the `parentCounts` and `parentIds` are not included and `instancesLength` just equals the tile's `batchLength`.
+Since this example does not contain any sort of hierarchy, the `parentCounts` and `parentIds` are not included, and `instancesLength` just equals the tile's `batchLength`.
 
 A `classId` of 0 indicates a "Lamp" instance, 1 indicates a "Car" instance, and 2 indicates a "Tree" instance.
 
@@ -392,13 +383,11 @@ carType : "sedan"
 carColor : "red"
 ```
 
-**Figure 3**: Batch Table Hierarchy - Parking Lot
+![batch table hierarchy parking lot](figures/batch-table-hierarchy-parking-lot.png)_Batch table hierarchy: parking lot._
 
-![batch table hierarchy parking lot](figures/batch-table-hierarchy-parking-lot.png)
+#### Feature hierarchy
 
-#### Feature Hierarchy
-
-The city block example would now look like:
+The city block example would now look like this:
 
 ```json
 {
@@ -437,7 +426,7 @@ The city block example would now look like:
 }
 ```
 
-The tile's `batchLength` is 6 and `instancesLength` is 10. The building and block instances are not features of the tile, but contain properties that are inherited by the six wall features.
+The tile's `batchLength` is 6 and `instancesLength` is 10. The building and block instances are not features of the tile but contain properties that are inherited by the six wall features.
 
 `parentCounts` is not included since every instance has at most one parent.
 
@@ -455,7 +444,7 @@ block_district : "central"
 
 Breaking it down into smaller steps:
 
-The feature with `batchId = 3` is the fourth "Wall" instance, and its properties are:
+The feature with `batchId = 3` is the fourth "Wall" instance, and its properties are the following:
 ```
 wall_color : "lime"
 wall_windows : 2
@@ -476,9 +465,7 @@ block_district : ["central"]
 
 Since the block's `parentId` is also 9, it does not have a parent and the traversal is complete.
 
-**Figure 4**: Batch Table Hierarchy - Block
-
-![batch table hierarchy block](figures/batch-table-hierarchy-block.png)
+![batch table hierarchy block](figures/batch-table-hierarchy-block.png)_Batch table hierarchy: block._
 
 ### Styling
 
@@ -505,13 +492,13 @@ More detailed descriptions are provided in the [Styling Spec](../../Styling/READ
 
 * The batch table hierarchy is self-contained within the tile. It is not possible to form metadata hierarchy across different tiles in the tileset.
 
-## Implementation Notes
+## Implementation notes
 
 In JavaScript, a `TypedArray` cannot be created on data unless it is byte-aligned to the data type.
 For example, a `Float32Array` must be stored in memory such that its data begins on a byte multiple of four since each `float` contains four bytes.
 
 The string generated from the JSON header should be padded with space characters in order to ensure that the binary body is byte-aligned.
-The binary body should also be padded if necessary when there is data following the Batch Table.
+The binary body should also be padded if necessary when there is data following the batch table.
 
 ## Acknowledgments
 
