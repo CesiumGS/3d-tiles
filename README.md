@@ -90,7 +90,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * [Introducing 3D Tiles](https://cesium.com/blog/2015/08/10/introducing-3d-tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
 * [The Next Generation of 3D Tiles](https://cesium.com/blog/2017/07/12/the-next-generation-of-3d-tiles/) - future plans for 3D Tiles.
 * **Cesium implementation**
-   * Download [Cesium 1.35 or later](https://cesiumjs.org/downloads/) and check out the [Sandcastle examples labeled '3D Tiles'](http://cesiumjs.org/Cesium/Apps/Sandcastle/index.html?src=3D%20Tiles%20BIM.html&label=3D%20Tiles).
+   * Download [Cesium 1.35 or later](https://cesiumjs.org/downloads/) and check out the [Sandcastle examples labeled '3D Tiles'](http://cesiumjs.org/Cesium/Build/Apps/Sandcastle/index.html?src=3D%20Tiles%20BIM.html&label=3D%20Tiles).
    * [Roadmap](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241).
 * **Sample data**
    * [3d-tiles-samples](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples) - sample tilesets for learning how to use 3D Tiles
@@ -128,13 +128,13 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 
 ## Spec status
 
-The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in the tileset JSON).  We expect a draft 1.0 version and the Cesium implementation to stabilize in 2017; see the [remaining items](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues?q=is%3Aissue+is%3Aopen+label%3A%22draft+1.0%22).
+The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in the tileset JSON).  We expect a draft 1.0 version and the Cesium implementation to stabilize in 2017; see the [remaining items](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues?q=is%3Aopen+is%3Aissue+label%3A1.0).
 
 **Draft 1.0 Plans**
 
 Topic  | Status
 ---|---
-[Tileset JSON](#tileset-json-file)<br /><br />The tileset's spatial hierarchy  | :white_check_mark: **Solid base**, will add features as needed
+[Tileset JSON](#tileset-json-files)<br /><br />The tileset's spatial hierarchy  | :white_check_mark: **Solid base**, will add features as needed
 [Batched 3D Model](TileFormats/Batched3DModel/README.md) (*.b3dm)<br /><br />Textured terrain and surfaces, 3D building exteriors and interiors, massive models, ...  | :white_check_mark: **Solid base**, only minor, if any, changes expected
 [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (*.i3dm)<br /><br />Trees, windmills, bolts, ... | :white_check_mark: **Solid base**, only minor, if any, changes expected
 [Point Cloud](TileFormats/PointCloud/README.md) (*.pnts)<br /><br />Massive amount of points | :white_check_mark: **Solid base**, only minor, if any, changes expected
@@ -146,7 +146,7 @@ Topic  | Status
 
 Topic  | Status
 ---|---
-Terrain v2  | :white_circle: **Not started**, [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html) is a good starting point; in the meantime, folks are using [Batched 3D Model](TileFormats/Batched3DModel/README.md)
+Terrain v2  | :white_circle: **Not started**, [quantized-mesh](https://github.com/AnalyticalGraphicsInc/quantized-mesh/blob/master/README.md) is a good starting point; in the meantime, folks are using [Batched 3D Model](TileFormats/Batched3DModel/README.md)
 [OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started** Currently folks are using [Batched 3D Model](TileFormats/Batched3DModel/README.md)
 Stars  | :white_circle: **Not started**
 
@@ -186,7 +186,7 @@ Optionally, a separate 3D Tile Style may be applied to a tileset.
 
 3D Tiles use URLs to reference tile content.
 
-All URLs must be valid resolvable URIs, and may be absolute or relative. When the url is relative, it's base is always referring to the referring tileset `.json` file.
+All URLs must be valid resolvable URIs, and may be absolute or relative. When the url is relative, its base is always relative to the referring tileset `.json` file.
 
 ## Tiles
 
@@ -232,13 +232,13 @@ An optional `viewerRequestVolume` property (not shown above) defines a volume, u
 
 The `refine` property is a string that is either `"REPLACE"` for replacement refinement or `"ADD"` for additive refinement.  It is required for the root tile of a tileset; it is optional for all other tiles.  When `refine` is omitted, it is inherited from the parent tile.
 
-The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
+The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [roadmap Q&A](#how-do-i-request-the-tiles-for-level-n).
 
 The url can be another tileset JSON to create a tileset of tilesets.  See [External tilesets](#external-tilesets).
 
 A file extension is not required for `content.url`.  A content's [tile format](#tile-formats) can be identified by the `magic` field in its header, or otherwise as an external tileset if the content is JSON.
 
-`content.boundingVolume` defines an optional bounding volume similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's contents.  This is used for replacement refinement; `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
+`content.boundingVolume` defines an optional bounding volume similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's contents.  `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
 
 ![](figures/contentsBox.png)
 
@@ -246,7 +246,7 @@ A file extension is not required for `content.url`.  A content's [tile format](#
 
 An optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
 
-`children` is an array of objects that define child tiles.  See the [section below](#tilesetjson).
+`children` is an array of objects that define child tiles.  See the [section below](#tileset-json-files).
 
 ![](figures/tile.png)
 
@@ -276,7 +276,7 @@ The units for all linear distances are meters.
 
 All angles are in radians.
 
-3D Tiles do not explicitly store Cartographic coordinates (longitude, latitude, and height); these values are implicit in WGS84 Cartesian coordinates, which are efficient for the GPU to render since they do not require a non-affine coordinate transformation.  A 3D Tiles tileset can include application-specific metadata, such as Cartographic coordinates, but the semantics are not part of the 3D Tiles specification.
+3D Tiles do not explicitly store geographic coordinates (longitude, latitude, and height); these values are implicitly in WGS84 Cartesian coordinates, which are efficient for the GPU to render since they do not require a non-affine coordinate transformation.  A 3D Tiles tileset can include application-specific metadata, such as geographic coordinates, but the semantics are not part of the 3D Tiles specification.
 
 ### Tile transform
 
@@ -288,7 +288,7 @@ The `transform` property applies to:
 * `tile.content`
    * Each feature's position.
    * Each feature's normal should be transformed by the top-left 3x3 matrix of the inverse-transpose of `transform` to account for [correct vector transforms when scale is used](http://www.realtimerendering.com/resources/RTNews/html/rtnews1a.html#art4).
-   * `content.boundingVolume`, except when `content.boundingVolume.region` is defined, which is explicitly in [WGS84 / EPSG:4326 coordinates](http://spatialreference.org/ref/epsg/wgs-84/).
+   * `content.boundingVolume`, except when `content.boundingVolume.region` is defined, which is explicitly in WGS84 / EPSG:4326 coordinates.
 * `tile.boundingVolume`, except when `tile.boundingVolume.region` is defined, which is explicitly in WGS84 / EPSG:4326 coordinates.
 * `tile.viewerRequestVolume`, except when `tile.viewerRequestVolume.region` is defined, which is explicitly in WGS84 / EPSG:4326 coordinates.
 
@@ -326,8 +326,8 @@ function computeTransform(tile, transformToRoot) {
 
     var children = tile.children;
     var length = children.length;
-    for (var k = 0; k < length; ++k) {
-        var child = children[k];
+    for (var i = 0; i < length; ++i) {
+        var child = children[i];
         var childToRoot = defined(child.transform) ? Matrix4.fromArray(child.transform) : Matrix4.clone(Matrix4.IDENTITY);
         childToRoot = Matrix4.multiplyTransformation(transformToRoot, childToRoot, childToRoot);
         computeTransform(child, childToRoot);
@@ -412,7 +412,7 @@ For more on request volumes, see the [sample tileset](https://github.com/Analyti
 
 3D Tiles use one main tileset `.json` file as the entry point to define a tileset.
 
-See [schema](schema) for the detailed tileset JSON schema.
+See the [schema](schema) for the detailed tileset JSON schema.
 
 Here is a subset of the tileset file used for [Canary Wharf](http://cesiumjs.org/CanaryWharf/) (also see the complete file, [`tileset.json`](examples/tileset.json)):
 ```json
@@ -467,11 +467,11 @@ The top-level object in the tileset JSON has four properties: `asset`, `properti
 
 `geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered.
 
-`root` is an object that defines the root tile using the JSON described in the [above section](#Tile-Metadata).  `root.geometricError` is not the same as the tileset's top-level `geometricError`.  tileset. The tileset's `geometricError` is the error when the entire tileset is not rendered; `root.geometricError` is the error when only the root tile is rendered.
+`root` is an object that defines the root tile using the JSON described in the [above section](#tile-content).  `root.geometricError` is not the same as the tileset's top-level `geometricError`.  tileset. The tileset's `geometricError` is the error when the entire tileset is not rendered; `root.geometricError` is the error when only the root tile is rendered.
 
-`root.children` is an array of objects that define child tiles.  Each child tile has a `boundingVolume` fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
+`root.children` is an array of objects that define child tiles.  Each child tile's `content.boundingVolume` is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
 
-See the [Q&A below](#Will-a-tileset-file-be-part-of-the-final-3D-Tiles-spec) for how a tileset file will scale to a massive number of tiles. 
+See the [Q&A below](#will-a-tileset-file-be-part-of-the-final-3d-tiles-spec) for how a tileset file will scale to a massive number of tiles.
 
 ### External tilesets
 
@@ -636,7 +636,7 @@ No, 3D Tiles are a general spec for streaming massive heterogeneous 3D geospatia
 
 #### What is the relationship between 3D Tiles and glTF?
 
-[glTF](https://www.khronos.org/gltf), the runtime asset format for WebGL, is an open standard for 3D models from Khronos (the same group that does WebGL and COLLADA).  Cesium uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter.  We recommend using glTF in Cesium for individual assets, e.g., an aircraft, a character, or a 3D building.
+[glTF](https://www.khronos.org/gltf) is an open standard for 3D models from Khronos (the same group that does WebGL and COLLADA).  Cesium uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter.  We recommend using glTF in Cesium for individual assets, e.g., an aircraft, a character, or a 3D building.
 
 We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, that Cesium has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles use glTF for some tile formats such as [b3dm](TileFormats/Batched3DModel/README.md) (used for 3D buildings). To avoid base64-encoding or multiple file overhead, [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout), is embedded into binary tiles.
 
@@ -650,7 +650,7 @@ The general case runtime editing of geometry on a building, vector data, etc., a
 
 #### Will 3D Tiles include terrain?
 
-Yes, a [quantized-mesh](https://cesiumjs.org/data-and-assets/terrain/formats/quantized-mesh-1.0.html)-like tile would fit well with 3D Tiles and allow Cesium to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to the tileset file).
+Yes, a [quantized-mesh](https://github.com/AnalyticalGraphicsInc/quantized-mesh/blob/master/README.md)-like tile would fit well with 3D Tiles and allow Cesium to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to the tileset file).
 
 However, since Cesium already streams terrain well, we are not focused on this in the short-term.
 

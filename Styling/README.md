@@ -51,13 +51,13 @@ Contents:
    * [Notes](#notes)
 * [Batch Table Hierarchy](#batch-table-hierarchy)
 * [Point Cloud](#point-cloud)
-* [File Extension](#file-extension)
-* [MIME Type](#mime-type)
+* [File Extension](#file-extensions-and-mime-type)
+* [MIME Type](#file-extensions-and-mime-type)
 * [Acknowledgments](#acknowledgments)
 
 ## Overview
 
-3D Tiles styles provide concise declarative styling of tileset.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties or class as stored in the tile's [Batch Table](../BatchTable/README.md).
+3D Tiles styles provide concise declarative styling of tilesets.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties or class as stored in the tile's [Batch Table](../TileFormats/BatchTable/README.md).
 
 While a style may be created for and reference properties of a tileset, a style is independent of a tileset, such that any style can be applied to any tileset.
 

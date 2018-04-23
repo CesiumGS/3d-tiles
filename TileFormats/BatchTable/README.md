@@ -26,7 +26,7 @@ Contents:
 
 ## Overview
 
-A _Batch Table_ contains per-feature application-specific metadata in a tile. These properties may be queried at runtime for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, cartographic coordinates, and database primary keys.
+A _Batch Table_ contains per-feature application-specific metadata in a tile. These properties may be queried at runtime for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, geographic coordinates, and database primary keys.
 
 A Batch Table is used by the following tile formats:
 * [Batched 3D Model](../Batched3DModel/README.md) (b3dm)
@@ -128,7 +128,7 @@ For example, given the following Batch Table JSON with `batchLength` of 10
         "componentType" : "FLOAT",
         "type" : "SCALAR"
     },
-    "cartographic" : {
+    "geographic" : {
         "byteOffset" : 40,
         "componentType" : "DOUBLE",
         "type" : "VEC3"
@@ -149,19 +149,19 @@ var heightArray = new Float32Array(batchTableBinary.buffer, byteOffset, heightAr
 var heightOfFeature = heightArray[batchId];
 ```
 
-To get the `"cartographic"` values:
+To get the `"geographic"` values:
 
 ```javascript
-var cartographic = batchTableJSON.cartographic;
-var byteOffset = cartographic.byteOffset;
-var componentType = cartographic.componentType;
-var type = cartographic.type;
+var geographic = batchTableJSON.geographic;
+var byteOffset = geographic.byteOffset;
+var componentType = geographic.componentType;
+var type = geographic.type;
 var componentSizeInBytes = sizeInBytes(componentType)
 var numberOfComponents = numberOfComponents(type);
 
-var cartographicArrayByteLength = batchLength * componentSizeInBytes * numberOfComponents // 10 * 8 * 3
-var cartographicArray = new Float64Array(batchTableBinary.buffer, byteOffset, cartographicArrayByteLength);
-var cartographicOfFeature = positionArray.subarray(batchId * numberOfComponents, batchId * numberOfComponents + numberOfComponents); // Using subarray creates a view into the array, and not a new array.
+var geographicArrayByteLength = batchLength * componentSizeInBytes * numberOfComponents // 10 * 8 * 3
+var geographicArray = new Float64Array(batchTableBinary.buffer, byteOffset, geographicArrayByteLength);
+var geographicOfFeature = positionArray.subarray(batchId * numberOfComponents, batchId * numberOfComponents + numberOfComponents); // Using subarray creates a view into the array, and not a new array.
 ```
 
 ## Batch Table Hierarchy

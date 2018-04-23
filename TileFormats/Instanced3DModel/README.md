@@ -120,7 +120,7 @@ module.
 #### Default Orientation
 
 If `NORMAL_UP` and `NORMAL_RIGHT` or `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P` are not present,
-the instance will not have a custom orientation. If `EAST_NORTH_UP` is `true` the instance is assumed to be on the `WGS84` ellipsoid and its orientation will default to the `east/north/up` reference frame at its Cartographic position.
+the instance will not have a custom orientation. If `EAST_NORTH_UP` is `true` the instance is assumed to be on the `WGS84` ellipsoid and its orientation will default to the `east/north/up` reference frame at its geographic position.
 This is suitable for instanced models like trees whose orientation is always facing up from their position on the ellipsoid's surface.
 
 ### Instance Position
