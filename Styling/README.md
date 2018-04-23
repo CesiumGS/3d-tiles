@@ -81,7 +81,7 @@ Instead of showing all features, `show` can be an expression dependent on a feat
 `show` can also be used for more complex queries; for example, here a compound condition and regular expression are used to show only features whose county starts with `'Chest'` and whose year built is greater than or equal to 1970:
 ```json
 {
-    "show" : "(RegExp('^Chest').test(${County})) && (${YearBuilt} >= 1970)"
+    "show" : "(regExp('^Chest').test(${County})) && (${YearBuilt} >= 1970)"
 }
 ```
 
@@ -258,7 +258,7 @@ Example expressions for different types include the following:
 * `vec3(1.0, 2.0, 3.0)`
 * `vec4(1.0, 2.0, 3.0, 4.0)`
 * `color('#00FFFF')`
-* `RegExp('^Chest'))`
+* `regExp('^Chest'))`
 
 #### Number
 
@@ -368,10 +368,10 @@ For example:
 #### RegExp
 
 Regular expressions are created with the following functions, which behave like the JavaScript [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) constructor:
-* `RegExp() : RegExp`
-* `RegExp(pattern : String, [flags : String]) : RegExp`
+* `regExp() : RegExp`
+* `regExp(pattern : String, [flags : String]) : RegExp`
 
-Calling `RegExp()` with no arguments is the same as calling `RegExp('(?:)')`.
+Calling `regExp()` with no arguments is the same as calling `regExp('(?:)')`.
 
 If specified, `flags` can have any combination of the following values:
 
@@ -393,9 +393,9 @@ For example:
 ```
 
 ```
-RegExp('a').test('abc') === true
-RegExp('a(.)', 'i').exec('Abc') === 'b'
-RegExp('Building\s(\d)').exec(${Name}) === '1'
+regExp('a').test('abc') === true
+regExp('a(.)', 'i').exec('Abc') === 'b'
+regExp('Building\s(\d)').exec(${Name}) === '1'
 ```
 
 Regular expressions have a `toString` function for explicit (and implicit) conversion to strings in the format `'pattern'`:
@@ -407,11 +407,11 @@ The operators `=~` and `!~` are overloaded for regular expressions. The `=~` ope
 
 For example, the following expressions all evaluate to true:
 ```
-RegExp('a') =~ 'abc'
-'abc' =~ RegExp('a')
+regExp('a') =~ 'abc'
+'abc' =~ regExp('a')
 
-RegExp('a') !~ 'bcd'
-'bcd' !~ RegExp('a')
+regExp('a') !~ 'bcd'
+'bcd' !~ regExp('a')
 ```
 
 ### Operator rules
@@ -439,7 +439,7 @@ RegExp('a') !~ 'bcd'
     * Number expressions
     * Vector expressions of the same type
 * Binary equality operators `===` and `!==` operate on any expressions. The operation returns `false` if the expression types do not match.
-* Binary `RegExp` operators `=~` and `!~` require one argument to be a string expression and the other to be a `RegExp` expression.
+* Binary `regExp` operators `=~` and `!~` require one argument to be a string expression and the other to be a `RegExp` expression.
 * Ternary operator `? :` conditional argument must be a boolean expression.
 
 ### Type conversions
@@ -1252,7 +1252,7 @@ For example, the following style will color all doorknobs yellow, all doors gree
 ```json
 {
     "defines" : {
-        "suffix" : "RegExp('door(.*)').exec(getExactClassName())"
+        "suffix" : "regExp('door(.*)').exec(getExactClassName())"
     },
     "color" : {
         "conditions" : [
