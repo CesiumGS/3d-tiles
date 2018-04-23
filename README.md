@@ -438,7 +438,7 @@ When a tile points to an external tileset, the tile
     * `root.boundingVolume === tile.content.boundingVolume` (or `root.boundingVolume === tile.boundingVolume` when `tile.content.boundingVolume` is `undefined`).
     * `root.viewerRequestVolume === tile.viewerRequestVolume` or `root.viewerRequestVolume` is `undefined`.
 * Cannot be used to create cycles, for example, by pointing to the same tileset.json containing the tile or by pointing to another tileset.json that then points back to the tileset.json containing the tile.
-* Will by transformed by both the tile's `transform` and root tile's `transform`.  For example, in the following tileset referencing an external tileset, the computed transform for `T3` is `[T0][T1][T2][T3]`.
+* Will be transformed by both the tile's `transform` and root tile's `transform`.  For example, in the following tileset referencing an external tileset, the computed transform for `T3` is `[T0][T1][T2][T3]`.
 
 ![](figures/tileTransformExternalTileset.png)
 
