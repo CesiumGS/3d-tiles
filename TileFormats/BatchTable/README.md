@@ -162,7 +162,7 @@ var cartographicOfFeature = positionArray.subarray(batchId * numberOfComponents,
 
 ## Batch Table Hierarchy
 
-The standard batch table is suitable for datasets composed of features with the same sets of properties. However, some datasets have more complex metadata structures such as feature types or feature hierarchies that are not easy to represent as parallel arrays of properties. The Batch Table hierarchy provides more flexibility for these cases.
+The standard batch table is suitable for datasets composed of features with the same sets of properties. However, some datasets have more complex metadata structures such as feature types or feature hierarchies that are not easy to represent as parallel arrays of properties. The Batch Table Hierarchy provides more flexibility for these cases.
 
 ### Motivation
 
@@ -306,7 +306,7 @@ Note that this is different than a tile's `batchLength`, which is the total numb
 
 `classIds` is an array of integers of length `instancesLength`. Each value specifies the instances's class as an index in the `classes` array.
 
-**Implementation Note**: The Batch Table hierarchy does not directly provide an instances's index into its class's `instances` array. Instead the index can be inferred by the number of instances with the same `classId` that have appeared before it. An implementation may want to compute these indices at load time so that property access is as fast as possible.
+**Implementation Note**: The Batch Table Hierarchy does not directly provide an instances's index into its class's `instances` array. Instead the index can be inferred by the number of instances with the same `classId` that have appeared before it. An implementation may want to compute these indices at load time so that property access is as fast as possible.
 
 `parentCounts` is an array of integers of length `instancesLength`. Each value specifies the number of parents that instance has. If omitted, `parentCounts` is implicitly an array of length `instancesLength`, where all values are 1.
 
@@ -383,7 +383,7 @@ carType : "sedan"
 carColor : "red"
 ```
 
-Batch Table hierarchy, parking lot: 
+Batch Table Hierarchy, parking lot:
 
 ![batch table hierarchy parking lot](figures/batch-table-hierarchy-parking-lot.png)
 
@@ -467,7 +467,7 @@ block_district : ["central"]
 
 Since the block's `parentId` is also 9, it does not have a parent and the traversal is complete.
 
-Batch Table hierarchy, block:
+Batch Table Hierarchy, block:
 
 ![batch table hierarchy block](figures/batch-table-hierarchy-block.png)
 
@@ -483,7 +483,7 @@ More detailed descriptions are provided in the [Styling Spec](../../Styling/READ
 
 ### Notes
 
-* Since the Batch Table hierarchy is an extension to the standard batch table, it is still possible to store per-feature properties alongside the `HIERARCHY` object:
+* Since the Batch Table Hierarchy is an extension to the standard batch table, it is still possible to store per-feature properties alongside the `HIERARCHY` object:
 
 ```
 {
@@ -494,7 +494,7 @@ More detailed descriptions are provided in the [Styling Spec](../../Styling/READ
 }
 ```
 
-* The Batch Table hierarchy is self-contained within the tile. It is not possible to form metadata hierarchy across different tiles in the tileset.
+* The Batch Table Hierarchy is self-contained within the tile. It is not possible to form metadata hierarchy across different tiles in the tileset.
 
 ## Implementation notes
 

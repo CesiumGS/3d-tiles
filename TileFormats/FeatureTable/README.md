@@ -47,7 +47,7 @@ Feature Table values can be represented in the JSON header in three different wa
    * This is used for per-feature semantics like `"POSITION"` in Instanced 3D Model.  Above, each `POSITION` refers to a `float32[3]` data type so there are three features: `Feature 0's position`=`(1.0, 0.0, 0.0)`, `Feature 1's position`=`(0.0, 1.0, 0.0)`, `Feature 2's position`=`(0.0, 0.0, 1.0)`.
 3. A reference to data in the binary body, denoted by an object with a `byteOffset` property, e.g., `"SCALE" : { "byteOffset" : 24}`.
    * `byteOffset` is a zero-based offset relative to the start of the binary body.
-   * The semantic defines the allowed data type, e.g., when `"POSITION"` in instanced model refers to the binary body, the component type is `FLOAT` and the number of components is `3`.
+   * The semantic defines the allowed data type, e.g., when `"POSITION"` in Instanced 3D Model refers to the binary body, the component type is `FLOAT` and the number of components is `3`.
    * Some semantics allow for overriding the implicit `componentType`. These cases are specified in each tile format, e.g., `"BATCH_ID" : { "byteOffset" : 24, "componentType" : "UNSIGNED_BYTE"}`.
 The only valid properties in the JSON header are the defined semantics by the tile format.  Application-specific data should be stored in the Batch Table.
 
