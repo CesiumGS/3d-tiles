@@ -99,7 +99,7 @@ The color's alpha component defines the feature's opacity. For example, the foll
 }
 ```
 
-In addition to a string containing an expression, `color` and `show` can be an array defining a series of conditions (think of them as `if...else` statements).  Conditions can, for example, be used to make color maps and color ramps with any type of inclusive/exclusive intervals. 
+In addition to a string containing an expression, `color` and `show` can be an array defining a series of conditions (think of them as `if...else` statements).  Conditions can, for example, be used to make color maps and color ramps with any type of inclusive/exclusive intervals.
 
 For example, the following expression maps an ID property to colors. Conditions are evaluated in order, so if `${id}` is not `'1'` or `'2'`, the `"true"` condition returns white. If no conditions are met, the color of the feature will be `undefined`:
 ```json

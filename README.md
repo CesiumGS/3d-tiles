@@ -1,6 +1,6 @@
 <p align="center"><img src="figures/Cesium3DTiles.png" /></p>
 
-Specification for streaming massive heterogeneous 3D geospatial datasets.
+Specification for streaming massive heterogeneous **3D** geospatial datasets.
 
 3D Tiles has entered the Open Geospatial Consortium (OGC) [Community Standard](https://cesium.com/blog/2016/09/06/3d-tiles-and-the-ogc/) process.
 
@@ -416,7 +416,7 @@ The top-level object in tileset.json has four properties: `asset`, `properties`,
 
 `asset` is an object containing properties with metadata about the entire tileset.  Its `version` property is a string that defines the 3D Tiles version.  The version defines the JSON schema for tileset.json and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated. The `gltfUpAxis` property is an optional string that specifies the up-axis of glTF models contained in the tileset.
 
-`properties` is an object containing objects for each per-feature property in the tileset.  This tileset.json snippet is for 3D buildings, so each tile has building models, and each building model has a `height` property (see [Batch Table](TileFormats/BatchTable/README.md)).  The name of each object in `properties` matches the name of a per-feature property, and the name defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
+`properties` is an object containing objects for each per-feature property in the tileset.  This tileset.json snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see [Batch Table](TileFormats/BatchTable/README.md)).  The name of each object in `properties` matches the name of a per-feature property, and its value defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
 `geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered.
 
@@ -533,13 +533,13 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 
 3D Tiles takes advantage of empty tiles: those tiles that have a bounding volume, but no content. Since a tile's `content` property does not need to be defined, empty non-leaf tiles can be used to accelerate non-uniform grids with hierarchical culling. This essentially creates a quadtree or octree without hierarchical levels of detail (HLOD).
 
-## Tile Formats
+## Tile formats
 
 Each tile's `content.url` property points to a tile that is one of the formats listed in the [Status section](#spec-status) above.
 
 A tileset can contain any combination of tile formats.  3D Tiles may also support different formats in the same tile using a [Composite](TileFormats/Composite/README.md) tile.
 
-## Declarative Styling
+## Declarative styling
 
 <p align="center">
   <img src="figures/style.jpg" /><br />
@@ -654,7 +654,7 @@ Since [horizon culling](https://cesium.com/blog/2013/04/25/horizon-culling/) is 
 
 #### Is screen space error the only metric used to drive refinement?
 
-At runtime, a tile's `geometricError` is used to compute the screen space Error (SSE) to drive refinement.  We expect to expand this, for example, by using the [_virtual multiresolution screen space error_](http://www.dis.unal.edu.co/profesores/pierre/MyHome/publications/papers/vmsse.pdf) (VMSSE), which takes occlusion into account.  This can be done at runtime without streaming additional tile metadata.  Similarly, fog can also be used to tolerate increases to the SSE in the distance.
+At runtime, a tile's `geometricError` is used to compute the screen space error (SSE) to drive refinement.  We expect to expand this, for example, by using the [_virtual multiresolution screen space error_](http://www.dis.unal.edu.co/profesores/pierre/MyHome/publications/papers/vmsse.pdf) (VMSSE), which takes occlusion into account.  This can be done at runtime without streaming additional tile metadata.  Similarly, fog can also be used to tolerate increases to the SSE in the distance.
 
 However, we do anticipate other metadata for driving refinement.  SSE may not be appropriate for all datasets; for example, points of interest may be better served with on/off distances and a label collision factor computed at runtime.  Note that the viewer's height above the ground is rarely a good metric for 3D since 3D supports arbitrary views.
 
