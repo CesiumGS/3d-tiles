@@ -12,7 +12,7 @@
 * [Overview](#overview)
 * [Layout](#layout)
 * [Header](#header)
-* [Feature table](#feature-table)
+* [Feature Table](#feature-table)
     * [Semantics](#semantics)
         * [Point semantics](#point-semantics)
         * [Global semantics](#global-semantics)
@@ -27,20 +27,20 @@
         * [Positions and colors](#positions-and-colors)
         * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)
         * [Batched points](#batched-points)         
-        * [Per-point properties](#per-point-properties)                       
-* [Batch table](#batch-table)
+        * [Per-point properties](#per-point-properties)
+* [Batch Table](#batch-table)
 * [File extension](#file-extension)
 * [MIME type](#mime-type)
 
 ## Overview
 
-The _point cloud_ tile format enables efficient streaming of massive point clouds for 3D visualization. Each point is defined by a position and by optional properties used to define its appearance, such as color and normal, as well as optional properties that define application-specific metadata.
+The _Point Cloud_ tile format enables efficient streaming of massive point clouds for 3D visualization. Each point is defined by a position and by optional properties used to define its appearance, such as color and normal, as well as optional properties that define application-specific metadata.
 
 Using 3D Tiles terminology, each point is a _feature_.
 
 ## Layout
 
-A tile is composed of a header section immediately followed by a body section. The following figure shows the point cloud layout (dashes indicate optional fields):
+A tile is composed of a header section immediately followed by a body section. The following figure shows the Point Cloud layout (dashes indicate optional fields):
 
 ![](figures/layout.png)
 
@@ -50,13 +50,13 @@ The 28-byte header contains the following fields:
 
 | Field name | Data type | Description |
 | --- | --- | --- |
-| `magic` | 4-byte ANSI string | `"pnts"`.  This can be used to identify the arraybuffer as a point cloud tile. |
-| `version` | `uint32` | The version of the point cloud format. It is currently `1`. |
+| `magic` | 4-byte ANSI string | `"pnts"`.  This can be used to identify the arraybuffer as a Point Cloud tile. |
+| `version` | `uint32` | The version of the Point Cloud format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
-| `featureTableJSONByteLength` | `uint32` | The length of the feature table JSON section in bytes. |
-| `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
-| `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates that there is no batch table. |
-| `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
+| `featureTableJSONByteLength` | `uint32` | The length of the Feature Table JSON section in bytes. |
+| `featureTableBinaryByteLength` | `uint32` | The length of the Feature Table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
+| `batchTableJSONByteLength` | `uint32` | The length of the Batch Table JSON section in bytes. Zero indicates that there is no Batch Table. |
+| `batchTableBinaryByteLength` | `uint32` | The length of the Batch Table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
 
 If `featureTableJSONByteLength` equals zero, the tile does not need to be rendered.
 
@@ -64,19 +64,19 @@ The body section immediately follows the header section, and is composed of a `F
 
 Code for reading the header can be found in [PointCloud3DModelTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/PointCloud3DTileContent.js) in the Cesium implementation of 3D Tiles.
 
-## Feature table
+## Feature Table
 
 Contains per-tile and per-point values that define where and how to render points.
-More information is available in the [feature table specification](../FeatureTable/README.md).
+More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
-The `pnts` feature table JSON schema is defined in [pnts.featureTable.schema.json](../../schema/pnts.featureTable.schema.json).
+The `pnts` Feature Table JSON schema is defined in [pnts.featureTable.schema.json](../../schema/pnts.featureTable.schema.json).
 
 ### Semantics
 
 #### Point semantics
 
 These semantics map to an array of feature values that define each point. The length of these arrays must be the same for all semantics and is equal to the number of points.
-The value for each point semantic must be a reference to the feature table binary body; they cannot be embedded in the feature table JSON header.
+The value for each point semantic must be a reference to the Feature Table binary body; they cannot be embedded in the Feature Table JSON header.
 
 If a semantic has a dependency on another semantic, that semantic must be defined.
 If both `POSITION` and `POSITION_QUANTIZED` are defined for a point, the higher precision `POSITION` will be used.
@@ -130,7 +130,7 @@ Quantized positions can be mapped to model space using the following formula:
 
 ### Point colors
 
-If more than one color semantic is defined, the precedence order is `RGBA`, `RGB`, `RGB565`, then `CONSTANT_RGBA`. For example, if a tile's feature table contains both `RGBA` and `CONSTANT_RGBA` properties, the runtime would render with per-point colors using `RGBA`.
+If more than one color semantic is defined, the precedence order is `RGBA`, `RGB`, `RGB565`, then `CONSTANT_RGBA`. For example, if a tile's Feature Table contains both `RGBA` and `CONSTANT_RGBA` properties, the runtime would render with per-point colors using `RGBA`.
 
 If no color semantics are defined, the runtime is free to color points using an application-specific default color.
 
@@ -148,7 +148,7 @@ module.
 
 ### Batched points
 
-Points that make up distinct features of the point cloud may be batched together using the `BATCH_ID` semantic. For example, the points that make up a door in a house would all be assigned the same `BATCH_ID`, whereas points that make up a window would be assigned a different `BATCH_ID`.
+Points that make up distinct features of the Point Cloud may be batched together using the `BATCH_ID` semantic. For example, the points that make up a door in a house would all be assigned the same `BATCH_ID`, whereas points that make up a window would be assigned a different `BATCH_ID`.
 This is useful for per-object picking and storing application-specific metadata for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request on a per-object instead of per-point basis.
 
 The `BATCH_ID` semantic may have a `componentType` of `UNSIGNED_BYTE`, `UNSIGNED_SHORT`, or `UNSIGNED_INT`. When `componentType` is not present, `UNSIGNED_SHORT` is used.
@@ -156,7 +156,7 @@ The global semantic `BATCH_LENGTH` defines the number of unique `batchId` values
 
 ### Examples
 
-These examples show how to generate JSON and binary buffers for the feature table.
+These examples show how to generate JSON and binary buffers for the Feature Table.
 
 #### Positions only
 
@@ -246,7 +246,7 @@ var featureTableBinary = Buffer.concat([positionQuantizedBinary, normalOct16PBin
 
 #### Batched points
 
-In this example, the first two points have a `batchId` of 0, and the next two points have a `batchId` of 1. Note that the batch table only has two names:
+In this example, the first two points have a `batchId` of 0, and the next two points have a `batchId` of 1. Note that the Batch Table only has two names:
 
 ```javascript
 var featureTableJSON = {
@@ -284,7 +284,7 @@ var batchTableJSON = {
 
 #### Per-point properties
 
-In this example, each of the 4 points will have metadata stored in the batch table JSON and binary.
+In this example, each of the 4 points will have metadata stored in the Batch Table JSON and binary.
 
 ```javascript
 var featureTableJSON = {
@@ -306,12 +306,12 @@ var batchTableJSON = {
 };
 ```
 
-## Batch table
+## Batch Table
 
-The _batch table_ contains application-specific metadata, indexable by `batchId`, that can be used for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.
+The _Batch Table_ contains application-specific metadata, indexable by `batchId`, that can be used for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.
 
-* If the `BATCH_ID` semantic is defined, the batch table stores metadata for each `batchId`, and the length of the batch table arrays will equal `BATCH_LENGTH`.
-* If the `BATCH_ID` semantic is not defined, then the batch table stores per-point metadata, and the length of the batch table arrays will equal `POINTS_LENGTH`.
+* If the `BATCH_ID` semantic is defined, the Batch Table stores metadata for each `batchId`, and the length of the Batch Table arrays will equal `BATCH_LENGTH`.
+* If the `BATCH_ID` semantic is not defined, then the Batch Table stores per-point metadata, and the length of the Batch Table arrays will equal `POINTS_LENGTH`.
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
 

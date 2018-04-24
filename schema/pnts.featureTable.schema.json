@@ -3,7 +3,7 @@
     "id" : "pnts.featureTable.schema.json",
     "title" : "Point Cloud Feature Table",
     "type" : "object",
-    "description" : "A set of point cloud semantics that contains values defining the position and appearance properties for points in a tile.",
+    "description" : "A set of Point Cloud semantics that contains values defining the position and appearance properties for points in a tile.",
     "allOf" : [{
         "$ref" : "featureTable.schema.json"
     }, {

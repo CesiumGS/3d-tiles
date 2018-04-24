@@ -11,7 +11,7 @@
 * [Overview](#overview)
 * [Layout](#layout)
 * [Header](#header)
-* [Feature table](#feature-table)
+* [Feature Table](#feature-table)
     * [Semantics](#semantics)
         * [Instance semantics](#instance-semantics)
         * [Global semantics](#global-semantics)
@@ -24,7 +24,7 @@
     * [Examples](#examples)
         * [Positions only](#positions-only) 
         * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)   
-* [Batch table](#batch-table)
+* [Batch Table](#batch-table)
 * [glTF](#gltf)                            
 * [File extension](#file-extension)
 * [MIME type](#mime-type)
@@ -33,17 +33,17 @@
 
 ## Overview
 
-_Instanced 3D model_ is a tile format for efficient streaming and rendering of a large number of models, called _instances_, with slight variations.  In the simplest case, the same tree model, for example, may be located&mdash;or _instanced_&mdash;in several places.  Each instance references the same model and has per-instance properties, such as position.  Using the core 3D Tiles spec language, each instance is a _feature_.
+_Instanced 3D Model_ is a tile format for efficient streaming and rendering of a large number of models, called _instances_, with slight variations.  In the simplest case, the same tree model, for example, may be located&mdash;or _instanced_&mdash;in several places.  Each instance references the same model and has per-instance properties, such as position.  Using the core 3D Tiles spec language, each instance is a _feature_.
 
-In addition to trees, instanced 3D model is useful for exterior features such as fire hydrants, sewer caps, lamps, and traffic lights, and for interior CAD features such as bolts, valves, and electrical outlets.
+In addition to trees, Instanced 3D Model is useful for exterior features such as fire hydrants, sewer caps, lamps, and traffic lights, and for interior CAD features such as bolts, valves, and electrical outlets.
 
-A [composite](../Composite/README.md) tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights.
+A [Composite](../Composite/README.md) tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights.
 
-Instanced 3D model maps well to the [ANGLE_instanced_arrays](https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/) extension for efficient rendering with WebGL.
+Instanced 3D Model maps well to the [ANGLE_instanced_arrays](https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/) extension for efficient rendering with WebGL.
 
 ## Layout
 
-A tile is composed of a header section immediately followed by a body section. The following figure shows the instanced 3D model layout (dashes indicate optional fields):
+A tile is composed of a header section immediately followed by a body section. The following figure shows the Instanced 3D Model layout (dashes indicate optional fields):
 
 ![header layout](figures/header-layout.png)
 
@@ -53,13 +53,13 @@ The 32-byte header contains the following fields:
 
 | Field name | Data type | Description |
 | --- | --- | --- |
-| `magic` | 4-byte ANSI string | `"i3dm"`.  This can be used to identify the arraybuffer as an instanced 3D model tile. |
-| `version` | `uint32` | The version of the instanced 3D model format. It is currently `1`. |
+| `magic` | 4-byte ANSI string | `"i3dm"`.  This can be used to identify the arraybuffer as an Instanced 3D Model tile. |
+| `version` | `uint32` | The version of the Instanced 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
-| `featureTableJSONByteLength` | `uint32` | The length of the feature table JSON section in bytes. |
-| `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
-| `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates that there is no batch table. |
-| `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
+| `featureTableJSONByteLength` | `uint32` | The length of the Feature Table JSON section in bytes. |
+| `featureTableBinaryByteLength` | `uint32` | The length of the Feature Table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
+| `batchTableJSONByteLength` | `uint32` | The length of the Batch Table JSON section in bytes. Zero indicates that there is no Batch Table. |
+| `batchTableBinaryByteLength` | `uint32` | The length of the Batch Table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
 | `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the [glTF](#gltf) section below. |
 
 If `featureTableJSONByteLength` equals zero, or there is no `glTF`, the tile does not need to be rendered.
@@ -70,19 +70,19 @@ Code for reading the header can be found in
 [Instanced3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Instanced3DModel3DTileContent.js)
 in the Cesium implementation of 3D Tiles.
 
-## Feature table
+## Feature Table
 
-The feature table contains values for `i3dm` semantics used to create instanced models.
-More information is available in the [feature table specification](../FeatureTable/README.md).
+The Feature Table contains values for `i3dm` semantics used to create instanced models.
+More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
-The `i3dm` feature table JSON schema is defined in [i3dm.featureTable.schema.json](../../schema/i3dm.featureTable.schema.json).
+The `i3dm` Feature Table JSON schema is defined in [i3dm.featureTable.schema.json](../../schema/i3dm.featureTable.schema.json).
 
 ### Semantics
 
 #### Instance semantics
 
 These semantics map to an array of feature values that are used to create instances. The length of these arrays must be the same for all semantics and is equal to the number of instances.
-The value for each instance semantic must be a reference to the feature table binary body; they cannot be embedded in the feature table JSON header.
+The value for each instance semantic must be a reference to the Feature Table binary body; they cannot be embedded in the Feature Table JSON header.
 
 If a semantic has a dependency on another semantic, that semantic must be defined.
 If both `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scaling operations will be applied.
@@ -170,7 +170,7 @@ Scaling can be applied to instances using the `SCALE` and `SCALE_NON_UNIFORM` se
 
 ### Examples
 
-These examples show how to generate JSON and binary buffers for the feature table.
+These examples show how to generate JSON and binary buffers for the Feature Table.
 
 #### Positions only
 
@@ -237,15 +237,15 @@ var normalRightOct32PBinary = new Buffer(new Uint16Array([
 var featureTableBinary = Buffer.concat([positionQuantizedBinary, normalUpOct32PBinary, normalRightOct32PBinary]);
 ```
 
-## Batch table
+## Batch Table
 
 Contains metadata organized by `batchId` that can be used for declarative styling. See the [Batch Table](../BatchTable/README.md) reference for more information.
 
 ## glTF
 
-The glTF asset to be instanced is stored after the feature table and batch table.
+The glTF asset to be instanced is stored after the Feature Table and Batch Table.
 
-[glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL.  [Binary glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) is an extension defining a binary container for glTF.  Instanced 3D model uses glTF 1.0 with the [KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) extension.
+[glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL.  [Binary glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) is an extension defining a binary container for glTF.  Instanced 3D Model uses glTF 1.0 with the [KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) extension.
 
 `header.gltfFormat` determines the format of the glTF field
 
@@ -254,7 +254,7 @@ The glTF asset to be instanced is stored after the feature table and batch table
 
 In either case, `header.gltfByteLength` contains the length of the glTF field in bytes.
 
-If the glTF asset is embedded, it must be 8-byte aligned so that glTF's byte-alignment guarantees are met. This can be done by padding the feature table or batch table if they are present.
+If the glTF asset is embedded, it must be 8-byte aligned so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
 ## File extension
 

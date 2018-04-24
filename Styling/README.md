@@ -49,15 +49,15 @@ Contents:
    * [Built-in variables](#built-in-variables)
    * [Built-in functions](#built-in-functions)
    * [Notes](#notes)
-* [Batch table hierarchy](#batch-table-hierarchy)
-* [Point cloud](#point-cloud)
+* [Batch Table Hierarchy](#batch-table-hierarchy)
+* [Point Cloud](#point-cloud)
 * [File extension](#file-extension)
 * [MIME type](#mime-type)
 * [Acknowledgments](#acknowledgments)
 
 ## Overview
 
-3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's batch table.
+3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's Batch Table.
 
 Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling. Additionally, the styling language provides a set of built-in functions to support common math operations.
 
@@ -544,7 +544,7 @@ ${order} === 1
 ${name} === 'Feature name'
 ```
 
-Additionally, variables originating from vector properties stored in the [batch table binary](../TileFormats/BatchTable/README.md#binary-body) are treated as vector types:
+Additionally, variables originating from vector properties stored in the [Batch Table binary](../TileFormats/BatchTable/README.md#binary-body) are treated as vector types:
 
 | `componentType` | variable type |
 | --- | --- |
@@ -1231,9 +1231,9 @@ Computes the cross product of `x` and `y`. This function only accepts `vec3` arg
 
 Comments are not supported.
 
-## Batch table hierarchy
+## Batch Table Hierarchy
 
-The styling language provides the following built-in functions intended for use with the [batch table hierarchy](../TileFormats/BatchTable/README.md#batch-table-hierarchy):
+The styling language provides the following built-in functions intended for use with the [Batch Table Hierarchy](../TileFormats/BatchTable/README.md#batch-table-hierarchy):
 
 * [`getExactClassName`](#getexactclassname)
 * [`isExactClass`](#isexactclass)
@@ -1303,9 +1303,9 @@ For example, the style below will color all doors and doorknobs.
 }
 ```
 
-## Point cloud
+## Point Cloud
 
-A [point cloud](../TileFormats/PointCloud/README.md) is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a point cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
+A [Point Cloud](../TileFormats/PointCloud/README.md) is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a Point Cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
 ```json
 {
     "color" : "color('red')",
@@ -1315,11 +1315,11 @@ A [point cloud](../TileFormats/PointCloud/README.md) is a collection of points t
 
 Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`. A `pointSize` of `1.0` must be supported.
 
-Point cloud styles may also reference semantics from the [Feature Table](../TileFormats/PointCloud/README.md#feature-table) including position, color, and normal to allow for more flexible styling of the source data.
+Point Cloud styles may also reference semantics from the [Feature Table](../TileFormats/PointCloud/README.md#feature-table) including position, color, and normal to allow for more flexible styling of the source data.
 * `${POSITION}` is a `vec3` storing the xyz Cartesian coordinates of the point before the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `${POSITION}` refers to the position after the `QUANTIZED_VOLUME_SCALE` is applied, but before `QUANTIZED_VOLUME_OFFSET` is applied.
 * `${POSITION_ABSOLUTE}` is a `vec3` storing the xyz Cartesian coordinates of the point after the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `${POSITION_ABSOLUTE}` refers to the position after the `QUANTIZED_VOLUME_SCALE`, `QUANTIZED_VOLUME_OFFSET`, and tile transform are applied.
-* `${COLOR}` evaluates to a `Color` storing the rgba color of the point. When the feature table's color semantic is `RGB` or `RGB565`, `${COLOR}.alpha` is `1.0`. If no color semantic is defined, `${COLOR}` evaluates to the application-specific default color.
-* `${NORMAL}` is a `vec3` storing the normal, in Cartesian coordinates, of the point before the tile transform is applied. When normals are oct-encoded, `${NORMAL}` refers to the decoded normal. If no normal semantic is defined in the feature table, `${NORMAL}` evaluates to `undefined`.
+* `${COLOR}` evaluates to a `Color` storing the rgba color of the point. When the Feature Table's color semantic is `RGB` or `RGB565`, `${COLOR}.alpha` is `1.0`. If no color semantic is defined, `${COLOR}` evaluates to the application-specific default color.
+* `${NORMAL}` is a `vec3` storing the normal, in Cartesian coordinates, of the point before the tile transform is applied. When normals are oct-encoded, `${NORMAL}` refers to the decoded normal. If no normal semantic is defined in the Feature Table, `${NORMAL}` evaluates to `undefined`.
 
 For example:
 
@@ -1331,7 +1331,7 @@ For example:
 }
 ```
 
-#### Point cloud shader styling
+#### Point Cloud shader styling
 
 **TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/140**
 
