@@ -6,19 +6,31 @@
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 
+## Contents
+
+* [Overview](#overview)
+* [Layout](#layout)
+* [Header](#header)
+* [Feature Table](#feature-table)
+	* [Semantics](#semantics)
+		* [Feature semantics](#feature-semantics)
+		* [Global semantics](#global-semantics)
+* [Batch Table](#batch-table)
+* [Binary glTF](#binary-gltf)
+* [File extension](#file-extension)
+* [MIME type](#mime-type)
+
 ## Overview
 
 _Batched 3D Model_ allows offline batching of heterogeneous 3D models, such as different buildings in a city, for efficient streaming to a web client for rendering and interaction.  Efficiency comes from transferring multiple models in a single request and rendering them in the least number of WebGL draw calls necessary.  Using the core 3D Tiles spec language, each model is a _feature_.
 
-Per-model properties, such as IDs, enable individual models to be identified and updated at runtime, e.g., show/hide, highlight color, etc. Properties may be used, for example, to query a web service to access metadata, such as passing a building's ID to get its address. Or a property might be referenced on-the-fly for changing a model's appearance, e.g., changing highlight color based on a property value.
+Per-model properties, such as IDs, enable individual models to be identified and updated at runtime, e.g., show/hide, highlight color, etc. Properties may be used, for example, to query a web service to access metadata, such as passing a building's ID to get its address. Or a property might be referenced on the fly for changing a model's appearance, e.g., changing highlight color based on a property value.
 
 Batched 3D Model, or just the _batch_, is a binary blob in little endian accessed in JavaScript as an `ArrayBuffer`.
 
 ## Layout
 
-A tile is composed of two sections: a header immediately followed by a body.
-
-**Figure 1**: Batched 3D Model layout (dashes indicate optional fields).
+A tile is composed of two sections: a header immediately followed by a body. The following figure shows the Batched 3D Model layout (dashes indicate optional fields):
 
 ![](figures/layout.png)
 
@@ -31,14 +43,14 @@ The 28-byte header contains the following fields:
 | `magic` | 4-byte ANSI string | `"b3dm"`.  This can be used to identify the arraybuffer as a Batched 3D Model tile. |
 | `version` | `uint32` | The version of the Batched 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
-| `featureTableJSONByteLength` | `uint32` | The length of the feature table JSON section in bytes. Zero indicates there is no feature table. |
-| `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
-| `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates there is no batch table. |
-| `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
+| `featureTableJSONByteLength` | `uint32` | The length of the Feature Table JSON section in bytes. Zero indicates there is no Feature Table. |
+| `featureTableBinaryByteLength` | `uint32` | The length of the Feature Table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
+| `batchTableJSONByteLength` | `uint32` | The length of the Batch Table JSON section in bytes. Zero indicates there is no Batch Table. |
+| `batchTableBinaryByteLength` | `uint32` | The length of the Batch Table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
 
 If `featureTableJSONByteLength` equals zero, the tile does not need to be rendered.
 
-The body section immediately follows the header section, and is composed of three fields: `Feature Table`, `Batch Table` and `Binary glTF`.
+The body section immediately follows the header section, and is composed of three fields: `Feature Table`, `Batch Table`, and `Binary glTF`.
 
 Code for reading the header can be found in
 [Batched3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Batched3DModel3DTileContent.js)
@@ -49,15 +61,15 @@ in the Cesium implementation of 3D Tiles.
 Contains values for `b3dm` semantics.
 More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
-The `b3dm` Feature Table JSON Schema is defined in [b3dm.featureTable.schema.json](../../schema/b3dm.featureTable.schema.json).
+The `b3dm` Feature Table JSON schema is defined in [b3dm.featureTable.schema.json](../../schema/b3dm.featureTable.schema.json).
 
 ### Semantics
 
-#### Feature Semantics
+#### Feature semantics
 
 There are currently no per-feature semantics.
 
-#### Global Semantics
+#### Global semantics
 
 These semantics define global properties for all features.
 
@@ -67,7 +79,7 @@ These semantics define global properties for all features.
 
 ## Batch Table
 
-The _Batch Table_ contains per-model application-specific metadata, indexable by `batchId`, that can be used for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  In the Binary glTF section, each vertex has an numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
+The _Batch Table_ contains per-model application-specific metadata, indexable by `batchId`, that can be used for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  In the binary glTF section, each vertex has an numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
 
@@ -75,7 +87,7 @@ See the [Batch Table](../BatchTable/README.md) reference for more information.
 
 [glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL.  [Binary glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) is an extension defining a binary container for glTF.  Batched 3D Model uses glTF 1.0 with the [KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) extension.
 
-The binary glTF immediately follows the feature table and batch table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
+The binary glTF immediately follows the Feature Table and Batch Table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
 The glTF asset must be 8-byte aligned so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
@@ -85,7 +97,7 @@ batchId:  [0,   0,   0,   ..., 1,   1,   1,   ..., 2,   2,   2,   ...]
 position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 ```
-Vertices do not need to be ordered by `batchId` so the following is also OK:
+Vertices do not need to be ordered by `batchId`, so the following is also OK:
 ```
 batchId:  [0,   1,   2,   ..., 2,   1,   0,   ..., 1,   2,   0,   ...]
 position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
@@ -121,13 +133,13 @@ When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`
 
 Although not strictly required, clients may find the glTF [CESIUM_RTC](https://github.com/KhronosGroup/glTF/tree/master/extensions/1.0/Vendor/CESIUM_RTC) extension useful for high-precision rendering.
 
-## File Extension
+## File extension
 
 `.b3dm`
 
 The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
 
-## MIME Type
+## MIME type
 
 _TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
 
