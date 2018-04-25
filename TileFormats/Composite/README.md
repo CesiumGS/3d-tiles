@@ -5,6 +5,16 @@
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
+## Contents
+
+* [Overview](#overview)
+* [Layout](#layout)
+* [Header](#header)
+* [Inner tiles](#inner-tiles)
+* [File extension and MIME type](#file-extension-and-mime-type)
+* [Acknowledgments](#acknowledgments)
+* [Resources](#resources)
+
 ## Overview
 
 The _Composite_ tile format enables concatenating tiles of different formats into one tile.
@@ -17,7 +27,7 @@ A Composite is a binary blob in little endian accessed in JavaScript as an `Arra
 
 ## Layout
 
-**Figure 1**: Composite layout (dashes indicate optional fields).
+Composite layout (dashes indicate optional fields):
 
 ![](figures/layout.png)
 
@@ -34,13 +44,13 @@ The 16-byte header section contains the following fields:
 
 _TODO: code example reading header_
 
-## Inner Tiles
+## Inner tiles
 
-Inner tile fields are stored tightly packed immediately following the header section. No additional header is added on top of the tiles' preexisting headers (eg, b3dm or i3dm headers). However, the following information describes general characteristics of the existing contents of relevant files' headers to explain common information which a composite tile reader might exploit to find the boundaries of the inner tiles.
+Inner tile fields are stored tightly packed immediately following the header section. No additional header is added on top of the tiles' preexisting headers, e.g., b3dm or i3dm headers. However, the following information describes general characteristics of the existing contents of relevant files' headers to explain common information that a Composite tile reader might exploit to find the boundaries of the inner tiles:
 
 * Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See the [main 3D Tiles spec](../../README.md) for a list of tile formats.  Composite tiles can contain Composite tiles.
 * Each tile's header contains a `uint32` `byteLength`, which defines the length of the inner tile, including its header, in bytes.  This can be used to traverse the inner tiles.
-* For any tile format's version 1, the first 12-bytes of all tiles is the following fields:
+* For any tile format's version 1, the first 12 bytes of all tiles is the following fields:
 
 |Field name|Data type|Description|
 |----------|---------|-----------|
@@ -50,7 +60,7 @@ Inner tile fields are stored tightly packed immediately following the header sec
 
 Refer to the spec for each tile format for more details.
 
-## File Extension and MIME Type
+## File extension and MIME type
 
 Composite tiles use the `.cmpt` extension and `application/octet-stream` MIME type.
 
