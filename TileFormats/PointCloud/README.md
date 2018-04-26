@@ -142,7 +142,7 @@ The normals will be transformed using the inverse transpose of the tileset trans
 
 #### Oct-encoded normal vectors
 
-Oct-encoding is described in [*A Survey of Efficient Representations of Independent Unit Vectors*](http://jcgt.org/published/0003/02/01/). Oct-encoded values are stored in unsigned, unnormalized range (`[0, 65535`] or `[0, 255]`) and then converted to a signed normalized range (`[-1.0, 1.0]`) at runtime.
+Oct-encoding is described in [*A Survey of Efficient Representations of Independent Unit Vectors*](http://jcgt.org/published/0003/02/01/). Oct-encoded values are stored in unsigned, unnormalized range (`[0, 255]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
 
 > An implementation for encoding and decoding these unit vectors can be found in Cesium's [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module.
@@ -320,4 +320,4 @@ See the [Batch Table](../BatchTable/README.md) reference for more information.
 
 Point cloud tiles use the `.pnts` extension and `application/octet-stream` MIME type.
 
-The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
+An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.

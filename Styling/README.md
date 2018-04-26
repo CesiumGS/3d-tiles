@@ -1332,11 +1332,20 @@ For example:
 }
 ```
 
-> Implementation Note: Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Features that must account for these inconsistencies include evaluation of `isNan` and `isFinite` (GLSL 2.0+ supports `isnan` and `isinf` for these functions respectively); the types `null` and `undefined`; strings, including accessing object properties (`color()['r']`) and batch table values; regular expressions; arrays of lengths other than 2, 3, or 4; mismatched type comparisons (`float` to `bool`); and handling of "index out of bounds" errors.
+> Implementation Note: Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Features that must account for these inconsistencies include
+> * Evaluation of `isNan` and `isFinite` (GLSL 2.0+ supports `isnan` and `isinf` for these functions respectively)
+> * The types `null` and `undefined` 
+> * Strings, including accessing object properties (`color()['r']`) and batch table values
+> * Regular expressions 
+> * Arrays of lengths other than 2, 3, or 4
+> * Mismatched type comparisons (`float` to `bool`)
+> * Handling of "index out of bounds" errors
 
 ## File extension and MIME type
  
-* Tileset styles use the `.json` extension and the `application/json` mime type.
+Tileset styles use the `.json` extension and the `application/json` mime type.
+
+An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
 ## Acknowledgments
 

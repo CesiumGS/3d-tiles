@@ -69,7 +69,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * [Introduction](#introduction)
 * [File extensions and MIME types](#file-extensions-and-mime-types)
 * [JSON encoding](#json-encoding)
-* [URLs](#urls)
+* [URIs](#uris)
 * [Tiles](#tiles)
    * [Coordinate system and units](#coordinate-system-and-units)
    * [Tile transform](#tile-transform)
@@ -83,6 +83,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
       * [Octrees](#octrees)
       * [Grids](#grids)
 * [Tile formats](#tile-formats)
+* [Specifying extensions and application specific extras](#specifying-extensions-and-application-specific-extras)
 * [Declarative styling](#declarative-styling)
 * [Roadmap Q&A](#roadmap-qa)
 * [Acknowledgments](#acknowledgments)
@@ -168,15 +169,17 @@ _TODO: include a screenshot of each bounding volume type._
 
 A tile references a _feature_ or set of _features_, such as 3D models representing buildings or trees, points in a point cloud, or polygons, polylines, and points in a vector dataset.  These features may be batched together into essentially a single feature to reduce client-side load time and WebGL draw call overhead.
 
-A 3D tileset consists of at least one tileset `.json` file specifying the metadata and the tree of tiles, as well as any referenced tile content files which may be any valid tile format, defined in JSON as described below. 
+A 3D tileset consists of at least one tileset JSON file specifying the metadata and the tree of tiles, as well as any referenced tile content files which may be any valid tile format, defined in JSON as described below. 
 
 Optionally, a separate 3D Tile Style may be applied to a tileset. 
 
 ## File extensions and MIME types
  
 * Tileset files use the `.json` extension and the `application/json` MIME type.
-* A tile's referenced content may be an external tileset `.json` file (`application/json`), or the file type and MIME format specific to the [tile format](#tile-formats).
+* A tile's referenced content may be an external tileset JSON file (`application/json`), or the file type and MIME format specific to the [tile format](#tile-formats).
 * Tileset style files use the `.json` extension and the `application/json` MIME type.
+
+Explicit file extensions are optional for tileset and tile content files. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
 ## JSON encoding
 
@@ -186,11 +189,13 @@ Optionally, a separate 3D Tile Style may be applied to a tileset.
   2. All strings defined in this spec (properties names, enums) use only ASCII charset and must be written as plain text.
   3. Names (keys) within JSON objects must be unique, i.e., duplicate keys aren't allowed.
 
-## URLs
+## URIs
 
-3D Tiles use URLs to reference tile content.
+3D Tiles use URIs to reference tile content. These URIs may point to [relative external references (RFC3986)] or be data URIs that embed resources in the JSON. Embedded resources use [the "data" URI scheme (RFC2397)](https://tools.ietf.org/html/rfc2397). 
 
-All URLs must be valid resolvable URIs, and may be absolute or relative. When the url is relative, its base is always relative to the referring tileset `.json` file.
+When the URI is relative, its base is always relative to the referring tileset JSON file.
+
+Client implementations are required to support relative external references and embedded resources. Optionally, client implementations may support other schemes (such as `http://`). All URIs must be valid and resolvable.
 
 ## Tiles
 
@@ -227,7 +232,7 @@ Tiles consist of content, metadata used to render the tile, and any children til
 }
 ```
 
-The `boundingVolume` defines a volume enclosing the tile content, and is used to determine which tiles to render at runtime. The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region in WGS84 / EPSG:4326 coordinates with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the [WGS84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).  Besides `region`, other bounding volumes, such as `box` and `sphere`, may be used.
+The `boundingVolume` defines a volume enclosing the tile content, and is used to determine which tiles to render at runtime. The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region in [EPSG:4326](http://spatialreference.org/ref/epsg/wgs-84/) coordinates with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the [WGS84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).  Besides `region`, other bounding volumes, such as `box` and `sphere`, may be used.
 
 The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
 
@@ -255,20 +260,20 @@ An optional `transform` property (not shown above) defines a 4x4 affine transfor
 
 ### Coordinate system and units
 
-3D Tiles supports use cases in both geodetic as well as Cartesian coordinate systems.
-
 3D Tiles uses a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (see the [Tile transform](#tile-transform) section).  A tileset's global coordinate system will often be [WGS84 ellipsoidal coordinate system](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
 #### Tile content
 
-`b3dm` and `i3dm` tiles embed glTF. According to the [glTF spec](https://github.com/KhronosGroup/glTF/tree/master/specification/1.0#coordinate-system-and-units), glTF uses a right-handed coordinate system and defines the _y_ axis as up. By default, embedded models are considered to be _y_-up, but in order to support a variety of source data, including models defined directly in WGS84 coordinates, embedded glTF models may be defined as _x_-up, _y_-up, or _z_-up with the `asset.gltfUpAxis` property of tileset JSON. 
+`b3dm` and `i3dm` tiles embed glTF. According to the [glTF spec](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units), glTF uses a right-handed coordinate system and defines the _y_ axis as up. By default, embedded models are considered to be _y_-up, but in order to support a variety of source data, including models defined directly in WGS84 coordinates, embedded glTF models may be defined as _x_-up, _y_-up, or _z_-up with the `asset.gltfUpAxis` property of tileset JSON. 
 
 To transform from a glTF y-up to a 3D Tiles z-up coordinate system, the following matrix transform is applied:
 ```
-[(1, 0,  0, 0),
- (0, 0, -1, 0),
- (0, 1,  0, 0),
- (0, 0,  0, 1)]
+[
+1.0, 0.0,  0.0, 0.0,
+0.0, 0.0, -1.0, 0.0,
+0.0, 1.0,  0.0, 0.0,
+0.0, 0.0,  0.0, 1.0
+]
 ```
 
 Tile transforms are applied after the conversion between coordinate systems is resolved.
@@ -291,9 +296,9 @@ The `transform` property applies to
 * `tile.content`
    * Each feature's position.
    * Each feature's normal should be transformed by the top-left 3x3 matrix of the inverse-transpose of `transform` to account for [correct vector transforms when scale is used](http://www.realtimerendering.com/resources/RTNews/html/rtnews1a.html#art4).
-   * `content.boundingVolume`, except when `content.boundingVolume.region` is defined, which is explicitly in WGS84 / EPSG:4326 coordinates.
-* `tile.boundingVolume`, except when `tile.boundingVolume.region` is defined, which is explicitly in WGS84 / EPSG:4326 coordinates.
-* `tile.viewerRequestVolume`, except when `tile.viewerRequestVolume.region` is defined, which is explicitly in WGS84 / EPSG:4326 coordinates.
+   * `content.boundingVolume`, except when `content.boundingVolume.region` is defined, which is explicitly in EPSG:4326 coordinates.
+* `tile.boundingVolume`, except when `tile.boundingVolume.region` is defined, which is explicitly in EPSG:4326 coordinates.
+* `tile.viewerRequestVolume`, except when `tile.viewerRequestVolume.region` is defined, which is explicitly in EPSG:4326 coordinates.
 
 The `transform` property does not apply to `geometricError`&mdash;i.e., the scale defined by `transform` does not scale the geometric error&mdash;the geometric error is always defined in meters.
 
@@ -413,7 +418,7 @@ For more on request volumes, see the [sample tileset](https://github.com/Analyti
 
 ## Tileset JSON Files
 
-3D Tiles use one main tileset `.json` file as the entry point to define a tileset.
+3D Tiles use one main tileset JSON file as the entry point to define a tileset. Both entry and external tileset JSON files are not required to follow a specific naming convention.
 
 See the [schema](schema) for the detailed tileset JSON schema.
 
@@ -478,7 +483,7 @@ See the [Q&A below](#will-a-tileset-file-be-part-of-the-final-3d-tiles-spec) for
 
 ### External tilesets
 
-To create a tree of trees, a tile's `content.url` can point to an external tileset (the url of another tileset `.json` file).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
+To create a tree of trees, a tile's `content.url` can point to an external tileset (the url of another tileset JSON file).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
 
 ![](figures/tilesets.jpg)
 
@@ -583,6 +588,87 @@ Each tile's `content.url` property points to a tile that is one of the formats l
 
 A tileset can contain any combination of tile formats.  3D Tiles may also support different formats in the same tile using a [Composite](TileFormats/Composite/README.md) tile.
 
+## Specifying extensions and application specific extras
+
+3D Tiles defines extensions to allow the the base specification to have extensibility for new features, as well as extras to allow for application specific metadata.
+
+### Extensions
+
+Extensions allow the base specification to be extended with new features. The optional `extensions` dictionary property may be added to a 3D Tiles JSON object, which contains the name of the extensions and the extension specific objects. The following example shows a tile object with a hypothetical vendor extension which specifies a separate collision volume.
+```JSON
+{
+  "transform": [
+     4.843178171884396,   1.2424271388626869, 0,                  0,
+    -0.7993325488216595,  3.1159251367235608, 3.8278032889280675, 0,
+     0.9511533376784163, -3.7077466670407433, 3.2168186118075526, 0,
+     1215001.7612985559, -4736269.697480114,  4081650.708604793,  1
+  ],
+  "boundingVolume": {
+    "box": [
+      0,     0,    6.701,
+      3.738, 0,    0,
+      0,     3.72, 0,
+      0,     0,    13.402
+    ]
+  },
+  "geometricError": 32,
+  "content": {
+    "url": "building.b3dm"
+  },
+  "extensions": {
+    "VENDOR_collision_volume": {
+      "box": [
+        0,     0,    6.8,
+        3.8,   0,    0,
+        0,     3.8,  0,
+        0,     0,    13.5
+      ]
+    }
+  }
+}
+```
+
+All extensions used in a tileset or any descendent external tilesets must be listed in the tileset file in the top-level `extensionsUsed` array property, e.g.,
+
+```JSON
+{
+    "extensionsUsed": [
+        "VENDOR_collision_volume"
+    ]
+}
+```
+
+All extensions required to load and render a tileset or any descendent external tilesets must also be listed in the tileset file in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` must also exist in `extensionsUsed`.
+
+### Extras
+
+The `extras` property allows application specific metadata to be added to a 3D Tiles JSON object. The following example shows a tile object with an additional application specific name property.
+```JSON
+{
+  "transform": [
+     4.843178171884396,   1.2424271388626869, 0,                  0,
+    -0.7993325488216595,  3.1159251367235608, 3.8278032889280675, 0,
+     0.9511533376784163, -3.7077466670407433, 3.2168186118075526, 0,
+     1215001.7612985559, -4736269.697480114,  4081650.708604793,  1
+  ],
+  "boundingVolume": {
+    "box": [
+      0,     0,    6.701,
+      3.738, 0,    0,
+      0,     3.72, 0,
+      0,     0,    13.402
+    ]
+  },
+  "geometricError": 32,
+  "content": {
+    "url": "building.b3dm"
+  },
+  "extras": {
+    "name": "Empire State Building"
+  }
+}
+```
+
 ## Declarative styling
 
 <p align="center">
@@ -602,10 +688,6 @@ Styles generally define a feature's `show` and `color` (RGB and translucency) us
 This colors features with a temperature above 90 as red and the others as white.
 
 For complete details, see the [Declarative Styling](Styling/README.md) spec.
-
-## Specifying Extensions and Application-Specific Extras
-
-3D Tiles defines extensions to allow the base specification to have extensibility for new features, as well as extras to allow for application specific metadata.
 
 ## Roadmap Q&A
 
@@ -684,7 +766,7 @@ Supporting heterogeneous datasets with both inter-tile (different tile formats i
 
 Yes.  There will always be a need to know metadata about the tileset and about tiles that are not yet loaded, e.g., so only visible tiles can be requested.  However, when scaling to millions of tiles, a single tileset file with metadata for the entire tree would be prohibitively large.
 
-3D Tiles already supports trees of trees. `content.url` can point to another tileset `.json` file, which enables conversion tools to chunk up a tileset into any number of `.json` files that reference each other.
+3D Tiles already supports trees of trees. `content.url` can point to another tileset JSON file, which enables conversion tools to chunk up a tileset into any number of JSON files that reference each other.
 
 There's a few other ways we may solve this:
 * Moving subtree metadata to the tile payload instead of the tileset file.  Each tile would have a header with, for example, the bounding volumes of each child, and perhaps grandchildren, and so on.

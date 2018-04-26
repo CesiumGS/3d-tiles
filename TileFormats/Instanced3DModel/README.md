@@ -130,7 +130,7 @@ A box transformed into a rotated basis
 #### Oct-encoded normal vectors
 
 If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientation may be stored as oct-encoded normals in `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P`.
-These define `up` and `right` using the oct-encoding described in [*A Survey of Efficient Representations of Independent Unit Vectors*](http://jcgt.org/published/0003/02/01/). Oct-encoded values are stored in unsigned, unnormalized range (`[0, 65535]` or `[0, 255]`) and then converted to a signed normalized range (`[-1.0, 1.0]`) at runtime.
+These define `up` and `right` using the oct-encoding described in [*A Survey of Efficient Representations of Independent Unit Vectors*](http://jcgt.org/published/0003/02/01/). Oct-encoded values are stored in unsigned, unnormalized range (`[0, 65535]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
 
 > An implementation for encoding and decoding these unit vectors can be found in Cesium's [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module.
@@ -259,7 +259,7 @@ If the glTF asset is embedded, it must be 8-byte aligned so that glTF's byte-ali
 
 Instanced 3D models tiles use the `.i3dm` extension and `application/octet-stream` MIME type.
 
-The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
+An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
 ## Implementation examples
 

@@ -31,6 +31,12 @@
             },
             "minItems" : 4,
             "maxItems" : 4
+        },
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
         }
     },
     "oneOf" : [{

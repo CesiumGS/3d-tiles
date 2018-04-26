@@ -25,6 +25,24 @@
             "description" : "The root node.",
             "$ref" : "tile.schema.json"
         },
+        "extensionsUsed": {
+            "type": "array",
+            "description": "Names of 3D Tiles extensions used somewhere in this tileset.",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true,
+            "minItems": 1
+        },
+        "extensionsRequired": {
+            "type": "array",
+            "description": "Names of 3D Tiles extensions required to properly load this tileset.",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true,
+            "minItems": 1
+        },
         "extensions" : {
             "$ref": "extension.schema.json"
         },

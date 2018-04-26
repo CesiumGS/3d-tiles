@@ -3,8 +3,7 @@
     "title": "Extension",
     "type": "object",
     "description": "Dictionary object with extension-specific objects.",
-    "properties": {
-    },
+    "properties": {},
     "additionalProperties": {
         "type": "object"
     }

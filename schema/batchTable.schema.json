@@ -90,6 +90,12 @@
                                 "additionalProperties" : {
                                     "$ref" : "#/definitions/property"
                                 }
+                            },        
+                            "extensions" : {
+                                "$ref": "extension.schema.json"
+                            },
+                            "extras" : {
+                                "$ref": "extras.schema.json"
                             }
                         },
                         "required" : ["name", "length", "instances"]

@@ -76,7 +76,7 @@ These semantics define global properties for all features.
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
 | `BATCH_LENGTH` | `uint32` | The number of distinguishable models, also called features, in the batch. If the Binary glTF does not have a `batchId` attribute, this field _must_ be `0`. | :white_check_mark: Yes. |
-| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when instance positions are defined relative-to-center. | :red_circle: No. |
+| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when positions are defined relative-to-center. | :red_circle: No. |
 
 ## Batch Table
 
@@ -134,17 +134,15 @@ When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`
 
 ### Coordinate reference system (CRS)
 
-Vertex positions are defined according to a right-handed coordinate system where the Y-axis is up [2].
+Vertex positions are defined according to a right-handed coordinate system where the _y_-axis is up [2].
 
-Vertex positions may be defined relative-to-center for high-precision rendering [1]. If defined, `RTC_CENTER` specifies the center position and all vertex positions are treated as relative to this value.
-
-> Implementation Note: Clients may also use the glTF [CESIUM_RTC](https://github.com/KhronosGroup/glTF/tree/master/extensions/1.0/Vendor/CESIUM_RTC) extension and define points relative to center.
+Vertex positions may be defined relative-to-center for high-precision rendering [1]. If defined, `RTC_CENTER` specifies the center position and all vertex positions are treated as relative to this value. When `RTC_CENTER` is used, vertex positions are defined according to a coordinate system where the _z_-axis is up.
 
 ## File extension and MIME type
 
 Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` MIME type.
 
-The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
+An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
 ## Resources
 

@@ -64,7 +64,7 @@ Refer to the spec for each tile format for more details.
 
 Composite tiles use the `.cmpt` extension and `application/octet-stream` MIME type.
 
-The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
+An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
 ## Acknowledgments
 
