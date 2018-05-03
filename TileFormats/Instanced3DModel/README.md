@@ -10,6 +10,7 @@
 
 * [Overview](#overview)
 * [Layout](#layout)
+    * [Padding](#padding)
 * [Header](#header)
 * [Feature Table](#feature-table)
     * [Semantics](#semantics)
@@ -46,6 +47,14 @@ A tile is composed of a header section immediately followed by a body section. T
 
 ![header layout](figures/header-layout.png)
 
+### Padding
+
+A tile's `byteLength` must be aligned to an 8-byte boundary.
+
+The [binary glTF](#gltf) (if present) must start and end on an 8-byte alignment so that glTF's byte-alignment guarantees are met. This can be done by padding the [Feature Table](../FeatureTable/README.md#padding) or [Batch Table](../BatchTable/README.md#padding) if they are present.
+
+Otherwise, if the glTF field is a UTF-8 string, it must be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the tile.
+
 ## Header
 
 The 32-byte header contains the following fields:
@@ -59,7 +68,7 @@ The 32-byte header contains the following fields:
 | `featureTableBinaryByteLength` | `uint32` | The length of the Feature Table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
 | `batchTableJSONByteLength` | `uint32` | The length of the Batch Table JSON section in bytes. Zero indicates that there is no Batch Table. |
 | `batchTableBinaryByteLength` | `uint32` | The length of the Batch Table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
-| `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the [glTF](#gltf) section below. |
+| `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a uri, `1` indicates it is embedded binary glTF.  See the [glTF](#gltf) section below. |
 
 If `featureTableJSONByteLength` equals zero, or there is no `glTF`, the tile does not need to be rendered.
 
@@ -248,12 +257,18 @@ The [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification
 
 `header.gltfFormat` determines the format of the glTF field
 
-* When the value of `header.gltfFormat` is `0`, the glTF field is a UTF-8 string, which contains a url to a glTF model.
+* When the value of `header.gltfFormat` is `0`, the glTF field is a UTF-8 string, which contains a uri of the glTF model content.
 * When the value of `header.gltfFormat` is `1`, the glTF field is a binary blob containing binary glTF.
+
+> Implementation note: Prefer a binary glTF blob to an glTF model data uri.
 
 In either case, `header.gltfByteLength` contains the length of the glTF field in bytes.
 
-If the glTF asset is embedded, it must be 8-byte aligned so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
+### Coordinate reference system (CRS)
+
+3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.
+
+By default, vertex positions of the embedded glTF are defined according to a right-handed coordinate system where the _y_-axis is up, but vertex positions may be defined in a coordinate system where the _z_axis is up by specifying the the [`CESIUM_z_up` glTF extension](TODO) in the embedded glTF (see [local coordinate systems](../../README.md#local-coordinate-systems)).
 
 ## File extension and MIME type
 

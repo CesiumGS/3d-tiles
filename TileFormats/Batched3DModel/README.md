@@ -10,6 +10,7 @@
 
 * [Overview](#overview)
 * [Layout](#layout)
+    * [Padding](#padding)
 * [Header](#header)
 * [Feature Table](#feature-table)
 	* [Semantics](#semantics)
@@ -33,6 +34,12 @@ Batched 3D Model, or just the _batch_, is a binary blob in little endian accesse
 A tile is composed of two sections: a header immediately followed by a body. The following figure shows the Batched 3D Model layout (dashes indicate optional fields):
 
 ![](figures/layout.png)
+
+### Padding
+
+A tile's `byteLength` must be aligned to an 8-byte boundary.
+
+The [binary glTF](#binary-gltf) (if present) must start and end on an 8-byte alignment so that glTF's byte-alignment guarantees are met. This can be done by padding the [Feature Table](../FeatureTable/README.md#padding) or [Batch Table](../BatchTable/README.md#padding) if they are present.
 
 ## Header
 
@@ -76,7 +83,7 @@ These semantics define global properties for all features.
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
 | `BATCH_LENGTH` | `uint32` | The number of distinguishable models, also called features, in the batch. If the Binary glTF does not have a `batchId` attribute, this field _must_ be `0`. | :white_check_mark: Yes. |
-| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when positions are defined relative-to-center. | :red_circle: No. |
+| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position in _z_-up coordinates when positions are defined relative-to-center. | :red_circle: No. |
 
 ## Batch Table
 
@@ -89,8 +96,6 @@ See the [Batch Table](../BatchTable/README.md) reference for more information.
 Batched 3D Model uses [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) to embed model data.
 
 The [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout) immediately follows the Feature Table and Batch Table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
-
-The glTF asset must be 8-byte aligned so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
 As described above, each vertex has a `batchId` attribute indicating the model to which it belongs.  For example, vertices for a batch with three models may look like this:
 ```
@@ -106,37 +111,43 @@ normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 ```
 Note that a vertex can't belong to more than one model; in that case, the vertex needs to be duplicated so the `batchId`s can be assigned.
 
-The `batchId` is identified by the glTF technique parameter semantic `_BATCHID`.  For example:
+The `batchId` parameter is specified in a glTF mesh [primitive](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#reference-primitive) by providing the `_BATCHID` attribute semantic, along with the index of the `batchId` [accessor](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessors). For example, 
 
 ```JSON
-"technique": {
-    "attributes": {
-        "a_batchId": "batchId"
-    },
-    "parameters": {
-        "batchId": {
-            "semantic": "_BATCHID",
-            "type": 5126
+"primitives": [
+    {
+        "attributes": {
+            "_BATCHID": 0
         }
     }
+]
+```
+
+```JSON
+{
+    "accessors": [
+        {
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5125,
+            "count": 4860,
+            "max": [2],
+            "min": [0],
+            "type": "SCALAR"
+        }
+    ]
 }
 ```
 
-For this example the attribute is named `a_batchId`, and is declared in the vertex shader as:
-
-```glsl
-attribute float a_batchId;
-```
-
-The vertex shader can be modified at runtime to use `a_batchId` to access individual models in the batch, e.g., to change their color.
-
-When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`, the `batchId` attribute (with the parameter semantic `_BATCHID`) is required; otherwise, it is not.
+When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`, the `_BATCHID` attribute is required; otherwise, it is not.
 
 ### Coordinate reference system (CRS)
 
-Vertex positions are defined according to a right-handed coordinate system where the _y_-axis is up [2].
+3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.
 
-Vertex positions may be defined relative-to-center for high-precision rendering [1]. If defined, `RTC_CENTER` specifies the center position and all vertex positions are treated as relative to this value. When `RTC_CENTER` is used, vertex positions are defined according to a coordinate system where the _z_-axis is up.
+By default, vertex positions of the embedded glTF are defined according to a right-handed coordinate system where the _y_-axis is up, but vertex positions may be defined in a coordinate system where the _z_axis is up by specifying the the [`CESIUM_z_up` glTF extension](TODO) in the embedded glTF (see [local coordinate systems](../../README.md#local-coordinate-systems)).
+
+Vertex positions may be defined relative-to-center for high-precision rendering [1]. If defined, `RTC_CENTER` specifies the center position and all vertex positions are treated as relative to this value. The center position provided for `RTC_CENTER` is is defined according to a coordinate system where the _z_-axis is up.
 
 ## File extension and MIME type
 
@@ -147,4 +158,3 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 ## Resources
 
 1. [Precisions, Precisions](http://blogs.agi.com/insight3d/index.php/2008/09/03/precisions-precisions/)
-2. [glTF Coordinate System and Units](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units)

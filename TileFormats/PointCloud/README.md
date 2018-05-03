@@ -11,6 +11,7 @@
 
 * [Overview](#overview)
 * [Layout](#layout)
+    * [Padding](#padding)
 * [Header](#header)
 * [Feature Table](#feature-table)
     * [Semantics](#semantics)
@@ -42,6 +43,10 @@ Using 3D Tiles terminology, each point is a _feature_.
 A tile is composed of a header section immediately followed by a body section. The following figure shows the Point Cloud layout (dashes indicate optional fields):
 
 ![](figures/layout.png)
+
+### Padding
+
+A tile's `byteLength` must be aligned to an 8-byte boundary.
 
 ## Header
 
@@ -315,6 +320,10 @@ The _Batch Table_ contains application-specific metadata, indexable by `batchId`
 * If the `BATCH_ID` semantic is not defined, then the Batch Table stores per-point metadata, and the length of the Batch Table arrays will equal `POINTS_LENGTH`.
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
+
+### Coordinate reference system (CRS)
+
+3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (also see [local coordinate systems](../../README.md#local-coordinate-systems)).
 
 ## File extension and MIME type
 

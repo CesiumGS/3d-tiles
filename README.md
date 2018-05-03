@@ -70,7 +70,13 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * [File extensions and MIME types](#file-extensions-and-mime-types)
 * [JSON encoding](#json-encoding)
 * [URIs](#uris)
+* [Units](#units)
+* [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
 * [Tiles](#tiles)
+   * [Bounding volumes](#bounding-volumes)
+      * [Region](#region)
+      * [Box](#box)
+      * [Sphere](#sphere)
    * [Coordinate system and units](#coordinate-system-and-units)
    * [Tile transform](#tile-transform)
    * [Viewer request volume](#viewer-request-volume)
@@ -82,6 +88,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
       * [Quadtrees](#quadtrees)
       * [Octrees](#octrees)
       * [Grids](#grids)
+    * [Geometric error](#geometric-error)
 * [Tile formats](#tile-formats)
 * [Specifying extensions and application specific extras](#specifying-extensions-and-application-specific-extras)
 * [Declarative styling](#declarative-styling)
@@ -163,11 +170,14 @@ In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structu
 
 ![](figures/tree.png)
 
-To support tight fitting volumes for a variety of datasets&mdash;from regularly divided terrain to cities not aligned with a line of longitude or latitude to arbitrary point clouds&mdash;the bounding volume may be an oriented bounding box, a bounding sphere, or a geographic region defined by minimum and maximum longitudes, latitudes, and heights.
+To support tight fitting volumes for a variety of datasets&mdash;from regularly divided terrain to cities not aligned with a line of latitude or longitude to arbitrary point clouds&mdash;the bounding volume may be an oriented bounding box, a bounding sphere, or a geographic region defined by minimum and maximum latitudes, longitudes, and heights.
 
-_TODO: include a screenshot of each bounding volume type._
+| Bounding box | Bounding sphere | Bounding region |
+|:---:|:---:|:---:|
+| ![Bounding Box](figures/BoundingBox.jpg) | ![Bounding Sphere](figures/BoundingSphere.jpg) | ![Bounding Region](figures/BoundingRegion.jpg) |
 
-A tile references a _feature_ or set of _features_, such as 3D models representing buildings or trees, points in a point cloud, or polygons, polylines, and points in a vector dataset.  These features may be batched together into essentially a single feature to reduce client-side load time and WebGL draw call overhead.
+
+A tile references a _feature_ or set of _features_, such as 3D models representing buildings or trees, points in a point cloud, or polygons, polylines, and points in a vector dataset.  These features may be batched together into essentially a single feature to reduce client-side load time and rendering draw call overhead.
 
 A 3D tileset consists of at least one tileset JSON file specifying the metadata and the tree of tiles, as well as any referenced tile content files which may be any valid tile format, defined in JSON as described below. 
 
@@ -196,6 +206,18 @@ Explicit file extensions are optional for tileset and tile content files. Valid 
 When the URI is relative, its base is always relative to the referring tileset JSON file.
 
 Client implementations are required to support relative external references and embedded resources. Optionally, client implementations may support other schemes (such as `http://`). All URIs must be valid and resolvable.
+
+## Units
+
+The unit for all linear distances is meters.
+
+All angles are in radians.
+
+## Coordinate reference system (CRS)
+
+3D Tiles uses a global and local coordinate systems. Coordinates for top-level tileset and tile properties defined by bounding volumes are specified using a **global** coordinate system, the coordinate system for which depends on the type of [bounding volume](#bounding-volumes) used. A tileset's global coordinate system will often be [WGS84 ellipsoidal coordinate system](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be.
+
+Tile content uses a [**local** coordinate system](#local-coordinate-systems) independent of the global tileset coordinate system. An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
 
 ## Tiles
 
@@ -232,42 +254,101 @@ Tiles consist of content, metadata used to render the tile, and any children til
 }
 ```
 
-The `boundingVolume` defines a volume enclosing the tile content, and is used to determine which tiles to render at runtime. The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region in [EPSG:4326](http://spatialreference.org/ref/epsg/wgs-84/) coordinates with the order `[west, south, east, north, minimum height, maximum height]`.  Longitudes and latitudes are in radians, and heights are in meters above (or below) the [WGS84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).  Besides `region`, other bounding volumes, such as `box` and `sphere`, may be used.
+The `boundingVolume` defines a volume enclosing the tile content, and is used to determine which tiles to render at runtime. The above example uses a `region` volume, but other [bounding volumes](#bounding-volumes), such as `box` or `sphere`, may be used.
 
-The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
+The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered, see [Geometric error](#geometric-error).
 
-An optional `viewerRequestVolume` property (not shown above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
+The optional `viewerRequestVolume` property (not shown above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
 
 The `refine` property is a string that is either `"REPLACE"` for replacement refinement or `"ADD"` for additive refinement.  It is required for the root tile of a tileset; it is optional for all other tiles.  When `refine` is omitted, it is inherited from the parent tile.
 
-The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a string that points to the tile's contents with an absolute or relative url.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [Roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
+The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a string that points to the tile's contents with an absolute or relative uri.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [Roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
 
-The url can be another tileset JSON to create a tileset of tilesets.  See [External tilesets](#external-tilesets).
+The uri can be another tileset JSON to create a tileset of tilesets.  See [External tilesets](#external-tilesets).
 
 A file extension is not required for `content.url`.  A content's [tile format](#tile-formats) can be identified by the `magic` field in its header, or else as an external tileset if the content is JSON.
 
-`content.boundingVolume` defines an optional bounding volume similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's contents.  `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling. The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
+The `content.boundingVolume` property defines an optional [bounding volume](#bounding-volumes) similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's contents.  `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)). 
 
-![](figures/contentsBox.png)
+The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
 
-`content.boundingVolume` is optional.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
+![](figures/contentsBox.png) 
 
-An optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
+The optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
 
-`children` is an array of objects that define child tiles.  See the [tileset.json section below](#tilesetjson).
+The `children` property is an array of objects that define child tiles.  See the [tileset.json section below](#tilesetjson).
 
 ![](figures/tile.png)
 
-### Coordinate system and units
+### Bounding volumes
 
-3D Tiles uses a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (see the [Tile transform](#tile-transform) section).  A tileset's global coordinate system will often be [WGS84 ellipsoidal coordinate system](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
+Bounding volume objects are used to defined an enclosing volume, and must specify exactly one of the following properties. 
 
-#### Tile content
+#### Region
 
-`b3dm` and `i3dm` tiles embed glTF. According to the [glTF spec](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units), glTF uses a right-handed coordinate system and defines the _y_ axis as up. By default, embedded models are considered to be _y_-up, but in order to support a variety of source data, including models defined directly in WGS84 coordinates, embedded glTF models may be defined as _x_-up, _y_-up, or _z_-up with the `asset.gltfUpAxis` property of tileset JSON. 
+The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region in [EPSG:4326](http://spatialreference.org/ref/epsg/wgs-84/) coordinates with the order `[west, south, east, north, minimum height, maximum height]`.  Latitudes and longitudes are in radians, and heights are in meters above (or below) the [WGS84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).  
 
-To transform from a glTF y-up to a 3D Tiles z-up coordinate system, the following matrix transform is applied:
+```JSON
+"boundingVolume": {
+  "region": [
+    -1.3197004795898053,
+    0.6988582109,
+    -1.3196595204101946,
+    0.6988897891,
+    0,
+    20
+  ]
+}
 ```
+
+![Bounding Region](figures/BoundingRegion.jpg)
+
+#### Box
+
+The `boundingVolume.box` property is an array of 12 numbers that define an oriented bounding box in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the _z_-axis is up. The first three elements define the x, y, and z values for the center of the box. The next three elements (with indices 3, 4, and 5) define the _x_-axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the _y_-axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the _z_-axis direction and half-length.
+
+```JSON
+"boundingVolume": {
+  "box": [
+    0,   0,   10,
+    100, 0,   0,
+    0,   100, 0,
+    0,   0,   10
+  ]
+}
+```
+
+![Bounding Box](figures/BoundingBox.jpg)
+
+#### Sphere
+
+The `boundingVolume.sphere` property is an array of four numbers that define a bounding sphere.  The first three elements define the x, y, and z values for the center of the sphere in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the _z_-axis is up.  The last element (with index 3) defines the radius in meters.
+
+```JSON
+"boundingVolume": {
+  "sphere": [
+    0,
+    0,
+    10,
+    141.4214
+  ]
+}
+```
+
+![Bounding Sphere](figures/BoundingSphere.jpg)
+
+### Local coordinate systems
+
+3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (additionally, see the [Tile transform](#tile-transform) section).
+
+Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. According to the [glTF spec](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units), glTF uses a right-handed coordinate system and defines the _y_ axis as up. By default, the vertex positions of embedded models are defined according toto a right-handed coordinate system where the _y_-axis is up. 
+
+In order to support a variety of source data, including models defined with geographical coordinate systems, vertex positions may be defined in a coordinate system where the _z_axis is up by specifying the [`CESIUM_z_up` glTF extension](TODO) in the embedded glTF.
+
+> Implementation note: Using the `CESIUM_z_up` extension is preferred to transforming the vertex positions to a _z_-up coordinate system at runtime. 
+
+If the `CESIUM_z_up` glTF extension is not used, model vertex positions must be transformed to be consistent with 3D Tiles' coordinate system. To transform coordinates from a glTF _y_-up system to a 3D Tiles' _z_-up system, rotate the positions about the _x_-axis by &piv;/2 radians. Equivalently, apply the following matrix transform:
+```json
 [
 1.0, 0.0,  0.0, 0.0,
 0.0, 0.0, -1.0, 0.0,
@@ -277,14 +358,6 @@ To transform from a glTF y-up to a 3D Tiles z-up coordinate system, the followin
 ```
 
 Tile transforms are applied after the conversion between coordinate systems is resolved.
-
-> Implementation Note: In general, an implementation should transform glTF assets to _z_-up at runtime to be consistent with the _z_-up coordinate system of the bounding volume hierarchy.
-
-The unit for all linear distances is meters.
-
-All angles are in radians.
-
-3D Tiles does not explicitly store cartographic coordinates (longitude, latitude, and height); these values are implicit in WGS84 Cartesian coordinates, which are efficient for the GPU to render since they do not require a non-affine coordinate transformation.  A 3D Tiles tileset can include application-specific metadata, such as cartographic coordinates, but the semantics are not part of the 3D Tiles specification.
 
 ### Tile transform
 
@@ -469,11 +542,11 @@ Here is a subset of the tileset file used for [Canary Wharf](http://cesiumjs.org
 
 The top-level object in the tileset JSON has four properties: `asset`, `properties`, `geometricError`, and `root`.
 
-`asset` is an object containing properties with metadata about the entire tileset.  Its `version` property is a string that defines the 3D Tiles version.  The version defines the JSON schema for the tileset file and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated. The `gltfUpAxis` property is an optional string that specifies the up-axis of glTF models contained in the tileset.
+`asset` is an object containing properties with metadata about the entire tileset. The `asset.version` property is a string that defines the 3D Tiles version, which specifies the JSON schema for the tileset file and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated. The `gltfUpAxis` property is an optional string that specifies the up-axis of glTF models contained in the tileset.
 
 `properties` is an object containing objects for each per-feature property in the tileset.  This tileset file snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see [Batch Table](TileFormats/BatchTable/README.md)).  The name of each object in `properties` matches the name of a per-feature property, and its value defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
-`geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered.
+`geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered, see [Geometric error](#geometric-error).
 
 `root` is an object that defines the root tile using the JSON described in the [above section](#tile-content).  `root.geometricError` is not the same as the tileset's top-level `geometricError`.  tileset. The tileset's `geometricError` is the error when the entire tileset is not rendered; `root.geometricError` is the error when only the root tile is rendered.
 
@@ -483,7 +556,7 @@ See the [Q&A below](#will-a-tileset-file-be-part-of-the-final-3d-tiles-spec) for
 
 ### External tilesets
 
-To create a tree of trees, a tile's `content.url` can point to an external tileset (the url of another tileset JSON file).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
+To create a tree of trees, a tile's `content.url` can point to an external tileset (the uri of another tileset JSON file).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
 
 ![](figures/tilesets.jpg)
 
@@ -518,7 +591,7 @@ It is up to the conversion tool that generates tileset file to define an optimal
 
 #### K-d trees
 
-A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the _x_, _y_, or _z_ axis (or longitude, latitude, height).  The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
+A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the _x_, _y_, or _z_ axis (or latitude, longitude, height).  The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
 
 <p align="center">
   <img src="figures/kdtree.png" /><br />
@@ -531,7 +604,7 @@ Note that a k-d tree does not have uniform subdivision like typical 2D geospatia
 
 #### Quadtrees
 
-A quadtree is created when each tile has four uniformly subdivided children (e.g., using the center longitude and latitude), similar to typical 2D geospatial tiling schemes.  Empty child tiles can be omitted.
+A quadtree is created when each tile has four uniformly subdivided children (e.g., using the center latitude and longitude), similar to typical 2D geospatial tiling schemes.  Empty child tiles can be omitted.
 
 <p align="center">
   <img src="figures/quadtree.png" /><br />
@@ -581,6 +654,14 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 ![](figures/grid.png)
 
 3D Tiles takes advantage of empty tiles: those tiles that have a bounding volume, but no content. Since a tile's `content` property does not need to be defined, empty non-leaf tiles can be used to accelerate non-uniform grids with hierarchical culling. This essentially creates a quadtree or octree without hierarchical levels of detail (HLOD).
+
+### Geometric error
+
+Geometric error is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered. 
+
+The geometric error is determined when creating the tileset and based on a metric like point density, tile sizes in meters, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner. 
+
+> Implementation note: Typically, a property of the root tile, such as size, is used to determine a geometric error. Then each successive level of children uses a lower geometric error, with leaf tiles generally having a geometric error of 0.
 
 ## Tile formats
 

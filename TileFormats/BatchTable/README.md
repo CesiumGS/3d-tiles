@@ -11,6 +11,7 @@
 
 * [Overview](#overview)
 * [Layout](#layout)
+   * [Padding](#padding)
    * [JSON header](#json-header)
    * [Binary body](#binary-body)
 * [Batch Table Hierarchy](#batch-table-hierarchy)
@@ -45,6 +46,12 @@ The header will also contain `batchTableJSONByteLength` and `batchTableBinaryByt
 
 Code for reading the Batch Table can be found in [Cesium3DTileBatchTable.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
 
+### Padding
+
+The binary body must start and end on a 8-byte alignment.
+
+The JSON header must be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the Batch Table binary (if present).
+
 ### JSON header
 
 Batch Table values can be represented in the JSON header in two different ways:
@@ -53,7 +60,7 @@ Batch Table values can be represented in the JSON header in two different ways:
     * Array elements can be any valid JSON data type, including objects and arrays.  Elements may be `null`.
     * The length of each array is equal to `batchLength`, which is specified in each tile format.  This is the number of features in the tile.  For example, `batchLength` may be the number of models in a b3dm tile, the number of instances in a i3dm tile, or the number of points (or number of objects) in a pnts tile.
 2. A reference to data in the binary body, denoted by an object with `byteOffset`, `componentType`, and `type` properties,  e.g., `"height" : { "byteOffset" : 24, "componentType" : "FLOAT", "type" : "SCALAR"}`.
-    * `byteOffset` is a zero-based offset relative to the start of the binary body.
+    * `byteOffset` specifies a zero-based offset relative to the start of the binary body. The value of `byteOffset` must be a multiple of the size of the property's `componentType`, e.g., a property with the component type of `FLOAT` must start at an offset of a multiple of `4`.
     * `componentType` is the datatype of components in the attribute. Allowed values are `"BYTE"`, `"UNSIGNED_BYTE"`, `"SHORT"`, `"UNSIGNED_SHORT"`, `"INT"`, `"UNSIGNED_INT"`, `"FLOAT"`, and `"DOUBLE"`.
     * `type` specifies if the property is a scalar or vector. Allowed values are `"SCALAR"`, `"VEC2"`, `"VEC3"`, and `"VEC4"`.
 
@@ -495,14 +502,6 @@ More detailed descriptions are provided in the [Styling Spec](../../Styling/READ
 ```
 
 * The Batch Table Hierarchy is self-contained within the tile. It is not possible to form metadata hierarchy across different tiles in the tileset.
-
-## Implementation notes
-
-In JavaScript, a `TypedArray` cannot be created on data unless it is byte-aligned to the data type.
-For example, a `Float32Array` must be stored in memory such that its data begins on a byte multiple of four since each `float` contains four bytes.
-
-The string generated from the JSON header should be padded with space characters in order to ensure that the binary body is byte-aligned.
-The binary body should also be padded if necessary when there is data following the Batch Table.
 
 ## Acknowledgments
 

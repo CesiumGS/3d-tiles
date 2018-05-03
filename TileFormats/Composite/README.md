@@ -9,6 +9,7 @@
 
 * [Overview](#overview)
 * [Layout](#layout)
+    * [Padding](#padding)
 * [Header](#header)
 * [Inner tiles](#inner-tiles)
 * [File extension and MIME type](#file-extension-and-mime-type)
@@ -30,6 +31,10 @@ A Composite is a binary blob in little endian accessed in JavaScript as an `Arra
 Composite layout (dashes indicate optional fields):
 
 ![](figures/layout.png)
+
+### Padding
+
+A tile's `byteLength` must be aligned to an 8-byte boundary. All tiles contained in a composite tile must also be aligned to an 8-byte boundary.
 
 ## Header
 
