@@ -1,4 +1,4 @@
-# CESIUM_batch_table_hierarchy
+# CESIUM_batch_table_hierarchy Extension
 
 ## Contributors
 
@@ -11,7 +11,8 @@
 
 * [Overview](#overview)
 * [Motivation](#motivation)
-* [Hierarchy](#hierarchy)
+* [Batch table JSON schema updates](#batch-table-json-schema-updates)
+   * [CESIUM_batch_table_hierarchy](#cesium_batch_table_hierarchy)
 * [Examples](#examples)
 * [Styling](#styling)
 * [Notes](#notes)
@@ -109,15 +110,15 @@ A standard batch table with two walls per building and three buildings per block
 
 Both these cases illustrate the benefit of supporting feature types and a feature hierarchy within the Batch Table.
 
-## Hierarchy
+## Batch table JSON schema updates
 
-The standard batch table may be extended to include a `HIERARCHY` object that defines a set of classes and a tree structure for class instances.
+The standard batch table may be extended to include a `CESIUM_batch_table_hierarchy` object that defines a set of classes and a tree structure for class instances.
 
 Sample Batch Table:
 
 ```json
 {
-  "HIERARCHY" : {
+  "CESIUM_batch_table_hierarchy" : {
     "classes" : [
       {
         "name" : "Wall",
@@ -150,6 +151,8 @@ Sample Batch Table:
   }
 }
 ```
+
+### CESIUM_batch_table_hierarchy
 
 `classes` is an array of objects, where each object contains the following properties:
 * `name` - A string representing the name of the class
@@ -184,6 +187,8 @@ Finally, `classIds`, `parentCounts`, and `parentIds` may instead be references t
     "componentType" : "UNSIGNED_SHORT"
 };
 ```
+
+JSON schema definitions can be found in [CESIUM_batch_table_hierarchy.json](./schema/CESIUM_batch_table_hierarchy.json).
 
 ## Examples
 

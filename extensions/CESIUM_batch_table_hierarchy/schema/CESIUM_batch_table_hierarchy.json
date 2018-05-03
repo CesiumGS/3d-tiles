@@ -1,19 +1,49 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "id" : "batchTable.schema.json",
-    "title" : "Batch Table",
-    "type" : "object",
-    "description" : "A set of properties defining application-specific metadata for features in a tile.",
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "CESIUM_batch_table_hierarchy extension",
+    "type": "object",
     "properties" : {
+        "classes" : {
+            "type" : "array",
+            "items" : {
+                "type" : "object",
+                "properties" : {
+                    "name" : {
+                        "type" : "string"
+                    },
+                    "length" : {
+                        "type" : "number",
+                        "minimum" : 0
+                    },
+                    "instances" : {
+                        "type" : "object",
+                        "additionalProperties" : {
+                            "$ref" : "#/definitions/property"
+                        }
+                    }
+                },        
+                "required" : ["name", "length", "instances"]
+            }
+        },
+        "instancesLength" : {
+            "type" : "number",
+            "minimum" : 0
+        },
+        "classIds" : {
+            "$ref" : "#/definitions/integerProperty"
+        },
+        "parentCounts" : {
+            "$ref" : "#/definitions/integerProperty"
+        },
+        "parentIds" : {
+            "$ref" : "#/definitions/integerProperty"
+        },
         "extensions" : {
             "$ref": "extension.schema.json"
         },
         "extras" : {
             "$ref": "extras.schema.json"
         }
-    },
-    "additionalProperties" : {
-        "$ref" : "#/definitions/property"
     },
     "definitions" : {
         "binaryBodyReference" : {
@@ -67,5 +97,6 @@
                 { "$ref" : "#/definitions/integerArray" }
             ]
         }
-    }
+    },
+    "required" : ["classes", "instancesLength", "classIds"]
 }
