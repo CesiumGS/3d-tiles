@@ -49,7 +49,6 @@ Contents:
    * [Built-in variables](#built-in-variables)
    * [Built-in functions](#built-in-functions)
    * [Notes](#notes)
-* [Batch Table Hierarchy](#batch-table-hierarchy)
 * [Point Cloud](#point-cloud)
 * [File extension and MIME type](#file-extension-and-mime-type)
 * [Acknowledgments](#acknowledgments)
@@ -1231,78 +1230,6 @@ Computes the cross product of `x` and `y`. This function only accepts `vec3` arg
 ### Notes
 
 Comments are not supported.
-
-## Batch Table Hierarchy
-
-The styling language provides the following built-in functions intended for use with the [Batch Table Hierarchy](../TileFormats/BatchTable/README.md#batch-table-hierarchy):
-
-* [`getExactClassName`](#getexactclassname)
-* [`isExactClass`](#isexactclass)
-* [`isClass`](#isclass)
-
-#### getExactClassName
-
-```
-getExactClassName() : String
-```
-
-Returns the feature's class name, or `undefined` if the feature is not a class instance.
-
-For example, the following style will color all doorknobs yellow, all doors green, and all other features gray.
-
-```json
-{
-    "defines" : {
-        "suffix" : "regExp('door(.*)').exec(getExactClassName())"
-    },
-    "color" : {
-        "conditions" : [
-            ["${suffix} === 'knob'", "color('yellow')"],
-            ["${suffix} === ''", "color('green')"],
-            ["${suffix} === null", "color('gray')"],
-            ["true", "color('blue'"]
-        ]
-    }
-}
-```
-
-#### isExactClass
-
-```
-isExactClass(name : String) : Boolean
-```
-
-Returns `true` if the feature's class is equal to `name`, otherwise `false`.
-
-For example, the following style will color all doors, but not features that are children of doors (like doorknobs):
-
-```json
-"color" : {
-    "conditions" : [
-        ["isExactClass('door')", "color('red')"],
-        ["true", "color('white')"]
-    ]
-}
-```
-
-#### isClass
-
-```
-isClass(name : String) : Boolean
-```
-
-Returns `true` if the feature's class, or any of its ancestors' classes, are equal to `name`.
-
-For example, the style below will color all doors and doorknobs.
-
-```json
-"color" : {
-    "conditions" : [
-        ["isClass('door')", "color('blue')"],
-        ["true", "color('white')"]
-    ]
-}
-```
 
 ## Point Cloud
 
