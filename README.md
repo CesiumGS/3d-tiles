@@ -339,15 +339,11 @@ The `boundingVolume.sphere` property is an array of four numbers that define a b
 
 ### Local coordinate systems
 
-3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (additionally, see the [Tile transform](#tile-transform) section).
+3D Tiles uses a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (additionally, see the [Tile transform](#tile-transform) section).
 
-Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. According to the [glTF spec](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units), glTF uses a right-handed coordinate system and defines the _y_ axis as up. By default, the vertex positions of embedded models are defined according toto a right-handed coordinate system where the _y_-axis is up. 
+Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. The [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units) defines a right-handed coordinate system with the _y_ axis as up. For consistency with the _z_-up coordinate system of 3D Tiles, embedded glTFs may instead use the [`CESIUM_z_up` glTF extension](TODO).
 
-In order to support a variety of source data, including models defined with geographical coordinate systems, vertex positions may be defined in a coordinate system where the _z_axis is up by specifying the [`CESIUM_z_up` glTF extension](TODO) in the embedded glTF.
-
-> Implementation note: Using the `CESIUM_z_up` extension is preferred to transforming the vertex positions to a _z_-up coordinate system at runtime. 
-
-If the `CESIUM_z_up` glTF extension is not used, model vertex positions must be transformed to be consistent with 3D Tiles' coordinate system. To transform coordinates from a glTF _y_-up system to a 3D Tiles' _z_-up system, rotate the positions about the _x_-axis by &piv;/2 radians. Equivalently, apply the following matrix transform:
+If the `CESIUM_z_up` glTF extension is not used, the glTF model must be transformed to a _z_-up coordinate system at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following matrix transform:
 ```json
 [
 1.0, 0.0,  0.0, 0.0,
@@ -356,6 +352,8 @@ If the `CESIUM_z_up` glTF extension is not used, model vertex positions must be 
 0.0, 0.0,  0.0, 1.0
 ]
 ```
+
+> Implementation note: Using the `CESIUM_z_up` extension is preferred to transforming the model to a _z_-up coordinate system at runtime.
 
 Tile transforms are applied after the conversion between coordinate systems is resolved.
 
