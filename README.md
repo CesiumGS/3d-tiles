@@ -713,7 +713,7 @@ Extensions allow the base specification to be extended with new features. The op
 ```
 
 
-All extensions used in a tileset or any descendent external tilesets must be listed in the entry tileset JSON in the top-level `extensionsUsed` array property, e.g.,
+All extensions used in a tileset or any descendant external tilesets must be listed in the entry tileset JSON in the top-level `extensionsUsed` array property, e.g.,
 
 ```JSON
 {
@@ -723,7 +723,7 @@ All extensions used in a tileset or any descendent external tilesets must be lis
 }
 ```
 
-All extensions required to load and render a tileset or any descendent external tilesets must also be listed in the entry tileset JSON in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` must also exist in `extensionsUsed`.
+All extensions required to load and render a tileset or any descendant external tilesets must also be listed in the entry tileset JSON in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` must also exist in `extensionsUsed`.
 
 ### Extras
 
