@@ -147,7 +147,7 @@ module.
 #### Default orientation
 
 If `NORMAL_UP` and `NORMAL_RIGHT` or `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P` are not present, the instance will not have a custom orientation. If `EAST_NORTH_UP` is `true`, the instance is assumed to be on the `WGS84` ellipsoid and its orientation will default to the `east/north/up` reference frame at its cartographic position.
-This is suitable for instanced models such as trees whose orientation is always facing up from 
+This is suitable for instanced models such as trees whose orientation is always facing up from their position on the ellipsoid's surface.
 
 ### Instance position
 
@@ -251,7 +251,7 @@ Contains metadata organized by `batchId` that can be used for declarative stylin
 
 The glTF asset to be instanced is stored after the Feature Table and Batch Table.
 
-[glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL. Instanced 3D Models uses [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) to embed model data.
+Instanced 3D Models uses [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) for model data.
 
 The [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout) immediately follows the feature table and batch table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
@@ -260,7 +260,7 @@ The [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification
 * When the value of `header.gltfFormat` is `0`, the glTF field is a UTF-8 string, which contains a uri of the glTF model content.
 * When the value of `header.gltfFormat` is `1`, the glTF field is a binary blob containing binary glTF.
 
-> Implementation note: Prefer a binary glTF blob to an glTF model data uri.
+> Implementation note: Prefer a binary glTF blob to a glTF model data uri.
 
 In either case, `header.gltfByteLength` contains the length of the glTF field in bytes.
 
@@ -268,7 +268,7 @@ In either case, `header.gltfByteLength` contains the length of the glTF field in
 
 3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.
 
-By default, vertex positions of the embedded glTF are defined according to a right-handed coordinate system where the _y_-axis is up, but vertex positions may be defined in a coordinate system where the _z_axis is up by specifying the the [`CESIUM_z_up` glTF extension](TODO) in the embedded glTF (see [local coordinate systems](../../README.md#local-coordinate-systems)).
+By default, vertex positions of the embedded glTF are defined according to a right-handed coordinate system where the _y_-axis is up, but vertex positions may be defined in a coordinate system where the _z_axis is up by specifying the [`CESIUM_z_up` glTF extension](TODO) in the embedded glTF (see [local coordinate systems](../../README.md#local-coordinate-systems)).
 
 ## File extension and MIME type
 
