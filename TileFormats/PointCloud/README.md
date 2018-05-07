@@ -18,6 +18,8 @@
         * [Point semantics](#point-semantics)
         * [Global semantics](#global-semantics)
     * [Point positions](#point-positions)
+        * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
+        * [RTC_CENTER](#rtc_center)
         * [Quantized positions](#quantized-positions) 
     * [Point colors](#point-colors) 
     * [Point normals](#point-normals)     
@@ -46,7 +48,7 @@ A tile is composed of a header section immediately followed by a body section. T
 
 ### Padding
 
-A tile's `byteLength` must be aligned to an 8-byte boundary.
+A tile's `byteLength` must be aligned to an 8-byte boundary. The contained [Feature Table](../FeatureTable/README.md#padding) and [Batch Table](../BatchTable/README.md#padding) must conform to their respective padding requirement.
 
 ## Header
 
@@ -114,14 +116,22 @@ Examples using these semantics can be found in the [examples section](#examples)
 
 ### Point positions
 
-`POSITION` defines the position for a point before any tileset transforms are applied. Positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://blogs.agi.com/insight3d/index.php/2008/09/03/precisions-precisions/). `RTC_CENTER` defines the center position.
+`POSITION` defines the position for a point before any tileset transforms are applied. 
+
+#### Coordinate reference system (CRS)
+
+3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (also see [tile content coordinate systems](../../README.md#tile-content-coordinate-systems)).
+
+#### RTC_CENTER
+
+Positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position and all vertex positions are treated as relative to this value. The center position provided for `RTC_CENTER` is defined according to a coordinate system where the _z_-axis is up.
 
 #### Quantized positions
 
 If `POSITION` is not defined, positions may be stored in `POSITION_QUANTIZED`, which defines point positions relative to the quantized volume.
 If neither `POSITION` nor `POSITION_QUANTIZED` is defined, the tile does not need to be rendered.
 
-A quantized volume is defined by `offset` and `scale` to map quantized positions into model space. The following figure shows a quantized volume based on `offset` and `scale`:
+A quantized volume is defined by `offset` and `scale` to map quantized positions to a position in local space. The following figure shows a quantized volume based on `offset` and `scale`:
 
 ![quantized volume](figures/quantized-volume.png)
 
@@ -320,10 +330,6 @@ The _Batch Table_ contains application-specific metadata, indexable by `batchId`
 * If the `BATCH_ID` semantic is not defined, then the Batch Table stores per-point metadata, and the length of the Batch Table arrays will equal `POINTS_LENGTH`.
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
-
-### Coordinate reference system (CRS)
-
-3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (also see [local coordinate systems](../../README.md#local-coordinate-systems)).
 
 ## File extension and MIME type
 

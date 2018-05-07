@@ -73,12 +73,12 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * [URIs](#uris)
 * [Units](#units)
 * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
+   * [Tile content coordinate systems](#tile-content-coordinate-systems)
 * [Tiles](#tiles)
    * [Bounding volumes](#bounding-volumes)
       * [Region](#region)
       * [Box](#box)
       * [Sphere](#sphere)
-   * [Coordinate system and units](#coordinate-system-and-units)
    * [Tile transform](#tile-transform)
    * [Viewer request volume](#viewer-request-volume)
 * [Tileset JSON file](#tileset-json-files)
@@ -206,7 +206,7 @@ Explicit file extensions are optional for tileset and tile content files. Valid 
 
 ## URIs
 
-3D Tiles use URIs to reference tile content. These URIs may point to [relative external references (RFC3986)] or be data URIs that embed resources in the JSON. Embedded resources use [the "data" URI scheme (RFC2397)](https://tools.ietf.org/html/rfc2397). 
+3D Tiles use URIs to reference tile content. These URIs may point to [relative external references (RFC3986)](https://tools.ietf.org/html/rfc3986#section-4.2) or be data URIs that embed resources in the JSON. Embedded resources use [the "data" URI scheme (RFC2397)](https://tools.ietf.org/html/rfc2397). 
 
 When the URI is relative, its base is always relative to the referring tileset JSON file.
 
@@ -220,9 +220,27 @@ All angles are in radians.
 
 ## Coordinate reference system (CRS)
 
-3D Tiles uses a global and local coordinate systems. Coordinates for top-level tileset and tile properties defined by bounding volumes are specified using a **global** coordinate system, the coordinate system for which depends on the type of [bounding volume](#bounding-volumes) used. A tileset's global coordinate system will often be [WGS84 ellipsoidal coordinate system](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be.
+Tile objects are specified in a coordinate system as defined by the type of [bounding volume](#bounding-volumes) used. This coordinate system will often be in a geospatial context and use the [WGS84 ellipsoidal coordinate system](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be.
 
-Tile content uses a [**local** coordinate system](#local-coordinate-systems) independent of the global tileset coordinate system. An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
+### Tile content coordinate systems
+
+Each tile's content uses a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
+
+Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. The [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units) defines a right-handed coordinate system with the _y_ axis as up. For consistency with the _z_-up coordinate system of 3D Tiles, embedded glTFs may instead use the [`CESIUM_z_up` glTF extension](TODO).
+
+If the `CESIUM_z_up` glTF extension is not used, the glTF model must be transformed to a _z_-up coordinate system at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following matrix transform:
+```json
+[
+1.0, 0.0,  0.0, 0.0,
+0.0, 0.0, -1.0, 0.0,
+0.0, 1.0,  0.0, 0.0,
+0.0, 0.0,  0.0, 1.0
+]
+```
+
+> Implementation note: Using the `CESIUM_z_up` extension is preferred to transforming the model to a _z_-up coordinate system at runtime.
+
+Tile transforms are applied after the conversion between coordinate systems is resolved.
 
 ## Tiles
 
@@ -341,26 +359,6 @@ The `boundingVolume.sphere` property is an array of four numbers that define a b
 ```
 
 ![Bounding Sphere](figures/BoundingSphere.jpg)
-
-### Local coordinate systems
-
-3D Tiles uses a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (additionally, see the [Tile transform](#tile-transform) section).
-
-Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. The [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units) defines a right-handed coordinate system with the _y_ axis as up. For consistency with the _z_-up coordinate system of 3D Tiles, embedded glTFs may instead use the [`CESIUM_z_up` glTF extension](TODO).
-
-If the `CESIUM_z_up` glTF extension is not used, the glTF model must be transformed to a _z_-up coordinate system at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following matrix transform:
-```json
-[
-1.0, 0.0,  0.0, 0.0,
-0.0, 0.0, -1.0, 0.0,
-0.0, 1.0,  0.0, 0.0,
-0.0, 0.0,  0.0, 1.0
-]
-```
-
-> Implementation note: Using the `CESIUM_z_up` extension is preferred to transforming the model to a _z_-up coordinate system at runtime.
-
-Tile transforms are applied after the conversion between coordinate systems is resolved.
 
 ### Tile transform
 

@@ -20,6 +20,8 @@
         * [Oct-encoded normal vectors](#oct-encoded-normal-vectors) 
         * [Default orientation](#default-orientation)  
     * [Instance position](#instance-position)
+        * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
+        * [RTC_CENTER](#rtc_center)
         * [Quantized positions](#quantized-positions)
     * [Instance scaling](#instance-scaling)
     * [Examples](#examples)
@@ -49,11 +51,11 @@ A tile is composed of a header section immediately followed by a body section. T
 
 ### Padding
 
-A tile's `byteLength` must be aligned to an 8-byte boundary.
+A tile's `byteLength` must be aligned to an 8-byte boundary. The contained [Feature Table](../FeatureTable/README.md#padding) and [Batch Table](../BatchTable/README.md#padding) must conform to their respective padding requirement.
 
-The [binary glTF](#gltf) (if present) must start and end on an 8-byte alignment so that glTF's byte-alignment guarantees are met. This can be done by padding the [Feature Table](../FeatureTable/README.md#padding) or [Batch Table](../BatchTable/README.md#padding) if they are present.
+The [binary glTF](#gltf) (if present) must start and end on an 8-byte alignment so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
-Otherwise, if the glTF field is a UTF-8 string, it must be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the tile.
+Otherwise, if the glTF field is a UTF-8 string, it must be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the tile, which must be removed at runtime before requesting the glTF asset.
 
 ## Header
 
@@ -151,7 +153,17 @@ This is suitable for instanced models such as trees whose orientation is always 
 
 ### Instance position
 
-`POSITION` defines the location for an instance before any tile transforms are applied. Positions may be defined relative to center for high-precision rendering, see [Precisions, Precisions](http://blogs.agi.com/insight3d/index.php/2008/09/03/precisions-precisions/). `RTC_CENTER` defines the center position.
+`POSITION` defines the location for an instance before any tile transforms are applied.
+
+#### Coordinate reference system (CRS)
+
+3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.
+
+By default, vertex positions of the embedded glTF are defined according to a right-handed coordinate system where the _y_-axis is up, but vertex positions may be defined in a coordinate system where the _z_axis is up by specifying the [`CESIUM_z_up` glTF extension](TODO) in the embedded glTF (see [tile content coordinate systems](../../README.md#tile-content-coordinate-systems)).
+
+#### RTC_CENTER
+
+Positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position and all vertex positions are treated as relative to this value. The center position provided for `RTC_CENTER` is defined according to a coordinate system where the _z_-axis is up.
 
 #### Quantized positions
 
@@ -260,15 +272,7 @@ The [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification
 * When the value of `header.gltfFormat` is `0`, the glTF field is a UTF-8 string, which contains a uri of the glTF model content.
 * When the value of `header.gltfFormat` is `1`, the glTF field is a binary blob containing binary glTF.
 
-> Implementation note: Prefer a binary glTF blob to a glTF model data uri.
-
 In either case, `header.gltfByteLength` contains the length of the glTF field in bytes.
-
-### Coordinate reference system (CRS)
-
-3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.
-
-By default, vertex positions of the embedded glTF are defined according to a right-handed coordinate system where the _y_-axis is up, but vertex positions may be defined in a coordinate system where the _z_axis is up by specifying the [`CESIUM_z_up` glTF extension](TODO) in the embedded glTF (see [local coordinate systems](../../README.md#local-coordinate-systems)).
 
 ## File extension and MIME type
 

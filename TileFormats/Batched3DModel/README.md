@@ -37,9 +37,9 @@ A tile is composed of two sections: a header immediately followed by a body. The
 
 ### Padding
 
-A tile's `byteLength` must be aligned to an 8-byte boundary.
+A tile's `byteLength` must be aligned to an 8-byte boundary. The contained [Feature Table](../FeatureTable/README.md#padding) and [Batch Table](../BatchTable/README.md#padding) must conform to their respective padding requirement.
 
-The [binary glTF](#binary-gltf) (if present) must start and end on an 8-byte alignment so that glTF's byte-alignment guarantees are met. This can be done by padding the [Feature Table](../FeatureTable/README.md#padding) or [Batch Table](../BatchTable/README.md#padding) if they are present.
+The [binary glTF](#binary-gltf) (if present) must start and end on an 8-byte alignment so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
 ## Header
 
@@ -83,7 +83,7 @@ These semantics define global properties for all features.
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
 | `BATCH_LENGTH` | `uint32` | The number of distinguishable models, also called features, in the batch. If the Binary glTF does not have a `batchId` attribute, this field _must_ be `0`. | :white_check_mark: Yes. |
-| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position in _z_-up coordinates when positions are defined relative-to-center. | :red_circle: No. |
+| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when positions are defined relative-to-center, (see [Coordinate reference system (CRS)](#coordinate-reference-system-crs)). | :red_circle: No. |
 
 ## Batch Table
 
@@ -139,22 +139,20 @@ The `batchId` parameter is specified in a glTF mesh [primitive](https://github.c
 }
 ```
 
+The `accessor.type` must be a value of `"SCALAR"`. All other properties must conform to the glTF schema, but have no additional requirements.
+
 When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`, the `_BATCHID` attribute is required; otherwise, it is not.
 
 ### Coordinate reference system (CRS)
 
 3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.
 
-By default, vertex positions of the embedded glTF are defined according to a right-handed coordinate system where the _y_-axis is up, but vertex positions may be defined in a coordinate system where the _z_axis is up by specifying the [`CESIUM_z_up` glTF extension](TODO) in the embedded glTF (see [local coordinate systems](../../README.md#local-coordinate-systems)).
+By default, vertex positions of the embedded glTF are defined according to a right-handed coordinate system where the _y_-axis is up, but vertex positions may be defined in a coordinate system where the _z_axis is up by specifying the [`CESIUM_z_up` glTF extension](TODO) in the embedded glTF (see [tile content coordinate systems](../../README.md#tile-content-coordinate-systems)).
 
-Vertex positions may be defined relative-to-center for high-precision rendering [1]. If defined, `RTC_CENTER` specifies the center position and all vertex positions are treated as relative to this value. The center position provided for `RTC_CENTER` is defined according to a coordinate system where the _z_-axis is up.
+Vertex positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position and all vertex positions are treated as relative to this value. The center position provided for `RTC_CENTER` is defined according to a coordinate system where the _z_-axis is up.
 
 ## File extension and MIME type
 
 Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` MIME type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
-
-## Resources
-
-1. [Precisions, Precisions](http://blogs.agi.com/insight3d/index.php/2008/09/03/precisions-precisions/)

@@ -1272,8 +1272,6 @@ For example:
  
 Tileset styles use the `.json` extension and the `application/json` mime type.
 
-An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
-
 ## Acknowledgments
 
 * Piero Toffanin, [@pierotofy](https://github.com/pierotofy)
