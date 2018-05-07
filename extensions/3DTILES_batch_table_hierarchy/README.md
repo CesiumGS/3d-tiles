@@ -10,7 +10,7 @@
 * [Overview](#overview)
 * [Motivation](#motivation)
 * [Batch table JSON schema updates](#batch-table-json-schema-updates)
-   * [3DTILES_batch_table_hierarchy](#3DTILES_batch_table_hierarchy)
+   * [3DTILES_batch_table_hierarchy](#3dtiles_batch_table_hierarchy)
 * [Examples](#examples)
 * [Styling](#styling)
 * [Notes](#notes)
