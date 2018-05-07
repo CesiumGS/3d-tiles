@@ -40,7 +40,7 @@ Code for reading the Feature Table can be found in [Cesium3DTileFeatureTable.js]
 
 ### Padding
 
-The binary body must start and end on a 8-byte alignment.
+The binary body must start and end on an 8-byte alignment.
 
 The JSON header must be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the Feature Table binary (if present).
 

@@ -48,7 +48,7 @@ Code for reading the Batch Table can be found in [Cesium3DTileBatchTable.js](htt
 
 ### Padding
 
-The binary body must start and end on a 8-byte alignment.
+The binary body must start and end on an 8-byte alignment.
 
 The JSON header must be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the Batch Table binary (if present).
 

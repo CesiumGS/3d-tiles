@@ -493,7 +493,7 @@ For more on request volumes, see the [sample tileset](https://github.com/Analyti
 
 See the [schema](schema) for the detailed tileset JSON schema.
 
-Here is a subset of the tileset file used for [Canary Wharf](http://cesiumjs.org/CanaryWharf/) (also see the complete file, [`tileset.json`](examples/tileset.json)):
+Here is a subset of the tileset JSON used for [Canary Wharf](http://cesiumjs.org/CanaryWharf/) (also see the complete file, [`tileset.json`](examples/tileset.json)):
 ```json
 {
   "asset" : {
@@ -540,9 +540,9 @@ Here is a subset of the tileset file used for [Canary Wharf](http://cesiumjs.org
 
 The top-level object in the tileset JSON has four properties: `asset`, `properties`, `geometricError`, and `root`.
 
-`asset` is an object containing properties with metadata about the entire tileset. The `asset.version` property is a string that defines the 3D Tiles version, which specifies the JSON schema for the tileset file and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated. The `gltfUpAxis` property is an optional string that specifies the up-axis of glTF models contained in the tileset.
+`asset` is an object containing properties with metadata about the entire tileset. The `asset.version` property is a string that defines the 3D Tiles version, which specifies the JSON schema for the tileset and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated. The `gltfUpAxis` property is an optional string that specifies the up-axis of glTF models contained in the tileset.
 
-`properties` is an object containing objects for each per-feature property in the tileset.  This tileset file snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see [Batch Table](TileFormats/BatchTable/README.md)).  The name of each object in `properties` matches the name of a per-feature property, and its value defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
+`properties` is an object containing objects for each per-feature property in the tileset.  This tileset JSON snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see [Batch Table](TileFormats/BatchTable/README.md)).  The name of each object in `properties` matches the name of a per-feature property, and its value defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
 `geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered, see [Geometric error](#geometric-error).
 
@@ -550,7 +550,7 @@ The top-level object in the tileset JSON has four properties: `asset`, `properti
 
 `root.children` is an array of objects that define child tiles.  Each child tile's `content.boundingVolume` is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
 
-See the [Q&A below](#will-a-tileset-file-be-part-of-the-final-3d-tiles-spec) for how a tileset file will scale to a massive number of tiles.
+See the [Q&A below](#will-a-tileset-file-be-part-of-the-final-3d-tiles-spec) for how a tileset will scale to a massive number of tiles.
 
 ### External tilesets
 
@@ -585,7 +585,7 @@ As described above, the tree has spatial coherence; each tile has a bounding vol
 
 The tree defined in a tileset by `root` and, recursively, its `children`, can define different types of spatial data structures.  In addition, any combination of tile formats and refinement approach (replacement or additive) can be used, enabling a lot of flexibility to support heterogeneous datasets.
 
-It is up to the conversion tool that generates tileset file to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by the tileset file.  Here's a brief description of how 3D Tiles can represent various spatial data structures.
+It is up to the conversion tool that generates the tileset to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by the tileset.  Here's a brief description of how 3D Tiles can represent various spatial data structures.
 
 #### K-d trees
 
@@ -669,11 +669,11 @@ A tileset can contain any combination of tile formats.  3D Tiles may also suppor
 
 ## Specifying extensions and application specific extras
 
-3D Tiles defines extensions to allow the the base specification to have extensibility for new features, as well as extras to allow for application specific metadata.
+3D Tiles defines extensions to allow the base specification to have extensibility for new features, as well as extras to allow for application specific metadata.
 
 ### Extensions
 
-Extensions allow the base specification to be extended with new features. The optional `extensions` dictionary property may be added to a 3D Tiles JSON object, which contains the name of the extensions and the extension specific objects. The following example shows a tile object with a hypothetical vendor extension which specifies a separate collision volume.
+Extensions allow the base specification to be extended with new features. The optional `extensions` dictionary property may be added to any 3D Tiles JSON object, which contains the name of the extensions and the extension specific objects. The following example shows a tile object with a hypothetical vendor extension which specifies a separate collision volume.
 ```JSON
 {
   "transform": [
@@ -707,7 +707,7 @@ Extensions allow the base specification to be extended with new features. The op
 }
 ```
 
-All extensions used in a tileset or any descendent external tilesets must be listed in the tileset file in the top-level `extensionsUsed` array property, e.g.,
+All extensions used in a tileset or any descendent external tilesets must be listed in the entry tileset JSON in the top-level `extensionsUsed` array property, e.g.,
 
 ```JSON
 {
@@ -717,11 +717,11 @@ All extensions used in a tileset or any descendent external tilesets must be lis
 }
 ```
 
-All extensions required to load and render a tileset or any descendent external tilesets must also be listed in the tileset file in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` must also exist in `extensionsUsed`.
+All extensions required to load and render a tileset or any descendent external tilesets must also be listed in the entry tileset JSON in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` must also exist in `extensionsUsed`.
 
 ### Extras
 
-The `extras` property allows application specific metadata to be added to a 3D Tiles JSON object. The following example shows a tile object with an additional application specific name property.
+The `extras` property allows application specific metadata to be added to any 3D Tiles JSON object. The following example shows a tile object with an additional application specific name property.
 ```JSON
 {
   "transform": [
@@ -815,7 +815,7 @@ The general case runtime editing of geometry on a building, vector data, etc., a
 
 #### Will 3D Tiles include terrain?
 
-Yes, a [quantized-mesh](https://github.com/AnalyticalGraphicsInc/quantized-mesh/blob/master/README.md)-like tile would fit well with 3D Tiles and allow Cesium to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to the tileset file).
+Yes, a [quantized-mesh](https://github.com/AnalyticalGraphicsInc/quantized-mesh/blob/master/README.md)-like tile would fit well with 3D Tiles and allow Cesium to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to the tileset JSON).
 
 However, since Cesium already streams terrain well, we are not focused on this in the short-term.
 
