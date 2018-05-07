@@ -66,6 +66,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 
 * [Resources](#resources)
 * [Spec status](#spec-status)
+* [3D Tiles Extensions](#3d-tiles-extensions)
 * [Introduction](#introduction)
 * [File extensions and MIME types](#file-extensions-and-mime-types)
 * [JSON encoding](#json-encoding)
@@ -163,6 +164,10 @@ Terrain v2  | :white_circle: **Not started**, [quantized-mesh](https://github.co
 Stars  | :white_circle: **Not started**
 
 For spec work in progress, [watch this repo](https://github.com/AnalyticalGraphicsInc/3d-tiles/subscription) and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
+
+## 3D Tiles Extensions
+
+[3D Tiles extension registery](./extensions/)
 
 ## Introduction
 
@@ -707,7 +712,8 @@ Extensions allow the base specification to be extended with new features. The op
 }
 ```
 
-All extensions used in a tileset or any descendent external tilesets must be listed in the entry tileset JSON in the top-level `extensionsUsed` array property, e.g.,
+
+All extensions used in a tileset or any descendant external tilesets must be listed in the entry tileset JSON in the top-level `extensionsUsed` array property, e.g.,
 
 ```JSON
 {
@@ -717,7 +723,7 @@ All extensions used in a tileset or any descendent external tilesets must be lis
 }
 ```
 
-All extensions required to load and render a tileset or any descendent external tilesets must also be listed in the entry tileset JSON in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` must also exist in `extensionsUsed`.
+All extensions required to load and render a tileset or any descendant external tilesets must also be listed in the entry tileset JSON in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` must also exist in `extensionsUsed`.
 
 ### Extras
 
