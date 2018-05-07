@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "CESIUM_batch_table_hierarchy extension",
+    "title": "3DTILES_batch_table_hierarchy extension",
     "type": "object",
     "properties" : {
         "classes" : {

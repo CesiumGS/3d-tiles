@@ -14,6 +14,7 @@
    * [Padding](#padding)
    * [JSON header](#json-header)
    * [Binary body](#binary-body)
+* [Extensions](#extensions)
 * [Acknowledgments](#acknowledgments)
 
 ## Overview
@@ -157,6 +158,12 @@ var geographicArrayByteLength = batchLength * componentSizeInBytes * numberOfCom
 var geographicArray = new Float64Array(batchTableBinary.buffer, byteOffset, geographicArrayByteLength);
 var geographicOfFeature = positionArray.subarray(batchId * numberOfComponents, batchId * numberOfComponents + numberOfComponents); // Using subarray creates a view into the array, and not a new array.
 ```
+
+## Extensions
+
+The following extensions can be applied to a Batch Table.
+
+* [3DTILES_batch_table_hierarchy](../../extensions/3DTILES_batch_table_hierarchy/)
 
 ## Acknowledgments
 

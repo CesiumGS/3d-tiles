@@ -46,26 +46,6 @@
                 "type" : "number",
                 "minimum" : 0
             }
-        },
-        "integerBinaryBodyReference" : {
-            "type" : "object",
-            "properties" : {
-                "byteOffset" : {
-                    "type" : "integer",
-                    "minimum" : 0
-                },
-                "componentType" : {
-                    "type" : "string",
-                    "enum" : ["UNSIGNED_BYTE", "UNSIGNED_SHORT", "UNSIGNED_INT"]
-                }
-            },
-            "required" : ["byteOffset"]
-        },
-        "integerProperty" : {
-            "anyOf" : [
-                { "$ref" : "#/definitions/integerBinaryBodyReference" },
-                { "$ref" : "#/definitions/integerArray" }
-            ]
         }
     }
 }

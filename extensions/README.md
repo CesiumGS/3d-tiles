@@ -2,7 +2,7 @@
 
 ## Extensions
 
-* [CESIUM_batch_table_hierarchy](./CESIUM_batch_table_hierarchy/)
+* [3DTILES_batch_table_hierarchy](./3DTILES_batch_table_hierarchy/)
 
 ## About
 

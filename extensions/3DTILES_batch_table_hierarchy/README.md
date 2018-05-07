@@ -1,10 +1,8 @@
-# CESIUM_batch_table_hierarchy Extension
+# 3DTILES_batch_table_hierarchy Extension
 
 ## Contributors
 
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
-* Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
-* Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
 ## Contents
@@ -12,14 +10,14 @@
 * [Overview](#overview)
 * [Motivation](#motivation)
 * [Batch table JSON schema updates](#batch-table-json-schema-updates)
-   * [CESIUM_batch_table_hierarchy](#cesium_batch_table_hierarchy)
+   * [3DTILES_batch_table_hierarchy](#3DTILES_batch_table_hierarchy)
 * [Examples](#examples)
 * [Styling](#styling)
 * [Notes](#notes)
 
 ## Overview
 
-The standard batch table is suitable for datasets composed of features with the same sets of properties. However, some datasets have more complex metadata structures such as feature types or feature hierarchies that are not easy to represent as parallel arrays of properties. The Batch Table Hierarchy provides more flexibility for these cases.
+The standard batch table is suitable for datasets composed of features with the same sets of properties. However, some datasets have more complex metadata structures such as feature types or feature hierarchies that are not easy to represent as parallel arrays of properties. The Batch Table Hierarchy extension provides more flexibility for these cases.
 
 ## Motivation
 
@@ -112,47 +110,49 @@ Both these cases illustrate the benefit of supporting feature types and a featur
 
 ## Batch table JSON schema updates
 
-The standard batch table may be extended to include a `CESIUM_batch_table_hierarchy` object that defines a set of classes and a tree structure for class instances.
+The standard batch table may be extended to include a `3DTILES_batch_table_hierarchy` object that defines a set of classes and a tree structure for class instances.
 
 Sample Batch Table:
 
 ```json
 {
-  "CESIUM_batch_table_hierarchy" : {
-    "classes" : [
-      {
-        "name" : "Wall",
-        "length" : 6,
-        "instances" : {
-          "color" : ["white", "red", "yellow", "gray", "brown", "black"],
+  "extensions" : {
+    "3DTILES_batch_table_hierarchy" : {
+      "classes" : [
+        {
+          "name" : "Wall",
+          "length" : 6,
+          "instances" : {
+            "color" : ["white", "red", "yellow", "gray", "brown", "black"],
+          }
+        },
+        {
+          "name" : "Building",
+          "length" : 3,
+          "instances" : {
+            "name" : ["unit29", "unit20", "unit93"],
+            "address" : ["100 Main St", "102 Main St", "104 Main St"]
+          }
+        },
+        {
+          "name" : "Owner",
+          "length" : 3,
+          "instances" : {
+            "type" : ["city", "resident", "commercial"],
+            "id" : [1120, 1250, 6445]
+          }
         }
-      },
-      {
-        "name" : "Building",
-        "length" : 3,
-        "instances" : {
-          "name" : ["unit29", "unit20", "unit93"],
-          "address" : ["100 Main St", "102 Main St", "104 Main St"]
-        }
-      },
-      {
-        "name" : "Owner",
-        "length" : 3,
-        "instances" : {
-          "type" : ["city", "resident", "commercial"],
-          "id" : [1120, 1250, 6445]
-        }
-      }
-    ],
-    "instancesLength" : 12,
-    "classIds" : [0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2],
-    "parentCounts" : [1, 3, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-    "parentIds" : [6, 6, 10, 11, 7, 11, 7, 8, 8, 10, 10, 9]
+      ],
+      "instancesLength" : 12,
+      "classIds" : [0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2],
+      "parentCounts" : [1, 3, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+      "parentIds" : [6, 6, 10, 11, 7, 11, 7, 8, 8, 10, 10, 9]
+    }
   }
 }
 ```
 
-### CESIUM_batch_table_hierarchy
+### 3DTILES_batch_table_hierarchy
 
 `classes` is an array of objects, where each object contains the following properties:
 * `name` - A string representing the name of the class
@@ -165,7 +165,7 @@ Note that this is different than a tile's `batchLength`, which is the total numb
 
 `classIds` is an array of integers of length `instancesLength`. Each value specifies the instances's class as an index in the `classes` array.
 
-**Implementation Note**: The Batch Table Hierarchy does not directly provide an instances's index into its class's `instances` array. Instead the index can be inferred by the number of instances with the same `classId` that have appeared before it. An implementation may want to compute these indices at load time so that property access is as fast as possible.
+> **Implementation Note**: The Batch Table Hierarchy does not directly provide an instances's index into its class's `instances` array. Instead the index can be inferred by the number of instances with the same `classId` that have appeared before it. An implementation may want to compute these indices at load time so that property access is as fast as possible.
 
 `parentCounts` is an array of integers of length `instancesLength`. Each value specifies the number of parents that instance has. If omitted, `parentCounts` is implicitly an array of length `instancesLength`, where all values are 1.
 
@@ -188,7 +188,7 @@ Finally, `classIds`, `parentCounts`, and `parentIds` may instead be references t
 };
 ```
 
-JSON schema definitions can be found in [CESIUM_batch_table_hierarchy.json](./schema/CESIUM_batch_table_hierarchy.json).
+JSON schema definitions can be found in [3DTILES_batch_table_hierarchy.json](./schema/3DTILES_batch_table_hierarchy.json).
 
 ## Examples
 
@@ -198,35 +198,37 @@ Going back to the example of a parking lot with car, lamp post, and tree feature
 
 ```json
 {
-  "HIERARCHY" : {
-    "classes" : [
-      {
-        "name" : "Lamp",
-        "length" : 3,
-        "instances" : {
-          "lampStrength" : [10, 5, 7],
-          "lampColor" : ["yellow", "white", "white"]
+  "extensions" : {
+    "3DTILES_batch_table_hierarchy" : {
+      "classes" : [
+        {
+          "name" : "Lamp",
+          "length" : 3,
+          "instances" : {
+            "lampStrength" : [10, 5, 7],
+            "lampColor" : ["yellow", "white", "white"]
+          }
+        },
+        {
+          "name" : "Car",
+          "length" : 3,
+          "instances" : {
+            "carType" : ["truck", "bus", "sedan"],
+            "carColor" : ["green", "blue", "red"]
+          }
+        },
+        {
+          "name" : "Tree",
+          "length" : 2,
+          "instances" : {
+            "treeHeight" : [10, 15],
+            "treeAge" : [5, 8]
+          }
         }
-      },
-      {
-        "name" : "Car",
-        "length" : 3,
-        "instances" : {
-          "carType" : ["truck", "bus", "sedan"],
-          "carColor" : ["green", "blue", "red"]
-        }
-      },
-      {
-        "name" : "Tree",
-        "length" : 2,
-        "instances" : {
-          "treeHeight" : [10, 15],
-          "treeAge" : [5, 8]
-        }
-      }
-    ],
-    "instancesLength" : 8,
-    "classIds" : [0, 0, 0, 1, 1, 1, 2, 2]
+      ],
+      "instancesLength" : 8,
+      "classIds" : [0, 0, 0, 1, 1, 1, 2, 2]
+    }
   }
 }
 ```
@@ -254,37 +256,39 @@ The city block example would now look like this:
 
 ```json
 {
-  "HIERARCHY" : {
-    "classes" : [
-      {
-        "name" : "Wall",
-        "length" : 6,
-        "instances" : {
-          "wall_color" : ["blue", "pink", "green", "lime", "black", "brown"],
-          "wall_windows" : [2, 4, 4, 2, 0, 3]
+  "extensions" : {
+    "3DTILES_batch_table_hierarchy" : {
+      "classes" : [
+        {
+          "name" : "Wall",
+          "length" : 6,
+          "instances" : {
+            "wall_color" : ["blue", "pink", "green", "lime", "black", "brown"],
+            "wall_windows" : [2, 4, 4, 2, 0, 3]
+          }
+        },
+        {
+          "name" : "Building",
+          "length" : 3,
+          "instances" : {
+            "building_name" : ["building_0", "building_1", "building_2"],
+            "building_id" : [0, 1, 2],
+            "building_address" : ["10 Main St", "12 Main St", "14 Main St"]
+          }
+        },
+        {
+          "name" : "Block",
+          "length" : 1,
+          "instances" : {
+            "block_lat_long" : [[0.12, 0.543]],
+            "block_district" : ["central"]
+          }
         }
-      },
-      {
-        "name" : "Building",
-        "length" : 3,
-        "instances" : {
-          "building_name" : ["building_0", "building_1", "building_2"],
-          "building_id" : [0, 1, 2],
-          "building_address" : ["10 Main St", "12 Main St", "14 Main St"]
-        }
-      },
-      {
-        "name" : "Block",
-        "length" : 1,
-        "instances" : {
-          "block_lat_long" : [[0.12, 0.543]],
-          "block_district" : ["central"]
-        }
-      }
-    ],
-    "instancesLength" : 10,
-    "classIds" : [0, 0, 0, 0, 0, 0, 1, 1, 1, 2],
-    "parentIds" : [6, 6, 7, 7, 8, 8, 9, 9, 9, 9]
+      ],
+      "instancesLength" : 10,
+      "classIds" : [0, 0, 0, 0, 0, 0, 1, 1, 1, 2],
+      "parentIds" : [6, 6, 7, 7, 8, 8, 9, 9, 9, 9]
+     }
   }
 }
 ```
@@ -406,14 +410,16 @@ For example, the style below will color all doors and doorknobs.
 
 ## Notes
 
-* Since the Batch Table Hierarchy is an extension to the standard batch table, it is still possible to store per-feature properties alongside the `HIERARCHY` object:
+* Since the Batch Table Hierarchy is an extension to the standard batch table, it is still possible to store per-feature properties alongside the `3DTILES_batch_table_hierarchy` parent `extension` object:
 
 ```
 {
   "Height" : [...],
   "Longitude" : [...],
   "Latitude" : [...],
-  "HIERARCHY" : {...}
+  "extensions" : {
+    "3DTILES_batch_table_hierarchy" : {...}
+  }
 }
 ```
 
