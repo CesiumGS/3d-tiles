@@ -125,8 +125,8 @@ Examples using these semantics can be found in the [examples section](#examples)
 
 An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. The orientation will be transformed by the [tile transform](../../README.md#tile-transform).
 
-The `x` vector in the standard basis maps onto the `right` vector in the transformed basis, and the `y` vector maps on to the `up` vector.
-The `z` vector would map onto a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
+The `x` vector in the standard basis maps to the `right` vector in the transformed basis, and the `y` vector maps to the `up` vector.
+The `z` vector would map to a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
 
 A box in the standard basis:
 ![box standard basis](figures/box-standard-basis.png)
@@ -153,27 +153,25 @@ This is suitable for instanced models such as trees whose orientation is always 
 
 #### Coordinate reference system (CRS)
 
-3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.
-
-By default, vertex positions of the embedded glTF are defined according to a right-handed coordinate system where the _y_-axis is up, but vertex positions may be defined in a coordinate system where the _z_axis is up by specifying the [`CESIUM_z_up` glTF extension](TODO) in the embedded glTF (see [tile content coordinate systems](../../README.md#tile-content-coordinate-systems)).
+By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTF must be transformed at runtime or optionally use the [`CESIUM_z_up` glTF extension](TODO). See [tile content coordinate systems](../../README.md#tile-content-coordinate-systems) for more details.
 
 #### RTC_CENTER
 
-Positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position and all vertex positions are treated as relative to this value. The center position provided for `RTC_CENTER` is defined according to a coordinate system where the _z_-axis is up.
+Positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position and all instance positions are treated as relative to this value.
 
 #### Quantized positions
 
 If `POSITION` is not defined for an instance, its position may be stored in `POSITION_QUANTIZED`, which defines the instance position relative to the quantized volume.
 If neither `POSITION` or `POSITION_QUANTIZED` are defined, the instance will not be created.
 
-A quantized volume is defined by `offset` and `scale` to map quantized positions into model space, as shown in the following figure:
+A quantized volume is defined by `offset` and `scale` to map quantized positions into local space, as shown in the following figure:
 
 ![quantized volume](figures/quantized-volume.png)
 
 `offset` is stored in the global semantic `QUANTIZED_VOLUME_OFFSET`, and `scale` is stored in the global semantic `QUANTIZED_VOLUME_SCALE`.
 If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.
 
-Quantized positions can be mapped to model space using the following formula:
+Quantized positions can be mapped to local space using the following formula:
 
 `POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE / 65535.0 + QUANTIZED_VOLUME_OFFSET`
 

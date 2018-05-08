@@ -20,7 +20,7 @@
 
 The _Composite_ tile format enables concatenating tiles of different formats into one tile.
 
-3D Tiles and the Composite tile allow flexibility for streaming heterogeneous datasets.  For example, buildings and trees could be stored either in two separate _Batched 3D Model_ and _Instanced 3D Model_ tiles or, using a Composite tile, the tiles can be combined.
+3D Tiles and the Composite tile allow flexibility for streaming heterogeneous datasets.  For example, buildings and trees could be stored either in two separate _Batched 3D Model_ and _Instanced 3D Model_ tiles or, using a _Composite tile, the tiles can be combined.
 
 Supporting heterogeneous datasets with both inter-tile (separate tiles of different formats that are in the same tileset) and intra-tile (different tile formats that are in the same Composite tile) options allows conversion tools to make trade-offs between number of requests, optimal type-specific subdivision, and how visible/hidden layers are streamed.
 
@@ -49,15 +49,15 @@ The 16-byte header section contains the following fields:
 
 ## Inner tiles
 
-Inner tile fields are stored tightly packed immediately following the header section. No additional header is added on top of the tiles' preexisting headers, e.g., b3dm or i3dm headers. However, the following information describes general characteristics of the existing contents of relevant files' headers to explain common information that a Composite tile reader might exploit to find the boundaries of the inner tiles:
+Inner tile fields are stored tightly packed immediately following the header section. The following information describes general characteristics of all tile formats that a Composite tile reader might exploit to find the boundaries of the inner tiles:
 
-* Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See the [main 3D Tiles spec](../../README.md) for a list of tile formats.  Composite tiles can contain Composite tiles.
+* Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See the [spec status](../../README.md#spec-status) for a list of tile formats.  Composite tiles can contain Composite tiles.
 * Each tile's header contains a `uint32` `byteLength`, which defines the length of the inner tile, including its header, in bytes.  This can be used to traverse the inner tiles.
 * For any tile format's version 1, the first 12 bytes of all tiles is the following fields:
 
 |Field name|Data type|Description|
 |----------|---------|-----------|
-| `magic` | `uchar[4]` | Indicates the tile format |
+| `magic` | 4-byte ANSI string | Indicates the tile format |
 | `version` | `uint32` | `1` |
 | `byteLength` | `uint32` | Length, in bytes, of the entire tile. |
 

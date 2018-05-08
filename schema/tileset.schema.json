@@ -10,10 +10,9 @@
         },
         "properties" : {
             "description": "A dictionary object of metadata about per-feature properties.",
-            "patternProperties" : {
-                ".*": {
-                    "$ref": "properties.schema.json"
-                }
+            "properties" : {},
+            "additionalProperties" : {
+                "$ref" : "properties.schema.json"
             }
         },
         "geometricError" : {
@@ -22,7 +21,7 @@
             "minimum" : 0
         },
         "root" : {
-            "description" : "The root node.",
+            "description" : "The root tile.",
             "$ref" : "tile.schema.json"
         },
         "extensionsUsed": {

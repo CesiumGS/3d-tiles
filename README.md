@@ -84,7 +84,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
    * [Refinement](#refinement)
       * [Additive](#additive)
       * [Replacement](#replacement)
-* [Tileset JSON file](#tileset-json-files)
+* [Tileset JSON](#tileset-json)
    * [External tilesets](#external-tilesets)
    * [Bounding volume spatial coherence](#bounding-volume-spatial-coherence)
    * [Creating spatial data structures](#creating-spatial-data-structures)
@@ -150,7 +150,7 @@ The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in the tileset JSO
 
 Topic  | Status
 ---|---
-[Tileset JSON](#tileset-json-files)<br /><br />The tileset's spatial hierarchy  | :white_check_mark: **Solid base**, will add features as needed
+[Tileset JSON](#tileset-json)<br /><br />The tileset's spatial hierarchy  | :white_check_mark: **Solid base**, will add features as needed
 [Batched 3D Model](TileFormats/Batched3DModel/README.md) (*.b3dm)<br /><br />Textured terrain and surfaces, 3D building exteriors and interiors, massive models, ...  | :white_check_mark: **Solid base**, only minor, if any, changes expected
 [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (*.i3dm)<br /><br />Trees, windmills, bolts, ... | :white_check_mark: **Solid base**, only minor, if any, changes expected
 [Point Cloud](TileFormats/PointCloud/README.md) (*.pnts)<br /><br />Massive number of points | :white_check_mark: **Solid base**, only minor, if any, changes expected
@@ -174,7 +174,7 @@ For spec work in progress, [watch this repo](https://github.com/AnalyticalGraphi
 
 ## Introduction
 
-In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its contents.  The tree has spatial coherence; the content for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any spatial data structure with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
+In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its content.  The tree has spatial coherence; the content for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any spatial data structure with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
 
 ![](figures/tree.png)
 
@@ -194,10 +194,10 @@ Optionally, a separate 3D Tile Style may be applied to a tileset.
 ## File extensions and MIME types
  
 * Tileset files use the `.json` extension and the `application/json` MIME type.
-* A tile's referenced content may be an external tileset JSON file (`application/json`), or the file type and MIME format specific to the [tile format](#tile-formats).
+* Tile content files use the file type and MIME format specific to their [tile format](#tile-formats).
 * Tileset style files use the `.json` extension and the `application/json` MIME type.
 
-Explicit file extensions are optional for tileset and tile content files. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
+Explicit file extensions are optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
 ## JSON encoding
 
@@ -241,9 +241,9 @@ If the `CESIUM_z_up` glTF extension is not used, the glTF model must be transfor
 ]
 ```
 
-> Implementation note: Using the `CESIUM_z_up` extension is preferred to transforming the model to a _z_-up coordinate system at runtime.
+Note that glTF defines its own node hierarchy, where each node has a transform. These transforms are applied before the coordinate system transform is applied.
 
-Tile transforms are applied after the conversion between coordinate systems is resolved.
+> Implementation Note: Using the `CESIUM_z_up` extension is preferred to transforming the model to a _z_-up coordinate system at runtime.
 
 ## Tiles
 
@@ -288,13 +288,13 @@ The optional `viewerRequestVolume` property (not shown above) defines a volume, 
 
 The `refine` property is a string that is either `"REPLACE"` for replacement refinement or `"ADD"` for additive refinement, see [Refinement](#refinement).  It is required for the root tile of a tileset; it is optional for all other tiles.  A tileset can use any combination of additive and replacement refinement.  When the `refine` property is omitted, it is inherited from the parent tile.
 
-The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.uri` is a string that points to the tile's contents with an absolute or relative uri.  In the example above, the uri, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [Roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
+The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a uri that points to the tile's content.  In the example above, the uri, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [Roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
 
 The uri can be another tileset JSON to create a tileset of tilesets.  See [External tilesets](#external-tilesets).
 
 A file extension is not required for `content.uri`.  A content's [tile format](#tile-formats) can be identified by the `magic` field in its header, or else as an external tileset if the content is JSON.
 
-The `content.boundingVolume` property defines an optional [bounding volume](#bounding-volumes) similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's contents.  `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)). 
+The `content.boundingVolume` property defines an optional [bounding volume](#bounding-volumes) similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's content.  `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
 
 The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
 
@@ -391,7 +391,7 @@ When `transform` is not defined, it defaults to the identity matrix:
 
 The transformation from each tile's local coordinate to the tileset's global coordinate system is computed by a top-down traversal of the tileset and by post-multiplying a child's `transform` with its parent's `transform` like a traditional scene graph or node hierarchy in computer graphics.
 
-For an example of the computed transforms for a tileset, consider:
+For an example of the computed transforms (`transformToRoot` in the code above) for a tileset, consider:
 
 ![](figures/tileTransform.png)
 
@@ -403,7 +403,7 @@ The computed transform for each tile is:
 * `T4`: `[T0][T1][T4]`
 
 The positions and normals in a tile's content may also have tile-specific transformations applied to them _before_ the tile's `transform` (before indicates post-multiplying for affine transformations).  Some examples are:
-* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy, where each node has a transform.  These are applied before `tile.transform`.
+* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy and coordinate system. `tile.transform` is applied after these transforms are resolved. See (tile content coordinate systems)[#tile-content-coordinate-systems].
 * `i3dm`'s Feature Table defines per-instance position, normals, and scales.  These are used to create per-instance 4x4 affine transform matrices that are applied to each instance before `tile.transform`.
 * Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm`, `pnts`, and `vctr`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
 
@@ -411,7 +411,7 @@ Therefore, the full computed transforms for the above example are:
 * `TO`: `[T0]`
 * `T1`: `[T0][T1]`
 * `T2`: `[T0][T2][pnts-specific Feature Table properties-derived transform]`
-* `T3`: `[T0][T1][T3][b3dm-specific transform, including the glTF node hierarchy]`
+* `T3`: `[T0][T1][T3][b3dm-specific transform, including the glTF node hierarchy and coordinate system transform]`
 * `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance Feature Table properties-derived transform and the glTF node hierarchy]`
 
 #### Implementation example
@@ -517,7 +517,7 @@ If a tile uses additive refinement, when refined it renders itself and its child
 |:---:|:--:|
 | ![](figures/additive_1.jpg) | ![](figures/additive_2.jpg) |
 
-## Tileset JSON Files
+## Tileset JSON
 
 3D Tiles use one main tileset JSON file as the entry point to define a tileset. Both entry and external tileset JSON files are not required to follow a specific naming convention.
 
@@ -528,8 +528,7 @@ Here is a subset of the tileset JSON used for [Canary Wharf](http://cesiumjs.org
 {
   "asset" : {
     "version": "0.0",
-    "tilesetVersion": "e575c6f1-a45b-420a-b172-6449fa6e0a59",
-    "gltfUpAxis": "Y"
+    "tilesetVersion": "e575c6f1-a45b-420a-b172-6449fa6e0a59"
   },
   "properties": {
     "Height": {
@@ -570,13 +569,13 @@ Here is a subset of the tileset JSON used for [Canary Wharf](http://cesiumjs.org
 
 The top-level object in the tileset JSON has four properties: `asset`, `properties`, `geometricError`, and `root`.
 
-`asset` is an object containing properties with metadata about the entire tileset. The `asset.version` property is a string that defines the 3D Tiles version, which specifies the JSON schema for the tileset and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated. The `gltfUpAxis` property is an optional string that specifies the up-axis of glTF models contained in the tileset.
+`asset` is an object containing properties with metadata about the entire tileset. The `asset.version` property is a string that defines the 3D Tiles version, which specifies the JSON schema for the tileset and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated.
 
 `properties` is an object containing objects for each per-feature property in the tileset.  This tileset JSON snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see [Batch Table](TileFormats/BatchTable/README.md)).  The name of each object in `properties` matches the name of a per-feature property, and its value defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
-`geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered, see [Geometric error](#geometric-error).
+`geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered. See [Geometric error](#geometric-error) for how geometric error is used to drive refinement.
 
-`root` is an object that defines the root tile using the JSON described in the [above section](#tile-content).  `root.geometricError` is not the same as the tileset's top-level `geometricError`.  tileset. The tileset's `geometricError` is the error when the entire tileset is not rendered; `root.geometricError` is the error when only the root tile is rendered.
+`root` is an object that defines the root tile using the JSON described in the [above section](#tiles).  `root.geometricError` is not the same as the tileset's top-level `geometricError`. The tileset's `geometricError` is the error when the entire tileset is not rendered; `root.geometricError` is the error when only the root tile is rendered.
 
 `root.children` is an array of objects that define child tiles.  Each child tile's `content.boundingVolume` is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
 
@@ -598,7 +597,7 @@ When a tile points to an external tileset, the tile:
 
 ### Bounding volume spatial coherence
 
-As described above, the tree has spatial coherence; each tile has a bounding volume completely enclosing its contents, and the content for child tiles are completely inside the parent's bounding volume.  This does not imply that a child's bounding volume is completely inside its parent's bounding volume.  For example:
+As described above, the tree has spatial coherence; each tile has a bounding volume completely enclosing its content, and the content for child tiles are completely inside the parent's bounding volume.  This does not imply that a child's bounding volume is completely inside its parent's bounding volume.  For example:
 
 <p align="center">
   <img src="figures/parentBoundingSphere.jpg" /><br />
@@ -688,7 +687,7 @@ Geometric error is a nonnegative number that defines the error, in meters, intro
 
 The geometric error is determined when creating the tileset and based on a metric like point density, tile sizes in meters, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner. 
 
-> Implementation note: Typically, a property of the root tile, such as size, is used to determine a geometric error. Then each successive level of children uses a lower geometric error, with leaf tiles generally having a geometric error of 0.
+> Implementation Note: Typically, a property of the root tile, such as size, is used to determine a geometric error. Then each successive level of children uses a lower geometric error, with leaf tiles generally having a geometric error of 0.
 
 ## Tile formats
 
@@ -802,14 +801,14 @@ For complete details, see the [Declarative Styling](Styling/README.md) spec.
 
 * [General Q&A](#general-qa)
    * [Can I use 3D Tiles today?](#can-i-use-3d-tiles-today)
-   * [Are 3D Tiles specific to Cesium?](#are-3d-tiles-specific-to-cesium)
+   * [Is 3D Tiles specific to Cesium?](#is-3d-tiles-specific-to-cesium)
    * [What is the relationship between 3D Tiles and glTF?](#what-is-the-relationship-between-3d-tiles-and-gltf)
    * [Do 3D Tiles support runtime editing?](#does-3d-tiles-support-runtime-editing)
    * [Will 3D Tiles include terrain?](#will-3d-tiles-include-terrain)
    * [Will 3D Tiles include imagery?](#will-3d-tiles-include-imagery)
    * [Will 3D Tiles replace KML?](#will-3d-tiles-replace-kml)
 * [Technical Q&A](#technical-qa)
-   * [How do 3D Tiles support heterogeneous datasets?](#how-do-3d-tiles-support-heterogeneous-datasets)
+   * [How does 3D Tiles support heterogeneous datasets?](#how-does-3d-tiles-support-heterogeneous-datasets)
    * [Will a tileset file be part of the final 3D Tiles spec?](#will-a-tileset-file-be-part-of-the-final-3d-tiles-spec)
    * [How do I request the tiles for Level `n`?](#how-do-i-request-the-tiles-for-level-n)
    * [Will 3D Tiles support horizon culling?](#will-3d-tiles-support-horizon-culling)
@@ -817,7 +816,7 @@ For complete details, see the [Declarative Styling](Styling/README.md) spec.
    * [How are cracks between tiles with vector data handled?](#how-are-cracks-between-tiles-with-vector-data-handled)
    * [When using replacement refinement, can multiple children be combined into one request?](#when-using-replacement-refinement-can-multiple-children-be-combined-into-one-request)
    * [How can additive refinement be optimized?](#how-can-additive-refinement-be-optimized)
-   * [What compressed texture formats do 3D Tiles use?](#what-compressed-texture-formats-do-3d-tiles-use)
+   * [What compressed texture formats does 3D Tiles use?](#what-compressed-texture-formats-does-3d-tiles-use)
 
 ### General Q&A
 
@@ -833,7 +832,7 @@ No, 3D Tiles is a general spec for streaming massive heterogeneous 3D geospatial
 
 [glTF](https://www.khronos.org/gltf) is an open standard for 3D models from Khronos (the same group that does WebGL and COLLADA).  Cesium uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter.  We recommend using glTF in Cesium for individual assets, e.g., an aircraft, a character, or a 3D building.
 
-We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, that Cesium has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles use glTF for some tile formats such as [b3dm](TileFormats/Batched3DModel/README.md) (used for 3D buildings). We created a binary glTF extension ([KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF)) in order to embed glTF into binary tiles and avoid base64-encoding or multiple file overhead.
+We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, that Cesium has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles use glTF for some tile formats such as [b3dm](TileFormats/Batched3DModel/README.md) (used for 3D buildings).
 
 Taking this approach allows us to improve Cesium, glTF, and 3D Tiles at the same time, e.g., when we add mesh compression to glTF, it benefits 3D models in Cesium, the glTF ecosystem, and 3D Tiles.
 

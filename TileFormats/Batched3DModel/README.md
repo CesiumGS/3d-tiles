@@ -39,7 +39,7 @@ A tile is composed of two sections: a header immediately followed by a body. The
 
 A tile's `byteLength` must be aligned to an 8-byte boundary. The contained [Feature Table](../FeatureTable/README.md#padding) and [Batch Table](../BatchTable/README.md#padding) must conform to their respective padding requirement.
 
-The [binary glTF](#binary-gltf) (if present) must start and end on an 8-byte alignment so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
+The [binary glTF](#binary-gltf) must start and end on an 8-byte alignment so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
 ## Header
 
@@ -139,11 +139,9 @@ When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`
 
 ### Coordinate reference system (CRS)
 
-3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.
+By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTF must be transformed at runtime or optionally use the [`CESIUM_z_up` glTF extension](TODO). See [tile content coordinate systems](../../README.md#tile-content-coordinate-systems) for more details.
 
-By default, vertex positions of the embedded glTF are defined according to a right-handed coordinate system where the _y_-axis is up, but vertex positions may be defined in a coordinate system where the _z_axis is up by specifying the [`CESIUM_z_up` glTF extension](TODO) in the embedded glTF (see [tile content coordinate systems](../../README.md#tile-content-coordinate-systems)).
-
-Vertex positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position and all vertex positions are treated as relative to this value. The center position provided for `RTC_CENTER` is defined according to a coordinate system where the _z_-axis is up.
+Vertex positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position that all vertex positions are relative to after any coordinate system transformations have been applied.
 
 ## File extension and MIME type
 

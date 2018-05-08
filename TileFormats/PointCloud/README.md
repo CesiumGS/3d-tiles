@@ -115,7 +115,7 @@ Examples using these semantics can be found in the [examples section](#examples)
 
 ### Point positions
 
-`POSITION` defines the position for a point before any tileset transforms are applied. 
+`POSITION` defines the position for a point before any tileset transforms are applied.
 
 #### Coordinate reference system (CRS)
 
@@ -123,7 +123,7 @@ Examples using these semantics can be found in the [examples section](#examples)
 
 #### RTC_CENTER
 
-Positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position and all vertex positions are treated as relative to this value. The center position provided for `RTC_CENTER` is defined according to a coordinate system where the _z_-axis is up.
+Positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position and all point positions are treated as relative to this value.
 
 #### Quantized positions
 
@@ -137,7 +137,7 @@ A quantized volume is defined by `offset` and `scale` to map quantized positions
 `offset` is stored in the global semantic `QUANTIZED_VOLUME_OFFSET`, and `scale` is stored in the global semantic `QUANTIZED_VOLUME_SCALE`.
 If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.
 
-Quantized positions can be mapped to model space using the following formula:
+Quantized positions can be mapped to local space using the following formula:
 
 `POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE / 65535.0 + QUANTIZED_VOLUME_OFFSET`
 
@@ -167,7 +167,7 @@ Points that make up distinct features of the Point Cloud may be batched together
 This is useful for per-object picking and storing application-specific metadata for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request on a per-object instead of per-point basis.
 
 The `BATCH_ID` semantic may have a `componentType` of `UNSIGNED_BYTE`, `UNSIGNED_SHORT`, or `UNSIGNED_INT`. When `componentType` is not present, `UNSIGNED_SHORT` is used.
-The global semantic `BATCH_LENGTH` defines the number of unique `batchId` values, similar to the `batchLength` field in the [Batched 3D Model](./Batched3DModel/README.md) header.
+The global semantic `BATCH_LENGTH` defines the number of unique `batchId` values, similar to the `batchLength` field in the [Batched 3D Model](../Batched3DModel/README.md) header.
 
 ### Examples
 

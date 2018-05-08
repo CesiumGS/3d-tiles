@@ -50,7 +50,7 @@ Feature Table values can be represented in the JSON header in three different wa
    * `byteOffset` specifies a zero-based offset relative to the start of the binary body. The value of `byteOffset` must be a multiple of the size of the property's `componentType`, e.g., the `"POSITION"` property, which has the component `FLOAT`, must start at an offset of a multiple of `4`.
    * The semantic defines the allowed data type, e.g., when `"POSITION"` in Instanced 3D Model refers to the binary body, the component type is `FLOAT` and the number of components is `3`.
    * Some semantics allow for overriding the implicit `componentType`. These cases are specified in each tile format, e.g., `"BATCH_ID" : { "byteOffset" : 24, "componentType" : "UNSIGNED_BYTE"}`.
-The only valid properties in the JSON header are the defined semantics by the tile format.  Application-specific data should be stored in the Batch Table.
+The only valid properties in the JSON header are the defined semantics by the tile format and optional `extras` and `extensions` properties.  Application-specific data should be stored in the Batch Table.
 
 JSON schema Feature Table definitions can be found in [featureTable.schema.json](../../schema/featureTable.schema.json).
 

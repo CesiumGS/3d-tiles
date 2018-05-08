@@ -1,6 +1,6 @@
 # 3D Tiles JSON Schema
 
-Parts of 3D Tiles, such as [tileset.json](../README.md#tileset-json-files), [Feature Table](../TileFormats/FeatureTable/README.md), and [Batch Table](../TileFormats/BatchTable/README.md), are represented with JSON.  The JSON schema is defined using [JSON Schema](http://json-schema.org/) draft v4 in schema subdirectories.
+Parts of 3D Tiles, such as [Tileset JSON](../README.md#tileset-json), [Feature Table](../TileFormats/FeatureTable/README.md), and [Batch Table](../TileFormats/BatchTable/README.md), are represented with JSON.  The JSON schema is defined using [JSON Schema](http://json-schema.org/) draft v4 in schema subdirectories.
 
 ## Usage
 

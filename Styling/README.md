@@ -205,7 +205,7 @@ Also, see the [JSON schema](schema).
 
 The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)), plus native vector and regular expression types and access to tileset feature properties in the form of readonly variables.
 
-_Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
+> Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions.
 
 ### Semantics
 
@@ -329,14 +329,14 @@ Vectors support the following binary operators by performing component-wise oper
 #### Color
 
 Colors are implemented as `vec4` and are created with one of the following functions:
-* `color() : Color`
-* `color(keyword : String, [alpha : Number]) : Color`
-* `color(6-digit-hex : String, [alpha : Number]) : Color`
-* `color(3-digit-hex : String, [alpha : Number]) : Color`
-* `rgb(red : Number, green : Number, blue : number) : Color`
-* `rgba(red : Number, green : Number, blue : number, alpha : Number) : Color`
-* `hsl(hue : Number, saturation : Number, lightness : Number) : Color`
-* `hsla(hue : Number, saturation : Number, lightness : Number, alpha : Number) : Color`
+* `color()`
+* `color(keyword : String, [alpha : Number])`
+* `color(6-digit-hex : String, [alpha : Number])`
+* `color(3-digit-hex : String, [alpha : Number])`
+* `rgb(red : Number, green : Number, blue : Number)`
+* `rgba(red : Number, green : Number, blue : Number, alpha : Number)`
+* `hsl(hue : Number, saturation : Number, lightness : Number)`
+* `hsla(hue : Number, saturation : Number, lightness : Number, alpha : Number)`
 
 Calling `color()` with no arguments is the same as calling `color('#FFFFFF')`.
 
@@ -363,13 +363,13 @@ Colors are equivalent to the `vec4` type and share the same functions, operators
 For example:
 * `color('red').x`, `color('red').r`, and `color('red')[0]` all evaluate to `1.0`.
 * `color('red').toString()` evaluates to `(1.0, 0.0, 0.0, 1.0)`
-* `color('red') * vec4(0.5)` is equivalent to `vec4(0.5, 0.0, 0.0, 1.0)`
+* `color('red') * vec4(0.5)` is equivalent to `vec4(0.5, 0.0, 0.0, 0.5)`
 
 #### RegExp
 
 Regular expressions are created with the following functions, which behave like the JavaScript [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) constructor:
-* `regExp() : RegExp`
-* `regExp(pattern : String, [flags : String]) : RegExp`
+* `regExp()`
+* `regExp(pattern : String, [flags : String])`
 
 Calling `regExp()` with no arguments is the same as calling `regExp('(?:)')`.
 
@@ -517,7 +517,7 @@ Variables can be used anywhere a valid expression is accepted, except inside oth
 ${foo[${bar}]}
 ```
 
-If a feature does not have a property with specified name, the variable evaluates to `undefined`.  Note that the property may also be `null` if `null` was explicitly stored for a property.
+If a feature does not have a property with the specified name, the variable evaluates to `undefined`.  Note that the property may also be `null` if `null` was explicitly stored for a property.
 
 Variables may be any of the supported native JavaScript types:
 * `Boolean`
@@ -1259,14 +1259,14 @@ For example:
 }
 ```
 
-> Implementation Note: Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Features that must account for these inconsistencies include
+> Implementation Note: Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Some of these features include:
 > * Evaluation of `isNan` and `isFinite` (GLSL 2.0+ supports `isnan` and `isinf` for these functions respectively)
-> * The types `null` and `undefined` 
+> * The types `null` and `undefined`
 > * Strings, including accessing object properties (`color()['r']`) and batch table values
 > * Regular expressions 
 > * Arrays of lengths other than 2, 3, or 4
-> * Mismatched type comparisons (`float` to `bool`)
-> * Handling of "index out of bounds" errors
+> * Mismatched type comparisons (e.g. `1.0 === false`)
+> * Array index out of bounds
 
 ## File extension and MIME type
  

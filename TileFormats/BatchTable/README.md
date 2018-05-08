@@ -122,7 +122,7 @@ The following extensions can be applied to a Batch Table.
 
 ## Implementation examples
 
-The following examples access the `"height"` ang `"geographic"` values respectively given the following Batch Table JSON with `batchLength` of 10:
+The following examples access the `"height"` and `"geographic"` values respectively given the following Batch Table JSON with `batchLength` of 10:
 
 ```json
 {
