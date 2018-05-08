@@ -59,7 +59,7 @@ The 28-byte header contains the following fields:
 
 | Field name | Data type | Description |
 | --- | --- | --- |
-| `magic` | 4-byte ANSI string | `"pnts"`.  This can be used to identify the arraybuffer as a Point Cloud tile. |
+| `magic` | 4-byte ANSI string | `"pnts"`.  This can be used to identify the content as a Point Cloud tile. |
 | `version` | `uint32` | The version of the Point Cloud format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
 | `featureTableJSONByteLength` | `uint32` | The length of the Feature Table JSON section in bytes. |

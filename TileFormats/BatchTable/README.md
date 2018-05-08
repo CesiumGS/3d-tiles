@@ -25,7 +25,6 @@ A Batch Table is used by the following tile formats:
 * [Batched 3D Model](../Batched3DModel/README.md) (b3dm)
 * [Instanced 3D Model](../Instanced3DModel/README.md) (i3dm)
 * [Point Cloud](../PointCloud/README.md) (pnts)
-* [Vector](../VectorData/README.md) (vctr)
 
 ## Layout
 

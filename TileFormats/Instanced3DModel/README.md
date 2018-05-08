@@ -65,7 +65,7 @@ The 32-byte header contains the following fields:
 
 | Field name | Data type | Description |
 | --- | --- | --- |
-| `magic` | 4-byte ANSI string | `"i3dm"`.  This can be used to identify the arraybuffer as an Instanced 3D Model tile. |
+| `magic` | 4-byte ANSI string | `"i3dm"`.  This can be used to identify the content as an Instanced 3D Model tile. |
 | `version` | `uint32` | The version of the Instanced 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
 | `featureTableJSONByteLength` | `uint32` | The length of the Feature Table JSON section in bytes. |
