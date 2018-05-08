@@ -9,7 +9,7 @@
             "description" : "An optional bounding volume that tightly encloses just the tile's content. tile.boundingVolume provides spatial coherence and tile.content.boundingVolume enables tight view frustum culling. When this is omitted, tile.boundingVolume is used.",
             "$ref" : "boundingVolume.schema.json"
         },
-        "url" : {
+        "uri" : {
             "type" : "string",
             "description" : "A uri that points to the tile's content. When the uri is relative, it is relative to the referring tileset.json."
         },
@@ -20,6 +20,6 @@
             "$ref": "extras.schema.json"
         }
     },
-    "required" : ["url"],
+    "required" : ["uri"],
     "additionalProperties" : false
 }

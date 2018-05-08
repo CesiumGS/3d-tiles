@@ -31,7 +31,7 @@ The following example shows a tile object with a hypothetical vendor extension w
   },
   "geometricError": 32,
   "content": {
-    "url": "building.b3dm"
+    "uri": "building.b3dm"
   },
   "extensions": {
     "VENDOR_collision_volume": {
