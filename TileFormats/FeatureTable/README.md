@@ -14,29 +14,23 @@
    * [Padding](#padding)
    * [JSON header](#json-header)
    * [Binary body](#binary-body)
-* [Implementation notes](#implementation-notes)
+* [Implementation example](#implementation-example)
 
 ## Overview
 
 A _Feature Table_ describes position and appearance properties for each feature in a tile.  The [Batch Table](../BatchTable/README.md), on the other hand, contains per-feature application-specific metadata not necessarily used for rendering.
 
-A Feature Table is used by the following tile formats:
-* [Batched 3D Model](../Batched3DModel/README.md) (b3dm) - each model is a feature.
-* [Instanced 3D Model](../Instanced3DModel/README.md) (i3dm) - each model instance is a feature.
-* [Point Cloud](../PointCloud/README.md) (pnts) - each point is a feature.
-* [Vector](../VectorData/README.md) (vctr) - each point/polyline/polygon is a feature.
+A Feature Table is used by tile formats like [Batched 3D Model](../Batched3DModel/README.md) (b3dm) where each model is a feature, and [Point Cloud](../PointCloud/README.md) (pnts) where each point is a feature.
 
 Per-feature properties are defined using tile format-specific semantics defined in each tile format's specification.  For example, for _Instanced 3D Model_, `SCALE_NON_UNIFORM` defines the non-uniform scale applied to each 3D model instance.
 
 ## Layout
 
-A Feature Table is composed of two parts: a JSON header and an optional binary body. The JSON property names are tile format-specific semantics, and their values can either be defined directly in the JSON, or refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body. The following figure shows the Feature Table layout:
+A Feature Table is composed of two parts: a JSON header and an optional binary body in little endian. The JSON property names are tile format-specific semantics, and their values can either be defined directly in the JSON, or refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body. The following figure shows the Feature Table layout:
 
 ![feature table layout](figures/feature-table-layout.png)
 
 When a tile format includes a Feature Table, the Feature Table immediately follows the tile's header.  The header will also contain `featureTableJSONByteLength` and `featureTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the Feature Table.
-
-Code for reading the Feature Table can be found in [Cesium3DTileFeatureTable.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileFeatureTable.js) in the Cesium implementation of 3D Tiles.
 
 ### Padding
 
@@ -68,7 +62,9 @@ When the JSON header includes a reference to the binary, the provided `byteOffse
 
 Values can be retrieved using the number of features, `featuresLength`; the desired feature id, `featureId`; and the data type (component type and number of components) for the feature semantic.
 
-For example, using the `POSITION` semantic, which has a `float32[3]` data type:
+## Implementation examples
+
+The following example accesses the position property using the `POSITION` semantic, which has a `float32[3]` data type:
 
 ```javascript
 var byteOffset = featureTableJSON.POSITION.byteOffset;
@@ -76,3 +72,5 @@ var byteOffset = featureTableJSON.POSITION.byteOffset;
 var positionArray = new Float32Array(featureTableBinary.buffer, byteOffset, featuresLength * 3); // There are three components for each POSITION feature.
 var position = positionArray.subarray(featureId * 3, featureId * 3 + 3); // Using subarray creates a view into the array, and not a new array.
 ```
+
+Code for reading the Feature Table can be found in [`Cesium3DTileFeatureTable.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileFeatureTable.js) in the Cesium implementation of 3D Tiles.

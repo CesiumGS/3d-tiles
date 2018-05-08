@@ -33,12 +33,15 @@
         * [Per-point properties](#per-point-properties)
 * [Batch Table](#batch-table)
 * [File extension and MIME type](#file-extension-and-mime-type)
+* [Implementation example](#implementation-example)
 
 ## Overview
 
 The _Point Cloud_ tile format enables efficient streaming of massive point clouds for 3D visualization. Each point is defined by a position and by optional properties used to define its appearance, such as color and normal, as well as optional properties that define application-specific metadata.
 
 Using 3D Tiles terminology, each point is a _feature_.
+
+A Point Cloud tile is a binary blob in little endian.
 
 ## Layout
 
@@ -60,15 +63,11 @@ The 28-byte header contains the following fields:
 | `version` | `uint32` | The version of the Point Cloud format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
 | `featureTableJSONByteLength` | `uint32` | The length of the Feature Table JSON section in bytes. |
-| `featureTableBinaryByteLength` | `uint32` | The length of the Feature Table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
+| `featureTableBinaryByteLength` | `uint32` | The length of the Feature Table binary section in bytes. |
 | `batchTableJSONByteLength` | `uint32` | The length of the Batch Table JSON section in bytes. Zero indicates that there is no Batch Table. |
 | `batchTableBinaryByteLength` | `uint32` | The length of the Batch Table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
 
-If `featureTableJSONByteLength` equals zero, the tile does not need to be rendered.
-
 The body section immediately follows the header section, and is composed of a `Feature Table` and `Batch Table`.
-
-Code for reading the header can be found in [PointCloud3DModelTileContent.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/PointCloud3DTileContent.js) in the Cesium implementation of 3D Tiles.
 
 ## Feature Table
 
@@ -336,3 +335,7 @@ See the [Batch Table](../BatchTable/README.md) reference for more information.
 Point cloud tiles use the `.pnts` extension and `application/octet-stream` MIME type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
+
+## Implementation example
+
+Code for reading the header can be found in [`PointCloud3DModelTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/PointCloud3DTileContent.js) in the Cesium implementation of 3D Tiles.

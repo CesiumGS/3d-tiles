@@ -24,7 +24,7 @@ The _Composite_ tile format enables concatenating tiles of different formats int
 
 Supporting heterogeneous datasets with both inter-tile (separate tiles of different formats that are in the same tileset) and intra-tile (different tile formats that are in the same Composite tile) options allows conversion tools to make trade-offs between number of requests, optimal type-specific subdivision, and how visible/hidden layers are streamed.
 
-A Composite is a binary blob in little endian accessed in JavaScript as an `ArrayBuffer`.
+A Composite tile is a binary blob in little endian.
 
 ## Layout
 
@@ -46,8 +46,6 @@ The 16-byte header section contains the following fields:
 | `version` | `uint32` | The version of the Composite format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire Composite tile, including this header and each inner tile, in bytes. |
 | `tilesLength` | `uint32` | The number of tiles in the Composite. |
-
-_TODO: code example reading header_
 
 ## Inner tiles
 
@@ -75,6 +73,10 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 
 * [Christopher Mitchell, Ph.D.](https://github.com/KermMartian)
 
-## Resources
+## Implementation example
 
-1. [Python `packcmpt` tool in gltf2glb toolset](https://github.com/Geopipe/gltf2glb)
+* [Python `packcmpt` tool in gltf2glb toolset](https://github.com/Geopipe/gltf2glb) contains code for combining one or more _Batched 3D Model_ or _Instanced 3D Model_ tiles into a single Composite tile file.
+* Code for reading the header can be found in
+[`Composite3DTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Composite3DTileContent.js)
+in the Cesium implementation of 3D Tiles.
+

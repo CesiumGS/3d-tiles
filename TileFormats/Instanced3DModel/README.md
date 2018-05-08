@@ -39,13 +39,15 @@ _Instanced 3D Model_ is a tile format for efficient streaming and rendering of a
 
 In addition to trees, Instanced 3D Model is useful for exterior features such as fire hydrants, sewer caps, lamps, and traffic lights, and for interior CAD features such as bolts, valves, and electrical outlets.
 
-A [Composite](../Composite/README.md) tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights.
+An Instanced 3D Model tile is a binary blob in little endian.
 
-Instanced 3D Model maps well to the [ANGLE_instanced_arrays](https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/) extension for efficient rendering with WebGL.
+> **Implementation Note**: A [Composite](../Composite/README.md) tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights by combing two Instanced 3D Model tiles.
+
+> **Implementation Note**: Instanced 3D Model maps well to the [ANGLE_instanced_arrays](https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/) extension for efficient rendering with WebGL.
 
 ## Layout
 
-A tile is composed of a header section immediately followed by a body section. The following figure shows the Instanced 3D Model layout (dashes indicate optional fields):
+A tile is composed of a header section immediately followed by a binary body. The following figure shows the Instanced 3D Model layout (dashes indicate optional fields):
 
 ![header layout](figures/header-layout.png)
 
@@ -67,18 +69,12 @@ The 32-byte header contains the following fields:
 | `version` | `uint32` | The version of the Instanced 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
 | `featureTableJSONByteLength` | `uint32` | The length of the Feature Table JSON section in bytes. |
-| `featureTableBinaryByteLength` | `uint32` | The length of the Feature Table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
+| `featureTableBinaryByteLength` | `uint32` | The length of the Feature Table binary section in bytes. |
 | `batchTableJSONByteLength` | `uint32` | The length of the Batch Table JSON section in bytes. Zero indicates that there is no Batch Table. |
 | `batchTableBinaryByteLength` | `uint32` | The length of the Batch Table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
 | `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a uri, `1` indicates it is embedded binary glTF.  See the [glTF](#gltf) section below. |
 
-If `featureTableJSONByteLength` equals zero, or there is no `glTF`, the tile does not need to be rendered.
-
 The body section immediately follows the header section and is composed of three fields: `Feature Table`, `Batch Table`, and `glTF`.
-
-Code for reading the header can be found in
-[Instanced3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Instanced3DModel3DTileContent.js)
-in the Cesium implementation of 3D Tiles.
 
 ## Feature Table
 
@@ -265,7 +261,7 @@ The glTF asset to be instanced is stored after the Feature Table and Batch Table
 
 Instanced 3D Models uses [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) for model data.
 
-The [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout) immediately follows the feature table and batch table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
+The required [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout) immediately follows the feature table and batch table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
 `header.gltfFormat` determines the format of the glTF field
 
@@ -281,7 +277,6 @@ Instanced 3D models tiles use the `.i3dm` extension and `application/octet-strea
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
 ## Implementation examples
-
 
 ### Cesium
 
@@ -343,3 +338,7 @@ Matrix4.fromTranslationRotationScale(
     modelMatrix
 );
 ```
+
+Code for reading the header can be found in
+[`Instanced3DModelTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Instanced3DModel3DTileContent.js)
+in the Cesium implementation of 3D Tiles.

@@ -29,14 +29,12 @@ A Batch Table is used by the following tile formats:
 
 ## Layout
 
-A Batch Table is composed of two parts: a JSON header and an optional binary body. The JSON describes the properties, whose values either can be defined directly in the JSON as an array, or can refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body. The following figure shows the Batch Table layout:
+A Batch Table is composed of two parts: a JSON header and an optional binary body in little endian. The JSON describes the properties, whose values either can be defined directly in the JSON as an array, or can refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body. The following figure shows the Batch Table layout:
 
 ![batch table layout](figures/batch-table-layout.png)
 
 When a tile format includes a Batch Table, the Batch Table immediately follows the tile's Feature Table if it exists.  Otherwise, the Batch Table immediately follows the tile's header.
 The header will also contain `batchTableJSONByteLength` and `batchTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the Batch Table.
-
-Code for reading the Batch Table can be found in [Cesium3DTileBatchTable.js](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
 
 ### Padding
 
@@ -56,7 +54,9 @@ Batch Table values can be represented in the JSON header in two different ways:
     * `componentType` is the datatype of components in the attribute. Allowed values are `"BYTE"`, `"UNSIGNED_BYTE"`, `"SHORT"`, `"UNSIGNED_SHORT"`, `"INT"`, `"UNSIGNED_INT"`, `"FLOAT"`, and `"DOUBLE"`.
     * `type` specifies if the property is a scalar or vector. Allowed values are `"SCALAR"`, `"VEC2"`, `"VEC3"`, and `"VEC4"`.
 
-The Batch Table JSON is a `UTF-8` string containing JSON. It can be extracted from the arraybuffer using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
+The Batch Table JSON is a `UTF-8` string containing JSON. 
+
+> **Implementation Note**: In JavaScript, the Batch Table JSON can be extracted from an `ArrayBuffer` using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 
 A `batchId` is used to access elements in each array and extract the corresponding properties. For example, the following Batch Table has properties for a batch of two features:
 ```json
@@ -114,7 +114,15 @@ The following tables can be used to compute the byte size of a property.
 | `"VEC3"` | 3 |
 | `"VEC4"` | 4 |
 
-For example, given the following Batch Table JSON with `batchLength` of 10:
+## Extensions
+
+The following extensions can be applied to a Batch Table.
+
+* [3DTILES_batch_table_hierarchy](../../extensions/3DTILES_batch_table_hierarchy/)
+
+## Implementation examples
+
+The following examples access the `"height"` ang `"geographic"` values respectively given the following Batch Table JSON with `batchLength` of 10:
 
 ```json
 {
@@ -159,11 +167,7 @@ var geographicArray = new Float64Array(batchTableBinary.buffer, byteOffset, geog
 var geographicOfFeature = positionArray.subarray(batchId * numberOfComponents, batchId * numberOfComponents + numberOfComponents); // Using subarray creates a view into the array, and not a new array.
 ```
 
-## Extensions
-
-The following extensions can be applied to a Batch Table.
-
-* [3DTILES_batch_table_hierarchy](../../extensions/3DTILES_batch_table_hierarchy/)
+Code for reading the Batch Table can be found in [`Cesium3DTileBatchTable.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
 
 ## Acknowledgments
 

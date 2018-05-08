@@ -27,7 +27,7 @@ _Batched 3D Model_ allows offline batching of heterogeneous 3D models, such as d
 
 Per-model properties, such as IDs, enable individual models to be identified and updated at runtime, e.g., show/hide, highlight color, etc. Properties may be used, for example, to query a web service to access metadata, such as passing a building's ID to get its address. Or a property might be referenced on the fly for changing a model's appearance, e.g., changing highlight color based on a property value.
 
-Batched 3D Model, or just the _batch_, is a binary blob in little endian accessed in JavaScript as an `ArrayBuffer`.
+A Batched 3D Model tile is a binary blob in little endian.
 
 ## Layout
 
@@ -50,18 +50,12 @@ The 28-byte header contains the following fields:
 | `magic` | 4-byte ANSI string | `"b3dm"`.  This can be used to identify the arraybuffer as a Batched 3D Model tile. |
 | `version` | `uint32` | The version of the Batched 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
-| `featureTableJSONByteLength` | `uint32` | The length of the Feature Table JSON section in bytes. Zero indicates there is no Feature Table. |
-| `featureTableBinaryByteLength` | `uint32` | The length of the Feature Table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
+| `featureTableJSONByteLength` | `uint32` | The length of the Feature Table JSON section in bytes. |
+| `featureTableBinaryByteLength` | `uint32` | The length of the Feature Table binary section in bytes. |
 | `batchTableJSONByteLength` | `uint32` | The length of the Batch Table JSON section in bytes. Zero indicates there is no Batch Table. |
 | `batchTableBinaryByteLength` | `uint32` | The length of the Batch Table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
 
-If `featureTableJSONByteLength` equals zero, the tile does not need to be rendered.
-
 The body section immediately follows the header section, and is composed of three fields: `Feature Table`, `Batch Table`, and `Binary glTF`.
-
-> Implementation Note: Code for reading the header can be found in
-[Batched3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Batched3DModel3DTileContent.js)
-in the Cesium implementation of 3D Tiles.
 
 ## Feature Table
 
@@ -156,3 +150,9 @@ Vertex positions may be defined relative-to-center for high-precision rendering,
 Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` MIME type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
+
+## Implementation example
+
+Code for reading the header can be found in
+[`Batched3DModelTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Batched3DModel3DTileContent.js)
+in the Cesium implementation of 3D Tiles.

@@ -81,6 +81,9 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
       * [Sphere](#sphere)
    * [Tile transform](#tile-transform)
    * [Viewer request volume](#viewer-request-volume)
+   * [Refinement](#refinement)
+      * [Additive](#additive)
+      * [Replacement](#replacement)
 * [Tileset JSON file](#tileset-json-files)
    * [External tilesets](#external-tilesets)
    * [Bounding volume spatial coherence](#bounding-volume-spatial-coherence)
@@ -151,7 +154,6 @@ Topic  | Status
 [Batched 3D Model](TileFormats/Batched3DModel/README.md) (*.b3dm)<br /><br />Textured terrain and surfaces, 3D building exteriors and interiors, massive models, ...  | :white_check_mark: **Solid base**, only minor, if any, changes expected
 [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (*.i3dm)<br /><br />Trees, windmills, bolts, ... | :white_check_mark: **Solid base**, only minor, if any, changes expected
 [Point Cloud](TileFormats/PointCloud/README.md) (*.pnts)<br /><br />Massive number of points | :white_check_mark: **Solid base**, only minor, if any, changes expected
-[Vector Data](TileFormats/VectorData/README.md) (*.vctr)<br /><br />Polygons, polylines, and placemarks | :white_circle: **In progress**, [#124](https://github.com/AnalyticalGraphicsInc/3d-tiles/pull/124/files)
 [Composite](TileFormats/Composite/README.md) (*.cmpt)<br /><br />Combine heterogeneous tile formats | :white_check_mark: **Solid base**, only minor, if any, changes expected
 [Declarative styling](Styling/README.md)<br/><br/>Style features using per-feature metadata  | :white_check_mark: **Solid base**, will add features/functions as needed, [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
 
@@ -159,6 +161,7 @@ Topic  | Status
 
 Topic  | Status
 ---|---
+[Vector Data](TileFormats/VectorData/README.md) (*.vctr)<br /><br />Polygons, polylines, and placemarks | :white_circle: **In progress**, [#124](https://github.com/AnalyticalGraphicsInc/3d-tiles/pull/124/files)
 Terrain v2  | :white_circle: **Not started**, [quantized-mesh](https://github.com/AnalyticalGraphicsInc/quantized-mesh/blob/master/README.md) is a good starting point; in the meantime, folks are using [Batched 3D Model](TileFormats/Batched3DModel/README.md)
 [OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started** Currently folks are using [Batched 3D Model](TileFormats/Batched3DModel/README.md)
 Stars  | :white_circle: **Not started**
@@ -182,7 +185,7 @@ To support tight fitting volumes for a variety of datasets&mdash;from regularly 
 | ![Bounding Box](figures/BoundingBox.jpg) | ![Bounding Sphere](figures/BoundingSphere.jpg) | ![Bounding Region](figures/BoundingRegion.jpg) |
 
 
-A tile references a _feature_ or set of _features_, such as 3D models representing buildings or trees, points in a point cloud, or polygons, polylines, and points in a vector dataset.  These features may be batched together into essentially a single feature to reduce client-side load time and rendering draw call overhead.
+A tile references a _feature_ or set of _features_, such as 3D models representing buildings or trees, or points in a point cloud.  These features may be batched together into essentially a single feature to reduce client-side load time and rendering draw call overhead.
 
 A 3D tileset consists of at least one tileset JSON file specifying the metadata and the tree of tiles, as well as any referenced tile content files which may be any valid tile format, defined in JSON as described below. 
 
@@ -220,7 +223,7 @@ All angles are in radians.
 
 ## Coordinate reference system (CRS)
 
-Tile objects are specified in a coordinate system as defined by the type of [bounding volume](#bounding-volumes) used. This coordinate system will often be in a geospatial context and use the [WGS84 ellipsoidal coordinate system](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be.
+Tile objects are specified in a coordinate system as defined by the type of [bounding volume](#bounding-volumes) used. This coordinate system will often be in a geospatial context and use the WGS 84 datum as defined in [EPSG 4326](http://nsidc.org/data/atlas/epsg_4326.html). Otherwise, the bounding volume will be defined with a right-handed 3-axis (x, y, z) Cartesian coordinate system.
 
 ### Tile content coordinate systems
 
@@ -271,7 +274,7 @@ Tiles consist of content, metadata used to render the tile, and any children til
         19.4
       ]
     },
-    "url": "2/0/0.b3dm"
+    "uri": "2/0/0.b3dm"
   },
   "children": [...]
 }
@@ -283,13 +286,13 @@ The `geometricError` property is a nonnegative number that defines the error, in
 
 The optional `viewerRequestVolume` property (not shown above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
 
-The `refine` property is a string that is either `"REPLACE"` for replacement refinement or `"ADD"` for additive refinement.  It is required for the root tile of a tileset; it is optional for all other tiles.  When `refine` is omitted, it is inherited from the parent tile.
+The `refine` property is a string that is either `"REPLACE"` for replacement refinement or `"ADD"` for additive refinement, see [Refinement](#refinement).  It is required for the root tile of a tileset; it is optional for all other tiles.  A tileset can use any combination of additive and replacement refinement.  When the `refine` property is omitted, it is inherited from the parent tile.
 
-The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a string that points to the tile's contents with an absolute or relative uri.  In the example above, the url, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [Roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
+The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.uri` is a string that points to the tile's contents with an absolute or relative uri.  In the example above, the uri, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [Roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
 
 The uri can be another tileset JSON to create a tileset of tilesets.  See [External tilesets](#external-tilesets).
 
-A file extension is not required for `content.url`.  A content's [tile format](#tile-formats) can be identified by the `magic` field in its header, or else as an external tileset if the content is JSON.
+A file extension is not required for `content.uri`.  A content's [tile format](#tile-formats) can be identified by the `magic` field in its header, or else as an external tileset if the content is JSON.
 
 The `content.boundingVolume` property defines an optional [bounding volume](#bounding-volumes) similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's contents.  `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)). 
 
@@ -309,7 +312,7 @@ Bounding volume objects are used to defined an enclosing volume, and must specif
 
 #### Region
 
-The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region in [EPSG:4326](http://spatialreference.org/ref/epsg/wgs-84/) coordinates with the order `[west, south, east, north, minimum height, maximum height]`.  Latitudes and longitudes are in radians, and heights are in meters above (or below) the [WGS84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).  
+The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order `[west, south, east, north, minimum height, maximum height]`. Latitudes and longitudes are in the WGS 84 datum as defined in [EPSG 4326](http://nsidc.org/data/atlas/epsg_4326.html) and are in radians. Heights are in meters above (or below) the [WGS 84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).  
 
 ```JSON
 "boundingVolume": {
@@ -388,6 +391,31 @@ When `transform` is not defined, it defaults to the identity matrix:
 
 The transformation from each tile's local coordinate to the tileset's global coordinate system is computed by a top-down traversal of the tileset and by post-multiplying a child's `transform` with its parent's `transform` like a traditional scene graph or node hierarchy in computer graphics.
 
+For an example of the computed transforms for a tileset, consider:
+
+![](figures/tileTransform.png)
+
+The computed transform for each tile is:
+* `TO`: `[T0]`
+* `T1`: `[T0][T1]`
+* `T2`: `[T0][T2]`
+* `T3`: `[T0][T1][T3]`
+* `T4`: `[T0][T1][T4]`
+
+The positions and normals in a tile's content may also have tile-specific transformations applied to them _before_ the tile's `transform` (before indicates post-multiplying for affine transformations).  Some examples are:
+* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy, where each node has a transform.  These are applied before `tile.transform`.
+* `i3dm`'s Feature Table defines per-instance position, normals, and scales.  These are used to create per-instance 4x4 affine transform matrices that are applied to each instance before `tile.transform`.
+* Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm`, `pnts`, and `vctr`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
+
+Therefore, the full computed transforms for the above example are:
+* `TO`: `[T0]`
+* `T1`: `[T0][T1]`
+* `T2`: `[T0][T2][pnts-specific Feature Table properties-derived transform]`
+* `T3`: `[T0][T1][T3][b3dm-specific transform, including the glTF node hierarchy]`
+* `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance Feature Table properties-derived transform and the glTF node hierarchy]`
+
+#### Implementation example
+
 The following JavaScript code shows how to compute this using Cesium's [Matrix4](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix4.js) and [Matrix3](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix3.js) types.
 
 ```javascript
@@ -417,78 +445,77 @@ function computeTransform(tile, transformToRoot) {
 }
 ```
 
-For an example of the computed transforms (`transformToRoot` in the code above) for a tileset, consider:
-
-![](figures/tileTransform.png)
-
-The computed transform for each tile is:
-* `TO`: `[T0]`
-* `T1`: `[T0][T1]`
-* `T2`: `[T0][T2]`
-* `T3`: `[T0][T1][T3]`
-* `T4`: `[T0][T1][T4]`
-
-The positions and normals in a tile's content may also have tile-specific transformations applied to them _before_ the tile's `transform` (before indicates post-multiplying for affine transformations).  Some examples are:
-* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy, where each node has a transform.  These are applied before `tile.transform`.
-* `i3dm`'s Feature Table defines per-instance position, normals, and scales.  These are used to create per-instance 4x4 affine transform matrices that are applied to each instance before `tile.transform`.
-* Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm`, `pnts`, and `vctr`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
-
-Therefore, the full computed transforms for the above example are:
-* `TO`: `[T0]`
-* `T1`: `[T0][T1]`
-* `T2`: `[T0][T2][pnts-specific Feature Table properties-derived transform]`
-* `T3`: `[T0][T1][T3][b3dm-specific transform, including the glTF node hierarchy]`
-* `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance Feature Table properties-derived transform and the glTF node hierarchy]`
-
 ### Viewer request volume
 
 A tile's `viewerRequestVolume` can be used for combining heterogeneous datasets, and can be combined with [external tilesets](#external-tilesets).
 
 The following example has a building in a `b3dm` tile and a point cloud inside the building in a `pnts` tile.  The point cloud tile's `boundingVolume` is a sphere with a radius of `1.25`.  It also has a larger sphere with a radius of `15` for the `viewerRequestVolume`.  Since the `geometricError` is zero, the point cloud tile's content is always rendered (and initially requested) when the viewer is inside the large sphere defined by `viewerRequestVolume`.
 
-```javascript
-"children": [{
-  "transform": [
-     4.843178171884396,   1.2424271388626869, 0,                  0,
-    -0.7993325488216595,  3.1159251367235608, 3.8278032889280675, 0,
-     0.9511533376784163, -3.7077466670407433, 3.2168186118075526, 0,
-     1215001.7612985559, -4736269.697480114,  4081650.708604793,  1
-  ],
-  "boundingVolume": {
-    "box": [
-      0,     0,    6.701,
-      3.738, 0,    0,
-      0,     3.72, 0,
-      0,     0,    13.402
-    ]
-  },
-  "geometricError": 32,
-  "content": {
-    "url": "building.b3dm"
-  }
-}, {
-  "transform": [
-     0.968635634376879,    0.24848542777253732, 0,                  0,
-    -0.15986650990768783,  0.6231850279035362,  0.7655606573007809, 0,
-     0.19023066741520941, -0.7415493329385225,  0.6433637229384295, 0,
-     1215002.0371330238,  -4736270.772726648,   4081651.6414821907, 1
-  ],
-  "viewerRequestVolume": {
-    "sphere": [0, 0, 0, 15]
-  },
-  "boundingVolume": {
-    "sphere": [0, 0, 0, 1.25]
-  },
-  "geometricError": 0,
-  "content": {
-    "url": "points.pnts"
-  }
-}]
+```json
+{
+  "children": [{
+    "transform": [
+      4.843178171884396,   1.2424271388626869, 0,                  0,
+      -0.7993325488216595,  3.1159251367235608, 3.8278032889280675, 0,
+      0.9511533376784163, -3.7077466670407433, 3.2168186118075526, 0,
+      1215001.7612985559, -4736269.697480114,  4081650.708604793,  1
+    ],
+    "boundingVolume": {
+      "box": [
+        0,     0,    6.701,
+        3.738, 0,    0,
+        0,     3.72, 0,
+        0,     0,    13.402
+      ]
+    },
+    "geometricError": 32,
+    "content": {
+      "uri": "building.b3dm"
+    }
+  }, {
+    "transform": [
+      0.968635634376879,    0.24848542777253732, 0,                  0,
+      -0.15986650990768783,  0.6231850279035362,  0.7655606573007809, 0,
+      0.19023066741520941, -0.7415493329385225,  0.6433637229384295, 0,
+      1215002.0371330238,  -4736270.772726648,   4081651.6414821907, 1
+    ],
+    "viewerRequestVolume": {
+      "sphere": [0, 0, 0, 15]
+    },
+    "boundingVolume": {
+      "sphere": [0, 0, 0, 1.25]
+    },
+    "geometricError": 0,
+    "content": {
+      "uri": "points.pnts"
+    }
+  }]
+}
 ```
 
 _TODO: screenshot showing the request vs. bounding volume_
 
 For more on request volumes, see the [sample tileset](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples/tree/master/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
+
+### Refinement
+
+Refinement determines how a parent tile renders when its children are also selected to be rendered. Permitted refinement types are replacement (`"REPLACE"`) and additive (`"ADD"`). A tileset can use all refinement, all additive, or any combination of additive and replacement refinement. A refinement type is required for the root tile of a tileset; it is optional for all other tiles. When omitted, a tile inherits the refinement type of its parent.
+
+#### Replacement
+
+If a tile uses replacement refinement, when refined it renders its children in place of itself.
+
+| Parent Tile | Refined |
+|:---:|:--:|
+| ![](figures/replacement_1.jpg) | ![](figures/replacement_2.jpg) |
+
+#### Additive
+
+If a tile uses additive refinement, when refined it renders itself and its children simultaneously.
+
+| Parent Tile | Refined |
+|:---:|:--:|
+| ![](figures/additive_1.jpg) | ![](figures/additive_2.jpg) |
 
 ## Tileset JSON Files
 
@@ -524,7 +551,7 @@ Here is a subset of the tileset JSON used for [Canary Wharf](http://cesiumjs.org
     },
     "geometricError": 268.37878244706053,
     "content": {
-      "url": "0/0/0.b3dm",
+      "uri": "0/0/0.b3dm",
       "boundingVolume": {
         "region": [
           -0.0004001690908972599,
@@ -557,7 +584,7 @@ See the [Q&A below](#will-a-tileset-file-be-part-of-the-final-3d-tiles-spec) for
 
 ### External tilesets
 
-To create a tree of trees, a tile's `content.url` can point to an external tileset (the uri of another tileset JSON file).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
+To create a tree of trees, a tile's `content.uri` can point to an external tileset (the uri of another tileset JSON file).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
 
 ![](figures/tilesets.jpg)
 
@@ -566,7 +593,6 @@ When a tile points to an external tileset, the tile:
 * Cannot have any children; `tile.children` must be `undefined` or an empty array.
 * Cannot be used to create cycles, for example, by pointing to the same tileset file containing the tile or by pointing to another tileset file that then points back to the initial file containing the tile.
 * Will be transformed by both the tile's `transform` and root tile's `transform`.  For example, in the following tileset referencing an external tileset, the computed transform for `T3` is `[T0][T1][T2][T3]`.
-
 
 ![](figures/tileTransformExternalTileset.png)
 
@@ -586,7 +612,7 @@ As described above, the tree has spatial coherence; each tile has a bounding vol
 
 ### Creating spatial data structures
 
-The tree defined in a tileset by `root` and, recursively, its `children`, can define different types of spatial data structures.  In addition, any combination of tile formats and refinement approach (replacement or additive) can be used, enabling a lot of flexibility to support heterogeneous datasets.
+The tree defined in a tileset by `root` and, recursively, its `children`, can define different types of spatial data structures.  In addition, any combination of tile formats and refinement approach (replacement or additive) can be used, enabling a lot of flexibility to support heterogeneous datasets, see [Refinement](#refinement).
 
 It is up to the conversion tool that generates the tileset to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by the tileset.  Here's a brief description of how 3D Tiles can represent various spatial data structures.
 
@@ -666,7 +692,7 @@ The geometric error is determined when creating the tileset and based on a metri
 
 ## Tile formats
 
-Each tile's `content.url` property points to a tile that is one of the formats listed in the [Status section](#spec-status) above.
+Each tile's `content.uri` property points to a tile that is one of the formats listed in the [Status section](#spec-status) above.
 
 A tileset can contain any combination of tile formats.  3D Tiles may also support different formats in the same tile using a [Composite](TileFormats/Composite/README.md) tile.
 
@@ -695,7 +721,7 @@ Extensions allow the base specification to be extended with new features. The op
   },
   "geometricError": 32,
   "content": {
-    "url": "building.b3dm"
+    "uri": "building.b3dm"
   },
   "extensions": {
     "VENDOR_collision_volume": {
@@ -744,7 +770,7 @@ The `extras` property allows application specific metadata to be added to any 3D
   },
   "geometricError": 32,
   "content": {
-    "url": "building.b3dm"
+    "uri": "building.b3dm"
   },
   "extras": {
     "name": "Empire State Building"
@@ -849,7 +875,7 @@ Supporting heterogeneous datasets with both inter-tile (different tile formats i
 
 Yes.  There will always be a need to know metadata about the tileset and about tiles that are not yet loaded, e.g., so only visible tiles can be requested.  However, when scaling to millions of tiles, a single tileset file with metadata for the entire tree would be prohibitively large.
 
-3D Tiles already supports trees of trees. `content.url` can point to another tileset JSON file, which enables conversion tools to chunk up a tileset into any number of JSON files that reference each other.
+3D Tiles already supports trees of trees. `content.uri` can point to another tileset JSON file, which enables conversion tools to chunk up a tileset into any number of JSON files that reference each other.
 
 There's a few other ways we may solve this:
 * Moving subtree metadata to the tile payload instead of the tileset file.  Each tile would have a header with, for example, the bounding volumes of each child, and perhaps grandchildren, and so on.
