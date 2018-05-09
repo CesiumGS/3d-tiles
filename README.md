@@ -222,7 +222,7 @@ All angles are in radians.
 
 ## Coordinate reference system (CRS)
 
-3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.  An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.  A tileset's global coordinate system will often be [WGS 84 coordinates](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
+3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.  An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.  A tileset's global coordinate system will often be in a [WGS 84](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf) earth-centered, earth-fixed (ECEF) reference frame, but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
 Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. The [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units) defines a right-handed coordinate system with the _y_ axis as up. For consistency with the _z_-up coordinate system of 3D Tiles, embedded glTFs may instead use the [`CESIUM_z_up` glTF extension](TODO).
 
@@ -239,6 +239,8 @@ If the `CESIUM_z_up` glTF extension is not used, the glTF model is considered to
 Note that glTF defines its own node hierarchy, where each node has a transform. These transforms are applied before the coordinate system transform is applied.
 
 > Implementation Note: Using the `CESIUM_z_up` extension is preferred to transforming the model to a _z_-up coordinate system at runtime.
+
+Some [bounding volumes](#bounding-volumes) may specify bounds using a geodetic coordinate system (latitude, longitude, height), in which case use the WGS 84 datum as defined in [EPSG 4326](http://nsidc.org/data/atlas/epsg_4326.html).
 
 ## Tiles
 
