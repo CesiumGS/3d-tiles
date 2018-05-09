@@ -141,10 +141,6 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * **News**
    * [3D Tiles thread on the Cesium forum](https://groups.google.com/forum/#!topic/cesium-dev/tCCooBxpZFU) - get the latest 3D Tiles news and ask questions here.
 
-## Spec status
-
-The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in the tileset JSON).  We expect a draft 1.0 version and the Cesium implementation to stabilize in 2017; see the [remaining items](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues?q=is%3Aopen+is%3Aissue+label%3A1.0).
-
 **Draft 1.0 Plans**
 
 Topic  | Status
@@ -524,8 +520,8 @@ Here is a subset of the tileset JSON used for [Canary Wharf](http://cesiumjs.org
 ```json
 {
   "asset" : {
-    "version": "0.0",
-    "tilesetVersion": "e575c6f1-a45b-420a-b172-6449fa6e0a59"
+    "version": "1.0",
+    "tilesetVersion": "e575c6f1-a45b-420a-b172-6449fa6e0a59",
   },
   "properties": {
     "Height": {
@@ -546,6 +542,7 @@ Here is a subset of the tileset JSON used for [Canary Wharf](http://cesiumjs.org
       ]
     },
     "geometricError": 268.37878244706053,
+    "refine": "ADD",
     "content": {
       "uri": "0/0/0.b3dm",
       "boundingVolume": {
