@@ -20,7 +20,6 @@
         * [Oct-encoded normal vectors](#oct-encoded-normal-vectors) 
         * [Default orientation](#default-orientation)  
     * [Instance position](#instance-position)
-        * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
         * [RTC_CENTER](#rtc_center)
         * [Quantized positions](#quantized-positions)
     * [Instance scaling](#instance-scaling)
@@ -28,7 +27,8 @@
         * [Positions only](#positions-only) 
         * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)   
 * [Batch Table](#batch-table)
-* [glTF](#gltf)                            
+* [glTF](#gltf)
+    * [Coordinate system](#coordinate-system)
 * [File extension and MIME type](#file-extension-and-mime-type)
 * [Implementation examples](#implementation-examples)
     * [Cesium](#cesium)
@@ -151,10 +151,6 @@ This is suitable for instanced models such as trees whose orientation is always 
 
 `POSITION` defines the location for an instance before any tile transforms are applied.
 
-#### Coordinate reference system (CRS)
-
-By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTF must be transformed at runtime or optionally use the [`CESIUM_z_up` glTF extension](TODO). See [tile content coordinate systems](../../README.md#tile-content-coordinate-systems) for more details.
-
 #### RTC_CENTER
 
 Positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position and all instance positions are treated as relative to this value.
@@ -255,18 +251,20 @@ Contains metadata organized by `batchId` that can be used for declarative stylin
 
 ## glTF
 
-The glTF asset to be instanced is stored after the Feature Table and Batch Table.
+Instanced 3D Model uses [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) for model data.
 
-Instanced 3D Models uses [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) for model data.
-
-The required [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout) immediately follows the feature table and batch table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
+The glTF asset to be instanced is stored after the Feature Table and Batch Table. It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
 `header.gltfFormat` determines the format of the glTF field
 
-* When the value of `header.gltfFormat` is `0`, the glTF field is a UTF-8 string, which contains a uri of the glTF model content.
-* When the value of `header.gltfFormat` is `1`, the glTF field is a binary blob containing binary glTF.
+* When the value of `header.gltfFormat` is `0`, the glTF field is a UTF-8 string, which contains a uri of the glTF or binary glTF model content.
+* When the value of `header.gltfFormat` is `1`, the glTF field is a binary blob containing [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout).
 
 In either case, `header.gltfByteLength` contains the length of the glTF field in bytes.
+
+### Coordinate system
+
+By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime or optionally use the [`CESIUM_z_up` glTF extension](TODO). See [tile content coordinate systems](../../README.md#tile-content-coordinate-systems) for more details.
 
 ## File extension and MIME type
 

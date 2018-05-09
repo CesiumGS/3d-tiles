@@ -18,7 +18,7 @@
 		* [Global semantics](#global-semantics)
 * [Batch Table](#batch-table)
 * [Binary glTF](#binary-gltf)
-   * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
+   * [Coordinate system](#coordinate-system)
 * [File extension and MIME type](#file-extension-and-mime-type)
 
 ## Overview
@@ -77,7 +77,7 @@ These semantics define global properties for all features.
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
 | `BATCH_LENGTH` | `uint32` | The number of distinguishable models, also called features, in the batch. If the Binary glTF does not have a `batchId` attribute, this field _must_ be `0`. | :white_check_mark: Yes. |
-| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when positions are defined relative-to-center, (see [Coordinate reference system (CRS)](#coordinate-reference-system-crs)). | :red_circle: No. |
+| `RTC_CENTER` | `float32[3]` | A 3-component array of numbers defining the center position when positions are defined relative-to-center, (see [Coordinate system](#coordinate-system)). | :red_circle: No. |
 
 ## Batch Table
 
@@ -137,9 +137,9 @@ The `accessor.type` must be a value of `"SCALAR"`. All other properties must con
 
 When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`, the `_BATCHID` attribute is required; otherwise, it is not.
 
-### Coordinate reference system (CRS)
+### Coordinate system
 
-By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTF must be transformed at runtime or optionally use the [`CESIUM_z_up` glTF extension](TODO). See [tile content coordinate systems](../../README.md#tile-content-coordinate-systems) for more details.
+By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime or optionally use the [`CESIUM_z_up` glTF extension](TODO). See [tile content coordinate systems](../../README.md#tile-content-coordinate-systems) for more details.
 
 Vertex positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position that all vertex positions are relative to after any coordinate system transformations have been applied.
 
