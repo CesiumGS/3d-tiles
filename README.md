@@ -923,6 +923,16 @@ See [#11](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/11).
 * [Kevin Ring](http://www.kotachrome.com/kevin/)
 * [Dylan Brown](http://www.github.com/Dylan-Brown)
 * [Leesa Fini](http://www.github.com/LeesaFini)
+* Ray Bentley
+* Paul Connelly
+* Jean-Philippe Pons
+* Pano Voudouris
+* Stan Tillman
+* Frederic Houbie
+* Dave Wesloh
+* Claus Nagel
+* Volker Coors
+* Ralf Gutbell
 
 ## Data credits
 
