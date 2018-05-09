@@ -79,4 +79,3 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 * Code for reading the header can be found in
 [`Composite3DTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Composite3DTileContent.js)
 in the Cesium implementation of 3D Tiles.
-
