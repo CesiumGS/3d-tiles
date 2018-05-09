@@ -43,6 +43,12 @@
             },
             "QUANTIZED_VOLUME_SCALE": {
                 "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+            },
+            "extensions" : {
+                "$ref": "extension.schema.json"
+            },
+            "extras" : {
+                "$ref": "extras.schema.json"
             }
         },
         "anyOf" : [{

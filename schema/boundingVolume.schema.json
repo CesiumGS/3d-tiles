@@ -3,7 +3,7 @@
     "id" : "boundingVolume.schema.json",
     "title" : "Bounding Volume",
     "type" : "object",
-    "description" : "A bounding volume that encloses a tile or its contents.  Exactly one property is required.",
+    "description" : "A bounding volume that encloses a tile or its content.  Exactly one property is required.",
     "properties" : {
         "box" : {
             "type" : "array",
@@ -16,7 +16,7 @@
         },
         "region" : {
             "type" : "array",
-            "description" : "An array of six numbers that define a bounding geographic region in WGS84 / EPSG:4326 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.",
+            "description" : "An array of six numbers that define a bounding geographic region in EPSG:4326 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.",
             "items" : {
                 "type" : "number"
             },
@@ -31,6 +31,12 @@
             },
             "minItems" : 4,
             "maxItems" : 4
+        },
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
         }
     },
     "oneOf" : [{

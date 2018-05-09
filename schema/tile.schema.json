@@ -10,12 +10,12 @@
             "$ref" : "boundingVolume.schema.json"
         },
         "viewerRequestVolume" : {
-            "description" : "Optional bounding volume that defines the volume that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.",
+            "description" : "Optional bounding volume that defines the volume the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.",
             "$ref" : "boundingVolume.schema.json"
         },
         "geometricError" : {
             "type" : "number",
-            "description" : "The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute Screen-Space Error (SSE), i.e., the error measured in pixels.",
+            "description" : "The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.",
             "minimum" : 0
         },
         "refine" : {
@@ -25,7 +25,7 @@
         },
         "transform" : {
             "type" : "array",
-            "description" : "A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content, i.e., its features and content.boundingVolume, and boundingVolume and viewerRequestVolume from the tile's local coordinate system to the parent tile's coordinate system, or tileset's coordinate system in the case of the root tile.  transform does not apply to geometricError nor does it apply any volume property when the volume is a region, which is defined in WGS84 / EPSG:4326 coordinates.",
+            "description" : "A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system.  transform does not apply to geometricError, nor does it apply any volume property when the volume is a region, defined in EPSG:4326 coordinates.",
             "items" : {
                 "type": "number"
             },
@@ -39,11 +39,17 @@
         },
         "children" : {
             "type" : "array",
-            "description" : "An array of objects that define child tiles. Each child tile has a box fully enclosed by its parent tile's box and, generally, a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.",
+            "description" : "An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.",
             "items" : {
                 "$ref" : "tile.schema.json"
             },
             "uniqueItems" : true
+        },
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
         }
     },
     "required" : ["boundingVolume", "geometricError"],
