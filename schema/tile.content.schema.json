@@ -6,14 +6,20 @@
     "description" : "Metadata about the tile's content and a link to the content.",
     "properties" : {
         "boundingVolume" : {
-            "description" : "An optional bounding volume that tightly encloses just the tile's contents. This is used for replacement refinement; tile.boundingVolume provides spatial coherence and tile.content.boundingVolume enables tight view frustum culling. When this is omitted, tile.boundingVolume is used.",
+            "description" : "An optional bounding volume that tightly encloses just the tile's content. tile.boundingVolume provides spatial coherence and tile.content.boundingVolume enables tight view frustum culling. When this is omitted, tile.boundingVolume is used.",
             "$ref" : "boundingVolume.schema.json"
         },
-        "url" : {
+        "uri" : {
             "type" : "string",
-            "description" : "A string that points to the tile's contents with an absolute or relative url. When the url is relative, it is relative to the referring tileset.json. The file extension of content.url defines the tile format. The core 3D Tiles spec supports the following tile formats: Batched 3D Model (*.b3dm), Instanced 3D Model (*.i3dm), Composite (*.cmpt), and 3D Tiles TileSet (*.json)"
+            "description" : "A uri that points to the tile's content. When the uri is relative, it is relative to the referring tileset.json."
+        },
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
         }
     },
-    "required" : ["url"],
+    "required" : ["uri"],
     "additionalProperties" : false
 }

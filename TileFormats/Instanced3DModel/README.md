@@ -6,23 +6,58 @@
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 * Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
 
+## Contents
+
+* [Overview](#overview)
+* [Layout](#layout)
+    * [Padding](#padding)
+* [Header](#header)
+* [Feature Table](#feature-table)
+    * [Semantics](#semantics)
+        * [Instance semantics](#instance-semantics)
+        * [Global semantics](#global-semantics)
+    * [Instance orientation](#instance-orientation)
+        * [Oct-encoded normal vectors](#oct-encoded-normal-vectors) 
+        * [Default orientation](#default-orientation)  
+    * [Instance position](#instance-position)
+        * [RTC_CENTER](#rtc_center)
+        * [Quantized positions](#quantized-positions)
+    * [Instance scaling](#instance-scaling)
+    * [Examples](#examples)
+        * [Positions only](#positions-only) 
+        * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)   
+* [Batch Table](#batch-table)
+* [glTF](#gltf)
+    * [Coordinate system](#coordinate-system)
+* [File extension and MIME type](#file-extension-and-mime-type)
+* [Implementation examples](#implementation-examples)
+    * [Cesium](#cesium)
+
 ## Overview
 
-_Instanced 3D Model_ is a tile format for efficient streaming and rendering of a large number of models, called _instances_, with slight variations.  In the simplest case, the same tree model, for example, may be located - or _instanced_ - in several places.  Each instance references the same model, and has per-instance properties, such as position.  Using the core 3D Tiles spec language, each instance is a _feature_.
+_Instanced 3D Model_ is a tile format for efficient streaming and rendering of a large number of models, called _instances_, with slight variations.  In the simplest case, the same tree model, for example, may be located&mdash;or _instanced_&mdash;in several places.  Each instance references the same model and has per-instance properties, such as position.  Using the core 3D Tiles spec language, each instance is a _feature_.
 
-In addition to trees, Instanced 3D Model is useful for exterior features such as fire hydrants, sewer caps, lamps, and traffic lights, and interior CAD features such as bolts, valves, and electric outlets.
+In addition to trees, Instanced 3D Model is useful for exterior features such as fire hydrants, sewer caps, lamps, and traffic lights, and for interior CAD features such as bolts, valves, and electrical outlets.
 
-A [Composite](../Composite/README.md) tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights.
+An Instanced 3D Model tile is a binary blob in little endian.
 
-Instanced 3D Model maps well to the [ANGLE_instanced_arrays](https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/) extension for efficient rendering with WebGL.
+> **Implementation Note**: A [Composite](../Composite/README.md) tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights by combing two Instanced 3D Model tiles.
+
+> **Implementation Note**: Instanced 3D Model maps well to the [ANGLE_instanced_arrays](https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/) extension for efficient rendering with WebGL.
 
 ## Layout
 
-A tile is composed of a header section immediately followed by a body section.
-
-**Figure 1**: Instanced 3D Model layout (dashes indicate optional fields).
+A tile is composed of a header section immediately followed by a binary body. The following figure shows the Instanced 3D Model layout (dashes indicate optional fields):
 
 ![header layout](figures/header-layout.png)
+
+### Padding
+
+A tile's `byteLength` must be aligned to an 8-byte boundary. The contained [Feature Table](../FeatureTable/README.md#padding) and [Batch Table](../BatchTable/README.md#padding) must conform to their respective padding requirement.
+
+The [binary glTF](#gltf) (if present) must start and end on an 8-byte alignment so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
+
+Otherwise, if the glTF field is a UTF-8 string, it must be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the tile, which must be removed at runtime before requesting the glTF asset.
 
 ## Header
 
@@ -30,41 +65,35 @@ The 32-byte header contains the following fields:
 
 | Field name | Data type | Description |
 | --- | --- | --- |
-| `magic` | 4-byte ANSI string | `"i3dm"`.  This can be used to identify the arraybuffer as an Instanced 3D Model tile. |
+| `magic` | 4-byte ANSI string | `"i3dm"`.  This can be used to identify the content as an Instanced 3D Model tile. |
 | `version` | `uint32` | The version of the Instanced 3D Model format. It is currently `1`. |
 | `byteLength` | `uint32` | The length of the entire tile, including the header, in bytes. |
-| `featureTableJSONByteLength` | `uint32` | The length of the feature table JSON section in bytes. |
-| `featureTableBinaryByteLength` | `uint32` | The length of the feature table binary section in bytes. If `featureTableJSONByteLength` is zero, this will also be zero. |
-| `batchTableJSONByteLength` | `uint32` | The length of the batch table JSON section in bytes. Zero indicates that there is no batch table. |
-| `batchTableBinaryByteLength` | `uint32` | The length of the batch table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
-| `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a url, `1` indicates it is embedded binary glTF.  See the glTF section below. |
+| `featureTableJSONByteLength` | `uint32` | The length of the Feature Table JSON section in bytes. |
+| `featureTableBinaryByteLength` | `uint32` | The length of the Feature Table binary section in bytes. |
+| `batchTableJSONByteLength` | `uint32` | The length of the Batch Table JSON section in bytes. Zero indicates that there is no Batch Table. |
+| `batchTableBinaryByteLength` | `uint32` | The length of the Batch Table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
+| `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a uri, `1` indicates it is embedded binary glTF.  See the [glTF](#gltf) section below. |
 
-If `featureTableJSONByteLength` equals zero, or there is no `glTF`, the tile does not need to be rendered.
-
-The body section immediately follows the header section, and is composed of three fields: `Feature Table`, `Batch Table`, and `glTF`.
-
-Code for reading the header can be found in
-[Instanced3DModelTileContent](https://github.com/AnalyticalGraphicsInc/cesium/blob/3d-tiles/Source/Scene/Instanced3DModel3DTileContent.js)
-in the Cesium implementation of 3D Tiles.
+The body section immediately follows the header section and is composed of three fields: `Feature Table`, `Batch Table`, and `glTF`.
 
 ## Feature Table
 
-Contains values for `i3dm` semantics used to create instanced models.
+The Feature Table contains values for `i3dm` semantics used to create instanced models.
 More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
-The `i3dm` Feature Table JSON Schema is defined in [i3dm.featureTable.schema.json](../../schema/i3dm.featureTable.schema.json).
+The `i3dm` Feature Table JSON schema is defined in [i3dm.featureTable.schema.json](../../schema/i3dm.featureTable.schema.json).
 
 ### Semantics
 
-#### Instance Semantics
+#### Instance semantics
 
 These semantics map to an array of feature values that are used to create instances. The length of these arrays must be the same for all semantics and is equal to the number of instances.
-The value for each instance semantic must be a reference to the Feature Table Binary Body; they cannot be embedded in the Feature Table JSON Header.
+The value for each instance semantic must be a reference to the Feature Table binary body; they cannot be embedded in the Feature Table JSON header.
 
 If a semantic has a dependency on another semantic, that semantic must be defined.
 If both `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scaling operations will be applied.
 If both `POSITION` and `POSITION_QUANTIZED` are defined for an instance, the higher precision `POSITION` will be used.
-If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` are defined for an instance, the higher precision `NORMAL_UP`, and `NORMAL_RIGHT` will be used.
+If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` are defined for an instance, the higher precision `NORMAL_UP` and `NORMAL_RIGHT` will be used.
 
 | Semantic | Data Type | Description | Required | 
 | --- | --- | --- | --- |
@@ -76,9 +105,9 @@ If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` ar
 | `NORMAL_RIGHT_OCT32P` | `uint16[2]` | An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`. | :red_circle: No, unless `NORMAL_UP_OCT32P` is defined. |
 | `SCALE` | `float32` | A number defining a scale to apply to all axes of the instance. | :red_circle: No. |
 | `SCALE_NON_UNIFORM` | `float32[3]` | A 3-component array of numbers defining the scale to apply to the `x`, `y`, and `z` axes of the instance. | :red_circle: No. |
-| `BATCH_ID` | `uint8`, `unit16` (default), or `uint32` | The `batchId` of the instance that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
+| `BATCH_ID` | `uint8`, `uint16` (default), or `uint32` | The `batchId` of the instance that can be used to retrieve metadata from the `Batch Table`. | :red_circle: No. |
 
-#### Global Semantics
+#### Global semantics
 
 These semantics define global properties for all instances.
 
@@ -92,70 +121,68 @@ These semantics define global properties for all instances.
 
 Examples using these semantics can be found in the [examples section](#examples).
 
-### Instance Orientation
+### Instance orientation
 
-An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. The orientation will be transformed by the [tile transform] (../../README.md#tile-transform).
+An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. The orientation will be transformed by the [tile transform](../../README.md#tile-transform).
 
-The `x` vector in the standard basis maps onto the `right` vector in the transformed basis, and the `y` vector maps on to the `up` vector.
-The `z` vector would map onto a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
+The `x` vector in the standard basis maps to the `right` vector in the transformed basis, and the `y` vector maps to the `up` vector.
+The `z` vector would map to a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
 
-**Figure 2**: A box in the standard basis.
-
+A box in the standard basis:
 ![box standard basis](figures/box-standard-basis.png)
 
-**Figure 3**: A box transformed into a rotated basis.
-
+A box transformed into a rotated basis
 ![box rotated basis](figures/box-rotated-basis.png)
 
-#### Oct-encoded Normal Vectors
+#### Oct-encoded normal vectors
 
 If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientation may be stored as oct-encoded normals in `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P`.
-These define `up` and `right` using the oct-encoding described in
-[*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/).
-An implementation for encoding and decoding these unit vectors can be found in Cesium's
-[AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
+These define `up` and `right` using the oct-encoding described in [*A Survey of Efficient Representations of Independent Unit Vectors*](http://jcgt.org/published/0003/02/01/). Oct-encoded values are stored in unsigned, unnormalized range (`[0, 65535]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
+
+> An implementation for encoding and decoding these unit vectors can be found in Cesium's [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
 module.
 
-#### Default Orientation
+#### Default orientation
 
-If `NORMAL_UP` and `NORMAL_RIGHT` or `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P` are not present,
-the instance will not have a custom orientation. If `EAST_NORTH_UP` is `true` the instance is assumed to be on the `WGS84` ellipsoid and its orientation will default to the `east/north/up` reference frame at its Cartographic position.
-This is suitable for instanced models like trees whose orientation is always facing up from their position on the ellipsoid's surface.
+If `NORMAL_UP` and `NORMAL_RIGHT` or `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P` are not present, the instance will not have a custom orientation. If `EAST_NORTH_UP` is `true`, the instance is assumed to be on the `WGS84` ellipsoid and its orientation will default to the `east/north/up` reference frame at its cartographic position.
+This is suitable for instanced models such as trees whose orientation is always facing up from their position on the ellipsoid's surface.
 
-### Instance Position
+### Instance position
 
-`POSITION` defines the location for an instance before any tile transforms are applied. Positions may be defined relative-to-center for high-precision rendering [4]. `RTC_CENTER` defines the center position.
+`POSITION` defines the location for an instance before any tile transforms are applied.
 
-#### Quantized Positions
+#### RTC_CENTER
 
-If `POSITION` is not defined for an instance, its position may be stored in `POSITION_QUANTIZED` which defines the instance position relative to the quantized volume.
+Positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position and all instance positions are treated as relative to this value.
+
+#### Quantized positions
+
+If `POSITION` is not defined for an instance, its position may be stored in `POSITION_QUANTIZED`, which defines the instance position relative to the quantized volume.
 If neither `POSITION` or `POSITION_QUANTIZED` are defined, the instance will not be created.
 
-A quantized volume is defined by `offset` and `scale` to map quantized positions into model space.
-
-**Figure 4**: A quantized volume based on `offset` and `scale`.
+A quantized volume is defined by `offset` and `scale` to map quantized positions into local space, as shown in the following figure:
 
 ![quantized volume](figures/quantized-volume.png)
 
 `offset` is stored in the global semantic `QUANTIZED_VOLUME_OFFSET`, and `scale` is stored in the global semantic `QUANTIZED_VOLUME_SCALE`.
 If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.
 
-Quantized positions can be mapped to model space using the formula:
+Quantized positions can be mapped to local space using the following formula:
 
-`POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE + QUANTIZED_VOLUME_OFFSET`
+`POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE / 65535.0 + QUANTIZED_VOLUME_OFFSET`
 
-### Instance Scaling
+### Instance scaling
 
 Scaling can be applied to instances using the `SCALE` and `SCALE_NON_UNIFORM` semantics.
 `SCALE` applies a uniform scale along all axes, and `SCALE_NON_UNIFORM` applies scaling to the `x`, `y`, and `z` axes independently.
 
 ### Examples
 
-These examples show how to generate JSON and binary buffers for the feature table.
+These examples show how to generate JSON and binary buffers for the Feature Table.
 
-#### Positions Only
+#### Positions only
 
-In this minimal example, we place 4 instances on the corners of a unit length square with the default orientation.
+In this minimal example, we place four instances on the corners of a unit length square with the default orientation:
 
 ```javascript
 var featureTableJSON = {
@@ -173,10 +200,10 @@ var featureTableBinary = new Buffer(new Float32Array([
 ]).buffer);
 ```
 
-#### Quantized Positions and Oct-Encoded Normals
+#### Quantized positions and oct-encoded normals
 
-In this example, the 4 instances will be placed with an orientation `up` of `[0.0, 1.0, 0.0]` and `right` of `[1.0, 0.0, 0.0]` in oct-encoded format 
-and they will be placed on the corners of a quantized volume that spans from `-250.0` to `250.0` units in the `x` and `z` directions.
+In this example, the four instances will be placed with an orientation `up` of `[0.0, 1.0, 0.0]` and `right` of `[1.0, 0.0, 0.0]` in oct-encoded format 
+and they will be placed on the corners of a quantized volume that spans from `-250.0` to `250.0` units in the `x` and `z` directions:
 
 ```javascript
 var featureTableJSON = {
@@ -220,52 +247,36 @@ var featureTableBinary = Buffer.concat([positionQuantizedBinary, normalUpOct32PB
 
 ## Batch Table
 
-Contains metadata organized by `batchId` that can be used for declarative styling.
-
-See the [Batch Table](../BatchTable/README.md) reference for more information.
+Contains metadata organized by `batchId` that can be used for declarative styling. See the [Batch Table](../BatchTable/README.md) reference for more information.
 
 ## glTF
 
-The glTF asset to be instanced is stored after the feature table and batch table.
+Instanced 3D Model uses [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) for model data.
 
-[glTF](https://www.khronos.org/gltf) is the runtime asset format for WebGL.  [Binary glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) is an extension defining a binary container for glTF.  Instanced 3D Model uses glTF 1.0 with the [KHR_binary_glTF](https://github.com/KhronosGroup/glTF/tree/master/extensions/Khronos/KHR_binary_glTF) extension.
+The glTF asset to be instanced is stored after the Feature Table and Batch Table. It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
-`header.gltfFormat` determines the format of the glTF field.  When it is `0`, the glTF field is
+`header.gltfFormat` determines the format of the glTF field
 
-* a UTF-8 string, which contains a url to a glTF model.
-
-When the value of `header.gltfFormat` is `1`, the glTF field is
-
-* a binary blob containing binary glTF.
+* When the value of `header.gltfFormat` is `0`, the glTF field is a UTF-8 string, which contains a uri of the glTF or binary glTF model content.
+* When the value of `header.gltfFormat` is `1`, the glTF field is a binary blob containing [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout).
 
 In either case, `header.gltfByteLength` contains the length of the glTF field in bytes.
 
-If the glTF asset is embedded, it must be 8-byte aligned so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
+### Coordinate system
 
-## File Extension
+By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime or optionally use the [`CESIUM_z_up` glTF extension](TODO). See [coordinate reference system](../../README.md#coordinate-reference-system-crs) for more details.
 
-`.i3dm`
+## File extension and MIME type
 
-The file extension is optional. Valid implementations ignore it and identify a content's format by the `magic` field in its header.
+Instanced 3D models tiles use the `.i3dm` extension and `application/octet-stream` MIME type.
 
-## MIME Type
+An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
-_TODO, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
-
-`application/octet-stream`
-
-## Resources
-
-1. [*A Survey of Efficient Representations of Independent Unit Vectors* by Cigolle et al.](http://jcgt.org/published/0003/02/01/)
-2. [*Mesh Geometry Compression for Mobile Graphics* by Jongseok Lee et al.](http://cg.postech.ac.kr/research/mesh_comp_mobile/mesh_comp_mobile_conference.pdf)
-3. Cesium [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js) module for oct-encoding
-4. [Precisions, Precisions](http://blogs.agi.com/insight3d/index.php/2008/09/03/precisions-precisions/)
-
-## Implementation Examples
+## Implementation examples
 
 ### Cesium
 
-#### Generating up and right from longitude, latitude, and height
+Generating up and right from longitude, latitude, and height:
 
 ```javascript
 var position = Cartesian3.fromRadians(longitude, latitude, height);
@@ -294,7 +305,8 @@ Cartesian3.cross(up, forward, right);
 Cartesian3.normalize(right, right);
 ```
 
-#### Construct a model-matrix for an instance
+Construct a model-matrix for an instance:
+
 ```javascript
 // Cross right and up to get forward
 var forward = new Cartesian3();
@@ -322,3 +334,7 @@ Matrix4.fromTranslationRotationScale(
     modelMatrix
 );
 ```
+
+Code for reading the header can be found in
+[`Instanced3DModelTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Instanced3DModel3DTileContent.js)
+in the Cesium implementation of 3D Tiles.

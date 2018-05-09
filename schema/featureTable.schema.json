@@ -60,5 +60,14 @@
                 }]
             }]
         }
-    }
+    },
+    "properties" : {
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
+        }
+    },
+    "additionalProperties" : false
 }

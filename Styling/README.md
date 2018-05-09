@@ -30,7 +30,7 @@ Contents:
 
 * [Overview](#overview)
 * [Examples](#examples)
-* [Schema Reference](#schema-reference)
+* [Schema reference](#schema-reference)
 * [Expressions](#expressions)
    * [Semantics](#semantics)
    * [Operators](#operators)
@@ -41,25 +41,25 @@ Contents:
       * [vec4](#vector)
       * [Color](#color)
       * [RegExp](#regexp)
-   * [Operator Rules](#operator-rules)
-   * [Type Conversions](#type-conversions)
-   * [String Conversion](#string-conversions)
+   * [Operator rules](#operator-rules)
+   * [Type conversions](#type-conversions)
+   * [String conversion](#string-conversions)
    * [Constants](#constants)
    * [Variables](#variables)
-   * [Built-in Variables](#built-in-variables)
-   * [Built-in Functions](#built-in-functions)
+   * [Built-in variables](#built-in-variables)
+   * [Built-in functions](#built-in-functions)
    * [Notes](#notes)
-* [Batch Table Hierarchy](#batch-table-hierarchy)
 * [Point Cloud](#point-cloud)
-* [File Extension](#file-extension)
-* [MIME Type](#mime-type)
+* [File extension and MIME type](#file-extension-and-mime-type)
 * [Acknowledgments](#acknowledgments)
 
 ## Overview
 
-3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's batch table.
+3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's [Batch Table](../TileFormats/BatchTable/README.md).
 
-Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling. Additionally the styling language provides a set of built-in functions to support common math operations.
+While a style may be created for and reference properties of a tileset, a style is independent of a tileset, such that any style can be applied to any tileset.
+
+Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling. Additionally, the styling language provides a set of built-in functions to support common math operations.
 
 ## Examples
 
@@ -71,42 +71,37 @@ The following style assigns the default show and color properties to each featur
 }
 ```
 
-Instead of showing all features, `show` can be an expression dependent on a feature's properties, for example:
+Instead of showing all features, `show` can be an expression dependent on a feature's properties, for example, the following expression will show only features in the 19341 zip code:
 ```json
 {
     "show" : "${ZipCode} === '19341'"
 }
 ```
 
-Here, only features in the 19341 zip code are shown.
+`show` can also be used for more complex queries; for example, here a compound condition and regular expression are used to show only features whose county starts with `'Chest'` and whose year built is greater than or equal to 1970:
 ```json
 {
     "show" : "(regExp('^Chest').test(${County})) && (${YearBuilt} >= 1970)"
 }
 ```
 
-Above, a compound condition and regular expression are used to show only features whose county starts with `'Chest'` and whose year built is greater than or equal to 1970.
-
-Colors can also be defined by expressions dependent on a feature's properties, for example:
+Colors can also be defined by expressions dependent on a feature's properties. For example, the following expression colors features with a temperature above 90 as red and the others as white:
 ```json
 {
     "color" : "(${Temperature} > 90) ? color('red') : color('white')"
 }
 ```
 
-This colors features with a temperature above 90 as red and the others as white.
-
-The color's alpha component defines the feature's opacity, for example:
+The color's alpha component defines the feature's opacity. For example, the following sets the feature's RGB color components from the feature's properties and makes features with volume greater than 100 transparent:
 ```json
 {
    "color" : "rgba(${red}, ${green}, ${blue}, (${volume} > 100 ? 0.5 : 1.0))"
 }
 ```
-This sets the feature's RGB color components from the feature's properties and makes features with volume greater than 100 transparent.
 
 In addition to a string containing an expression, `color` and `show` can be an array defining a series of conditions (think of them as `if...else` statements).  Conditions can, for example, be used to make color maps and color ramps with any type of inclusive/exclusive intervals.
 
-For example, here's a color map that maps an ID property to colors:
+For example, the following expression maps an ID property to colors. Conditions are evaluated in order, so if `${id}` is not `'1'` or `'2'`, the `"true"` condition returns white. If no conditions are met, the color of the feature will be `undefined`:
 ```json
 {
     "color" : {
@@ -119,9 +114,7 @@ For example, here's a color map that maps an ID property to colors:
 }
 ```
 
-Conditions are evaluated in order so, above, if `${id}` is not `'1'` or `'2'`, the `"true"` condition returns white. If no conditions are met, the color of the feature will be `undefined`.
-
-The next example shows how to use conditions to create a color ramp using intervals with an inclusive lower bound and exclusive upper bound.
+The next example shows how to use conditions to create a color ramp using intervals with an inclusive lower bound and exclusive upper bound:
 ```json
 "color" : {
     "conditions" : [
@@ -135,7 +128,7 @@ The next example shows how to use conditions to create a color ramp using interv
 }
 ```
 
-Since conditions are evaluated in order, the above can more concisely be written as:
+Since conditions are evaluated in order, the above can be written more concisely as the following:
 ```json
 "color" : {
     "conditions" : [
@@ -149,12 +142,12 @@ Since conditions are evaluated in order, the above can more concisely be written
 }
 ```
 
-Commonly used expressions may be stored in a `defines` object. If a variable references a define, it gets the result of the define's evaluated expression.
+Commonly used expressions may be stored in a `defines` object. If a variable references a define, it gets the result of the define's evaluated expression:
 ```json
 {
     "defines" : {
         "NewHeight" : "clamp((${Height} - 0.5) / 2.0, 1.0, 255.0)",
-        "HeightColor" : "rgb(${Height}, ${Height}, ${Height})",
+        "HeightColor" : "rgb(${Height}, ${Height}, ${Height})"
     },
     "color" : {
         "conditions" : [
@@ -167,7 +160,7 @@ Commonly used expressions may be stored in a `defines` object. If a variable ref
 }
 ```
 
-A define expression may not reference other defines, however it may reference feature properties with the same name. In the style below a feature of height 150 gets the color red.
+A define expression may not reference other defines; however, it may reference feature properties with the same name. In the style below a feature of height 150 gets the color red:
 ```json
 {
     "defines" : {
@@ -183,9 +176,7 @@ A define expression may not reference other defines, however it may reference fe
 ```
 
 
-Non-visual properties of a feature can be defined using the `meta` property.
-
-For example, to set a `description` meta property to a string containing the feature name:
+Non-visual properties of a feature can be defined using the `meta` property. For example, the following sets a `description` meta property to a string containing the feature name:
 ```json
 {
     "meta" : {
@@ -204,7 +195,7 @@ A meta property expression can evaluate to any type. For example:
 }
 ```
 
-## Schema Reference
+## Schema reference
 
 TODO: generate reference doc from schema
 
@@ -214,7 +205,7 @@ Also, see the [JSON schema](schema).
 
 The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)), plus native vector and regular expression types and access to tileset feature properties in the form of readonly variables.
 
-_Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions._
+> Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions.
 
 ### Semantics
 
@@ -324,11 +315,11 @@ The styling language includes 2, 3, and 4 component floating-point vector types:
 * `.r`, `.g`, `.b`, `.a`
 * `[0]`, `[1]`, `[2]`, `[3]`
 
-Unlike GLSL, the styling language does not support swizzling. For example `vec3(1.0).xy` is not supported.
+Unlike GLSL, the styling language does not support swizzling. For example, `vec3(1.0).xy` is not supported.
 
 Vectors support the following unary operators: `-`, `+`.
 
-Vectors support the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `vec4(1.0) === vec4(1.0)` is true since the x, y, z, and w components are equal.  Operators are essentially overloaded for `vec2`, `vec3`, and `vec4`.
+Vectors support the following binary operators by performing component-wise operations: `===`, `!==`, `+`, `-`, `*`, `/`, and `%`.  For example `vec4(1.0) === vec4(1.0)` is true since the _x_, _y_, _z_, and _w_ components are equal.  Operators are essentially overloaded for `vec2`, `vec3`, and `vec4`.
 
 `vec2`, `vec3`, and `vec4` have a `toString` function for explicit (and implicit) conversion to strings in the format `'(x, y)'`, `'(x, y, z)'`, and `'(x, y, z, w)'`.
 * `toString() : String`
@@ -338,14 +329,14 @@ Vectors support the following binary operators by performing component-wise oper
 #### Color
 
 Colors are implemented as `vec4` and are created with one of the following functions:
-* `color() : Color`
-* `color(keyword : String, [alpha : Number]) : Color`
-* `color(6-digit-hex : String, [alpha : Number]) : Color`
-* `color(3-digit-hex : String, [alpha : Number]) : Color`
-* `rgb(red : Number, green : Number, blue : number) : Color`
-* `rgba(red : Number, green : Number, blue : number, alpha : Number) : Color`
-* `hsl(hue : Number, saturation : Number, lightness : Number) : Color`
-* `hsla(hue : Number, saturation : Number, lightness : Number, alpha : Number) : Color`
+* `color()`
+* `color(keyword : String, [alpha : Number])`
+* `color(6-digit-hex : String, [alpha : Number])`
+* `color(3-digit-hex : String, [alpha : Number])`
+* `rgb(red : Number, green : Number, blue : Number)`
+* `rgba(red : Number, green : Number, blue : Number, alpha : Number)`
+* `hsl(hue : Number, saturation : Number, lightness : Number)`
+* `hsla(hue : Number, saturation : Number, lightness : Number, alpha : Number)`
 
 Calling `color()` with no arguments is the same as calling `color('#FFFFFF')`.
 
@@ -357,11 +348,11 @@ Colors defined by a case-insensitive keyword (e.g., `'cyan'`) or hex rgb are pas
 These `color` functions have an optional second argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
 * `color('cyan', 0.5)`
 
-Colors defined with decimal rgb or hsl are created with `rgb` and `hsl` functions, respectively, just as in CSS (but with percentage ranges from `0.0` to `1.0` for `0%` to `100%`, respectively).  For example:
+Colors defined with decimal RGB or HSL are created with `rgb` and `hsl` functions, respectively, just as in CSS (but with percentage ranges from `0.0` to `1.0` for `0%` to `100%`, respectively).  For example:
 * `rgb(100, 255, 190)`
 * `hsl(1.0, 0.6, 0.7)`
 
-The range for rgb components is `0` to `255`, inclusive.  For `hsl`, the range for hue, saturation, and lightness is `0.0` to `1.0`, inclusive.
+The range for `rgb` components is `0` to `255`, inclusive.  For `hsl`, the range for hue, saturation, and lightness is `0.0` to `1.0`, inclusive.
 
 Colors defined with `rgba` or `hsla` have a fourth argument that is an alpha component to define opacity, where `0.0` is fully transparent and `1.0` is fully opaque.  For example:
 * `rgba(100, 255, 190, 0.25)`
@@ -372,13 +363,13 @@ Colors are equivalent to the `vec4` type and share the same functions, operators
 For example:
 * `color('red').x`, `color('red').r`, and `color('red')[0]` all evaluate to `1.0`.
 * `color('red').toString()` evaluates to `(1.0, 0.0, 0.0, 1.0)`
-* `color('red') * vec4(0.5)` is equivalent to `vec4(0.5, 0.0, 0.0, 1.0)`
+* `color('red') * vec4(0.5)` is equivalent to `vec4(0.5, 0.0, 0.0, 0.5)`
 
 #### RegExp
 
 Regular expressions are created with the following functions, which behave like the JavaScript [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) constructor:
-* `regExp() : RegExp`
-* `regExp(pattern : String, [flags : String]) : RegExp`
+* `regExp()`
+* `regExp(pattern : String, [flags : String])`
 
 Calling `regExp()` with no arguments is the same as calling `regExp('(?:)')`.
 
@@ -392,7 +383,7 @@ If specified, `flags` can have any combination of the following values:
 
 Regular expressions support these functions:
 * `test(string : String) : Boolean` - Tests the specified string for a match.
-* `exec(string : String) : String` - Executes a search for a match in the specified string. If the search succeeds, it returns the first instance of a captured `String`. If the search fails, it returns `null`
+* `exec(string : String) : String` - Executes a search for a match in the specified string. If the search succeeds, it returns the first instance of a captured `String`. If the search fails, it returns `null`.
 
 For example:
 ```json
@@ -407,7 +398,7 @@ regExp('a(.)', 'i').exec('Abc') === 'b'
 regExp('Building\s(\d)').exec(${Name}) === '1'
 ```
 
-Regular expressions have a `toString` function for explicit (and implicit) conversion to strings in the format `'pattern'`.
+Regular expressions have a `toString` function for explicit (and implicit) conversion to strings in the format `'pattern'`:
 * `toString() : String`
 
 Regular expressions do not expose any other functions or a `prototype` object.
@@ -423,7 +414,7 @@ regExp('a') !~ 'bcd'
 'bcd' !~ regExp('a')
 ```
 
-### Operator Rules
+### Operator rules
 
 * Unary operators `+` and `-` operate only on number and vector expressions.
 * Unary operator `!` operates only on boolean expressions.
@@ -432,26 +423,26 @@ regExp('a') !~ 'bcd'
 * Binary operator `+` operates on the following expressions:
     * Number expressions
     * Vector expressions of the same type
-    * If at least one expressions is a string, the other expressions is converted to a string following [String Conversions](#string-conversions) and the operation returns a concatenated string. E.g. `"name" + 10` evaluates to `"name10"`.
-* Binary operator `-` operates on the following expressions
+    * If at least one expressions is a string, the other expression is converted to a string following [String Conversions](#string-conversions), and the operation returns a concatenated string, e.g. `"name" + 10` evaluates to `"name10"`
+* Binary operator `-` operates on the following expressions:
     * Number expressions
     * Vector expressions of the same type
-* Binary operator `*` operates on the following expressions
+* Binary operator `*` operates on the following expressions:
     * Number expressions
     * Vector expressions of the same type
-    * Mix of number expression and vector expression. E.g. `3 * vec3(1.0)` and `vec2(1.0) * 3`.
-* Binary operator `/` operates on the following expressions
+    * Mix of number expression and vector expression, e.g. `3 * vec3(1.0)` and `vec2(1.0) * 3`
+* Binary operator `/` operates on the following expressions:
     * Number expressions
     * Vector expressions of the same type
-    * Vector expression followed by number expression. E.g.`vec3(1.0) / 3`.
-* Binary operator `%` operates on the following expressions
+    * Vector expression followed by number expression, e.g.`vec3(1.0) / 3`
+* Binary operator `%` operates on the following expressions:
     * Number expressions
     * Vector expressions of the same type
 * Binary equality operators `===` and `!==` operate on any expressions. The operation returns `false` if the expression types do not match.
-* Binary regexp operators `=~` and `!~` requires one argument to be a string expression and the other to be a RegExp expression.
+* Binary `regExp` operators `=~` and `!~` require one argument to be a string expression and the other to be a `RegExp` expression.
 * Ternary operator `? :` conditional argument must be a boolean expression.
 
-### Type Conversions
+### Type conversions
 
 Explicit conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions.
 * `Boolean(value : Any) : Boolean`
@@ -472,9 +463,9 @@ These are essentially casts, not constructor functions.
 
 The styling language does not allow for implicit type conversions, unless stated above. Expressions like `vec3(1.0) === vec4(1.0)` and `"5" < 6` are not valid.
 
-### String Conversions
+### String conversions
 
-`vec2`, `vec3`, `vec4` and `RegExp` expressions are converted to strings using their `toString` methods. All other types follow JavaScript conventions.
+`vec2`, `vec3`, `vec4`, and `RegExp` expressions are converted to strings using their `toString` methods. All other types follow JavaScript conventions.
 
 * `true` - `"true"`
 * `false` - `"false"`
@@ -519,14 +510,14 @@ Euler's constant and the base of the natural logarithm, approximately `2.71828`.
 
 ### Variables
 
-Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)) Template Literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name.  `feature` is implicit and can be omitted in most cases.
+Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)) template literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name.  `feature` is implicit and can be omitted in most cases.
 
 Variables can be used anywhere a valid expression is accepted, except inside other variable identifiers. For example, the following is not allowed:
 ```
 ${foo[${bar}]}
 ```
 
-If a feature does not have a property with specified name, the variable evaluates to `undefined`.  Note that the property may also be `null` if `null` was explicitly stored for a property.
+If a feature does not have a property with the specified name, the variable evaluates to `undefined`.  Note that the property may also be `null` if `null` was explicitly stored for a property.
 
 Variables may be any of the supported native JavaScript types:
 * `Boolean`
@@ -553,7 +544,7 @@ ${order} === 1
 ${name} === 'Feature name'
 ```
 
-Additionally, variables originating from vector properties stored in the [Batch Table Binary](../TileFormats/BatchTable/README.md#binary-body) are treated as vector types:
+Additionally, variables originating from vector properties stored in the [Batch Table binary](../TileFormats/BatchTable/README.md#binary-body) are treated as vector types:
 
 | `componentType` | variable type |
 | --- | --- |
@@ -561,13 +552,13 @@ Additionally, variables originating from vector properties stored in the [Batch 
 | `"VEC3"` | `vec3` |
 | `"VEC4"` | `vec4` |
 
-Variables can be used to construct colors or vectors, for example:
+Variables can be used to construct colors or vectors. For example:
 ```
 rgba(${red}, ${green}, ${blue}, ${alpha})
 vec4(${temperature})
 ```
 
-Dot or bracket notation is used to access feature subproperties.  For example:
+Dot or bracket notation is used to access feature subproperties. For example:
 ```json
 {
     "address" : {
@@ -645,7 +636,7 @@ ${temperatures.values[0]} === 70
 ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
 ```
 
-### Built-in Variables
+### Built-in variables
 
 The prefix `tiles3d_` is reserved for built-in variables. The following built-in variables are supported by the styling language:
 
@@ -661,7 +652,7 @@ Gets the time, in milliseconds, since the tileset was first loaded. This is usef
 }
 ```
 
-### Built-in Functions
+### Built-in functions
 
 The following built-in functions are supported by the styling language:
 
@@ -1165,7 +1156,7 @@ length(x : vec3) : vec3
 length(x : vec4) : vec4
 ```
 
-Computes the length of vector `x`, i.e. the square root of the sum of the squared components. If `x` is a number, `length` returns `x`.
+Computes the length of vector `x`, i.e., the square root of the sum of the squared components. If `x` is a number, `length` returns `x`.
 
 ```json
 {
@@ -1182,7 +1173,7 @@ distance(x : vec3, y : vec3) : vec3
 distance(x : vec4, y : vec4) : vec4
 ```
 
-Computes the distance between two points `x` and `y`, i.e. `length(x - y)`.
+Computes the distance between two points `x` and `y`, i.e., `length(x - y)`.
 
 ```json
 {
@@ -1240,81 +1231,9 @@ Computes the cross product of `x` and `y`. This function only accepts `vec3` arg
 
 Comments are not supported.
 
-## Batch Table Hierarchy
-
-The styling language provides the following built-in functions intended for use with the [Batch Table Hierarchy](../TileFormats/BatchTable/README.md#batch-table-hierarchy):
-
-* [`getExactClassName`](#getexactclassname)
-* [`isExactClass`](#isexactclass)
-* [`isClass`](#isclass)
-
-#### getExactClassName
-
-```
-getExactClassName() : String
-```
-
-Returns the feature's class name, or `undefined` if the feature is not a class instance.
-
-For example, the following style will color all doorknobs yellow, all doors green, and all other features gray.
-
-```json
-{
-    "defines" : {
-        "suffix" : "regExp('door(.*)').exec(getExactClassName())"
-    },
-    "color" : {
-        "conditions" : [
-            ["${suffix} === 'knob'", "color('yellow')"],
-            ["${suffix} === ''", "color('green')"],
-            ["${suffix} === null", "color('gray')"],
-            ["true", "color('blue'"]
-        ]
-    }
-}
-```
-
-#### isExactClass
-
-```
-isExactClass(name : String) : Boolean
-```
-
-Returns `true` is the feature's class is equal to `name`, otherwise `false`.
-
-For example, the following style will color all doors, but not features that are children of doors (like doorknobs).
-
-```json
-"color" : {
-    "conditions" : [
-        ["isExactClass('door')", "color('red')"],
-        ["true", "color('white')"]
-    ]
-}
-```
-
-#### isClass
-
-```
-isClass(name : String) : Boolean
-```
-
-Returns `true` is the feature's class, or any of its ancestors' classes, are equal to `name`.
-
-For example, the style below will color all doors and doorknobs.
-
-```json
-"color" : {
-    "conditions" : [
-        ["isClass('door')", "color('blue')"],
-        ["true", "color('white')"]
-    ]
-}
-```
-
 ## Point Cloud
 
-A [Point Cloud](../TileFormats/PointCloud/README.md) is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a point cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
+A [Point Cloud](../TileFormats/PointCloud/README.md) is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a Point Cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
 ```json
 {
     "color" : "color('red')",
@@ -1324,11 +1243,11 @@ A [Point Cloud](../TileFormats/PointCloud/README.md) is a collection of points t
 
 Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`. A `pointSize` of `1.0` must be supported.
 
-Point cloud styles may also reference semantics from the [Feature Table](../TileFormats/PointCloud/README.md#feature-table) including position, color, and normal to allow for more flexible styling of the source data.
+Point Cloud styles may also reference semantics from the [Feature Table](../TileFormats/PointCloud/README.md#feature-table) including position, color, and normal to allow for more flexible styling of the source data.
 * `${POSITION}` is a `vec3` storing the xyz Cartesian coordinates of the point before the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `${POSITION}` refers to the position after the `QUANTIZED_VOLUME_SCALE` is applied, but before `QUANTIZED_VOLUME_OFFSET` is applied.
 * `${POSITION_ABSOLUTE}` is a `vec3` storing the xyz Cartesian coordinates of the point after the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `${POSITION_ABSOLUTE}` refers to the position after the `QUANTIZED_VOLUME_SCALE`, `QUANTIZED_VOLUME_OFFSET`, and tile transform are applied.
-* `${COLOR}` evaluates to a `Color` storing the rgba color of the point. When the feature table's color semantic is `RGB` or `RGB565`, `${COLOR}.alpha` is `1.0`. If no color semantic is defined, `${COLOR}` evaluates to the application-specific default color.
-* `${NORMAL}` is a `vec3` storing the normal, in Cartesian coordinates, of the point before the tile transform is applied. When normals are oct-encoded `${NORMAL}` refers to the decoded normal. If no normal semantic is defined in the feature table, `${NORMAL}` evaluates to `undefined`.
+* `${COLOR}` evaluates to a `Color` storing the rgba color of the point. When the Feature Table's color semantic is `RGB` or `RGB565`, `${COLOR}.alpha` is `1.0`. If no color semantic is defined, `${COLOR}` evaluates to the application-specific default color.
+* `${NORMAL}` is a `vec3` storing the normal, in Cartesian coordinates, of the point before the tile transform is applied. When normals are oct-encoded, `${NORMAL}` refers to the decoded normal. If no normal semantic is defined in the Feature Table, `${NORMAL}` evaluates to `undefined`.
 
 For example:
 
@@ -1340,19 +1259,18 @@ For example:
 }
 ```
 
-#### Point Cloud Shader Styling
+> Implementation Note: Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Some of these features include:
+> * Evaluation of `isNan` and `isFinite` (GLSL 2.0+ supports `isnan` and `isinf` for these functions respectively)
+> * The types `null` and `undefined`
+> * Strings, including accessing object properties (`color()['r']`) and batch table values
+> * Regular expressions 
+> * Arrays of lengths other than 2, 3, or 4
+> * Mismatched type comparisons (e.g. `1.0 === false`)
+> * Array index out of bounds
 
-**TODO : add note about GLSL implementations requires strict type comparisons among other things: https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/140**
-
-## File Extension
-
-TBA
-
-## MIME Type
-
-_TBA, [#60](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/60)_
-
-`application/json`
+## File extension and MIME type
+ 
+Tileset styles use the `.json` extension and the `application/json` mime type.
 
 ## Acknowledgments
 

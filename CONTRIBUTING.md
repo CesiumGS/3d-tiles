@@ -5,7 +5,7 @@ As we add more tile formats, 3D Tiles needs to stay consistent.
 ## Terminology
 
 * Tiles are composed of `sections` such as `header` and `body`.  Sections are composed of `fields` such as `magic` and `version`.
-* "Feature" - indicates one model in a batch of models (b3dm), one instance in a collection of instances (i3dm), one point in a point cloud (pnts), one polygon in a vector tile (vctr), etc.
+* "Feature" - indicates one model in a batch of models (`b3dm`), one instance in a collection of instances (`i3dm`), one point in a point cloud (`pnts`), etc.
 
 ## Fields
 
@@ -25,3 +25,7 @@ byteLength       // uint32,   length, in bytes, of the entire tile.
 ## Binary
 
 * All binary data, e.g., tile formats, are in little endian.
+
+## Code of Conduct
+
+To ensure an inclusive community, contributors and users in the Cesium community should follow the [code of conduct](./CODE_OF_CONDUCT.md).

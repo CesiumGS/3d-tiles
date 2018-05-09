@@ -49,6 +49,12 @@
             },
             "BATCH_LENGTH" : {
                 "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+            },
+            "extensions" : {
+                "$ref": "extension.schema.json"
+            },
+            "extras" : {
+                "$ref": "extras.schema.json"
             }
         },
         "anyOf" : [{
