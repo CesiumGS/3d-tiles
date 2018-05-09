@@ -146,7 +146,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 The 3D Tiles spec is pre-1.0 (indicated by `"version": "0.0"` in the tileset JSON).  We expect a draft 1.0 version and the Cesium implementation to stabilize in 2017; see the [remaining items](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues?q=is%3Aopen+is%3Aissue+label%3A1.0).
 
 **Draft 1.0 Plans**
-pa
+
 Topic  | Status
 ---|---
 [Tileset JSON](#tileset-json)<br /><br />The tileset's spatial hierarchy  | :white_check_mark: **Solid base**, will add features as needed
