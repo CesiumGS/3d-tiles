@@ -119,7 +119,7 @@ Examples using these semantics can be found in the [examples section](#examples)
 
 #### Coordinate reference system (CRS)
 
-3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (also see [tile content coordinate systems](../../README.md#tile-content-coordinate-systems)).
+3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (also see [coordinate reference system](../../README.md#coordinate-reference-system-crs)).
 
 #### RTC_CENTER
 

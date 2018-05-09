@@ -73,7 +73,6 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * [URIs](#uris)
 * [Units](#units)
 * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
-   * [Tile content coordinate systems](#tile-content-coordinate-systems)
 * [Tiles](#tiles)
    * [Bounding volumes](#bounding-volumes)
       * [Region](#region)
@@ -223,15 +222,11 @@ All angles are in radians.
 
 ## Coordinate reference system (CRS)
 
-Tile objects are specified in a coordinate system as defined by the type of [bounding volume](#bounding-volumes) used. This coordinate system will often be in a geospatial context and use the WGS 84 datum as defined in [EPSG 4326](http://nsidc.org/data/atlas/epsg_4326.html). Otherwise, the bounding volume will be defined with a right-handed 3-axis (x, y, z) Cartesian coordinate system.
-
-### Tile content coordinate systems
-
-Each tile's content uses a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
+3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.  An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.  A tileset's global coordinate system will often be [WGS 84 coordinates](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
 Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. The [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units) defines a right-handed coordinate system with the _y_ axis as up. For consistency with the _z_-up coordinate system of 3D Tiles, embedded glTFs may instead use the [`CESIUM_z_up` glTF extension](TODO).
 
-If the `CESIUM_z_up` glTF extension is not used, the glTF model must be transformed to a _z_-up coordinate system at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following matrix transform:
+If the `CESIUM_z_up` glTF extension is not used, the glTF model is considered to by _y_-up and must be transformed to a _z_-up coordinate system at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following matrix transform:
 ```json
 [
 1.0, 0.0,  0.0, 0.0,
@@ -403,7 +398,7 @@ The computed transform for each tile is:
 * `T4`: `[T0][T1][T4]`
 
 The positions and normals in a tile's content may also have tile-specific transformations applied to them _before_ the tile's `transform` (before indicates post-multiplying for affine transformations).  Some examples are:
-* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy and coordinate system. `tile.transform` is applied after these transforms are resolved. See (tile content coordinate systems)[#tile-content-coordinate-systems].
+* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy and coordinate system. `tile.transform` is applied after these transforms are resolved. See (coordinate reference system)[#coordinate-reference-system-crs].
 * `i3dm`'s Feature Table defines per-instance position, normals, and scales.  These are used to create per-instance 4x4 affine transform matrices that are applied to each instance before `tile.transform`.
 * Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm` and `pnts`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
 
