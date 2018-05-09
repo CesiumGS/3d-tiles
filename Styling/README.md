@@ -197,8 +197,6 @@ A meta property expression can evaluate to any type. For example:
 
 ## Schema reference
 
-TODO: generate reference doc from schema
-
 Also, see the [JSON schema](schema).
 
 ## Expressions

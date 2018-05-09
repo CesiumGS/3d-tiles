@@ -264,7 +264,7 @@ In either case, `header.gltfByteLength` contains the length of the glTF field in
 
 ### Coordinate system
 
-By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime or optionally use the [`CESIUM_z_up` glTF extension](TODO). See [coordinate reference system](../../README.md#coordinate-reference-system-crs) for more details.
+By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime or optionally use the [`CESIUM_z_up` glTF extension](https://github.com/ggetz/glTF/tree/cesium-z-up-ext/extensions/2.0/Vendor/CESIUM_z_up). See [coordinate reference system](../../README.md#coordinate-reference-system-crs) for more details.
 
 ## File extension and MIME type
 

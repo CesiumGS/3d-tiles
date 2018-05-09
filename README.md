@@ -65,7 +65,6 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 ## Contents
 
 * [Resources](#resources)
-* [Spec status](#spec-status)
 * [3D Tiles Extensions](#3d-tiles-extensions)
 * [Introduction](#introduction)
 * [File extensions and MIME types](#file-extensions-and-mime-types)
@@ -141,28 +140,6 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * **News**
    * [3D Tiles thread on the Cesium forum](https://groups.google.com/forum/#!topic/cesium-dev/tCCooBxpZFU) - get the latest 3D Tiles news and ask questions here.
 
-**Draft 1.0 Plans**
-
-Topic  | Status
----|---
-[Tileset JSON](#tileset-json)<br /><br />The tileset's spatial hierarchy  | :white_check_mark: **Solid base**, will add features as needed
-[Batched 3D Model](TileFormats/Batched3DModel/README.md) (*.b3dm)<br /><br />Textured terrain and surfaces, 3D building exteriors and interiors, massive models, ...  | :white_check_mark: **Solid base**, only minor, if any, changes expected
-[Instanced 3D Model](TileFormats/Instanced3DModel/README.md) (*.i3dm)<br /><br />Trees, windmills, bolts, ... | :white_check_mark: **Solid base**, only minor, if any, changes expected
-[Point Cloud](TileFormats/PointCloud/README.md) (*.pnts)<br /><br />Massive number of points | :white_check_mark: **Solid base**, only minor, if any, changes expected
-[Composite](TileFormats/Composite/README.md) (*.cmpt)<br /><br />Combine heterogeneous tile formats | :white_check_mark: **Solid base**, only minor, if any, changes expected
-[Declarative styling](Styling/README.md)<br/><br/>Style features using per-feature metadata  | :white_check_mark: **Solid base**, will add features/functions as needed, [#2](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/2)
-
-**Post Draft 1.0 Plans**
-
-Topic  | Status
----|---
-[Vector Data](TileFormats/VectorData/README.md) (*.vctr)<br /><br />Polygons, polylines, and placemarks | :white_circle: **In progress**, [#124](https://github.com/AnalyticalGraphicsInc/3d-tiles/pull/124/files)
-Terrain v2  | :white_circle: **Not started**, [quantized-mesh](https://github.com/AnalyticalGraphicsInc/quantized-mesh/blob/master/README.md) is a good starting point; in the meantime, folks are using [Batched 3D Model](TileFormats/Batched3DModel/README.md)
-[OpenStreetMap](TileFormats/OpenStreetMap/README.md)  | :white_circle: **Not started** Currently folks are using [Batched 3D Model](TileFormats/Batched3DModel/README.md)
-Stars  | :white_circle: **Not started**
-
-For spec work in progress, [watch this repo](https://github.com/AnalyticalGraphicsInc/3d-tiles/subscription) and browse the [issues](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues).
-
 ## 3D Tiles Extensions
 
 [3D Tiles extension registery](./extensions/)
@@ -220,7 +197,7 @@ All angles are in radians.
 
 3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.  An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.  A tileset's global coordinate system will often be in a [WGS 84](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf) earth-centered, earth-fixed (ECEF) reference frame, but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
-Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. The [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units) defines a right-handed coordinate system with the _y_ axis as up. For consistency with the _z_-up coordinate system of 3D Tiles, embedded glTFs may instead use the [`CESIUM_z_up` glTF extension](TODO).
+Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. The [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units) defines a right-handed coordinate system with the _y_ axis as up. For consistency with the _z_-up coordinate system of 3D Tiles, embedded glTFs may instead use the [`CESIUM_z_up` glTF extension](https://github.com/ggetz/glTF/tree/cesium-z-up-ext/extensions/2.0/Vendor/CESIUM_z_up).
 
 If the `CESIUM_z_up` glTF extension is not used, the glTF model is considered to by _y_-up and must be transformed to a _z_-up coordinate system at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following matrix transform:
 ```json
@@ -236,7 +213,7 @@ Note that glTF defines its own node hierarchy, where each node has a transform. 
 
 > Implementation Note: Using the `CESIUM_z_up` extension is preferred to transforming the model to a _z_-up coordinate system at runtime.
 
-Some [bounding volumes](#bounding-volumes) may specify bounds using a geodetic coordinate system (latitude, longitude, height), in which case use the WGS 84 datum as defined in [EPSG 4326](http://nsidc.org/data/atlas/epsg_4326.html).
+Some [bounding volumes](#bounding-volumes) may specify bounds using a geographic coordinate system (latitude, longitude, height), in which case use the WGS 84 datum as defined in [EPSG 4326](http://nsidc.org/data/atlas/epsg_4326.html).
 
 ## Tiles
 
@@ -281,7 +258,7 @@ The optional `viewerRequestVolume` property (not shown above) defines a volume, 
 
 The `refine` property is a string that is either `"REPLACE"` for replacement refinement or `"ADD"` for additive refinement, see [Refinement](#refinement).  It is required for the root tile of a tileset; it is optional for all other tiles.  A tileset can use any combination of additive and replacement refinement.  When the `refine` property is omitted, it is inherited from the parent tile.
 
-The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.url` is a uri that points to the tile's content.  In the example above, the uri, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [Roadmap Q&A](#How-do-I-request-the-tiles-for-Level-n).
+The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.uri` is a uri that points to the tile's content.  In the example above, the uri, `2/0/0.b3dm`, has a TMS tiling scheme, `{z}/{y}/{x}.extension`, but this is not required; see the [Roadmap Q&A](#how-do-i-request-the-tiles-for-level-n).
 
 The uri can be another tileset JSON to create a tileset of tilesets.  See [External tilesets](#external-tilesets).
 
@@ -295,7 +272,7 @@ The screenshot below shows the bounding volumes for the root tile for [Canary Wh
 
 The optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
 
-The `children` property is an array of objects that define child tiles.  See the [tileset.json section below](#tilesetjson).
+The `children` property is an array of objects that define child tiles.  See the [Tileset JSON](#tileset-json) section below.
 
 ![](figures/tile.png)
 
@@ -396,7 +373,7 @@ The computed transform for each tile is:
 * `T4`: `[T0][T1][T4]`
 
 The positions and normals in a tile's content may also have tile-specific transformations applied to them _before_ the tile's `transform` (before indicates post-multiplying for affine transformations).  Some examples are:
-* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy and coordinate system. `tile.transform` is applied after these transforms are resolved. See (coordinate reference system)[#coordinate-reference-system-crs].
+* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy and coordinate system. `tile.transform` is applied after these transforms are resolved. See [coordinate reference system](#coordinate-reference-system-crs).
 * `i3dm`'s Feature Table defines per-instance position, normals, and scales.  These are used to create per-instance 4x4 affine transform matrices that are applied to each instance before `tile.transform`.
 * Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm` and `pnts`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
 
@@ -486,13 +463,11 @@ The following example has a building in a `b3dm` tile and a point cloud inside t
 }
 ```
 
-_TODO: screenshot showing the request vs. bounding volume_
-
 For more on request volumes, see the [sample tileset](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples/tree/master/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
 
 ### Refinement
 
-Refinement determines how a parent tile renders when its children are also selected to be rendered. Permitted refinement types are replacement (`"REPLACE"`) and additive (`"ADD"`). A tileset can use all refinement, all additive, or any combination of additive and replacement refinement. A refinement type is required for the root tile of a tileset; it is optional for all other tiles. When omitted, a tile inherits the refinement type of its parent.
+Refinement determines how a parent tile renders when its children are selected to be rendered. Permitted refinement types are replacement (`"REPLACE"`) and additive (`"ADD"`). A tileset can use replacement refinement exclusively, additive refinement exclusively, or any combination of additive and replacement refinement. A refinement type is required for the root tile of a tileset; it is optional for all other tiles. When omitted, a tile inherits the refinement type of its parent.
 
 #### Replacement
 
@@ -571,7 +546,7 @@ The top-level object in the tileset JSON has four properties: `asset`, `properti
 
 `root` is an object that defines the root tile using the JSON described in the [above section](#tiles).  `root.geometricError` is not the same as the tileset's top-level `geometricError`. The tileset's `geometricError` is the error when the entire tileset is not rendered; `root.geometricError` is the error when only the root tile is rendered.
 
-`root.children` is an array of objects that define child tiles.  Each child tile's `content.boundingVolume` is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
+`root.children` is an array of objects that define child tiles.  Each child tile's content is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
 
 See the [Q&A below](#will-a-tileset-file-be-part-of-the-final-3d-tiles-spec) for how a tileset will scale to a massive number of tiles.
 
@@ -685,9 +660,16 @@ The geometric error is determined when creating the tileset and based on a metri
 
 ## Tile formats
 
-Each tile's `content.uri` property points to a tile that is one of the formats listed in the [Status section](#spec-status) above.
+Each tile's `content.uri` property points to a tile that is one of the formats listed in the table below.
 
 A tileset can contain any combination of tile formats.  3D Tiles may also support different formats in the same tile using a [Composite](TileFormats/Composite/README.md) tile.
+
+Format|Uses
+---|---
+[Batched 3D Model](TileFormats/Batched3DModel/README.md)|Heterogeneous 3D models. E.g. textured terrain and surfaces, 3D building exteriors and interiors, massive models.
+[Instanced 3D Model](TileFormats/Instanced3DModel/README.md)|3D model instances. E.g. trees, windmills, bolts.
+[Point Cloud](TileFormats/PointCloud/README.md)|Massive number of points.
+[Composite](TileFormats/Composite/README.md)|Combine tile formats.
 
 ## Specifying extensions and application specific extras
 
