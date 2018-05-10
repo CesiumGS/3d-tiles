@@ -72,6 +72,7 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * [URIs](#uris)
 * [Units](#units)
 * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
+   * [glTF](#gltf)
 * [Tiles](#tiles)
    * [Bounding volumes](#bounding-volumes)
       * [Region](#region)
@@ -195,25 +196,38 @@ All angles are in radians.
 
 ## Coordinate reference system (CRS)
 
-3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems.  An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.  A tileset's global coordinate system will often be in a [WGS 84](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf) earth-centered, earth-fixed (ECEF) reference frame, but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
+3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. A tileset's global coordinate system will often be in a [WGS 84](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf) earth-centered, earth-fixed (ECEF) reference frame, but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
-Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. The [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units) defines a right-handed coordinate system with the _y_ axis as up. For consistency with the _z_-up coordinate system of 3D Tiles, embedded glTFs may instead use the [`CESIUM_z_up` glTF extension](https://github.com/ggetz/glTF/tree/cesium-z-up-ext/extensions/2.0/Vendor/CESIUM_z_up).
+An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
 
-If the `CESIUM_z_up` glTF extension is not used, the glTF model is considered to by _y_-up and must be transformed to a _z_-up coordinate system at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following matrix transform:
+The [region](#region) bounding volume type is defined in [EPSG 4326](http://nsidc.org/data/atlas/epsg_4326.html) coordinates.
+
+### glTF
+
+Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. The [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units) defines a right-handed coordinate system with the _y_ axis as up.
+
+For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following column-major matrix transform:
 ```json
-[
-1.0, 0.0,  0.0, 0.0,
-0.0, 0.0, -1.0, 0.0,
-0.0, 1.0,  0.0, 0.0,
-0.0, 0.0,  0.0, 1.0
-]
+[1,0,0,0,0,0,1,0,0,-1,0,0,0,0,0,1]
 ```
 
 Note that glTF defines its own node hierarchy, where each node has a transform. These transforms are applied before the coordinate system transform is applied.
 
-> Implementation Note: Using the `CESIUM_z_up` extension is preferred to transforming the model to a _z_-up coordinate system at runtime.
-
-Some [bounding volumes](#bounding-volumes) may specify bounds using a geographic coordinate system (latitude, longitude, height), in which case use the WGS 84 datum as defined in [EPSG 4326](http://nsidc.org/data/atlas/epsg_4326.html).
+> **Implementation note:** when working with source data that is inherently _z_-up, such as data in WGS 84 coordinates or a local _z_-up coordinate system, a common workflow is:
+> * Mesh data, including positions and normals, is not modified - it can remain _z_-up.
+> * The root node matrix specifies a _z_-up to _y_-up transform. This transforms the source data into a _y_-up coordinate system as required by glTF. For example:
+>
+>```
+>"nodes": [
+>  {
+>    "matrix": [1,0,0,0,0,0,-1,0,0,1,0,0,0,0,0,1],
+>    "mesh": 0,
+>    "name": "rootNode"
+>  }
+>]
+>```
+>
+> * At runtime the glTF is transformed from _y_-up to _z_-up using the column-major matrix above: `[1,0,0,0,0,0,1,0,0,-1,0,0,0,0,0,1]`. Effectively the transforms cancel out.
 
 ## Tiles
 
@@ -656,7 +670,7 @@ Geometric error is a nonnegative number that defines the error, in meters, intro
 
 The geometric error is determined when creating the tileset and based on a metric like point density, tile sizes in meters, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner. 
 
-> Implementation Note: Typically, a property of the root tile, such as size, is used to determine a geometric error. Then each successive level of children uses a lower geometric error, with leaf tiles generally having a geometric error of 0.
+> **Implementation Note:** Typically, a property of the root tile, such as size, is used to determine a geometric error. Then each successive level of children uses a lower geometric error, with leaf tiles generally having a geometric error of 0.
 
 ## Tile formats
 

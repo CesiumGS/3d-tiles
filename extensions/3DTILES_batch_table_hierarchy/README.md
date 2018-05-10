@@ -165,7 +165,7 @@ Note that this is different than a tile's `batchLength`, which is the total numb
 
 `classIds` is an array of integers of length `instancesLength`. Each value specifies the instances's class as an index in the `classes` array.
 
-> Implementation Note: The Batch Table Hierarchy does not directly provide an instances's index into its class's `instances` array. Instead the index can be inferred by the number of instances with the same `classId` that have appeared before it. An implementation may want to compute these indices at load time so that property access is as fast as possible.
+> **Implementation Note:** The Batch Table Hierarchy does not directly provide an instances's index into its class's `instances` array. Instead the index can be inferred by the number of instances with the same `classId` that have appeared before it. An implementation may want to compute these indices at load time so that property access is as fast as possible.
 
 `parentCounts` is an array of integers of length `instancesLength`. Each value specifies the number of parents that instance has. If omitted, `parentCounts` is implicitly an array of length `instancesLength`, where all values are 1.
 

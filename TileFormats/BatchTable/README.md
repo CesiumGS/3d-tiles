@@ -15,6 +15,7 @@
    * [JSON header](#json-header)
    * [Binary body](#binary-body)
 * [Extensions](#extensions)
+* [Implementation example](#implementation-example)
 * [Acknowledgments](#acknowledgments)
 
 ## Overview
@@ -55,7 +56,7 @@ Batch Table values can be represented in the JSON header in two different ways:
 
 The Batch Table JSON is a `UTF-8` string containing JSON. 
 
-> **Implementation Note**: In JavaScript, the Batch Table JSON can be extracted from an `ArrayBuffer` using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
+> **Implementation Note:** In JavaScript, the Batch Table JSON can be extracted from an `ArrayBuffer` using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 
 A `batchId` is used to access elements in each array and extract the corresponding properties. For example, the following Batch Table has properties for a batch of two features:
 ```json
@@ -119,7 +120,7 @@ The following extensions can be applied to a Batch Table.
 
 * [3DTILES_batch_table_hierarchy](../../extensions/3DTILES_batch_table_hierarchy/)
 
-## Implementation examples
+## Implementation example
 
 The following examples access the `"height"` and `"geographic"` values respectively given the following Batch Table JSON with `batchLength` of 10:
 
