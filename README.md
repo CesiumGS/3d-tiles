@@ -200,24 +200,31 @@ All angles are in radians.
 
 An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
 
-The [region](#region) bounding volume type is defined in [EPSG 4326](http://nsidc.org/data/atlas/epsg_4326.html) coordinates.
+The [region](#region) bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically [EPSG 4326](http://nsidc.org/data/atlas/epsg_4326.html).
 
 ### glTF
 
 Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. The [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units) defines a right-handed coordinate system with the _y_ axis as up.
 
-For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following column-major matrix transform:
+For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
 ```json
-[1,0,0,0,0,0,1,0,0,-1,0,0,0,0,0,1]
+[
+1.0, 0.0,  0.0, 0.0,
+0.0, 0.0, -1.0, 0.0,
+0.0, 1.0,  0.0, 0.0,
+0.0, 0.0,  0.0, 1.0
+]
 ```
 
 Note that glTF defines its own node hierarchy, where each node has a transform. These transforms are applied before the coordinate system transform is applied.
 
 > **Implementation note:** when working with source data that is inherently _z_-up, such as data in WGS 84 coordinates or a local _z_-up coordinate system, a common workflow is:
-> * Mesh data, including positions and normals, is not modified - it can remain _z_-up.
-> * The root node matrix specifies a _z_-up to _y_-up transform. This transforms the source data into a _y_-up coordinate system as required by glTF. For example:
+> * Mesh data, including positions and normals, are not modified - they remain _z_-up.
+> * The root node matrix specifies a column-major _z_-up to _y_-up transform. This transforms the source data into a _y_-up coordinate system as required by glTF.
+> * At runtime the glTF is transformed back from _y_-up to _z_-up with the matrix above. Effectively the transforms cancel out.
 >
->```
+> Example glTF root node:
+>```json
 >"nodes": [
 >  {
 >    "matrix": [1,0,0,0,0,0,-1,0,0,1,0,0,0,0,0,1],
@@ -226,8 +233,6 @@ Note that glTF defines its own node hierarchy, where each node has a transform. 
 >  }
 >]
 >```
->
-> * At runtime the glTF is transformed from _y_-up to _z_-up using the column-major matrix above: `[1,0,0,0,0,0,1,0,0,-1,0,0,0,0,0,1]`. Effectively the transforms cancel out.
 
 ## Tiles
 
