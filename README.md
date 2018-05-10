@@ -392,16 +392,16 @@ The computed transform for each tile is:
 * `T4`: `[T0][T1][T4]`
 
 The positions and normals in a tile's content may also have tile-specific transformations applied to them _before_ the tile's `transform` (before indicates post-multiplying for affine transformations).  Some examples are:
-* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy and coordinate system. `tile.transform` is applied after these transforms are resolved. See [coordinate reference system](#coordinate-reference-system-crs).
+* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy and coordinate system. `tile.transform` is applied after these transforms are resolved. See [coordinate reference system](#gltf).
 * `i3dm`'s Feature Table defines per-instance position, normals, and scales.  These are used to create per-instance 4x4 affine transform matrices that are applied to each instance before `tile.transform`.
 * Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm` and `pnts`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
 
 Therefore, the full computed transforms for the above example are:
 * `TO`: `[T0]`
 * `T1`: `[T0][T1]`
-* `T2`: `[T0][T2][pnts-specific Feature Table properties-derived transform]`
-* `T3`: `[T0][T1][T3][b3dm-specific transform, including the glTF node hierarchy and coordinate system transform]`
-* `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance Feature Table properties-derived transform and the glTF node hierarchy]`
+* `T2`: `[T0][T2][pnts-specific transform, including RTC_CENTER (if defined)]`
+* `T3`: `[T0][T1][T3][b3dm-specific transform, including RTC_CENTER (if defined), coordinate system transform, and glTF node hierarchy]`
+* `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance Feature Table properties-derived transform, coordinate system transform, and glTF node hierarchy]`
 
 #### Implementation example
 
