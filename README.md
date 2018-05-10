@@ -216,9 +216,16 @@ For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be tra
 ]
 ```
 
-Note that glTF defines its own node hierarchy, where each node has a transform. These transforms are applied before the coordinate system transform is applied.
+Note that glTF defines its own node hierarchy, where each node has a transform. These transforms are applied before the coordinate system transform is applied. More broadly the order of transformations is:
 
-> **Implementation note:** when working with source data that is inherently _z_-up, such as data in WGS 84 coordinates or a local _z_-up coordinate system, a common workflow is:
+1. glTF node hierarchy
+2. glTF _y_-up to _z_-up transform (above)
+3. Tile-specific transform. Some examples are:
+   * [Batched 3D Model](TileFormats/Batched3DModel/README.md) Feature Table may define `RTC_CENTER` which is used to translate model vertices.
+   * [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) Feature Table defines per-instance position, normals, and scales. These are used to create per-instance 4x4 affine transform matrices that are applied to each instance.
+4. [Tile transform](#tile-transform)
+
+> **Implementation note:** when working with source data that is inherently _z_-up, such as data in WGS 84 coordinates or in a local _z_-up coordinate system, a common workflow is:
 > * Mesh data, including positions and normals, are not modified - they remain _z_-up.
 > * The root node matrix specifies a column-major _z_-up to _y_-up transform. This transforms the source data into a _y_-up coordinate system as required by glTF.
 > * At runtime the glTF is transformed back from _y_-up to _z_-up with the matrix above. Effectively the transforms cancel out.
@@ -401,7 +408,7 @@ Therefore, the full computed transforms for the above example are:
 * `T1`: `[T0][T1]`
 * `T2`: `[T0][T2][pnts-specific transform, including RTC_CENTER (if defined)]`
 * `T3`: `[T0][T1][T3][b3dm-specific transform, including RTC_CENTER (if defined), coordinate system transform, and glTF node hierarchy]`
-* `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance Feature Table properties-derived transform, coordinate system transform, and glTF node hierarchy]`
+* `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance transform, coordinate system transform, and glTF node hierarchy]`
 
 #### Implementation example
 
