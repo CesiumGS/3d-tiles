@@ -73,6 +73,8 @@ Also see the [3D Tiles Showcases video on YouTube](https://youtu.be/KoGc-XDWPDE)
 * [Units](#units)
 * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
    * [glTF](#gltf)
+      * [_y_-up to _z_-up transform](#y-up-to-z-up-transform)
+      * [Order of transformations](#order-of-transformations)
 * [Tiles](#tiles)
    * [Bounding volumes](#bounding-volumes)
       * [Region](#region)
@@ -206,6 +208,8 @@ The [region](#region) bounding volume specifies bounds using a geographic coordi
 
 Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. The [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units) defines a right-handed coordinate system with the _y_ axis as up.
 
+#### _y_-up to _z_-up transform
+
 For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
 ```json
 [
@@ -215,12 +219,13 @@ For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be tra
 0.0, 0.0,  0.0, 1.0
 ]
 ```
+#### Order of transformations
 
 Note that glTF defines its own node hierarchy, where each node has a transform. These transforms are applied before the coordinate system transform is applied. More broadly the order of transformations is:
 
-1. glTF node hierarchy
-2. glTF _y_-up to _z_-up transform (above)
-3. Tile-specific transform. Some examples are:
+1. [glTF node hierarchy tranformations](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#transformations)
+2. [glTF _y_-up to _z_-up transform](#y-up-to-z-up-transform)
+3. Any tile format specific transforms.
    * [Batched 3D Model](TileFormats/Batched3DModel/README.md) Feature Table may define `RTC_CENTER` which is used to translate model vertices.
    * [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) Feature Table defines per-instance position, normals, and scales. These are used to create per-instance 4x4 affine transform matrices that are applied to each instance.
 4. [Tile transform](#tile-transform)
