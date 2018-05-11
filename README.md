@@ -17,13 +17,13 @@ Bringing techniques from graphics research, the movie industry, and the game ind
 
 Additional tile formats are under development, including Vector Data (`vctr`) [[#124](https://github.com/AnalyticalGraphicsInc/3d-tiles/pull/124)] for geospatial features like points, lines, and polygons. 
 
-See the full roadmap [#TODO](TODO).
+See the full roadmap issue for plans post version 1.0 [[#309](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/309)], as well as issues marked as **3D Tiles [Next](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues?q=is%3Aissue+is%3Aopen+label%3Anext)**.
 
 ## Resources and Related Links
 
 * [**Introducing 3D Tiles**](https://cesium.com/blog/2015/08/10/introducing-3d-tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
 * [**The Next Generation of 3D Tiles**](https://cesium.com/blog/2017/07/12/the-next-generation-of-3d-tiles/) - future plans for 3D Tiles.
-* [3D Tiles Q&A](./Q-and-A.md)
+* [**3D Tiles Q&A**](./Q-and-A.md)
 * **Cesium implementation**
    * Download [Cesium 1.35 or later](https://cesiumjs.org/downloads/) and check out the [Sandcastle examples labeled '3D Tiles'](http://cesiumjs.org/Cesium/Build/Apps/Sandcastle/index.html?src=3D%20Tiles%20BIM.html&label=3D%20Tiles).
    * [Roadmap](https://github.com/AnalyticalGraphicsInc/cesium/issues/3241).
