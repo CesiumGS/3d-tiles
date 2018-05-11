@@ -2,6 +2,8 @@
 
 ## Contributors
 
+_This section is non-normative_
+
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
@@ -171,6 +173,8 @@ The global semantic `BATCH_LENGTH` defines the number of unique `batchId` values
 
 ### Examples
 
+_This section is non-normative_
+
 These examples show how to generate JSON and binary buffers for the Feature Table.
 
 #### Positions only
@@ -337,5 +341,7 @@ Point cloud tiles use the `.pnts` extension and `application/octet-stream` MIME 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
 ## Implementation example
+
+_This section is non-normative_
 
 Code for reading the header can be found in [`PointCloud3DModelTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/PointCloud3DTileContent.js) in the Cesium implementation of 3D Tiles.

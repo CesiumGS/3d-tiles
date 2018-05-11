@@ -1,24 +1,8 @@
 # Styling
 
-![](figures/example.png)
-
-
-```json
-{
-    "show" : "${Area} > 0",
-    "color" : {
-        "conditions" : [
-            ["${Height} < 60", "color('#13293D')"],
-            ["${Height} < 120", "color('#1B98E0')"],
-            ["true", "color('#E8F1F2', 0.5)"]
-        ]
-    }
-}
-```
-
-Example: Creating a color ramp based on building height.
-
 ## Contributors
+
+_This section is non-normative_
 
 * Gabby Getz, [@ggetz](https://github.com/ggetz)
 * Matt Amato, [@matt_amato](https://twitter.com/matt_amato)
@@ -26,7 +10,7 @@ Example: Creating a color ramp based on building height.
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
-Contents:
+## Contents
 
 * [Overview](#overview)
 * [Examples](#examples)
@@ -62,6 +46,25 @@ While a style may be created for and reference properties of a tileset, a style 
 Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling. Additionally, the styling language provides a set of built-in functions to support common math operations.
 
 ## Examples
+
+_This section is non-normative_
+
+The following example assigns a color based on building height.
+
+```json
+{
+    "show" : "${Area} > 0",
+    "color" : {
+        "conditions" : [
+            ["${Height} < 60", "color('#13293D')"],
+            ["${Height} < 120", "color('#1B98E0')"],
+            ["true", "color('#E8F1F2', 0.5)"]
+        ]
+    }
+}
+```
+
+![](figures/example.png)
 
 The following style assigns the default show and color properties to each feature:
 ```json
@@ -195,15 +198,17 @@ A meta property expression can evaluate to any type. For example:
 }
 ```
 
-## Schema reference
+## Property Reference
 
-Also, see the [JSON schema](schema).
+TODO: generate schema
+
+See the full [JSON schema](./schema).
 
 ## Expressions
 
 The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)), plus native vector and regular expression types and access to tileset feature properties in the form of readonly variables.
 
-> **Implementation tip:** Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions.
+> **Implementation Note:** Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions.
 
 ### Semantics
 
@@ -1269,7 +1274,3 @@ For example:
 ## File extension and MIME type
  
 Tileset styles use the `.json` extension and the `application/json` mime type.
-
-## Acknowledgments
-
-* Piero Toffanin, [@pierotofy](https://github.com/pierotofy)

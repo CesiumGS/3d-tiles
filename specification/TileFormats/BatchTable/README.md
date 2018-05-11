@@ -2,6 +2,8 @@
 
 ## Contributors
 
+_This section is non-normative_
+
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
@@ -122,6 +124,8 @@ The following extensions can be applied to a Batch Table.
 
 ## Implementation example
 
+_This section is non-normative_
+
 The following examples access the `"height"` and `"geographic"` values respectively given the following Batch Table JSON with `batchLength` of 10:
 
 ```json
@@ -168,7 +172,3 @@ var geographicOfFeature = positionArray.subarray(batchId * numberOfComponents, b
 ```
 
 Code for reading the Batch Table can be found in [`Cesium3DTileBatchTable.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
-
-## Acknowledgments
-
-* Jannes Bolling, [@jbo023](https://github.com/jbo023)

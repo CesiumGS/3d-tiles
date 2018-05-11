@@ -2,6 +2,8 @@
 
 ## Contributors
 
+_This section is non-normative_
+
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
@@ -13,14 +15,13 @@
 * [Header](#header)
 * [Inner tiles](#inner-tiles)
 * [File extension and MIME type](#file-extension-and-mime-type)
-* [Implementation example](#implementation-example)
-* [Acknowledgments](#acknowledgments)
+* [Implementation examples](#implementation-example)
 
 ## Overview
 
 The _Composite_ tile format enables concatenating tiles of different formats into one tile.
 
-3D Tiles and the Composite tile allow flexibility for streaming heterogeneous datasets.  For example, buildings and trees could be stored either in two separate _Batched 3D Model_ and _Instanced 3D Model_ tiles or, using a _Composite tile, the tiles can be combined.
+3D Tiles and the Composite tile allow flexibility for streaming heterogeneous datasets.  For example, buildings and trees could be stored either in two separate _Batched 3D Model_ and _Instanced 3D Model_ tiles or, using a _Composite_ tile, the tiles can be combined.
 
 Supporting heterogeneous datasets with both inter-tile (separate tiles of different formats that are in the same tileset) and intra-tile (different tile formats that are in the same Composite tile) options allows conversion tools to make trade-offs between number of requests, optimal type-specific subdivision, and how visible/hidden layers are streamed.
 
@@ -69,13 +70,11 @@ Composite tiles use the `.cmpt` extension and `application/octet-stream` MIME ty
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
-## Implementation example
+## Implementation examples
+
+_This section is non-normative_
 
 * [Python `packcmpt` tool in gltf2glb toolset](https://github.com/Geopipe/gltf2glb) contains code for combining one or more _Batched 3D Model_ or _Instanced 3D Model_ tiles into a single Composite tile file.
 * Code for reading the header can be found in
 [`Composite3DTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Composite3DTileContent.js)
 in the Cesium implementation of 3D Tiles.
-
-## Acknowledgments
-
-* [Christopher Mitchell, Ph.D.](https://github.com/KermMartian)

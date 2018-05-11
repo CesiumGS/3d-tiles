@@ -2,6 +2,8 @@
 
 ## Contributors
 
+_This section is non-normative_
+
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 * Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
@@ -273,6 +275,8 @@ Instanced 3D models tiles use the `.i3dm` extension and `application/octet-strea
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
 ## Implementation example
+
+_This section is non-normative_
 
 ### Cesium
 

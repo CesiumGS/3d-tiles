@@ -2,6 +2,8 @@
 
 ## Contributors
 
+_This section is non-normative_
+
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 * Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
@@ -151,6 +153,8 @@ Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
 ## Implementation example
+
+_This section is non-normative_
 
 Code for reading the header can be found in
 [`Batched3DModelTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Batched3DModel3DTileContent.js)
