@@ -223,7 +223,7 @@ For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be tra
 
 Note that glTF defines its own node hierarchy, where each node has a transform. These transforms are applied before the coordinate system transform is applied. More broadly the order of transformations is:
 
-1. [glTF node hierarchy tranformations](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#transformations)
+1. [glTF node hierarchy transformations](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#transformations)
 2. [glTF _y_-up to _z_-up transform](#y-up-to-z-up-transform)
 3. Any tile format specific transforms.
    * [Batched 3D Model](TileFormats/Batched3DModel/README.md) Feature Table may define `RTC_CENTER` which is used to translate model vertices.
