@@ -34,8 +34,6 @@ Acknowledgements:
 
 ## Contents
 
-* [Resources](#resources)
-* [3D Tiles Extensions](#3d-tiles-extensions)
 * [Introduction](#introduction)
 * [File extensions and MIME types](#file-extensions-and-mime-types)
 * [JSON encoding](#json-encoding)
