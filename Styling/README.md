@@ -203,7 +203,7 @@ Also, see the [JSON schema](schema).
 
 The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)), plus native vector and regular expression types and access to tileset feature properties in the form of readonly variables.
 
-> Implementation tip: Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions.
+> **Implementation tip:** Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions.
 
 ### Semantics
 
@@ -1257,7 +1257,7 @@ For example:
 }
 ```
 
-> Implementation Note: Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Some of these features include:
+> **Implementation Note:** Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Some of these features include:
 > * Evaluation of `isNan` and `isFinite` (GLSL 2.0+ supports `isnan` and `isinf` for these functions respectively)
 > * The types `null` and `undefined`
 > * Strings, including accessing object properties (`color()['r']`) and batch table values

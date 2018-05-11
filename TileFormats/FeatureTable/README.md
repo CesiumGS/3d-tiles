@@ -62,7 +62,7 @@ When the JSON header includes a reference to the binary, the provided `byteOffse
 
 Values can be retrieved using the number of features, `featuresLength`; the desired feature id, `featureId`; and the data type (component type and number of components) for the feature semantic.
 
-## Implementation examples
+## Implementation example
 
 The following example accesses the position property using the `POSITION` semantic, which has a `float32[3]` data type:
 

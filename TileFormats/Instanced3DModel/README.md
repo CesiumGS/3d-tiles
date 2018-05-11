@@ -30,7 +30,7 @@
 * [glTF](#gltf)
     * [Coordinate system](#coordinate-system)
 * [File extension and MIME type](#file-extension-and-mime-type)
-* [Implementation examples](#implementation-examples)
+* [Implementation example](#implementation-example)
     * [Cesium](#cesium)
 
 ## Overview
@@ -41,9 +41,9 @@ In addition to trees, Instanced 3D Model is useful for exterior features such as
 
 An Instanced 3D Model tile is a binary blob in little endian.
 
-> **Implementation Note**: A [Composite](../Composite/README.md) tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights by combing two Instanced 3D Model tiles.
+> **Implementation Note:** A [Composite](../Composite/README.md) tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights by combing two Instanced 3D Model tiles.
 
-> **Implementation Note**: Instanced 3D Model maps well to the [ANGLE_instanced_arrays](https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/) extension for efficient rendering with WebGL.
+> **Implementation Note:** Instanced 3D Model maps well to the [ANGLE_instanced_arrays](https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/) extension for efficient rendering with WebGL.
 
 ## Layout
 
@@ -264,7 +264,7 @@ In either case, `header.gltfByteLength` contains the length of the glTF field in
 
 ### Coordinate system
 
-By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime or optionally use the [`CESIUM_z_up` glTF extension](https://github.com/ggetz/glTF/tree/cesium-z-up-ext/extensions/2.0/Vendor/CESIUM_z_up). See [coordinate reference system](../../README.md#coordinate-reference-system-crs) for more details.
+By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See [coordinate reference system](../../README.md#gltf) for more details.
 
 ## File extension and MIME type
 
@@ -272,7 +272,7 @@ Instanced 3D models tiles use the `.i3dm` extension and `application/octet-strea
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
-## Implementation examples
+## Implementation example
 
 ### Cesium
 
