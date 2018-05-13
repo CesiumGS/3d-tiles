@@ -22,7 +22,7 @@ _This section is non-normative_
 * [Binary glTF](#binary-gltf)
    * [Coordinate system](#coordinate-system)
 * [File extension and MIME type](#file-extension-and-mime-type)
-* [Implementation example](implementation-example)
+* [Implementation example](#implementation-example)
 
 ## Overview
 

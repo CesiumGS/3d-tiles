@@ -13,8 +13,12 @@ _This section is non-normative_
 ## Contents
 
 * [Overview](#overview)
-* [Examples](#examples)
-* [Schema reference](#schema-reference)
+* [Concepts](#concepts)
+   * [Styling features](#styling-features)
+   * [Conditions](#conditions)
+   * [Defining variables](#defining-variables)
+   * [Meta property](#meta-property)
+* [Property reference](#property-reference)
 * [Expressions](#expressions)
    * [Semantics](#semantics)
    * [Operators](#operators)
@@ -35,19 +39,14 @@ _This section is non-normative_
    * [Notes](#notes)
 * [Point Cloud](#point-cloud)
 * [File extension and MIME type](#file-extension-and-mime-type)
-* [Acknowledgments](#acknowledgments)
 
 ## Overview
 
-3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate a feature's `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's [Batch Table](../TileFormats/BatchTable/README.md).
+3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate the display of a feature, for example `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's [Batch Table](../TileFormats/BatchTable/README.md).
 
 While a style may be created for and reference properties of a tileset, a style is independent of a tileset, such that any style can be applied to any tileset.
 
 Styles are defined with JSON and expressions written in a small subset of JavaScript augmented for styling. Additionally, the styling language provides a set of built-in functions to support common math operations.
-
-## Examples
-
-_This section is non-normative_
 
 The following example assigns a color based on building height.
 
@@ -65,6 +64,12 @@ The following example assigns a color based on building height.
 ```
 
 ![](figures/example.png)
+
+## Concepts
+
+### Styling features
+
+Visual properties available for styling features are the `show` property, the assigned expression of which will evaluate to a boolean that determines if the feature is visible, and the `color` property, the assigned expression of which will evaluate to a `Color` object (RGB and translucency) which determines the displayed color of a feature.
 
 The following style assigns the default show and color properties to each feature:
 ```json
@@ -102,7 +107,9 @@ The color's alpha component defines the feature's opacity. For example, the foll
 }
 ```
 
-In addition to a string containing an expression, `color` and `show` can be an array defining a series of conditions (think of them as `if...else` statements).  Conditions can, for example, be used to make color maps and color ramps with any type of inclusive/exclusive intervals.
+### Conditions
+
+In addition to a string containing an expression, `color` and `show` can be an array defining a series of conditions (similar to `if...else` statements).  Conditions can, for example, be used to make color maps and color ramps with any type of inclusive/exclusive intervals.
 
 For example, the following expression maps an ID property to colors. Conditions are evaluated in order, so if `${id}` is not `'1'` or `'2'`, the `"true"` condition returns white. If no conditions are met, the color of the feature will be `undefined`:
 ```json
@@ -145,7 +152,9 @@ Since conditions are evaluated in order, the above can be written more concisely
 }
 ```
 
-Commonly used expressions may be stored in a `defines` object. If a variable references a define, it gets the result of the define's evaluated expression:
+### Defining variables
+
+Commonly used expressions may be stored in a `defines` object with a variable name as a key. If a variable references the name of a defined expression, it is replaced with the result of the referenced evaluated expression:
 ```json
 {
     "defines" : {
@@ -178,6 +187,7 @@ A define expression may not reference other defines; however, it may reference f
 }
 ```
 
+### Meta property
 
 Non-visual properties of a feature can be defined using the `meta` property. For example, the following sets a `description` meta property to a string containing the feature name:
 ```json
@@ -198,7 +208,7 @@ A meta property expression can evaluate to any type. For example:
 }
 ```
 
-## Property Reference
+## Property reference
 
 TODO: generate schema
 

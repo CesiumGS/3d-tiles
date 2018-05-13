@@ -15,7 +15,7 @@ _This section is non-normative_
 * [Header](#header)
 * [Inner tiles](#inner-tiles)
 * [File extension and MIME type](#file-extension-and-mime-type)
-* [Implementation examples](#implementation-example)
+* [Implementation examples](#implementation-examples)
 
 ## Overview
 
@@ -52,7 +52,7 @@ The 16-byte header section contains the following fields:
 
 Inner tile fields are stored tightly packed immediately following the header section. The following information describes general characteristics of all tile formats that a Composite tile reader might exploit to find the boundaries of the inner tiles:
 
-* Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See [tile formats](../../README.md#tile-formats) for a list of tile formats.  Composite tiles can contain Composite tiles.
+* Each tile starts with a 4-byte ANSI string, `magic`, that can be used to determine the tile format for further parsing.  See [tile format specifications](../../README.md#tile-format-specifications) for a list of possible formats.  Composite tiles can contain Composite tiles.
 * Each tile's header contains a `uint32` `byteLength`, which defines the length of the inner tile, including its header, in bytes.  This can be used to traverse the inner tiles.
 * For any tile format's version 1, the first 12 bytes of all tiles is the following fields:
 

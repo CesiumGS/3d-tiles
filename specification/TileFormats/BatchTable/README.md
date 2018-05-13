@@ -18,7 +18,6 @@ _This section is non-normative_
    * [Binary body](#binary-body)
 * [Extensions](#extensions)
 * [Implementation example](#implementation-example)
-* [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -120,7 +119,7 @@ The following tables can be used to compute the byte size of a property.
 
 The following extensions can be applied to a Batch Table.
 
-* [3DTILES_batch_table_hierarchy](../../extensions/3DTILES_batch_table_hierarchy/)
+* [3DTILES_batch_table_hierarchy](../../../extensions/3DTILES_batch_table_hierarchy/)
 
 ## Implementation example
 

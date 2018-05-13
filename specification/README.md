@@ -66,7 +66,7 @@ Acknowledgements:
   * [Specifying extensions and application specific extras](#specifying-extensions-and-application-specific-extras)
 * [Tile format specifications](#tile-format-specifications)
 * [Declarative styling specification](#declarative-styling-specification)
-* [Properties reference](#properties-reference)
+* [Property reference](#property-reference)
 * [Terms and definitions](#terms-and-definitions)
 * [License](#license)
 
@@ -732,11 +732,11 @@ See the full [JSON schema](./schema).
 
 ## Terms and definitions
 
-TODO
-
-#### Geometric Error
+#### 3D Model
 
 #### Hierarchical Level of Detail (HLOD)
+
+Grouping different objects on the basis of proximity or other like metrics and ordered by level of detail for increased rendering efficiency. Typically higher levels of detail contain increased fidelity or complexity.
 
 #### feature
 
