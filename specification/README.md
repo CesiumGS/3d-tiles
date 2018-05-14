@@ -1,6 +1,6 @@
 # 3D Tiles Format Specification
 
-**Version 1.0**, May 11, 2018
+**Version 1.0**, May 14, 2018
 
 <p align="center"><img src="../figures/Cesium3DTiles.png" /></p>
 
@@ -67,7 +67,6 @@ Acknowledgements:
 * [Tile format specifications](#tile-format-specifications)
 * [Declarative styling specification](#declarative-styling-specification)
 * [Property reference](#property-reference)
-* [Terms and definitions](#terms-and-definitions)
 * [License](#license)
 
 ## Introduction
@@ -725,7 +724,6 @@ The following example colors features with a temperature above 90 as red and the
 For complete details, see the [Declarative Styling](./Styling/) specification.
 
 ## Property reference
-### Objects
 * [`Tileset`](#reference-tileset)
   * [`Asset`](#reference-asset)
   * [`Properties`](#reference-properties)
@@ -737,7 +735,7 @@ For complete details, see the [Declarative Styling](./Styling/) specification.
 
 
 ---------------------------------------
-<a name="reference-tileset"></a>
+
 #### Tileset
 
 A 3D Tiles tileset.
@@ -1122,16 +1120,6 @@ Application-specific data.
 ---
 
 See the full [JSON schema](./schema).
-
-## Terms and definitions
-
-#### 3D Model
-
-#### Hierarchical Level of Detail (HLOD)
-
-Grouping different objects on the basis of proximity or other like metrics and ordered by level of detail for increased rendering efficiency. Typically higher levels of detail contain increased fidelity or complexity.
-
-#### feature
 
 ## License
 

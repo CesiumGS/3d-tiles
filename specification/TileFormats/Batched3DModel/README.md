@@ -65,6 +65,71 @@ The body section immediately follows the header section, and is composed of thre
 Contains values for `b3dm` semantics.
 More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
+#### Property Reference
+
+* [`Extension`](#reference-extension)
+* [`Extras`](#reference-extras)
+* [`Batched 3D Model Feature Table`](#reference-feature-table) 
+
+
+---------------------------------------
+<a name="reference-extension"></a>
+##### Extension
+
+Dictionary object with extension-specific objects.
+
+Additional properties are allowed.
+
+* **JSON schema**: [extension.schema.json](schema/extension.schema.json)
+
+
+
+
+---------------------------------------
+<a name="reference-extras"></a>
+##### Extras
+
+Application-specific data.
+
+
+
+---------------------------------------
+<a name="reference-feature-table"></a>
+##### Batched 3D Model Feature Table
+
+A set of Batched 3D Model semantics that contain additional information about features in a tile.
+
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**BATCH_LENGTH**||:white_check_mark: Yes|
+|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
+|**extras**|`any`|Application-specific data.|No|
+
+Additional properties are not allowed.
+
+* **JSON schema**: [featureTable.schema.json](schema/featureTable.schema.json)
+
+###### feature.table.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: Extension
+
+###### feature.table.extras
+
+Application-specific data.
+
+* **Type**: `any`
+* **Required**: No
+
+---
+
+
 The `b3dm` Feature Table JSON schema is defined in [b3dm.featureTable.schema.json](../../schema/b3dm.featureTable.schema.json).
 
 ### Semantics

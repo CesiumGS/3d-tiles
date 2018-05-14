@@ -15,6 +15,7 @@ _This section is non-normative_
 * [Layout](#layout)
    * [Padding](#padding)
    * [JSON header](#json-header)
+      * [Property reference](#property-reference)
    * [Binary body](#binary-body)
 * [Implementation example](#implementation-example)
 
@@ -53,6 +54,68 @@ Feature Table values can be represented in the JSON header in three different wa
    * The semantic defines the allowed data type, e.g., when `"POSITION"` in Instanced 3D Model refers to the binary body, the component type is `FLOAT` and the number of components is `3`.
    * Some semantics allow for overriding the implicit `componentType`. These cases are specified in each tile format, e.g., `"BATCH_ID" : { "byteOffset" : 24, "componentType" : "UNSIGNED_BYTE"}`.
 The only valid properties in the JSON header are the defined semantics by the tile format and optional `extras` and `extensions` properties.  Application-specific data should be stored in the Batch Table.
+
+#### Property Reference
+
+* [`Extension`](#reference-extension)
+* [`Extras`](#reference-extras)
+* [`Feature Table`](#reference-feature-table) 
+
+
+---------------------------------------
+<a name="reference-extension"></a>
+##### Extension
+
+Dictionary object with extension-specific objects.
+
+Additional properties are allowed.
+
+* **JSON schema**: [extension.schema.json](schema/extension.schema.json)
+
+
+
+
+---------------------------------------
+<a name="reference-extras"></a>
+##### Extras
+
+Application-specific data.
+
+
+
+---------------------------------------
+<a name="reference-feature-table"></a>
+##### Feature Table
+
+A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
+|**extras**|`any`|Application-specific data.|No|
+
+Additional properties are not allowed.
+
+* **JSON schema**: [featureTable.schema.json](schema/featureTable.schema.json)
+
+###### feature.table.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: Extension
+
+###### feature.table.extras
+
+Application-specific data.
+
+* **Type**: `any`
+* **Required**: No
+
+---
 
 JSON schema Feature Table definitions can be found in [featureTable.schema.json](../../schema/featureTable.schema.json).
 

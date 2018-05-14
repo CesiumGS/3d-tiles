@@ -22,7 +22,7 @@
             }
         },
         "globalPropertyScalar" : {
-            "oneOf" : [{
+            "anyOf" : [{
                 "$ref" : "#/definitions/binaryBodyReference"
             }, {
                 "allOf" : [{
@@ -37,7 +37,7 @@
             }]
         },
         "globalPropertyCartesian3" : {
-            "oneOf" : [{
+            "anyOf" : [{
                 "$ref" : "#/definitions/binaryBodyReference"
             }, {
                 "allOf" : [{
@@ -49,7 +49,7 @@
             }]
         },
         "globalPropertyCartesian4" : {
-            "oneOf" : [{
+            "anyOf" : [{
                 "$ref" : "#/definitions/binaryBodyReference"
             }, {
                 "allOf": [{

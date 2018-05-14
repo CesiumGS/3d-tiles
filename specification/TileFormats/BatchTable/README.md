@@ -15,6 +15,7 @@ _This section is non-normative_
 * [Layout](#layout)
    * [Padding](#padding)
    * [JSON header](#json-header)
+      * [Property reference](#property-reference)
    * [Binary body](#binary-body)
 * [Extensions](#extensions)
 * [Implementation example](#implementation-example)
@@ -84,6 +85,123 @@ displayName[1] = 'Another building name';
 yearBuilt[1] = 2015;
 address[1] = {street : 'Main Street', houseNumber : '2'};
 ```
+
+#### Property reference
+
+* [`Batch Table`](#reference-batch-table)
+* [`Extension`](#reference-extension)
+* [`Extras`](#reference-extras)
+* [`property`](#reference-property)
+   * [`binaryBodyReference`](#reference-binarybodyreference)
+
+
+---------------------------------------
+<a name="reference-batch-table"></a>
+##### Batch Table
+
+A set of properties defining application-specific metadata for features in a tile.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
+|**extras**|`any`|Application-specific data.|No|
+
+Additional properties are allowed.
+
+* **JSON schema**: [batchTable.schema.json](schema/batchTable.schema.json)
+
+###### batch.table.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: Extension
+
+###### batch.table.extras
+
+Application-specific data.
+
+* **Type**: `any`
+* **Required**: No
+
+
+---------------------------------------
+<a name="reference-property"></a>
+#### Additional properties
+
+<a name="reference-binarybodyreference"></a>
+##### binaryBodyReference
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**byteOffset**|`integer`|| :white_check_mark: Yes|
+|**componentType**|`string`|| :white_check_mark: Yes|
+|**type**|`string`|| :white_check_mark: Yes|
+
+Additional properties are allowed.
+
+* **JSON schema**: [#/definitions/binaryBodyReference](schema/#/definitions/binaryBodyReference)
+
+###### binarybodyreference.byteOffset :white_check_mark: 
+
+* **Type**: `integer`
+* **Required**: Yes
+* **Minimum**: ` >= 0`
+
+###### binarybodyreference.componentType :white_check_mark: 
+
+* **Type**: `string`
+* **Required**: Yes
+* **Allowed values**:
+   * `"BYTE"`
+   * `"UNSIGNED_BYTE"`
+   * `"SHORT"`
+   * `"UNSIGNED_SHORT"`
+   * `"INT"`
+   * `"UNSIGNED_INT"`
+   * `"FLOAT"`
+   * `"DOUBLE"`
+
+###### binarybodyreference.type :white_check_mark: 
+
+* **Type**: `string`
+* **Required**: Yes
+* **Allowed values**:
+   * `"SCALAR"`
+   * `"VEC2"`
+   * `"VEC3"`
+   * `"VEC4"`
+
+
+
+
+---------------------------------------
+<a name="reference-extension"></a>
+##### Extension
+
+Dictionary object with extension-specific objects.
+
+Additional properties are allowed.
+
+* **JSON schema**: [extension.schema.json](schema/extension.schema.json)
+
+
+
+
+---------------------------------------
+<a name="reference-extras"></a>
+##### Extras
+
+Application-specific data.
+
+
+
+---
 
 JSON schema Batch Table definitions can be found in [batchTable.schema.json](../../schema/batchTable.schema.json).
 
