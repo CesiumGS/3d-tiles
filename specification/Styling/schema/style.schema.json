@@ -6,29 +6,32 @@
     "description" : "A 3D Tiles style.",
     "properties" : {
         "defines" : {
-            "$ref" : "style.defines.schema.json",
+            "type" : "object",
+            "additionalProperties" : {
+                "$ref" : "style.definesProperty.schema.json"
+            },
             "description" : "Additional expressions that may be referenced throughout the style. If a variable references a define, it gets the result of the define's evaluated expression."
         },
         "show" : {
-            "oneOf" : [{
+            "anyOf" : [{
                 "$ref" : "style.booleanExpression.schema.json"
             }, {
-                "$ref" : "style.condition.schema.json"
+                "$ref" : "style.conditions.schema.json"
             }],
             "description" : "Determines if a feature should be shown.",
             "default" : "true"
         },
         "color" : {
-            "oneOf" : [{
+            "anyOf" : [{
                 "$ref" : "style.colorExpression.schema.json"
             }, {
-                "$ref" : "style.condition.schema.json"
+                "$ref" : "style.conditions.schema.json"
             }],
             "description" : "Determines the color blended with the feature's intrinsic color.",
             "default" : "Color('#FFFFFF')"
         },
         "meta" : {
-            "$ref" : "style.meta.schema.json",
+            "allOf": [ { "$ref" : "style.meta.schema.json" } ],
             "description" : "Determines the values of non-visual properties of the feature."
         }
     },

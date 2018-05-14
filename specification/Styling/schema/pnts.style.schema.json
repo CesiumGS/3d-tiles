@@ -9,10 +9,10 @@
     }, {
         "properties" : {
             "pointSize": {
-                "oneOf": [{
+                "anyOf": [{
                     "$ref": "style.numberExpression.schema.json"
                 }, {
-                    "$ref": "style.condition.schema.json"
+                    "$ref": "style.conditions.schema.json"
                 }],
                 "description": "Determines the size of the points in pixels.",
                 "default": 1.0
