@@ -27,12 +27,14 @@ _This section is non-normative_
     * [Point normals](#point-normals)     
         * [Oct-encoded normal vectors](#oct-encoded-normal-vectors)
     * [Batched points](#batched-points)
+    * [Draco](#draco)
     * [Examples](#examples)
         * [Positions only](#positions-only) 
         * [Positions and colors](#positions-and-colors)
         * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)
         * [Batched points](#batched-points)         
         * [Per-point properties](#per-point-properties)
+        * [Draco compression](#draco-compression)
 * [Batch Table](#batch-table)
 * [File extension and MIME type](#file-extension-and-mime-type)
 * [Implementation example](#implementation-example)
@@ -91,8 +93,8 @@ If both `NORMAL` and `NORMAL_OCT16P` are defined for a point, the higher precisi
 
 | Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
-| `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the point. | :white_check_mark: Yes, unless `POSITION_QUANTIZED` is defined. |
-| `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the point. | :white_check_mark: Yes, unless `POSITION` is defined. |
+| `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the point. | :white_check_mark: Yes, unless `POSITION_QUANTIZED` is defined or positions are Draco-compressed. |
+| `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the point. | :white_check_mark: Yes, unless `POSITION` is defined or positions are Draco-compressed. |
 | `RGBA` | `uint8[4]` | A 4-component array of values containing the `RGBA` color of the point. | :red_circle: No. |
 | `RGB` | `uint8[3]` | A 3-component array of values containing the `RGB` color of the point. | :red_circle: No. |
 | `RGB565` | `uint16` | A lossy compressed color format that packs the `RGB` color into 16 bits, providing 5 bits for red, 6 bits for green, and 5 bits for blue. | :red_circle: No. |
@@ -112,8 +114,7 @@ These semantics define global properties for all points.
 | `QUANTIZED_VOLUME_SCALE` | `float32[3]` | A 3-component array of numbers defining the scale for the quantized volume. | :red_circle: No, unless `POSITION_QUANTIZED` is defined. |
 | `CONSTANT_RGBA` | `uint8[4]` | A 4-component array of values defining a constant `RGBA` color for all points in the tile. | :red_circle: No. |
 | `BATCH_LENGTH` | `uint32` | The number of unique `BATCH_ID` values. | :red_circle: No, unless `BATCH_ID` is defined. |
-
-Examples using these semantics can be found in the [examples section](#examples) below.
+| `DRACO` | `object` | An object containing a reference to Draco data in the binary body and the names of Draco-compressed point semantics. | :red_circle: No. |
 
 ### Point positions
 
@@ -130,7 +131,6 @@ Positions may be defined relative-to-center for high-precision rendering, see [P
 #### Quantized positions
 
 If `POSITION` is not defined, positions may be stored in `POSITION_QUANTIZED`, which defines point positions relative to the quantized volume.
-If neither `POSITION` nor `POSITION_QUANTIZED` is defined, the tile does not need to be rendered.
 
 A quantized volume is defined by `offset` and `scale` to map quantized positions to a position in local space. The following figure shows a quantized volume based on `offset` and `scale`:
 
@@ -170,6 +170,32 @@ This is useful for per-object picking and storing application-specific metadata 
 
 The `BATCH_ID` semantic may have a `componentType` of `UNSIGNED_BYTE`, `UNSIGNED_SHORT`, or `UNSIGNED_INT`. When `componentType` is not present, `UNSIGNED_SHORT` is used.
 The global semantic `BATCH_LENGTH` defines the number of unique `batchId` values, similar to the `batchLength` field in the [Batched 3D Model](../Batched3DModel/README.md) header.
+
+### Draco
+
+Per-point semantics such as position, color, normal, and batch id may may be compressed with [Draco](https://google.github.io/draco/). Draco binary data is stored in the Feature Table binary and a list of the compressed per-point semantics is stored in the Feature Table JSON.
+
+The `DRACO` object in the Feature Table JSON header contains three properties:
+   * `byteOffset` specifies a zero-based offset relative to the start of the Feature Table binary body.
+   * `byteLength` specifies the length of the Draco binary data.
+   * `semantics` is an array containing the per-point semantics contained in the Draco binary data. Allowed semantics are `"POSITION"`, `"RGBA"`, `"RGB"`, `"NORMAL"`, and `"BATCH_ID"`.
+
+Point attribute data shall be encoded and decoded using the parameters in the following table.
+
+Semantic | Data Type | Number of Components | Draco Type
+---|---|---|---
+`POSITION` | `float32` | 3 | `POSITION`
+`NORMAL` | `float32` | 3 | `NORMAL`
+`RGBA` | `uint8` | 4 | `COLOR`
+`RGB` | `uint8` | 3 | `COLOR`
+`BATCH_ID` | `uint8`, `uint16`, or `uint32` | 1 | `GENERIC`
+
+If a semantic type is defined in both `DRACO.semantics` and in the Feature Table JSON header, the Draco attribute data should be used for rendering.
+For example, if the Feature Table contains `CONSTANT_RGBA` and `DRACO.semantics` contains `RGB`, the `RGB` Draco attribute data should be used.
+
+If some semantics are included in the Feature Table JSON header and others are included in the Draco semantics array, the Draco encoder must apply the `POINT_CLOUD_SEQUENTIAL_ENCODING` encoding method.
+
+> **Implementation Note:** For best results when using Draco, all semantics should be Draco compressed and no semantics should be defined in the Feature Table JSON. See [Draco example](#draco-compression).
 
 ### Examples
 
@@ -323,6 +349,22 @@ var featureTableBinary = new Buffer(new Float32Array([
 var batchTableJSON = {
     names : ['point1', 'point2', 'point3', 'point4']
 };
+```
+
+#### Draco compression
+
+```javascript
+var featureTableJSON = {
+    POINTS_LENGTH : 4,
+    DRACO : {
+        byteOffset : 0
+        byteLength : 36,
+        semantics : ['POSITION', 'RGB']
+    }
+};
+
+// Use Draco encoder to build dracoBuffer
+var featureTableBinary = dracoBuffer;
 ```
 
 ## Batch Table
