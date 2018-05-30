@@ -1,22 +1,5 @@
 # Composite
 
-## Contributors
-
-_This section is non-normative_
-
-* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
-* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
-
-## Contents
-
-* [Overview](#overview)
-* [Layout](#layout)
-    * [Padding](#padding)
-* [Header](#header)
-* [Inner tiles](#inner-tiles)
-* [File extension and MIME type](#file-extension-and-mime-type)
-* [Implementation examples](#implementation-examples)
-
 ## Overview
 
 The _Composite_ tile format enables concatenating tiles of different formats into one tile.

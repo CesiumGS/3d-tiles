@@ -2,10 +2,6 @@
   "$schema" : "http://json-schema.org/draft-04/schema",
   "id" : "style.definesProperty.schema.json",
   "title" : "definesProperty",
-  "anyOf" : [{
-    "type" : "string"
-  }, {
-    "$ref" : "style.expression.schema.json"
-  }],
-  "description" : "A property name and the expression to be evaluated for the value of that property."
+  "allOf" : [{ "$ref" : "style.expression.schema.json" }],
+  "description" : "An `expression` to be evaluated for the value of that property."
 }

@@ -10,29 +10,29 @@
             "additionalProperties" : {
                 "$ref" : "style.definesProperty.schema.json"
             },
-            "description" : "Additional expressions that may be referenced throughout the style. If a variable references a define, it gets the result of the define's evaluated expression."
+            "description" : "A dictionary object of defined `expression` strings mapped to a variable name that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the result of the corresponding evaluated expression."
         },
         "show" : {
-            "anyOf" : [{
+            "oneOf" : [{
                 "$ref" : "style.booleanExpression.schema.json"
             }, {
                 "$ref" : "style.conditions.schema.json"
             }],
-            "description" : "Determines if a feature should be shown.",
+            "description" : "A `boolean expression` or `conditions` property which determines if a feature should be shown.",
             "default" : "true"
         },
         "color" : {
-            "anyOf" : [{
+            "oneOf" : [{
                 "$ref" : "style.colorExpression.schema.json"
             }, {
                 "$ref" : "style.conditions.schema.json"
             }],
-            "description" : "Determines the color blended with the feature's intrinsic color.",
+            "description" : "A `color expression` or `conditions` property which determines the color blended with the feature's intrinsic color.",
             "default" : "Color('#FFFFFF')"
         },
         "meta" : {
             "allOf": [ { "$ref" : "style.meta.schema.json" } ],
-            "description" : "Determines the values of non-visual properties of the feature."
+            "description" : "A `meta` object which determines the values of non-visual properties of the feature."
         }
     },
     "additionalProperties" : false

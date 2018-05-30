@@ -3,5 +3,5 @@
     "id" : "style.booleanExpression.schema.json",
     "title" : "boolean expression",
     "type" : ["boolean", "string"],
-    "description" : "A boolean or string with a 3D Tiles style expression that evaluates to a boolean."
+    "description" : "A boolean or string with a 3D Tiles style expression that evaluates to a boolean. See [Expressions](specification/Styling/README.md#expressions)."
 }

@@ -9,7 +9,16 @@
     }, {
         "properties" : {
             "BATCH_LENGTH" : {
-                "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+                "description": "A `GlobalPropertyScalar` object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+                }]
+            },
+            "RTC_CENTER" : {
+                "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                }]
             },
             "extensions" : {
                 "$ref": "extension.schema.json"

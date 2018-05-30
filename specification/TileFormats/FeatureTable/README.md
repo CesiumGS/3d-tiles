@@ -57,33 +57,6 @@ The only valid properties in the JSON header are the defined semantics by the ti
 
 #### Property Reference
 
-* [`Extension`](#reference-extension)
-* [`Extras`](#reference-extras)
-* [`Feature Table`](#reference-feature-table) 
-
-
----------------------------------------
-<a name="reference-extension"></a>
-##### Extension
-
-Dictionary object with extension-specific objects.
-
-Additional properties are allowed.
-
-* **JSON schema**: [extension.schema.json](schema/extension.schema.json)
-
-
-
-
----------------------------------------
-<a name="reference-extras"></a>
-##### Extras
-
-Application-specific data.
-
-
-
----------------------------------------
 <a name="reference-feature-table"></a>
 ##### Feature Table
 
@@ -98,9 +71,9 @@ A set of semantics containing per-tile and per-feature values defining the posit
 
 Additional properties are not allowed.
 
-* **JSON schema**: [featureTable.schema.json](schema/featureTable.schema.json)
+* **JSON schema**: [featureTable.schema.json](../../schema/featureTable.schema.json)
 
-###### feature.table.extensions
+###### FeatureTable.extensions
 
 Dictionary object with extension-specific objects.
 
@@ -108,16 +81,14 @@ Dictionary object with extension-specific objects.
 * **Required**: No
 * **Type of each property**: Extension
 
-###### feature.table.extras
+###### FeatureTable.extras
 
 Application-specific data.
 
 * **Type**: `any`
 * **Required**: No
 
----
 
-JSON schema Feature Table definitions can be found in [featureTable.schema.json](../../schema/featureTable.schema.json).
 
 ### Binary body
 

@@ -9,46 +9,88 @@
     }, {
         "properties" : {
             "POSITION" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "POSITION_QUANTIZED": {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "RGBA" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "RGB" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "RGB565" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "NORMAL" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "NORMAL_OCT16P" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "BATCH_ID" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "POINTS_LENGTH" : {
-                "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+                "description": "A `GlobalPropertyScalar` object defining a numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+                }]
             },
             "RTC_CENTER" : {
-                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                }]
             },
             "QUANTIZED_VOLUME_OFFSET" : {
-                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                }]
             },
             "QUANTIZED_VOLUME_SCALE" : {
-                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                }]
             },
             "CONSTANT_RGBA" : {
-                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                "description": "A `GlobalPropertyCartesian4` object defining a 4-component numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian4"
+                }]
             },
             "BATCH_LENGTH" : {
-                "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+                "description": "A `GlobalPropertyScalar` object defining a numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+                }]
             },
             "extensions" : {
                 "$ref": "extension.schema.json"

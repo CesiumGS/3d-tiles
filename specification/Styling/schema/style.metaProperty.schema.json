@@ -2,10 +2,8 @@
     "$schema" : "http://json-schema.org/draft-04/schema",
     "id" : "style.metaProperty.schema.json",
     "title" : "metaProperty",
-    "anyOf" : [{
-        "type" : "string"
-    }, {
+    "allOf" : [{
         "$ref" : "style.expression.schema.json"
     }],
-    "description" : "A property name and the expression to be evaluated for the value of that property."
+    "description" : "The `expression` to be evaluated for the value of that property."
 }

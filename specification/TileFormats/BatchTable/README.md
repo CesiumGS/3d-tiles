@@ -1,25 +1,5 @@
 # Batch Table
 
-## Contributors
-
-_This section is non-normative_
-
-* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
-* Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
-* Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
-* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
-
-## Contents
-
-* [Overview](#overview)
-* [Layout](#layout)
-   * [Padding](#padding)
-   * [JSON header](#json-header)
-      * [Property reference](#property-reference)
-   * [Binary body](#binary-body)
-* [Extensions](#extensions)
-* [Implementation example](#implementation-example)
-
 ## Overview
 
 A _Batch Table_ contains per-feature application-specific metadata in a tile. These properties may be queried at runtime for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, geographic coordinates, and database primary keys.
@@ -86,13 +66,13 @@ yearBuilt[1] = 2015;
 address[1] = {street : 'Main Street', houseNumber : '2'};
 ```
 
+JSON schema Batch Table definitions can be found in [batchTable.schema.json](../../schema/batchTable.schema.json).
+
 #### Property reference
 
 * [`Batch Table`](#reference-batch-table)
-* [`Extension`](#reference-extension)
-* [`Extras`](#reference-extras)
-* [`property`](#reference-property)
-   * [`binaryBodyReference`](#reference-binarybodyreference)
+  * [`BinaryBodyReference`](#reference-binarybodyreference)
+  * [`Property`](#reference-property)
 
 
 ---------------------------------------
@@ -110,9 +90,9 @@ A set of properties defining application-specific metadata for features in a til
 
 Additional properties are allowed.
 
-* **JSON schema**: [batchTable.schema.json](schema/batchTable.schema.json)
+* **JSON schema**: [batchTable.schema.json](../../schema/batchTable.schema.json)
 
-###### batch.table.extensions
+###### BatchTable.extensions
 
 Dictionary object with extension-specific objects.
 
@@ -120,7 +100,7 @@ Dictionary object with extension-specific objects.
 * **Required**: No
 * **Type of each property**: Extension
 
-###### batch.table.extras
+###### BatchTable.extras
 
 Application-specific data.
 
@@ -128,32 +108,37 @@ Application-specific data.
 * **Required**: No
 
 
----------------------------------------
-<a name="reference-property"></a>
-#### Additional properties
 
+
+---------------------------------------
 <a name="reference-binarybodyreference"></a>
-##### binaryBodyReference
+##### BinaryBodyReference
+
+An object defining the reference to a section of the binary body of the batch table where the property values are stored if not defined directly in the JSON.
 
 **Properties**
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**byteOffset**|`integer`|| :white_check_mark: Yes|
-|**componentType**|`string`|| :white_check_mark: Yes|
-|**type**|`string`|| :white_check_mark: Yes|
+|**byteOffset**|`number`|The offset into the buffer in bytes.| :white_check_mark: Yes|
+|**componentType**|`string`|The datatype of components in the property.| :white_check_mark: Yes|
+|**type**|`string`|Specifies if the property is a scalar or vector.| :white_check_mark: Yes|
 
 Additional properties are allowed.
 
-* **JSON schema**: [#/definitions/binaryBodyReference](schema/#/definitions/binaryBodyReference)
+* **JSON schema**: [#/definitions/binaryBodyReference](../../schema/#/definitions/binaryBodyReference)
 
-###### binarybodyreference.byteOffset :white_check_mark: 
+###### BinaryBodyReference.byteOffset :white_check_mark: 
 
-* **Type**: `integer`
+The offset into the buffer in bytes.
+
+* **Type**: `number`
 * **Required**: Yes
 * **Minimum**: ` >= 0`
 
-###### binarybodyreference.componentType :white_check_mark: 
+###### BinaryBodyReference.componentType :white_check_mark: 
+
+The datatype of components in the property.
 
 * **Type**: `string`
 * **Required**: Yes
@@ -167,7 +152,9 @@ Additional properties are allowed.
    * `"FLOAT"`
    * `"DOUBLE"`
 
-###### binarybodyreference.type :white_check_mark: 
+###### BinaryBodyReference.type :white_check_mark: 
+
+Specifies if the property is a scalar or vector.
 
 * **Type**: `string`
 * **Required**: Yes
@@ -181,29 +168,11 @@ Additional properties are allowed.
 
 
 ---------------------------------------
-<a name="reference-extension"></a>
-##### Extension
+<a name="reference-property"></a>
+##### Property
 
-Dictionary object with extension-specific objects.
+A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as a numeric array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
 
-Additional properties are allowed.
-
-* **JSON schema**: [extension.schema.json](schema/extension.schema.json)
-
-
-
-
----------------------------------------
-<a name="reference-extras"></a>
-##### Extras
-
-Application-specific data.
-
-
-
----
-
-JSON schema Batch Table definitions can be found in [batchTable.schema.json](../../schema/batchTable.schema.json).
 
 ### Binary body
 

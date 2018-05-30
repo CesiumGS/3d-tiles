@@ -724,14 +724,15 @@ The following example colors features with a temperature above 90 as red and the
 For complete details, see the [Declarative Styling](./Styling/) specification.
 
 ## Property reference
+
+The full tileset JSON schema is defined in [`tileset.schema.json`](./schema/tileset.schema.json).
+
 * [`Tileset`](#reference-tileset)
   * [`Asset`](#reference-asset)
   * [`Properties`](#reference-properties)
 * [`Tile`](#reference-tile)
   * [`Bounding Volume`](#reference-bounding-volume)
   * [`Tile Content`](#reference-tile-content)
-* [`Extension`](#reference-extension)
-* [`Extras`](#reference-extras)
 
 
 ---------------------------------------
@@ -811,7 +812,7 @@ Names of 3D Tiles extensions required to properly load this tileset.
 * **Required**: No
 
 ---------------------------------------
-<a name="reference-asset"></a>
+
 #### Asset
 
 Metadata about the entire tileset.
@@ -859,7 +860,7 @@ Application-specific data.
 * **Required**: No
 
 ---------------------------------------
-<a name="reference-properties"></a>
+
 #### Properties
 
 A dictionary object of metadata about per-feature properties.
@@ -908,7 +909,7 @@ Application-specific data.
 
 
 ---------------------------------------
-<a name="reference-tile"></a>
+
 #### Tile
 
 A tile in a 3D Tiles tileset.
@@ -997,7 +998,7 @@ An array of objects that define child tiles. Each child tile content is fully en
 
 
 ---------------------------------------
-<a name="reference-bounding-volume"></a>
+
 #### Bounding Volume
 
 A bounding volume that encloses a tile or its content.  Exactly one property is required.
@@ -1053,7 +1054,7 @@ Application-specific data.
 * **Required**: No
 
 ---------------------------------------
-<a name="reference-tile-content"></a>
+
 #### Tile Content
 
 Metadata about the tile's content and a link to the content.
@@ -1099,27 +1100,6 @@ Application-specific data.
 
 * **Type**: `any`
 * **Required**: No
-
----------------------------------------
-<a name="reference-extension"></a>
-#### Extension
-
-Dictionary object with extension-specific objects.
-
-Additional properties are allowed.
-
-* **JSON schema**: [extension.schema.json](schema/extension.schema.json)
-
-
----------------------------------------
-<a name="reference-extras"></a>
-#### Extras
-
-Application-specific data.
-
----
-
-See the full [JSON schema](./schema).
 
 ## License
 

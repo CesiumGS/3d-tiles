@@ -63,7 +63,7 @@ The following example assigns a color based on building height.
 }
 ```
 
-![](figures/example.png)
+![](./figures/example.png)
 
 ## Concepts
 
@@ -210,45 +210,41 @@ A meta property expression can evaluate to any type. For example:
 
 ## Property reference
 
+* [`condition`](#reference-condition)
+* [`conditions`](#reference-conditions)
 * [`expression`](#reference-expression)
+* [`number expression`](#reference-number-expression)
+* [`Point Cloud Style`](#reference-point-cloud-style) (root object)
+* [`style`](#reference-style)
    * [`boolean expression`](#reference-boolean-expression)
    * [`color expression`](#reference-color-expression)
-   * [`number expression`](#reference-number-expression)
-* [`conditions`](#reference-conditions)
-   * [`condition`](#reference-condition)
-* [`definesProperty`](#reference-definesproperty)
-* [`meta`](#reference-meta)
-   * [`metaProperty`](#reference-metaproperty)
-* [`style`](#reference-style)
-* [`Point Cloud Style`](#reference-point-cloud-style)
-
-
----------------------------------------
-<a name="reference-expression"></a>
-#### expression
-
-A valid 3D Tiles style expression.
+   * [`definesProperty`](#reference-definesproperty)
+   * [`meta`](#reference-meta)
+      * [`metaProperty`](#reference-metaproperty)
 
 
 ---------------------------------------
 <a name="reference-boolean-expression"></a>
 #### boolean expression
 
-A boolean or string with a 3D Tiles style expression that evaluates to a boolean.
+A boolean or string with a 3D Tiles style expression that evaluates to a boolean. See [Expressions](specification/Styling/README.md#expressions).
+
 
 
 ---------------------------------------
 <a name="reference-color-expression"></a>
 #### color expression
 
-3D Tiles style expression that evaluates to a Color.
+3D Tiles style [`expression`](#reference-expression) that evaluates to a Color. See [Expressions](specification/Styling/README.md#expressions).
+
 
 
 ---------------------------------------
-<a name="reference-number-expression"></a>
-#### number expression
+<a name="reference-condition"></a>
+#### condition
 
-3D Tiles style expression that evaluates to a number.
+An [`expression`](#reference-expression) evaluated as the result of a condition being true. An array of two expressions. If the first expression is evaluated and the result is `true`, then the second expression is evaluated and returned as the result of the condition.
+
 
 
 ---------------------------------------
@@ -265,7 +261,7 @@ A series of conditions evaluated in order, like a series of if...else statements
 
 Additional properties are not allowed.
 
-* **JSON schema**: [style.conditions.schema.json](schema/style.conditions.schema.json)
+* **JSON schema**: [style.conditions.schema.json](../../schema/style.conditions.schema.json)
 
 ##### conditions.conditions
 
@@ -275,19 +271,21 @@ A series of boolean conditions evaluated in order.  For the first one that evalu
 * **Required**: No
 
 
----------------------------------------
-<a name="reference-condition"></a>
-#### condition
-
-An expression evaluated as the result of a condition being true. An array of two expressions. If the first expression is evaluated and the result is `true`, then the second expression is evaluated and returned as the result of the condition.
-
 
 
 ---------------------------------------
 <a name="reference-definesproperty"></a>
 #### definesProperty
 
-A property name and the expression to be evaluated for the value of that property.
+An [`expression`](#reference-expression) to be evaluated for the value of that property.
+
+
+
+---------------------------------------
+<a name="reference-expression"></a>
+#### expression
+
+A valid 3D Tiles style expression. See [Expressions](specification/Styling/README.md#expressions).
 
 
 
@@ -295,11 +293,11 @@ A property name and the expression to be evaluated for the value of that propert
 <a name="reference-meta"></a>
 #### meta
 
-A series of property names and the expression to evaluate for the value of each property.
+A series of property names and the `meta property` expression to evaluate for the value of each property.
 
 Additional properties are allowed.
 
-* **JSON schema**: [style.meta.schema.json](schema/style.meta.schema.json)
+* **JSON schema**: [style.meta.schema.json](../../schema/style.meta.schema.json)
 
 
 
@@ -308,60 +306,15 @@ Additional properties are allowed.
 <a name="reference-metaproperty"></a>
 #### metaProperty
 
-A property name and the expression to be evaluated for the value of that property.
+The [`expression`](#reference-expression) to be evaluated for the value of that property.
 
 
 
 ---------------------------------------
-<a name="reference-style"></a>
-#### style
+<a name="reference-number-expression"></a>
+#### number expression
 
-A 3D Tiles style.
-
-**Properties**
-
-|   |Type|Description|Required|
-|---|----|-----------|--------|
-|**defines**|`object`|Additional expressions that may be referenced throughout the style. If a variable references a define, it gets the result of the define's evaluated expression.|No|
-|**show**|`boolean,string`|Determines if a feature should be shown.|No, default: `true`|
-|**color**|`string`|Determines the color blended with the feature's intrinsic color.|No, default: `"Color('#FFFFFF')"`|
-|**meta**|`object`|Determines the values of non-visual properties of the feature.|No|
-
-Additional properties are not allowed.
-
-* **JSON schema**: [style.schema.json](schema/style.schema.json)
-
-##### style.defines
-
-Additional expressions that may be referenced throughout the style. If a variable references a define, it gets the result of the define's evaluated expression.
-
-* **Type**: `object`
-* **Required**: No
-* **Type of each property**: `string`
-
-##### style.show
-
-Determines if a feature should be shown.
-
-* **Type**: `boolean,string`
-* **Required**: No, default: `true`
-* **Allowed values**:
-
-##### style.color
-
-Determines the color blended with the feature's intrinsic color.
-
-* **Type**: `string`
-* **Required**: No, default: `"Color('#FFFFFF')"`
-* **Allowed values**:
-
-##### style.meta
-
-Determines the values of non-visual properties of the feature.
-
-* **Type**: `object`
-* **Required**: No
-* **Type of each property**: `string`
+3D Tiles style expression that evaluates to a number. See [Expressions](specification/Styling/README.md#expressions).
 
 
 
@@ -375,59 +328,106 @@ A 3D Tiles style with additional properties for Point Clouds.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**defines**|`object`|Additional expressions that may be referenced throughout the style. If a variable references a define, it gets the result of the define's evaluated expression.|No|
-|**show**|`boolean,string`|Determines if a feature should be shown.|No, default: `true`|
-|**color**|`string`|Determines the color blended with the feature's intrinsic color.|No, default: `"Color('#FFFFFF')"`|
-|**meta**|`object`|Determines the values of non-visual properties of the feature.|No|
-|**pointSize**|`number,string`|Determines the size of the points in pixels.|No, default: `1`|
+|**defines**|`object`|A dictionary object of defined [`expression`](#reference-expression) strings mapped to a variable name that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the result of the corresponding evaluated expression.|No|
+|**show**|`boolean,string`, `object`|A [`boolean expression`](#reference-boolean-expression) or [`conditions`](#reference-conditions) property which determines if a feature should be shown.|No, default: `true`|
+|**color**|`string`, `object`|A [`color expression`](#reference-color-expression) or [`conditions`](#reference-conditions) property which determines the color blended with the feature's intrinsic color.|No, default: `Color('#FFFFFF')`|
+|**meta**|`object`|A [`meta`](#reference-meta) object which determines the values of non-visual properties of the feature.|No|
+|**pointSize**|`number,string`, `object`|A [`number expression`](#reference-number-expression) or [`conditions`](#reference-conditions) property which determines the size of the points in pixels.|No, default: `1`|
 
 Additional properties are not allowed.
 
-* **JSON schema**: [pnts.style.schema.json](schema/pnts.style.schema.json)
+* **JSON schema**: [pnts.style.schema.json](../../schema/pnts.style.schema.json)
 
-##### point.cloud.style.defines
+##### PointCloudStyle.defines
 
-Additional expressions that may be referenced throughout the style. If a variable references a define, it gets the result of the define's evaluated expression.
+A dictionary object of defined [`expression`](#reference-expression) strings mapped to a variable name that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the result of the corresponding evaluated expression.
 
 * **Type**: `object`
 * **Required**: No
 * **Type of each property**: `string`
 
-##### point.cloud.style.show
+##### PointCloudStyle.show
 
-Determines if a feature should be shown.
+A [`boolean expression`](#reference-boolean-expression) or [`conditions`](#reference-conditions) property which determines if a feature should be shown.
 
-* **Type**: `boolean,string`
+* **Type**: `boolean,string`, `object`
 * **Required**: No, default: `true`
-* **Allowed values**:
 
-##### point.cloud.style.color
+##### PointCloudStyle.color
 
-Determines the color blended with the feature's intrinsic color.
+A [`color expression`](#reference-color-expression) or [`conditions`](#reference-conditions) property which determines the color blended with the feature's intrinsic color.
 
-* **Type**: `string`
-* **Required**: No, default: `"Color('#FFFFFF')"`
-* **Allowed values**:
+* **Type**: `string`, `object`
+* **Required**: No, default: `Color('#FFFFFF')`
 
-##### point.cloud.style.meta
+##### PointCloudStyle.meta
 
-Determines the values of non-visual properties of the feature.
+A [`meta`](#reference-meta) object which determines the values of non-visual properties of the feature.
 
 * **Type**: `object`
 * **Required**: No
 * **Type of each property**: `string`
 
-##### point.cloud.style.pointSize
+##### PointCloudStyle.pointSize
 
-Determines the size of the points in pixels.
+A [`number expression`](#reference-number-expression) or [`conditions`](#reference-conditions) property which determines the size of the points in pixels.
 
-* **Type**: `number,string`
+* **Type**: `number,string`, `object`
 * **Required**: No, default: `1`
-* **Allowed values**:
 
----
 
-See the full [JSON schema](./schema).
+
+
+---------------------------------------
+<a name="reference-style"></a>
+#### style
+
+A 3D Tiles style.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**defines**|`object`|A dictionary object of defined [`expression`](#reference-expression) strings mapped to a variable name that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the result of the corresponding evaluated expression.|No|
+|**show**|`boolean,string`, `object`|A [`boolean expression`](#reference-boolean-expression) or [`conditions`](#reference-conditions) property which determines if a feature should be shown.|No, default: `true`|
+|**color**|`string`, `object`|A [`color expression`](#reference-color-expression) or [`conditions`](#reference-conditions) property which determines the color blended with the feature's intrinsic color.|No, default: `Color('#FFFFFF')`|
+|**meta**|`object`|A [`meta`](#reference-meta) object which determines the values of non-visual properties of the feature.|No|
+
+Additional properties are not allowed.
+
+* **JSON schema**: [style.schema.json](../../schema/style.schema.json)
+
+##### style.defines
+
+A dictionary object of defined [`expression`](#reference-expression) strings mapped to a variable name that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the result of the corresponding evaluated expression.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: `string`
+
+##### style.show
+
+A [`boolean expression`](#reference-boolean-expression) or [`conditions`](#reference-conditions) property which determines if a feature should be shown.
+
+* **Type**: `boolean,string`, `object`
+* **Required**: No, default: `true`
+
+##### style.color
+
+A [`color expression`](#reference-color-expression) or [`conditions`](#reference-conditions) property which determines the color blended with the feature's intrinsic color.
+
+* **Type**: `string`, `object`
+* **Required**: No, default: `Color('#FFFFFF')`
+
+##### style.meta
+
+A [`meta`](#reference-meta) object which determines the values of non-visual properties of the feature.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: `string`
+
+
 
 ## Expressions
 
