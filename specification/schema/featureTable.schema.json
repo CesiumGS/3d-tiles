@@ -37,7 +37,7 @@
                     }
                 },
                 "required" : ["byteOffset"]
-             }, {
+            }, {
                 "type" : "array",
                 "items" : {
                     "type" : "number"
