@@ -6,9 +6,9 @@
 * [Layout](#layout)
    * [Padding](#padding)
    * [JSON header](#json-header)
-      * [Property reference](#property-reference)
    * [Binary body](#binary-body)
 * [Implementation example](#implementation-example)
+* [Property reference](#property-reference)
 
 ## Overview
 
@@ -46,7 +46,33 @@ Feature Table values can be represented in the JSON header in three different wa
    * Some semantics allow for overriding the implicit `componentType`. These cases are specified in each tile format, e.g., `"BATCH_ID" : { "byteOffset" : 24, "componentType" : "UNSIGNED_BYTE"}`.
 The only valid properties in the JSON header are the defined semantics by the tile format and optional `extras` and `extensions` properties.  Application-specific data should be stored in the Batch Table.
 
-#### Property reference
+See [Property reference](#property-reference) for the full JSON header schema reference. The full JSON schema can be found in [featureTable.schema.json](../../schema/featureTable.schema.json).
+
+### Binary body
+
+When the JSON header includes a reference to the binary, the provided `byteOffset` is used to index into the data. The following figure shows indexing into the Feature Table binary body:
+
+![feature table binary index](figures/feature-table-binary-index.png)
+
+Values can be retrieved using the number of features, `featuresLength`; the desired feature id, `featureId`; and the data type (component type and number of components) for the feature semantic.
+
+## Implementation example
+
+_This section is non-normative_
+
+The following example accesses the position property using the `POSITION` semantic, which has a `float32[3]` data type:
+
+```javascript
+var byteOffset = featureTableJSON.POSITION.byteOffset;
+
+var positionArray = new Float32Array(featureTableBinary.buffer, byteOffset, featuresLength * 3); // There are three components for each POSITION feature.
+var position = positionArray.subarray(featureId * 3, featureId * 3 + 3); // Using subarray creates a view into the array, and not a new array.
+```
+
+Code for reading the Feature Table can be found in [`Cesium3DTileFeatureTable.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileFeatureTable.js) in the Cesium implementation of 3D Tiles.
+
+
+## Property reference
 
 <a name="reference-feature-table"></a>
 ##### Feature Table
@@ -78,28 +104,3 @@ Application-specific data.
 
 * **Type**: `any`
 * **Required**: No
-
-
-
-### Binary body
-
-When the JSON header includes a reference to the binary, the provided `byteOffset` is used to index into the data. The following figure shows indexing into the Feature Table binary body:
-
-![feature table binary index](figures/feature-table-binary-index.png)
-
-Values can be retrieved using the number of features, `featuresLength`; the desired feature id, `featureId`; and the data type (component type and number of components) for the feature semantic.
-
-## Implementation example
-
-_This section is non-normative_
-
-The following example accesses the position property using the `POSITION` semantic, which has a `float32[3]` data type:
-
-```javascript
-var byteOffset = featureTableJSON.POSITION.byteOffset;
-
-var positionArray = new Float32Array(featureTableBinary.buffer, byteOffset, featuresLength * 3); // There are three components for each POSITION feature.
-var position = positionArray.subarray(featureId * 3, featureId * 3 + 3); // Using subarray creates a view into the array, and not a new array.
-```
-
-Code for reading the Feature Table can be found in [`Cesium3DTileFeatureTable.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileFeatureTable.js) in the Cesium implementation of 3D Tiles.

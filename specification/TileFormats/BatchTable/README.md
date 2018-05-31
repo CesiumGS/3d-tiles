@@ -6,10 +6,10 @@
 * [Layout](#layout)
    * [Padding](#padding)
    * [JSON header](#json-header)
-      * [Property reference](#property-reference)
    * [Binary body](#binary-body)
 * [Extensions](#extensions)
 * [Implementation example](#implementation-example)
+* [Property reference](#property-reference)
 
 ## Overview
 
@@ -76,10 +76,94 @@ displayName[1] = 'Another building name';
 yearBuilt[1] = 2015;
 address[1] = {street : 'Main Street', houseNumber : '2'};
 ```
+See [Property reference](#property-reference) for the full JSON header schema reference. The full JSON schema can be found in [batchTable.schema.json](../../schema/batchTable.schema.json).
 
-JSON schema Batch Table definitions can be found in [batchTable.schema.json](../../schema/batchTable.schema.json).
+### Binary body
 
-#### Property reference
+When the JSON header includes a reference to the binary section, the provided `byteOffset` is used to index into the data, as shown in the following figure:
+
+![batch table binary index](figures/batch-table-binary-index.png)
+
+Values can be retrieved using the number of features, `batchLength`; the desired batch id, `batchId`; and the `componentType` and `type` defined in the JSON header.
+
+The following tables can be used to compute the byte size of a property.
+
+| `componentType` | Size in bytes |
+| --- | --- |
+| `"BYTE"` | 1 |
+| `"UNSIGNED_BYTE"` | 1 |
+| `"SHORT"` | 2 |
+| `"UNSIGNED_SHORT"` | 2 |
+| `"INT"` | 4 |
+| `"UNSIGNED_INT"` | 4 |
+| `"FLOAT"` | 4 |
+| `"DOUBLE"` | 8 |
+
+| `type` | Number of components |
+| --- | --- |
+| `"SCALAR"` | 1 |
+| `"VEC2"` | 2 |
+| `"VEC3"` | 3 |
+| `"VEC4"` | 4 |
+
+## Extensions
+
+The following extensions can be applied to a Batch Table.
+
+* [3DTILES_batch_table_hierarchy](../../../extensions/3DTILES_batch_table_hierarchy/)
+
+## Implementation example
+
+_This section is non-normative_
+
+The following examples access the `"height"` and `"geographic"` values respectively given the following Batch Table JSON with `batchLength` of 10:
+
+```json
+{
+    "height" : {
+        "byteOffset" : 0,
+        "componentType" : "FLOAT",
+        "type" : "SCALAR"
+    },
+    "geographic" : {
+        "byteOffset" : 40,
+        "componentType" : "DOUBLE",
+        "type" : "VEC3"
+    }
+}
+```
+
+To get the `"height"` values:
+
+```javascript
+var height = batchTableJSON.height;
+var byteOffset = height.byteOffset;
+var componentType = height.componentType;
+var type = height.type;
+
+var heightArrayByteLength = batchLength * sizeInBytes(componentType) * numberOfComponents(type); // 10 * 4 * 1
+var heightArray = new Float32Array(batchTableBinary.buffer, byteOffset, heightArrayByteLength);
+var heightOfFeature = heightArray[batchId];
+```
+
+To get the `"geographic"` values:
+
+```javascript
+var geographic = batchTableJSON.geographic;
+var byteOffset = geographic.byteOffset;
+var componentType = geographic.componentType;
+var type = geographic.type;
+var componentSizeInBytes = sizeInBytes(componentType)
+var numberOfComponents = numberOfComponents(type);
+
+var geographicArrayByteLength = batchLength * componentSizeInBytes * numberOfComponents // 10 * 8 * 3
+var geographicArray = new Float64Array(batchTableBinary.buffer, byteOffset, geographicArrayByteLength);
+var geographicOfFeature = positionArray.subarray(batchId * numberOfComponents, batchId * numberOfComponents + numberOfComponents); // Using subarray creates a view into the array, and not a new array.
+```
+
+Code for reading the Batch Table can be found in [`Cesium3DTileBatchTable.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
+
+## Property reference
 
 * [`Batch Table`](#reference-batch-table)
   * [`BinaryBodyReference`](#reference-binarybodyreference)
@@ -184,88 +268,3 @@ Specifies if the property is a scalar or vector.
 
 A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as a numeric array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
 
-
-### Binary body
-
-When the JSON header includes a reference to the binary section, the provided `byteOffset` is used to index into the data, as shown in the following figure:
-
-![batch table binary index](figures/batch-table-binary-index.png)
-
-Values can be retrieved using the number of features, `batchLength`; the desired batch id, `batchId`; and the `componentType` and `type` defined in the JSON header.
-
-The following tables can be used to compute the byte size of a property.
-
-| `componentType` | Size in bytes |
-| --- | --- |
-| `"BYTE"` | 1 |
-| `"UNSIGNED_BYTE"` | 1 |
-| `"SHORT"` | 2 |
-| `"UNSIGNED_SHORT"` | 2 |
-| `"INT"` | 4 |
-| `"UNSIGNED_INT"` | 4 |
-| `"FLOAT"` | 4 |
-| `"DOUBLE"` | 8 |
-
-| `type` | Number of components |
-| --- | --- |
-| `"SCALAR"` | 1 |
-| `"VEC2"` | 2 |
-| `"VEC3"` | 3 |
-| `"VEC4"` | 4 |
-
-## Extensions
-
-The following extensions can be applied to a Batch Table.
-
-* [3DTILES_batch_table_hierarchy](../../../extensions/3DTILES_batch_table_hierarchy/)
-
-## Implementation example
-
-_This section is non-normative_
-
-The following examples access the `"height"` and `"geographic"` values respectively given the following Batch Table JSON with `batchLength` of 10:
-
-```json
-{
-    "height" : {
-        "byteOffset" : 0,
-        "componentType" : "FLOAT",
-        "type" : "SCALAR"
-    },
-    "geographic" : {
-        "byteOffset" : 40,
-        "componentType" : "DOUBLE",
-        "type" : "VEC3"
-    }
-}
-```
-
-To get the `"height"` values:
-
-```javascript
-var height = batchTableJSON.height;
-var byteOffset = height.byteOffset;
-var componentType = height.componentType;
-var type = height.type;
-
-var heightArrayByteLength = batchLength * sizeInBytes(componentType) * numberOfComponents(type); // 10 * 4 * 1
-var heightArray = new Float32Array(batchTableBinary.buffer, byteOffset, heightArrayByteLength);
-var heightOfFeature = heightArray[batchId];
-```
-
-To get the `"geographic"` values:
-
-```javascript
-var geographic = batchTableJSON.geographic;
-var byteOffset = geographic.byteOffset;
-var componentType = geographic.componentType;
-var type = geographic.type;
-var componentSizeInBytes = sizeInBytes(componentType)
-var numberOfComponents = numberOfComponents(type);
-
-var geographicArrayByteLength = batchLength * componentSizeInBytes * numberOfComponents // 10 * 8 * 3
-var geographicArray = new Float64Array(batchTableBinary.buffer, byteOffset, geographicArrayByteLength);
-var geographicOfFeature = positionArray.subarray(batchId * numberOfComponents, batchId * numberOfComponents + numberOfComponents); // Using subarray creates a view into the array, and not a new array.
-```
-
-Code for reading the Batch Table can be found in [`Cesium3DTileBatchTable.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.

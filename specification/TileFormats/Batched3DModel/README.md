@@ -7,7 +7,6 @@
     * [Padding](#padding)
 * [Header](#header)
 * [Feature Table](#feature-table)
-    * [Property reference](#property-reference)
 	* [Semantics](#semantics)
 		* [Feature semantics](#feature-semantics)
 		* [Global semantics](#global-semantics)
@@ -16,6 +15,7 @@
    * [Coordinate system](#coordinate-system)
 * [File extension and MIME type](#file-extension-and-mime-type)
 * [Implementation example](#implementation-example)
+* [Property reference](#property-reference)
 
 ## Overview
 
@@ -56,82 +56,10 @@ The body section immediately follows the header section, and is composed of thre
 ## Feature Table
 
 Contains values for `b3dm` semantics.
+
 More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
-### Property reference
-
-* [`Batched 3D Model Feature Table`](#reference-batched-3d-model-feature-table)
-  * [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3)
-  * [`GlobalPropertyScalar`](#reference-globalpropertyscalar)
-
-
----------------------------------------
-<a name="reference-batched-3d-model-feature-table"></a>
-#### Batched 3D Model Feature Table
-
-A set of Batched 3D Model semantics that contain additional information about features in a tile.
-
-**Properties**
-
-|   |Type|Description|Required|
-|---|----|-----------|--------|
-|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
-|**extras**|`any`|Application-specific data.|No|
-|**BATCH_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).| :white_check_mark: Yes|
-|**RTC_CENTER**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-
-Additional properties are not allowed.
-
-* **JSON schema**: [b3dm.featureTable.schema.json](../../schema/b3dm.featureTable.schema.json)
-
-##### Batched3DModelFeatureTable.extensions
-
-Dictionary object with extension-specific objects.
-
-* **Type**: `object`
-* **Required**: No
-* **Type of each property**: Extension
-
-##### Batched3DModelFeatureTable.extras
-
-Application-specific data.
-
-* **Type**: `any`
-* **Required**: No
-
-##### Batched3DModelFeatureTable.BATCH_LENGTH :white_check_mark: 
-
-A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
-
-* **Type**: `object`, `number` `[1]`, `number`
-* **Required**: Yes
-
-##### Batched3DModelFeatureTable.RTC_CENTER
-
-A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
-
-* **Type**: `object`, `number` `[3]`
-* **Required**: No
-
-
-
-
-
-
----------------------------------------
-<a name="reference-globalpropertycartesian3"></a>
-#### GlobalPropertyCartesian3
-
-An object defining a global 3-component numeric property values for all features.
-
-
-
----------------------------------------
-<a name="reference-globalpropertyscalar"></a>
-#### GlobalPropertyScalar
-
-An object defining a global numeric property values for all features.
-
+See [Property reference](#property-reference) for the `b3dm` feature table schema reference. The full JSON schema can be found in [b3dm.featureTable.schema.json](../../schema/b3dm.featureTable.schema.json).
 
 ### Semantics
 
@@ -225,3 +153,80 @@ _This section is non-normative_
 Code for reading the header can be found in
 [`Batched3DModelTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Batched3DModel3DTileContent.js)
 in the Cesium implementation of 3D Tiles.
+
+
+### Property reference
+
+* [`Batched 3D Model Feature Table`](#reference-batched-3d-model-feature-table)
+  * [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3)
+  * [`GlobalPropertyScalar`](#reference-globalpropertyscalar)
+
+
+---------------------------------------
+<a name="reference-batched-3d-model-feature-table"></a>
+#### Batched 3D Model Feature Table
+
+A set of Batched 3D Model semantics that contain additional information about features in a tile.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
+|**extras**|`any`|Application-specific data.|No|
+|**BATCH_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).| :white_check_mark: Yes|
+|**RTC_CENTER**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
+
+Additional properties are not allowed.
+
+* **JSON schema**: [b3dm.featureTable.schema.json](../../schema/b3dm.featureTable.schema.json)
+
+##### Batched3DModelFeatureTable.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: Extension
+
+##### Batched3DModelFeatureTable.extras
+
+Application-specific data.
+
+* **Type**: `any`
+* **Required**: No
+
+##### Batched3DModelFeatureTable.BATCH_LENGTH :white_check_mark: 
+
+A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+
+* **Type**: `object`, `number` `[1]`, `number`
+* **Required**: Yes
+
+##### Batched3DModelFeatureTable.RTC_CENTER
+
+A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+
+* **Type**: `object`, `number` `[3]`
+* **Required**: No
+
+
+
+
+
+
+---------------------------------------
+<a name="reference-globalpropertycartesian3"></a>
+#### GlobalPropertyCartesian3
+
+An object defining a global 3-component numeric property values for all features.
+
+
+
+---------------------------------------
+<a name="reference-globalpropertyscalar"></a>
+#### GlobalPropertyScalar
+
+An object defining a global numeric property values for all features.
+
+

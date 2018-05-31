@@ -699,6 +699,8 @@ The `extras` property allows application specific metadata to be added to any 3D
 }
 ```
 
+See [Property reference](#property-reference) for the tileset JSON schema reference. The full JSON schema can be found in [`tileset.schema.json`](.schema/tileset.schema.json).
+
 ## Tile format specifications
 
 Each tile's `content.uri` property points to a tile that is one of the formats listed in the table below.
@@ -729,7 +731,6 @@ For complete details, see the [Declarative Styling](./Styling/) specification.
 
 ## Property reference
 
-The full tileset JSON schema is defined in [`tileset.schema.json`](./schema/tileset.schema.json).
 
 * [`Tileset`](#reference-tileset)
   * [`Asset`](#reference-asset)
