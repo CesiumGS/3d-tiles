@@ -1,14 +1,5 @@
 # Feature Table
 
-## Contributors
-
-_This section is non-normative_
-
-* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
-* Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
-* Dan Bagnell, [@bagnell](https://github.com/bagnell)
-* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
-
 ## Contents
 
 * [Overview](#overview)
@@ -55,7 +46,7 @@ Feature Table values can be represented in the JSON header in three different wa
    * Some semantics allow for overriding the implicit `componentType`. These cases are specified in each tile format, e.g., `"BATCH_ID" : { "byteOffset" : 24, "componentType" : "UNSIGNED_BYTE"}`.
 The only valid properties in the JSON header are the defined semantics by the tile format and optional `extras` and `extensions` properties.  Application-specific data should be stored in the Batch Table.
 
-#### Property Reference
+#### Property reference
 
 <a name="reference-feature-table"></a>
 ##### Feature Table

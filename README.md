@@ -6,7 +6,7 @@ An open specification for streaming massive heterogeneous 3D geospatial datasets
 
 ## Overview
 
-Bringing techniques from graphics research, the movie industry, and the game industry to 3D geospatial, 3D Tiles define a spatial data structure and a set of tile formats designed for 3D and optimized for streaming and rendering. 
+3D Tiles define a spatial data structure and a set of tile formats designed for 3D and optimized for streaming and rendering  BIM/CAD, Phogrammetry, Point Clouds 
 
 ## Specification
 

@@ -1,6 +1,6 @@
 # 3D Tiles Format Specification
 
-**Version 1.0**, May 14, 2018
+**Version 1.0**, May 31, 2018
 
 <p align="center"><img src="../figures/Cesium3DTiles.png" /></p>
 
@@ -13,24 +13,28 @@ Editors:
   * Gabby Getz, [@gabbygetz](https://twitter.com/gabbygetz), [ggetz@agi.com](mailto:ggetz@agi.com)
 
 Acknowledgements:
+* Matt Amato, [@matt_amato](https://twitter.com/matt_amato)
 * Erik Andersson, [@e-andersson](https://github.com/e-andersson)
-* Ray Bentley, [TODO](TODO)
+* Dan Bagnell, [@bagnell](https://github.com/bagnell)
+* Ray Bentley
 * Jannes Bolling, [@jbo023](https://github.com/jbo023)
 * Dylan Brown, [@Dylan-Brown](http://www.github.com/Dylan-Brown)
 * Sarah Chow, [cesium.com/team/SarahChow](https://cesium.com/team/SarahChow/)
-* Paul Connelly, [TODO](TODO)
-* Volker Coors, [TODO](TODO)
+* Paul Connelly
+* Volker Coors
+* Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Leesa Fini, [@LeesaFini](http://www.github.com/LeesaFini)
-* Ralf Gutbell, [TODO](TODO)
-* Frederic Houbie, [TODO](TODO)
+* Ralf Gutbell
+* Frederic Houbie
 * Christopher Mitchell, Ph.D., [@KermMartian](https://github.com/KermMartian)
-* Claus Nagel, [TODO](TODO)
-* Jean-Philippe Pons, [TODO](TODO)
+* Claus Nagel
+* Jean-Philippe Pons
 * Kevin Ring, [www.kotachrome.com/kevin](http://www.kotachrome.com/kevin/)
-* Stan Tillman, [TODO](TODO)
+* Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
+* Stan Tillman
 * Piero Toffanin, [@pierotofy](https://github.com/pierotofy)
-* Pano Voudouris, [TODO](TODO)
-* Dave Wesloh, [TODO](TODO)
+* Pano Voudouris
+* Dave Wesloh
 
 ## Contents
 

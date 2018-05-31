@@ -1,5 +1,15 @@
 # Composite
 
+## Contents
+
+* [Overview](#overview)
+* [Layout](#layout)
+    * [Padding](#padding)
+* [Header](#header)
+* [Inner tiles](#inner-tiles)
+* [File extension and MIME type](#file-extension-and-mime-type)
+* [Implementation examples](#implementation-examples)
+
 ## Overview
 
 The _Composite_ tile format enables concatenating tiles of different formats into one tile.

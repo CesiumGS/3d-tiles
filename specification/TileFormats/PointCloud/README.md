@@ -1,5 +1,34 @@
 # Point Cloud
 
+## Contents
+
+* [Overview](#overview)
+* [Layout](#layout)
+    * [Padding](#padding)
+* [Header](#header)
+* [Feature Table](#feature-table)
+    * [Property reference](#property-reference)
+    * [Semantics](#semantics)
+        * [Point semantics](#point-semantics)
+        * [Global semantics](#global-semantics)
+    * [Point positions](#point-positions)
+        * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
+        * [RTC_CENTER](#rtc_center)
+        * [Quantized positions](#quantized-positions) 
+    * [Point colors](#point-colors) 
+    * [Point normals](#point-normals)     
+        * [Oct-encoded normal vectors](#oct-encoded-normal-vectors)
+    * [Batched points](#batched-points)
+    * [Examples](#examples)
+        * [Positions only](#positions-only) 
+        * [Positions and colors](#positions-and-colors)
+        * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)
+        * [Batched points](#batched-points)         
+        * [Per-point properties](#per-point-properties)
+* [Batch Table](#batch-table)
+* [File extension and MIME type](#file-extension-and-mime-type)
+* [Implementation example](#implementation-example)
+
 ## Overview
 
 The _Point Cloud_ tile format enables efficient streaming of massive point clouds for 3D visualization. Each point is defined by a position and by optional properties used to define its appearance, such as color and normal, as well as optional properties that define application-specific metadata.
@@ -41,7 +70,7 @@ More information is available in the [Feature Table specification](../FeatureTab
 
 The `pnts` Feature Table JSON schema is defined in [pnts.featureTable.schema.json](../../schema/pnts.featureTable.schema.json).
 
-### Property Reference
+### Property reference
 
 * [`Point Cloud Feature Table`](#reference-point-cloud-feature-table)
   * [`BinaryBodyReference`](#reference-binarybodyreference)

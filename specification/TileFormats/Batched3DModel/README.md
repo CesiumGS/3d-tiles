@@ -1,5 +1,22 @@
 # Batched 3D Model
 
+## Contents
+
+* [Overview](#overview)
+* [Layout](#layout)
+    * [Padding](#padding)
+* [Header](#header)
+* [Feature Table](#feature-table)
+    * [Property reference](#property-reference)
+	* [Semantics](#semantics)
+		* [Feature semantics](#feature-semantics)
+		* [Global semantics](#global-semantics)
+* [Batch Table](#batch-table)
+* [Binary glTF](#binary-gltf)
+   * [Coordinate system](#coordinate-system)
+* [File extension and MIME type](#file-extension-and-mime-type)
+* [Implementation example](#implementation-example)
+
 ## Overview
 
 _Batched 3D Model_ allows offline batching of heterogeneous 3D models, such as different buildings in a city, for efficient streaming to a web client for rendering and interaction.  Efficiency comes from transferring multiple models in a single request and rendering them in the least number of WebGL draw calls necessary.  Using the core 3D Tiles spec language, each model is a _feature_.
@@ -41,7 +58,7 @@ The body section immediately follows the header section, and is composed of thre
 Contains values for `b3dm` semantics.
 More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
-### Property Reference
+### Property reference
 
 * [`Batched 3D Model Feature Table`](#reference-batched-3d-model-feature-table)
   * [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3)

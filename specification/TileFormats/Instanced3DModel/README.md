@@ -1,5 +1,33 @@
 # Instanced 3D Model
 
+## Contents
+
+* [Overview](#overview)
+* [Layout](#layout)
+    * [Padding](#padding)
+* [Header](#header)
+* [Feature Table](#feature-table)
+    * [Property reference](#property-reference)
+    * [Semantics](#semantics)
+        * [Instance semantics](#instance-semantics)
+        * [Global semantics](#global-semantics)
+    * [Instance orientation](#instance-orientation)
+        * [Oct-encoded normal vectors](#oct-encoded-normal-vectors) 
+        * [Default orientation](#default-orientation)  
+    * [Instance position](#instance-position)
+        * [RTC_CENTER](#rtc_center)
+        * [Quantized positions](#quantized-positions)
+    * [Instance scaling](#instance-scaling)
+    * [Examples](#examples)
+        * [Positions only](#positions-only) 
+        * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)   
+* [Batch Table](#batch-table)
+* [glTF](#gltf)
+    * [Coordinate system](#coordinate-system)
+* [File extension and MIME type](#file-extension-and-mime-type)
+* [Implementation example](#implementation-example)
+    * [Cesium](#cesium)
+
 ## Overview
 
 _Instanced 3D Model_ is a tile format for efficient streaming and rendering of a large number of models, called _instances_, with slight variations.  In the simplest case, the same tree model, for example, may be located&mdash;or _instanced_&mdash;in several places.  Each instance references the same model and has per-instance properties, such as position.  Using the core 3D Tiles spec language, each instance is a _feature_.
@@ -48,7 +76,7 @@ The body section immediately follows the header section and is composed of three
 The Feature Table contains values for `i3dm` semantics used to create instanced models.
 More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
-### Property Reference
+### Property reference
 
 * [`Instanced 3D Model Feature Table`](#reference-instanced-3d-model-feature-table)
   * [`BinaryBodyReference`](#reference-binarybodyreference)

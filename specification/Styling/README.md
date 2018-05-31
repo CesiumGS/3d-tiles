@@ -1,15 +1,5 @@
 # Styling
 
-## Contributors
-
-_This section is non-normative_
-
-* Gabby Getz, [@ggetz](https://github.com/ggetz)
-* Matt Amato, [@matt_amato](https://twitter.com/matt_amato)
-* Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
-* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
-* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
-
 ## Contents
 
 * [Overview](#overview)
