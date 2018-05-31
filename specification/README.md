@@ -110,7 +110,7 @@ Explicit file extensions are optional. Valid implementations may ignore it and i
 
 ## URIs
 
-3D Tiles use URIs to reference tile content. These URIs may point to [relative external references (RFC3986)](https://tools.ietf.org/html/rfc3986#section-4.2) or be data URIs that embed resources in the JSON. Embedded resources use [the "data" URI scheme (RFC2397)](https://tools.ietf.org/html/rfc2397). 
+3D Tiles uses URIs to reference tile content. These URIs may point to [relative external references (RFC3986)](https://tools.ietf.org/html/rfc3986#section-4.2) or be data URIs that embed resources in the JSON. Embedded resources use [the "data" URI scheme (RFC2397)](https://tools.ietf.org/html/rfc2397). 
 
 When the URI is relative, its base is always relative to the referring tileset JSON file.
 
@@ -450,7 +450,7 @@ If a tile uses additive refinement, when refined it renders itself and its child
 
 ### Tileset JSON
 
-3D Tiles use one main tileset JSON file as the entry point to define a tileset. Both entry and external tileset JSON files are not required to follow a specific naming convention.
+3D Tiles uses one main tileset JSON file as the entry point to define a tileset. Both entry and external tileset JSON files are not required to follow a specific naming convention.
 
 Here is a subset of the tileset JSON used for [Canary Wharf](http://cesiumjs.org/CanaryWharf/) (also see the complete file, [`tileset.json`](examples/tileset.json)):
 ```json

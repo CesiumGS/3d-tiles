@@ -423,7 +423,7 @@ A [`meta`](#reference-meta) object which determines the values of non-visual pro
 
 The language for expressions is a small subset of JavaScript ([EMCAScript 5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)), plus native vector and regular expression types and access to tileset feature properties in the form of readonly variables.
 
-> **Implementation Note:** Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions.
+> **Implementation Note:** Cesium uses the [jsep](http://jsep.from.so/) JavaScript expression parser library to parse style expressions into an [abstract syntax tree (AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
 
 ### Semantics
 

@@ -1,5 +1,16 @@
 # Batch Table
 
+## Contents
+
+* [Overview](#overview)
+* [Layout](#layout)
+   * [Padding](#padding)
+   * [JSON header](#json-header)
+      * [Property reference](#property-reference)
+   * [Binary body](#binary-body)
+* [Extensions](#extensions)
+* [Implementation example](#implementation-example)
+
 ## Overview
 
 A _Batch Table_ contains per-feature application-specific metadata in a tile. These properties may be queried at runtime for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, geographic coordinates, and database primary keys.
