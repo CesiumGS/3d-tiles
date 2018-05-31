@@ -33,6 +33,8 @@ See the full roadmap issue for plans post version 1.0 [[#309](https://github.com
 * **Tools**
    * [3d-tiles-tools](https://github.com/AnalyticalGraphicsInc/3d-tiles-tools) - upcoming tools for debugging, analyzing, and validating 3D Tiles tilesets.
 * **Selected Talks**
+   * _Data Fusion with 3D Tiles_ ([pdf](https://cesium.com/presentations/files/foss4g2018_data_fusion_3dtiles.pdf)) at FOSS4G 2018.
+   * _CityGML, 3D Tiles and Cesium: A Data Fusion Symphony_ ([pdf](https://cesium.com/presentations/files/foss4g2018_citygml_3dtiles_cesium.pdf)) at FOOS4G 2018.
    * _3D Tiles in Action_ ([pdf](https://cesium.com/presentations/files/3DTilesInAction.pdf)) at FOSS4G 2017.
    * _Point Clouds with 3D Tiles_ ([pdf](https://cesium.com/presentations/files/PointCloudsWith3DTiles.pdf)) at the OGC Technical Committee Meeting (June 2017).
    * _The Open Cesium 3D Tiles Specification: Bringing Massive Geospatial 3D Scenes to the Web_ ([pptx](https://cesium.com/presentations/files/Web3D-2016-3DTilesTutorial.pptx), [example tilesets](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples)) at Web3D 2016.  90-minute technical tutorial.
