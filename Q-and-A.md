@@ -3,7 +3,6 @@
 ## Contents 
 
 * [General Q&A](#general-qa)
-   * [Can I use 3D Tiles today?](#can-i-use-3d-tiles-today)
    * [Is 3D Tiles specific to Cesium?](#is-3d-tiles-specific-to-cesium)
    * [What is the relationship between 3D Tiles and glTF?](#what-is-the-relationship-between-3d-tiles-and-gltf)
    * [Do 3D Tiles support runtime editing?](#does-3d-tiles-support-runtime-editing)
@@ -14,7 +13,6 @@
    * [How does 3D Tiles support heterogeneous datasets?](#how-does-3d-tiles-support-heterogeneous-datasets)
    * [Will a tileset file be part of the final 3D Tiles spec?](#will-a-tileset-file-be-part-of-the-final-3d-tiles-spec)
    * [How do I request the tiles for Level `n`?](#how-do-i-request-the-tiles-for-level-n)
-   * [Will 3D Tiles support horizon culling?](#will-3d-tiles-support-horizon-culling)
    * [Is screen-space error the only metric used to drive refinement?](#is-screen-space-error-the-only-metric-used-to-drive-refinement)
    * [How are cracks between tiles with vector data handled?](#how-are-cracks-between-tiles-with-vector-data-handled)
    * [When using replacement refinement, can multiple children be combined into one request?](#when-using-replacement-refinement-can-multiple-children-be-combined-into-one-request)
@@ -22,10 +20,6 @@
    * [What compressed texture formats does 3D Tiles use?](#what-compressed-texture-formats-does-3d-tiles-use)
 
 ### General Q&A
-
-#### Can I use 3D Tiles today?
-
-We expect the initial 3D Tiles spec to evolve until fall 2016.  If you are OK with things changing, then yes, jump in.
 
 #### Is 3D Tiles specific to Cesium?
 
@@ -35,7 +29,7 @@ No, 3D Tiles is a general spec for streaming massive heterogeneous 3D geospatial
 
 [glTF](https://www.khronos.org/gltf) is an open standard for 3D models from Khronos (the same group that does WebGL and COLLADA).  Cesium uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter.  We recommend using glTF in Cesium for individual assets, e.g., an aircraft, a character, or a 3D building.
 
-We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, that Cesium has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles use glTF for some tile formats such as [b3dm](./specification/TileFormats/Batched3DModel/README.md) (used for 3D buildings).
+We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, that Cesium has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles use glTF for some tile formats such as [Batched 3D Model](./specification/TileFormats/Batched3DModel/README.md).
 
 Taking this approach allows us to improve Cesium, glTF, and 3D Tiles at the same time, e.g., when we add mesh compression to glTF, it benefits 3D models in Cesium, the glTF ecosystem, and 3D Tiles.
 
@@ -81,17 +75,13 @@ Yes.  There will always be a need to know metadata about the tileset and about t
 
 There's a few other ways we may solve this:
 * Moving subtree metadata to the tile payload instead of the tileset file.  Each tile would have a header with, for example, the bounding volumes of each child, and perhaps grandchildren, and so on.
-* Explicit tile layout like those of traditional tiling schemes (e.g., TMS's `z/y/x`).  The challenge is that this implicitly assumes a spatial subdivision, whereas 3D Tiles is general enough to support quadtrees, octrees, k-d trees, and so on.  There is likely to be a balance where two or three explicit tiling schemes can cover common cases to complement the generic spatial data structures. 
+* Implicit tile layout like those of traditional tiling schemes (e.g., TMS's `z/y/x`).  The challenge is that this implicitly assumes a spatial subdivision, whereas 3D Tiles is general enough to support quadtrees, octrees, k-d trees, and so on.  There is likely to be a balance where two or three implicit tiling schemes can cover common cases to complement the generic spatial data structures.
 
 #### How do I request the tiles for Level `n`?
 
-More generally, how do 3D Tiles support the use case for when the viewer is zoomed in very close to terrain, for example, and we do not want to load all the parent tiles toward the root of the tree; instead, we want to skip right to the high-resolution tiles needed for the current 3D view?
+More generally, how does 3D Tiles support the use case for when the viewer is zoomed in very close to terrain, for example, and we do not want to load all the parent tiles toward the root of the tree; instead, we want to skip right to the high-resolution tiles needed for the current 3D view?
 
-This 3D Tiles topic needs additional research, but the answer is basically the same as above: either the skeleton of the tree can be quickly traversed to find the desired tiles or an explicit layout scheme will be used for specific subdivisions.
-
-#### Will 3D Tiles support horizon culling?
-
-Since [horizon culling](https://cesium.com/blog/2013/04/25/horizon-culling/) is useful for terrain, 3D Tiles will likely support the metadata needed for it.  We haven't considered it yet since our initial work with 3D Tiles is for 3D buildings where horizon culling is not effective.
+This 3D Tiles topic needs additional research, but the answer is basically the same as above: either the skeleton of the tree can be quickly traversed to find the desired tiles (see [Skipping Levels of Detail](https://cesium.com/blog/2017/05/05/skipping-levels-of-detail/)) or an implicit layout scheme will be used for specific subdivisions.
 
 #### Is screen space error the only metric used to drive refinement?
 
