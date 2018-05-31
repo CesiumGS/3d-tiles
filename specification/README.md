@@ -718,10 +718,10 @@ A tileset can contain any combination of tile formats.  3D Tiles may also suppor
 
 Styles define how a featured is displayed, for example `show` and `color` (RGB and translucency), using an expression based on a feature's properties.
 
-The following example colors features with a temperature above 90 as red and the others as white.
+The following example colors features with a height above 90 as red and the others as white.
 ```json
 {
-    "color" : "(${Temperature} > 90) ? color('red') : color('white')"
+    "color" : "(${Height} > 90) ? color('red') : color('white')"
 }
 ```
 
