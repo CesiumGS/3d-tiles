@@ -7,7 +7,7 @@
     "properties" : {
         "version" : {
             "type" : "string",
-            "description" : "The 3D Tiles version.  The version defines the JSON schema for tileset.json and the base set of tile formats."
+            "description" : "The 3D Tiles version.  The version defines the JSON schema for the tileset JSON and the base set of tile formats."
         },
         "tilesetVersion" : {
             "type" : "string",

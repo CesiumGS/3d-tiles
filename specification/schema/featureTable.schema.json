@@ -101,6 +101,5 @@
         "extras" : {
             "$ref": "extras.schema.json"
         }
-    },
-    "additionalProperties" : false
+    }
 }

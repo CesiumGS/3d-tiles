@@ -699,7 +699,7 @@ The `extras` property allows application specific metadata to be added to any 3D
 }
 ```
 
-See [Property reference](#property-reference) for the tileset JSON schema reference. The full JSON schema can be found in [`tileset.schema.json`](.schema/tileset.schema.json).
+See [Property reference](#property-reference) for the tileset JSON schema reference. The full JSON schema can be found in [`tileset.schema.json`](./schema/tileset.schema.json).
 
 ## Tile format specifications
 

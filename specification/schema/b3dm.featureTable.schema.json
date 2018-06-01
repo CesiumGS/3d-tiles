@@ -9,13 +9,13 @@
     }, {
         "properties" : {
             "BATCH_LENGTH" : {
-                "description": "A `GlobalPropertyScalar` object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "description": "A `GlobalPropertyScalar` object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).",
                 "allOf" : [{
                     "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
                 }]
             },
             "RTC_CENTER" : {
-                "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).",
                 "allOf" : [{
                     "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
                 }]

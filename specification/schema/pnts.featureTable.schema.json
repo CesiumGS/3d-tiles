@@ -113,7 +113,6 @@
                 "BATCH_LENGTH"
             ]
         },
-        "required" : ["POINTS_LENGTH"],
-        "additionalProperties": false
+        "required" : ["POINTS_LENGTH"]
     }]
 }

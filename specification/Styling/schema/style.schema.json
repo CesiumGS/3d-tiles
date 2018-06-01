@@ -28,7 +28,7 @@
                 "$ref" : "style.conditions.schema.json"
             }],
             "description" : "A `color expression` or `conditions` property which determines the color blended with the feature's intrinsic color.",
-            "default" : "Color('#FFFFFF')"
+            "default" : "color('#FFFFFF')"
         },
         "meta" : {
             "allOf": [ { "$ref" : "style.meta.schema.json" } ],

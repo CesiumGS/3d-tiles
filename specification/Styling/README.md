@@ -1346,7 +1346,7 @@ An [`expression`](#reference-expression) to be evaluated for the value of that p
 <a name="reference-expression"></a>
 #### expression
 
-A valid 3D Tiles style expression. See [Expressions](specification/Styling/README.md#expressions).
+A valid 3D Tiles style expression. See [Expressions](/specification/Styling/README.md#expressions).
 
 
 

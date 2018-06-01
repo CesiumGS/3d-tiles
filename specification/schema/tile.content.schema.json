@@ -11,7 +11,7 @@
         },
         "uri" : {
             "type" : "string",
-            "description" : "A uri that points to the tile's content. When the uri is relative, it is relative to the referring tileset.json."
+            "description" : "A uri that points to the tile's content. When the uri is relative, it is relative to the referring tileset JSON file."
         },
         "extensions" : {
             "$ref": "extension.schema.json"
