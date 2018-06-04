@@ -29,7 +29,9 @@ Acknowledgements:
 * Christopher Mitchell, Ph.D., [@KermMartian](https://github.com/KermMartian)
 * Claus Nagel
 * Jean-Philippe Pons
+* Carl Reed
 * Kevin Ring, [www.kotachrome.com/kevin](http://www.kotachrome.com/kevin/)
+* Scott Simmons
 * Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
 * Stan Tillman
 * Piero Toffanin, [@pierotofy](https://github.com/pierotofy)
