@@ -65,8 +65,8 @@ Acknowledgements:
     * [Geometric error](#geometric-error)
     * [Bounding volume spatial coherence](#bounding-volume-spatial-coherence)
     * [Spatial data structures](#spatial-data-structures)
-        * [K-d trees](#k-d-trees)
         * [Quadtrees](#quadtrees)
+        * [K-d trees](#k-d-trees)
         * [Octrees](#octrees)
         * [Grids](#grids)
   * [Specifying extensions and application specific extras](#specifying-extensions-and-application-specific-extras)
@@ -550,22 +550,15 @@ As described above, the tree has spatial coherence; each tile has a bounding vol
 
 #### Spatial data structures
 
-The tree defined in a tileset by `root` and, recursively, its `children`, can define different types of spatial data structures.  In addition, any combination of tile formats and refinement approach (replacement or additive) can be used, enabling a lot of flexibility to support heterogeneous datasets, see [Refinement](#refinement).
+3D Tiles incorporate the concept of Hierarchical Level of Detail (HLoD) for optimal rendering of spatial data. A tileset is composed of a tree, defined by `root` and, recursively, its `children` tiles, which can be organized by different types of spatial data structures.  
 
-It is up to the conversion tool that generates the tileset to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by the tileset.  Here's a brief description of how 3D Tiles can represent various spatial data structures.
+A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (TMS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, another spatial data structure may be a more optimal use case. 
 
-##### K-d trees
+A data structure well-suited to the dataset will result in better tileset performance.  It is up to the conversion tool that generates the tileset to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by the tileset.  
 
-A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the _x_, _y_, or _z_ axis (or latitude, longitude, height).  The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
+Additionally, any combination of tile formats and refinement approach (replacement or additive) can be used, enabling a lot of flexibility to support heterogeneous datasets, see [Refinement](#refinement).
 
-<p align="center">
-  <img src="figures/kdtree.png" /><br />
-  Example k-d tree.  Note the non-uniform subdivision.
-</p>
-
-Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree for sparse and non-uniformly distributed datasets.
-
-3D Tiles enables variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leaf of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
+Included below is a brief description of how 3D Tiles can represent various spatial data structures.
 
 ##### Quadtrees
 
@@ -597,6 +590,19 @@ For example, here is the root tile and its children for Canary Wharf.  Note the 
 Below, the green buildings are in the left child and the purple buildings are in the right child.  Note that the tiles overlap so the two green and one purple building in the center are not split.
 
 ![](figures/looseQuadtree.png)
+
+##### K-d trees
+
+A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the _x_, _y_, or _z_ axis (or latitude, longitude, height).  The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
+
+<p align="center">
+  <img src="figures/kdtree.png" /><br />
+  Example k-d tree.  Note the non-uniform subdivision.
+</p>
+
+Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree for sparse and non-uniformly distributed datasets.
+
+3D Tiles enables variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leaf of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
 
 ##### Octrees
 
@@ -1113,5 +1119,7 @@ Application-specific data.
 Copyright 2016 - 2018 Cesium
 
 This Specification is licensed under a [Creative Commons Attribution 4.0 International License (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/).
+
+The companies listed above have granted the Open Geospatial Consortium (OGC) a nonexclusive, royalty-free, paid up, worldwide license to copy and distribute this document and to modify this document and distribute copies of the modified version under a Attribution 4.0 International (CC BY 4.0) license.
 
 Some parts of this Specification are purely informative and do not define requirements necessary for compliance and so are outside the Scope of this Specification. These parts of the Specification are marked as being non-normative, or identified as **Implementation Notes**.
