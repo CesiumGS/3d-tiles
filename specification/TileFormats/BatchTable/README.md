@@ -166,13 +166,13 @@ Code for reading the Batch Table can be found in [`Cesium3DTileBatchTable.js`](h
 ## Property reference
 
 * [`Batch Table`](#reference-batch-table)
-  * [`BinaryBodyReference`](#reference-binarybodyreference)
-  * [`Property`](#reference-property)
+* [`BinaryBodyReference`](#reference-binarybodyreference)
+* [`Property`](#reference-property)
 
 
 ---------------------------------------
 <a name="reference-batch-table"></a>
-##### Batch Table
+### Batch Table
 
 A set of properties defining application-specific metadata for features in a tile.
 
@@ -185,9 +185,8 @@ A set of properties defining application-specific metadata for features in a til
 
 Additional properties are allowed.
 
-* **JSON schema**: [batchTable.schema.json](../../schema/batchTable.schema.json)
-
-###### BatchTable.extensions
+* **Type of each property**: [`Property`](#reference-property)
+#### BatchTable.extensions
 
 Dictionary object with extension-specific objects.
 
@@ -195,7 +194,7 @@ Dictionary object with extension-specific objects.
 * **Required**: No
 * **Type of each property**: Extension
 
-###### BatchTable.extras
+#### BatchTable.extras
 
 Application-specific data.
 
@@ -207,7 +206,7 @@ Application-specific data.
 
 ---------------------------------------
 <a name="reference-binarybodyreference"></a>
-##### BinaryBodyReference
+### BinaryBodyReference
 
 An object defining the reference to a section of the binary body of the batch table where the property values are stored if not defined directly in the JSON.
 
@@ -221,9 +220,7 @@ An object defining the reference to a section of the binary body of the batch ta
 
 Additional properties are allowed.
 
-* **JSON schema**: [#/definitions/binaryBodyReference](../../schema/#/definitions/binaryBodyReference)
-
-###### BinaryBodyReference.byteOffset :white_check_mark: 
+#### BinaryBodyReference.byteOffset :white_check_mark: 
 
 The offset into the buffer in bytes.
 
@@ -231,7 +228,7 @@ The offset into the buffer in bytes.
 * **Required**: Yes
 * **Minimum**: ` >= 0`
 
-###### BinaryBodyReference.componentType :white_check_mark: 
+#### BinaryBodyReference.componentType :white_check_mark: 
 
 The datatype of components in the property.
 
@@ -247,7 +244,7 @@ The datatype of components in the property.
    * `"FLOAT"`
    * `"DOUBLE"`
 
-###### BinaryBodyReference.type :white_check_mark: 
+#### BinaryBodyReference.type :white_check_mark: 
 
 Specifies if the property is a scalar or vector.
 
@@ -264,7 +261,9 @@ Specifies if the property is a scalar or vector.
 
 ---------------------------------------
 <a name="reference-property"></a>
-##### Property
+### Property
 
-A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as a numeric array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
+A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
+
+* **JSON schema**: [`batchTable.schema.json`](../../schema/batchTable.schema.json)
 
