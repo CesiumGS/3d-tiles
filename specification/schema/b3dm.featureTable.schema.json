@@ -27,7 +27,6 @@
                 "$ref": "extras.schema.json"
             }
         },
-        "required" : ["BATCH_LENGTH"],
-        "additionalProperties" : false
+        "required" : ["BATCH_LENGTH"]
     }]
 }

@@ -24,6 +24,22 @@
                 "type" : "number"
             }
         },
+        "property" : {
+            "title" : "Property",
+            "description" : "A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a `BinaryBodyReference` object.",
+            "oneOf" : [
+                { 
+                    "$ref" : "#/definitions/binaryBodyReference" 
+                }, { 
+                    "type" : "array",
+                    "items" : {
+                        "type" : "number"
+                    } 
+                }, {
+                    "type" : "number"
+                }
+            ]
+        },
         "globalPropertyScalar" : {
             "title": "GlobalPropertyScalar",
             "description": "An object defining a global numeric property values for all features.",
@@ -101,5 +117,8 @@
         "extras" : {
             "$ref": "extras.schema.json"
         }
+    },
+    "additionalProperties" : {
+        "$ref" : "#/definitions/property"
     }
 }

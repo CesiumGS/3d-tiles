@@ -270,15 +270,15 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 ## Property reference
 
 * [`Instanced 3D Model Feature Table`](#reference-instanced-3d-model-feature-table)
-  * [`BinaryBodyReference`](#reference-binarybodyreference)
-  * [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3)
-  * [`GlobalPropertyScalar`](#reference-globalpropertyscalar)
-
+    * [`BinaryBodyReference`](#reference-binarybodyreference)
+    * [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3)
+    * [`GlobalPropertyScalar`](#reference-globalpropertyscalar)
+    * [`Property`](#reference-property)
 
 
 ---------------------------------------
 <a name="reference-instanced-3d-model-feature-table"></a>
-#### Instanced 3D Model Feature Table
+### Instanced 3D Model Feature Table
 
 A set of Instanced 3D Model semantics that contains values defining the position and appearance properties for instanced models in a tile.
 
@@ -288,24 +288,23 @@ A set of Instanced 3D Model semantics that contains values defining the position
 |---|----|-----------|--------|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
-|**POSITION**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-|**POSITION_QUANTIZED**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-|**NORMAL_UP**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-|**NORMAL_RIGHT**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-|**NORMAL_UP_OCT32P**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-|**NORMAL_RIGHT_OCT32P**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-|**SCALE**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-|**SCALE_NON_UNIFORM**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-|**BATCH_ID**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-|**INSTANCES_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).| :white_check_mark: Yes|
-|**QUANTIZED_VOLUME_OFFSET**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-|**QUANTIZED_VOLUME_SCALE**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
+|**POSITION**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**POSITION_QUANTIZED**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**NORMAL_UP**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**NORMAL_RIGHT**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**NORMAL_UP_OCT32P**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**NORMAL_RIGHT_OCT32P**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**SCALE**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**SCALE_NON_UNIFORM**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**BATCH_ID**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**INSTANCES_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).| :white_check_mark: Yes|
+|**QUANTIZED_VOLUME_OFFSET**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**QUANTIZED_VOLUME_SCALE**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
 
-Additional properties are not allowed.
+Additional properties are allowed.
 
-* **JSON schema**: [i3dm.featureTable.schema.json](../../schema/i3dm.featureTable.schema.json)
-
-##### Instanced3DModelFeatureTable.extensions
+* **Type of each property**: [`Property`](#reference-property)
+#### Instanced3DModelFeatureTable.extensions
 
 Dictionary object with extension-specific objects.
 
@@ -313,93 +312,93 @@ Dictionary object with extension-specific objects.
 * **Required**: No
 * **Type of each property**: Extension
 
-##### Instanced3DModelFeatureTable.extras
+#### Instanced3DModelFeatureTable.extras
 
 Application-specific data.
 
 * **Type**: `any`
 * **Required**: No
 
-##### Instanced3DModelFeatureTable.POSITION
+#### Instanced3DModelFeatureTable.POSITION
 
-A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
-
-* **Type**: `object`
-* **Required**: No
-
-##### Instanced3DModelFeatureTable.POSITION_QUANTIZED
-
-A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
 
 * **Type**: `object`
 * **Required**: No
 
-##### Instanced3DModelFeatureTable.NORMAL_UP
+#### Instanced3DModelFeatureTable.POSITION_QUANTIZED
 
-A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
-
-* **Type**: `object`
-* **Required**: No
-
-##### Instanced3DModelFeatureTable.NORMAL_RIGHT
-
-A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
 
 * **Type**: `object`
 * **Required**: No
 
-##### Instanced3DModelFeatureTable.NORMAL_UP_OCT32P
+#### Instanced3DModelFeatureTable.NORMAL_UP
 
-A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
-
-* **Type**: `object`
-* **Required**: No
-
-##### Instanced3DModelFeatureTable.NORMAL_RIGHT_OCT32P
-
-A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
 
 * **Type**: `object`
 * **Required**: No
 
-##### Instanced3DModelFeatureTable.SCALE
+#### Instanced3DModelFeatureTable.NORMAL_RIGHT
 
-A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
-
-* **Type**: `object`
-* **Required**: No
-
-##### Instanced3DModelFeatureTable.SCALE_NON_UNIFORM
-
-A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
 
 * **Type**: `object`
 * **Required**: No
 
-##### Instanced3DModelFeatureTable.BATCH_ID
+#### Instanced3DModelFeatureTable.NORMAL_UP_OCT32P
 
-A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
 
 * **Type**: `object`
 * **Required**: No
 
-##### Instanced3DModelFeatureTable.INSTANCES_LENGTH :white_check_mark: 
+#### Instanced3DModelFeatureTable.NORMAL_RIGHT_OCT32P
 
-A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.SCALE
+
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.SCALE_NON_UNIFORM
+
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.BATCH_ID
+
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.INSTANCES_LENGTH :white_check_mark: 
+
+A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
 
 * **Type**: `object`, `number` `[1]`, `number`
 * **Required**: Yes
 
-##### Instanced3DModelFeatureTable.QUANTIZED_VOLUME_OFFSET
+#### Instanced3DModelFeatureTable.QUANTIZED_VOLUME_OFFSET
 
-A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
 
 * **Type**: `object`, `number` `[3]`
 * **Required**: No
 
-##### Instanced3DModelFeatureTable.QUANTIZED_VOLUME_SCALE
+#### Instanced3DModelFeatureTable.QUANTIZED_VOLUME_SCALE
 
-A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
 
 * **Type**: `object`, `number` `[3]`
 * **Required**: No
@@ -407,7 +406,7 @@ A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defin
 
 ---------------------------------------
 <a name="reference-binarybodyreference"></a>
-#### BinaryBodyReference
+### BinaryBodyReference
 
 An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
 
@@ -419,9 +418,7 @@ An object defining the reference to a section of the binary body of the features
 
 Additional properties are allowed.
 
-* **JSON schema**: [featureTable.schema.json#/definitions/binaryBodyReference](../../schema/featureTable.schema.json#/definitions/binaryBodyReference)
-
-##### BinaryBodyReference.byteOffset :white_check_mark: 
+#### BinaryBodyReference.byteOffset :white_check_mark: 
 
 The offset into the buffer in bytes.
 
@@ -430,22 +427,30 @@ The offset into the buffer in bytes.
 * **Minimum**: ` >= 0`
 
 
-
-
-
-
 ---------------------------------------
 <a name="reference-globalpropertycartesian3"></a>
-#### GlobalPropertyCartesian3
+### GlobalPropertyCartesian3
 
 An object defining a global 3-component numeric property values for all features.
+
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 
 
 
 ---------------------------------------
 <a name="reference-globalpropertyscalar"></a>
-#### GlobalPropertyScalar
+### GlobalPropertyScalar
 
 An object defining a global numeric property values for all features.
 
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+
+
+---------------------------------------
+<a name="reference-property"></a>
+### Property
+
+A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
+
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 

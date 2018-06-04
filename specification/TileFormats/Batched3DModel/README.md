@@ -158,13 +158,15 @@ in the Cesium implementation of 3D Tiles.
 ### Property reference
 
 * [`Batched 3D Model Feature Table`](#reference-batched-3d-model-feature-table)
-  * [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3)
-  * [`GlobalPropertyScalar`](#reference-globalpropertyscalar)
+    * [`BinaryBodyReference`](#reference-binarybodyreference)
+    * [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3)
+    * [`GlobalPropertyScalar`](#reference-globalpropertyscalar)
+    * [`Property`](#reference-property)
 
 
 ---------------------------------------
 <a name="reference-batched-3d-model-feature-table"></a>
-#### Batched 3D Model Feature Table
+### Batched 3D Model Feature Table
 
 A set of Batched 3D Model semantics that contain additional information about features in a tile.
 
@@ -174,14 +176,13 @@ A set of Batched 3D Model semantics that contain additional information about fe
 |---|----|-----------|--------|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
-|**BATCH_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).| :white_check_mark: Yes|
-|**RTC_CENTER**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
+|**BATCH_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).| :white_check_mark: Yes|
+|**RTC_CENTER**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).|No|
 
-Additional properties are not allowed.
+Additional properties are allowed.
 
-* **JSON schema**: [b3dm.featureTable.schema.json](../../schema/b3dm.featureTable.schema.json)
-
-##### Batched3DModelFeatureTable.extensions
+* **Type of each property**: [`Property`](#reference-property)
+#### Batched3DModelFeatureTable.extensions
 
 Dictionary object with extension-specific objects.
 
@@ -189,23 +190,23 @@ Dictionary object with extension-specific objects.
 * **Required**: No
 * **Type of each property**: Extension
 
-##### Batched3DModelFeatureTable.extras
+#### Batched3DModelFeatureTable.extras
 
 Application-specific data.
 
 * **Type**: `any`
 * **Required**: No
 
-##### Batched3DModelFeatureTable.BATCH_LENGTH :white_check_mark: 
+#### Batched3DModelFeatureTable.BATCH_LENGTH :white_check_mark: 
 
-A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).
 
 * **Type**: `object`, `number` `[1]`, `number`
 * **Required**: Yes
 
-##### Batched3DModelFeatureTable.RTC_CENTER
+#### Batched3DModelFeatureTable.RTC_CENTER
 
-A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).
 
 * **Type**: `object`, `number` `[3]`
 * **Required**: No
@@ -213,20 +214,55 @@ A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defin
 
 
 
+---------------------------------------
+<a name="reference-binarybodyreference"></a>
+### BinaryBodyReference
+
+An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**byteOffset**|`number`|The offset into the buffer in bytes.| :white_check_mark: Yes|
+
+Additional properties are allowed.
+
+#### BinaryBodyReference.byteOffset :white_check_mark: 
+
+The offset into the buffer in bytes.
+
+* **Type**: `number`
+* **Required**: Yes
+* **Minimum**: ` >= 0`
+
 
 
 ---------------------------------------
 <a name="reference-globalpropertycartesian3"></a>
-#### GlobalPropertyCartesian3
+### GlobalPropertyCartesian3
 
 An object defining a global 3-component numeric property values for all features.
+
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 
 
 
 ---------------------------------------
 <a name="reference-globalpropertyscalar"></a>
-#### GlobalPropertyScalar
+### GlobalPropertyScalar
 
 An object defining a global numeric property values for all features.
 
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+
+
+
+---------------------------------------
+<a name="reference-property"></a>
+### Property
+
+A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
+
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 

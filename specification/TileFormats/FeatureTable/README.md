@@ -74,8 +74,14 @@ Code for reading the Feature Table can be found in [`Cesium3DTileFeatureTable.js
 
 ## Property reference
 
+* [`Feature Table`](#reference-feature-table)
+    * [`BinaryBodyReference`](#reference-binarybodyreference)
+    * [`Property`](#reference-property)
+
+
+---------------------------------------
 <a name="reference-feature-table"></a>
-##### Feature Table
+### Feature Table
 
 A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.
 
@@ -86,11 +92,10 @@ A set of semantics containing per-tile and per-feature values defining the posit
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
 
-Additional properties are not allowed.
+Additional properties are allowed.
 
-* **JSON schema**: [featureTable.schema.json](../../schema/featureTable.schema.json)
-
-###### FeatureTable.extensions
+* **Type of each property**: [`Property`](#reference-property)
+#### FeatureTable.extensions
 
 Dictionary object with extension-specific objects.
 
@@ -98,9 +103,43 @@ Dictionary object with extension-specific objects.
 * **Required**: No
 * **Type of each property**: Extension
 
-###### FeatureTable.extras
+#### FeatureTable.extras
 
 Application-specific data.
 
 * **Type**: `any`
 * **Required**: No
+
+
+
+---------------------------------------
+<a name="reference-binarybodyreference"></a>
+### BinaryBodyReference
+
+An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**byteOffset**|`number`|The offset into the buffer in bytes.| :white_check_mark: Yes|
+
+Additional properties are allowed.
+
+#### BinaryBodyReference.byteOffset :white_check_mark: 
+
+The offset into the buffer in bytes.
+
+* **Type**: `number`
+* **Required**: Yes
+* **Minimum**: ` >= 0`
+
+
+
+---------------------------------------
+<a name="reference-property"></a>
+### Property
+
+A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
+
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
