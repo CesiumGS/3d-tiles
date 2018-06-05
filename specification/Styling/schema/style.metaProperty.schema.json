@@ -1,9 +1,0 @@
-{
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "id" : "style.metaProperty.schema.json",
-    "title" : "metaProperty",
-    "allOf" : [{
-        "$ref" : "style.expression.schema.json"
-    }],
-    "description" : "The `expression` to be evaluated for the value of that property."
-}

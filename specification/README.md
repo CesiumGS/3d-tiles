@@ -1,6 +1,6 @@
 # 3D Tiles Format Specification
 
-**Version 1.0**, May 31, 2018
+**Version 1.0**, June 4th, 2018
 
 <p align="center"><img src="../figures/Cesium3DTiles.png" /></p>
 

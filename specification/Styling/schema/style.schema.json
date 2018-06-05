@@ -8,9 +8,9 @@
         "defines" : {
             "type" : "object",
             "additionalProperties" : {
-                "$ref" : "style.definesProperty.schema.json"
+                "$ref" : "style.expression.schema.json"
             },
-            "description" : "A dictionary object of defined `expression` strings mapped to a variable name that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the result of the corresponding evaluated expression."
+            "description" : "A dictionary object of `expression` strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression."
         },
         "show" : {
             "oneOf" : [{

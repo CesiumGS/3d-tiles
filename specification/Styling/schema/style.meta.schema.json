@@ -3,8 +3,8 @@
     "id" : "style.meta.schema.json",
     "title" : "meta",
     "type" : "object",
-    "description" : "A series of property names and the `meta property` expression to evaluate for the value of each property.",
+    "description" : "A series of property names and the `expression` to evaluate for the value of that property.",
     "additionalProperties" : {
-        "$ref" : "style.metaProperty.schema.json"
+        "$ref" : "style.expression.schema.json"
     }
 }
