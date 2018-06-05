@@ -85,7 +85,7 @@ Each tile has a bounding volume completely enclosing its content.  The tree has 
 
 ![](figures/tree.png)
 
-To support tight fitting volumes for a variety of datasets&mdash;from regularly divided terrain to cities not aligned with a line of latitude or longitude to arbitrary point clouds&mdash;the bounding volume may be an oriented bounding box, a bounding sphere, or a geographic region defined by minimum and maximum latitudes, longitudes, and heights.
+To support tight fitting volumes for a variety of datasets&mdash;from regularly divided terrain to cities not aligned with a line of latitude or longitude to arbitrary point clouds&mdash;the [bounding volume](#bounding-volumes) may be an oriented bounding box, a bounding sphere, or a geographic region defined by minimum and maximum latitudes, longitudes, and heights.
 
 | Bounding box | Bounding sphere | Bounding region |
 |:---:|:---:|:---:|
@@ -96,7 +96,7 @@ A tile references a _feature_ or set of _features_, such as 3D models representi
 
 A 3D tileset consists of at least one tileset JSON file specifying the metadata and the tree of tiles, as well as any referenced tile content files which may be any valid tile format, defined in JSON as described below. 
 
-Optionally, a _3D Tile Style_ may be applied to a tileset. 
+Optionally, a [_3D Tile Style_](./Styling/) may be applied to a tileset. 
 
 ## File extensions and MIME types
  
