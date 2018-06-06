@@ -1,6 +1,6 @@
 # 3D Tiles Format Specification
 
-**Version 1.0**, June 4th, 2018
+**Version 1.0**, June 6th, 2018
 
 <p align="center"><img src="../figures/Cesium3DTiles.png" /></p>
 
@@ -99,6 +99,8 @@ A 3D tileset consists of at least one tileset JSON file specifying the metadata 
 Optionally, a [_3D Tile Style_](./Styling/) may be applied to a tileset. 
 
 ## File extensions and MIME types
+
+3D Tiles uses the following file extensions and MIME types.
  
 * Tileset files use the `.json` extension and the `application/json` MIME type.
 * Tile content files use the file type and MIME format specific to their [tile format specification](#tile-format-specifications).
