@@ -31,9 +31,11 @@ The header will also contain `batchTableJSONByteLength` and `batchTableBinaryByt
 
 ### Padding
 
-The Batch Table binary body must start and end on an 8-byte alignment within the containing tile binary.
+The JSON header must end on an 8-byte boundary within the containing tile binary. The JSON header must be padded with trailing Space characters (`0x20`) to satisfy this requirement.
 
-The JSON header must be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the Batch Table binary (if present).
+The binary body must start and end on an 8-byte boundary within the containing tile binary. The binary body must be padded with additional bytes, of any value, to satisfy this requirement.
+
+Binary properties must start at a byte offset that is a multiple of the size of the property's `componentType`. Preceding binary properties must be padded with additional bytes, of any value, to satisfy this requirement.
 
 ### JSON header
 
