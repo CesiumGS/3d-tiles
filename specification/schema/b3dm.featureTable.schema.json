@@ -1,0 +1,32 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "b3dm.featureTable.schema.json",
+    "title" : "Batched 3D Model Feature Table",
+    "type" : "object",
+    "description" : "A set of Batched 3D Model semantics that contain additional information about features in a tile.",
+    "allOf" : [{
+        "$ref" : "featureTable.schema.json"
+    }, {
+        "properties" : {
+            "BATCH_LENGTH" : {
+                "description": "A `GlobalPropertyScalar` object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+                }]
+            },
+            "RTC_CENTER" : {
+                "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                }]
+            },
+            "extensions" : {
+                "$ref": "extension.schema.json"
+            },
+            "extras" : {
+                "$ref": "extras.schema.json"
+            }
+        },
+        "required" : ["BATCH_LENGTH"]
+    }]
+}

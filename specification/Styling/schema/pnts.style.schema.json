@@ -1,0 +1,23 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "pnts.style.schema.json",
+    "title" : "Point Cloud Style",
+    "type" : "object",
+    "description" : "A 3D Tiles style with additional properties for Point Clouds.",
+    "allOf" : [{
+        "$ref" : "style.schema.json"
+    }, {
+        "properties" : {
+            "pointSize": {
+                "oneOf": [{
+                    "$ref": "style.numberExpression.schema.json"
+                }, {
+                    "$ref": "style.conditions.schema.json"
+                }],
+                "description": "A `number expression` or `conditions` property which determines the size of the points in pixels.",
+                "default": 1.0
+            }
+        }
+    }],
+    "additionalProperties" : false
+}

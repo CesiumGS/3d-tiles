@@ -1,7 +1,0 @@
-{
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "id" : "style.expression.schema.json",
-    "title" : "expression",
-    "type" : "string",
-    "description" : "A valid 3D Tiles style expression."
-}

@@ -1,0 +1,25 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "tile.content.schema.json",
+    "title" : "Tile Content",
+    "type" : "object",
+    "description" : "Metadata about the tile's content and a link to the content.",
+    "properties" : {
+        "boundingVolume" : {
+            "description" : "An optional bounding volume that tightly encloses just the tile's content. tile.boundingVolume provides spatial coherence and tile.content.boundingVolume enables tight view frustum culling. When this is omitted, tile.boundingVolume is used.",
+            "$ref" : "boundingVolume.schema.json"
+        },
+        "uri" : {
+            "type" : "string",
+            "description" : "A uri that points to the tile's content. When the uri is relative, it is relative to the referring tileset JSON file."
+        },
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
+        }
+    },
+    "required" : ["uri"],
+    "additionalProperties" : false
+}
