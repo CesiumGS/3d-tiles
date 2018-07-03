@@ -9,7 +9,7 @@ This document describes the specification for 3D Tiles, an open standard for str
 
 Editors:
   * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com](mailto:pcozzi@agi.com)
-  * Sean Lilley, [@lilleyse](https://twitter.com/pjcozzi), [slilley@agi.com](mailto:slilley@agi.com)
+  * Sean Lilley, [@lilleyse](https://twitter.com/lilleyse), [slilley@agi.com](mailto:slilley@agi.com)
   * Gabby Getz, [@gabbygetz](https://twitter.com/gabbygetz), [ggetz@agi.com](mailto:ggetz@agi.com)
 
 Acknowledgements:
