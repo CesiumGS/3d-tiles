@@ -1,6 +1,6 @@
 # 3D Tiles Format Specification
 
-**Version 1.0**, May 11, 2018
+**Version 1.0**, June 6th, 2018
 
 <p align="center"><img src="../figures/Cesium3DTiles.png" /></p>
 
@@ -9,28 +9,34 @@ This document describes the specification for 3D Tiles, an open standard for str
 
 Editors:
   * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com](mailto:pcozzi@agi.com)
-  * Sean Lilley, [@lilleyse](https://twitter.com/pjcozzi), [slilley@agi.com](mailto:slilley@agi.com)
+  * Sean Lilley, [@lilleyse](https://twitter.com/lilleyse), [slilley@agi.com](mailto:slilley@agi.com)
   * Gabby Getz, [@gabbygetz](https://twitter.com/gabbygetz), [ggetz@agi.com](mailto:ggetz@agi.com)
 
 Acknowledgements:
+* Matt Amato, [@matt_amato](https://twitter.com/matt_amato)
 * Erik Andersson, [@e-andersson](https://github.com/e-andersson)
-* Ray Bentley, [TODO](TODO)
+* Dan Bagnell, [@bagnell](https://github.com/bagnell)
+* Ray Bentley
 * Jannes Bolling, [@jbo023](https://github.com/jbo023)
 * Dylan Brown, [@Dylan-Brown](http://www.github.com/Dylan-Brown)
 * Sarah Chow, [cesium.com/team/SarahChow](https://cesium.com/team/SarahChow/)
-* Paul Connelly, [TODO](TODO)
-* Volker Coors, [TODO](TODO)
+* Paul Connelly
+* Volker Coors
+* Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
 * Leesa Fini, [@LeesaFini](http://www.github.com/LeesaFini)
-* Ralf Gutbell, [TODO](TODO)
-* Frederic Houbie, [TODO](TODO)
+* Ralf Gutbell
+* Frederic Houbie
 * Christopher Mitchell, Ph.D., [@KermMartian](https://github.com/KermMartian)
-* Claus Nagel, [TODO](TODO)
-* Jean-Philippe Pons, [TODO](TODO)
+* Claus Nagel
+* Jean-Philippe Pons
+* Carl Reed
 * Kevin Ring, [www.kotachrome.com/kevin](http://www.kotachrome.com/kevin/)
-* Stan Tillman, [TODO](TODO)
+* Scott Simmons
+* Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
+* Stan Tillman
 * Piero Toffanin, [@pierotofy](https://github.com/pierotofy)
-* Pano Voudouris, [TODO](TODO)
-* Dave Wesloh, [TODO](TODO)
+* Pano Voudouris
+* Dave Wesloh
 
 ## Contents
 
@@ -59,24 +65,27 @@ Acknowledgements:
     * [Geometric error](#geometric-error)
     * [Bounding volume spatial coherence](#bounding-volume-spatial-coherence)
     * [Spatial data structures](#spatial-data-structures)
-        * [K-d trees](#k-d-trees)
         * [Quadtrees](#quadtrees)
+        * [K-d trees](#k-d-trees)
         * [Octrees](#octrees)
         * [Grids](#grids)
   * [Specifying extensions and application specific extras](#specifying-extensions-and-application-specific-extras)
 * [Tile format specifications](#tile-format-specifications)
 * [Declarative styling specification](#declarative-styling-specification)
 * [Property reference](#property-reference)
-* [Terms and definitions](#terms-and-definitions)
 * [License](#license)
 
 ## Introduction
 
-In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  Each tile has a bounding volume completely enclosing its content.  The tree has spatial coherence; the content for child tiles are completely inside the parent's bounding volume.  To allow flexibility, the tree can be any spatial data structure with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
+In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  The tree incorporates the concept of Hierarchical Level of Detail (HLoD) for optimal rendering of spatial data. 
+
+A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (WMTS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, the tree can be any [spatial data structure](#spatial-data-structures) with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
+
+Each tile has a bounding volume completely enclosing its content.  The tree has [spatial coherence](#bounding-volume-spatial-coherence); the content for child tiles are completely inside the parent's bounding volume. 
 
 ![](figures/tree.png)
 
-To support tight fitting volumes for a variety of datasets&mdash;from regularly divided terrain to cities not aligned with a line of latitude or longitude to arbitrary point clouds&mdash;the bounding volume may be an oriented bounding box, a bounding sphere, or a geographic region defined by minimum and maximum latitudes, longitudes, and heights.
+To support tight fitting volumes for a variety of datasets&mdash;from regularly divided terrain to cities not aligned with a line of latitude or longitude to arbitrary point clouds&mdash;the [bounding volume](#bounding-volumes) may be an oriented bounding box, a bounding sphere, or a geographic region defined by minimum and maximum latitudes, longitudes, and heights.
 
 | Bounding box | Bounding sphere | Bounding region |
 |:---:|:---:|:---:|
@@ -87,9 +96,11 @@ A tile references a _feature_ or set of _features_, such as 3D models representi
 
 A 3D tileset consists of at least one tileset JSON file specifying the metadata and the tree of tiles, as well as any referenced tile content files which may be any valid tile format, defined in JSON as described below. 
 
-Optionally, a _3D Tile Style_ may be applied to a tileset. 
+Optionally, a [_3D Tile Style_](./Styling/) may be applied to a tileset. 
 
 ## File extensions and MIME types
+
+3D Tiles uses the following file extensions and MIME types.
  
 * Tileset files use the `.json` extension and the `application/json` MIME type.
 * Tile content files use the file type and MIME format specific to their [tile format specification](#tile-format-specifications).
@@ -107,7 +118,7 @@ Explicit file extensions are optional. Valid implementations may ignore it and i
 
 ## URIs
 
-3D Tiles use URIs to reference tile content. These URIs may point to [relative external references (RFC3986)](https://tools.ietf.org/html/rfc3986#section-4.2) or be data URIs that embed resources in the JSON. Embedded resources use [the "data" URI scheme (RFC2397)](https://tools.ietf.org/html/rfc2397). 
+3D Tiles uses URIs to reference tile content. These URIs may point to [relative external references (RFC3986)](https://tools.ietf.org/html/rfc3986#section-4.2) or be data URIs that embed resources in the JSON. Embedded resources use [the "data" URI scheme (RFC2397)](https://tools.ietf.org/html/rfc2397). 
 
 When the URI is relative, its base is always relative to the referring tileset JSON file.
 
@@ -447,7 +458,7 @@ If a tile uses additive refinement, when refined it renders itself and its child
 
 ### Tileset JSON
 
-3D Tiles use one main tileset JSON file as the entry point to define a tileset. Both entry and external tileset JSON files are not required to follow a specific naming convention.
+3D Tiles uses one main tileset JSON file as the entry point to define a tileset. Both entry and external tileset JSON files are not required to follow a specific naming convention.
 
 Here is a subset of the tileset JSON used for [Canary Wharf](http://cesiumjs.org/CanaryWharf/) (also see the complete file, [`tileset.json`](examples/tileset.json)):
 ```json
@@ -545,22 +556,15 @@ As described above, the tree has spatial coherence; each tile has a bounding vol
 
 #### Spatial data structures
 
-The tree defined in a tileset by `root` and, recursively, its `children`, can define different types of spatial data structures.  In addition, any combination of tile formats and refinement approach (replacement or additive) can be used, enabling a lot of flexibility to support heterogeneous datasets, see [Refinement](#refinement).
+3D Tiles incorporates the concept of Hierarchical Level of Detail (HLoD) for optimal rendering of spatial data. A tileset is composed of a tree, defined by `root` and, recursively, its `children` tiles, which can be organized by different types of spatial data structures.
 
-It is up to the conversion tool that generates the tileset to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by the tileset.  Here's a brief description of how 3D Tiles can represent various spatial data structures.
+A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (WMTS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, other spatial data structures may be more optimal.
 
-##### K-d trees
+It is up to the conversion tool that generates the tileset to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by the tileset.
 
-A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the _x_, _y_, or _z_ axis (or latitude, longitude, height).  The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
+Additionally, any combination of tile formats and refinement approaches can be used, enabling flexibility in supporting heterogeneous datasets, see [Refinement](#refinement).
 
-<p align="center">
-  <img src="figures/kdtree.png" /><br />
-  Example k-d tree.  Note the non-uniform subdivision.
-</p>
-
-Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree for sparse and non-uniformly distributed datasets.
-
-3D Tiles enables variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leaf of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
+Included below is a brief description of how 3D Tiles can represent various spatial data structures.
 
 ##### Quadtrees
 
@@ -592,6 +596,19 @@ For example, here is the root tile and its children for Canary Wharf.  Note the 
 Below, the green buildings are in the left child and the purple buildings are in the right child.  Note that the tiles overlap so the two green and one purple building in the center are not split.
 
 ![](figures/looseQuadtree.png)
+
+##### K-d trees
+
+A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the _x_, _y_, or _z_ axis (or latitude, longitude, height).  The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
+
+<p align="center">
+  <img src="figures/kdtree.png" /><br />
+  Example k-d tree.  Note the non-uniform subdivision.
+</p>
+
+Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree for sparse and non-uniformly distributed datasets.
+
+3D Tiles enables variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leaf of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
 
 ##### Octrees
 
@@ -696,6 +713,8 @@ The `extras` property allows application specific metadata to be added to any 3D
 }
 ```
 
+See [Property reference](#property-reference) for the tileset JSON schema reference. The full JSON schema can be found in [`tileset.schema.json`](./schema/tileset.schema.json).
+
 ## Tile format specifications
 
 Each tile's `content.uri` property points to a tile that is one of the formats listed in the table below.
@@ -715,30 +734,31 @@ A tileset can contain any combination of tile formats.  3D Tiles may also suppor
 
 Styles define how a featured is displayed, for example `show` and `color` (RGB and translucency), using an expression based on a feature's properties.
 
-The following example colors features with a temperature above 90 as red and the others as white.
+The following example colors features with a height above 90 as red and the others as white.
 ```json
 {
-    "color" : "(${Temperature} > 90) ? color('red') : color('white')"
+    "color" : "(${Height} > 90) ? color('red') : color('white')"
 }
 ```
 
 For complete details, see the [Declarative Styling](./Styling/) specification.
 
 ## Property reference
-### Objects
+
 * [`Tileset`](#reference-tileset)
   * [`Asset`](#reference-asset)
-  * [`Properties`](#reference-properties)
-* [`Tile`](#reference-tile)
   * [`Bounding Volume`](#reference-bounding-volume)
-  * [`Tile Content`](#reference-tile-content)
-* [`Extension`](#reference-extension)
-* [`Extras`](#reference-extras)
+  * [`Extension`](#reference-extension)
+  * [`Extras`](#reference-extras)
+  * [`Properties`](#reference-properties)
+  * [`Tile`](#reference-tile)
+    * [`Content`](#reference-tile-content)
+
 
 
 ---------------------------------------
 <a name="reference-tileset"></a>
-#### Tileset
+### Tileset
 
 A 3D Tiles tileset.
 
@@ -746,34 +766,33 @@ A 3D Tiles tileset.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**asset**|`object`| Metadata about the entire tileset. | :white_check_mark: Yes|
-|**properties**|`object`|A dictionary object of metadata about per-feature properties.|No|
+|**asset**|`object`|Metadata about the entire tileset.|No|
+|**properties**|`any`|A dictionary object of metadata about per-feature properties.|No|
 |**geometricError**|`number`|The error, in meters, introduced if this tileset is not rendered. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.| :white_check_mark: Yes|
-|**root**|`object`|The root tile.| :white_check_mark: Yes|
+|**root**|`object`|A tile in a 3D Tiles tileset.|No|
 |**extensionsUsed**|`string` `[1-*]`|Names of 3D Tiles extensions used somewhere in this tileset.|No|
 |**extensionsRequired**|`string` `[1-*]`|Names of 3D Tiles extensions required to properly load this tileset.|No|
-|**extensions**|`object`| Dictionary object with extension-specific objects. |No|
-|**extras**|`any`| Application-specific data. |No|
+|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
+|**extras**|`any`|Application-specific data.|No|
 
 Additional properties are not allowed.
 
-* **JSON schema**: [tileset.schema.json](schema/tileset.schema.json)
-
-##### tileset.asset :white_check_mark: 
+#### Tileset.asset
 
 Metadata about the entire tileset.
 
 * **Type**: `object`
-* **Required**: Yes
+* **Required**: No
 
-##### tileset.properties
+#### Tileset.properties
 
 A dictionary object of metadata about per-feature properties.
 
-* **Type**: `object`
+* **Type**: `any`
 * **Required**: No
+* **Type of each property**: `object`
 
-##### tileset.geometricError :white_check_mark: 
+#### Tileset.geometricError :white_check_mark: 
 
 The error, in meters, introduced if this tileset is not rendered. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.
 
@@ -781,12 +800,14 @@ The error, in meters, introduced if this tileset is not rendered. At runtime, th
 * **Required**: Yes
 * **Minimum**: ` >= 0`
 
-##### tileset.root :white_check_mark: 
+#### Tileset.root
+
+A tile in a 3D Tiles tileset.
 
 * **Type**: `object`
-* **Required**: Yes
+* **Required**: No
 
-##### tileset.extensionsUsed
+#### Tileset.extensionsUsed
 
 Names of 3D Tiles extensions used somewhere in this tileset.
 
@@ -794,7 +815,7 @@ Names of 3D Tiles extensions used somewhere in this tileset.
    * Each element in the array must be unique.
 * **Required**: No
 
-##### tileset.extensionsRequired
+#### Tileset.extensionsRequired
 
 Names of 3D Tiles extensions required to properly load this tileset.
 
@@ -802,50 +823,7 @@ Names of 3D Tiles extensions required to properly load this tileset.
    * Each element in the array must be unique.
 * **Required**: No
 
-##### tileset.extensions
-
-* **Type**: `object`
-* **Required**: No
-
-##### tileset.extras
-
-* **Type**: `any`
-* **Required**: No
-
----------------------------------------
-<a name="reference-asset"></a>
-#### Asset
-
-Metadata about the entire tileset.
-
-**Properties**
-
-|   |Type|Description|Required|
-|---|----|-----------|--------|
-|**version**|`string`|The 3D Tiles version.  The version defines the JSON schema for tileset.json and the base set of tile formats.| :white_check_mark: Yes|
-|**tilesetVersion**|`string`|Application-specific version of this tileset, e.g., for when an existing tileset is updated.|No|
-|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
-|**extras**|`any`|Application-specific data.|No|
-
-Additional properties are not allowed.
-
-* **JSON schema**: [asset.schema.json](schema/asset.schema.json)
-
-##### asset.version :white_check_mark: 
-
-The 3D Tiles version.  The version defines the JSON schema for tileset.json and the base set of tile formats.
-
-* **Type**: `string`
-* **Required**: Yes
-
-##### asset.tilesetVersion
-
-Application-specific version of this tileset, e.g., for when an existing tileset is updated.
-
-* **Type**: `string`
-* **Required**: No
-
-##### asset.extensions
+#### Tileset.extensions
 
 Dictionary object with extension-specific objects.
 
@@ -853,16 +831,145 @@ Dictionary object with extension-specific objects.
 * **Required**: No
 * **Type of each property**: Extension
 
-##### asset.extras
+#### Tileset.extras
 
 Application-specific data.
 
 * **Type**: `any`
 * **Required**: No
 
+
+---------------------------------------
+<a name="reference-asset"></a>
+### Asset
+
+Metadata about the entire tileset.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**version**|`string`|The 3D Tiles version.  The version defines the JSON schema for the tileset JSON and the base set of tile formats.| :white_check_mark: Yes|
+|**tilesetVersion**|`string`|Application-specific version of this tileset, e.g., for when an existing tileset is updated.|No|
+|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
+|**extras**|`any`|Application-specific data.|No|
+
+Additional properties are not allowed.
+
+#### Asset.version :white_check_mark: 
+
+The 3D Tiles version.  The version defines the JSON schema for the tileset JSON and the base set of tile formats.
+
+* **Type**: `string`
+* **Required**: Yes
+
+#### Asset.tilesetVersion
+
+Application-specific version of this tileset, e.g., for when an existing tileset is updated.
+
+* **Type**: `string`
+* **Required**: No
+
+#### Asset.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: Extension
+
+#### Asset.extras
+
+Application-specific data.
+
+* **Type**: `any`
+* **Required**: No
+
+
+
+
+---------------------------------------
+<a name="reference-bounding-volume"></a>
+### Bounding Volume
+
+A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**box**|`number` `[12]`|An array of 12 numbers that define an oriented bounding box.  The first three elements define the x, y, and z values for the center of the box.  The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the y axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.|No|
+|**region**|`number` `[6]`|An array of six numbers that define a bounding geographic region in EPSG:4326 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.|No|
+|**sphere**|`number` `[4]`|An array of four numbers that define a bounding sphere.  The first three elements define the x, y, and z values for the center of the sphere.  The last element (with index 3) defines the radius in meters.|No|
+|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
+|**extras**|`any`|Application-specific data.|No|
+
+Additional properties are not allowed.
+
+#### BoundingVolume.box
+
+An array of 12 numbers that define an oriented bounding box.  The first three elements define the x, y, and z values for the center of the box.  The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the y axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.
+
+* **Type**: `number` `[12]`
+* **Required**: No
+
+#### BoundingVolume.region
+
+An array of six numbers that define a bounding geographic region in EPSG:4326 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
+
+* **Type**: `number` `[6]`
+* **Required**: No
+
+#### BoundingVolume.sphere
+
+An array of four numbers that define a bounding sphere.  The first three elements define the x, y, and z values for the center of the sphere.  The last element (with index 3) defines the radius in meters.
+
+* **Type**: `number` `[4]`
+* **Required**: No
+
+#### BoundingVolume.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: Extension
+
+#### BoundingVolume.extras
+
+Application-specific data.
+
+* **Type**: `any`
+* **Required**: No
+
+
+
+
+---------------------------------------
+<a name="reference-extension"></a>
+### Extension
+
+Dictionary object with extension-specific objects.
+
+Additional properties are allowed.
+
+* **Type of each property**: `object`
+
+
+
+---------------------------------------
+<a name="reference-extras"></a>
+### Extras
+
+Application-specific data.
+
+* **JSON schema**: [`extras.schema.json`](../../schema/extras.schema.json)
+
+
+
 ---------------------------------------
 <a name="reference-properties"></a>
-#### Properties
+### Properties
 
 A dictionary object of metadata about per-feature properties.
 
@@ -877,23 +984,21 @@ A dictionary object of metadata about per-feature properties.
 
 Additional properties are not allowed.
 
-* **JSON schema**: [properties.schema.json](schema/properties.schema.json)
-
-##### properties.maximum :white_check_mark: 
+#### Properties.maximum :white_check_mark: 
 
 The maximum value of this property of all the features in the tileset.
 
 * **Type**: `number`
 * **Required**: Yes
 
-##### properties.minimum :white_check_mark: 
+#### Properties.minimum :white_check_mark: 
 
 The minimum value of this property of all the features in the tileset.
 
 * **Type**: `number`
 * **Required**: Yes
 
-##### properties.extensions
+#### Properties.extensions
 
 Dictionary object with extension-specific objects.
 
@@ -901,7 +1006,7 @@ Dictionary object with extension-specific objects.
 * **Required**: No
 * **Type of each property**: Extension
 
-##### properties.extras
+#### Properties.extras
 
 Application-specific data.
 
@@ -909,9 +1014,11 @@ Application-specific data.
 * **Required**: No
 
 
+
+
 ---------------------------------------
 <a name="reference-tile"></a>
-#### Tile
+### Tile
 
 A tile in a 3D Tiles tileset.
 
@@ -919,35 +1026,33 @@ A tile in a 3D Tiles tileset.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**boundingVolume**|`object`|The bounding volume that encloses the tile.| :white_check_mark: Yes|
-|**viewerRequestVolume**|`object`|Optional bounding volume that defines the volume the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.|No|
+|**boundingVolume**|`object`|A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.|No|
+|**viewerRequestVolume**|`object`|A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.|No|
 |**geometricError**|`number`|The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.| :white_check_mark: Yes|
 |**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering.  This property is required for the root tile of a tileset; it is optional for all other tiles.  The default is to inherit from the parent tile.|No|
 |**transform**|`number` `[16]`|A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system.  transform does not apply to geometricError, nor does it apply any volume property when the volume is a region, defined in EPSG:4326 coordinates.|No, default: `[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]`|
-|**content**|`object`|Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. This is required for leaf tiles.|No|
+|**content**|`object`|Metadata about the tile's content and a link to the content.|No|
 |**children**|`array[]`|An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.|No|
-|**extensions**|`object`| Dictionary object with extension-specific objects. |No|
-|**extras**|`any`| Application-specific data. |No|
+|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
+|**extras**|`any`|Application-specific data.|No|
 
 Additional properties are not allowed.
 
-* **JSON schema**: [tile.schema.json](schema/tile.schema.json)
+#### Tile.boundingVolume
 
-##### tile.boundingVolume :white_check_mark: 
-
-The bounding volume that encloses the tile.
-
-* **Type**: `object`
-* **Required**: Yes
-
-##### tile.viewerRequestVolume
-
-Optional bounding volume that defines the volume the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.
+A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.
 
 * **Type**: `object`
 * **Required**: No
 
-##### tile.geometricError :white_check_mark: 
+#### Tile.viewerRequestVolume
+
+A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.
+
+* **Type**: `object`
+* **Required**: No
+
+#### Tile.geometricError :white_check_mark: 
 
 The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.
 
@@ -955,7 +1060,7 @@ The error, in meters, introduced if this tile is rendered and its children are n
 * **Required**: Yes
 * **Minimum**: ` >= 0`
 
-##### tile.refine
+#### Tile.refine
 
 Specifies if additive or replacement refinement is used when traversing the tileset for rendering.  This property is required for the root tile of a tileset; it is optional for all other tiles.  The default is to inherit from the parent tile.
 
@@ -965,21 +1070,21 @@ Specifies if additive or replacement refinement is used when traversing the tile
    * `"ADD"`
    * `"REPLACE"`
 
-##### tile.transform
+#### Tile.transform
 
 A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system.  transform does not apply to geometricError, nor does it apply any volume property when the volume is a region, defined in EPSG:4326 coordinates.
 
 * **Type**: `number` `[16]`
 * **Required**: No, default: `[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]`
 
-##### tile.content
+#### Tile.content
 
-Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. This is required for leaf tiles.
+Metadata about the tile's content and a link to the content.
 
 * **Type**: `object`
 * **Required**: No
 
-##### tile.children
+#### Tile.children
 
 An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.
 
@@ -987,59 +1092,7 @@ An array of objects that define child tiles. Each child tile content is fully en
    * Each element in the array must be unique.
 * **Required**: No
 
-##### tile.extensions
-
-* **Type**: `object`
-* **Required**: No
-
-##### tile.extras
-
-* **Type**: `any`
-* **Required**: No
-
-
----------------------------------------
-<a name="reference-bounding-volume"></a>
-#### Bounding Volume
-
-A bounding volume that encloses a tile or its content.  Exactly one property is required.
-
-**Properties**
-
-|   |Type|Description|Required|
-|---|----|-----------|--------|
-|**box**|`number` `[12]`|An array of 12 numbers that define an oriented bounding box.  The first three elements define the x, y, and z values for the center of the box.  The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the y axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.|No|
-|**region**|`number` `[6]`|An array of six numbers that define a bounding geographic region in EPSG:4326 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.|No|
-|**sphere**|`number` `[4]`|An array of four numbers that define a bounding sphere.  The first three elements define the x, y, and z values for the center of the sphere.  The last element (with index 3) defines the radius in meters.|No|
-|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
-|**extras**|`any`|Application-specific data.|No|
-
-Additional properties are not allowed.
-
-* **JSON schema**: [boundingVolume.schema.json](schema/boundingVolume.schema.json)
-
-##### boundingVolume.box
-
-An array of 12 numbers that define an oriented bounding box.  The first three elements define the x, y, and z values for the center of the box.  The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the y axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.
-
-* **Type**: `number` `[12]`
-* **Required**: No
-
-##### boundingVolume.region
-
-An array of six numbers that define a bounding geographic region in EPSG:4326 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
-
-* **Type**: `number` `[6]`
-* **Required**: No
-
-##### boundingVolume.sphere
-
-An array of four numbers that define a bounding sphere.  The first three elements define the x, y, and z values for the center of the sphere.  The last element (with index 3) defines the radius in meters.
-
-* **Type**: `number` `[4]`
-* **Required**: No
-
-##### boundingVolume.extensions
+#### Tile.extensions
 
 Dictionary object with extension-specific objects.
 
@@ -1047,16 +1100,19 @@ Dictionary object with extension-specific objects.
 * **Required**: No
 * **Type of each property**: Extension
 
-##### boundingVolume.extras
+#### Tile.extras
 
 Application-specific data.
 
 * **Type**: `any`
 * **Required**: No
 
+
+
+
 ---------------------------------------
 <a name="reference-tile-content"></a>
-#### Tile Content
+### Tile Content
 
 Metadata about the tile's content and a link to the content.
 
@@ -1064,30 +1120,28 @@ Metadata about the tile's content and a link to the content.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**boundingVolume**|`object`|A bounding volume that encloses a tile or its content.  Exactly one property is required.|No|
-|**uri**|`string`|A uri that points to the tile's content. When the uri is relative, it is relative to the referring tileset.json.| :white_check_mark: Yes|
+|**boundingVolume**|`object`|A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.|No|
+|**uri**|`string`|A uri that points to the tile's content. When the uri is relative, it is relative to the referring tileset JSON file.| :white_check_mark: Yes|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
 
 Additional properties are not allowed.
 
-* **JSON schema**: [tile.content.schema.json](schema/tile.content.schema.json)
+#### TileContent.boundingVolume
 
-##### tile.content.boundingVolume
-
-A bounding volume that encloses a tile or its content.  Exactly one property is required.
+A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.
 
 * **Type**: `object`
 * **Required**: No
 
-##### tile.content.uri :white_check_mark: 
+#### TileContent.uri :white_check_mark: 
 
-A uri that points to the tile's content. When the uri is relative, it is relative to the referring tileset.json.
+A uri that points to the tile's content. When the uri is relative, it is relative to the referring tileset JSON file.
 
 * **Type**: `string`
 * **Required**: Yes
 
-##### tile.content.extensions
+#### TileContent.extensions
 
 Dictionary object with extension-specific objects.
 
@@ -1095,48 +1149,20 @@ Dictionary object with extension-specific objects.
 * **Required**: No
 * **Type of each property**: Extension
 
-##### tile.content.extras
+#### TileContent.extras
 
 Application-specific data.
 
 * **Type**: `any`
 * **Required**: No
 
----------------------------------------
-<a name="reference-extension"></a>
-#### Extension
-
-Dictionary object with extension-specific objects.
-
-Additional properties are allowed.
-
-* **JSON schema**: [extension.schema.json](schema/extension.schema.json)
-
-
----------------------------------------
-<a name="reference-extras"></a>
-#### Extras
-
-Application-specific data.
-
----
-
-See the full [JSON schema](./schema).
-
-## Terms and definitions
-
-#### 3D Model
-
-#### Hierarchical Level of Detail (HLOD)
-
-Grouping different objects on the basis of proximity or other like metrics and ordered by level of detail for increased rendering efficiency. Typically higher levels of detail contain increased fidelity or complexity.
-
-#### feature
 
 ## License
 
 Copyright 2016 - 2018 Cesium
 
 This Specification is licensed under a [Creative Commons Attribution 4.0 International License (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/).
+
+The companies listed above have granted the Open Geospatial Consortium (OGC) a nonexclusive, royalty-free, paid up, worldwide license to copy and distribute this document and to modify this document and distribute copies of the modified version under a Attribution 4.0 International (CC BY 4.0) license.
 
 Some parts of this Specification are purely informative and do not define requirements necessary for compliance and so are outside the Scope of this Specification. These parts of the Specification are marked as being non-normative, or identified as **Implementation Notes**.

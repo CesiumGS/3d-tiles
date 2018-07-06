@@ -6,7 +6,7 @@ An open specification for streaming massive heterogeneous 3D geospatial datasets
 
 ## Overview
 
-Bringing techniques from graphics research, the movie industry, and the game industry to 3D geospatial, 3D Tiles define a spatial data structure and a set of tile formats designed for 3D and optimized for streaming and rendering. 
+3D Tiles defines a spatial data structure and a set of tile formats designed for streaming and rendering 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds.
 
 ## Specification
 
@@ -33,6 +33,8 @@ See the full roadmap issue for plans post version 1.0 [[#309](https://github.com
 * **Tools**
    * [3d-tiles-tools](https://github.com/AnalyticalGraphicsInc/3d-tiles-tools) - upcoming tools for debugging, analyzing, and validating 3D Tiles tilesets.
 * **Selected Talks**
+   * _Data Fusion with 3D Tiles_ ([pdf](https://cesium.com/presentations/files/foss4g2018_data_fusion_3dtiles.pdf)) at FOSS4G 2018.
+   * _CityGML, 3D Tiles and Cesium: A Data Fusion Symphony_ ([pdf](https://cesium.com/presentations/files/foss4g2018_citygml_3dtiles_cesium.pdf)) at FOOS4G 2018.
    * _3D Tiles in Action_ ([pdf](https://cesium.com/presentations/files/3DTilesInAction.pdf)) at FOSS4G 2017.
    * _Point Clouds with 3D Tiles_ ([pdf](https://cesium.com/presentations/files/PointCloudsWith3DTiles.pdf)) at the OGC Technical Committee Meeting (June 2017).
    * _The Open Cesium 3D Tiles Specification: Bringing Massive Geospatial 3D Scenes to the Web_ ([pptx](https://cesium.com/presentations/files/Web3D-2016-3DTilesTutorial.pptx), [example tilesets](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples)) at Web3D 2016.  90-minute technical tutorial.
@@ -40,6 +42,7 @@ See the full roadmap issue for plans post version 1.0 [[#309](https://github.com
    * _3D Tiles motivation and ecosystem update_ ([pdf](https://cesium.com/presentations/files/3D-Tiles-OGC-DC.pdf)) at the OGC Technical Committee Meeting (March 2016).
    * _3D Tiles intro_ ([pdf](https://cesium.com/presentations/files/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
 * **Selected Articles**
+   * [Millimeter Precision Point Clouds with Cesium and 3D Tiles](https://cesium.com/blog/2018/06/27/millimeter-precision-point-clouds/). June 2018
    * [OneSky Using Cesium / 3D Tiles For Volumetric Airspace Visualization](https://onesky.blog/2018/04/16/onesky-using-cesium-3dtiles-for-volumetric-airspace-visualization/). April 2018.
    * [Draco Compressed Meshes with glTF and 3D Tiles](https://cesium.com/blog/2018/04/09/draco-compression/). April 2018.
    * [OGC Testbed-13: 3D Tiles and I3S Interoperability and Performance ER](http://docs.opengeospatial.org/per/17-046.html). March 2018.
@@ -64,7 +67,7 @@ See the full roadmap issue for plans post version 1.0 [[#309](https://github.com
 
 ## Who's using 3D Tiles?
 
-![](figures/users/composer.jpg) [Cesium Composer](https://www.cesium.com/) converters | ![](figures/users/AGI.jpg) [Cesium](http://cesiumjs.org/) |
+![](figures/users/composer.jpg) [Cesium ion](https://www.cesium.com/) converters | ![](figures/users/AGI.jpg) [Cesium](http://cesiumjs.org/) |
 |:---:|:---:|
 ![](figures/users/CC3D.jpg) [CyberCity3D](http://www.cybercity3d.com/) | ![](figures/users/virtualcitySYSTEMS.jpg) [virtualcitySYSTEMS](http://www.virtualcitysystems.de/en/)  |
 ![](figures/users/Cityzenith.jpg) [Cityzenith](http://www.cityzenith.com/) | ![](figures/users/Fraunhofer.jpg) [Fraunhofer](http://www.fraunhofer.de/en.html)  |

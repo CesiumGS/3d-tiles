@@ -1,12 +1,5 @@
 # Composite
 
-## Contributors
-
-_This section is non-normative_
-
-* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
-* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
-
 ## Contents
 
 * [Overview](#overview)

@@ -1,13 +1,5 @@
 # Instanced 3D Model
 
-## Contributors
-
-_This section is non-normative_
-
-* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
-* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
-* Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
-
 ## Contents
 
 * [Overview](#overview)
@@ -34,6 +26,7 @@ _This section is non-normative_
 * [File extension and MIME type](#file-extension-and-mime-type)
 * [Implementation example](#implementation-example)
     * [Cesium](#cesium)
+* [Property reference](#property-reference)
 
 ## Overview
 
@@ -57,7 +50,7 @@ A tile is composed of a header section immediately followed by a binary body. Th
 
 A tile's `byteLength` must be aligned to an 8-byte boundary. The contained [Feature Table](../FeatureTable/README.md#padding) and [Batch Table](../BatchTable/README.md#padding) must conform to their respective padding requirement.
 
-The [binary glTF](#gltf) (if present) must start and end on an 8-byte alignment so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
+The [binary glTF](#gltf) (if present) must start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
 Otherwise, if the glTF field is a UTF-8 string, it must be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the tile, which must be removed at runtime before requesting the glTF asset.
 
@@ -83,7 +76,7 @@ The body section immediately follows the header section and is composed of three
 The Feature Table contains values for `i3dm` semantics used to create instanced models.
 More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
-The `i3dm` Feature Table JSON schema is defined in [i3dm.featureTable.schema.json](../../schema/i3dm.featureTable.schema.json).
+See [Property reference](#property-reference) for the `i3dm` feature table schema reference. The full JSON schema can be found in [i3dm.featureTable.schema.json](../../schema/pnts.featureTable.schema.json).
 
 ### Semantics
 
@@ -274,71 +267,190 @@ Instanced 3D models tiles use the `.i3dm` extension and `application/octet-strea
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
-## Implementation example
+## Property reference
 
-_This section is non-normative_
+* [`Instanced 3D Model Feature Table`](#reference-instanced-3d-model-feature-table)
+    * [`BinaryBodyReference`](#reference-binarybodyreference)
+    * [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3)
+    * [`GlobalPropertyScalar`](#reference-globalpropertyscalar)
+    * [`Property`](#reference-property)
 
-### Cesium
 
-Generating up and right from longitude, latitude, and height:
+---------------------------------------
+<a name="reference-instanced-3d-model-feature-table"></a>
+### Instanced 3D Model Feature Table
 
-```javascript
-var position = Cartesian3.fromRadians(longitude, latitude, height);
+A set of Instanced 3D Model semantics that contains values defining the position and appearance properties for instanced models in a tile.
 
-// Compute the up vector
-var up = new Cartesian3();
-var transform = Transforms.eastNorthUpToFixedFrame(position);
-var rotation = new Matrix3();
-Matrix4.getRotation(transform, rotation);
+**Properties**
 
-// In east-north-up, the up vector is stored in the z component
-Matrix3.multiplyByVector(rotation, Cartesian3.UNIT_Z, up);
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
+|**extras**|`any`|Application-specific data.|No|
+|**POSITION**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**POSITION_QUANTIZED**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**NORMAL_UP**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**NORMAL_RIGHT**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**NORMAL_UP_OCT32P**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**NORMAL_RIGHT_OCT32P**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**SCALE**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**SCALE_NON_UNIFORM**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**BATCH_ID**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**INSTANCES_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).| :white_check_mark: Yes|
+|**QUANTIZED_VOLUME_OFFSET**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**QUANTIZED_VOLUME_SCALE**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
 
-// Compute the right and forward vectors
-var right = new Cartesian3();
-var forward = Cartesian3.clone(Cartesian3.UNIT_Z);
+Additional properties are allowed.
 
-// You can change the orientation of a model by rotating about the y-axis first
-var orient = new Matrix3();
-var orientAngle = CesiumMath.fromDegrees(90.0);
-Matrix3.fromRotationY(orientAngle, orient);
-Matrix3.multiplyByVector(orient, forward, forward);
+* **Type of each property**: [`Property`](#reference-property)
+#### Instanced3DModelFeatureTable.extensions
 
-// Cross up and forward to get right
-Cartesian3.cross(up, forward, right);
-Cartesian3.normalize(right, right);
-```
+Dictionary object with extension-specific objects.
 
-Construct a model-matrix for an instance:
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: Extension
 
-```javascript
-// Cross right and up to get forward
-var forward = new Cartesian3();
-Cartesian3.cross(right, up, forward);
+#### Instanced3DModelFeatureTable.extras
 
-// Place the basis into a rotation matrix
-var rotation = new Matrix3();
-Matrix3.setColumn(rotation, 0, right, rotation);
-Matrix3.setColumn(rotation, 1, up, rotation);
-Matrix3.setColumn(rotation, 2, forward, rotation);
+Application-specific data.
 
-// Get the scale
-var scale = Matrix3.IDENTITY.clone();
-if (defined(uniformScale)) {
-    Matrix3.multiplyByScalar(scale, uniformScale, scale);
-}
-if (defined(nonUniformScale)) {
-    Matrix3.multiplyByVector(scale, nonUniformScale, scale);
-}
+* **Type**: `any`
+* **Required**: No
 
-// Generate the model matrix
-var modelMatrix = new Matrix4();
-Matrix4.fromTranslationRotationScale(
-    new TranslationRotationScale(position, rotation, scale),
-    modelMatrix
-);
-```
+#### Instanced3DModelFeatureTable.POSITION
 
-Code for reading the header can be found in
-[`Instanced3DModelTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Instanced3DModel3DTileContent.js)
-in the Cesium implementation of 3D Tiles.
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.POSITION_QUANTIZED
+
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.NORMAL_UP
+
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.NORMAL_RIGHT
+
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.NORMAL_UP_OCT32P
+
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.NORMAL_RIGHT_OCT32P
+
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.SCALE
+
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.SCALE_NON_UNIFORM
+
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.BATCH_ID
+
+A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.INSTANCES_LENGTH :white_check_mark: 
+
+A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`, `number` `[1]`, `number`
+* **Required**: Yes
+
+#### Instanced3DModelFeatureTable.QUANTIZED_VOLUME_OFFSET
+
+A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`, `number` `[3]`
+* **Required**: No
+
+#### Instanced3DModelFeatureTable.QUANTIZED_VOLUME_SCALE
+
+A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`, `number` `[3]`
+* **Required**: No
+
+
+---------------------------------------
+<a name="reference-binarybodyreference"></a>
+### BinaryBodyReference
+
+An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**byteOffset**|`number`|The offset into the buffer in bytes.| :white_check_mark: Yes|
+
+Additional properties are allowed.
+
+#### BinaryBodyReference.byteOffset :white_check_mark: 
+
+The offset into the buffer in bytes.
+
+* **Type**: `number`
+* **Required**: Yes
+* **Minimum**: ` >= 0`
+
+
+---------------------------------------
+<a name="reference-globalpropertycartesian3"></a>
+### GlobalPropertyCartesian3
+
+An object defining a global 3-component numeric property values for all features.
+
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+
+
+
+---------------------------------------
+<a name="reference-globalpropertyscalar"></a>
+### GlobalPropertyScalar
+
+An object defining a global numeric property values for all features.
+
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+
+
+---------------------------------------
+<a name="reference-property"></a>
+### Property
+
+A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
+
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+

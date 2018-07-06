@@ -1,14 +1,5 @@
 # Batch Table
 
-## Contributors
-
-_This section is non-normative_
-
-* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
-* Rob Taglang, [@lasalvavida](https://github.com/lasalvavida)
-* Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
-* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
-
 ## Contents
 
 * [Overview](#overview)
@@ -18,6 +9,7 @@ _This section is non-normative_
    * [Binary body](#binary-body)
 * [Extensions](#extensions)
 * [Implementation example](#implementation-example)
+* [Property reference](#property-reference)
 
 ## Overview
 
@@ -39,9 +31,11 @@ The header will also contain `batchTableJSONByteLength` and `batchTableBinaryByt
 
 ### Padding
 
-The Batch Table binary body must start and end on an 8-byte alignment within the containing tile binary.
+The JSON header must end on an 8-byte boundary within the containing tile binary. The JSON header must be padded with trailing Space characters (`0x20`) to satisfy this requirement.
 
-The JSON header must be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the Batch Table binary (if present).
+The binary body must start and end on an 8-byte boundary within the containing tile binary. The binary body must be padded with additional bytes, of any value, to satisfy this requirement.
+
+Binary properties must start at a byte offset that is a multiple of the size in bytes of the property's `componentType`. For example, a property with the component type `FLOAT` has 4 bytes per element, and therefore must start at an offset that is a multiple of `4`. Preceding binary properties must be padded with additional bytes, of any value, to satisfy this requirement.
 
 ### JSON header
 
@@ -51,7 +45,7 @@ Batch Table values can be represented in the JSON header in two different ways:
     * Array elements can be any valid JSON data type, including objects and arrays.  Elements may be `null`.
     * The length of each array is equal to `batchLength`, which is specified in each tile format.  This is the number of features in the tile.  For example, `batchLength` may be the number of models in a b3dm tile, the number of instances in a i3dm tile, or the number of points (or number of objects) in a pnts tile.
 2. A reference to data in the binary body, denoted by an object with `byteOffset`, `componentType`, and `type` properties,  e.g., `"height" : { "byteOffset" : 24, "componentType" : "FLOAT", "type" : "SCALAR"}`.
-    * `byteOffset` specifies a zero-based offset relative to the start of the binary body. The value of `byteOffset` must be a multiple of the size of the property's `componentType`, e.g., a property with the component type of `FLOAT` must start at an offset of a multiple of `4`.
+    * `byteOffset` specifies a zero-based offset relative to the start of the binary body. The value of `byteOffset` must be a multiple of the size in bytes of the property's `componentType`, e.g., a property with the component type `FLOAT` must have a `byteOffset` value that is a multiple of `4`.
     * `componentType` is the datatype of components in the attribute. Allowed values are `"BYTE"`, `"UNSIGNED_BYTE"`, `"SHORT"`, `"UNSIGNED_SHORT"`, `"INT"`, `"UNSIGNED_INT"`, `"FLOAT"`, and `"DOUBLE"`.
     * `type` specifies if the property is a scalar or vector. Allowed values are `"SCALAR"`, `"VEC2"`, `"VEC3"`, and `"VEC4"`.
 
@@ -84,8 +78,7 @@ displayName[1] = 'Another building name';
 yearBuilt[1] = 2015;
 address[1] = {street : 'Main Street', houseNumber : '2'};
 ```
-
-JSON schema Batch Table definitions can be found in [batchTable.schema.json](../../schema/batchTable.schema.json).
+See [Property reference](#property-reference) for the full JSON header schema reference. The full JSON schema can be found in [batchTable.schema.json](../../schema/batchTable.schema.json).
 
 ### Binary body
 
@@ -171,3 +164,108 @@ var geographicOfFeature = positionArray.subarray(batchId * numberOfComponents, b
 ```
 
 Code for reading the Batch Table can be found in [`Cesium3DTileBatchTable.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
+
+## Property reference
+
+* [`Batch Table`](#reference-batch-table)
+* [`BinaryBodyReference`](#reference-binarybodyreference)
+* [`Property`](#reference-property)
+
+
+---------------------------------------
+<a name="reference-batch-table"></a>
+### Batch Table
+
+A set of properties defining application-specific metadata for features in a tile.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
+|**extras**|`any`|Application-specific data.|No|
+
+Additional properties are allowed.
+
+* **Type of each property**: [`Property`](#reference-property)
+#### BatchTable.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: Extension
+
+#### BatchTable.extras
+
+Application-specific data.
+
+* **Type**: `any`
+* **Required**: No
+
+
+
+
+---------------------------------------
+<a name="reference-binarybodyreference"></a>
+### BinaryBodyReference
+
+An object defining the reference to a section of the binary body of the batch table where the property values are stored if not defined directly in the JSON.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**byteOffset**|`number`|The offset into the buffer in bytes.| :white_check_mark: Yes|
+|**componentType**|`string`|The datatype of components in the property.| :white_check_mark: Yes|
+|**type**|`string`|Specifies if the property is a scalar or vector.| :white_check_mark: Yes|
+
+Additional properties are allowed.
+
+#### BinaryBodyReference.byteOffset :white_check_mark: 
+
+The offset into the buffer in bytes.
+
+* **Type**: `number`
+* **Required**: Yes
+* **Minimum**: ` >= 0`
+
+#### BinaryBodyReference.componentType :white_check_mark: 
+
+The datatype of components in the property.
+
+* **Type**: `string`
+* **Required**: Yes
+* **Allowed values**:
+   * `"BYTE"`
+   * `"UNSIGNED_BYTE"`
+   * `"SHORT"`
+   * `"UNSIGNED_SHORT"`
+   * `"INT"`
+   * `"UNSIGNED_INT"`
+   * `"FLOAT"`
+   * `"DOUBLE"`
+
+#### BinaryBodyReference.type :white_check_mark: 
+
+Specifies if the property is a scalar or vector.
+
+* **Type**: `string`
+* **Required**: Yes
+* **Allowed values**:
+   * `"SCALAR"`
+   * `"VEC2"`
+   * `"VEC3"`
+   * `"VEC4"`
+
+
+
+
+---------------------------------------
+<a name="reference-property"></a>
+### Property
+
+A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
+
+* **JSON schema**: [`batchTable.schema.json`](../../schema/batchTable.schema.json)
+

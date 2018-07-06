@@ -1,13 +1,5 @@
 # Batched 3D Model
 
-## Contributors
-
-_This section is non-normative_
-
-* Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
-* Tom Fili, [@CesiumFili](https://twitter.com/CesiumFili)
-* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
-
 ## Contents
 
 * [Overview](#overview)
@@ -23,6 +15,7 @@ _This section is non-normative_
    * [Coordinate system](#coordinate-system)
 * [File extension and MIME type](#file-extension-and-mime-type)
 * [Implementation example](#implementation-example)
+* [Property reference](#property-reference)
 
 ## Overview
 
@@ -42,7 +35,7 @@ A tile is composed of two sections: a header immediately followed by a body. The
 
 A tile's `byteLength` must be aligned to an 8-byte boundary. The contained [Feature Table](../FeatureTable/README.md#padding) and [Batch Table](../BatchTable/README.md#padding) must conform to their respective padding requirement.
 
-The [binary glTF](#binary-gltf) must start and end on an 8-byte alignment so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
+The [binary glTF](#binary-gltf) must start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
 ## Header
 
@@ -63,9 +56,10 @@ The body section immediately follows the header section, and is composed of thre
 ## Feature Table
 
 Contains values for `b3dm` semantics.
+
 More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
-The `b3dm` Feature Table JSON schema is defined in [b3dm.featureTable.schema.json](../../schema/b3dm.featureTable.schema.json).
+See [Property reference](#property-reference) for the `b3dm` feature table schema reference. The full JSON schema can be found in [b3dm.featureTable.schema.json](../../schema/b3dm.featureTable.schema.json).
 
 ### Semantics
 
@@ -159,3 +153,116 @@ _This section is non-normative_
 Code for reading the header can be found in
 [`Batched3DModelTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Batched3DModel3DTileContent.js)
 in the Cesium implementation of 3D Tiles.
+
+
+### Property reference
+
+* [`Batched 3D Model Feature Table`](#reference-batched-3d-model-feature-table)
+    * [`BinaryBodyReference`](#reference-binarybodyreference)
+    * [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3)
+    * [`GlobalPropertyScalar`](#reference-globalpropertyscalar)
+    * [`Property`](#reference-property)
+
+
+---------------------------------------
+<a name="reference-batched-3d-model-feature-table"></a>
+### Batched 3D Model Feature Table
+
+A set of Batched 3D Model semantics that contain additional information about features in a tile.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**extensions**|`object`|Dictionary object with extension-specific objects.|No|
+|**extras**|`any`|Application-specific data.|No|
+|**BATCH_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).| :white_check_mark: Yes|
+|**RTC_CENTER**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).|No|
+
+Additional properties are allowed.
+
+* **Type of each property**: [`Property`](#reference-property)
+#### Batched3DModelFeatureTable.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: Extension
+
+#### Batched3DModelFeatureTable.extras
+
+Application-specific data.
+
+* **Type**: `any`
+* **Required**: No
+
+#### Batched3DModelFeatureTable.BATCH_LENGTH :white_check_mark: 
+
+A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).
+
+* **Type**: `object`, `number` `[1]`, `number`
+* **Required**: Yes
+
+#### Batched3DModelFeatureTable.RTC_CENTER
+
+A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).
+
+* **Type**: `object`, `number` `[3]`
+* **Required**: No
+
+
+
+
+---------------------------------------
+<a name="reference-binarybodyreference"></a>
+### BinaryBodyReference
+
+An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**byteOffset**|`number`|The offset into the buffer in bytes.| :white_check_mark: Yes|
+
+Additional properties are allowed.
+
+#### BinaryBodyReference.byteOffset :white_check_mark: 
+
+The offset into the buffer in bytes.
+
+* **Type**: `number`
+* **Required**: Yes
+* **Minimum**: ` >= 0`
+
+
+
+---------------------------------------
+<a name="reference-globalpropertycartesian3"></a>
+### GlobalPropertyCartesian3
+
+An object defining a global 3-component numeric property values for all features.
+
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+
+
+
+---------------------------------------
+<a name="reference-globalpropertyscalar"></a>
+### GlobalPropertyScalar
+
+An object defining a global numeric property values for all features.
+
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+
+
+
+---------------------------------------
+<a name="reference-property"></a>
+### Property
+
+A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
+
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+

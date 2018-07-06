@@ -3,7 +3,7 @@
     "id" : "boundingVolume.schema.json",
     "title" : "Bounding Volume",
     "type" : "object",
-    "description" : "A bounding volume that encloses a tile or its content.  Exactly one property is required.",
+    "description" : "A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.",
     "properties" : {
         "box" : {
             "type" : "array",

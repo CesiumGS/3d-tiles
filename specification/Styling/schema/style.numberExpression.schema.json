@@ -3,5 +3,5 @@
     "id" : "style.numberExpression.schema.json",
     "title" : "number expression",
     "type" : ["number", "string"],
-    "description" : "3D Tiles style expression that evaluates to a number."
+    "description" : "3D Tiles style expression that evaluates to a number. See [Expressions](/specification/Styling/README.md#expressions)."
 }

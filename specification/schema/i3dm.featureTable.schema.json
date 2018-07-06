@@ -9,40 +9,76 @@
     }, {
         "properties" : {
             "POSITION" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "POSITION_QUANTIZED" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "NORMAL_UP" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "NORMAL_RIGHT" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "NORMAL_UP_OCT32P" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "NORMAL_RIGHT_OCT32P" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "SCALE" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "SCALE_NON_UNIFORM" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "BATCH_ID" : {
-                "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/binaryBodyReference"
+                }]
             },
             "INSTANCES_LENGTH" : {
-                "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+                "description": "A `GlobalPropertyScalar` object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+                }]
             },
             "QUANTIZED_VOLUME_OFFSET" : {
-                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                }]
             },
             "QUANTIZED_VOLUME_SCALE": {
-                "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+                "allOf" : [{
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+                }]
             },
             "extensions" : {
                 "$ref": "extension.schema.json"
@@ -51,7 +87,7 @@
                 "$ref": "extras.schema.json"
             }
         },
-        "anyOf" : [{
+        "oneOf" : [{
           "required" : ["POSITION"]
         }, {
           "required" : ["POSITION_QUANTIZED"]
@@ -66,7 +102,6 @@
             "NORMAL_UP_OCT32P" : ["NORMAL_RIGHT_OCT32P"],
             "NORMAL_RIGHT_OCT32P" : ["NORMAL_UP_OCT32P"]
         },
-        "required" : ["INSTANCES_LENGTH"],
-        "additionalProperties" : false
+        "required" : ["INSTANCES_LENGTH"]
     }]
 }
