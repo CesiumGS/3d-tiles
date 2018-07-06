@@ -25,6 +25,7 @@
         * [Batched points](#batched-points)
         * [Per-point properties](#per-point-properties)
 * [Batch Table](#batch-table)
+* [Extensions](#extensions)
 * [File extension and MIME type](#file-extension-and-mime-type)
 * [Implementation example](#implementation-example)
 * [Property reference](#property-reference)
@@ -325,6 +326,12 @@ The _Batch Table_ contains application-specific metadata, indexable by `batchId`
 * If the `BATCH_ID` semantic is not defined, then the Batch Table stores per-point metadata, and the length of the Batch Table arrays will equal `POINTS_LENGTH`.
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
+
+## Extensions
+
+The following extensions can be applied to a Point Cloud tile.
+
+* [3DTILES_draco_point_compression](../../../extensions/3DTILES_draco_point_compression/)
 
 ## File extension and MIME type
 

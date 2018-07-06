@@ -3,6 +3,7 @@
 ## Extensions
 
 * [3DTILES_batch_table_hierarchy](./3DTILES_batch_table_hierarchy/)
+* [3DTILES_draco_point_compression](./3DTILES_draco_point_compression/)
 
 ## About
 
