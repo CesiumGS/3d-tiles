@@ -312,9 +312,9 @@ The `transform` property applies to
 * `tile.content`
    * Each feature's position.
    * Each feature's normal should be transformed by the top-left 3x3 matrix of the inverse-transpose of `transform` to account for [correct vector transforms when scale is used](http://www.realtimerendering.com/resources/RTNews/html/rtnews1a.html#art4).
-   * `content.boundingVolume`, except when `content.boundingVolume.region` is defined, which is explicitly in EPSG:4326 coordinates.
-* `tile.boundingVolume`, except when `tile.boundingVolume.region` is defined, which is explicitly in EPSG:4326 coordinates.
-* `tile.viewerRequestVolume`, except when `tile.viewerRequestVolume.region` is defined, which is explicitly in EPSG:4326 coordinates.
+   * `content.boundingVolume`
+* `tile.boundingVolume`
+* `tile.viewerRequestVolume`
 
 The `transform` property does not apply to `geometricError`&mdash;i.e., the scale defined by `transform` does not scale the geometric error&mdash;the geometric error is always defined in meters.
 
@@ -1030,7 +1030,7 @@ A tile in a 3D Tiles tileset.
 |**viewerRequestVolume**|`object`|A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.|No|
 |**geometricError**|`number`|The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.| :white_check_mark: Yes|
 |**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering.  This property is required for the root tile of a tileset; it is optional for all other tiles.  The default is to inherit from the parent tile.|No|
-|**transform**|`number` `[16]`|A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system.  transform does not apply to geometricError, nor does it apply any volume property when the volume is a region, defined in EPSG:4326 coordinates.|No, default: `[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]`|
+|**transform**|`number` `[16]`|A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system.  transform does not apply to geometricError.|No, default: `[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]`|
 |**content**|`object`|Metadata about the tile's content and a link to the content.|No|
 |**children**|`array[]`|An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.|No|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
@@ -1072,7 +1072,7 @@ Specifies if additive or replacement refinement is used when traversing the tile
 
 #### Tile.transform
 
-A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system.  transform does not apply to geometricError, nor does it apply any volume property when the volume is a region, defined in EPSG:4326 coordinates.
+A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system.  transform does not apply to geometricError.
 
 * **Type**: `number` `[16]`
 * **Required**: No, default: `[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]`
