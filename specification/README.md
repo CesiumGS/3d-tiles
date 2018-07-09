@@ -77,11 +77,11 @@ Acknowledgements:
 
 ## Introduction
 
-In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  The tree incorporates the concept of Hierarchical Level of Detail (HLoD) for optimal rendering of spatial data. 
+In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  The tree incorporates the concept of Hierarchical Level of Detail (HLoD) for optimal rendering of spatial data.
 
 A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (WMTS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, the tree can be any [spatial data structure](#spatial-data-structures) with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
 
-Each tile has a bounding volume completely enclosing its content.  The tree has [spatial coherence](#bounding-volume-spatial-coherence); the content for child tiles are completely inside the parent's bounding volume. 
+Each tile has a bounding volume completely enclosing its content.  The tree has [spatial coherence](#bounding-volume-spatial-coherence); the content for child tiles are completely inside the parent's bounding volume.
 
 ![](figures/tree.png)
 
@@ -94,14 +94,14 @@ To support tight fitting volumes for a variety of datasets&mdash;from regularly 
 
 A tile references a _feature_ or set of _features_, such as 3D models representing buildings or trees, or points in a point cloud.  These features may be batched together into essentially a single feature to reduce client-side load time and rendering draw call overhead.
 
-A 3D tileset consists of at least one tileset JSON file specifying the metadata and the tree of tiles, as well as any referenced tile content files which may be any valid tile format, defined in JSON as described below. 
+A 3D tileset consists of at least one tileset JSON file specifying the metadata and the tree of tiles, as well as any referenced tile content files which may be any valid tile format, defined in JSON as described below.
 
-Optionally, a [_3D Tile Style_](./Styling/) may be applied to a tileset. 
+Optionally, a [_3D Tile Style_](./Styling/) may be applied to a tileset.
 
 ## File extensions and MIME types
 
 3D Tiles uses the following file extensions and MIME types.
- 
+
 * Tileset files use the `.json` extension and the `application/json` MIME type.
 * Tile content files use the file type and MIME format specific to their [tile format specification](#tile-format-specifications).
 * Tileset style files use the `.json` extension and the `application/json` MIME type.
@@ -118,7 +118,7 @@ Explicit file extensions are optional. Valid implementations may ignore it and i
 
 ## URIs
 
-3D Tiles uses URIs to reference tile content. These URIs may point to [relative external references (RFC3986)](https://tools.ietf.org/html/rfc3986#section-4.2) or be data URIs that embed resources in the JSON. Embedded resources use [the "data" URI scheme (RFC2397)](https://tools.ietf.org/html/rfc2397). 
+3D Tiles uses URIs to reference tile content. These URIs may point to [relative external references (RFC3986)](https://tools.ietf.org/html/rfc3986#section-4.2) or be data URIs that embed resources in the JSON. Embedded resources use [the "data" URI scheme (RFC2397)](https://tools.ietf.org/html/rfc2397).
 
 When the URI is relative, its base is always relative to the referring tileset JSON file.
 
@@ -136,7 +136,7 @@ All angles are in radians.
 
 An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
 
-The [region](#region) bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically [EPSG 4326](http://nsidc.org/data/atlas/epsg_4326.html).
+The [region](#region) bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically [EPSG 4979](http://spatialreference.org/ref/epsg/4979/).
 
 ### glTF
 
@@ -184,7 +184,7 @@ Note that glTF defines its own node hierarchy, where each node has a transform. 
 
 ### Tiles
 
-Tiles consist of metadata used to render the tile, content, and any children tiles. 
+Tiles consist of metadata used to render the tile, content, and any children tiles.
 
 ![](figures/tile.png)
 
@@ -247,11 +247,11 @@ The `children` property is an array of objects that define child tiles.  See the
 
 #### Bounding volumes
 
-Bounding volume objects are used to defined an enclosing volume, and must specify exactly one of the following properties. 
+Bounding volume objects are used to defined an enclosing volume, and must specify exactly one of the following properties.
 
 ##### Region
 
-The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order `[west, south, east, north, minimum height, maximum height]`. Latitudes and longitudes are in the WGS 84 datum as defined in [EPSG 4326](http://nsidc.org/data/atlas/epsg_4326.html) and are in radians. Heights are in meters above (or below) the [WGS 84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).  
+The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order `[west, south, east, north, minimum height, maximum height]`. Latitudes and longitudes are in the WGS 84 datum as defined in [EPSG 4979](http://spatialreference.org/ref/epsg/4979/) and are in radians. Heights are in meters above (or below) the [WGS 84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).
 
 ![Bounding Region](figures/BoundingRegion.jpg)
 
@@ -312,9 +312,9 @@ The `transform` property applies to
 * `tile.content`
    * Each feature's position.
    * Each feature's normal should be transformed by the top-left 3x3 matrix of the inverse-transpose of `transform` to account for [correct vector transforms when scale is used](http://www.realtimerendering.com/resources/RTNews/html/rtnews1a.html#art4).
-   * `content.boundingVolume`, except when `content.boundingVolume.region` is defined, which is explicitly in EPSG:4326 coordinates.
-* `tile.boundingVolume`, except when `tile.boundingVolume.region` is defined, which is explicitly in EPSG:4326 coordinates.
-* `tile.viewerRequestVolume`, except when `tile.viewerRequestVolume.region` is defined, which is explicitly in EPSG:4326 coordinates.
+   * `content.boundingVolume`, except when `content.boundingVolume.region` is defined, which is explicitly in EPSG:4979 coordinates.
+* `tile.boundingVolume`, except when `tile.boundingVolume.region` is defined, which is explicitly in EPSG:4979 coordinates.
+* `tile.viewerRequestVolume`, except when `tile.viewerRequestVolume.region` is defined, which is explicitly in EPSG:4979 coordinates.
 
 The `transform` property does not apply to `geometricError`&mdash;i.e., the scale defined by `transform` does not scale the geometric error&mdash;the geometric error is always defined in meters.
 
@@ -534,9 +534,9 @@ When a tile points to an external tileset, the tile:
 
 #### Geometric error
 
-Geometric error is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered. 
+Geometric error is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
 
-The geometric error is determined when creating the tileset and based on a metric like point density, tile sizes in meters, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner. 
+The geometric error is determined when creating the tileset and based on a metric like point density, tile sizes in meters, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner.
 
 > **Implementation Note:** Typically, a property of the root tile, such as size, is used to determine a geometric error. Then each successive level of children uses a lower geometric error, with leaf tiles generally having a geometric error of 0.
 
@@ -792,7 +792,7 @@ A dictionary object of metadata about per-feature properties.
 * **Required**: No
 * **Type of each property**: `object`
 
-#### Tileset.geometricError :white_check_mark: 
+#### Tileset.geometricError :white_check_mark:
 
 The error, in meters, introduced if this tileset is not rendered. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.
 
@@ -856,7 +856,7 @@ Metadata about the entire tileset.
 
 Additional properties are not allowed.
 
-#### Asset.version :white_check_mark: 
+#### Asset.version :white_check_mark:
 
 The 3D Tiles version.  The version defines the JSON schema for the tileset JSON and the base set of tile formats.
 
@@ -899,7 +899,7 @@ A bounding volume that encloses a tile or its content.  Exactly one `box`, `regi
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**box**|`number` `[12]`|An array of 12 numbers that define an oriented bounding box.  The first three elements define the x, y, and z values for the center of the box.  The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the y axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.|No|
-|**region**|`number` `[6]`|An array of six numbers that define a bounding geographic region in EPSG:4326 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.|No|
+|**region**|`number` `[6]`|An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.|No|
 |**sphere**|`number` `[4]`|An array of four numbers that define a bounding sphere.  The first three elements define the x, y, and z values for the center of the sphere.  The last element (with index 3) defines the radius in meters.|No|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
@@ -915,7 +915,7 @@ An array of 12 numbers that define an oriented bounding box.  The first three el
 
 #### BoundingVolume.region
 
-An array of six numbers that define a bounding geographic region in EPSG:4326 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
+An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
 
 * **Type**: `number` `[6]`
 * **Required**: No
@@ -984,14 +984,14 @@ A dictionary object of metadata about per-feature properties.
 
 Additional properties are not allowed.
 
-#### Properties.maximum :white_check_mark: 
+#### Properties.maximum :white_check_mark:
 
 The maximum value of this property of all the features in the tileset.
 
 * **Type**: `number`
 * **Required**: Yes
 
-#### Properties.minimum :white_check_mark: 
+#### Properties.minimum :white_check_mark:
 
 The minimum value of this property of all the features in the tileset.
 
@@ -1030,7 +1030,7 @@ A tile in a 3D Tiles tileset.
 |**viewerRequestVolume**|`object`|A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.|No|
 |**geometricError**|`number`|The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.| :white_check_mark: Yes|
 |**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering.  This property is required for the root tile of a tileset; it is optional for all other tiles.  The default is to inherit from the parent tile.|No|
-|**transform**|`number` `[16]`|A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system.  transform does not apply to geometricError, nor does it apply any volume property when the volume is a region, defined in EPSG:4326 coordinates.|No, default: `[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]`|
+|**transform**|`number` `[16]`|A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system.  transform does not apply to geometricError, nor does it apply any volume property when the volume is a region, defined in EPSG:4979 coordinates.|No, default: `[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]`|
 |**content**|`object`|Metadata about the tile's content and a link to the content.|No|
 |**children**|`array[]`|An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.|No|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
@@ -1052,7 +1052,7 @@ A bounding volume that encloses a tile or its content.  Exactly one `box`, `regi
 * **Type**: `object`
 * **Required**: No
 
-#### Tile.geometricError :white_check_mark: 
+#### Tile.geometricError :white_check_mark:
 
 The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.
 
@@ -1072,7 +1072,7 @@ Specifies if additive or replacement refinement is used when traversing the tile
 
 #### Tile.transform
 
-A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system.  transform does not apply to geometricError, nor does it apply any volume property when the volume is a region, defined in EPSG:4326 coordinates.
+A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system.  transform does not apply to geometricError, nor does it apply any volume property when the volume is a region, defined in EPSG:4979 coordinates.
 
 * **Type**: `number` `[16]`
 * **Required**: No, default: `[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]`
@@ -1134,7 +1134,7 @@ A bounding volume that encloses a tile or its content.  Exactly one `box`, `regi
 * **Type**: `object`
 * **Required**: No
 
-#### TileContent.uri :white_check_mark: 
+#### TileContent.uri :white_check_mark:
 
 A uri that points to the tile's content. When the uri is relative, it is relative to the referring tileset JSON file.
 
