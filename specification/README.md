@@ -51,18 +51,19 @@ Acknowledgements:
         * [_y_-up to _z_-up transform](#y-up-to-z-up-transform)
         * [Order of transformations](#order-of-transformations)
   * [Tiles](#tiles)
+    * [Geometric error](#geometric-error)
+    * [Refinement](#refinement)
+        * [Additive](#additive)
+        * [Replacement](#replacement)
     * [Bounding volumes](#bounding-volumes)
         * [Region](#region)
         * [Box](#box)
         * [Sphere](#sphere)
-    * [Tile transform](#tile-transform)
     * [Viewer request volume](#viewer-request-volume)
-    * [Refinement](#refinement)
-        * [Additive](#additive)
-        * [Replacement](#replacement)
+    * [Tile transform](#tile-transform)
+    * [Tile JSON](#tile-json)
   * [Tileset JSON](#tileset-json)
     * [External tilesets](#external-tilesets)
-    * [Geometric error](#geometric-error)
     * [Bounding volume spatial coherence](#bounding-volume-spatial-coherence)
     * [Spatial data structures](#spatial-data-structures)
         * [Quadtrees](#quadtrees)
@@ -184,66 +185,41 @@ Note that glTF defines its own node hierarchy, where each node has a transform. 
 
 ### Tiles
 
-Tiles consist of metadata used to render the tile, content, and any children tiles.
+Tiles consist of metadata used to render the tile, any content, and an array of any children tiles.
 
-![](figures/tile.png)
+#### Geometric error
 
-The following example shows one non-leaf tile.
+Tiles are structured into a tree incorporating _Hierarchical Level of Detail_ (HLOD) so that at runtime a client implementation will need to determine if a tile is sufficiently detailed for rendering and if the the content of tiles should be successively refined by children tiles of higher resolution. An implementation will consider a maximum allowed _Screen-Space Error_ (SSE), the error measured in pixels.
 
-```json
-{
-  "boundingVolume": {
-    "region": [
-      -1.2419052957251926,
-      0.7395016240301894,
-      -1.2415404171917719,
-      0.7396563300150859,
-      0,
-      20.4
-    ]
-  },
-  "geometricError": 43.88464075650763,
-  "refine" : "ADD",
-  "content": {
-    "boundingVolume": {
-      "region": [
-        -1.2418882438584018,
-        0.7395016240301894,
-        -1.2415422846940714,
-        0.7396461198389616,
-        0,
-        19.4
-      ]
-    },
-    "uri": "2/0/0.b3dm"
-  },
-  "children": [...]
-}
-```
+A tile's geometric error defines the selection metric for that tile. Its value is a nonnegative number specified, in meters, to be used by client implementation to calculate, along with other screen space metrics including the distance from the tile to the camera, the screen size and resolution, the SSE introduced if this tile is rendered and its children are not. If the introduced SEE exceeds the maximum allowed, the tile is refined and its children are considered for rendering.
 
-The `boundingVolume` defines a volume enclosing the tile content, and is used to determine which tiles to render at runtime. The above example uses a `region` volume, but other [bounding volumes](#bounding-volumes), such as `box` or `sphere`, may be used.
+The geometric error is pre-authored by a generation tool when creating the tileset and is based on a metric like point density, tile sizes in meters, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner.
 
-The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered, see [Geometric error](#geometric-error).
+> **Implementation Note:** Typically, a property of the root tile, such as size, is used to determine a geometric error. Then each successive level of children uses a lower geometric error than its parent, with leaf tiles generally having a geometric error of or close to 0.
 
-The optional `viewerRequestVolume` property (not shown above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
+#### Refinement
 
-The `refine` property is a string that is either `"REPLACE"` for replacement refinement or `"ADD"` for additive refinement, see [Refinement](#refinement).  It is required for the root tile of a tileset; it is optional for all other tiles.  A tileset can use any combination of additive and replacement refinement.  When the `refine` property is omitted, it is inherited from the parent tile.
+Refinement determines the process by which a lower resolution parent tile renders when its higher resolution children are selected to be rendered. Permitted refinement types are replacement (`"REPLACE"`) and additive (`"ADD"`). If the tile has replacement refinement, the children tiles are rendered in place of the parent, that is, the parent tile is no longer rendered. If the tile has additive refinement, the children are rendered in addition to the parent tile.
 
-The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.uri` is a uri that points to the tile's content.
+A tileset can use replacement refinement exclusively, additive refinement exclusively, or any combination of additive and replacement refinement.
 
-The uri can be another tileset JSON to create a tileset of tilesets.  See [External tilesets](#external-tilesets).
+A refinement type is required for the root tile of a tileset; it is optional for all other tiles. When omitted, a tile inherits the refinement type of its parent.
 
-A file extension is not required for `content.uri`.  A content's [tile format](#tile-format-specifications) can be identified by the `magic` field in its header, or else as an external tileset if the content is JSON.
+##### Replacement
 
-The `content.boundingVolume` property defines an optional [bounding volume](#bounding-volumes) similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's content.  `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
+If a tile uses replacement refinement, when refined it renders its children in place of itself.
 
-The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
+| Parent Tile | Refined |
+|:---:|:--:|
+| ![](figures/replacement_1.jpg) | ![](figures/replacement_2.jpg) |
 
-![](figures/contentsBox.png)
+##### Additive
 
-The optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
+If a tile uses additive refinement, when refined it renders itself and its children simultaneously.
 
-The `children` property is an array of objects that define child tiles.  See the [Tileset JSON](#tileset-json) section below.
+| Parent Tile | Refined |
+|:---:|:--:|
+| ![](figures/additive_1.jpg) | ![](figures/additive_2.jpg) |
 
 #### Bounding volumes
 
@@ -301,6 +277,56 @@ The `boundingVolume.sphere` property is an array of four numbers that define a b
   ]
 }
 ```
+
+#### Viewer request volume
+
+A tile's `viewerRequestVolume` can be used for combining heterogeneous datasets, and can be combined with [external tilesets](#external-tilesets).
+
+The following example has a building in a `b3dm` tile and a point cloud inside the building in a `pnts` tile.  The point cloud tile's `boundingVolume` is a sphere with a radius of `1.25`.  It also has a larger sphere with a radius of `15` for the `viewerRequestVolume`.  Since the `geometricError` is zero, the point cloud tile's content is always rendered (and initially requested) when the viewer is inside the large sphere defined by `viewerRequestVolume`.
+
+```json
+{
+  "children": [{
+    "transform": [
+      4.843178171884396,   1.2424271388626869, 0,                  0,
+      -0.7993325488216595,  3.1159251367235608, 3.8278032889280675, 0,
+      0.9511533376784163, -3.7077466670407433, 3.2168186118075526, 0,
+      1215001.7612985559, -4736269.697480114,  4081650.708604793,  1
+    ],
+    "boundingVolume": {
+      "box": [
+        0,     0,    6.701,
+        3.738, 0,    0,
+        0,     3.72, 0,
+        0,     0,    13.402
+      ]
+    },
+    "geometricError": 32,
+    "content": {
+      "uri": "building.b3dm"
+    }
+  }, {
+    "transform": [
+      0.968635634376879,    0.24848542777253732, 0,                  0,
+      -0.15986650990768783,  0.6231850279035362,  0.7655606573007809, 0,
+      0.19023066741520941, -0.7415493329385225,  0.6433637229384295, 0,
+      1215002.0371330238,  -4736270.772726648,   4081651.6414821907, 1
+    ],
+    "viewerRequestVolume": {
+      "sphere": [0, 0, 0, 15]
+    },
+    "boundingVolume": {
+      "sphere": [0, 0, 0, 1.25]
+    },
+    "geometricError": 0,
+    "content": {
+      "uri": "points.pnts"
+    }
+  }]
+}
+```
+
+For more on request volumes, see the [sample tileset](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples/tree/master/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
 
 #### Tile transform
 
@@ -386,75 +412,70 @@ function computeTransform(tile, transformToRoot) {
 }
 ```
 
-#### Viewer request volume
+#### Tile JSON
 
-A tile's `viewerRequestVolume` can be used for combining heterogeneous datasets, and can be combined with [external tilesets](#external-tilesets).
+A tile JSON object consists of the following properties.
 
-The following example has a building in a `b3dm` tile and a point cloud inside the building in a `pnts` tile.  The point cloud tile's `boundingVolume` is a sphere with a radius of `1.25`.  It also has a larger sphere with a radius of `15` for the `viewerRequestVolume`.  Since the `geometricError` is zero, the point cloud tile's content is always rendered (and initially requested) when the viewer is inside the large sphere defined by `viewerRequestVolume`.
+![](figures/tile.png)
+
+The following example shows one non-leaf tile.
 
 ```json
 {
-  "children": [{
-    "transform": [
-      4.843178171884396,   1.2424271388626869, 0,                  0,
-      -0.7993325488216595,  3.1159251367235608, 3.8278032889280675, 0,
-      0.9511533376784163, -3.7077466670407433, 3.2168186118075526, 0,
-      1215001.7612985559, -4736269.697480114,  4081650.708604793,  1
-    ],
+  "boundingVolume": {
+    "region": [
+      -1.2419052957251926,
+      0.7395016240301894,
+      -1.2415404171917719,
+      0.7396563300150859,
+      0,
+      20.4
+    ]
+  },
+  "geometricError": 43.88464075650763,
+  "refine" : "ADD",
+  "content": {
     "boundingVolume": {
-      "box": [
-        0,     0,    6.701,
-        3.738, 0,    0,
-        0,     3.72, 0,
-        0,     0,    13.402
+      "region": [
+        -1.2418882438584018,
+        0.7395016240301894,
+        -1.2415422846940714,
+        0.7396461198389616,
+        0,
+        19.4
       ]
     },
-    "geometricError": 32,
-    "content": {
-      "uri": "building.b3dm"
-    }
-  }, {
-    "transform": [
-      0.968635634376879,    0.24848542777253732, 0,                  0,
-      -0.15986650990768783,  0.6231850279035362,  0.7655606573007809, 0,
-      0.19023066741520941, -0.7415493329385225,  0.6433637229384295, 0,
-      1215002.0371330238,  -4736270.772726648,   4081651.6414821907, 1
-    ],
-    "viewerRequestVolume": {
-      "sphere": [0, 0, 0, 15]
-    },
-    "boundingVolume": {
-      "sphere": [0, 0, 0, 1.25]
-    },
-    "geometricError": 0,
-    "content": {
-      "uri": "points.pnts"
-    }
-  }]
+    "uri": "2/0/0.b3dm"
+  },
+  "children": [...]
 }
 ```
 
-For more on request volumes, see the [sample tileset](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples/tree/master/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
+The `boundingVolume` defines a volume enclosing the tile content, and is used to determine which tiles to render at runtime. The above example uses a `region` volume, but other [bounding volumes](#bounding-volumes), such as `box` or `sphere`, may be used.
 
-#### Refinement
+The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), the error measured in pixels.  The SSE determines if a tile is sufficiently detailed for the current view or if its children should be considered, see [Geometric error](#geometric-error).
 
-Refinement determines how a parent tile renders when its children are selected to be rendered. Permitted refinement types are replacement (`"REPLACE"`) and additive (`"ADD"`). A tileset can use replacement refinement exclusively, additive refinement exclusively, or any combination of additive and replacement refinement. A refinement type is required for the root tile of a tileset; it is optional for all other tiles. When omitted, a tile inherits the refinement type of its parent.
+The optional `viewerRequestVolume` property (not shown above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`.  See the [Viewer request volume](#viewer-request-volume) section.
 
-##### Replacement
+The `refine` property is a string that is either `"REPLACE"` for replacement refinement or `"ADD"` for additive refinement, see [Refinement](#refinement).  It is required for the root tile of a tileset; it is optional for all other tiles.  A tileset can use any combination of additive and replacement refinement.  When the `refine` property is omitted, it is inherited from the parent tile.
 
-If a tile uses replacement refinement, when refined it renders its children in place of itself.
+The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.uri` is a uri that points to the tile's content.
 
-| Parent Tile | Refined |
-|:---:|:--:|
-| ![](figures/replacement_1.jpg) | ![](figures/replacement_2.jpg) |
+The uri can be another tileset JSON to create a tileset of tilesets.  See [External tilesets](#external-tilesets).
 
-##### Additive
+A file extension is not required for `content.uri`.  A content's [tile format](#tile-format-specifications) can be identified by the `magic` field in its header, or else as an external tileset if the content is JSON.
 
-If a tile uses additive refinement, when refined it renders itself and its children simultaneously.
+The `content.boundingVolume` property defines an optional [bounding volume](#bounding-volumes) similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's content.  `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling, excluding from rendering any content not in the volume of what is potentially in view.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
 
-| Parent Tile | Refined |
-|:---:|:--:|
-| ![](figures/additive_1.jpg) | ![](figures/additive_2.jpg) |
+The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
+
+![](figures/contentsBox.png)
+
+The optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
+
+The `children` property is an array of objects that define child tiles. Each child tile's content is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined. See the [Tileset JSON](#tileset-json) section below.
+
+See [Property reference](#property-reference) for the tile JSON schema reference. The full JSON schema can be found in [`tile.schema.json`](./schema/tile.schema.json).
 
 ### Tileset JSON
 
@@ -511,12 +532,9 @@ The top-level object in the tileset JSON has four properties: `asset`, `properti
 
 `properties` is an object containing objects for each per-feature property in the tileset.  This tileset JSON snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see [Batch Table](TileFormats/BatchTable/README.md)).  The name of each object in `properties` matches the name of a per-feature property, and its value defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
-`geometricError` is a nonnegative number that defines the error, in meters, when the tileset is not rendered. See [Geometric error](#geometric-error) for how geometric error is used to drive refinement.
+`geometricError` is a nonnegative number that defines the error, in meters, that determines if the tileset is rendered.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), the error measured in pixels.  If the SSE does not exceed a required minimum, the tileset should not be rendered, and none of its tile should be considered for rendering, see [Geometric error](#geometric-error).
 
-`root` is an object that defines the root tile using the JSON described in the [above section](#tiles).  `root.geometricError` is not the same as the tileset's top-level `geometricError`. The tileset's `geometricError` is the error when the entire tileset is not rendered; `root.geometricError` is the error when only the root tile is rendered.
-
-`root.children` is an array of objects that define child tiles.  Each child tile's content is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined.
-
+`root` is an object that defines the root tile using the tile JSON described in the [above section](#tiles).  `root.geometricError` is not the same as the tileset's top-level `geometricError`. The tileset's `geometricError` is used to determine the maximum error when the tileset is rendered and if its tiles should be considered for rendering; `root.geometricError` is used only to determine if the root tile is rendered.
 
 #### External tilesets
 
@@ -531,14 +549,6 @@ When a tile points to an external tileset, the tile:
 * Will be transformed by both the tile's `transform` and root tile's `transform`.  For example, in the following tileset referencing an external tileset, the computed transform for `T3` is `[T0][T1][T2][T3]`.
 
 ![](figures/tileTransformExternalTileset.png)
-
-#### Geometric error
-
-Geometric error is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), i.e., the error measured in pixels.  The SSE determines _Hierarchical Level of Detail_ (HLOD) refinement, i.e., if a tile is sufficiently detailed for the current view or if its children should be considered.
-
-The geometric error is determined when creating the tileset and based on a metric like point density, tile sizes in meters, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner.
-
-> **Implementation Note:** Typically, a property of the root tile, such as size, is used to determine a geometric error. Then each successive level of children uses a lower geometric error, with leaf tiles generally having a geometric error of 0.
 
 #### Bounding volume spatial coherence
 
