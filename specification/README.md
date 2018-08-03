@@ -53,8 +53,8 @@ Acknowledgements:
   * [Tiles](#tiles)
     * [Geometric error](#geometric-error)
     * [Refinement](#refinement)
-        * [Additive](#additive)
         * [Replacement](#replacement)
+        * [Additive](#additive)
     * [Bounding volumes](#bounding-volumes)
         * [Region](#region)
         * [Box](#box)
@@ -191,11 +191,11 @@ Tiles consist of metadata used to render the tile, any content, and an array of 
 
 Tiles are structured into a tree incorporating _Hierarchical Level of Detail_ (HLOD) so that at runtime a client implementation will need to determine if a tile is sufficiently detailed for rendering and if the the content of tiles should be successively refined by children tiles of higher resolution. An implementation will consider a maximum allowed _Screen-Space Error_ (SSE), the error measured in pixels.
 
-A tile's geometric error defines the selection metric for that tile. Its value is a nonnegative number specified, in meters, to be used by client implementation to calculate, along with other screen space metrics including the distance from the tile to the camera, the screen size and resolution, the SSE introduced if this tile is rendered and its children are not. If the introduced SEE exceeds the maximum allowed, the tile is refined and its children are considered for rendering.
+A tile's geometric error defines the selection metric for that tile. Its value is a nonnegative number that specifies the error, in meters, of the tile's simplified representation of its source geometry. Usually being the most simplified version of the source geometry, a root tile will have the greatest geometric error. Then each successive level of children will have a lower geometric error than its parent, with leaf tiles having a geometric error of or close to 0.
 
-The geometric error is pre-authored by a generation tool when creating the tileset and is based on a metric like point density, tile sizes in meters, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner.
+In a client implementation, geometric error is used with other screen space metrics&mdash;e.g., distance from the tile to the camera, screen size, and resolution&mdash; to calculate the SSE introduced if this tile is rendered and its children are not. If the introduced SSE exceeds the maximum allowed, then the tile is refined and its children are considered for rendering.
 
-> **Implementation Note:** Typically, a property of the root tile, such as size, is used to determine a geometric error. Then each successive level of children uses a lower geometric error than its parent, with leaf tiles generally having a geometric error of or close to 0.
+The geometric error is pre-authored by a generation tool when generating the tileset and is based on a metric like point density, tile size in meters, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner.
 
 #### Refinement
 
@@ -532,9 +532,9 @@ The top-level object in the tileset JSON has four properties: `asset`, `properti
 
 `properties` is an object containing objects for each per-feature property in the tileset.  This tileset JSON snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see [Batch Table](TileFormats/BatchTable/README.md)).  The name of each object in `properties` matches the name of a per-feature property, and its value defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
-`geometricError` is a nonnegative number that defines the error, in meters, that determines if the tileset is rendered.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), the error measured in pixels.  If the SSE does not exceed a required minimum, the tileset should not be rendered, and none of its tile should be considered for rendering, see [Geometric error](#geometric-error).
+`geometricError` is a nonnegative number that defines the error, in meters, that determines if the tileset is rendered.  At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), the error measured in pixels.  If the SSE does not exceed a required minimum, the tileset should not be rendered, and none of its tiles should be considered for rendering, see [Geometric error](#geometric-error).
 
-`root` is an object that defines the root tile using the tile JSON described in the [above section](#tiles).  `root.geometricError` is not the same as the tileset's top-level `geometricError`. The tileset's `geometricError` is used to determine the maximum error when the tileset is rendered and if its tiles should be considered for rendering; `root.geometricError` is used only to determine if the root tile is rendered.
+`root` is an object that defines the root tile using the tile JSON described in the [above section](#tiles).  `root.geometricError` is not the same as the tileset's top-level `geometricError`. The tileset's `geometricError` is used at runtime to determine the SSE at which the tileset's root tile renders; `root.geometricError` is used at runtime to determine the SSE at which the root tile's children are rendered.
 
 #### External tilesets
 
