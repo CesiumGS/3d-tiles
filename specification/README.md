@@ -189,7 +189,7 @@ Tiles consist of metadata used to render the tile, any content, and an array of 
 
 #### Geometric error
 
-Tiles are structured into a tree incorporating _Hierarchical Level of Detail_ (HLOD) so that at runtime a client implementation will need to determine if a tile is sufficiently detailed for rendering and if the the content of tiles should be successively refined by children tiles of higher resolution. An implementation will consider a maximum allowed _Screen-Space Error_ (SSE), the error measured in pixels.
+Tiles are structured into a tree incorporating _Hierarchical Level of Detail_ (HLOD) so that at runtime a client implementation will need to determine if a tile is sufficiently detailed for rendering and if the content of tiles should be successively refined by children tiles of higher resolution. An implementation will consider a maximum allowed _Screen-Space Error_ (SSE), the error measured in pixels.
 
 A tile's geometric error defines the selection metric for that tile. Its value is a nonnegative number that specifies the error, in meters, of the tile's simplified representation of its source geometry. Usually being the most simplified version of the source geometry, a root tile will have the greatest geometric error. Then each successive level of children will have a lower geometric error than its parent, with leaf tiles having a geometric error of or close to 0.
 
@@ -223,7 +223,7 @@ If a tile uses additive refinement, when refined it renders itself and its child
 
 #### Bounding volumes
 
-Bounding volume objects are used to defined an enclosing volume, and must specify exactly one of the following properties.
+Bounding volume objects are used to define an enclosing volume, and must specify exactly one of the following properties.
 
 ##### Region
 
