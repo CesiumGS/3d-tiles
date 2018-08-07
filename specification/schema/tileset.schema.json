@@ -1,0 +1,54 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "tileset.schema.json",
+    "title" : "Tileset",
+    "type" : "object",
+    "description" : "A 3D Tiles tileset.",
+    "properties" : {
+        "asset" : {
+            "$ref" : "asset.schema.json"
+        },
+        "properties" : {
+            "description": "A dictionary object of metadata about per-feature properties.",
+            "properties" : {},
+            "additionalProperties" : {
+                "$ref" : "properties.schema.json"
+            }
+        },
+        "geometricError" : {
+            "type" : "number",
+            "description" : "The error, in meters, introduced if this tileset is not rendered. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.",
+            "minimum" : 0
+        },
+        "root" : {
+            "description" : "The root tile.",
+            "$ref" : "tile.schema.json"
+        },
+        "extensionsUsed": {
+            "type": "array",
+            "description": "Names of 3D Tiles extensions used somewhere in this tileset.",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true,
+            "minItems": 1
+        },
+        "extensionsRequired": {
+            "type": "array",
+            "description": "Names of 3D Tiles extensions required to properly load this tileset.",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true,
+            "minItems": 1
+        },
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
+        }
+    },
+    "required" : ["asset", "geometricError", "root"],
+    "additionalProperties" : false
+}

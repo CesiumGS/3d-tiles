@@ -8,7 +8,7 @@
         "componentType" : "FLOAT",
         "type" : "SCALAR"
     },
-    "cartographic" : {
+    "geographic" : {
         "byteOffset" : 8,
         "componentType" : "DOUBLE",
         "type" : "VEC3"

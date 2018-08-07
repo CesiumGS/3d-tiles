@@ -1,0 +1,124 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "featureTable.schema.json",
+    "title" : "Feature Table",
+    "type" : "object",
+    "description" : "A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.",
+    "definitions" : {
+        "binaryBodyReference" : {
+            "title" : "BinaryBodyReference",
+            "type" : "object",
+            "description" : "An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
+            "properties" : {
+                "byteOffset" : {
+                    "type" : "number",
+                    "description": "The offset into the buffer in bytes.",
+                    "minimum" : 0
+                }
+            },
+            "required" : ["byteOffset"]
+        },
+        "numericArray" : {
+            "type" : "array",
+            "items" : {
+                "type" : "number"
+            }
+        },
+        "property" : {
+            "title" : "Property",
+            "description" : "A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a `BinaryBodyReference` object.",
+            "oneOf" : [
+                { 
+                    "$ref" : "#/definitions/binaryBodyReference" 
+                }, { 
+                    "type" : "array",
+                    "items" : {
+                        "type" : "number"
+                    } 
+                }, {
+                    "type" : "number"
+                }
+            ]
+        },
+        "globalPropertyScalar" : {
+            "title": "GlobalPropertyScalar",
+            "description": "An object defining a global numeric property values for all features.",
+            "oneOf" : [{
+                "type" : "object",
+                "properties" : {
+                    "byteOffset" : {
+                        "type" : "number",
+                        "description": "The offset into the buffer in bytes.",
+                        "minimum" : 0
+                    }
+                },
+                "required" : ["byteOffset"]
+            }, {
+                "type" : "array",
+                "items" : {
+                    "type" : "number"
+                },
+                "minItems" : 1,
+                "maxItems" : 1
+            }, {
+                "type" : "number",
+                "minimum" : 0
+            }]
+        },
+        "globalPropertyCartesian3" : {
+            "title": "GlobalPropertyCartesian3",
+            "description": "An object defining a global 3-component numeric property values for all features.",
+            "oneOf" : [{
+                "type" : "object",
+                "properties" : {
+                    "byteOffset" : {
+                        "type" : "number",
+                        "description": "The offset into the buffer in bytes.",
+                        "minimum" : 0
+                    }
+                },
+                "required" : ["byteOffset"]
+            }, {
+                "type" : "array",
+                "items" : {
+                    "type" : "number"
+                },
+                "minItems" : 3,
+                "maxItems" : 3
+            }]
+        },
+        "globalPropertyCartesian4" : {
+            "title": "GlobalPropertyCartesian4",
+            "description": "An object defining a global 4-component numeric property values for all features.",
+            "oneOf" : [{
+                "type" : "object",
+                "properties" : {
+                    "byteOffset" : {
+                        "type" : "number",
+                        "description": "The offset into the buffer in bytes.",
+                        "minimum" : 0
+                    }
+                },
+                "required" : ["byteOffset"]
+            }, {
+                "type" : "array",
+                "items" : {
+                    "type" : "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+            }]
+        }
+    },
+    "properties" : {
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
+        }
+    },
+    "additionalProperties" : {
+        "$ref" : "#/definitions/property"
+    }
+}

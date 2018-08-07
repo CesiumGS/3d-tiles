@@ -1,0 +1,57 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "id" : "tile.schema.json",
+    "title" : "Tile",
+    "type" : "object",
+    "description" : "A tile in a 3D Tiles tileset.",
+    "properties" : {
+        "boundingVolume" : {
+            "description" : "The bounding volume that encloses the tile.",
+            "$ref" : "boundingVolume.schema.json"
+        },
+        "viewerRequestVolume" : {
+            "description" : "Optional bounding volume that defines the volume the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.",
+            "$ref" : "boundingVolume.schema.json"
+        },
+        "geometricError" : {
+            "type" : "number",
+            "description" : "The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.",
+            "minimum" : 0
+        },
+        "refine" : {
+            "type" : "string",
+            "description" : "Specifies if additive or replacement refinement is used when traversing the tileset for rendering.  This property is required for the root tile of a tileset; it is optional for all other tiles.  The default is to inherit from the parent tile.",
+            "enum" : ["ADD", "REPLACE"]
+        },
+        "transform" : {
+            "type" : "array",
+            "description" : "A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system.  transform does not apply to geometricError, nor does it apply any volume property when the volume is a region, defined in EPSG:4979 coordinates.",
+            "items" : {
+                "type": "number"
+            },
+            "minItems" : 16,
+            "maxItems" : 16,
+            "default" : [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ]
+        },
+        "content" : {
+            "description" : "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. This is required for leaf tiles.",
+            "$ref" : "tile.content.schema.json"
+        },
+        "children" : {
+            "type" : "array",
+            "description" : "An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.",
+            "items" : {
+                "$ref" : "tile.schema.json"
+            },
+            "uniqueItems" : true
+        },
+        "extensions" : {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
+        }
+    },
+    "required" : ["boundingVolume", "geometricError"],
+    "additionalProperties" : false
+}
