@@ -9,11 +9,11 @@ To add any schema or markdown updates to the 3D Tiles Specification PDF, take th
 1. Generate a `.docx` file for each section.
     * Run [pandoc](https://pandoc.org/demos.html) to generate a formatted `.docx` file from markdown. Run the following command in the directory that contains the input file to preserve images.
         * `pandoc ./README.md -o README.docx -f github_markdown`
-    * Generate a `.docx` each of the following files:
+    * Generate a `.docx` for each of the following files:
         * `specification/README.md`
         * `specification/TileFormats/BatchTable/README.md`
         * `specification/TileFormats/FeatureTable/README.md`
-        * Each tile format type `README.md` (the remainfing directories in `specification/TileFormats/`)
+        * Each tile format type `README.md` (the remaining directories in `specification/TileFormats/`)
 
 1. Update, save, and commit changes to `specification/specification.docx`.
     * Copy the formatted content generated in the previous step into the relevant sections of `specification/specification.docx`, with each of Tile Formats listed in the "Tile Formats" section. Headers should match the proper level, and can be edited in "Outline View".
