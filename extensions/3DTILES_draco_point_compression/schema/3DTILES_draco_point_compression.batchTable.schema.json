@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "id" : "3DTILES_draco_point_compression.batchTable.schema.json",
+    "title": "3DTILES_draco_point_compression Batch Table extension",
+    "type": "object",
+    "description" : "Specifies the compressed Batch Table properties.",
+    "properties": {
+        "properties": {
+            "type": "object",
+            "description": "Defines the properties stored in the compressed data. Each property is associated with a unique ID. This ID is used to identify the property within the compressed data. No two properties in the Feature Table and Batch Table may use the same ID.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "type": "number",
+                "minimum": 0
+            }
+        }
+    },
+    "required": ["properties"],
+    "additionalProperties" : false
+}

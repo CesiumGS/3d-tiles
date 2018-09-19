@@ -19,12 +19,13 @@
         * [Oct-encoded normal vectors](#oct-encoded-normal-vectors)
     * [Batched points](#batched-points)
     * [Examples](#examples)
-        * [Positions only](#positions-only) 
+        * [Positions only](#positions-only)
         * [Positions and colors](#positions-and-colors)
         * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)
-        * [Batched points](#batched-points)         
+        * [Batched points](#batched-points)
         * [Per-point properties](#per-point-properties)
 * [Batch Table](#batch-table)
+* [Extensions](#extensions)
 * [File extension and MIME type](#file-extension-and-mime-type)
 * [Implementation example](#implementation-example)
 * [Property reference](#property-reference)
@@ -182,7 +183,7 @@ var featureTableJSON = {
 };
 
 var featureTableBinary = new Buffer(new Float32Array([
-    0.0, 0.0, 0.0, 
+    0.0, 0.0, 0.0,
     1.0, 0.0, 0.0,
     0.0, 0.0, 1.0,
     1.0, 0.0, 1.0
@@ -206,9 +207,9 @@ var featureTableJSON = {
 };
 
 var positionBinary = new Buffer(new Float32Array([
-    0.0, 0.0, 0.0, 
-    1.0, 0.0, 0.0, 
-    0.0, 0.0, 1.0, 
+    0.0, 0.0, 0.0,
+    1.0, 0.0, 0.0,
+    0.0, 0.0, 1.0,
     1.0, 0.0, 1.0
 ]).buffer);
 
@@ -325,6 +326,12 @@ The _Batch Table_ contains application-specific metadata, indexable by `batchId`
 * If the `BATCH_ID` semantic is not defined, then the Batch Table stores per-point metadata, and the length of the Batch Table arrays will equal `POINTS_LENGTH`.
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
+
+## Extensions
+
+The following extensions can be applied to a Point Cloud tile.
+
+* [3DTILES_draco_point_compression](../../../extensions/3DTILES_draco_point_compression/)
 
 ## File extension and MIME type
 
@@ -449,7 +456,7 @@ A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the re
 * **Type**: `object`
 * **Required**: No
 
-#### PointCloudFeatureTable.POINTS_LENGTH :white_check_mark: 
+#### PointCloudFeatureTable.POINTS_LENGTH :white_check_mark:
 
 A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
 
@@ -506,7 +513,7 @@ An object defining the reference to a section of the binary body of the features
 
 Additional properties are allowed.
 
-#### BinaryBodyReference.byteOffset :white_check_mark: 
+#### BinaryBodyReference.byteOffset :white_check_mark:
 
 The offset into the buffer in bytes.
 
@@ -552,4 +559,3 @@ An object defining a global numeric property values for all features.
 A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
 
 * **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
-
