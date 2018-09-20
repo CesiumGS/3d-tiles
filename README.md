@@ -2,7 +2,7 @@
 
 An open specification for streaming massive heterogeneous 3D geospatial datasets.
 
-3D Tiles has entered the Open Geospatial Consortium (OGC) [Community Standard](https://cesium.com/blog/2016/09/06/3d-tiles-and-the-ogc/) process.
+[3D Tiles v1.0](https://github.com/AnalyticalGraphicsInc/3d-tiles/releases/tag/1.0) has entered the Open Geospatial Consortium (OGC) [Community Standard](https://cesium.com/blog/2016/09/06/3d-tiles-and-the-ogc/) process.
 
 ## Overview
 
