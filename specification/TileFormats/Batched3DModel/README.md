@@ -102,7 +102,7 @@ normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 ```
 Note that a vertex can't belong to more than one model; in that case, the vertex needs to be duplicated so the `batchId`s can be assigned.
 
-The `batchId` parameter is specified in a glTF mesh [primitive](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#reference-primitive) by providing the `_BATCHID` attribute semantic, along with the index of the `batchId` [accessor](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessors). For example, 
+The `batchId` parameter is specified in a glTF mesh [primitive](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#reference-primitive) by providing the `_BATCHID` attribute semantic, along with the index of the `batchId` [accessor](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessors). For example,
 
 ```JSON
 "primitives": [
@@ -197,7 +197,7 @@ Application-specific data.
 * **Type**: `any`
 * **Required**: No
 
-#### Batched3DModelFeatureTable.BATCH_LENGTH :white_check_mark: 
+#### Batched3DModelFeatureTable.BATCH_LENGTH :white_check_mark:
 
 A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).
 
@@ -228,7 +228,7 @@ An object defining the reference to a section of the binary body of the features
 
 Additional properties are allowed.
 
-#### BinaryBodyReference.byteOffset :white_check_mark: 
+#### BinaryBodyReference.byteOffset :white_check_mark:
 
 The offset into the buffer in bytes.
 
@@ -242,7 +242,7 @@ The offset into the buffer in bytes.
 <a name="reference-globalpropertycartesian3"></a>
 ### GlobalPropertyCartesian3
 
-An object defining a global 3-component numeric property values for all features.
+An object defining a global 3-component numeric property value for all features.
 
 * **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 
@@ -252,7 +252,7 @@ An object defining a global 3-component numeric property values for all features
 <a name="reference-globalpropertyscalar"></a>
 ### GlobalPropertyScalar
 
-An object defining a global numeric property values for all features.
+An object defining a global numeric property value for all features.
 
 * **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 

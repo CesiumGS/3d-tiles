@@ -40,9 +40,14 @@
                 }
             ]
         },
+        "globalPropertyBoolean" : {
+            "title": "GlobalPropertyBoolean",
+            "description": "An object defining a global boolean property value for all features.",
+            "type" : "boolean"
+        },
         "globalPropertyScalar" : {
             "title": "GlobalPropertyScalar",
-            "description": "An object defining a global numeric property values for all features.",
+            "description": "An object defining a global numeric property value for all features.",
             "oneOf" : [{
                 "type" : "object",
                 "properties" : {

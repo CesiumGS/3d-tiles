@@ -11,15 +11,15 @@
         * [Instance semantics](#instance-semantics)
         * [Global semantics](#global-semantics)
     * [Instance orientation](#instance-orientation)
-        * [Oct-encoded normal vectors](#oct-encoded-normal-vectors) 
-        * [Default orientation](#default-orientation)  
+        * [Oct-encoded normal vectors](#oct-encoded-normal-vectors)
+        * [Default orientation](#default-orientation)
     * [Instance position](#instance-position)
         * [RTC_CENTER](#rtc_center)
         * [Quantized positions](#quantized-positions)
     * [Instance scaling](#instance-scaling)
     * [Examples](#examples)
-        * [Positions only](#positions-only) 
-        * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)   
+        * [Positions only](#positions-only)
+        * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)
 * [Batch Table](#batch-table)
 * [glTF](#gltf)
     * [Coordinate system](#coordinate-system)
@@ -90,7 +90,7 @@ If both `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scalin
 If both `POSITION` and `POSITION_QUANTIZED` are defined for an instance, the higher precision `POSITION` will be used.
 If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` are defined for an instance, the higher precision `NORMAL_UP` and `NORMAL_RIGHT` will be used.
 
-| Semantic | Data Type | Description | Required | 
+| Semantic | Data Type | Description | Required |
 | --- | --- | --- | --- |
 | `POSITION` | `float32[3]` | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, unless `POSITION_QUANTIZED` is defined. |
 | `POSITION_QUANTIZED` | `uint16[3]` | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the instance. | :white_check_mark: Yes, unless `POSITION` is defined. |
@@ -188,7 +188,7 @@ var featureTableJSON = {
 };
 
 var featureTableBinary = new Buffer(new Float32Array([
-    0.0, 0.0, 0.0, 
+    0.0, 0.0, 0.0,
     1.0, 0.0, 0.0,
     0.0, 0.0, 1.0,
     1.0, 0.0, 1.0
@@ -197,7 +197,7 @@ var featureTableBinary = new Buffer(new Float32Array([
 
 #### Quantized positions and oct-encoded normals
 
-In this example, the four instances will be placed with an orientation `up` of `[0.0, 1.0, 0.0]` and `right` of `[1.0, 0.0, 0.0]` in oct-encoded format 
+In this example, the four instances will be placed with an orientation `up` of `[0.0, 1.0, 0.0]` and `right` of `[1.0, 0.0, 0.0]` in oct-encoded format
 and they will be placed on the corners of a quantized volume that spans from `-250.0` to `250.0` units in the `x` and `z` directions:
 
 ```javascript
@@ -298,8 +298,10 @@ A set of Instanced 3D Model semantics that contains values defining the position
 |**SCALE_NON_UNIFORM**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
 |**BATCH_ID**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
 |**INSTANCES_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).| :white_check_mark: Yes|
+|**RTC_CENTER**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
 |**QUANTIZED_VOLUME_OFFSET**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
 |**QUANTIZED_VOLUME_SCALE**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
+|**EAST_NORTH_UP**|`boolean`|A [`GlobalPropertyBoolean`](#reference-globalpropertyboolean) object defining a boolean property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
 
 Additional properties are allowed.
 
@@ -382,12 +384,19 @@ A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the re
 * **Type**: `object`
 * **Required**: No
 
-#### Instanced3DModelFeatureTable.INSTANCES_LENGTH :white_check_mark: 
+#### Instanced3DModelFeatureTable.INSTANCES_LENGTH :white_check_mark:
 
 A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
 
 * **Type**: `object`, `number` `[1]`, `number`
 * **Required**: Yes
+
+#### Instanced3DModelFeatureTable.RTC_CENTER
+
+A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `object`, `number` `[3]`
+* **Required**: No
 
 #### Instanced3DModelFeatureTable.QUANTIZED_VOLUME_OFFSET
 
@@ -403,6 +412,12 @@ A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defin
 * **Type**: `object`, `number` `[3]`
 * **Required**: No
 
+#### Instanced3DModelFeatureTable.EAST_NORTH_UP
+
+A [`GlobalPropertyBoolean`](#reference-globalpropertyboolean) object defining a boolean property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+
+* **Type**: `boolean`
+* **Required**: No
 
 ---------------------------------------
 <a name="reference-binarybodyreference"></a>
@@ -418,7 +433,7 @@ An object defining the reference to a section of the binary body of the features
 
 Additional properties are allowed.
 
-#### BinaryBodyReference.byteOffset :white_check_mark: 
+#### BinaryBodyReference.byteOffset :white_check_mark:
 
 The offset into the buffer in bytes.
 
@@ -426,25 +441,29 @@ The offset into the buffer in bytes.
 * **Required**: Yes
 * **Minimum**: ` >= 0`
 
-
 ---------------------------------------
 <a name="reference-globalpropertycartesian3"></a>
 ### GlobalPropertyCartesian3
 
-An object defining a global 3-component numeric property values for all features.
+An object defining a global 3-component numeric property value for all features.
 
 * **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
-
-
 
 ---------------------------------------
 <a name="reference-globalpropertyscalar"></a>
 ### GlobalPropertyScalar
 
-An object defining a global numeric property values for all features.
+An object defining a global numeric property value for all features.
 
 * **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 
+---------------------------------------
+<a name="reference-globalpropertyboolean"></a>
+### GlobalPropertyBoolean
+
+An object defining a global boolean property value for all features.
+
+* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 
 ---------------------------------------
 <a name="reference-property"></a>
