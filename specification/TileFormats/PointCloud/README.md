@@ -13,9 +13,9 @@
     * [Point positions](#point-positions)
         * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
         * [RTC_CENTER](#rtc_center)
-        * [Quantized positions](#quantized-positions) 
-    * [Point colors](#point-colors) 
-    * [Point normals](#point-normals)     
+        * [Quantized positions](#quantized-positions)
+    * [Point colors](#point-colors)
+    * [Point normals](#point-normals)
         * [Oct-encoded normal vectors](#oct-encoded-normal-vectors)
     * [Batched points](#batched-points)
     * [Examples](#examples)
@@ -527,7 +527,7 @@ The offset into the buffer in bytes.
 <a name="reference-globalpropertycartesian3"></a>
 ### GlobalPropertyCartesian3
 
-An object defining a global 3-component numeric property values for all features.
+An object defining a global 3-component numeric property value for all features.
 
 * **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 
@@ -537,7 +537,7 @@ An object defining a global 3-component numeric property values for all features
 <a name="reference-globalpropertycartesian4"></a>
 ### GlobalPropertyCartesian4
 
-An object defining a global 4-component numeric property values for all features.
+An object defining a global 4-component numeric property value for all features.
 
 * **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 
@@ -547,7 +547,7 @@ An object defining a global 4-component numeric property values for all features
 <a name="reference-globalpropertyscalar"></a>
 ### GlobalPropertyScalar
 
-An object defining a global numeric property values for all features.
+An object defining a global numeric property value for all features.
 
 * **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 
