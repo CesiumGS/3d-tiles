@@ -14,6 +14,11 @@
                     "type" : "number",
                     "description": "The offset into the buffer in bytes.",
                     "minimum" : 0
+                },
+                "componentType" : {
+                    "type" : "number",
+                    "description": "The datatype of components in the property. This is defined only if the semantic allows for overriding the implicit component type. These cases are specified in each tile format.",
+                    "enum" : ["BYTE", "UNSIGNED_BYTE", "SHORT", "UNSIGNED_SHORT", "INT", "UNSIGNED_INT", "FLOAT", "DOUBLE"]
                 }
             },
             "required" : ["byteOffset"]
@@ -28,13 +33,13 @@
             "title" : "Property",
             "description" : "A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a `BinaryBodyReference` object.",
             "oneOf" : [
-                { 
-                    "$ref" : "#/definitions/binaryBodyReference" 
-                }, { 
+                {
+                    "$ref" : "#/definitions/binaryBodyReference"
+                }, {
                     "type" : "array",
                     "items" : {
                         "type" : "number"
-                    } 
+                    }
                 }, {
                     "type" : "number"
                 }
