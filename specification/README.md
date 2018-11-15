@@ -78,9 +78,9 @@ Acknowledgements:
 
 ## Introduction
 
-3D Tiles is designed for streaming and rendering massive 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds. It defines a format for describing a hierarchical data structure and a set of tile formats which deliver renderable 3D content. 3D Tiles does not define explicit rules for visualization of the content; a client may visualize 3D Tiles data however it sees fit.
+3D Tiles is designed for streaming and rendering massive 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds. It defines a hierarchical data structure and a set of tile formats which deliver renderable 3D content. 3D Tiles does not define explicit rules for visualization of the content; a client may visualize 3D Tiles data however it sees fit.
 
-In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_. A tileset is described by at least one tileset JSON file containing tileset metadata and a tree of tile objects, each of which may reference renderable 3D content of one of the following formats:
+In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_. A tileset is described by at least one tileset JSON file containing tileset metadata and a tree of tile objects, each of which may reference renderable content of one of the following formats:
 
 Format|Uses
 ---|---
@@ -91,9 +91,9 @@ Format|Uses
 
 A tile's _content_, an individual instance of a tile format, is a binary blob with format-specific components including a [Feature Table](./TileFormats/FeatureTable/README.md) and a [Batch Table](./TileFormats/BatchTable/README.md).
 
-The content references a set of _features_, such as 3D models representing buildings or trees, or points in a point cloud. Each feature has position and appearance properties stored in the tile’s Feature Table, and additional application-specific properties may be defined in the Batch Table. A client may choose to select features at runtime and retrieve their metadata for visualization or analysis.
+The content references a set of _features_, such as 3D models representing buildings or trees, or points in a point cloud. Each feature has position and appearance properties stored in the tile's Feature Table, and additional application-specific properties stored in the Batch Table. A client may choose to select features at runtime and retrieve their properties for visualization or analysis.
 
-The Batched 3D Model and Instanced 3D Model formats are built on glTF, an open specification designed for the efficient transmission of 3D content. The tile content of these formats embed a glTF asset, which contains model geometry and texture information, in the binary body. The Point Cloud format does not embed glTF.
+The Batched 3D Model and Instanced 3D Model formats are built on [glTF](https://github.com/KhronosGroup/glTF), an open specification designed for the efficient transmission of 3D content. The tile content of these formats embed a glTF asset, which contains model geometry and texture information, in the binary body. The Point Cloud format does not embed glTF.
 
 Tiles are organized in a tree which incorporates the concept of Hierarchical Level of Detail (HLOD) for optimal rendering of spatial data. Each tile has a _bounding volume_, an object defining a spatial extent completely enclosing its content. The tree has [spatial coherence](#bounding-volume-spatial-coherence); the content for child tiles are completely inside the parent's bounding volume.
 
