@@ -246,7 +246,7 @@ Contains metadata organized by `batchId` that can be used for declarative stylin
 
 ## glTF
 
-Instanced 3D Model embeds [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) containing model geometry and texture content.
+Instanced 3D Model embeds [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) containing model geometry and texture information.
 
 The glTF asset to be instanced is stored after the Feature Table and Batch Table. It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
