@@ -227,7 +227,7 @@ If a tile uses additive refinement, when refined it renders itself and its child
 
 #### Bounding volumes
 
-Bounding volume are objects that define a spatial extent enclosing a tile or the tile's content. To support tight fitting volumes for a variety of datasets such as regularly divided terrain, cities not aligned with a line of latitude or longitude, or arbitrary point clouds, the bounding volume types include an oriented bounding box, a bounding sphere, or a geographic region defined by minimum and maximum latitudes, longitudes, and heights.
+Bounding volumes are objects that define a spatial extent enclosing a tile or the tile's content. To support tight fitting volumes for a variety of datasets such as regularly divided terrain, cities not aligned with a line of latitude or longitude, or arbitrary point clouds, the bounding volume types include an oriented bounding box, a bounding sphere, and a geographic region defined by minimum and maximum latitudes, longitudes, and heights.
 
 | Bounding box | Bounding sphere | Bounding region |
 |:---:|:---:|:---:|
@@ -731,7 +731,7 @@ See [Property reference](#property-reference) for the tileset JSON schema refere
 
 ## Tile format specifications
 
-Each tile's `content.uri` property may be the uri of binary blob that contains information for rendering the tile's 3D content. The content is an instance one of the formats listed in the table below.
+Each tile's `content.uri` property may be the uri of binary blob that contains information for rendering the tile's 3D content. The content is an instance of one of the formats listed in the table below.
 
 Format|Uses
 ---|---
