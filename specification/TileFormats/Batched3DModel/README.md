@@ -23,7 +23,7 @@ _Batched 3D Model_ allows offline batching of heterogeneous 3D models, such as d
 
 Per-model properties, such as IDs, enable individual models to be identified and updated at runtime, e.g., show/hide, highlight color, etc. Properties may be used, for example, to query a web service to access metadata, such as passing a building's ID to get its address. Or a property might be referenced on the fly for changing a model's appearance, e.g., changing highlight color based on a property value.
 
-An instance of a Batched 3D Model tile is a binary blob in little endian.
+A Batched 3D Model tile is a binary blob in little endian.
 
 ## Layout
 
@@ -78,7 +78,7 @@ These semantics define global properties for all features.
 
 ## Batch Table
 
-The _Batch Table_ contains per-model application-specific metadata properties, indexable by `batchId`, that can be used for [declarative styling](../../Styling/README.md) and application-specific use cases such as populating a UI or issuing a REST API request.  In the binary glTF section, each vertex has an numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
+The _Batch Table_ contains per-model application-specific properties, indexable by `batchId`, that can be used for [declarative styling](../../Styling/README.md) and application-specific use cases such as populating a UI or issuing a REST API request.  In the binary glTF section, each vertex has an numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
 

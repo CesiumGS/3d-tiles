@@ -78,18 +78,18 @@ Acknowledgements:
 
 ## Introduction
 
-3D Tiles is designed for streaming and rendering massive 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds. It defines a format for describing a hierarchical spatial data structure and a set of tile formats which deliver renderable 3D content. 3D Tiles does not define explicit rules for visualization of the content; a client may visualize 3D Tiles data however it sees fit.
+3D Tiles is designed for streaming and rendering massive 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds. It defines a format for describing a hierarchical data structure and a set of tile formats which deliver renderable 3D content. 3D Tiles does not define explicit rules for visualization of the content; a client may visualize 3D Tiles data however it sees fit.
 
 In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_. A tileset is described by at least one tileset JSON file containing tileset metadata and a tree of tile objects, each of which may reference renderable 3D content of one of the following formats:
 
-| Format |	Uses |
-| --- | --- |
-| Batched 3D Model (b3dm) |	Heterogeneous 3D models. E.g. textured terrain and surfaces, 3D building exteriors and interiors, massive models. |
-| Instanced 3D Model (i3dm) |	3D model instances. E.g. trees, windmills, bolts. |
-| Point Cloud (pnts) | Massive number of points. |
-| Composite (cmpt) | Concatenate tiles of different formats into one tile. |
+Format|Uses
+---|---
+[Batched 3D Model (`b3dm`)](./TileFormats/Batched3DModel/README.md)|Heterogeneous 3D models. E.g. textured terrain and surfaces, 3D building exteriors and interiors, massive models.
+[Instanced 3D Model (`i3dm`)](./TileFormats/Instanced3DModel/README.md)|3D model instances. E.g. trees, windmills, bolts.
+[Point Cloud (`pnts`)](./TileFormats/PointCloud/README.md)|Massive number of points.
+[Composite (`cmpt`)](./TileFormats/Composite/README.md)|Concatenate tiles of different formats into one tile.
 
-A tile's _content_, an individual instance of a tile format, is a binary blob with format-specific components including a Batch Table and a Feature table.
+A tile's _content_, an individual instance of a tile format, is a binary blob with format-specific components including a [Feature Table](./TileFormats/FeatureTable/README.md) and a [Batch Table](./TileFormats/BatchTable/README.md).
 
 The content references a set of _features_, such as 3D models representing buildings or trees, or points in a point cloud. Each feature has position and appearance properties stored in the tile’s Feature Table, and additional application-specific properties may be defined in the Batch Table. A client may choose to select features at runtime and retrieve their metadata for visualization or analysis.
 
@@ -101,7 +101,7 @@ Tiles are organized in a tree which incorporates the concept of Hierarchical Lev
 
 A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (WMTS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, the tree can be any [spatial data structure](#spatial-data-structures) with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
 
-Optionally one [3D Tiles Style](./Styling/), or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
+Optionally a [3D Tiles Style](./Styling/), or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
 
 ## File extensions and MIME types
 

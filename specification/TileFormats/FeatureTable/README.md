@@ -12,7 +12,7 @@
 
 ## Overview
 
-A _Feature Table_ is a component of a tile's binary body and describes position and appearance properties required to render each feature in a tile. The [Batch Table](../BatchTable/README.md), on the other hand, contains per-feature application-specific metadata properties that a client uses to evaluate the declarative styling for a feature and may choose to use for further rendering or analysis.
+A _Feature Table_ is a component of a tile's binary body and describes position and appearance properties required to render each feature in a tile. The [Batch Table](../BatchTable/README.md), on the other hand, contains per-feature application-specific properties not necessarily used for rendering.
 
 A Feature Table is used by tile formats like [Batched 3D Model](../Batched3DModel/README.md) (b3dm) where each model is a feature, and [Point Cloud](../PointCloud/README.md) (pnts) where each point is a feature.
 
