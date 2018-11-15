@@ -313,7 +313,7 @@ The transformation from each tile's local coordinate to the tileset's global coo
 
 ##### glTF transforms
 
-[Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) tiles embed glTF, which defines its own node hierarchy and coordinate system. Any transforms specific to a tile format and the `tile.transform` property are applied after these transforms are resolved.
+[Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) tiles embed glTF, which defines its own node hierarchy and uses a y-up coordinate system. Any transforms specific to a tile format and the `tile.transform` property are applied after these transforms are resolved.
 
 ###### glTF node hierarchy
 First, glTF node hierarchy transforms are applied according to the [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#transformations).
@@ -328,8 +328,6 @@ Next, for consistency with the _z_-up coordinate system of 3D Tiles, glTFs must 
 0.0, 0.0,  0.0, 1.0
 ]
 ```
-
-Finally, any transforms specific to a tile format and the `tile.transform` property are applied.
 
 More broadly the order of transformations is:
 
