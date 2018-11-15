@@ -13,7 +13,7 @@
 
 ## Overview
 
-A _Batch Table_ contains per-feature application-specific metadata in a tile. These properties may be queried at runtime for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, geographic coordinates, and database primary keys.
+A _Batch Table_ is a component of a tile's binary body and contains per-feature application-specific metadata properties in a tile. These properties are queried at runtime for declarative styling and any application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, geographic coordinates, and database primary keys.
 
 A Batch Table is used by the following tile formats:
 * [Batched 3D Model](../Batched3DModel/README.md) (b3dm)
@@ -49,7 +49,7 @@ Batch Table values can be represented in the JSON header in two different ways:
     * `componentType` is the datatype of components in the attribute. Allowed values are `"BYTE"`, `"UNSIGNED_BYTE"`, `"SHORT"`, `"UNSIGNED_SHORT"`, `"INT"`, `"UNSIGNED_INT"`, `"FLOAT"`, and `"DOUBLE"`.
     * `type` specifies if the property is a scalar or vector. Allowed values are `"SCALAR"`, `"VEC2"`, `"VEC3"`, and `"VEC4"`.
 
-The Batch Table JSON is a `UTF-8` string containing JSON. 
+The Batch Table JSON is a `UTF-8` string containing JSON.
 
 > **Implementation Note:** In JavaScript, the Batch Table JSON can be extracted from an `ArrayBuffer` using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 
@@ -222,7 +222,7 @@ An object defining the reference to a section of the binary body of the batch ta
 
 Additional properties are allowed.
 
-#### BinaryBodyReference.byteOffset :white_check_mark: 
+#### BinaryBodyReference.byteOffset :white_check_mark:
 
 The offset into the buffer in bytes.
 
@@ -230,7 +230,7 @@ The offset into the buffer in bytes.
 * **Required**: Yes
 * **Minimum**: ` >= 0`
 
-#### BinaryBodyReference.componentType :white_check_mark: 
+#### BinaryBodyReference.componentType :white_check_mark:
 
 The datatype of components in the property.
 
@@ -246,7 +246,7 @@ The datatype of components in the property.
    * `"FLOAT"`
    * `"DOUBLE"`
 
-#### BinaryBodyReference.type :white_check_mark: 
+#### BinaryBodyReference.type :white_check_mark:
 
 Specifies if the property is a scalar or vector.
 

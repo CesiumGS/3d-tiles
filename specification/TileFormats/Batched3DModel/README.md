@@ -78,7 +78,7 @@ These semantics define global properties for all features.
 
 ## Batch Table
 
-The _Batch Table_ contains per-model application-specific metadata, indexable by `batchId`, that can be used for [declarative styling](../../Styling/README.md) and application-specific use cases such as populating a UI or issuing a REST API request.  In the binary glTF section, each vertex has an numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
+The _Batch Table_ contains per-model application-specific properties, indexable by `batchId`, that can be used for [declarative styling](../../Styling/README.md) and application-specific use cases such as populating a UI or issuing a REST API request.  In the binary glTF section, each vertex has a numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
 

@@ -77,26 +77,30 @@ Acknowledgements:
 
 ## Introduction
 
-In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  The tree incorporates the concept of Hierarchical Level of Detail (HLOD) for optimal rendering of spatial data.
+3D Tiles is designed for streaming and rendering massive 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds. It defines a hierarchical data structure and a set of tile formats which deliver renderable 3D content. 3D Tiles does not define explicit rules for visualization of the content; a client may visualize 3D Tiles data however it sees fit.
 
-A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (WMTS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, the tree can be any [spatial data structure](#spatial-data-structures) with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
+In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_. A tileset is described by at least one tileset JSON file containing tileset metadata and a tree of tile objects, each of which may reference renderable content of one of the following formats:
 
-Each tile has a bounding volume completely enclosing its content.  The tree has [spatial coherence](#bounding-volume-spatial-coherence); the content for child tiles are completely inside the parent's bounding volume.
+Format|Uses
+---|---
+[Batched 3D Model (`b3dm`)](./TileFormats/Batched3DModel/README.md)|Heterogeneous 3D models. E.g. textured terrain and surfaces, 3D building exteriors and interiors, massive models.
+[Instanced 3D Model (`i3dm`)](./TileFormats/Instanced3DModel/README.md)|3D model instances. E.g. trees, windmills, bolts.
+[Point Cloud (`pnts`)](./TileFormats/PointCloud/README.md)|Massive number of points.
+[Composite (`cmpt`)](./TileFormats/Composite/README.md)|Concatenate tiles of different formats into one tile.
+
+A tile's _content_, an individual instance of a tile format, is a binary blob with format-specific components including a [Feature Table](./TileFormats/FeatureTable/README.md) and a [Batch Table](./TileFormats/BatchTable/README.md).
+
+The content references a set of _features_, such as 3D models representing buildings or trees, or points in a point cloud. Each feature has position and appearance properties stored in the tile's Feature Table, and additional application-specific properties stored in the Batch Table. A client may choose to select features at runtime and retrieve their properties for visualization or analysis.
+
+The Batched 3D Model and Instanced 3D Model formats are built on [glTF](https://github.com/KhronosGroup/glTF), an open specification designed for the efficient transmission of 3D content. The tile content of these formats embed a glTF asset, which contains model geometry and texture information, in the binary body. The Point Cloud format does not embed glTF.
+
+Tiles are organized in a tree which incorporates the concept of Hierarchical Level of Detail (HLOD) for optimal rendering of spatial data. Each tile has a _bounding volume_, an object defining a spatial extent completely enclosing its content. The tree has [spatial coherence](#bounding-volume-spatial-coherence); the content for child tiles are completely inside the parent's bounding volume.
 
 ![](figures/tree.png)
 
-To support tight fitting volumes for a variety of datasets&mdash;from regularly divided terrain to cities not aligned with a line of latitude or longitude to arbitrary point clouds&mdash;the [bounding volume](#bounding-volumes) may be an oriented bounding box, a bounding sphere, or a geographic region defined by minimum and maximum latitudes, longitudes, and heights.
+A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (WMTS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, the tree can be any [spatial data structure](#spatial-data-structures) with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
 
-| Bounding box | Bounding sphere | Bounding region |
-|:---:|:---:|:---:|
-| ![Bounding Box](figures/BoundingBox.jpg) | ![Bounding Sphere](figures/BoundingSphere.jpg) | ![Bounding Region](figures/BoundingRegion.jpg) |
-
-
-A tile references a _feature_ or set of _features_, such as 3D models representing buildings or trees, or points in a point cloud.  These features may be batched together into essentially a single feature to reduce client-side load time and rendering draw call overhead.
-
-A 3D tileset consists of at least one tileset JSON file specifying the metadata and the tree of tiles, as well as any referenced tile content files which may be any valid tile format, defined in JSON as described below.
-
-Optionally, a [_3D Tile Style_](./Styling/) may be applied to a tileset.
+Optionally a [3D Tiles Style](./Styling/), or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
 
 ## File extensions and MIME types
 
@@ -142,7 +146,7 @@ The [region](#region) bounding volume specifies bounds using a geographic coordi
 
 ### Tiles
 
-Tiles consist of metadata used to render the tile, any content, and an array of any children tiles.
+Tiles consist of metadata used to determine if a tile is rendered, a reference to the renderable content, and an array of any children tiles.
 
 #### Geometric error
 
@@ -180,7 +184,11 @@ If a tile uses additive refinement, when refined it renders itself and its child
 
 #### Bounding volumes
 
-Bounding volume objects are used to define an enclosing volume, and must specify exactly one of the following properties.
+Bounding volumes are objects that define a spatial extent enclosing a tile or the tile's content. To support tight fitting volumes for a variety of datasets such as regularly divided terrain, cities not aligned with a line of latitude or longitude, or arbitrary point clouds, the bounding volume types include an oriented bounding box, a bounding sphere, and a geographic region defined by minimum and maximum latitudes, longitudes, and heights.
+
+| Bounding box | Bounding sphere | Bounding region |
+|:---:|:---:|:---:|
+| ![Bounding Box](figures/BoundingBox.jpg) | ![Bounding Sphere](figures/BoundingSphere.jpg) | ![Bounding Region](figures/BoundingRegion.jpg) |
 
 ##### Region
 
@@ -463,9 +471,7 @@ The optional `viewerRequestVolume` property (not shown above) defines a volume, 
 
 The `refine` property is a string that is either `"REPLACE"` for replacement refinement or `"ADD"` for additive refinement, see [Refinement](#refinement).  It is required for the root tile of a tileset; it is optional for all other tiles.  A tileset can use any combination of additive and replacement refinement.  When the `refine` property is omitted, it is inherited from the parent tile.
 
-The `content` property is an object that contains metadata about the tile's content and a link to the content.  `content.uri` is a uri that points to the tile's content.
-
-The uri can be another tileset JSON to create a tileset of tilesets.  See [External tilesets](#external-tilesets).
+The `content` property is an object that contains metadata about the tile's renderable content.  `content.uri` is a uri that points to the tile's binary content (see [Tile format specifications](#tile-format-specifications)), or another tileset JSON to create a tileset of tileset (see [External tilesets](#external-tilesets)).
 
 A file extension is not required for `content.uri`.  A content's [tile format](#tile-format-specifications) can be identified by the `magic` field in its header, or else as an external tileset if the content is JSON.
 
@@ -530,7 +536,7 @@ Here is a subset of the tileset JSON used for [Canary Wharf](http://cesiumjs.org
 }
 ```
 
-The top-level object in the tileset JSON has four properties: `asset`, `properties`, `geometricError`, and `root`.
+The tileset JSON has four top-level properties: `asset`, `properties`, `geometricError`, and `root`.
 
 `asset` is an object containing properties with metadata about the entire tileset. The `asset.version` property is a string that defines the 3D Tiles version, which specifies the JSON schema for the tileset and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated.
 
@@ -729,7 +735,7 @@ See [Property reference](#property-reference) for the tileset JSON schema refere
 
 ## Tile format specifications
 
-Each tile's `content.uri` property points to a tile that is one of the formats listed in the table below.
+Each tile's `content.uri` property may be the uri of binary blob that contains information for rendering the tile's 3D content. The content is an instance of one of the formats listed in the table below.
 
 Format|Uses
 ---|---
