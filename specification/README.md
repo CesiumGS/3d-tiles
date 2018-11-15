@@ -774,10 +774,10 @@ A 3D Tiles tileset.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**asset**|`object`|Metadata about the entire tileset.|No|
+|**asset**|`object`|Metadata about the entire tileset.| :white_check_mark: Yes|
 |**properties**|`any`|A dictionary object of metadata about per-feature properties.|No|
 |**geometricError**|`number`|The error, in meters, introduced if this tileset is not rendered. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.| :white_check_mark: Yes|
-|**root**|`object`|A tile in a 3D Tiles tileset.|No|
+|**root**|`object`|A tile in a 3D Tiles tileset.| :white_check_mark: Yes|
 |**extensionsUsed**|`string` `[1-*]`|Names of 3D Tiles extensions used somewhere in this tileset.|No|
 |**extensionsRequired**|`string` `[1-*]`|Names of 3D Tiles extensions required to properly load this tileset.|No|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
@@ -785,12 +785,12 @@ A 3D Tiles tileset.
 
 Additional properties are not allowed.
 
-#### Tileset.asset
+#### Tileset.asset  :white_check_mark:
 
 Metadata about the entire tileset.
 
 * **Type**: `object`
-* **Required**: No
+* **Required**: Yes
 
 #### Tileset.properties
 
@@ -808,12 +808,12 @@ The error, in meters, introduced if this tileset is not rendered. At runtime, th
 * **Required**: Yes
 * **Minimum**: ` >= 0`
 
-#### Tileset.root
+#### Tileset.root :white_check_mark:
 
 A tile in a 3D Tiles tileset.
 
 * **Type**: `object`
-* **Required**: No
+* **Required**: Yes
 
 #### Tileset.extensionsUsed
 
@@ -1034,7 +1034,7 @@ A tile in a 3D Tiles tileset.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**boundingVolume**|`object`|A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.|No|
+|**boundingVolume**|`object`|A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.|:white_check_mark: Yes|
 |**viewerRequestVolume**|`object`|A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.|No|
 |**geometricError**|`number`|The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.| :white_check_mark: Yes|
 |**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering.  This property is required for the root tile of a tileset; it is optional for all other tiles.  The default is to inherit from the parent tile.|No|
@@ -1046,12 +1046,12 @@ A tile in a 3D Tiles tileset.
 
 Additional properties are not allowed.
 
-#### Tile.boundingVolume
+#### Tile.boundingVolume :white_check_mark:
 
 A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.
 
 * **Type**: `object`
-* **Required**: No
+* **Required**: Yes
 
 #### Tile.viewerRequestVolume
 
