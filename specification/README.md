@@ -77,7 +77,7 @@ Acknowledgements:
 
 ## Introduction
 
-3D Tiles is designed for streaming and rendering massive 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds. It defines a hierarchical data structure and a set of tile formats which deliver renderable 3D content. 3D Tiles does not define explicit rules for visualization of the content; a client may visualize 3D Tiles data however it sees fit.
+3D Tiles is designed for streaming and rendering massive 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds. It defines a hierarchical data structure and a set of tile formats which deliver renderable content. 3D Tiles does not define explicit rules for visualization of the content; a client may visualize 3D Tiles data however it sees fit.
 
 In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_. A tileset is described by at least one tileset JSON file containing tileset metadata and a tree of tile objects, each of which may reference renderable content of one of the following formats:
 
@@ -138,7 +138,7 @@ All angles are in radians.
 
 3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. A tileset's global coordinate system will often be in a [WGS 84](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf) earth-centered, earth-fixed (ECEF) reference frame ([EPSG 4979](http://spatialreference.org/ref/epsg/4979/)), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
-An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
+An additional [tile transform](#tile-transforms) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
 
 The [region](#region) bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically [EPSG 4979](http://spatialreference.org/ref/epsg/4979/).
 
@@ -348,7 +348,7 @@ More broadly the order of transformations is:
 3. Any tile format specific transforms.
    * [Batched 3D Model](TileFormats/Batched3DModel/README.md) Feature Table may define `RTC_CENTER` which is used to translate model vertices.
    * [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) Feature Table defines per-instance position, normals, and scales. These are used to create per-instance 4x4 affine transform matrices that are applied to each instance.
-4. [Tile transform](#tile-transform)
+4. [Tile transform](#tile-transforms)
 
 > **Implementation note:** when working with source data that is inherently _z_-up, such as data in WGS 84 coordinates or in a local _z_-up coordinate system, a common workflow is:
 > * Mesh data, including positions and normals, are not modified - they remain _z_-up.
@@ -481,7 +481,7 @@ The screenshot below shows the bounding volumes for the root tile for [Canary Wh
 
 ![](figures/contentsBox.png)
 
-The optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transform) section.
+The optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transforms) section.
 
 The `children` property is an array of objects that define child tiles. Each child tile's content is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`.  For leaf tiles, the length of this array is zero, and `children` may not be defined. See the [Tileset JSON](#tileset-json) section below.
 
