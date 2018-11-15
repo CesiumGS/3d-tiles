@@ -57,7 +57,9 @@ Acknowledgements:
         * [Box](#box)
         * [Sphere](#sphere)
     * [Viewer request volume](#viewer-request-volume)
-    * [Tile transform](#tile-transform)
+    * [Transforms](#transforms)
+        * [Tile transforms](#tile-transforms)
+        * [glTF transforms](#gltf-transforms)
     * [Tile JSON](#tile-json)
   * [Tileset JSON](#tileset-json)
     * [External tilesets](#external-tilesets)
@@ -283,7 +285,9 @@ The following example has a building in a `b3dm` tile and a point cloud inside t
 
 For more on request volumes, see the [sample tileset](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples/tree/master/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
 
-#### Tile transform
+#### Transforms
+
+##### Tile transforms
 
 To support local coordinate systems&mdash;e.g., so a building tileset inside a city tileset can be defined in its own coordinate system, and a point cloud tileset inside the building could, again, be defined in its own coordinate system&mdash;each tile has an optional `transform` property.
 
