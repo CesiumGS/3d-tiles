@@ -532,7 +532,7 @@ Here is a subset of the tileset JSON used for [Canary Wharf](http://cesiumjs.org
 }
 ```
 
-The top-level object in the tileset JSON has four properties: `asset`, `properties`, `geometricError`, and `root`.
+The tileset JSON has four top-level properties: `asset`, `properties`, `geometricError`, and `root`.
 
 `asset` is an object containing properties with metadata about the entire tileset. The `asset.version` property is a string that defines the 3D Tiles version, which specifies the JSON schema for the tileset and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated.
 
