@@ -78,7 +78,7 @@ Acknowledgements:
 
 ## Introduction
 
-In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  The tree incorporates the concept of Hierarchical Level of Detail (HLoD) for optimal rendering of spatial data.
+In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_.  The tree incorporates the concept of Hierarchical Level of Detail (HLOD) for optimal rendering of spatial data.
 
 A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (WMTS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, the tree can be any [spatial data structure](#spatial-data-structures) with spatial coherence, including k-d trees, quadtrees, octrees, and grids.
 
