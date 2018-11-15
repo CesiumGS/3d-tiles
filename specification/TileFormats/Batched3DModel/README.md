@@ -84,7 +84,7 @@ See the [Batch Table](../BatchTable/README.md) reference for more information.
 
 ## Binary glTF
 
-Batched 3D Model uses [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) to embed model geometry and related data.
+Batched 3D Model embeds [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) containing model geometry and texture content.
 
 The [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout) immediately follows the Feature Table and Batch Table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
