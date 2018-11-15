@@ -199,7 +199,7 @@ A tile's geometric error defines the selection metric for that tile. Its value i
 
 In a client implementation, geometric error is used with other screen space metrics&mdash;e.g., distance from the tile to the camera, screen size, and resolution&mdash; to calculate the SSE introduced if this tile is rendered and its children are not. If the introduced SSE exceeds the maximum allowed, then the tile is refined and its children are considered for rendering.
 
-The geometric error is pre-authored by a generation tool when generating the tileset and is based on a metric like point density, tile size in meters, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner.
+The geometric error is formulated based on a metric like point density, tile size in meters, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner.
 
 #### Refinement
 
@@ -572,13 +572,11 @@ As described above, the tree has spatial coherence; each tile has a bounding vol
 
 #### Spatial data structures
 
-3D Tiles incorporates the concept of Hierarchical Level of Detail (HLoD) for optimal rendering of spatial data. A tileset is composed of a tree, defined by `root` and, recursively, its `children` tiles, which can be organized by different types of spatial data structures.
+3D Tiles incorporates the concept of Hierarchical Level of Detail (HLOD) for optimal rendering of spatial data. A tileset is composed of a tree, defined by `root` and, recursively, its `children` tiles, which can be organized by different types of spatial data structures.
+
+A runtime engine is generic and will render any tree defined by a tileset. Any combination of tile formats and refinement approaches can be used, enabling flexibility in supporting heterogeneous datasets, see [Refinement](#refinement).
 
 A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (WMTS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, other spatial data structures may be more optimal.
-
-It is up to the conversion tool that generates the tileset to define an optimal tree for the dataset.  A runtime engine, such as Cesium, is generic and will render any tree defined by the tileset.
-
-Additionally, any combination of tile formats and refinement approaches can be used, enabling flexibility in supporting heterogeneous datasets, see [Refinement](#refinement).
 
 Included below is a brief description of how 3D Tiles can represent various spatial data structures.
 
@@ -782,10 +780,10 @@ A 3D Tiles tileset.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**asset**|`object`|Metadata about the entire tileset.|No|
+|**asset**|`object`|Metadata about the entire tileset.| :white_check_mark: Yes|
 |**properties**|`any`|A dictionary object of metadata about per-feature properties.|No|
 |**geometricError**|`number`|The error, in meters, introduced if this tileset is not rendered. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.| :white_check_mark: Yes|
-|**root**|`object`|A tile in a 3D Tiles tileset.|No|
+|**root**|`object`|A tile in a 3D Tiles tileset.| :white_check_mark: Yes|
 |**extensionsUsed**|`string` `[1-*]`|Names of 3D Tiles extensions used somewhere in this tileset.|No|
 |**extensionsRequired**|`string` `[1-*]`|Names of 3D Tiles extensions required to properly load this tileset.|No|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
@@ -793,12 +791,12 @@ A 3D Tiles tileset.
 
 Additional properties are not allowed.
 
-#### Tileset.asset
+#### Tileset.asset  :white_check_mark:
 
 Metadata about the entire tileset.
 
 * **Type**: `object`
-* **Required**: No
+* **Required**: Yes
 
 #### Tileset.properties
 
@@ -816,12 +814,12 @@ The error, in meters, introduced if this tileset is not rendered. At runtime, th
 * **Required**: Yes
 * **Minimum**: ` >= 0`
 
-#### Tileset.root
+#### Tileset.root :white_check_mark:
 
 A tile in a 3D Tiles tileset.
 
 * **Type**: `object`
-* **Required**: No
+* **Required**: Yes
 
 #### Tileset.extensionsUsed
 
@@ -1042,7 +1040,7 @@ A tile in a 3D Tiles tileset.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**boundingVolume**|`object`|A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.|No|
+|**boundingVolume**|`object`|A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.|:white_check_mark: Yes|
 |**viewerRequestVolume**|`object`|A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.|No|
 |**geometricError**|`number`|The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.| :white_check_mark: Yes|
 |**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering.  This property is required for the root tile of a tileset; it is optional for all other tiles.  The default is to inherit from the parent tile.|No|
@@ -1054,12 +1052,12 @@ A tile in a 3D Tiles tileset.
 
 Additional properties are not allowed.
 
-#### Tile.boundingVolume
+#### Tile.boundingVolume :white_check_mark:
 
 A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.
 
 * **Type**: `object`
-* **Required**: No
+* **Required**: Yes
 
 #### Tile.viewerRequestVolume
 

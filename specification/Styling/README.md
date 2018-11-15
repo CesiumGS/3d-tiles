@@ -23,7 +23,6 @@
    * [String conversion](#string-conversions)
    * [Constants](#constants)
    * [Variables](#variables)
-   * [Built-in variables](#built-in-variables)
    * [Built-in functions](#built-in-functions)
    * [Notes](#notes)
 * [Point Cloud](#point-cloud)
@@ -631,22 +630,6 @@ Bracket notation is used to access feature subproperties or arrays.  For example
 ${temperatures['scale']} === 'fahrenheit'
 ${temperatures.values[0]} === 70
 ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
-```
-
-### Built-in variables
-
-The prefix `tiles3d_` is reserved for built-in variables. The following built-in variables are supported by the styling language:
-
-* [`tiles3d_tileset_time`](#tiles3d_tileset_time)
-
-#### tiles3d_tileset_time
-
-Gets the time, in milliseconds, since the tileset was first loaded. This is useful for creating dynamic styles that change with time.
-
-```json
-{
-    "color" : "color() * abs(cos(${Temperature} + ${tiles3d_tileset_time}))"
-}
 ```
 
 ### Built-in functions
@@ -1260,13 +1243,13 @@ For example:
 > * Evaluation of `isNan` and `isFinite` (GLSL 2.0+ supports `isnan` and `isinf` for these functions respectively)
 > * The types `null` and `undefined`
 > * Strings, including accessing object properties (`color()['r']`) and batch table values
-> * Regular expressions 
+> * Regular expressions
 > * Arrays of lengths other than 2, 3, or 4
 > * Mismatched type comparisons (e.g. `1.0 === false`)
 > * Array index out of bounds
 
 ## File extension and MIME type
- 
+
 Tileset styles use the `.json` extension and the `application/json` mime type.
 
 ## Property reference
