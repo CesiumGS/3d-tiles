@@ -47,9 +47,6 @@ Acknowledgements:
 * [Units](#units)
 * [Concepts](#concepts)
   * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
-    * [glTF](#gltf)
-        * [_y_-up to _z_-up transform](#y-up-to-z-up-transform)
-        * [Order of transformations](#order-of-transformations)
   * [Tiles](#tiles)
     * [Geometric error](#geometric-error)
     * [Refinement](#refinement)
@@ -60,7 +57,9 @@ Acknowledgements:
         * [Box](#box)
         * [Sphere](#sphere)
     * [Viewer request volume](#viewer-request-volume)
-    * [Tile transform](#tile-transform)
+    * [Transforms](#transforms)
+        * [Tile transforms](#tile-transforms)
+        * [glTF transforms](#gltf-transforms)
     * [Tile JSON](#tile-json)
   * [Tileset JSON](#tileset-json)
     * [External tilesets](#external-tilesets)
@@ -138,48 +137,6 @@ All angles are in radians.
 An additional [tile transform](#tile-transform) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
 
 The [region](#region) bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically [EPSG 4979](http://spatialreference.org/ref/epsg/4979/).
-
-### glTF
-
-Some tile content types such as [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) embed glTF. The [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units) defines a right-handed coordinate system with the _y_ axis as up.
-
-#### _y_-up to _z_-up transform
-
-For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
-```json
-[
-1.0, 0.0,  0.0, 0.0,
-0.0, 0.0, -1.0, 0.0,
-0.0, 1.0,  0.0, 0.0,
-0.0, 0.0,  0.0, 1.0
-]
-```
-#### Order of transformations
-
-Note that glTF defines its own node hierarchy, where each node has a transform. These transforms are applied before the coordinate system transform is applied. More broadly the order of transformations is:
-
-1. [glTF node hierarchy tranformations](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#transformations)
-2. [glTF _y_-up to _z_-up transform](#y-up-to-z-up-transform)
-3. Any tile format specific transforms.
-   * [Batched 3D Model](TileFormats/Batched3DModel/README.md) Feature Table may define `RTC_CENTER` which is used to translate model vertices.
-   * [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) Feature Table defines per-instance position, normals, and scales. These are used to create per-instance 4x4 affine transform matrices that are applied to each instance.
-4. [Tile transform](#tile-transform)
-
-> **Implementation note:** when working with source data that is inherently _z_-up, such as data in WGS 84 coordinates or in a local _z_-up coordinate system, a common workflow is:
-> * Mesh data, including positions and normals, are not modified - they remain _z_-up.
-> * The root node matrix specifies a column-major _z_-up to _y_-up transform. This transforms the source data into a _y_-up coordinate system as required by glTF.
-> * At runtime the glTF is transformed back from _y_-up to _z_-up with the matrix above. Effectively the transforms cancel out.
->
-> Example glTF root node:
->```json
->"nodes": [
->  {
->    "matrix": [1,0,0,0,0,0,-1,0,0,1,0,0,0,0,0,1],
->    "mesh": 0,
->    "name": "rootNode"
->  }
->]
->```
 
 ## Concepts
 
@@ -328,7 +285,9 @@ The following example has a building in a `b3dm` tile and a point cloud inside t
 
 For more on request volumes, see the [sample tileset](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples/tree/master/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
 
-#### Tile transform
+#### Transforms
+
+##### Tile transforms
 
 To support local coordinate systems&mdash;e.g., so a building tileset inside a city tileset can be defined in its own coordinate system, and a point cloud tileset inside the building could, again, be defined in its own coordinate system&mdash;each tile has an optional `transform` property.
 
@@ -356,6 +315,51 @@ When `transform` is not defined, it defaults to the identity matrix:
 
 The transformation from each tile's local coordinate to the tileset's global coordinate system is computed by a top-down traversal of the tileset and by post-multiplying a child's `transform` with its parent's `transform` like a traditional scene graph or node hierarchy in computer graphics.
 
+##### glTF transforms
+
+[Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) tiles embed glTF, which defines its own node hierarchy and uses a y-up coordinate system. Any transforms specific to a tile format and the `tile.transform` property are applied after these transforms are resolved.
+
+###### glTF node hierarchy
+First, glTF node hierarchy transforms are applied according to the [glTF specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#transformations).
+
+###### _y_-up to _z_-up
+Next, for consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
+```json
+[
+1.0, 0.0,  0.0, 0.0,
+0.0, 0.0, -1.0, 0.0,
+0.0, 1.0,  0.0, 0.0,
+0.0, 0.0,  0.0, 1.0
+]
+```
+
+More broadly the order of transformations is:
+
+1. [glTF node hierarchy transformations](#gltf-node-hierarchy)
+2. [glTF _y_-up to _z_-up transform](#y-up-to-z-up)
+3. Any tile format specific transforms.
+   * [Batched 3D Model](TileFormats/Batched3DModel/README.md) Feature Table may define `RTC_CENTER` which is used to translate model vertices.
+   * [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) Feature Table defines per-instance position, normals, and scales. These are used to create per-instance 4x4 affine transform matrices that are applied to each instance.
+4. [Tile transform](#tile-transform)
+
+> **Implementation note:** when working with source data that is inherently _z_-up, such as data in WGS 84 coordinates or in a local _z_-up coordinate system, a common workflow is:
+> * Mesh data, including positions and normals, are not modified - they remain _z_-up.
+> * The root node matrix specifies a column-major _z_-up to _y_-up transform. This transforms the source data into a _y_-up coordinate system as required by glTF.
+> * At runtime the glTF is transformed back from _y_-up to _z_-up with the matrix above. Effectively the transforms cancel out.
+>
+> Example glTF root node:
+>```json
+>"nodes": [
+>  {
+>    "matrix": [1,0,0,0,0,0,-1,0,0,1,0,0,0,0,0,1],
+>    "mesh": 0,
+>    "name": "rootNode"
+>  }
+>]
+>```
+
+##### Example
+
 For an example of the computed transforms (`transformToRoot` in the code above) for a tileset, consider:
 
 ![](figures/tileTransform.png)
@@ -368,7 +372,7 @@ The computed transform for each tile is:
 * `T4`: `[T0][T1][T4]`
 
 The positions and normals in a tile's content may also have tile-specific transformations applied to them _before_ the tile's `transform` (before indicates post-multiplying for affine transformations).  Some examples are:
-* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy and coordinate system. `tile.transform` is applied after these transforms are resolved. See [coordinate reference system](#gltf).
+* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy and coordinate system. `tile.transform` is applied after these transforms are resolved. See [glTF transforms](#gltf-transforms).
 * `i3dm`'s Feature Table defines per-instance position, normals, and scales.  These are used to create per-instance 4x4 affine transform matrices that are applied to each instance before `tile.transform`.
 * Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm` and `pnts`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
 
