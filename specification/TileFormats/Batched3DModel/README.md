@@ -78,13 +78,13 @@ These semantics define global properties for all features.
 
 ## Batch Table
 
-The _Batch Table_ contains per-model application-specific metadata, indexable by `batchId`, that can be used for [declarative styling](../../Styling/README.md) and application-specific use cases such as populating a UI or issuing a REST API request.  In the binary glTF section, each vertex has an numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
+The _Batch Table_ contains per-model application-specific properties, indexable by `batchId`, that can be used for [declarative styling](../../Styling/README.md) and application-specific use cases such as populating a UI or issuing a REST API request.  In the binary glTF section, each vertex has a numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
 
 See the [Batch Table](../BatchTable/README.md) reference for more information.
 
 ## Binary glTF
 
-Batched 3D Model uses [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) to embed model data.
+Batched 3D Model embeds [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) containing model geometry and texture information.
 
 The [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout) immediately follows the Feature Table and Batch Table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
@@ -136,7 +136,7 @@ When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`
 
 ### Coordinate system
 
-By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See [coordinate reference system](../../README.md#gltf) for more details.
+By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See [glTF transforms](../../README.md#gltf-transforms) for more details.
 
 Vertex positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position that all vertex positions are relative to after the coordinate system transform and glTF node hierarchy transforms have been applied.
 

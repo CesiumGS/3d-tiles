@@ -118,7 +118,7 @@ Examples using these semantics can be found in the [examples section](#examples)
 
 ### Instance orientation
 
-An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. The orientation will be transformed by the [tile transform](../../README.md#tile-transform).
+An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. The orientation will be transformed by the [tile transform](../../README.md#tile-transforms).
 
 The `x` vector in the standard basis maps to the `right` vector in the transformed basis, and the `y` vector maps to the `up` vector.
 The `z` vector would map to a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
@@ -246,7 +246,7 @@ Contains metadata organized by `batchId` that can be used for declarative stylin
 
 ## glTF
 
-Instanced 3D Model uses [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) for model data.
+Instanced 3D Model embeds [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) containing model geometry and texture information.
 
 The glTF asset to be instanced is stored after the Feature Table and Batch Table. It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
@@ -259,7 +259,8 @@ In either case, `header.gltfByteLength` contains the length of the glTF field in
 
 ### Coordinate system
 
-By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See [coordinate reference system](../../README.md#gltf) for more details.
+By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See [glTF transforms
+](../../README.md#gltf-transforms) for more details.
 
 ## File extension and MIME type
 
