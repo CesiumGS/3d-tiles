@@ -41,15 +41,15 @@ The general case runtime editing of geometry on a building, vector data, etc., a
 
 #### Will 3D Tiles include terrain?
 
-Yes, a [quantized-mesh](https://github.com/AnalyticalGraphicsInc/quantized-mesh/blob/master/README.md)-like tile would fit well with 3D Tiles and allow Cesium to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to the tileset JSON).
+Yes, a [quantized-mesh](https://github.com/AnalyticalGraphicsInc/quantized-mesh/blob/master/README.md)-like tile would fit well with 3D Tiles and allow engines to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to the tileset JSON).
 
-However, since Cesium already streams terrain well, we are not focused on this in the short-term.
+However, since quantized-mesh already streams terrain well, we are not focused on this in the short-term.
 
 #### Will 3D Tiles include imagery?
 
 Yes, there is an opportunity to provide an optimized base layer of terrain and imagery (similar to how a 3D model contains both geometry and textures).  There is also the open research problem of how to tile imagery for 3D.  In 2D, only one LOD (`z` layer) is used for a given view.  In 3D, especially when looking towards the horizon, tiles from multiple LODs are adjacent to each other.  How do we make the seams look good?  This will likely require tool and runtime support.
 
-As with terrain, since Cesium already streams imagery well, we are not focused on this in the short-term.
+As with terrain, there are existing solutions to streaming imagery, so we are not focused on this in the short-term.
 
 #### Will 3D Tiles replace KML?
 
