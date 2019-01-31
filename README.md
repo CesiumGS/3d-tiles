@@ -17,7 +17,7 @@ As an open specification with an open-source runtime implementation, 3D Tiles al
 
 #### Heterogeneous
 
-With an extendable set of file formats, multiple types of 3D geospatial content including photogrammetry/massive models, BIM/CAD, 3D buildings, instanced features, and point clouds can be converted into 3D Tiles and combined into a single dataset.
+With a defined set of file formats, multiple types of 3D geospatial content including photogrammetry/massive models, BIM/CAD, 3D buildings, instanced features, and point clouds can be converted into 3D Tiles and combined into a single dataset.
 
 #### Designed for 3D
 
