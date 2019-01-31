@@ -1,12 +1,45 @@
-<p align="center"><img src="./figures/Cesium3DTiles.png" /></p>
+![](figures/Cesium3DTiles.png)
 
-An open specification for streaming massive heterogeneous 3D geospatial datasets.
+# 3D Tiles
+[https://cesium.com/](https://cesium.com/)
 
-[3D Tiles v1.0](https://github.com/AnalyticalGraphicsInc/3d-tiles/releases/tag/1.0) has entered the Open Geospatial Consortium (OGC) [Community Standard](https://cesium.com/blog/2016/09/06/3d-tiles-and-the-ogc/) process.
+![](figures/photogrammetry-cad-fusion.jpg)
+
+_A building CAD model is fused with photogrammetry data using 3D Tiles, data courtesy of Bentley Systems._
 
 ## Overview
 
-3D Tiles defines a spatial data structure and a set of tile formats designed for streaming and rendering 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds.
+3D Tiles is an open specification for sharing, visualizing, fusing, and interacting with massive heterogenous 3D content across desktop, web, and mobile applications.
+
+#### Open and interoperable
+
+As an open specification with an open-source runtime implementation, 3D Tiles allows data providers and app developers to make massive and complex 3D information more accessible, interoperable, and useful across all kinds of tools and applications.
+
+#### Heterogeneous
+
+With an extendable set of file formats, multiple types of 3D geospatial content including photogrammetry/massive models, BIM/CAD, 3D buildings, instanced features, and point clouds can be converted into 3D Tiles and combined into a single dataset.
+
+#### Designed for 3D
+
+Bringing techniques from the field of 3D graphics and built on [glTF](https://github.com/KhronosGroup/glTF), 3D Tiles defines a defines a spatial hierarchy for fast streaming and precision rendering, balancing performance and visual quality at any scale from global to building interiors.
+
+#### Semantic, interactive, and styleable
+
+3D Tiles preserve per-feature metadata to allow interaction such as selecting, querying, filtering, and styling efficiently at runtime.
+
+## Ecosystem
+
+**3D tilesets** are created by tools which convert raw 3D data into 3D Tiles content.
+3D tilesets are consumed by a runtime engine, which may stream, visualize, or analyze.
+
+| Tool | Description |
+| :--- | :--- |
+| [Cesium ion](https://cesium.com/ion/) | Platform for creating, fusing, and hosting 3D tilesets <br/>Supports: <ul><li>CityGML (.citygml, .xml, .gml)</li><li>KML/COLLADA (.kml, .kmz)</li><li>LASer (.las, .laz)</li><li>COLLADA (.dae)</li><li>Wavefront OBJ (.obj)</li></ul> |
+| [CesiumJS](http://cesiumjs.org/) | Open source JavaScript runtime engine for visualizing 3D tilesets |
+| [3D Tiles Validator](https://github.com/AnalyticalGraphicsInc/3d-tiles-tools/tree/master/validator) | Open source Node.js library and command-line tools for validating 3D tilesets |
+| [3D Tiles Samples](https://github.com/AnalyticalGraphicsInc/3d-tiles-tools/tree/master/samples-generator) | Open source command-line tools for generating sample 3D tilesets |
+
+See the [3D Tiles Ecosystem](./ECOSYSTEM.md) for a more complete list of tools and apps that create or consume 3D Tiles.
 
 ## Specification
 

@@ -1,20 +1,20 @@
 ## Who's using 3D Tiles?
 
-![](figures/community/composer.jpg) [Cesium ion](https://www.cesium.com/) converters | ![](figures/community/AGI.jpg) [Cesium](http://cesiumjs.org/) |
+![](figures/ecosystem/composer.jpg) [Cesium ion](https://www.cesium.com/) converters | ![](figures/ecosystem/AGI.jpg) [Cesium](http://cesiumjs.org/) |
 |:---:|:---:|
-![](figures/community/CC3D.jpg) [CyberCity3D](http://www.cybercity3d.com/) | ![](figures/community/virtualcitySYSTEMS.jpg) [virtualcitySYSTEMS](http://www.virtualcitysystems.de/en/)  |
-![](figures/community/Cityzenith.jpg) [Cityzenith](http://www.cityzenith.com/) | ![](figures/community/Fraunhofer.jpg) [Fraunhofer](http://www.fraunhofer.de/en.html)  |
-![](figures/community/Vricon.jpg) [Vricon](http://www.vricon.com/) | ![](figures/community/swisstopo.jpg) Federal Office of Topography <br/> [swisstopo](https://map.geo.admin.ch)  |
-![](figures/community/BentleyContextCapture.jpg) [Bentley ContextCapture](https://www.linkedin.com/pulse/contextcapture-web-publishing-cesium-aude-camus) | ![](figures/community/microstation.jpg) [Bentley MicroStation](https://www.bentley.com/en/products/brands/microstation) (in progress) |
-![](figures/community/aero3dpro.jpg) [aero3Dpro](http://aero3dpro.com.au/) | ![](figures/community/entwine.jpg) [Entwine](http://cesium.entwine.io/) |
-![](figures/community/3dps.jpg) [GeoRocket](https://georocket.io/) 3DPS | ![](figures/community/osgjs.jpg) [OSGJS](http://osgjs.org/) (in progress) |
-![](figures/community/data61.jpg) [CSIRO Data61](https://www.data61.csiro.au/) | ![](figures/community/gamesim.jpg) [GameSim Conform](https://www.gamesim.com/3d-geospatial-conform/) |
-![](figures/community/sitesee.jpg) [SiteSee](http://www.sitesee.com.au/) (using three.js) | [Safe FME](https://www.safe.com/how-it-works/) |
-[Peaxy](https://peaxy.net/) | ![](figures/community/pointcloudconverter.jpg) [Prototype Point Cloud Converter](https://github.com/mattshax/cesium_pnt_generator) |
-![](figures/community/virtualgis.jpg) [VirtualGIS](https://www.virtualgis.io/) | ![](figures/community/grandlyon.jpg) [LOPoCS ](https://github.com/Oslandia/lopocs) and [py3dtiles](https://github.com/Oslandia/py3dtiles)
-![](figures/community/itowns.jpg) [iTowns 2](https://github.com/iTowns/itowns) | ![](figures/community/osm-cesium-3d-tiles.jpg) [osm-cesium-3d-tiles](https://github.com/kiselev-dv/osm-cesium-3d-tiles) |
-![](figures/community/geopipe.jpg) [geopipe](https://geopi.pe/) | ![](figures/community/poulain.jpg) [3D Digital Territory Lab](https://cesiumjs.org/demos/grandlyon/) |
-![](figures/community/cesme.jpg) [Çeşme 3D City Model](https://cesiumjs.org/demos/Cesme3DCityModel/) |
+![](figures/ecosystem/CC3D.jpg) [CyberCity3D](http://www.cybercity3d.com/) | ![](figures/ecosystem/virtualcitySYSTEMS.jpg) [virtualcitySYSTEMS](http://www.virtualcitysystems.de/en/)  |
+![](figures/ecosystem/Cityzenith.jpg) [Cityzenith](http://www.cityzenith.com/) | ![](figures/ecosystem/Fraunhofer.jpg) [Fraunhofer](http://www.fraunhofer.de/en.html)  |
+![](figures/ecosystem/Vricon.jpg) [Vricon](http://www.vricon.com/) | ![](figures/ecosystem/swisstopo.jpg) Federal Office of Topography <br/> [swisstopo](https://map.geo.admin.ch)  |
+![](figures/ecosystem/BentleyContextCapture.jpg) [Bentley ContextCapture](https://www.linkedin.com/pulse/contextcapture-web-publishing-cesium-aude-camus) | ![](figures/ecosystem/microstation.jpg) [Bentley MicroStation](https://www.bentley.com/en/products/brands/microstation) (in progress) |
+![](figures/ecosystem/aero3dpro.jpg) [aero3Dpro](http://aero3dpro.com.au/) | ![](figures/ecosystem/entwine.jpg) [Entwine](http://cesium.entwine.io/) |
+![](figures/ecosystem/3dps.jpg) [GeoRocket](https://georocket.io/) 3DPS | ![](figures/ecosystem/osgjs.jpg) [OSGJS](http://osgjs.org/) (in progress) |
+![](figures/ecosystem/data61.jpg) [CSIRO Data61](https://www.data61.csiro.au/) | ![](figures/ecosystem/gamesim.jpg) [GameSim Conform](https://www.gamesim.com/3d-geospatial-conform/) |
+![](figures/ecosystem/sitesee.jpg) [SiteSee](http://www.sitesee.com.au/) (using three.js) | [Safe FME](https://www.safe.com/how-it-works/) |
+[Peaxy](https://peaxy.net/) | ![](figures/ecosystem/pointcloudconverter.jpg) [Prototype Point Cloud Converter](https://github.com/mattshax/cesium_pnt_generator) |
+![](figures/ecosystem/virtualgis.jpg) [VirtualGIS](https://www.virtualgis.io/) | ![](figures/ecosystem/grandlyon.jpg) [LOPoCS ](https://github.com/Oslandia/lopocs) and [py3dtiles](https://github.com/Oslandia/py3dtiles)
+![](figures/ecosystem/itowns.jpg) [iTowns 2](https://github.com/iTowns/itowns) | ![](figures/ecosystem/osm-cesium-3d-tiles.jpg) [osm-cesium-3d-tiles](https://github.com/kiselev-dv/osm-cesium-3d-tiles) |
+![](figures/ecosystem/geopipe.jpg) [geopipe](https://geopi.pe/) | ![](figures/ecosystem/poulain.jpg) [3D Digital Territory Lab](https://cesiumjs.org/demos/grandlyon/) |
+![](figures/ecosystem/cesme.jpg) [Çeşme 3D City Model](https://cesiumjs.org/demos/Cesme3DCityModel/) |
 
 ## Live apps
 
