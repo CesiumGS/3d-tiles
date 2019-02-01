@@ -9,7 +9,7 @@ _A building CAD model is fused with photogrammetry data using 3D Tiles, data cou
 
 ## Overview
 
-3D Tiles is an open specification for sharing, visualizing, fusing, and interacting with massive heterogenous 3D content across desktop, web, and mobile applications.
+3D Tiles is an open specification for sharing, visualizing, fusing, and interacting with massive heterogenous 3D geospatial content across desktop, web, and mobile applications.
 
 #### Open and interoperable
 
@@ -21,7 +21,7 @@ With a defined set of file formats, multiple types of 3D geospatial content incl
 
 #### Designed for 3D
 
-Bringing techniques from the field of 3D graphics and built on [glTF](https://github.com/KhronosGroup/glTF), 3D Tiles defines a defines a spatial hierarchy for fast streaming and precision rendering, balancing performance and visual quality at any scale from global to building interiors.
+Bringing techniques from the field of 3D graphics and built on [glTF](https://github.com/KhronosGroup/glTF), 3D Tiles defines a spatial hierarchy for fast streaming and precision rendering, balancing performance and visual quality at any scale from global to building interiors.
 
 #### Semantic, interactive, and styleable
 
@@ -48,7 +48,7 @@ See the [3D Tiles Ecosystem](./ECOSYSTEM.md) for a more complete list of tools a
 
 ## Future Work
 
-Additional tile formats are under development, including Vector Data (`vctr`) [[#124](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/3d-tiles-next/TileFormats/VectorData)] for geospatial features like points, lines, and polygons.
+Additional tile formats are under development, including Vector Data (`vctr`) [[#124](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/3d-tiles-next/TileFormats/VectorData)] for geospatial features such as points, lines, and polygons.
 
 See the full roadmap issue for plans post version 1.0 [[#309](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/309)], as well as issues marked as **3D Tiles [Next](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues?q=is%3Aissue+is%3Aopen+label%3Anext)**.
 
