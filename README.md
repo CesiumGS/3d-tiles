@@ -27,19 +27,18 @@ Bringing techniques from the field of 3D graphics and built on [glTF](https://gi
 
 3D Tiles preserve per-feature metadata to allow interaction such as selecting, querying, filtering, and styling efficiently at runtime.
 
-## Ecosystem
-
-**3D tilesets** are created by tools which convert raw 3D data into 3D Tiles content.
-3D tilesets are consumed by a runtime engine, which may stream, visualize, or analyze.
+## 3D Tiles Ecosystem
 
 | Tool | Description |
 | :--- | :--- |
-| [Cesium ion](https://cesium.com/ion/) | Platform for creating, fusing, and hosting 3D tilesets <br/>Supports: <ul><li>CityGML (.citygml, .xml, .gml)</li><li>KML/COLLADA (.kml, .kmz)</li><li>LASer (.las, .laz)</li><li>COLLADA (.dae)</li><li>Wavefront OBJ (.obj)</li></ul> |
-| [CesiumJS](http://cesiumjs.org/) | Open source JavaScript runtime engine for visualizing 3D tilesets |
-| [3D Tiles Validator](https://github.com/AnalyticalGraphicsInc/3d-tiles-tools/tree/master/validator) | Open source Node.js library and command-line tools for validating 3D tilesets |
-| [3D Tiles Samples](https://github.com/AnalyticalGraphicsInc/3d-tiles-tools/tree/master/samples-generator) | Open source command-line tools for generating sample 3D tilesets |
+| [Cesium ion](https://cesium.com/ion/) | Cesium supported platform for converting 3D Tiles. <br/>Supports: <ul><li>CityGML (.citygml, .xml, .gml)</li><li>KML/COLLADA (.kml, .kmz)</li><li>LASer (.las, .laz)</li><li>COLLADA (.dae)</li><li>Wavefront OBJ (.obj)</li></ul> |
+| [CesiumJS](http://cesiumjs.org/) | Open source JavaScript runtime engine for visualizing 3D Tiles |
+| [3D Tiles Validator](https://github.com/AnalyticalGraphicsInc/3d-tiles-tools/tree/master/validator) | Open source Node.js library and command-line tools for validating 3D Tiles |
+| [3D Tiles Samples](https://github.com/AnalyticalGraphicsInc/3d-tiles-tools/tree/master/samples-generator) | Open source command-line tools for generating sample 3D Tiles  |
+| [Safe FME](https://hub.safe.com/packages/safe/cesiumion) | Desktop application for transforming data. The `CesiumIonConnector` converts data to 3D Tiles via Cesium ion. |
+| [Bentley ContextCapture](https://www.bentley.com/en/products/product-line/reality-modeling-software/contextcapture) | Converts photographs and/or point clouds to 3D tiles. |
 
-See the [3D Tiles Ecosystem](./ECOSYSTEM.md) for a more complete list of tools and apps that create or consume 3D Tiles.
+See the [3D Tiles Ecosystem](./ECOSYSTEM.md) for examples of who's using 3D Tiles.
 
 ## Specification
 
