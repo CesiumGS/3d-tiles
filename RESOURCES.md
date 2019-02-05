@@ -2,7 +2,7 @@
 
 * [**Introducing 3D Tiles**](https://cesium.com/blog/2015/08/10/introducing-3d-tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
 * [**The Next Generation of 3D Tiles**](https://cesium.com/blog/2017/07/12/the-next-generation-of-3d-tiles/) - future plans for 3D Tiles.
-* [**3D Tiles Q&A**](../Q-and-A.md)
+* [**3D Tiles Q&A**](./Q-and-A.md)
 
 **Selected Talks**
    * _3D Tiles in Action_ ([pdf](https://cesium.com/presentations/files/3DTilesInAction.pdf)) at FOSS4G 2017.
