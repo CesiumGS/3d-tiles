@@ -120,7 +120,7 @@ The `batchId` parameter is specified in a glTF mesh [primitive](https://github.c
         {
             "bufferView": 1,
             "byteOffset": 0,
-            "componentType": 5125,
+            "componentType": 5126,
             "count": 4860,
             "max": [2],
             "min": [0],
