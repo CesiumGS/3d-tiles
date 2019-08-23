@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "id" : "3DTILES_implicit_tiling_scheme.tileset.schema.json",
+    "title": "3DTILES_implicit_tiling_scheme tileset.json extension",
+    "type": "object",
+    "description" : "Specifies the implicit tiling properties.",
+    "properties": {
+        "tilingScheme": {
+            "type": "number",
+            "headCount": "array",
+            "boundingVolume": "object",
+            "transform": "object"
+        }
+    },
+    "required": ["type", "headCount", "boundingVolume"],
+    "additionalProperties" : false
+}

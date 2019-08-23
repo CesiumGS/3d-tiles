@@ -4,12 +4,13 @@
 
 * [3DTILES_batch_table_hierarchy](./3DTILES_batch_table_hierarchy/)
 * [3DTILES_draco_point_compression](./3DTILES_draco_point_compression/)
+* [3DTILES_implicit_tiling_scheme](./3DTILES_implicit_tiling_scheme/)
 
 ## About
 
 Extensions allow the base 3D Tiles specification to be extended with new features. They may add new properties to a 3D Tiles JSON object, and may add functionality a tile format or the 3D Tiles Styling expression language.
 
-Extensions may not remove existing properties or features, nor redefine existing properties or features to mean something else. 
+Extensions may not remove existing properties or features, nor redefine existing properties or features to mean something else.
 
 The optional `extensions` dictionary property may be added to a 3D Tiles JSON object, which contains the name of the extensions and the extension specific objects.
 

@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "id" : "3DTILES_implicit_tiling_scheme.layer.schema.json",
+    "title": "3DTILES_implicit_tiling_scheme layer.json extension",
+    "type": "object",
+    "description" : "Specifies the tiles that are available in the tileset.",
+    "properties": {
+        "available": "array"
+    },
+    "required": ["available"],
+    "additionalProperties" : false
+}
