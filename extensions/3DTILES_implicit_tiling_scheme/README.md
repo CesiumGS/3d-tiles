@@ -69,12 +69,16 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
 
 `subdivision` defines the subdivision scheme for the tiles described by the tileset.json's corresponding layer.json. In the example above, a type of 1 would indicate a quadtree subdivision.
 Other possible types are defined in the type enumeration table below.
+
+
 |Type|Description|
 |----|-----------|
 |`0`|Reserved. Indicates custom?|
 |`1`|Reserved. TODO: Binary Tree? Subdivision assumed along the longest axis of root bounds. Good for self-driving highway scans? Strange/arbitrary data that's best expressed in binary tree, binary tree of metadata that stores its arbitrary data in textures?|
 |`2`|Quadtree subdivision scheme for all tiles specified in the 'available' array of its corresponding tileset.json.|
 |`3`|Octree subdivision scheme for all tiles specified in the 'available' array of its corresponding tileset.json|
+
+
 TODO: should these be strings: "bi", "quad", "oct"? Though numbers made to line up with number of axes being split.
 TODO: For binary and quad, allow specifying split axes? At most, this would optional. Do the obvious splitting otherwise.
 
