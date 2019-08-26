@@ -20,16 +20,16 @@
 
 This extension enables the [3D Tiles JSON](../../specification/schema/tileset.schema.json) to support streaming tilesets with implied subdivision schemes.
 
-#### TODO: Availability is the bulk of the metadata info. If a compressed binary version of available.json doesn't have significant size advantages over a compressed text version, just fold the availability into tileset.json
+#### TODO: available.json is the bulk of the metadata info. If a compressed binary version of available.json doesn't have significant size advantages over a compressed text version, just fold the availability into tileset.json
 Also if there are common use cases (don't think there are) where you just the tileset.json info and not the available.json info, to avoid paying the cost of fetching the availability, we should keep them separate.
 #### TODO: Binary Tree Subdivision? assumed along the longest axis of root bounds. Good for self-driving highway scans? Strange/arbitrary data that's best expressed in binary tree, binary tree of metadata that stores its arbitrary data in textures?
 #### TODO: For binary and quad subdivision, allow specifying split axes? At most, this would optional. Do the obvious splitting otherwise.
-#### TODO: Replace the two indexing members with a flipY since that's probably the only real case?
+#### TODO: Replace indexingOrigin and indexingDirection with a flipY since that's probably the only real case?
 #### TODO: boundingVolume: Unsupplied means untraversable/no spatial context but data still needs hierarchy? Can still do random access queries/hierarchical analysis. Good use-case?
-#### TODO: Is there a good mechanism to say this bundle of tilesets are all "layers" of dataset and theres one availability to describe all of them?
- How do we save on fetching the same availability information for all these different layers of data. The mental model could be:
-*  The different layers of data are separate tilesets and these tilesets need a way to point to an availabilty uri.
-* (more efficient traversal-wise, less duplication of effort) The tileset specifies all of its layers as an array of strings. the base uri is modified depending on teh layer that is being fetched by either
+#### TODO: Availability sharing: is there a good mechanism to say this bundle of tilesets are all "layers" of dataset and theres one availability to describe all of them?
+* It is more more efficient traversal-wise to have 1 tileset that specifies layers in it implicit context instead of having a bunch of tilesets. Less duplication of effort, one set of traversal calculations apply to all the layers.
+* Use this mechanism to encode a bunch of layers of metadata(ex: per point) as basis textures (ktx2 payloads). Analisys use-cases for? mip down to 1x1 (ave, min,max)
+* The tileset specifies all of its layers as an array of strings. The base uri is modified depending on teh layer that is being fetched by either:
   * Having the layer name as the file extension (we are not using file extensions so the layer tag can go on the file extension): d/z/y/x.layerName
   * Having the layer name as a folder prefix in the uri: layerName/d/z/y/x
 #### TODO: support `time`?
