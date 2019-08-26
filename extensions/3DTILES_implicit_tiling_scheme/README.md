@@ -108,9 +108,8 @@ A "dual-headed quad tree" or TMS style quadtree, where there are two roots side-
 `headCount` enables easy mapping onto other implicit tilings schemes. For example, in a `CDB` tiling scheme, each tileset.json boundingVolume would described the bounds of the latitude strip and the tileset.json headCount
 would describe the resolution of cdb tiles in that strip. The layer.json would tell you what heads are actually available.
 
-#### TODO: Replace the two indexing members with a flipY since that's probably the only real case?
 #### indexingOrigin
-
+#### TODO: Replace the two indexing members with a flipY since that's probably the only real case?
 The `indexingOrigin` property specifies the index origin for each dimension (x, y, and z, in that order) as indicated by a three element array containing integers.
 
 A value of "indexingOrigin": [1,1,1] would indicate that indexing origin is lower-left-back where x indexing proceeds from left to right, y indexing proceeds from bottom to top and z indexing proceeds from back to front.
@@ -118,6 +117,7 @@ A value of "indexingOrigin": [-1,-1,-1] would indicate that indexing origin is u
 A value of "indexingOrigin": [0,0,0] would indicate that indexing origin is middle-middle-middle where the x, y, z origin sits in the middle of the range. When any element is 0 an indexingDirection must be supplied to indicate the directions of those elements that are 0.
 
 #### indexingDirection
+#### TODO: Replace the two indexing members with a flipY since that's probably the only real case?
 
 The `indexingDirection` property specifies the index direction for each dimension (x, y, and z, in that order) as indicated by a three element array containing integers.
 Only the elements in indexingDirection that have elements in indexingOrigin marked as 0 will be honored. The elements in indexingDirection that were non-zero in indexingOrigin will be ignored.
@@ -126,14 +126,14 @@ Only the elements in indexingDirection that have elements in indexingOrigin mark
 The following assumes a "indexingOrigin": [0,0,0]. However, if it had been "indexingOrigin": [-1,0,1], x and z in indexingDirection will be ignored since it's implied by indexingOrigin.
 
 A value of "indexingDirection": [1,1,1] would indicate that indexing directions for each axis would be as follows:
-x: right
-y: up
-z: towards
+* x: right
+* y: up
+* z: towards
 
 A value of "indexingDirection": [-1,-1,-1] would indicate that indexing directions for each axis would be as follows:
-x: left
-y: down
-z: away
+* x: left
+* y: down
+* z: away
 
 #### refine
 
