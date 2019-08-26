@@ -33,6 +33,7 @@ Also if there are common use cases (don't think there are) where you just the ti
   * Having the layer name as the file extension (we are not using file extensions so the layer tag can go on the file extension): d/z/y/x.layerName
   * Having the layer name as a folder prefix in the uri: layerName/d/z/y/x
 #### TODO: support `time`?
+#### TODO: How to handle CDB's negative levels? These are mip levels of the 0 level tiles. ktx2 has ways of specifying mip levels. Is there a good way to fetch a mip level of root tile. Otherwise we would actually need a cdb subdivision or a way to specify subdivision per level.
 
 ## Tileset JSON Format Updates
 
