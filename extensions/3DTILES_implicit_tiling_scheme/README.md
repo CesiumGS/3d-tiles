@@ -49,8 +49,7 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
             "subdivision": 2,
             "refine": "REPLACE",
             "headCount": [2,1,1],
-            "indexingDirection": [1,-1,1],
-            "indexingOrigin": [-1,-1,-1],
+            "indexingOrigin": [1,-1,1],
             "boundingVolume": {
                 "region": [
                      -1.5707963267948966,
@@ -106,7 +105,6 @@ The x/y is only problematic if you want to go more primitive than quad tree subd
 The `headCount` property specifies the number of heads in each dimension (x, y, and z, in that order) at level 0 as indicated by a three element array containing integers. A single root would be indicated by "headCount": [1, 1, 1].
 A "dual-headed quad tree" or TMS style quadtree, where there are two roots side-by-side along the x dimension, would be indicated by "headCount": [2, 1, 1], "subdivision": 2.
 
-_This paragraph is non-normative._
 `headCount` enables easy mapping onto other implicit tilings schemes. For example, in a `CDB` tiling scheme, each tileset.json boundingVolume would described the bounds of the latitude strip and the tileset.json headCount
 would describe the resolution of cdb tiles in that strip. The layer.json would tell you what heads are actually available.
 
@@ -115,9 +113,9 @@ would describe the resolution of cdb tiles in that strip. The layer.json would t
 
 The `indexingOrigin` property specifies the index origin for each dimension (x, y, and z, in that order) as indicated by a three element array containing integers.
 
-A value of "indexing": [1,1,1] would indicate that indexing origin is lower-left-back where x indexing proceeds from left to right, y indexing proceeds from bottom to top and z indexing proceeds from back to front.
-A value of "indexing": [-1,-1,-1] would indicate that indexing origin is upper-right-front where x indexing proceeds from right to left, y indexing proceeds from top to bottom and z indexing proceeds from front to back.
-A value of "indexing": [0,0,0] would indicate that indexing origin is middle-middle-middle where the x, y, z origin sits in the middle of the range. When any element is 0 an indexingDirection must be supplied to indicate the directions of those elements that are 0.
+A value of "indexingOrigin": [1,1,1] would indicate that indexing origin is lower-left-back where x indexing proceeds from left to right, y indexing proceeds from bottom to top and z indexing proceeds from back to front.
+A value of "indexingOrigin": [-1,-1,-1] would indicate that indexing origin is upper-right-front where x indexing proceeds from right to left, y indexing proceeds from top to bottom and z indexing proceeds from front to back.
+A value of "indexingOrigin": [0,0,0] would indicate that indexing origin is middle-middle-middle where the x, y, z origin sits in the middle of the range. When any element is 0 an indexingDirection must be supplied to indicate the directions of those elements that are 0.
 
 #### indexingDirection
 
@@ -127,12 +125,12 @@ Only the elements in indexingDirection that have elements in indexingOrigin mark
 
 The following assumes a "indexingOrigin": [0,0,0]. However, if it had been "indexingOrigin": [-1,0,1], x and z in indexingDirection will be ignored since it's implied by indexingOrigin.
 
-A value of "indexing": [1,1,1] would indicate that indexing directions for each axis would be as follows:
+A value of "indexingDirection": [1,1,1] would indicate that indexing directions for each axis would be as follows:
 x: right
 y: up
 z: towards
 
-A value of "indexing": [-1,-1,-1] would indicate that indexing directions for each axis would be as follows:
+A value of "indexingDirection": [-1,-1,-1] would indicate that indexing directions for each axis would be as follows:
 x: left
 y: down
 z: away
@@ -160,7 +158,7 @@ This is the same `transform` metadata as described in [3D Tiles](../../specifica
 
 #### Schema updates
 
-See [Property reference](#reference-3DTILES_implicit_tiling_scheme-extension) for the `3DTILES_implicit_tiling_scheme.tileset` schema reference. The full JSON schema can be found in [3DTILES_implicit_tiling_scheme.tileset.schema.json](schema/3DTILES_implicit_tiling_scheme.tileset.schema.json).
+See [Property reference](#reference-3DTILES_implicit_tiling_scheme-tileset-extension) for the `3DTILES_implicit_tiling_scheme.tileset` schema reference. The full JSON schema can be found in [3DTILES_implicit_tiling_scheme.tileset.schema.json](schema/3DTILES_implicit_tiling_scheme.tileset.schema.json).
 
 ### Layer
 
@@ -257,15 +255,13 @@ Below is an example availability for the above Tileset JSON where the availabili
 
 #### Schema updates
 
-See [Property reference](#reference-3dtiles_draco_point_compression-batch-table-extension) for the `3DTILES_draco_point_compression` Batch Table schema reference. The full JSON schema can be found in [3DTILES_draco_point_compression.batchTable.schema.json](schema/3DTILES_draco_point_compression.batchTable.schema.json).
+See [Property reference](#reference-3DTILES_implicit_tiling_scheme-layer-extension) for the `3DTILES_implicit_tiling_scheme.layer` schema reference. The full JSON schema can be found in [3DTILES_implicit_tiling_scheme.layer.schema.json](schema/3DTILES_implicit_tiling_scheme.layer.schema.json).
 
-### Notes
-
+## Notes
+_This section is non-normative._
 
 ## Resources
 _This section is non-normative._
-
-* [Draco Open Source Library](https://github.com/google/draco)
 
 ## Property reference
 

@@ -6,12 +6,15 @@
     "description" : "Specifies the implicit tiling properties.",
     "properties": {
         "tilingScheme": {
-            "type": "number",
+            "subdivision": "number",
+            "refine": "string",
             "headCount": "array",
             "boundingVolume": "object",
-            "transform": "object"
+            "transform": "object",
+            "indexingOrigin": "array",
+            "indexingDirection": "array"
         }
     },
-    "required": ["type", "headCount", "boundingVolume"],
+    "required": ["subdivision",  "refine", "headCount", "boundingVolume", "indexingOrigin"],
     "additionalProperties" : false
 }
