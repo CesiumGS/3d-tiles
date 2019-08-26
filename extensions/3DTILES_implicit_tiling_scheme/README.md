@@ -67,7 +67,7 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
 
 #### properties
 
-`subdivision` defines the subdivision scheme for the tiles described by the tileset.json's corresponding layer.json. In the example above, a type of 1 would indicate a quadtree subdivision.
+`subdivision` defines the subdivision scheme for the tiles described by the tileset.json's corresponding layer.json. In the example above, a type of 2 would indicate a quadtree subdivision.
 Other possible types are defined in the type enumeration table below.
 
 
