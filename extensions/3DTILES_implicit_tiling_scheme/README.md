@@ -20,9 +20,8 @@
 
 This extension enables the [3D Tiles JSON](../../specification/schema/tileset.schema.json) to support streaming tilesets with implied subdivision schemes.
 
-TODO: Availability is the bulk of the metadata info. If a binary version of layer.json doesn't have significant size advantages over the text version, just fold "available" from layer.json into tileset.json
-Also if there are common use cases where you just want to look infomation other than the
-availability and don't want to pay the cost of fetching the availability, we should keep it separate.
+TODO: Availability is the bulk of the metadata info. If a compressed binary version of layer.json doesn't have significant size advantages over a compressed text version, just fold the availability into tileset.json
+Also if there are common use cases (don't think there are) where you just the tileset.json info and not the layer.json info, to avoid paying the cost of fetching the availability, we should keep them separate.
 
 ## Tileset JSON Format Updates
 
@@ -78,16 +77,13 @@ Other possible types are defined in the type enumeration table below.
 |`2`|Quadtree subdivision scheme for all tiles specified in the 'available' array of its corresponding tileset.json.|
 |`3`|Octree subdivision scheme for all tiles specified in the 'available' array of its corresponding tileset.json|
 
-
-TODO: should these be strings: "bi", "quad", "oct"? Though numbers made to line up with number of axes being split.
 TODO: For binary and quad, allow specifying split axes? At most, this would optional. Do the obvious splitting otherwise.
-
 
 #### time
 
-TODO: Ignore for now? To support time dynamic maybe have an array tuples containing a timestamp its corresponding t folder
+TODO: Ignore for now? To support time dynamic maybe have an array of pairs containing a timestamp its corresponding t-folder.
 Is the timestamp milliseconds since 1970 or something more like mm/dd/yyyy/hh/mm/ss/xx?
-hopefully a toplevel timestamp->t folder mapping will allow easily handing of external tilesets with different time samples / timelines
+Hopefully a toplevel timestamp->t-folder mapping will allow easily handing of external tilesets with different time samples / timelines
 Allowed to mix time dynamic, non-time dynamic in the same tree (external tilesets)
 
 Thoughts on folder structure if we allow arbitrary mixing of time-dynamic and subdivision schemes per external tileset:
@@ -108,12 +104,12 @@ The x/y is only problematic if you want to go more primitive than quad tree subd
 The `headCount` property specifies the number of heads in each dimension (x, y, and z, in that order) at the root level as indicated by a three element array containing integers. A single root in the given root level `boundingVolume` would be
 indicated by "headCount": [1, 1, 1]. A "dual-headed quad tree" or TMS style quadtree, where there are two roots side-by-side along the x dimension, would be indicated by
 "headCount": [2, 1, 1], "subdivision": 2.
-`headCount` enables mapping onto `CDB` tiling scheme where each tilesets boundingVolume.
-Describes the bounds of the latitude strip and the headCount describes the resolution of cdb tiles in that strip. The layer.json would tell you what heads are actually available.
+`headCount` enables easy mapping onto other implicit tilings schemes. For example, in a `CDB` tiling scheme, each tileset.json boundingVolume would described the bounds of the latitude strip and the tileset.json headCount
+would describe the resolution of cdb tiles in that strip. The layer.json would tell you what heads are actually available.
 
 #### refine
 
-The `refine` property specifies the refinement style and is either `REPLACE` or `ADD`. The refinement specified applies to all tiles in the tileset JSON's corresponding layer.json.
+The `refine` property specifies the refinement style and is either `REPLACE` or `ADD`. The refinement specified applies to all tiles in implied by a  tileset JSON.
 This is the same `refine` metadata as described in [3D Tiles](../../specification/README.md).
 
 #### boundingVolume
@@ -134,7 +130,7 @@ This is the same `transform` metadata as described in [3D Tiles](../../specifica
 
 #### Schema updates
 
-See [Property reference](#reference-3dtiles_draco_point_compression-feature-table-extension) for the `3DTILES_draco_point_compression` Feature Table schema reference. The full JSON schema can be found in [3DTILES_draco_point_compression.featureTable.schema.json](schema/3DTILES_draco_point_compression.featureTable.schema.json).
+See [Property reference](#reference-3DTILES_implicit_tiling_scheme-extension) for the `3DTILES_implicit_tiling_scheme.tileset` schema reference. The full JSON schema can be found in [3DTILES_implicit_tiling_scheme.tileset.schema.json](schema/3DTILES_implicit_tiling_scheme.tileset.schema.json).
 
 ### Layer
 
@@ -227,16 +223,7 @@ Below is an example availability for the above Tileset JSON where the availabili
 
 #### properties
 
-`properties` defines additional Batch Table properties stored in the compressed data. In the example above, intensity and classification are compressed.
-
-Each property defined in the extension must correspond to a property name already defined in the Batch Table JSON.
-When a property is compressed its `byteOffset` property is ignored and may be set to zero. Its `componentType` and `type` properties
-define the component type and type, respectively, of the uncompressed data.
-
-Each property is associated with a unique ID. This ID is used to identify the property within the compressed data.
-No two properties in the Feature Table and Batch Table may use the same ID.
-
-`byteOffset` and `byteLength` are not defined in the Batch Table extension; all compressed data is stored in the Feature Table binary.
+`available` defines the tiles that are available in the tree. It contains a single array where each element of the array holds an array describing available ranges on that level of the tree.
 
 #### Schema updates
 
@@ -244,83 +231,75 @@ See [Property reference](#reference-3dtiles_draco_point_compression-batch-table-
 
 ### Notes
 
-If some properties are compressed and others are not, the Draco encoder must apply the `POINT_CLOUD_SEQUENTIAL_ENCODING` encoding method.
-This ensures that Draco preserves the original ordering of point data.
-
-> **Implementation Note:** Draco may reorder point data to achieve better compression and smaller file sizes.
-For best results, all properties in the Feature Table and Batch Table should be Draco compressed, in which
-case `POINT_CLOUD_SEQUENTIAL_ENCODING` should not be applied.
 
 ## Resources
 _This section is non-normative._
 
 * [Draco Open Source Library](https://github.com/google/draco)
-* [Cesium Draco Decoder Implementation](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Workers/decodeDraco.js)
 
 ## Property reference
 
-* [`3DTILES_draco_point_compression Feature Table extension`](#reference-3dtiles_draco_point_compression-feature-table-extension)
-* [`3DTILES_draco_point_compression Batch Table extension`](#reference-3dtiles_draco_point_compression-batch-table-extension)
+* [`3DTILES_implicit_tiling_scheme Tileset JSON extension`](#reference-3DTILES_implicit_tiling_scheme-tileset-extension)
+* [`3DTILES_implicit_tiling_scheme Layer JSON extension`](#reference-3DTILES_implicit_tiling_scheme-layer-extension)
 
 ---------------------------------------
-<a name="reference-3dtiles_draco_point_compression-feature-table-extension"></a>
-## 3DTILES_draco_point_compression Feature Table extension
+<a name="reference-3DTILES_implicit_tiling_scheme-tileset-extension"></a>
+## 3DTILES_implicit_tiling_scheme Tileset JSON extension
 
-Specifies the compressed Feature Table properties and the location of the compressed data in the Feature Table binary.
+Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling_scheme.
 
 **Properties**
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**properties**|`object`|Defines the properties stored in the compressed data. Each property is associated with a unique ID. This ID is used to identify the property within the compressed data. No two properties in the Feature Table and Batch Table may use the same ID.| :white_check_mark: Yes|
-|**byteOffset**|`number`|A zero-based offset relative to the start of the Feature Table binary at which the compressed data starts.| :white_check_mark: Yes|
-|**byteLength**|`number`|The length, in bytes, of the compressed data.| :white_check_mark: Yes|
+|**subdivision**|`number`|Defines the implied subdivision for all tiles described by the `available` array in layer.json.| :white_check_mark: Yes|
+|**refine**|`string`|Defines the refinement scheme for all tiles described by the `available` array in layer.json.| :white_check_mark: Yes|
+|**headCount**|`array`|Defines the number of heads at level 0 in the tree.| :white_check_mark: Yes|
+|**boundingVolume**|`object`|The boundingVolumes around level 0, not just the heads that are available.| :white_check_mark: Yes|
 
 Additional properties are not allowed.
 
-### properties :white_check_mark:
+### subdivision :white_check_mark:
 
-Defines the properties stored in the compressed data. Each property is associated with a unique ID. This ID is used to identify the property within
-the compressed data. No two properties in the Feature Table and Batch Table may use the same ID.
+Defines the implied subdivision for all tiles described by the `available` array in layer.json.
 
-* **Type**: `object`
+* **Type**: `number`
+* **Required**: Yes
+* **Minimum**: ` >= 0`
+
+### refine :white_check_mark:
+
+Defines the refinement scheme for all tiles described by the `available` array in layer.json.
+
+* **Type**: `string`
+* **Required**: Yes
+
+### headCount :white_check_mark:
+
+Defines the number of heads at level 0 in the tree.
+
+* **Type**: `array`
 * **Required**: Yes
 * **Type of each property**: `number`
 
-### byteOffset :white_check_mark:
-
-A zero-based offset relative to the start of the Feature Table binary at which the compressed data starts.
-
-* **Type**: `number`
-* **Required**: Yes
-* **Minimum**: ` >= 0`
-
-### byteLength :white_check_mark:
-
-The length, in bytes, of the compressed data.
-
-* **Type**: `number`
-* **Required**: Yes
-* **Minimum**: ` >= 0`
-
 ---------------------------------------
-<a name="reference-3dtiles_draco_point_compression-batch-table-extension"></a>
-## 3DTILES_draco_point_compression Batch Table extension
+<a name="reference-3DTILES_implicit_tiling_scheme-layer-extension"></a>
+## 3DTILES_implicit_tiling_scheme Layer JSON extension
 
-Specifies the compressed Batch Table properties.
+Specifies the Layer JSON properties.
 
 **Properties**
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**properties**|`object`|Defines the properties stored in the compressed data. Each property is associated with a unique ID. This ID is used to identify the property within the compressed data. No two properties in the Feature Table and Batch Table may use the same ID.| :white_check_mark: Yes|
+|**available**|`array`|Defines the tiles that are available at different levels of the tree with x, y, z ranges.| :white_check_mark: Yes|
 
 Additional properties are not allowed.
 
-### properties :white_check_mark:
+### available :white_check_mark:
 
-Defines the properties stored in the compressed data. Each property is associated with a unique ID. This ID is used to identify the property within the compressed data. No two properties in the Feature Table and Batch Table may use the same ID.
+Defines the tiles that are available at different levels of the tree with x, y, z ranges.
 
-* **Type**: `object`
+* **Type**: `array`
 * **Required**: Yes
-* **Type of each property**: `number`
+* **Type of each property**: `array`
