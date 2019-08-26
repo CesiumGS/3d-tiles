@@ -167,7 +167,7 @@ See [Property reference](#reference-3DTILES_implicit_tiling_scheme-extension) fo
 The layer.json file for a corresponding tileset.json describes the tiles that are available in the tree.
 It contains a single json object that is an array. Each element of the array holds an array describing available ranges on that level of the tree.
 
-Below is an example availability for the above Tileset JSON where the availability of levels in the quadtree is 9-13:
+Below is an example availability for the above Tileset JSON where the availability of levels in the quadtree (as there are only x and y ranges) is 9-13:
 ```json
 {
     "available": [
@@ -286,6 +286,8 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling_scheme.
 |**refine**|`string`|Defines the refinement scheme for all tiles described by the `available` array in layer.json.| :white_check_mark: Yes|
 |**headCount**|`array`|Defines the number of heads at level 0 in the tree.| :white_check_mark: Yes|
 |**boundingVolume**|`object`|The boundingVolumes around level 0, not just the heads that are available.| :white_check_mark: Yes|
+|**indexingOrigin**|`array`|The `indexingOrigin` property specifies the index origin for each dimension (x, y, and z, in that order) as indicated by a three element array containing integers.| :white_check_mark: Yes|
+|**indexingDirection**|`array`|The `indexingDirection` property specifies the index direction for each dimension (x, y, and z, in that order) as indicated by a three element array containing integers.| :white_check_mark: No|
 
 Additional properties are not allowed.
 
@@ -307,6 +309,30 @@ Defines the refinement scheme for all tiles described by the `available` array i
 ### headCount :white_check_mark:
 
 Defines the number of heads at level 0 in the tree.
+
+* **Type**: `array`
+* **Required**: Yes
+* **Type of each property**: `number`
+
+### boundingVolume :white_check_mark:
+
+Defines the bounds around all the heads (both available and unavailable) at level 0 in the tree.
+
+* **Type**: `object`
+* **Required**: Yes
+* **Type of each property**: `array`
+
+### indexingOrigin :white_check_mark:
+
+Defines the indexingOrigin for all indices (x, y ,z) for all levels in the tree.
+
+* **Type**: `array`
+* **Required**: Yes
+* **Type of each property**: `number`
+
+### indexingDirection
+
+Defines the indexingDirection for all indices (x, y, z) for all levels in the tree. Only required at least one of the indexingOrigin elements is 0.
 
 * **Type**: `array`
 * **Required**: Yes
