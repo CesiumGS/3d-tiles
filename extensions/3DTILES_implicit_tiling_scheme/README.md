@@ -37,9 +37,12 @@ Also if there are common use cases (don't think there are) where you just the ti
 #### TODO: How to handle CDB's negative levels? These are mip levels of the 0 level tiles. ktx2 has ways of specifying mip levels.
  * Is there a good way to fetch a mip level of root tile? It would get really expensive to fetch all those cdb tiles' full mipmaps when zoomed out on the earth.
  * Otherwise we would actually need a cdb subdivision or a way to specify subdivision per level.
-#### TODO: How to handle extrenal tilesets? maybe have a external folder at the root folder where they can live (do they also have d/z/x/y names within the external folder?).
- * For determining availability of a random tile outside the current view of the tree, we would need something like an externalAvailable.json that describes availability of external tileset.json's
- * so that we can quickly determine the external tileset.json that we would need to fetch in order to to come to a conclusion about that tile's availability.
+#### TODO: How to handle extrenal tilesets? are they all the same subdivision or can we handle multiple subdivision types without making implementation a total pain?
+  * maybe have a external folder at the root folder where they can live (do they also have d/z/x/yTileset.json names within the external folder?).
+  * For determining availability of a random tile outside the current view of the tree, we would need something like an externalAvailable.json that describes availability of external tileset.json's
+    so that we can quickly determine the external tileset.json that we would need to fetch in order to to come to a conclusion about that tile's availability.
+    for this reason, external tilesets must be the same subdivision must all be
+    the same?
 
 ## Tileset JSON Format Updates
 
@@ -91,7 +94,7 @@ Other possible types are defined in the type enumeration table below.
 
 |Type|Description|
 |----|-----------|
-|`0`|Reserved. Indicates custom? |
+|`0`|Reserved. Indicates no subdivision? (CDB negative levels) |
 |`1`|Reserved. Binary tree? |
 |`2`|Quadtree subdivision scheme for all tiles specified in the 'available' array of its corresponding tileset.json.|
 |`3`|Octree subdivision scheme for all tiles specified in the 'available' array of its corresponding tileset.json|
