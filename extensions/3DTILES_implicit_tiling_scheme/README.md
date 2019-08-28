@@ -29,7 +29,17 @@ Also if there are common use cases (don't think there are) where you just the ti
 * Use this mechanism to encode a bunch of layers of metadata(ex: per point) as basis textures (ktx2 payloads). Analisys use-cases for? mip down to 1x1 (ave, min,max)
 * Use this mechanism for time-dynamic versions of the data
 
-#### TODO: time array of pairs of key-frame timestamps and their folder (the t in d/x/y/z/t)
+#### TODO: `time`, an array of pairs of key-frame timestamps and their folder prefix (t/d/x/y/z), maybe something like the below. Editing time is just editing a folder name.
+```json
+{
+   "time" : [
+     [some-ms-since-1970, t0],
+     [some-ms-since-1970, t1],
+     [some-ms-since-1970, t2],
+     [some-ms-since-1970, t3]
+   ]
+}
+```
 
 #### TODO: How to handle external tilesets?
   * Have the external tileset availability listed after tile availability(as described in this document)
