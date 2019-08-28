@@ -26,23 +26,25 @@ Also if there are common use cases (don't think there are) where you just the ti
 #### TODO: For binary and quad subdivision, allow specifying split axes? At most, this would optional. Do the obvious splitting otherwise.
 #### TODO: Replace indexingOrigin and indexingDirection with a flipY since that's probably the only real case?
 #### TODO: boundingVolume: Unsupplied means untraversable/no spatial context but data still needs hierarchy? Can still do random access queries/hierarchical analysis. Good use-case?
-#### TODO: Availability sharing: is there a good mechanism to say this bundle of tilesets are all "layers" of dataset and there's one availability to describe all of them?
-* The tileset specifies all of its layers as an array of strings in `layerNames`. The base uri is modified with the layerName as a prefix or postfix.
+#### TODO: Availability sharing: for layers of data that are all in the same context bounding volume / subdivision / availability:
+* The tileset specifies all of its postfix keys (or prefix?) to its various layers of data as an array of strings in `layerNames`. The base uri is modified with the layerName as a prefix or postfix.
 * It is more more efficient traversal-wise to have 1 tileset that specifies layers in it implicit context instead of having a bunch of tilesets. Less duplication of effort, one set of traversal calculations apply to all the layers.
 * Use this mechanism to encode a bunch of layers of metadata(ex: per point) as basis textures (ktx2 payloads). Analisys use-cases for? mip down to 1x1 (ave, min,max)
 * Use this mechanism for time-dynamic versions of the data
 
 #### TODO: support `time` or can this be handled by `layerNames`?
 #### TODO: support mixing different subdivisions in the same tree (external tileset is a different subdivision than its parent)?
+ * would definitely need to prototype this to make sure its not a total pain implementation-wise.
 #### TODO: How to handle CDB's negative levels? These are mip levels of the 0 level tiles. ktx2 has ways of specifying mip levels.
  * Is there a good way to fetch a mip level of root tile? It would get really expensive to fetch all those cdb tiles' full mipmaps when zoomed out on the earth.
  * Otherwise we would actually need a cdb subdivision or a way to specify subdivision per level.
-#### TODO: How to handle extrenal tilesets? are they all the same subdivision or can we handle multiple subdivision types without making implementation a total pain?
+ * Could have two tilesets for each zone, one that handles levels -10 through -1 (aka mip levels 10 through 1, use subdivision: 0, headCount: whatever-it-is) and a tiles. And one that handles level 0 onward as quad tree.
+     * This way the implementation only cares about a few configurable "primitives" and doesn't have to worry about completely arbitrary case like a cdb subdivision.
+#### TODO: How to handle external tilesets? are they all the same subdivision or can we handle multiple subdivision types without making implementation a total pain?
   * maybe have a external folder at the root folder where they can live (do they also have d/z/x/yTileset.json names within the external folder?).
   * For determining availability of a random tile outside the current view of the tree, we would need something like an externalAvailable.json that describes availability of external tileset.json's
     so that we can quickly determine the external tileset.json that we would need to fetch in order to to come to a conclusion about that tile's availability.
-    for this reason, external tilesets must be the same subdivision must all be
-    the same?
+    for this reason, external tilesets must be the same subdivision must all be the same?
 
 ## Tileset JSON Format Updates
 
@@ -89,8 +91,8 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
 #### properties
 
 `subdivision` defines the subdivision scheme for the tiles described by the tileset.json's corresponding available.json. In the example above, a type of 2 would indicate a quadtree subdivision.
-Other possible types are defined in the type enumeration table below.
-
+Other possible types are defined in the type enumeration table below. The `subdivision` could be implied from `available`, however, with `headCount` you can layer `subdivision` types in any dimension so proper interpretation requires
+explicitly stating the `subdivision` type.
 
 |Type|Description|
 |----|-----------|
