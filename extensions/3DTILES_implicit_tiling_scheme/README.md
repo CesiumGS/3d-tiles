@@ -20,15 +20,6 @@
 
 This extension enables the [3D Tiles JSON](../../specification/schema/tileset.schema.json) to support streaming tilesets with implied subdivision schemes.
 
-#### TODO: available.json is the bulk of the metadata info. If a compressed binary version of available.json doesn't have significant size advantages over a compressed text version, just fold the availability into tileset.json
-Also if there are common use cases (don't think there are) where you just the tileset.json info and not the available.json info, to avoid paying the cost of fetching the availability, we should keep them separate.
-
-#### TODO: Availability sharing: for layers of data that are all in the same context bounding volume / subdivision / availability:
-* The tileset specifies all of its postfix keys (or prefix?) to its various layers of data as an array of strings in `layerNames`. The base uri is modified with the layerName as a prefix or postfix.
-* It is more more efficient traversal-wise to have 1 tileset that specifies layers in it implicit context instead of having a bunch of tilesets. Less duplication of effort, one set of traversal calculations apply to all the layers.
-* Use this mechanism to encode a bunch of layers of metadata(ex: per point) as basis textures (ktx2 payloads). Analisys use-cases for? mip down to 1x1 (ave, min,max)
-* Use this mechanism for time-dynamic versions of the data
-
 #### TODO: `time`, an array of pairs of key-frame timestamps and their folder prefix (t/d/x/y/z), maybe something like the below. Editing time is just editing a folder name.
 ```json
 {
@@ -41,10 +32,17 @@ Also if there are common use cases (don't think there are) where you just the ti
 }
 ```
 
-#### TODO: How to handle external tilesets?
-  * Have the external tileset availability listed after tile availability(as described in this document)
-  * For determining availability of a random tile outside the current view of the tree, we would need something like an externalAvailable.json that describes availability of external tileset.json's
-    so that we can quickly determine the external tileset.json that we would need to fetch in order to to come to a conclusion about that tile's availability.
+#### TODO: `metadata`, an array of pairs of key-frame timestamps and their folder prefix (d/x/y/zMetadataName), maybe something like the below.
+```json
+{
+   "metadata" : [
+        "density",
+        "temperature",
+        "area",
+        "volume"
+   ]
+}
+```
 
 ## Tileset JSON Format Updates
 
@@ -72,6 +70,9 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
             "subdivision": 2,
             "refine": "REPLACE",
             "headCount": [2,1,1],
+            "roots": [[0,0,0,0], [0,1,0,0]],
+            "subtreeLevels": 10,
+            "lastLevel": 19,
             "boundingVolume": {
                 "region": [
                      -1.5707963267948966,
@@ -82,93 +83,6 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
                     547.7591827297583
                 ]
             },
-            "available": [
-                [],
-                [],
-                [],
-                [],
-                [],
-                [],
-                [],
-                [],
-                [],
-                [
-                    {
-                        "x": [301,301],
-                        "y": [140,140]
-                    }
-                ],
-                [
-                    {
-                        "x": [602,603],
-                        "y": [280,280]
-                    }
-                ],
-                [
-                    {
-                        "x": [1205,1206],
-                        "y": [560,560]
-                    }
-                ],
-                [
-                    {
-                        "x": [2411,2412],
-                        "y": [1120,1121]
-                    },
-                    {
-                        "x": [2413,2413],
-                        "y": [1120,1120]
-                    }
-                ],
-                [
-                    {
-                        "x": [4823,4825],
-                        "y": [2240,2243]
-                    },
-                    {
-                        "x": [4826,4826],
-                        "y": [2240,2241]
-                    },
-                    {
-                        "x": [4827,4827],
-                        "y": [2240,2240]
-                    }
-
-                    // OR:
-                    [[4823,4825],[2240,2243]],
-                    [[4826,4826],[2240,2241]],
-                    [[4827,4827],[2240,2240]]
-                    //for loop indexing:
-                    available[level][i][X][START]
-                    available[level][i][Y][END]
-                ]
-            ],
-            "external": [
-                [],
-                [],
-                [],
-                [],
-                [],
-                [],
-                [],
-                [],
-                [],
-                [
-                    {
-                        "x": [302,140],
-                        "y": [302,140]
-                    }
-                ],
-                [],
-                [],
-                [],
-                [
-                    {
-                        "x": [4827,4828],
-                        "y": [2241,2242]
-                    }
-                ]
-            ]
         }
     }
 }
@@ -221,25 +135,24 @@ This is the same `transform` metadata as described in [3D Tiles](../../specifica
 
 External tilesets do not specify a `transform`.
 
-### available
+#### roots
 
-The `available` property describes the tiles that are available in the tree. It contains a single json object that is an array. Each element of the array holds an array describing available ranges on that level of the tree.
+The `roots` property describes the first set of subtrees in the tree. It contains a single json object that is an array. Each element of the array holds an index containing the [d,x,y,z] key of the subtree that can be requested.
 
-In the example above, the tiles that are available are on levels 9-13. The two element arrays are pairs of start and end indices making up an index bounding box to concisely say that all the tiles in this bounding box are available.
-The level 9 availability is saying that there's a tile at 301, 140 while the level 10 availability is saying that are two tiles available at 602,280 and 603,280.
+In the example above, the first subtrees that are available on level 0 at each head location. A subtree uri is this d,x,y,z key prepended with the subtree default folder location or `availability/D/X/Y/Z`.
 
-A tiles uri is simply D/X/Y (or D/X/Y/Z for octree) as indicated by the tile availability. For example, the tile that's available in level 9 in the above tileset would have the uri:
-`9/301/140`
+The reason for this is for tilesets that are in a global context (region bounding volume) that start somewhere down the tree, say at level 10.
 
-### external
+#### subtreeLevels
 
-The `external` property describes the external tilesets that are available in the tree. It contains a single json object that is an array. Each element of the array holds an array describing available ranges on that level of the tree.
+The `subtreeLevels` property is a number that specifies the fixed depth of all subtree availabilities for the tileset. In the example above this number is `10` meaning that any subtree that is requested out of the `availabililty` folder
+(followed by the `d/x/y/z` index of the subtrees root within the tree) will specify availability for all nodes from the subtree root and down 10 levels.
 
-In the example above, the external tilesets that are available are on levels 9 and 13. The two element serve the same function as in available except they specify availability of external tileset as opposed to tiles.
-The level 9 availability is saying that there's an external tilesets at 302,140 while the level 13 availability is saying that are 4 external tilesets available at 4827,2241 4827,2242 4828,2241 and 4828,2242
+#### lastLevel
 
-External tilesets live in an external folder in the root directory of the tileset. Their uri is simply D/X/Y (or D/X/Y/Z for octree) as indicated by the external availability. For example, the external tileset that's available in level 9 in the above tileset would have the uri:
-`external/9/302/140`
+The `lastLevel` property is a number that specifies the last tree level in the tileset. In the example above this number is `19` meaning that last level in the tree is level 19.
+This number is indexed from 0 so if the number was 0 it would mean the tileset only has 1 level, the root level 0.
+
 
 #### Schema updates
 
@@ -269,9 +182,10 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling_scheme.
 |**subdivision**|`number`|Defines the implied subdivision for all tiles described by the `available` array in available.json.| :white_check_mark: Yes|
 |**refine**|`string`|Defines the refinement scheme for all tiles described by the `available` array in available.json.| :white_check_mark: Yes|
 |**headCount**|`array`|Defines the number of heads at level 0 in the tree.| :white_check_mark: Yes|
+|**roots**|`array`|Defines the first set of subtree keys that are available in the tileset.| :white_check_mark: Yes|
+|**subtreeLevels**|`number`|Defines how many levels each availability subtree contains.| :white_check_mark: Yes|
+|**lastLevel**|`number`|Defines the last level in the tileset. 0 indexed.| :white_check_mark: Yes|
 |**boundingVolume**|`object`|The `boundingVolumes` around level 0, not just the heads that are available.| :white_check_mark: Yes|
-|**available**|`array`|Defines the tiles that are available at different levels of the tree with x, y, z ranges.| :white_check_mark: Yes|
-|**external**|`array`|Defines the external tilesets that are available at different levels of the tree with x, y, z ranges.| No|
 
 Additional properties are not allowed.
 
@@ -298,6 +212,28 @@ Defines the number of heads at level 0 in the tree.
 * **Required**: Yes
 * **Type of each property**: `number`
 
+### roots :white_check_mark:
+
+Defines the first set of subtree keys that are available in the tileset.
+
+* **Type**: `array`
+* **Required**: Yes
+* **Type of each property**: `array`
+
+### subtreeLevels :white_check_mark:
+
+Defines how many levels each availability subtree contains.
+
+* **Type**: `number`
+* **Required**: Yes
+
+### lastLevel :white_check_mark:
+
+Defines the last level in the tileset. 0 indexed.
+
+* **Type**: `number`
+* **Required**: Yes
+
 ### boundingVolume :white_check_mark:
 
 Defines the bounds around all the heads (both available and unavailable) at level 0 in the tree.
@@ -305,20 +241,3 @@ Defines the bounds around all the heads (both available and unavailable) at leve
 * **Type**: `object`
 * **Required**: Yes
 * **Type of each property**: `array`
-
-### available :white_check_mark:
-
-Defines the tiles that are available at different levels of the tree with x, y, z ranges.
-
-* **Type**: `array`
-* **Required**: Yes
-* **Type of each property**: `array`
-
-### external
-
-Defines the external tilesets that are available at different levels of the tree with x, y, z ranges.
-
-* **Type**: `array`
-* **Required**: No
-* **Type of each property**: `array`
-
