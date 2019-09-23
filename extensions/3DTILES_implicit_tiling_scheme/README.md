@@ -154,7 +154,12 @@ The `lastLevel` property is a number that specifies the last tree level in the t
 This number is indexed from 0 so if the number was 0 it would mean the tileset only has 1 level, the root level 0.
 
 
-#### Schema updates
+### Subtree availability
+
+Availability of nodes are broken up into subtree chunks. A subtree of availability is binary file where each node gets a bit: 1 if it exists, 0 if it does not. Every node in the subtree must have a 0 or 1.
+Nodes on the last level that have a 1 will have an additional subtree for requesting unless that node is also on the last level of the tree. Each level has a minimimum size of 1 byte.
+
+### Schema updates
 
 See [Property reference](#reference-3DTILES_implicit_tiling_scheme-tileset-extension) for the `3DTILES_implicit_tiling_scheme.tileset` schema reference. The full JSON schema can be found in [3DTILES_implicit_tiling_scheme.tileset.schema.json](schema/3DTILES_implicit_tiling_scheme.tileset.schema.json).
 

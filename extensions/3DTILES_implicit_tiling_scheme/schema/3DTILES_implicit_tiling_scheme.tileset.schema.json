@@ -9,12 +9,13 @@
             "subdivision": "number",
             "refine": "string",
             "headCount": "array",
+            "roots": "array",
+            "subtreeLevels": "number",
+            "lastLevel": "number",
             "boundingVolume": "object",
-            "transform": "object",
-            "indexingOrigin": "array",
-            "indexingDirection": "array"
+            "transform": "object"
         }
     },
-    "required": ["subdivision",  "refine", "headCount", "boundingVolume", "indexingOrigin"],
+    "required": ["subdivision",  "refine", "headCount", "boundingVolume", "roots", "subtreeLevels", "lastLevel"],
     "additionalProperties" : false
 }
