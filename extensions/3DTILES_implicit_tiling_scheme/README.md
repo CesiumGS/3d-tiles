@@ -20,30 +20,6 @@
 
 This extension enables the [3D Tiles JSON](../../specification/schema/tileset.schema.json) to support streaming tilesets with implied subdivision schemes.
 
-#### TODO: `time`, an array of pairs of key-frame timestamps and their folder prefix (t/d/x/y/z), maybe something like the below. Editing time is just editing a folder name.
-```json
-{
-   "time" : [
-     [some-ms-since-1970, t0],
-     [some-ms-since-1970, t1],
-     [some-ms-since-1970, t2],
-     [some-ms-since-1970, t3]
-   ]
-}
-```
-
-#### TODO: `metadata`, an array of pairs of key-frame timestamps and their folder prefix (d/x/y/zMetadataName), maybe something like the below.
-```json
-{
-   "metadata" : [
-        "density",
-        "temperature",
-        "area",
-        "volume"
-   ]
-}
-```
-
 ## Tileset JSON Format Updates
 
 ### Tiling Scheme
@@ -90,74 +66,68 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
 
 #### properties
 
-`subdivision` defines the subdivision scheme for the tiles described by the tileset.json's corresponding available.json. In the example above, a type of 2 would indicate a quadtree subdivision.
-Other possible types are defined in the type enumeration table below. The `subdivision` could be implied from `available`, however, with `headCount` you can layer `subdivision` types in any dimension so proper interpretation requires
-explicitly stating the `subdivision` type.
-
-External tilesets do not specify a `subdivision`.
+`subdivision` defines the subdivision scheme for the entire tileset. In the example above, a type of 2 would indicate a quadtree subdivision, or the number of axes being split.
+Other possible types are defined in the table below.
 
 |Type|Description|
 |----|-----------|
-|`0`|Reserved. Indicates no subdivision? (CDB negative levels, mips) |
+|`0`|Reserved. Indicates no subdivision? (CDB negative levels, i.e. the mipped imagery) |
 |`1`|Reserved. Binary tree? |
-|`2`|Quadtree subdivision scheme for all tiles specified in the 'available' array of its corresponding tileset.json.|
-|`3`|Octree subdivision scheme for all tiles specified in the 'available' array of its corresponding tileset.json|
+|`2`|Quadtree subdivision scheme |
+|`3`|Octree subdivision scheme |
 
 #### headCount
 
-The `headCount` property specifies the number of heads in each dimension (x, y, and z, in that order) at level 0 as indicated by a three element array containing integers. A single root would be indicated by "headCount": [1, 1, 1].
-A "dual-headed quad tree" or TMS style quadtree, where there are two roots side-by-side along the x dimension, would be indicated by "headCount": [2, 1, 1], "subdivision": 2.
-
-`headCount` enables easy mapping onto other implicit tilings schemes. For example, in a `CDB` tiling scheme, each tileset.json boundingVolume would described the bounds of the latitude strip and the tileset.json headCount
-would describe the resolution of cdb tiles in that strip. The available.json would tell you what heads are actually available.
-
-External tilesets do not specify a `headCount`.
+The `headCount` property specifies the number of heads in each dimension (x, y, and z, in that order) at tree level 0 as indicated by a three element array containing integers. A single root would be indicated by "headCount": [1, 1, 1].
+A "dual-headed quad tree" or TMS style quadtree, where there are two roots side-by-side along the x dimension, would be indicated by "headCount": [2, 1, 1].
 
 #### refine
 
-The `refine` property specifies the refinement style and is either `REPLACE` or `ADD`. The refinement specified applies to all tiles in implied by a  tileset JSON.
+The `refine` property specifies the refinement style and is either `REPLACE` or `ADD`. The refinement specified applies to all tiles in the tileset.
 This is the same `refine` metadata as described in [3D Tiles](../../specification/README.md).
-
-External tilesets do not specify a `refine`.
 
 #### boundingVolume
 
-The `boundingVolume` property specifies boundingVolume context for the tileset.json and its available.json. The `boundingVolume` types are restricted to `region` and `box`.
-The `boundingVolume`'s of descendants of a tileset.json spedified in it's available.json are derived from its `boundingVolume` and `subdivision` types.
+The `boundingVolume` property specifies boundingVolume for level 0 of the tileset (and all of its heads, not per-head).  The `boundingVolume` types are restricted to `region` and `box`.
 This is the same `boundingVolume` metadata as described in [3D Tiles](../../specification/README.md).
-
-External tilesets do not specify a `boundingVolume`.
+Every tile in the tileset can derive its bounding volume from the root bounding volume.
 
 #### transform
 
-The `transform` property specifies 4x4 affine transformation to apply to the tileset. Per-tile transforms are unsupported.
+The `transform` property specifies 4x4 affine transformation to apply to the tileset. Per-tile transforms are not supported.
 This is the same `transform` metadata as described in [3D Tiles](../../specification/README.md).
-
-External tilesets do not specify a `transform`.
 
 #### roots
 
-The `roots` property describes the first set of subtrees in the tree. It contains a single json object that is an array. Each element of the array holds an index containing the [d,x,y,z] key of the subtree that can be requested.
+The `roots` property describes the first set of subtrees in the tree.
+It is an array where each element holds a [d,x,y,z] key of the subtree that can be requested.
+The this is needed to know where the tree starts for cases where the content starts somewhere down the tree (not at level 0, as can be the case with some tilesets defined in a globe context with a region bounding box) or if some heads are missing.
 
-In the example above, the first subtrees that are available on level 0 at each head location. A subtree uri is this d,x,y,z key prepended with the subtree default folder location or `availability/D/X/Y/Z`.
-
-The reason for this is for tilesets that are in a global context (region bounding volume) that start somewhere down the tree, say at level 10.
+In the example above, the first subtrees that are available on level 0 at each of the available head locations. A subtree uri is this d,x,y,z key prepended with the subtree default folder location or `availability/d/x/y/z`.
 
 #### subtreeLevels
 
-The `subtreeLevels` property is a number that specifies the fixed depth of all subtree availabilities for the tileset. In the example above this number is `10` meaning that any subtree that is requested out of the `availabililty` folder
-(followed by the `d/x/y/z` index of the subtrees root within the tree) will specify availability for all nodes from the subtree root and down 10 levels.
+The `subtreeLevels` property is a number that specifies the fixed amount of levels in of all subtree availabilities for the tileset. In the example above this number is `10` meaning that any subtree that is requested out of the `availabililty` folder
+(followed by the `d/x/y/z` index of the subtrees root within the tree) will specify availability for all nodes from the subtree root and down 10 levels. Available tiles on the last level of the subtree will have another subtree available for requesting.
 
 #### lastLevel
 
 The `lastLevel` property is a number that specifies the last tree level in the tileset. In the example above this number is `19` meaning that last level in the tree is level 19.
-This number is indexed from 0 so if the number was 0 it would mean the tileset only has 1 level, the root level 0.
-
+This number is indexed from 0 so if the number was 0 it would mean the tileset only has 1 level, the root at level 0.
 
 ### Subtree availability
 
 Availability of nodes are broken up into subtree chunks. A subtree of availability is binary file where each node gets a bit: 1 if it exists, 0 if it does not. Every node in the subtree must have a 0 or 1.
-Nodes on the last level that have a 1 will have an additional subtree for requesting unless that node is also on the last level of the tree. Each level has a minimimum size of 1 byte.
+Nodes on the last level that have a 1 will have an additional subtree for requesting (unless that node is also on the last level of the tree). Each level of the subtree has a minimimum size of 1 byte.
+For example, a quadtrees root and first levels have some bit padding. An example quad tree subtree that is fully packed:
+quad subtree: [0b00000001, 0b00001111, 0b11111111, 0b11111111, ...]
+
+An example oct tree subtree that is fully packed:
+oct subtree: [0b00000001, 0b11111111, 0b11111111, ...]
+
+Bits are left to right, top to bottom raster order. LSB bits are earlier in the raster order.
+
+Note: Padding bits in the root of the subtree can allow the subtree itself communicate how deep it goes. Will let implementation dictate that this is more desirable than fix sizes (don't think it will, hasn't yet).
 
 ### Schema updates
 
