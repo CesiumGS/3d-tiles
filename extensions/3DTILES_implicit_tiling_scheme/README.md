@@ -129,7 +129,16 @@ Bits are left to right, top to bottom raster order. LSB bits are earlier in the 
 
 Note: Padding bits in the root of the subtree can allow the subtree itself communicate how deep it goes. Will let implementation dictate that this is more desirable than fix sizes (don't think it will, hasn't yet).
 
+Below is a binary subtree of 4 levels. There are two leaf tiles at level 3 (root is level 0) that are available.
+These would have tiles available for requesting (like all the other 1's) but they would also have subtree binaries available for requesting as well, at uri "baseUri/availability/d/x" (d/x in this case since its binary. quad would be d/x/y, oct would be d/x/y/z)
+
 ![](subtreeBits.jpg)
+
+Clearly, duds can exist (a subtree with 1 in the root (coinciding with the tile in the parent subtree's leaf level), and the rest 0's). Tiling can easily enough adjust its `subtreeLevel` to limit these.
+Another approach could be to have the last level of the subtree have 2 bits to indicate no-tile/tile/tile+subtree. I don't this is a common enough issue to introduce extra complexity that would be felt in subtree size and implementation. As mentioned already,
+If it is an issue it can be easily remedied through other means that the spec provides.
+
+We use the 7 bits in the subtree root to store the subtrees depth (and remove the need for it in the tileset.json). During tiling, this could allow adding an extra level to a subtree, if there would be many duds without the extra level.
 
 ### Schema updates
 
