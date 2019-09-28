@@ -138,7 +138,7 @@ Clearly, duds can exist (a subtree with 1 in the root (coinciding with the tile 
 Another approach could be to have the last level of the subtree have 2 bits to indicate no-tile/tile/tile+subtree. I don't this is a common enough issue to introduce extra complexity that would be felt in subtree size and implementation. As mentioned already,
 If it is an issue it can be easily remedied through other means that the spec provides.
 
-We use the 7 bits in the subtree root to store the subtrees depth (and remove the need for it in the tileset.json). During tiling, this could allow adding an extra level to a subtree, if there would be many duds without the extra level.
+We could use the 7 bits in the subtree root to store the subtrees depth (and remove the need for it in the tileset.json). During tiling, this could allow adding an extra level to a subtree, if there would be many duds without the extra level.
 
 ### Schema updates
 
