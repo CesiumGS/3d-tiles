@@ -129,6 +129,8 @@ Bits are left to right, top to bottom raster order. LSB bits are earlier in the 
 
 Note: Padding bits in the root of the subtree can allow the subtree itself communicate how deep it goes. Will let implementation dictate that this is more desirable than fix sizes (don't think it will, hasn't yet).
 
+![](subtreeBits.jpg)
+
 ### Schema updates
 
 See [Property reference](#reference-3DTILES_implicit_tiling_scheme-tileset-extension) for the `3DTILES_implicit_tiling_scheme.tileset` schema reference. The full JSON schema can be found in [3DTILES_implicit_tiling_scheme.tileset.schema.json](schema/3DTILES_implicit_tiling_scheme.tileset.schema.json).
