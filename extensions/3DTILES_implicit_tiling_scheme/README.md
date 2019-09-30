@@ -98,7 +98,7 @@ TODO: Add figure of what quad and oct examples.
 #### refine
 
 The `refine` property specifies the refinement style and is either `REPLACE` or `ADD`. The refinement specified applies to all tiles in the tileset.
-This is the same `refine` property which is defined per-tile in the core 3D Tiles specification [3D Tiles](../../specification/README.md). TODO: deep link to the part of the 3D Tiles spec that explains it.
+This is the same `refine` property which is defined per-tile in the core 3D Tiles specification [3D Tiles refine Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/master/specification#refinement).
 
 #### rootTilesPerAxis
 
@@ -131,7 +131,7 @@ This number is indexed from 0 so if the number was 0 it would mean the tileset o
 #### boundingVolume
 
 The `boundingVolume` property specifies bounding volume for the entire tileset.  The `boundingVolume` types are restricted to `region` and `box`.
-This is the same `boundingVolume` property which is defined per-tile in the core 3D Tiles specification [3D Tiles](../../specification/README.md). TODO: deep link.
+This is the same `boundingVolume` property which is defined per-tile in the core 3D Tiles specification [3D Tiles `boundingVolume` Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/master/specification#bounding-volumes)
 Every tile in the tileset can derive its bounding volume from the tileset bounding volume.
 
 TODO: figure for how the tileset bounding volume is subdivided.
@@ -140,8 +140,7 @@ TODO: bounding region is technically implied for region, the only info we need i
 #### transform
 
 The `transform` property specifies 4x4 affine transformation that transforms any tile in the tileset from the tileset's local coordinate system to a global coordinate system.
-This is the same `transform` property which is defined per-tile in the core 3D Tiles specification [3D Tiles Transform Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/implicit-tiling/specification#transforms)
-. TODO: deep link. (../../specification/README.md)
+This is the same `transform` property which is defined per-tile in the core 3D Tiles specification [3D Tiles `transform` Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/implicit-tiling/specification#transforms)
 
 
 ### Subtree availability
