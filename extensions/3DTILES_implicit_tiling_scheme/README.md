@@ -29,6 +29,7 @@ This extension enables the [3D Tiles JSON](../../specification/schema/tileset.sc
 
 ## Concepts
 
+subdivision, how `boundingVolume`s are split, subtrees, subtree of availability as packed bit mipmap, how is indexing done.
 
 ## Tileset JSON Format Updates
 
@@ -96,7 +97,10 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
 |`2`|Quadtree scheme.|
 |`3`|Octree scheme.|
 
-TODO: Add figure of what quad and oct examples.
+The `splitAxes` property specifies the subdivision scheme for the entire tileset. A value of 2 means the subdivision scheme is a quadtree while a value of 3 means the subdivision scheme is an octree.
+In a quadtree, a tile is split evenly along the x and y axes, forming four equally sized children. In an octree, a tile is split evenly along the x, y, and z axes, forming eight equally sized children.
+
+TODO: Add figure of what quad and oct examples, check 3dtiles spec.
 
 #### refine
 
@@ -104,9 +108,11 @@ The `refine` property specifies the refinement style and is either `REPLACE` or 
 This is the same `refine` property which is defined per-tile in the core 3D Tiles specification [3D Tiles `refine` Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/master/specification#refinement).
 
 #### rootTilesPerAxis
+TODO: rename? fixedGridDimensions? rootGridDimensions? rootFixedGridDimensions?
 
-The `rootTilesPerAxis` property specifies the number of roots in each dimension (x, y, and z, in that order) at tree level 0 as indicated by a three element array containing integers. A single root is indicated by "`rootTilesPerAxis`": [1, 1, 1].
-A quadtree with two roots side-by-side along the x dimension, is indicated by "`rootTilesPerAxis`": [2, 1, 1]. The space is uniformly divided so all of the root tiles will have exactly the same geometric size, like a fixed grid.
+The `rootTilesPerAxis` property is a three element array of numbers specifying the x, y, and z dimensions of a fixed grid at tree level 0. At each location of the fixed grid, there may reside a tileset root.
+The space is uniformly divided so all of the root tiles will have exactly the same geometric size.  For quadtrees, the third element of this array is ignored. A single root is indicated by "`rootTilesPerAxis`": [1, 1, 1].
+Two roots side-by-side along the x dimension is indicated by "`rootTilesPerAxis`": [2, 1, 1].
 
 TODO: Add figure. How does indexing correlate: 0 to n-1 for each dimension. left-right, top-bottom, back-front?
 
@@ -147,7 +153,6 @@ This is the same `boundingVolume` property which is defined per-tile in the core
 Every tile in the tileset can derive its bounding volume from the tileset bounding volume.
 
 TODO: figure for how the tileset bounding volume is subdivided.
-TODO: bounding region is technically implied for region, the only info we need is height min/max.
 
 #### transform
 
