@@ -53,9 +53,24 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
                     547.7591827297583
                 ]
             },
-            "transform": {
-                TODO: add transform (region tilesets would should bake its rotataion and get its rtc from the gltf CESIUM_RTC extension)
-            }
+            "transform": [
+                0.964993398200894,
+                -0.2622741722486046,
+                0,
+                0,
+                0.1674100354510973,
+                0.6159568729846445,
+                0.7697863409110614,
+                0,
+                -0.2018950753707308,
+                -0.7428387370043971,
+                0.6383016444806947,
+                0,
+                -1289474.3598308756,
+                -4744402.522436097,
+                4049448.137488265,
+                1
+            ],
         }
     }
 }
@@ -125,7 +140,8 @@ TODO: bounding region is technically implied for region, the only info we need i
 #### transform
 
 The `transform` property specifies 4x4 affine transformation that transforms any tile in the tileset from the tileset's local coordinate system to a global coordinate system.
-This is the same `transform` property which is defined per-tile in the core 3D Tiles specification [3D Tiles](../../specification/README.md). TODO: deep link.
+This is the same `transform` property which is defined per-tile in the core 3D Tiles specification [3D Tiles Transform Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/implicit-tiling/specification#transforms)
+. TODO: deep link. (../../specification/README.md)
 
 
 ### Subtree availability
