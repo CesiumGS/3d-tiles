@@ -9,23 +9,33 @@
 ## Contents
 
 * [Overview](#overview)
+* [Concepts](#concepts)
 * [Tileset JSON Format Updates](#tileset-json-format-updates)
    * [Tiling Scheme](#tiling-scheme)
-   * [Available](#available)
    * [Notes](#notes)
 * [Resources](#resources)
 * [Property Reference](#property-reference)
 
+### TODO:
+* Context/Examples "give more context about the intent here first. Otherwise, non-expert readers will not be able to follow and may write 3D Tiles and implicit tiling off as "too complex" even though they are not."
+   * Introduce core concepts in the preliminary paragraphs so that things like subtree and availability have some context when describing them in detail.
+   * Describe what octrees and quadtrees are
+* Figures subdirectory
+* Spell check.
+
 ## Overview
 
 This extension enables the [3D Tiles JSON](../../specification/schema/tileset.schema.json) to support streaming tilesets with implied subdivision schemes.
+
+## Concepts
+
 
 ## Tileset JSON Format Updates
 
 ### Tiling Scheme
 
 The Tileset JSON describing a [3D Tiles](../../specification/README.md) tileset may be extended to include a `3DTILES_implicit_tiling` object. This object defines
-the root level context from which the entire tileset structure (`boundingVolumes`, `geometricError`, `subdivision`, `refine`) can be implied.
+the root level context from which the entire tileset structure (`boundingVolume`, `geometricError`, `refine`) can be implied.
 
 Below is an example of a Tileset JSON with the implicit tiling scheme extension set:
 
@@ -37,7 +47,7 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
     "geometricError": 563.8721715009725,
     "extensions": {
         "3DTILES_implicit_tiling": {
-            "subdivision": 2,
+            "splitAxes": 2,
             "refine": "REPLACE",
             "rootTilesPerAxis": [2,1,1],
             "firstSubtreesWithContent": [[0,0,0,0], [0,1,0,0]],
@@ -76,57 +86,59 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
 }
 ```
 
-### TODO:
-* Context/Examples "give more context about the intent here first. Otherwise, non-expert readers will not be able to follow and may write 3D Tiles and implicit tiling off as "too complex" even though they are not."
-* Readability: copy paste examples of the json into each section to prevent the need to scroll around.
-* Figures subdirectory
-* Precise language. Get rid of soft language like would/could.
-* Consistent terms: level vs depth,
-* Spell check.
-
 #### properties
-TODO: better name(subdivisions? partions? splits? numberOf*? *Count?)
+
+#### splitAxes
 
 |Type|Description|
 |----|-----------|
-|`0`|TODO: Indicates no subdivision? (CDB negative levels, i.e. the mipped imagery) |
-|`2`|Quadtree subdivision scheme.|
-|`3`|Octree subdivision scheme.|
+|`0`|TODO: Indicates no `splitAxes`? (CDB negative levels, i.e. the mipped imagery) |
+|`2`|Quadtree scheme.|
+|`3`|Octree scheme.|
 
 TODO: Add figure of what quad and oct examples.
 
 #### refine
 
 The `refine` property specifies the refinement style and is either `REPLACE` or `ADD`. The refinement specified applies to all tiles in the tileset.
-This is the same `refine` property which is defined per-tile in the core 3D Tiles specification [3D Tiles refine Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/master/specification#refinement).
+This is the same `refine` property which is defined per-tile in the core 3D Tiles specification [3D Tiles `refine` Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/master/specification#refinement).
 
 #### rootTilesPerAxis
 
-The `rootTilesPerAxis` property specifies the number of roots in each dimension (x, y, and z, in that order) at tree level 0 as indicated by a three element array containing integers. A single root is indicated by "rootTilesPerAxis": [1, 1, 1].
-A quadtree with two roots side-by-side along the x dimension, is indicated by "rootTilesPerAxis": [2, 1, 1]. The space is uniformly divided so all of the root tiles will have exactly the same geometric size, like a fixed grid.
+The `rootTilesPerAxis` property specifies the number of roots in each dimension (x, y, and z, in that order) at tree level 0 as indicated by a three element array containing integers. A single root is indicated by "`rootTilesPerAxis`": [1, 1, 1].
+A quadtree with two roots side-by-side along the x dimension, is indicated by "`rootTilesPerAxis`": [2, 1, 1]. The space is uniformly divided so all of the root tiles will have exactly the same geometric size, like a fixed grid.
 
 TODO: Add figure. How does indexing correlate: 0 to n-1 for each dimension. left-right, top-bottom, back-front?
 
 #### firstSubtreesWithContent
 
 The `firstSubtreesWithContent` property describes the first set of subtrees that are available in the tree.
-TODO: redo wording.
-It is an array where each element holds a [d,x,y,z] key of the subtree that can be requested.
-The this is needed to know where the tree starts for cases where the content starts somewhere down the tree (not at level 0, as can be the case with some tilesets defined in a globe context with a region bounding box) or if some roots are missing.
+It is an array where each element holds a four element array specifying the subtrees d,x,y,z index in the tileset. The last element is ignored if the tileset is a quadtree.
 
-In the example above, the first subtrees that are available on level 0 at each of the available root locations. A subtree uri is this d,x,y,z key prepended with the subtree default folder location or `availability/d/x/y/z`.
+```json
+    "firstSubtreesWithContent": [[0,0,0,0], [0,1,0,0]],
+```
+In this example, the first subtrees that are available have d,x,y,z indexes of 0,0,0,0 and 0,1,0,0. A subtree uri is this d,x,y,z key appended to the subtree default folder location or `availability/d/x/y/z`.
+These two subtree relative uri's would be `availability/0/0/0/0` and `availability/0/1/0/0`, respectively.
 
 #### subtreeLevels
 
-TODO: Introduce core concepts in the preliminary paragraphs so that things like subtree and availability have some context when describing them in detail.
+The `subtreeLevels` property is a number that specifies the fixed amount of levels in of all subtrees for the tileset.
 
-The `subtreeLevels` property is a number that specifies the fixed amount of levels in of all subtree availabilities for the tileset. In the example above this number is `10` meaning that any subtree that is requested out of the `availability` folder
-(followed by the `d/x/y/z` index of the subtrees root within the tree) will specify availability for all tiles from the subtree root and down 10 levels. Available tiles on the last level of the subtree will have another subtree available for requesting.
+```json
+    "subtreeLevels": 10,
+```
+In this example, `subtreeLevels` is 10 meaning that all subtrees will supply availability for 10 levels starting from their root. If a subtree starts at level 0 it would cover levels 0 through 9 for its portion of the tree.
+If a subtree starts at level 9 it would cover levels 9 through 18 for its portion of the tree.
 
 #### lastLevel
 
-The `lastLevel` property is a number that specifies the last tree level in the tileset. In the example above this number is `19` meaning that last level in the tree is level 19.
-This number is indexed from 0 so if the number was 0 it would mean the tileset only has 1 level, the root at level 0.
+The `lastLevel` property is a number that specifies the last tree level in the tileset.
+
+```json
+    "lastLevel": 19,
+```
+In the example above this number is `19` meaning that last level in the tree is level 19. This number is indexed from 0 so if the number was 0 it would mean the tileset only has 1 level, the root at level 0.
 
 #### boundingVolume
 
@@ -141,7 +153,6 @@ TODO: bounding region is technically implied for region, the only info we need i
 
 The `transform` property specifies 4x4 affine transformation that transforms any tile in the tileset from the tileset's local coordinate system to a global coordinate system.
 This is the same `transform` property which is defined per-tile in the core 3D Tiles specification [3D Tiles `transform` Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/implicit-tiling/specification#transforms)
-
 
 ### Subtree availability
 
@@ -158,7 +169,7 @@ Bits are left to right, top to bottom raster order. LSB bits are earlier in the 
 Note: Padding bits in the root of the subtree can allow the subtree itself communicate how deep it goes. Will let implementation dictate that this is more desirable than fix sizes (don't think it will, hasn't yet).
 
 Below is a binary subtree of 4 levels. There are two leaf tiles at level 3 (root is level 0) that are available.
-These would have tiles available for requesting (like all the other 1's) but they would also have subtree binaries available for requesting as well, at uri "baseUri/availability/d/x" (d/x in this case since its binary. quad is d/x/y, oct is d/x/y/z)
+These would have tiles available for requesting (like all the other 1's) but they would also have subtree binaries available for requesting as well, at uri "baseUri/availability/d/x" (d/x in this case since its binary(only for illustrative purposes). quad is d/x/y, oct is d/x/y/z)
 
 ![](subtreeBits.jpg)
 
@@ -166,12 +177,11 @@ Clearly, duds can exist (a subtree with 1 in the root (coinciding with the tile 
 Another approach could be to have the last level of the subtree have 2 bits to indicate no-tile/tile/tile+subtree. I don't think this is a common enough issue to introduce extra complexity that would be felt in subtree size and implementation. As mentioned already,
 If it is an issue it can be easily remedied through other means that the spec provides.
 
-We could use the 7 bits in the subtree root to store the subtrees depth (and remove the need for it in the tileset.json). During tiling, this could allow adding an extra level to a subtree, if there would be many duds without the extra level.
+We could use the 7 bits in the subtree root to store the subtree's level count (and remove the need for it in the `tileset.json`). During tiling, this could allow adding an extra level to a subtree, if there would be many duds without the extra level.
 
 ### Schema updates
 
 See [Property reference](#reference-3DTILES_implicit_tiling-tileset-extension) for the `3DTILES_implicit_tiling.tileset` schema reference. The full JSON schema can be found in [3DTILES_implicit_tiling.tileset.schema.json](schema/3DTILES_implicit_tiling.tileset.schema.json).
-
 
 ## Notes
 _This section is non-normative._
@@ -198,7 +208,7 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 |**lastLevel**|`number`|Defines the last level in the tileset. 0 indexed.| :white_check_mark: Yes|
 |**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This refinement applies to the entire tileset.|:white_check_mark: Yes|
 |**firstSubtreesWithContent**|`array`|Defines the first set of subtree keys that are available in the tileset.| :white_check_mark: Yes|
-|**subdivision**|`number`|Defines the implied subdivision for all tiles described by the `available` array in available.json.| :white_check_mark: Yes|
+|**splitAxes**|`number`|Defines the implied subdivision scheme for all tiles in the tileset.| :white_check_mark: Yes|
 |**subtreeLevels**|`number`|Defines how many levels each availability subtree contains.| :white_check_mark: Yes|
 
 Additional properties are not allowed.
@@ -218,7 +228,7 @@ Additional properties are not allowed.
 
 #### BoundingVolume.box
 
-An array of 12 numbers that define an oriented bounding box.  The first three elements define the x, y, and z values for the center of the box.  The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the y axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.
+An array of 12 numbers that define an oriented bounding box. The first three elements define the x, y, and z values for the center of the box.  The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the y axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.
 
 * **Type**: `number` `[12]`
 * **Required**: No
