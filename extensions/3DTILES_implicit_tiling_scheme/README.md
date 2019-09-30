@@ -32,12 +32,6 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
 ```json
 {
     "asset": {
-        "extras": {
-            "ion": {
-                "georeferenced": true,
-                "movable": false
-            }
-        },
         "version": "1.0"
     },
     "geometricError": 563.8721715009725,
