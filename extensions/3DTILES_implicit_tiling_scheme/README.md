@@ -39,7 +39,7 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
         "3DTILES_implicit_tiling": {
             "subdivision": 2,
             "refine": "REPLACE",
-            "headCount": [2,1,1],
+            "rootTilesPerAxis": [2,1,1],
             "roots": [[0,0,0,0], [0,1,0,0]],
             "subtreeLevels": 10,
             "lastLevel": 19,
@@ -81,18 +81,18 @@ Other possible types are defined in the table below.
 The `refine` property specifies the refinement style and is either `REPLACE` or `ADD`. The refinement specified applies to all tiles in the tileset.
 This is the same `refine` metadata as described in [3D Tiles](../../specification/README.md).
 
-#### headCount
+#### rootTilesPerAxis
 
-The `headCount` property specifies the number of heads in each dimension (x, y, and z, in that order) at tree level 0 as indicated by a three element array containing integers. A single root would be indicated by "headCount": [1, 1, 1].
-A "dual-headed quad tree" or TMS style quadtree, where there are two roots side-by-side along the x dimension, would be indicated by "headCount": [2, 1, 1].
+The `rootTilesPerAxis` property specifies the number of roots in each dimension (x, y, and z, in that order) at tree level 0 as indicated by a three element array containing integers. A single root would be indicated by "rootTilesPerAxis": [1, 1, 1].
+A "dual-rooted quad tree" or TMS style quadtree, where there are two roots side-by-side along the x dimension, would be indicated by "rootTilesPerAxis": [2, 1, 1].
 
 #### roots
 
 The `roots` property describes the first set of subtrees in the tree.
 It is an array where each element holds a [d,x,y,z] key of the subtree that can be requested.
-The this is needed to know where the tree starts for cases where the content starts somewhere down the tree (not at level 0, as can be the case with some tilesets defined in a globe context with a region bounding box) or if some heads are missing.
+The this is needed to know where the tree starts for cases where the content starts somewhere down the tree (not at level 0, as can be the case with some tilesets defined in a globe context with a region bounding box) or if some roots are missing.
 
-In the example above, the first subtrees that are available on level 0 at each of the available head locations. A subtree uri is this d,x,y,z key prepended with the subtree default folder location or `availability/d/x/y/z`.
+In the example above, the first subtrees that are available on level 0 at each of the available root locations. A subtree uri is this d,x,y,z key prepended with the subtree default folder location or `availability/d/x/y/z`.
 
 #### subtreeLevels
 
@@ -106,7 +106,7 @@ This number is indexed from 0 so if the number was 0 it would mean the tileset o
 
 #### boundingVolume
 
-The `boundingVolume` property specifies boundingVolume for level 0 of the tileset (and all of its heads, not per-head).  The `boundingVolume` types are restricted to `region` and `box`.
+The `boundingVolume` property specifies boundingVolume for level 0 of the tileset (and all of its roots, not per-root).  The `boundingVolume` types are restricted to `region` and `box`.
 This is the same `boundingVolume` metadata as described in [3D Tiles](../../specification/README.md).
 Every tile in the tileset can derive its bounding volume from the root bounding volume.
 
@@ -165,8 +165,8 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**boundingVolume**|`object`|The `boundingVolumes` around level 0, not just the heads that are available.| :white_check_mark: Yes|
-|**headCount**|`array`|Defines the number of heads at level 0 in the tree.| :white_check_mark: Yes|
+|**boundingVolume**|`object`|The `boundingVolumes` around level 0, not just the roots that are available.| :white_check_mark: Yes|
+|**rootTilesPerAxis**|`array`|Defines the number of roots at level 0 in the tree.| :white_check_mark: Yes|
 |**lastLevel**|`number`|Defines the last level in the tileset. 0 indexed.| :white_check_mark: Yes|
 |**refine**|`string`|Defines the refinement scheme for all tiles described by the `available` array in available.json.| :white_check_mark: Yes|
 |**roots**|`array`|Defines the first set of subtree keys that are available in the tileset.| :white_check_mark: Yes|
@@ -177,15 +177,15 @@ Additional properties are not allowed.
 
 ### boundingVolume :white_check_mark:
 
-Defines the bounds around all the heads (both available and unavailable) at level 0 in the tree.
+Defines the bounds around all the roots (both available and unavailable) at level 0 in the tree.
 
 * **Type**: `object`
 * **Required**: Yes
 * **Type of each property**: `array`
 
-### headCount :white_check_mark:
+### rootTilesPerAxis :white_check_mark:
 
-Defines the number of heads at level 0 in the tree.
+Defines the number of roots at level 0 in the tree.
 
 * **Type**: `array`
 * **Required**: Yes
