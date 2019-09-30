@@ -62,19 +62,19 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
 * Context
 * Examples
 * Precise language. Get rid of soft language like would/could.
-    * subdivision name: subdivisions? partions? splits? numberOf*? *Count?
 
 #### properties
-
+TODO: better name(subdivisions? partions? splits? numberOf*? *Count?)
+TODO: Maybe a 3 element array of 0/1 saying which axes are split? ex: [1, 1, 0], [1, 1, 1], etc? name in this case would be something like splitAxes?
+        * This is easily the most flexible but does it complicate impl (uri, data structures, algo)? or is it more like rootTilesPerAxis where it just plugs into an equation and it ends being even simpler than an enum?
 `subdivision` defines the subdivision scheme for the entire tileset. In the example above, a type of 2 would indicate a quadtree subdivision, or the number of axes being split.
 Other possible types are defined in the table below.
 
 |Type|Description|
 |----|-----------|
-|`0`|Reserved. TODO: Indicates no subdivision? (CDB negative levels, i.e. the mipped imagery) |
-|`1`|Reserved. Binary tree? |
-|`2`|Quadtree subdivision scheme |
-|`3`|Octree subdivision scheme |
+|`0`|TODO: Indicates no subdivision? (CDB negative levels, i.e. the mipped imagery) |
+|`2`|Quadtree subdivision scheme.|
+|`3`|Octree subdivision scheme.|
 
 #### refine
 
