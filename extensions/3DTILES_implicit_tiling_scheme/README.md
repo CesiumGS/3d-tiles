@@ -165,30 +165,23 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**subdivision**|`number`|Defines the implied subdivision for all tiles described by the `available` array in available.json.| :white_check_mark: Yes|
-|**refine**|`string`|Defines the refinement scheme for all tiles described by the `available` array in available.json.| :white_check_mark: Yes|
-|**headCount**|`array`|Defines the number of heads at level 0 in the tree.| :white_check_mark: Yes|
-|**roots**|`array`|Defines the first set of subtree keys that are available in the tileset.| :white_check_mark: Yes|
-|**subtreeLevels**|`number`|Defines how many levels each availability subtree contains.| :white_check_mark: Yes|
-|**lastLevel**|`number`|Defines the last level in the tileset. 0 indexed.| :white_check_mark: Yes|
 |**boundingVolume**|`object`|The `boundingVolumes` around level 0, not just the heads that are available.| :white_check_mark: Yes|
+|**headCount**|`array`|Defines the number of heads at level 0 in the tree.| :white_check_mark: Yes|
+|**lastLevel**|`number`|Defines the last level in the tileset. 0 indexed.| :white_check_mark: Yes|
+|**refine**|`string`|Defines the refinement scheme for all tiles described by the `available` array in available.json.| :white_check_mark: Yes|
+|**roots**|`array`|Defines the first set of subtree keys that are available in the tileset.| :white_check_mark: Yes|
+|**subdivision**|`number`|Defines the implied subdivision for all tiles described by the `available` array in available.json.| :white_check_mark: Yes|
+|**subtreeLevels**|`number`|Defines how many levels each availability subtree contains.| :white_check_mark: Yes|
 
 Additional properties are not allowed.
 
-### subdivision :white_check_mark:
+### boundingVolume :white_check_mark:
 
-Defines the implied subdivision for all tiles described by the `available` array in available.json.
+Defines the bounds around all the heads (both available and unavailable) at level 0 in the tree.
 
-* **Type**: `number`
+* **Type**: `object`
 * **Required**: Yes
-* **Minimum**: ` >= 0`
-
-### refine :white_check_mark:
-
-Defines the refinement scheme for all tiles described by the `available` array in available.json.
-
-* **Type**: `string`
-* **Required**: Yes
+* **Type of each property**: `array`
 
 ### headCount :white_check_mark:
 
@@ -198,6 +191,20 @@ Defines the number of heads at level 0 in the tree.
 * **Required**: Yes
 * **Type of each property**: `number`
 
+### lastLevel :white_check_mark:
+
+Defines the last level in the tileset. 0 indexed.
+
+* **Type**: `number`
+* **Required**: Yes
+
+### refine :white_check_mark:
+
+Defines the refinement scheme for all tiles described by the `available` array in available.json.
+
+* **Type**: `string`
+* **Required**: Yes
+
 ### roots :white_check_mark:
 
 Defines the first set of subtree keys that are available in the tileset.
@@ -206,24 +213,17 @@ Defines the first set of subtree keys that are available in the tileset.
 * **Required**: Yes
 * **Type of each property**: `array`
 
+### subdivision :white_check_mark:
+
+Defines the implied subdivision for all tiles described by the `available` array in available.json.
+
+* **Type**: `number`
+* **Required**: Yes
+* **Minimum**: ` >= 0`
+
 ### subtreeLevels :white_check_mark:
 
 Defines how many levels each availability subtree contains.
 
 * **Type**: `number`
 * **Required**: Yes
-
-### lastLevel :white_check_mark:
-
-Defines the last level in the tileset. 0 indexed.
-
-* **Type**: `number`
-* **Required**: Yes
-
-### boundingVolume :white_check_mark:
-
-Defines the bounds around all the heads (both available and unavailable) at level 0 in the tree.
-
-* **Type**: `object`
-* **Required**: Yes
-* **Type of each property**: `array`
