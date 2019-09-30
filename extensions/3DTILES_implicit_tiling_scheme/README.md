@@ -71,10 +71,6 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
 
 #### properties
 TODO: better name(subdivisions? partions? splits? numberOf*? *Count?)
-TODO: Maybe a 3 element array of 0/1 saying which axes are split? ex: [1, 1, 0], [1, 1, 1], etc? name in this case would be something like splitAxes?
-        * This is easily the most flexible but does it complicate impl (uri, data structures, algo)? or is it more like rootTilesPerAxis where it just plugs into an equation and it ends being even simpler than an enum?
-`subdivision` defines the subdivision scheme for the entire tileset. In the example above, a type of 2 would indicate a quadtree subdivision, or the number of axes being split.
-Other possible types are defined in the table below.
 
 |Type|Description|
 |----|-----------|
@@ -182,10 +178,10 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**boundingVolume**|`object`|The `boundingVolumes` around level 0, not just the roots that are available.| :white_check_mark: Yes|
-|**rootTilesPerAxis**|`array`|Defines the number of roots at level 0 in the tree.| :white_check_mark: Yes|
+|**boundingVolume**|`object`|A bounding volume that encloses the tileset.  Exactly one `box` or `region` property is required.|:white_check_mark: Yes|
+|**rootTilesPerAxis**|`number` `[3]`|Defines the number of roots at level 0 in the tree.| :white_check_mark: Yes|
 |**lastLevel**|`number`|Defines the last level in the tileset. 0 indexed.| :white_check_mark: Yes|
-|**refine**|`string`|Defines the refinement scheme for all tiles described by the `available` array in available.json.| :white_check_mark: Yes|
+|**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This refinement applies to the entire tileset.|:white_check_mark: Yes|
 |**firstSubtreesWithContent**|`array`|Defines the first set of subtree keys that are available in the tileset.| :white_check_mark: Yes|
 |**subdivision**|`number`|Defines the implied subdivision for all tiles described by the `available` array in available.json.| :white_check_mark: Yes|
 |**subtreeLevels**|`number`|Defines how many levels each availability subtree contains.| :white_check_mark: Yes|
@@ -194,22 +190,38 @@ Additional properties are not allowed.
 
 ### boundingVolume :white_check_mark:
 
-TODO: copy from 3dtiles spec
+A bounding volume that encloses the tileset.  Exactly one `box` or `region` property is required.
 
-A bounding volume that encloses the tileset. Exactly one box or region  property is required.
+**Properties**
 
-* **Type**: `object`
-* **Required**: Yes
-* **Type of each property**: `array`
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**box**|`number` `[12]`|An array of 12 numbers that define an oriented bounding box.  The first three elements define the x, y, and z values for the center of the box.  The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the y axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.|No|
+|**region**|`number` `[6]`|An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.|No|
+
+Additional properties are not allowed.
+
+#### BoundingVolume.box
+
+An array of 12 numbers that define an oriented bounding box.  The first three elements define the x, y, and z values for the center of the box.  The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the y axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.
+
+* **Type**: `number` `[12]`
+* **Required**: No
+
+#### BoundingVolume.region
+
+An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
+
+* **Type**: `number` `[6]`
+* **Required**: No
 
 ### rootTilesPerAxis :white_check_mark:
 
-Defines the number of roots at level 0 in the tree.
+Defines the number of roots at level 0 in the tree. This three element array contains the x, y, and z dimensions for a fixed grid at level 0 that holds the roots of the tileset. The last element is ignored for quadtrees.
 
-* **Type**: `array`
+* **Type**: `number` `[3]`
 * **Required**: Yes
-* **Type of each property**: `number`
-* **Minimum**: 1
+* **Minimum**: [1,1,1]
 
 ### lastLevel :white_check_mark:
 
@@ -217,24 +229,27 @@ Defines the last level in the tileset. 0 indexed.
 
 * **Type**: `number`
 * **Required**: Yes
+* **Minimum**: 0
 
 ### refine :white_check_mark:
 
-TODO: copy from 3dtiles spec
-
-Defines the refinement scheme for all tiles in the tileset.
+Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This refinement applies to the entire tileset.
 
 * **Type**: `string`
-* **Required**: Yes
+* **Required**: No
+* **Allowed values**:
+   * `"ADD"`
+   * `"REPLACE"`
 
 ### firstSubtreesWithContent :white_check_mark:
 
-TODO: define the size of the sub arrays, i.e d/x/y vs d/x/y/z
-Defines the first set of subtree keys that are available in the tileset.
+Defines the first set of subtree keys that are first available in the tileset.
+Each element of the array is a four element array holding the d,x,y,z index in the tileset for the root of the subtree. The last element of this four element array is ignored for quadtrees.
+The corresponding uri for this subtree of availability is `availability/d/x/y/z` for octrees and `availability/d/x/y` for quadtrees.
 
 * **Type**: `array`
 * **Required**: Yes
-* **Type of each property**: `array`
+* **Type of each property**: `number` `[4]`
 
 ### subdivision :white_check_mark:
 
@@ -248,7 +263,7 @@ Defines the implied subdivision for all tiles in the tileset.
 
 ### subtreeLevels :white_check_mark:
 
-Defines how many levels each availability subtree contains.
+Defines how many levels each subtree of availability contains.
 
 * **Type**: `number`
 * **Required**: Yes
