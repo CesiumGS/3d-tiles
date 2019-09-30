@@ -1,4 +1,4 @@
-# 3DTILES_implicit_tiling_scheme Extension
+# 3DTILES_implicit_tiling Extension
 
 ## Contributors
 
@@ -24,7 +24,7 @@ This extension enables the [3D Tiles JSON](../../specification/schema/tileset.sc
 
 ### Tiling Scheme
 
-The Tileset JSON describing a [3D Tiles](../../specification/README.md) tileset may be extended to include a `3DTILES_implicit_tiling_scheme` object. This object defines
+The Tileset JSON describing a [3D Tiles](../../specification/README.md) tileset may be extended to include a `3DTILES_implicit_tiling` object. This object defines
 the root level context from which the entire tileset structure (boundingVolumes, geometricError, subdivision) can be implied.
 
 Below is an example of a Tileset JSON with the implicit tiling scheme extension set:
@@ -36,7 +36,7 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
     },
     "geometricError": 563.8721715009725,
     "extensions": {
-        "3DTILES_implicit_tiling_scheme": {
+        "3DTILES_implicit_tiling": {
             "subdivision": 2,
             "refine": "REPLACE",
             "headCount": [2,1,1],
@@ -136,7 +136,7 @@ We use the 7 bits in the subtree root to store the subtrees depth (and remove th
 
 ### Schema updates
 
-See [Property reference](#reference-3DTILES_implicit_tiling_scheme-tileset-extension) for the `3DTILES_implicit_tiling_scheme.tileset` schema reference. The full JSON schema can be found in [3DTILES_implicit_tiling_scheme.tileset.schema.json](schema/3DTILES_implicit_tiling_scheme.tileset.schema.json).
+See [Property reference](#reference-3DTILES_implicit_tiling-tileset-extension) for the `3DTILES_implicit_tiling.tileset` schema reference. The full JSON schema can be found in [3DTILES_implicit_tiling.tileset.schema.json](schema/3DTILES_implicit_tiling.tileset.schema.json).
 
 
 ## Notes
@@ -147,13 +147,13 @@ _This section is non-normative._
 
 ## Property reference
 
-* [`3DTILES_implicit_tiling_scheme Tileset JSON extension`](#reference-3DTILES_implicit_tiling_scheme-tileset-extension)
+* [`3DTILES_implicit_tiling Tileset JSON extension`](#reference-3DTILES_implicit_tiling-tileset-extension)
 
 ---------------------------------------
-<a name="reference-3DTILES_implicit_tiling_scheme-tileset-extension"></a>
-## 3DTILES_implicit_tiling_scheme Tileset JSON extension
+<a name="reference-3DTILES_implicit_tiling-tileset-extension"></a>
+## 3DTILES_implicit_tiling Tileset JSON extension
 
-Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling_scheme.
+Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 
 **Properties**
 
