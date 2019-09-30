@@ -25,7 +25,7 @@ This extension enables the [3D Tiles JSON](../../specification/schema/tileset.sc
 ### Tiling Scheme
 
 The Tileset JSON describing a [3D Tiles](../../specification/README.md) tileset may be extended to include a `3DTILES_implicit_tiling` object. This object defines
-the root level context from which the entire tileset structure (boundingVolumes, geometricError, subdivision) can be implied.
+the root level context from which the entire tileset structure (`boundingVolumes`, `geometricError`, `subdivision`, `refine`) can be implied.
 
 Below is an example of a Tileset JSON with the implicit tiling scheme extension set:
 
@@ -58,6 +58,12 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
 }
 ```
 
+### TODO:
+* Context
+* Examples
+* Precise language. Get rid of soft language like would/could.
+    * subdivision name: subdivisions? partions? splits? numberOf*? *Count?
+
 #### properties
 
 `subdivision` defines the subdivision scheme for the entire tileset. In the example above, a type of 2 would indicate a quadtree subdivision, or the number of axes being split.
@@ -65,31 +71,20 @@ Other possible types are defined in the table below.
 
 |Type|Description|
 |----|-----------|
-|`0`|Reserved. Indicates no subdivision? (CDB negative levels, i.e. the mipped imagery) |
+|`0`|Reserved. TODO: Indicates no subdivision? (CDB negative levels, i.e. the mipped imagery) |
 |`1`|Reserved. Binary tree? |
 |`2`|Quadtree subdivision scheme |
 |`3`|Octree subdivision scheme |
-
-#### headCount
-
-The `headCount` property specifies the number of heads in each dimension (x, y, and z, in that order) at tree level 0 as indicated by a three element array containing integers. A single root would be indicated by "headCount": [1, 1, 1].
-A "dual-headed quad tree" or TMS style quadtree, where there are two roots side-by-side along the x dimension, would be indicated by "headCount": [2, 1, 1].
 
 #### refine
 
 The `refine` property specifies the refinement style and is either `REPLACE` or `ADD`. The refinement specified applies to all tiles in the tileset.
 This is the same `refine` metadata as described in [3D Tiles](../../specification/README.md).
 
-#### boundingVolume
+#### headCount
 
-The `boundingVolume` property specifies boundingVolume for level 0 of the tileset (and all of its heads, not per-head).  The `boundingVolume` types are restricted to `region` and `box`.
-This is the same `boundingVolume` metadata as described in [3D Tiles](../../specification/README.md).
-Every tile in the tileset can derive its bounding volume from the root bounding volume.
-
-#### transform
-
-The `transform` property specifies 4x4 affine transformation to apply to the tileset. Per-tile transforms are not supported.
-This is the same `transform` metadata as described in [3D Tiles](../../specification/README.md).
+The `headCount` property specifies the number of heads in each dimension (x, y, and z, in that order) at tree level 0 as indicated by a three element array containing integers. A single root would be indicated by "headCount": [1, 1, 1].
+A "dual-headed quad tree" or TMS style quadtree, where there are two roots side-by-side along the x dimension, would be indicated by "headCount": [2, 1, 1].
 
 #### roots
 
@@ -108,6 +103,17 @@ The `subtreeLevels` property is a number that specifies the fixed amount of leve
 
 The `lastLevel` property is a number that specifies the last tree level in the tileset. In the example above this number is `19` meaning that last level in the tree is level 19.
 This number is indexed from 0 so if the number was 0 it would mean the tileset only has 1 level, the root at level 0.
+
+#### boundingVolume
+
+The `boundingVolume` property specifies boundingVolume for level 0 of the tileset (and all of its heads, not per-head).  The `boundingVolume` types are restricted to `region` and `box`.
+This is the same `boundingVolume` metadata as described in [3D Tiles](../../specification/README.md).
+Every tile in the tileset can derive its bounding volume from the root bounding volume.
+
+#### transform
+
+The `transform` property specifies 4x4 affine transformation to apply to the tileset. Per-tile transforms are not supported.
+This is the same `transform` metadata as described in [3D Tiles](../../specification/README.md).
 
 ### Subtree availability
 
