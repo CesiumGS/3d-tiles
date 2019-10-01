@@ -47,7 +47,9 @@ Implicit tiling is a term used to convey that the rule for how a tile subdivides
 When a tile subdivides in a quadtree, it produces 4 equally sized tiles that fit in the footprint of the original tile. The tile is split along two axes picking the midpoint of the bounds along those axes. The axes along which the
 splitting is performed are the same for every tile in the tileset. These axes are the x and y axes.
 
-TODO: change `splitAxes` take an array like [1,1,0] to allow marking which axes are split? Does this make impl a headache or is it trivial in the same way that `rootGridDimensions` was trivial?
+The property use to specify this subdivision is `splitAxes`. It is a number indicating the number of axes split, 2 being a quadtree and 3 being an octree.
+
+TODO:? change `splitAxes` take an array like [1,1,0] to allow marking which axes are split? Does this make impl a headache or is it trivial in the same way that `rootGridDimensions` was trivial?
 
 TODO: example quadtree image
 
@@ -69,20 +71,23 @@ These binary files live in a folder called `availability` in the root directory 
 location in the tree, discussed next.
 
 A tile's location in the tree can be defined in terms of the level at which it resides as well as the location within that level.
+Every level of the tree can be thought of as a fixed grid of equally sized tiles, where the level occupies the same space as the previous level but with double the amount of tiles along each axis that gets split.
 For quadtrees, the location within a level in the tree can be described by an x, y coordinate.
 For octrees, location within a level in the tree can be described by an x, y, z coordinate.
-Every level of the tree can be thought of as a fixed grid of tiles, occupying the same space as the previous level but with double the amount of tiles along each axis that gets split.
 For the x direction, tiles' x coordinates are indexed from left to right, ranging from 0 to n - 1 where n is the number of tiles along the x direction for that level.
 For the y direction, tiles' y coordinates are indexed from top to bottom, ranging from 0 to n - 1 where n is the number of tiles along the y direction for that level.
 For the z direction, tiles' z coordinates are indexed from back to front, ranging from 0 to n - 1 where n is the number of tiles along the z direction for that level.
 Quadtrees do not index the z direction.
 
-If a tile is available in the subtree, its uri is the tree location, delimited by forward slashes.
-For example, if a tile's location in an octree is level 5, with an x,y,z of 6,7,8, its uri is `5/6/7/8`, relative to the base uri.
-If a tiles location in a quadtree is level 9 with an x, y of 10, 11, its uri is `9/10/11`, relative to the base uri.
+If a tile is available in the subtree, its uri is its tree location, delimited by forward slashes.
+For example, if a tile's location in an octree is at level 5, with an x,y,z of 6,7,8, its uri is `5/6/7/8`, relative to the base uri.
+If a tile's location in a quadtree is at level 9 with an x and y of 10 and 11, its uri is `9/10/11`, relative to the base uri.
 
 It was mentioned that the location of a subtree within the `availability` folder is dictated by its root tile's location in the tree. Therefore, the uri of a subtree
 whose root tile has a tree location of `9/10/11` would have a uri of `availability/9/10/11`.
+
+On the last level of a subtree, tiles that have a 1 will have a subtree starting from that location. For example, if a tile on the last level of a subtree has a 1 and its tree location was
+`5/6/7/8` there would be a tile available at uri `5/6/7/8` and a subtree of availability at uri `availability/5/6/7/8`.
 
 ## Tileset JSON Format Updates
 
