@@ -25,8 +25,8 @@
 
 This extension enables the [3D Tiles JSON](../../specification/schema/tileset.schema.json) to support streaming tilesets with implied subdivision. When subdivision is implied, it enables simplification at every stage of the tilesets lifetime:
 querying tree structure from the server, data storage on the client, as well as simplification and optimization of algorithms involved with traversal and analysis. The tileset.json only needs to supply the information needed so that any tile
-can derive attributes like `geometricError`, `boundingVolume`, `refine`, `boundingVolume`. This cuts down the size and verbosity of the tileset.json. Because the access to information describing any part of tree structure is predictable,
-pre-fetching random locations on the tree is possible.
+can derive attributes like `geometricError`, `boundingVolume`, `refine`, etc. This cuts down the size and verbosity of the tileset.json. Because the access to information describing any part of tree structure is predictable,
+random access queries on the tree is possible.
 
 TODO: Why, What, How, include a representative image here
 
@@ -40,7 +40,10 @@ interoperability with other standards, etc.
 The spec should also include an example - maybe an appendix that should a simple quadtree or whatever in the explicit 3D Tiles JSON - and then with the implicit extension.
 
 ## Concepts
+### Implicit Tilling
 Implicit tiling is a term used to convey that the rule for how a tile subdivides into its children is the same for every tile in a tileset. The two supported methods for how a tile subdivides are quadree subdivision and octree subdivision.
+
+### Split Axes
 The property use to specify this subdivision is `splitAxes`. It is a number indicating the number of axes split, 2 being a quadtree and 3 being an octree.
 
 When a tile subdivides in a quadtree, it produces 4 equally sized tiles that fit in the footprint of the original tile. The tile is split along two axes picking the midpoint of the bounds along those axes. The axes along which the
@@ -52,17 +55,21 @@ When a tile subdivides in a octree, it produces 8 equally sized tiles that fit i
 
 ![](img/octree.png)
 
-Because subdivision is predicable, tiles can derive their attributes (like `geometricError`, `boundingVolume`, `refine`, `boundingVolume`) from the root information. This removes the need to specify per-tile information in a`tileset.json`.
+Because subdivision is predicable, tiles can derive their attributes (like `geometricError`, `boundingVolume`, `refine`, etc.) from the root information.
+This removes the need to specify per-tile information in a`tileset.json`.
 
+### Availability Subtree
 The only information that is needed on a per-tile basis is whether the tile is available or not, i.e. does a tile exist or not at some location in the tree.
 The full tree of information that expresses all tiles' availability is broken up into subtrees(small portions of the full tree). Since a single bit is needed to hold a tile's availability,
 the subtree of availability is expressed as an array of bytes where each bit holds a tile's availability, i.e. a 1 or 0 indicating that the tile is available or not available, respectively.
 
+### Subtree Levels
 In the `tileset.json`, the `subtreeLevels` property is the number of levels in every subtree in the tileset. Every subtree starts from a single tile, its root, and spans the number levels
 indicated by `subtreeLevels`. Therefore, every subtree has the same number of bytes. Subtrees are binary files containing only their array of bytes.
 These binary files live in a folder called `availability` in the root directory (where the tileset.json lives). The location of a subtree within this `availability` folder is dictated by its root tile's
 location in the tree, discussed next.
 
+### Tree Location
 A tile's location in the tree can be defined in terms of the level at which it resides as well as the location within that level.
 Every level of the tree can be thought of as a fixed grid of equally sized tiles, where the level occupies the same space as the previous level but with double the amount of tiles along each axis that gets split.
 For quadtrees, the location within a level in the tree can be described by an x, y coordinate.
@@ -86,6 +93,7 @@ On the last level of a subtree, tiles that have a 1 will have a subtree starting
 
 ![](subtreeBits.jpg)
 
+### Root Grid Dimensions
 Some tilesets are defined on the surface of an ellipsoid (like planet earth) where the subdivision happens at regular intervals of longitude and latitude rather than regular intervals of 3D cartesian space.
 The surface of the ellipsoid is represented as a 2D map ranging from -180 to 180 degrees in longitude and -90 to 90 degrees in latitude. One drawback of mapping the tree this way is that tiles
 near the poles do not occupy the same 3D space as they do for tiles near the equator, on the same level. Different 2D mapping formats have different techniques for dealing with this pole distortion,
@@ -95,10 +103,10 @@ To allow tiling with these different 2D mapping techniques, `rootGridDimensions`
 Most tilesets can do without a fixed grid at the root level which can be specified with dimensions of 1 in each axis for `rootGridDimensions`.
 
 
+### First Subtrees with Content
 To specify where the tree begins `firstSubtreesWithContent` is use to say what where the first set of subtrees live. A root grid may have a few empty locations or a tileset may be in the context of globe but start further down the tree.
 
 ![](img/rootGrid.jpg)
-
 
 ## Tileset JSON Format Updates
 
