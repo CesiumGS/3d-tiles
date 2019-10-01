@@ -93,11 +93,9 @@ Some tilesets are defined on the surface of an ellipsoid (like planet earth) whe
 The surface of the ellipsoid is represented as a 2D map ranging from -180 to 180 degrees in longitude and -90 to 90 degrees in latitude. One drawback of mapping the tree this way is that tiles
 near the poles do not occupy the same 3D space as they do for tiles near the equator, on the same level. Different 2D mapping formats have different techniques for dealing with this pole distortion,
 usually by specifying a fixed grid that is responsible for some latitude range.
-To allow tiling with these different techniques, `rootGridDimensions` property allows specifying a fixed grid at the root level. Any location in this fixed grid can hold the root of a tree.
+To allow tiling with these different 2D mapping techniques, `rootGridDimensions` property allows specifying a fixed grid at the root level. Any location in this fixed grid can hold the root of a tree.
 
 Most tilesets can do without a fixed grid at the root level which can be specified with dimensions of 1 in each axis for `rootGridDimensions`.
-There are other uses for this fix grid at the root level however.
-Tilesets like a pointcloud where most of the points are clustered in a few locations within the tileset bounds can setup a fixed grid to focus down on these hotspots quickly.
 
 ## Tileset JSON Format Updates
 
