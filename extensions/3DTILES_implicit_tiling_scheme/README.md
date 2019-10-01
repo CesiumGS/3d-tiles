@@ -18,10 +18,8 @@
 
 ### TODO:
 * Context/Examples "give more context about the intent here first. Otherwise, non-expert readers will not be able to follow and may write 3D Tiles and implicit tiling off as "too complex" even though they are not."
-   * Introduce core concepts in the preliminary paragraphs so that things like subtree and availability have some context when describing them in detail.
-   * Describe what octrees and quadtrees are
 * Figures subdirectory
-* Spell check.
+* Do a final spell check.
 
 ## Overview
 
@@ -49,17 +47,13 @@ splitting is performed are the same for every tile in the tileset. These axes ar
 
 The property use to specify this subdivision is `splitAxes`. It is a number indicating the number of axes split, 2 being a quadtree and 3 being an octree.
 
-TODO:? change `splitAxes` take an array like [1,1,0] to allow marking which axes are split? Does this make impl a headache or is it trivial in the same way that `rootGridDimensions` was trivial?
-
-TODO: example quadtree image
+![](img/quadtree.png)
 
 When a tile subdivides in a octree, it produces 8 equally sized tiles that fit in the footprint of the original tile. The tile is split along all three axes picking the midpoint of the bounds along each axis.
 
-TODO: example octree image
+![](img/octree.png)
 
 Because subdivision is predicable, tiles can derive their attributes (like `geometricError`, `boundingVolume`, `refine`, `boundingVolume`) from the root information. This removes the need to specify per-tile information in a`tileset.json`.
-
-subdivision, how `boundingVolume`s are split, subtrees, subtree of availability as packed bit mipmap, how is indexing done.
 
 The only information that is needed on a per-tile basis is whether the tile is available or not, i.e. does a tile exist or not at some location in the tree.
 The full tree of information that expresses all tiles' availability is broken up into subtrees(small portions of the full tree). Since a single bit is needed to hold a tile's availability,
@@ -79,6 +73,8 @@ For the y direction, tiles' y coordinates are indexed from top to bottom, rangin
 For the z direction, tiles' z coordinates are indexed from back to front, ranging from 0 to n - 1 where n is the number of tiles along the z direction for that level.
 Quadtrees do not index the z direction.
 
+![](img/indexing.jpg)
+
 If a tile is available in the subtree, its uri is its tree location, delimited by forward slashes.
 For example, if a tile's location in an octree is at level 5, with an x,y,z of 6,7,8, its uri is `5/6/7/8`, relative to the base uri.
 If a tile's location in a quadtree is at level 9 with an x and y of 10 and 11, its uri is `9/10/11`, relative to the base uri.
@@ -89,6 +85,8 @@ whose root tile has a tree location of `9/10/11` would have a uri of `availabili
 On the last level of a subtree, tiles that have a 1 will have a subtree starting from that location. For example, if a tile on the last level of a subtree has a 1 and its tree location was
 `5/6/7/8` there would be a tile available at uri `5/6/7/8` and a subtree of availability at uri `availability/5/6/7/8`.
 
+![](subtreeBits.jpg)
+
 Some tilesets are defined on the surface of an ellipsoid (like planet earth) where the subdivision happens at regular intervals of longitude and latitude rather than regular intervals of 3D cartesian space.
 The surface of the ellipsoid is represented as a 2D map ranging from -180 to 180 degrees in longitude and -90 to 90 degrees in latitude. One drawback of mapping the tree this way is that tiles
 near the poles do not occupy the same 3D space as they do for tiles near the equator, on the same level. Different 2D mapping formats have different techniques for dealing with this pole distortion,
@@ -96,6 +94,12 @@ usually by specifying a fixed grid that is responsible for some latitude range.
 To allow tiling with these different 2D mapping techniques, `rootGridDimensions` property allows specifying a fixed grid at the root level. Any location in this fixed grid can hold the root of a tree.
 
 Most tilesets can do without a fixed grid at the root level which can be specified with dimensions of 1 in each axis for `rootGridDimensions`.
+
+
+To specify where the tree begins `firstSubtreesWithContent` is use to say what where the first set of subtrees live. A root grid may have a few empty locations or a tileset may be in the context of globe but start further down the tree.
+
+![](rootGrid.jpg)
+
 
 ## Tileset JSON Format Updates
 
@@ -106,6 +110,7 @@ the root level context from which the entire tileset structure (`boundingVolume`
 
 Below is an example of a Tileset JSON with the implicit tiling scheme extension set:
 
+TODO:? change `splitAxes` take an array like [1,1,0] to allow marking which axes are split? Does this make impl a headache or is it trivial in the same way that `rootGridDimensions` was trivial?
 ```json
 {
     "asset": {
