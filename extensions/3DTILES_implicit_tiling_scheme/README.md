@@ -44,13 +44,15 @@ The spec should also include an example - maybe an appendix that should a simple
 Implicit tiling is a term used to convey that the rule for how a tile subdivides into its children is the same for every tile in a tileset. The two supported methods for how a tile subdivides are quadree subdivision and octree subdivision.
 
 ### Split Axes
-The property use to specify this subdivision is `splitAxes`. It is a number indicating the number of axes split, 2 being a quadtree and 3 being an octree.
+The property used to specify this subdivision is `splitAxes`. It is a number indicating the number of axes split, 2 being a quadtree and 3 being an octree.
 
+### Quadtree
 When a tile subdivides in a quadtree, it produces 4 equally sized tiles that fit in the footprint of the original tile. The tile is split along two axes picking the midpoint of the bounds along those axes. The axes along which the
 splitting is performed are the same for every tile in the tileset. These axes are the x and y axes.
 
 ![](img/quadtree.png)
 
+### Octree
 When a tile subdivides in a octree, it produces 8 equally sized tiles that fit in the footprint of the original tile. The tile is split along all three axes picking the midpoint of the bounds along each axis.
 
 ![](img/octree.png)
