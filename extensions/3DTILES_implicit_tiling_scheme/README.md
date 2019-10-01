@@ -98,7 +98,7 @@ Most tilesets can do without a fixed grid at the root level which can be specifi
 
 To specify where the tree begins `firstSubtreesWithContent` is use to say what where the first set of subtrees live. A root grid may have a few empty locations or a tileset may be in the context of globe but start further down the tree.
 
-![](rootGrid.jpg)
+![](img/rootGrid.jpg)
 
 
 ## Tileset JSON Format Updates
