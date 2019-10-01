@@ -25,11 +25,64 @@
 
 ## Overview
 
-This extension enables the [3D Tiles JSON](../../specification/schema/tileset.schema.json) to support streaming tilesets with implied subdivision schemes.
+This extension enables the [3D Tiles JSON](../../specification/schema/tileset.schema.json) to support streaming tilesets with implied subdivision. When subdivision is implied, it enables simplification at every stage of the tilesets lifetime:
+querying tree structure from the server, data storage on the client, as well as simplification and optimization of algorithms involved with traversal and analysis. The tileset.json only needs to supply the information needed so that any tile
+can derive attributes like `geometricError`, `boundingVolume`, `refine`, `boundingVolume`. This cuts down the size and verbosity of the tileset.json. Because the access to information describing any part of tree structure is predictable,
+pre-fetching random locations on the tree is possible.
+
+TODO: Why, What, How, include a representative image here
+
+The spec should also have a list of common use cases somewhere that we have gathered in the other GitHub issues and internal notes, e.g.,
+Global quadtree like WMTS
+Global double-headed quadtree for terrain like quantized-mesh
+Local octree for point clouds
+Etc.
+Include an example for each and the motivation for using implicit tiling compared to 3D Tiles' default explicit tiling whether it be any combination of random access for analytics and visualization, reduced IO,
+interoperability with other standards, etc.
+The spec should also include an example - maybe an appendix that should a simple quadtree or whatever in the explicit 3D Tiles JSON - and then with the implicit extension.
 
 ## Concepts
+Implicit tiling is a term used to convey that the rule for how a tile subdivides into its children is the same for every tile in a tileset. The two supported methods for how a tile subdivides are quadree subdivision and octree subdivision.
+
+When a tile subdivides in a quadtree, it produces 4 equally sized tiles that fit in the footprint of the original tile. The tile is split along two axes picking the midpoint of the bounds along those axes. The axes along which the
+splitting is performed are the same for every tile in the tileset. These axes are the x and y axes.
+
+TODO: change `splitAxes` take an array like [1,1,0] to allow marking which axes are split? Does this make impl a headache or is it trivial in the same way that `rootGridDimensions` was trivial?
+
+TODO: example quadtree image
+
+When a tile subdivides in a octree, it produces 8 equally sized tiles that fit in the footprint of the original tile. The tile is split along all three axes picking the midpoint of the bounds along each axis.
+
+TODO: example octree image
+
+Because subdivision is predicable, tiles can derive their attributes (like `geometricError`, `boundingVolume`, `refine`, `boundingVolume`) from the root information. This removes the need to specify per-tile information in a`tileset.json`.
 
 subdivision, how `boundingVolume`s are split, subtrees, subtree of availability as packed bit mipmap, how is indexing done.
+
+The only information that is needed on a per-tile basis is whether the tile is available or not, i.e. does a tile exist or not at some location in the tree.
+The full tree of information that expresses all tiles' availability is broken up into subtrees(small portions of the full tree). Since a single bit is needed to hold a tile's availability,
+the subtree of availability is expressed as an array of bytes where each bit holds a tile's availability, i.e. a 1 or 0 indicating that the tile is available or not available, respectively.
+
+In the `tileset.json`, the `subtreeLevels` property is the number of levels in every subtree in the tileset. Every subtree starts from a single tile, its root, and spans the number levels
+indicated by `subtreeLevels`. Therefore, every subtree has the same number of bytes. Subtrees are binary files containing only their array of bytes.
+These binary files live in a folder called `availability` in the root directory (where the tileset.json lives). The location of a subtree within this `availability` folder is dictated by its root tile's
+location in the tree, discussed next.
+
+A tile's location in the tree can be defined in terms of the level at which it resides as well as the location within that level.
+For quadtrees, the location within a level in the tree can be described by an x, y coordinate.
+For octrees, location within a level in the tree can be described by an x, y, z coordinate.
+Every level of the tree can be thought of as a fixed grid of tiles, occupying the same space as the previous level but with double the amount of tiles along each axis that gets split.
+For the x direction, tiles' x coordinates are indexed from left to right, ranging from 0 to n - 1 where n is the number of tiles along the x direction for that level.
+For the y direction, tiles' y coordinates are indexed from top to bottom, ranging from 0 to n - 1 where n is the number of tiles along the y direction for that level.
+For the z direction, tiles' z coordinates are indexed from back to front, ranging from 0 to n - 1 where n is the number of tiles along the z direction for that level.
+Quadtrees do not index the z direction.
+
+If a tile is available in the subtree, its uri is the tree location, delimited by forward slashes.
+For example, if a tile's location in an octree is level 5, with an x,y,z of 6,7,8, its uri is `5/6/7/8`, relative to the base uri.
+If a tiles location in a quadtree is level 9 with an x, y of 10, 11, its uri is `9/10/11`, relative to the base uri.
+
+It was mentioned that the location of a subtree within the `availability` folder is dictated by its root tile's location in the tree. Therefore, the uri of a subtree
+whose root tile has a tree location of `9/10/11` would have a uri of `availability/9/10/11`.
 
 ## Tileset JSON Format Updates
 
@@ -50,7 +103,7 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
         "3DTILES_implicit_tiling": {
             "splitAxes": 2,
             "refine": "REPLACE",
-            "rootTilesPerAxis": [2,1,1],
+            "rootGridDimensions": [2,1,1],
             "firstSubtreesWithContent": [[0,0,0,0], [0,1,0,0]],
             "subtreeLevels": 10,
             "lastLevel": 19,
@@ -87,6 +140,8 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
 }
 ```
 
+This provide the information needed to derive the `boundingVolume`, `transform`, `splitAxes`, and `refine` for any tile in the tileset.
+
 #### properties
 
 #### splitAxes
@@ -107,12 +162,11 @@ TODO: Add figure of what quad and oct examples, check 3dtiles spec.
 The `refine` property specifies the refinement style and is either `REPLACE` or `ADD`. The refinement specified applies to all tiles in the tileset.
 This is the same `refine` property which is defined per-tile in the core 3D Tiles specification [3D Tiles `refine` Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/master/specification#refinement).
 
-#### rootTilesPerAxis
-TODO: rename? fixedGridDimensions? rootGridDimensions? rootFixedGridDimensions?
+#### rootGridDimensions
 
-The `rootTilesPerAxis` property is a three element array of numbers specifying the x, y, and z dimensions of a fixed grid at tree level 0. At each location of the fixed grid, there may reside a tileset root.
-The space is uniformly divided so all of the root tiles will have exactly the same geometric size.  For quadtrees, the third element of this array is ignored. A single root is indicated by "`rootTilesPerAxis`": [1, 1, 1].
-Two roots side-by-side along the x dimension is indicated by "`rootTilesPerAxis`": [2, 1, 1].
+The `rootGridDimensions` property is a three element array of numbers specifying the x, y, and z dimensions of a fixed grid at tree level 0. At each location of the fixed grid, there may reside a tileset root.
+The space is uniformly divided so all of the root tiles will have exactly the same geometric size.  For quadtrees, the third element of this array is ignored. A single root is indicated by "`rootGridDimensions`": [1, 1, 1].
+Two roots side-by-side along the x dimension is indicated by "`rootGridDimensions`": [2, 1, 1].
 
 TODO: Add figure. How does indexing correlate: 0 to n-1 for each dimension. left-right, top-bottom, back-front?
 
@@ -124,7 +178,7 @@ It is an array where each element holds a four element array specifying the subt
 ```json
     "firstSubtreesWithContent": [[0,0,0,0], [0,1,0,0]],
 ```
-In this example, the first subtrees that are available have d,x,y,z indexes of 0,0,0,0 and 0,1,0,0. A subtree uri is this d,x,y,z key appended to the subtree default folder location or `availability/d/x/y/z`.
+In this example, the first subtrees that are available have d,x,y,z indexes of 0,0,0,0 and 0,1,0,0. A subtree uri is this d,x,y,z tree location appended to the subtree default folder location or `availability/d/x/y/z`.
 These two subtree relative uri's would be `availability/0/0/0/0` and `availability/0/1/0/0`, respectively.
 
 #### subtreeLevels
@@ -174,7 +228,8 @@ Bits are left to right, top to bottom raster order. LSB bits are earlier in the 
 Note: Padding bits in the root of the subtree can allow the subtree itself communicate how deep it goes. Will let implementation dictate that this is more desirable than fix sizes (don't think it will, hasn't yet).
 
 Below is a binary subtree of 4 levels. There are two leaf tiles at level 3 (root is level 0) that are available.
-These would have tiles available for requesting (like all the other 1's) but they would also have subtree binaries available for requesting as well, at uri "baseUri/availability/d/x" (d/x in this case since its binary(only for illustrative purposes). quad is d/x/y, oct is d/x/y/z)
+These would have tiles available for requesting (like all the other 1's) but they would also have subtree binaries available for requesting as well, at uri "baseUri/availability/d/x" (d/x in this case since its binary(only for illustrative purposes).
+quadtree is d/x/y, octree is d/x/y/z)
 
 ![](subtreeBits.jpg)
 
@@ -209,10 +264,10 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**boundingVolume**|`object`|A bounding volume that encloses the tileset.  Exactly one `box` or `region` property is required.|:white_check_mark: Yes|
-|**rootTilesPerAxis**|`number` `[3]`|Defines the number of roots at level 0 in the tree.| :white_check_mark: Yes|
+|**rootGridDimensions**|`number` `[3]`|Defines the number of roots at level 0 in the tree.| :white_check_mark: Yes|
 |**lastLevel**|`number`|Defines the last level in the tileset. 0 indexed.| :white_check_mark: Yes|
 |**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This refinement applies to the entire tileset.|:white_check_mark: Yes|
-|**firstSubtreesWithContent**|`array`|Defines the first set of subtree keys that are available in the tileset.| :white_check_mark: Yes|
+|**firstSubtreesWithContent**|`array`|Defines the first set of subtrees that are available in the tileset as indicated by their root tile's tree location.| :white_check_mark: Yes|
 |**splitAxes**|`number`|Defines the implied subdivision scheme for all tiles in the tileset.| :white_check_mark: Yes|
 |**subtreeLevels**|`number`|Defines how many levels each availability subtree contains.| :white_check_mark: Yes|
 
@@ -245,7 +300,7 @@ An array of six numbers that define a bounding geographic region in EPSG:4979 co
 * **Type**: `number` `[6]`
 * **Required**: No
 
-### rootTilesPerAxis :white_check_mark:
+### rootGridDimensions :white_check_mark:
 
 Defines the number of roots at level 0 in the tree. This three element array contains the x, y, and z dimensions for a fixed grid at level 0 that holds the roots of the tileset. The last element is ignored for quadtrees.
 
@@ -273,7 +328,7 @@ Specifies if additive or replacement refinement is used when traversing the tile
 
 ### firstSubtreesWithContent :white_check_mark:
 
-Defines the first set of subtree keys that are first available in the tileset.
+Defines the first set of subtrees that are available in the tileset as indicated by their root tile's tree location.
 Each element of the array is a four element array holding the d,x,y,z index in the tileset for the root of the subtree. The last element of this four element array is ignored for quadtrees.
 The corresponding uri for this subtree of availability is `availability/d/x/y/z` for octrees and `availability/d/x/y` for quadtrees.
 
