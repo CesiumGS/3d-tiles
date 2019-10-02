@@ -86,7 +86,7 @@ whose root tile has a tree location of `9/10/11` would have a uri of `availabili
 On the last level of a subtree, tiles that have a 1 will have a subtree starting from that location. For example, if a tile on the last level of a subtree has a 1 and its tree location was
 `5/6/7/8` there would be a tile available at uri `5/6/7/8` and a subtree of availability at uri `availability/5/6/7/8`.
 The example here shows a binary tree with two tiles in the subtree's last level,
-There would be subtrees at each of these locations as well, unless it was the last level of tileset.
+There would be subtrees at each of these locations as well, unless this level was the last level of tileset.
 
 ![](subtreeBits.jpg)
 
