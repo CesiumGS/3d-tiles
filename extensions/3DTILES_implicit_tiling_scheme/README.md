@@ -85,6 +85,8 @@ whose root tile has a tree location of `9/10/11` would have a uri of `availabili
 
 On the last level of a subtree, tiles that have a 1 will have a subtree starting from that location. For example, if a tile on the last level of a subtree has a 1 and its tree location was
 `5/6/7/8` there would be a tile available at uri `5/6/7/8` and a subtree of availability at uri `availability/5/6/7/8`.
+The example here shows a binary tree with two tiles in the subtree's last level,
+There would be subtrees at each of these locations as well, unless it was the last level of tileset.
 
 ![](subtreeBits.jpg)
 
@@ -100,6 +102,7 @@ Most tilesets can do without a fixed grid at the root level. Specifying a dimens
 ### First Subtrees with Content
 To specify where the tree begins `firstSubtreesWithContent` is used to say where the first set of subtrees live.
 A root grid may have a few empty locations or a tileset may be in the context of globe but start further down the tree.
+The example here shows a 2x3 root grid with 2 roots available as shown.
 
 ![](img/rootGrid.jpg)
 
@@ -186,6 +189,7 @@ At each location of the fixed grid, there may reside a tileset root.
 The space is uniformly divided so all of the root tiles will have exactly the same geometric size.
 For quadtrees, the third element of this array is ignored. A single root is indicated by "`rootGridDimensions`": [1, 1, 1].
 Two roots side-by-side along the x dimension is indicated by "`rootGridDimensions`": [2, 1, 1].
+The example here shows a 2x3 root grid with 2 roots available as shown.
 
 ![](img/rootGrid.jpg)
 
