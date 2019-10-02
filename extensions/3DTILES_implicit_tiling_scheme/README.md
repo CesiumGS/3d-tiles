@@ -187,7 +187,7 @@ The space is uniformly divided so all of the root tiles will have exactly the sa
 For quadtrees, the third element of this array is ignored. A single root is indicated by "`rootGridDimensions`": [1, 1, 1].
 Two roots side-by-side along the x dimension is indicated by "`rootGridDimensions`": [2, 1, 1].
 
-![](img/indexing.jpg)
+![](img/rootGrid.jpg)
 
 #### firstSubtreesWithContent
 
