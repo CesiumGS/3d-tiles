@@ -15,6 +15,7 @@
    * [Notes](#notes)
 * [Resources](#resources)
 * [Property Reference](#property-reference)
+* [Example](#example)
 
 ### TODO:
 * Context/Examples "give more context about the intent here first. Otherwise, non-expert readers will not be able to follow and may write 3D Tiles and implicit tiling off as "too complex" even though they are not."
@@ -380,3 +381,45 @@ Defines how many levels each subtree of availability contains.
 * **Type**: `number`
 * **Required**: Yes
 * **Minimum**: 1
+
+#### Example
+
+In this example, the tileset is a quadtree with replacement refinement. There's a 2x1 grid at the root level and there's a subtree at each location in the grid.
+Availability subtrees span 3 levels and the tree itself goes down to level 4.
+```json
+{
+    "asset": {
+        "version": "1.0"
+    },
+    "geometricError": 563.8721715009725,
+    "extensions": {
+        "3DTILES_implicit_tiling": {
+            "splitAxes": 2,
+            "refine": "REPLACE",
+            "rootGridDimensions": [2,1,1],
+            "firstSubtreesWithContent": [[0,0,0,0], [0,1,0,0]],
+            "subtreeLevels": 3,
+            "lastLevel": 3,
+            "boundingVolume": {
+                "region": [
+                     -1.5707963267948966,
+                     -3.1415926535897932,
+                      1.5707963267948966,
+                      3.1415926535897932,
+                    -11.89207010413975,
+                    547.7591827297583
+                ]
+            }
+        }
+    }
+}
+```
+
+The full tree of availability might look something like this:
+
+![](img/tree.jpg)
+
+The subtrees and their byte arrays would look like this:
+
+![](img/subtrees.jpg)
+
