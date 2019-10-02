@@ -42,13 +42,13 @@ When a tile subdivides in a quadtree, it produces 4 equally sized tiles that fit
 The tile is split along two axes picking the midpoint of the bounds along those axes. The axes along which the
 splitting is performed are the same for every tile in the tileset. These axes are the x and y axes.
 
-![](img/quadtree.png)
+![](figures/quadtree.png)
 
 ### Octree
 When a tile subdivides in a octree, it produces 8 equally sized tiles that fit in the footprint of the original tile.
 The tile is split along all three axes picking the midpoint of the bounds along each axis.
 
-![](img/octree.png)
+![](figures/octree.png)
 
 Because subdivision is predicable, tiles can derive their attributes (like `geometricError`, `boundingVolume`, `refine`, etc.) from the root information.
 This removes the need to specify per-tile information in a`tileset.json`.
@@ -77,7 +77,7 @@ For the y direction, tiles' y coordinates are indexed from top to bottom, rangin
 For the z direction, tiles' z coordinates are indexed from back to front, ranging from 0 to n - 1 where n is the number of tiles along the z direction for that level.
 Quadtrees do not index the z direction.
 
-![](img/indexing.jpg)
+![](figures/indexing.jpg)
 
 If a tile is available in the subtree, its uri is its tree location, delimited by forward slashes.
 For example, if a tile's location in an octree is at level 5, with an x,y,z of 6,7,8, its uri is `5/6/7/8`, relative to the base uri.
@@ -107,7 +107,7 @@ To specify where the tree begins `firstSubtreesWithContent` is used to say where
 A root grid may have a few empty locations or a tileset may be in the context of globe but start further down the tree.
 The example here shows a 2x3 root grid with 2 roots available as shown.
 
-![](img/rootGrid.jpg)
+![](figures/rootGrid.jpg)
 
 ## Tileset JSON Format Updates
 
@@ -194,7 +194,7 @@ For quadtrees, the third element of this array is ignored. A single root is indi
 Two roots side-by-side along the x dimension is indicated by "`rootGridDimensions`": [2, 1, 1].
 The example here shows a 2x3 root grid with 2 roots available as shown.
 
-![](img/rootGrid.jpg)
+![](figures/rootGrid.jpg)
 
 #### firstSubtreesWithContent
 
@@ -228,10 +228,22 @@ I think this needs a picture and more explanation.
 The `lastLevel` property is a number that specifies the last tree level in the tileset.
 
 ```json
-    "lastLevel": 19,
+    "lastLevel": 9,
 ```
-In the example above this number is `19` meaning that last level in the tree is level 19.
+In the example above this number is `9` meaning that last level in the tree is level 9.
 This number is indexed from 0 so if the number was 0 it would mean the tileset only has 1 level, the root at level 0.
+
+So if you also had:
+```json
+    "completeSubtreeLevels": 6,
+    "lastLevel": 9,
+    "firstSubtreesWithContent": [[0,0,0,0], [0,1,0,0]],
+    "rootGridDimensions": [2, 1, 1]
+```
+
+The tree might look something like this:
+
+![](figures/treeSubtreeStructure.jpg)
 
 #### boundingVolume
 
@@ -433,11 +445,11 @@ Availability subtrees span 3 levels and the tree itself goes down to level 4.
 
 The full tree of availability might look something like this:
 
-![](img/tree.jpg)
+![](figures/tree.jpg)
 
 The subtrees and their byte arrays would look like this:
 
-![](img/subtrees.jpg)
+![](figures/subtrees.jpg)
 
 The spec should also have a list of common use cases somewhere that we have gathered in the other GitHub issues and internal notes, e.g.,
 Global quadtree like WMTS
