@@ -18,8 +18,6 @@
 * [Example](#example)
 
 ### TODO:
-* Context/Examples "give more context about the intent here first. Otherwise, non-expert readers will not be able to follow and may write 3D Tiles and implicit tiling off as "too complex" even though they are not."
-* Figures subdirectory
 * Do a final spell check.
 
 ## Overview
@@ -29,7 +27,7 @@ querying tree structure from the server, data storage on the client, as well as 
 can derive attributes like `geometricError`, `boundingVolume`, `refine`, etc. This cuts down the size and verbosity of the tileset.json. Because the access to information describing any part of tree structure is predictable,
 random access queries on the tree is possible.
 
-TODO: Why, What, How, include a representative image here
+TODO: include a representative image here
 
 The spec should also have a list of common use cases somewhere that we have gathered in the other GitHub issues and internal notes, e.g.,
 Global quadtree like WMTS
@@ -120,7 +118,6 @@ the root level context from which the entire tileset structure (`boundingVolume`
 
 Below is an example of a Tileset JSON with the implicit tiling scheme extension set:
 
-TODO:? change `splitAxes` take an array like [1,1,0] to allow marking which axes are split? Does this make impl a headache or is it trivial in the same way that `rootGridDimensions` was trivial?
 ```json
 {
     "asset": {
@@ -183,8 +180,6 @@ This provide the information needed to derive the `boundingVolume`, `transform`,
 The `splitAxes` property specifies the subdivision scheme for the entire tileset. A value of 2 means the subdivision scheme is a quadtree while a value of 3 means the subdivision scheme is an octree.
 In a quadtree, a tile is split evenly along the x and y axes, forming four equally sized children. In an octree, a tile is split evenly along the x, y, and z axes, forming eight equally sized children.
 
-TODO: Add figure of what quad and oct examples, check 3dtiles spec.
-
 #### refine
 
 The `refine` property specifies the refinement style and is either `REPLACE` or `ADD`. The refinement specified applies to all tiles in the tileset.
@@ -196,7 +191,7 @@ The `rootGridDimensions` property is a three element array of numbers specifying
 The space is uniformly divided so all of the root tiles will have exactly the same geometric size.  For quadtrees, the third element of this array is ignored. A single root is indicated by "`rootGridDimensions`": [1, 1, 1].
 Two roots side-by-side along the x dimension is indicated by "`rootGridDimensions`": [2, 1, 1].
 
-TODO: Add figure. How does indexing correlate: 0 to n-1 for each dimension. left-right, top-bottom, back-front?
+![](img/indexing.jpg)
 
 #### firstSubtreesWithContent
 
@@ -233,8 +228,6 @@ In the example above this number is `19` meaning that last level in the tree is 
 The `boundingVolume` property specifies bounding volume for the entire tileset.  The `boundingVolume` types are restricted to `region` and `box`.
 This is the same `boundingVolume` property which is defined per-tile in the core 3D Tiles specification [3D Tiles `boundingVolume` Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/master/specification#bounding-volumes)
 Every tile in the tileset can derive its bounding volume from the tileset bounding volume.
-
-TODO: figure for how the tileset bounding volume is subdivided.
 
 #### transform
 
