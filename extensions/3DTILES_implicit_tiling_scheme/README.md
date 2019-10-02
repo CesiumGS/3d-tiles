@@ -58,11 +58,14 @@ The only information that is needed on a per-tile basis is whether the tile is a
 The full tree of information that expresses all tiles' availability is broken up into subtrees(small portions of the full tree). Since a single bit is needed to hold a tile's availability,
 the subtree of availability is expressed as an array of bytes where each bit holds a tile's availability, i.e. a 1 or 0 indicating that the tile is available or not available, respectively.
 
-### Subtree Levels
-In the `tileset.json`, the `subtreeLevels` property is the number of levels in every subtree in the tileset. Every subtree starts from a single tile, its root, and spans the number levels
-indicated by `subtreeLevels`. Therefore, every subtree has the same number of bytes. Subtrees are binary files containing only their array of bytes.
-These binary files live in a folder called `availability` in the root directory (where the tileset.json lives). The location of a subtree within this `availability` folder is dictated by its root tile's
-location in the tree, discussed next.
+### Complete Subtree Levels
+In the `tileset.json`, the `completeSubtreeLevels` property is the number of levels in every subtree in the tileset.
+Every subtree starts from a single tile, its root, and spans the number levels indicated by `completeSubtreeLevels`.
+Subtrees are complete meaning no part of the subtree stops early.
+Therefore, every subtree has the same number of bytes.
+Subtrees are binary files containing only their array of bytes.
+These binary files live in a folder called `availability` in the root directory (where the tileset.json lives).
+The location of a subtree within this `availability` folder is dictated by its root tile's location in the tree, discussed next.
 
 ### Tree Location
 A tile's location in the tree can be defined in terms of the level at which it resides as well as the location within that level.
@@ -127,7 +130,7 @@ Below is an example of a Tileset JSON with the implicit tiling scheme extension 
             "refine": "REPLACE",
             "rootGridDimensions": [2,1,1],
             "firstSubtreesWithContent": [[0,0,0,0], [0,1,0,0]],
-            "subtreeLevels": 10,
+            "completeSubtreeLevels": 10,
             "lastLevel": 19,
             "boundingVolume": {
                 "region": [
@@ -205,18 +208,22 @@ In this example, the first subtrees that are available have d,x,y,z indexes of 0
 A subtree uri is this d,x,y,z tree location appended to the subtree default folder location or `availability/d/x/y/z`.
 These two subtree relative uri's would be `availability/0/0/0/0` and `availability/0/1/0/0`, respectively.
 
-#### subtreeLevels
+#### completeSubtreeLevels
 
-The `subtreeLevels` property is a number that specifies the fixed amount of levels in of all subtrees for the tileset.
+The `completeSubtreeLevels` property is a number that specifies the fixed amount of levels in of all subtrees for the tileset.
 
 ```json
-    "subtreeLevels": 10,
+    "completeSubtreeLevels": 10,
 ```
-In this example, `subtreeLevels` is 10 meaning that all subtrees will supply availability for 10 levels starting from their root.
+In this example, `completeSubtreeLevels` is 10 meaning that all subtrees will supply availability for 10 levels starting from their root.
 If a subtree starts at level 0 it would cover levels 0 through 9 for its portion of the tree.
 If a subtree starts at level 9 it would cover levels 9 through 18 for its portion of the tree.
 
 #### lastLevel
+
+```
+I think this needs a picture and more explanation.
+```
 
 The `lastLevel` property is a number that specifies the last tree level in the tileset.
 
@@ -239,6 +246,10 @@ The `transform` property specifies 4x4 affine transformation that transforms any
 This is the same `transform` property which is defined per-tile in the core 3D Tiles specification [3D Tiles `transform` Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/implicit-tiling/specification#transforms)
 
 ### Subtree availability
+```
+Please rewrite this section for preciseness and to build the concept bottom up with simple example. Include more figures with the examples, e.g., for the initial quad and octree examples. Also motivate why this availability data is useful for different types of algorithms.
+Also, it looks like this will be part of the implicit tiling extension, but optional to implement. Is that correct? At one point we discussed making this a separate extension, but maybe that is too fine-grained? Was that your conclusion?
+```
 
 Availability of tiles are broken up into subtree chunks.
 A subtree of availability is binary file where each tiles gets a bit: 1 if it exists, 0 if it does not.
@@ -301,7 +312,7 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 |**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This refinement applies to the entire tileset.|:white_check_mark: Yes|
 |**firstSubtreesWithContent**|`array`|Defines the first set of subtrees that are available in the tileset as indicated by their root tile's tree location.| :white_check_mark: Yes|
 |**splitAxes**|`number`|Defines the implied subdivision scheme for all tiles in the tileset.| :white_check_mark: Yes|
-|**subtreeLevels**|`number`|Defines how many levels each availability subtree contains.| :white_check_mark: Yes|
+|**completeSubtreeLevels**|`number`|Defines how many levels each availability subtree contains.| :white_check_mark: Yes|
 
 Additional properties are not allowed.
 
@@ -367,6 +378,7 @@ The corresponding uri for this subtree of availability is `availability/d/x/y/z`
 * **Type**: `array`
 * **Required**: Yes
 * **Type of each property**: `number` `[4]`
+* **Minimum**: [0,0,0,0]
 
 ### subdivision :white_check_mark:
 
@@ -378,7 +390,7 @@ Defines the implied subdivision for all tiles in the tileset.
   * `2` Quadtree
   * `3` Octree
 
-### subtreeLevels :white_check_mark:
+### completeSubtreeLevels :white_check_mark:
 
 Defines how many levels each subtree of availability contains.
 
@@ -402,7 +414,7 @@ Availability subtrees span 3 levels and the tree itself goes down to level 4.
             "refine": "REPLACE",
             "rootGridDimensions": [2,1,1],
             "firstSubtreesWithContent": [[0,0,0,0], [0,1,0,0]],
-            "subtreeLevels": 3,
+            "completeSubtreeLevels": 3,
             "lastLevel": 3,
             "boundingVolume": {
                 "region": [
