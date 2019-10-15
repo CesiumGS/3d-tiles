@@ -21,10 +21,14 @@
 
 This extension enables the [3D Tiles JSON](../../specification/schema/tileset.schema.json) to support streaming tilesets with implied subdivision.
 When subdivision is implied, it enables simplification at every stage of the tileset's lifetime:
-querying tree structure from the server, data storage on the client, as well as simplification and optimization of algorithms involved with traversal and analysis.
+querying tree structure from the server, data storage on the client, as well as simplification and optimization of algorithms involved with the structure of the tree such as traversal,
+visibility, arbitrary  selection of tiles in a region, ray casting, analysis, etc.
 The tileset.json only needs to supply the information needed so that any tile can derive attributes like `geometricError`, `boundingVolume`, `refine`, etc.
-This cuts down the size and verbosity of the tileset.json. Also, because the access to information describing any part of tree structure is predictable,
+This cuts down the size and verbosity of the tileset.json. Because the access to information describing any part of tree structure is predictable,
 random access queries on the tree are possible.
+
+Because subdivision is predicable, the only information regarding the tree structure that needs to be queried from the server is whether a tile exists or not.
+Only 1 bit per tile is needed for this. For explicit tilesets, per-tile information is a little over 300 bytes. This simplified approach reduces IO and allows easier interoperability with other standards.
 
 TODO: include a representative image here
 
@@ -33,28 +37,24 @@ TODO: include a representative image here
 Implicit tiling is a term used to convey that the rule for how a tile subdivides into its children is the same for every tile in a tileset.
 The two supported methods for how a tile subdivides are quadree subdivision and octree subdivision.
 
-### Split Axes
-The property used to specify this subdivision is `splitAxes`.
-It is a number indicating the number of axes split, 2 being a quadtree and 3 being an octree.
-
 ### Quadtree
-When a tile subdivides in a quadtree, it produces 4 equally sized tiles that fit in the footprint of the original tile.
-The tile is split along two axes picking the midpoint of the bounds along those axes. The axes along which the
-splitting is performed are the same for every tile in the tileset. These axes are the x and y axes.
+When a tile subdivides in a quadtree, it produces 4 equally sized tiles that fit in the footprint of the original tile, the parent tile.
+The tile is split along two axes picking the midpoint of the bounds along those axes. These axes are the x and y axes.
 
 ![](figures/quadtree.png)
 
 ### Octree
-When a tile subdivides in a octree, it produces 8 equally sized tiles that fit in the footprint of the original tile.
+When a tile subdivides in an octree, it produces 8 equally sized tiles that fit in the footprint of the original tile, the parent tile.
 The tile is split along all three axes picking the midpoint of the bounds along each axis.
 
 ![](figures/octree.png)
 
-Because subdivision is predicable, tiles can derive their attributes (like `geometricError`, `boundingVolume`, `refine`, etc.) from the root information.
-This removes the need to specify per-tile information in a`tileset.json`.
+### Split Axes
+The property used to specify this subdivision is `splitAxes`.
+It is a number indicating the number of axes split, 2 being a quadtree and 3 being an octree.
 
 ### Availability Subtree
-The only information that is needed on a per-tile basis is whether the tile is available or not, i.e. does a tile exist or not at some location in the tree.
+The only information that is needed on a per-tile basis is whether the tile is available or not at some location in the tree.
 The full tree of information that expresses all tiles' availability is broken up into subtrees(small portions of the full tree). Since a single bit is needed to hold a tile's availability,
 the subtree of availability is expressed as an array of bytes where each bit holds a tile's availability, i.e. a 1 or 0 indicating that the tile is available or not available, respectively.
 
@@ -95,7 +95,7 @@ There would be subtrees at each of these locations as well, unless this level wa
 
 ### Root Grid Dimensions
 Some tilesets are defined on the surface of an ellipsoid (like planet earth) where the subdivision happens at regular intervals of longitude and latitude rather than regular intervals of 3D cartesian space.
-The surface of the ellipsoid is represented as a 2D map ranging from -180 to 180 degrees in longitude and -90 to 90 degrees in latitude.
+The surface of the ellipsoid is represented as a 2D cartographic map ranging from -180 to 180 degrees in longitude and -90 to 90 degrees in latitude.
 Tiles near the poles do not occupy the same 3D space as they do for tiles near the equator, on the same level.
 Different 2D mapping formats have different techniques for dealing with this pole distortion, usually by specifying a fixed grid that is responsible for some latitude range.
 To allow tiling with these different 2D mapping techniques, `rootGridDimensions` property allows specifying a fixed grid at the root level. Any location in this fixed grid can hold the root of a tree.
@@ -207,6 +207,7 @@ It is an array where each element holds a four element array specifying the subt
 In this example, the first subtrees that are available have d,x,y,z indexes of 0,0,0,0 and 0,1,0,0.
 A subtree uri is this d,x,y,z tree location appended to the subtree default folder location or `availability/d/x/y/z`.
 These two subtree relative uri's would be `availability/0/0/0/0` and `availability/0/1/0/0`, respectively.
+From here, all other tree structure information can be found by jumping the bottom level of a subtree, and requesting more availability subtrees as needed.
 
 #### completeSubtreeLevels
 
@@ -218,19 +219,16 @@ The `completeSubtreeLevels` property is a number that specifies the fixed amount
 In this example, `completeSubtreeLevels` is 10 meaning that all subtrees will supply availability for 10 levels starting from their root.
 If a subtree starts at level 0 it would cover levels 0 through 9 for its portion of the tree.
 If a subtree starts at level 9 it would cover levels 9 through 18 for its portion of the tree.
+All subtrees of availability have the same number of bytes since they are full trees of a fixed amount of levels for a fixed tiling scheme.
 
 #### lastLevel
-
-```
-I think this needs a picture and more explanation.
-```
 
 The `lastLevel` property is a number that specifies the last tree level in the tileset.
 
 ```json
     "lastLevel": 9,
 ```
-In the example above this number is `9` meaning that last level in the tree is level 9.
+In the example above, this number is `9` meaning that last level in the tree is level 9.
 This number is indexed from 0 so if the number was 0 it would mean the tileset only has 1 level, the root at level 0.
 
 So if you also had:
@@ -259,14 +257,16 @@ This is the same `transform` property which is defined per-tile in the core 3D T
 
 ### Subtree availability
 ```
-Please rewrite this section for preciseness and to build the concept bottom up with simple example. Include more figures with the examples, e.g., for the initial quad and octree examples. Also motivate why this availability data is useful for different types of algorithms.
-Also, it looks like this will be part of the implicit tiling extension, but optional to implement. Is that correct? At one point we discussed making this a separate extension, but maybe that is too fine-grained? Was that your conclusion?
+Please rewrite this section for preciseness and to build the concept bottom up with simple example. Include more figures with the examples, e.g., for the initial quad and octree examples.
+Also motivate why this availability data is useful for different types of algorithms.
+Also, it looks like this will be part of the implicit tiling extension, but optional to implement. Is that correct?
+At one point we discussed making this a separate extension, but maybe that is too fine-grained? Was that your conclusion?
 ```
 
 Availability of tiles are broken up into subtree chunks.
 A subtree of availability is binary file where each tiles gets a bit: 1 if it exists, 0 if it does not.
 Every tile in the subtree must have a 0 or 1.
-Tiles on the last level that have a 1 will have an additional subtree for requesting (unless that tile is also on the last level of the tree).
+Tiles on the last level of a subtree that have a 1 will have an additional subtree for requesting (unless that tile is also on the last level of the tree).
 Each level of the subtree has a minimimum size of 1 byte.
 For example, a quadtrees root and first levels have some bit padding. An example quadtree subtree that is fully packed:
 quad subtree: [0b00000001, 0b00001111, 0b11111111, 0b11111111, ...]
@@ -274,25 +274,15 @@ quad subtree: [0b00000001, 0b00001111, 0b11111111, 0b11111111, ...]
 An example oct tree subtree that is fully packed:
 oct subtree: [0b00000001, 0b11111111, 0b11111111, ...]
 
-Bits are left to right, top to bottom raster order. LSB bits are earlier in the raster order.
+Bits are left to right, top to bottom, back to front raster order, same as the tree indexing. LSB bits are earlier in the raster order.
 
-Note: Padding bits in the root of the subtree can allow the subtree itself communicate how deep it goes.
-Will let implementation dictate that this is more desirable than fix sizes (don't think it will, hasn't yet).
+Below is a binary subtree (not supported, only for illustrative purposes) of 4 levels.
+There are two leaf tiles at level 3 (root is level 0) that are available. These
+would have uri's of "3/1" and "3/4".  They would also have subtree binaries available for requesting as well, at uri's "availability/3/1" and "availability/3/4".
 
-Below is a binary subtree of 4 levels.
-There are two leaf tiles at level 3 (root is level 0) that are available.
-These would have tiles available for requesting (like all the other 1's) but they would also have subtree binaries available for requesting as well, at uri "baseUri/availability/d/x" (d/x in this case since its binary(only for illustrative purposes).
-quadtree is d/x/y, octree is d/x/y/z)
+![](figures/subtreeBits.jpg)
 
-![](subtreeBits.jpg)
-
-Clearly, duds can exist (a subtree with 1 in the root (coinciding with the tile in the parent subtree's leaf level), and the rest 0's).
-Tiling can easily enough adjust its `subtreeLevel` to limit these.
-Another approach could be to have the last level of the subtree have 2 bits to indicate no-tile/tile/tile+subtree.
-I don't think this is a common enough issue to introduce extra complexity that would be felt in subtree size and implementation. As mentioned already,
-If it is an issue it can be easily remedied through other means that the spec provides.
-
-We could use the 7 bits in the subtree root to store the subtree's level count (and remove the need for it in the `tileset.json`). During tiling, this could allow adding an extra level to a subtree, if there would be many duds without the extra level.
+See #example for a replacement refinement quad tree example.
 
 ### Schema updates
 
@@ -319,10 +309,10 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**boundingVolume**|`object`|A bounding volume that encloses the tileset.  Exactly one `box` or `region` property is required.|:white_check_mark: Yes|
-|**rootGridDimensions**|`number` `[3]`|Defines the number of roots at level 0 in the tree.| :white_check_mark: Yes|
+|**rootGridDimensions**|`number` `[3]`|Defines the fixed grid dimensions at the root level of the tree.| :white_check_mark: Yes|
 |**lastLevel**|`number`|Defines the last level in the tileset. 0 indexed.| :white_check_mark: Yes|
 |**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This refinement applies to the entire tileset.|:white_check_mark: Yes|
-|**firstSubtreesWithContent**|`array`|Defines the first set of subtrees that are available in the tileset as indicated by their root tile's tree location.| :white_check_mark: Yes|
+|**firstSubtreesWithContent**|`array`|Defines the first set of subtrees that are available in the tileset as indicated by the subtree' root tile tree location.| :white_check_mark: Yes|
 |**splitAxes**|`number`|Defines the implied subdivision scheme for all tiles in the tileset.| :white_check_mark: Yes|
 |**completeSubtreeLevels**|`number`|Defines how many levels each availability subtree contains.| :white_check_mark: Yes|
 
@@ -343,7 +333,8 @@ Additional properties are not allowed.
 
 #### BoundingVolume.box
 
-An array of 12 numbers that define an oriented bounding box. The first three elements define the x, y, and z values for the center of the box.  The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the y axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.
+An array of 12 numbers that define an oriented bounding box. The first three elements define the x, y, and z values for the center of the box. The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.
+The next three elements (indices 6, 7, and 8) define the y axis direction and half-length. The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.
 
 * **Type**: `number` `[12]`
 * **Required**: No
@@ -357,7 +348,7 @@ An array of six numbers that define a bounding geographic region in EPSG:4979 co
 
 ### rootGridDimensions :white_check_mark:
 
-Defines the number of roots at level 0 in the tree. This three element array contains the x, y, and z dimensions for a fixed grid at level 0 that holds the roots of the tileset. The last element is ignored for quadtrees.
+Defines a three element array contains the x, y, and z dimensions for a fixed grid at level 0 of the tileset. The last element is ignored for quadtrees.
 
 * **Type**: `number` `[3]`
 * **Required**: Yes
@@ -376,7 +367,7 @@ Defines the last level in the tileset. 0 indexed.
 Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This refinement applies to the entire tileset.
 
 * **Type**: `string`
-* **Required**: No
+* **Required**: Yes
 * **Allowed values**:
    * `"ADD"`
    * `"REPLACE"`
@@ -412,7 +403,9 @@ Defines how many levels each subtree of availability contains.
 
 #### Example
 
-In this example, the tileset is a quadtree with replacement refinement. There's a 2x1 grid at the root level and there's a subtree at each location in the grid.
+In this example, the tileset is a quadtree with replacement refinement. Since it's `boundingVolume` is a `region`, it is a availability will correlate
+to a 2D cartographic map where the surface of the globe is represented as a rectangle where left and right edge range from -180 to 180 degrees and the bottom and top edge range from -90 to 90 degrees, respectively.
+There's a 2x1 grid at the root level and there's a subtree at each location in the grid. `Cesium` uses this kind of configuration for terrain payloads like `quantized-mesh`.
 Availability subtrees span 3 levels and the tree itself goes down to level 4.
 ```json
 {
@@ -424,8 +417,8 @@ Availability subtrees span 3 levels and the tree itself goes down to level 4.
         "3DTILES_implicit_tiling": {
             "splitAxes": 2,
             "refine": "REPLACE",
-            "rootGridDimensions": [2,1,1],
-            "firstSubtreesWithContent": [[0,0,0,0], [0,1,0,0]],
+            "rootGridDimensions": [2,1],
+            "firstSubtreesWithContent": [[0,0,0], [0,1,0]],
             "completeSubtreeLevels": 3,
             "lastLevel": 3,
             "boundingVolume": {
@@ -450,13 +443,93 @@ The full tree of availability might look something like this:
 The subtrees and their byte arrays would look like this:
 
 ![](figures/subtrees.jpg)
+![](figures/subtreesAlso.jpg)
 
-The spec should also have a list of common use cases somewhere that we have gathered in the other GitHub issues and internal notes, e.g.,
-Global quadtree like WMTS
-Global double-headed quadtree for terrain like quantized-mesh
-Local octree for point clouds
-Etc.
-Include an example for each and the motivation for using implicit tiling compared to 3D Tiles' default explicit tiling whether it be any combination of random access for analytics and visualization, reduced IO,
-interoperability with other standards, etc.
-The spec should also include an example - maybe an appendix that should a simple quadtree or whatever in the explicit 3D Tiles JSON - and then with the implicit extension.
+A global quadtree like WMTS might look something like this.
+There's a 1x1 grid (no grid) at the root level and there's a subtree at the root of the tree.
+Availability subtrees span 3 levels and the tree itself goes down to level 4.
+```json
+{
+    "asset": {
+        "version": "1.0"
+    },
+    "geometricError": 563.8721715009725,
+    "extensions": {
+        "3DTILES_implicit_tiling": {
+            "splitAxes": 2,
+            "refine": "REPLACE",
+            "rootGridDimensions": [1,1],
+            "firstSubtreesWithContent": [[0,0,0]],
+            "completeSubtreeLevels": 9,
+            "lastLevel": 22,
+            "boundingVolume": {
+                "region": [
+                     -1.5707963267948966,
+                     -3.1415926535897932,
+                      1.5707963267948966,
+                      3.1415926535897932,
+                    -11.89207010413975,
+                    547.7591827297583
+                ]
+            }
+        }
+    }
+}
+```
 
+An octree tileset like a pointcloud might look something like this.
+There's a 1x1x1 grid (no grid) at the root level and there's a subtree at the root of the tree.
+Availability subtrees span 7 levels and the tree itself goes down to level 12.
+It's an octree since it splits 3 axes indicated by `"splitAxes: 3"`.
+```json
+{
+    "asset": {
+        "version": "1.0"
+    },
+    "geometricError": 563.8721715009725,
+    "extensions": {
+        "3DTILES_implicit_tiling": {
+            "splitAxes": 3,
+            "refine": "ADD",
+            "rootGridDimensions": [1,1],
+            "firstSubtreesWithContent": [[0,0,0]],
+            "completeSubtreeLevels": 7,
+            "lastLevel": 12,
+            "boundingVolume": {
+                "box": [
+                    -0.015391968241431186,
+                    -0.3532479633577168,
+                    92.70943470788187,
+                    352.10639004734344,
+                    0,
+                    0,
+                    0,
+                    442.07886020861565,
+                    0,
+                    0,
+                    0,
+                    92.72882069413549
+                ]
+            },
+            "transform": [
+                0.964993398200894,
+                -0.2622741722486046,
+                0,
+                0,
+                0.1674100354510973,
+                0.6159568729846445,
+                0.7697863409110614,
+                0,
+                -0.2018950753707308,
+                -0.7428387370043971,
+                0.6383016444806947,
+                0,
+                -1289474.3598308756,
+                -4744402.522436097,
+                4049448.137488265,
+                1
+            ]
+        }
+    }
+}
+```
