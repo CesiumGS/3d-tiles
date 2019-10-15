@@ -445,6 +445,32 @@ The subtrees and their byte arrays would look like this:
 ![](figures/subtrees.jpg)
 ![](figures/subtreesAlso.jpg)
 
+Without a predicable subdivision, additional tile information like geometricError, boundingVolume would need to be specified in the tileset.json. Each tile would need to have something like this:
+```json
+{
+"content": {
+    "url": "13/4971/3401.b3dm",
+},
+"boundingVolume": {
+    "region": [
+    0.54388426404325441,
+    0.52361260650112784,
+    0.54394155069686589,
+    0.52366375841790003,
+    30.035595852874767,
+    86.742527859291442
+    ]
+},
+"geometricError": 4.0,
+"refine": "replace",
+"children": [
+    {
+    ...
+    }
+]
+}
+```
+
 A global quadtree like WMTS might look something like this.
 There's a 1x1 grid (no grid) at the root level and there's a subtree at the root of the tree.
 Availability subtrees span 3 levels and the tree itself goes down to level 4.
