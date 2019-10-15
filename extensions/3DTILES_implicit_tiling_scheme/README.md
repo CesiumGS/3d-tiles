@@ -15,7 +15,7 @@
    * [Notes](#notes)
 * [Resources](#resources)
 * [Property Reference](#property-reference)
-* [Example](#example)
+* [Examples](#examples)
 
 ## Overview
 
@@ -256,13 +256,6 @@ The `transform` property specifies 4x4 affine transformation that transforms any
 This is the same `transform` property which is defined per-tile in the core 3D Tiles specification [3D Tiles `transform` Property](https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/implicit-tiling/specification#transforms)
 
 ### Subtree availability
-```
-Please rewrite this section for preciseness and to build the concept bottom up with simple example. Include more figures with the examples, e.g., for the initial quad and octree examples.
-Also motivate why this availability data is useful for different types of algorithms.
-Also, it looks like this will be part of the implicit tiling extension, but optional to implement. Is that correct?
-At one point we discussed making this a separate extension, but maybe that is too fine-grained? Was that your conclusion?
-```
-
 Availability of tiles are broken up into subtree chunks.
 A subtree of availability is binary file where each tiles gets a bit: 1 if it exists, 0 if it does not.
 Every tile in the subtree must have a 0 or 1.
@@ -282,7 +275,35 @@ would have uri's of "3/1" and "3/4".  They would also have subtree binaries avai
 
 ![](figures/subtreeBits.jpg)
 
-See #example for a replacement refinement quad tree example.
+A replacement refinement quadtree with the parameters
+```json
+"splitAxes": 2,
+"refine": "REPLACE",
+"rootGridDimensions": [2,1],
+"firstSubtreesWithContent": [[0,0,0], [0,1,0]],
+"completeSubtreeLevels": 3,
+"lastLevel": 3,
+```
+would look like this:
+
+![](figures/tree.jpg)
+
+The subtrees and their byte arrays would look like this:
+
+![](figures/subtrees.jpg)
+![](figures/subtreesAlso.jpg)
+
+An additive octree with the parameters:
+```json
+"splitAxes": 3,
+"refine": "ADD",
+"rootGridDimensions": [1,1,1],
+"firstSubtreesWithContent": [[0,0,0,0]],
+"completeSubtreeLevels": 2,
+"lastLevel": 2,
+```
+would look like this:
+![](figures/octreeSubtrees.jpg)
 
 ### Schema updates
 
@@ -401,7 +422,7 @@ Defines how many levels each subtree of availability contains.
 * **Required**: Yes
 * **Minimum**: 1
 
-#### Example
+#### Examples
 
 In this example, the tileset is a quadtree with replacement refinement. Since it's `boundingVolume` is a `region`, it is a availability will correlate
 to a 2D cartographic map where the surface of the globe is represented as a rectangle where left and right edge range from -180 to 180 degrees and the bottom and top edge range from -90 to 90 degrees, respectively.
