@@ -54,14 +54,14 @@ The property used to specify this subdivision is `splitAxes`.
 It is a number indicating the number of axes split, 2 being a quadtree and 3 being an octree.
 
 ### Availability Subtree
-The only information that is needed on a per-tile basis is whether the tile is available or not at some location in the tree.
+The only information that is needed per tile is whether the tile is available at some location in the tree.
 The full tree of information that expresses all tiles' availability is broken up into subtrees(small portions of the full tree). Since a single bit is needed to hold a tile's availability,
 the subtree of availability is expressed as an array of bytes where each bit holds a tile's availability, i.e. a 1 or 0 indicating that the tile is available or not available, respectively.
 
 ### Complete Subtree Levels
 In the `tileset.json`, the `completeSubtreeLevels` property is the number of levels in every subtree in the tileset.
 Every subtree starts from a single tile, its root, and spans the number levels indicated by `completeSubtreeLevels`.
-Subtrees are complete meaning no part of the subtree stops early.
+Subtrees are complete, meaning no part of the subtree stops early.
 Therefore, every subtree has the same number of bytes.
 Subtrees are binary files containing only their array of bytes.
 These binary files live in a folder called `availability` in the root directory (where the tileset.json lives).
@@ -445,7 +445,7 @@ The subtrees and their byte arrays would look like this:
 ![](figures/subtrees.jpg)
 ![](figures/subtreesAlso.jpg)
 
-Without a predicable subdivision, additional tile information like geometricError, boundingVolume would need to be specified in the tileset.json. Each tile would need to have something like this:
+Without a predicable subdivision, additional tile information like geometricError, boundingVolume would need to be specified in the tileset.json. In an explicit tiling scheme's `tileset.json`, each tile would need to have something like this:
 ```json
 {
 "content": {
