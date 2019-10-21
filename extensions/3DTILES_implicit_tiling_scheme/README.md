@@ -59,12 +59,15 @@ The full tree of information that expresses all tiles' availability is broken up
 the subtree of availability is expressed as an array of bytes where each bit holds a tile's availability, i.e. a 1 or 0 indicating that the tile is available or not available, respectively.
 
 ### Complete Subtree Levels
-In the `tileset.json`, the `completeSubtreeLevels` property is the number of levels in every subtree in the tileset.
-Every subtree starts from a single tile, its root, and spans the number levels indicated by `completeSubtreeLevels`.
-Subtrees are complete, meaning no part of the subtree stops early.
-Therefore, every subtree has the same number of bytes.
-Subtrees are binary files containing only their array of bytes.
-These binary files live in a folder called `availability` in the root directory (where the tileset.json lives).
+In the `tileset.json`, the `completeSubtreeLevels` property is the number of levels in every subtree.
+Every subtree starts from a single tile, its root, and goes down the number levels indicated by `completeSubtreeLevels`. For example,
+```json
+`completeSubtreeLevels: 10`
+```
+means that if a subtree started at level 0, it would go down to level 9, covering 10 levels.
+
+Subtrees are complete, full trees, meaning no part of the subtree stops early.
+These availability subtrees are binary files and these binary files live in a folder called `availability` in the root directory (where the tileset.json lives).
 The location of a subtree within this `availability` folder is dictated by its root tile's location in the tree, discussed next.
 
 ### Tree Location
@@ -242,6 +245,9 @@ So if you also had:
 The tree might look something like this:
 
 ![](figures/treeSubtreeStructure.jpg)
+
+This is used to know when there are no more subtrees passed a certain point. In the previous example, if the `lastLevel` was 10, and the last tier of subtrees had `1`'s on their last level there are no
+subtrees passed this point as indicated by the `lastLevel`.
 
 #### boundingVolume
 
