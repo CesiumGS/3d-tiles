@@ -76,7 +76,7 @@ The body section immediately follows the header section and is composed of three
 The Feature Table contains values for `i3dm` semantics used to create instanced models.
 More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
-See [Property reference](#property-reference) for the `i3dm` feature table schema reference. The full JSON schema can be found in [i3dm.featureTable.schema.json](../../schema/pnts.featureTable.schema.json).
+See [Property reference](#property-reference) for the `i3dm` feature table schema reference. The full JSON schema can be found in [i3dm.featureTable.schema.json](../../schema/i3dm.featureTable.schema.json).
 
 ### Semantics
 
