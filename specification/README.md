@@ -1,18 +1,20 @@
-# 3D Tiles Format Specification
+# 3D Tiles 格式说明
 
-**Version 1.0**, June 6th, 2018
+**Version 1.0**, 2020年2月
 
 <p align="center"><img src="../figures/Cesium3DTiles.png" /></p>
 
-This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
+本文描述了3D Tiles的规范，3D Tiles是为海量异构三维空间数据集而设计的开放标准。
 
-
-Editors:
+作者:
   * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com](mailto:pcozzi@agi.com)
   * Sean Lilley, [@lilleyse](https://twitter.com/lilleyse), [slilley@agi.com](mailto:slilley@agi.com)
   * Gabby Getz, [@gabbygetz](https://twitter.com/gabbygetz), [ggetz@agi.com](mailto:ggetz@agi.com)
+  
+翻译：
+  * 尤文辰，[youwch@163.com](mailto:youwch@163.com)
 
-Acknowledgements:
+致谢:
 * Matt Amato, [@matt_amato](https://twitter.com/matt_amato)
 * Erik Andersson, [@e-andersson](https://github.com/e-andersson)
 * Dan Bagnell, [@bagnell](https://github.com/bagnell)
@@ -38,44 +40,46 @@ Acknowledgements:
 * Pano Voudouris
 * Dave Wesloh
 
-## Contents
+## 目录
 
-* [Introduction](#introduction)
-* [File extensions and MIME types](#file-extensions-and-mime-types)
-* [JSON encoding](#json-encoding)
-* [URIs](#uris)
-* [Units](#units)
-* [Concepts](#concepts)
-  * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
-  * [Tiles](#tiles)
-    * [Geometric error](#geometric-error)
-    * [Refinement](#refinement)
-        * [Replacement](#replacement)
-        * [Additive](#additive)
-    * [Bounding volumes](#bounding-volumes)
-        * [Region](#region)
-        * [Box](#box)
-        * [Sphere](#sphere)
-    * [Viewer request volume](#viewer-request-volume)
-    * [Transforms](#transforms)
-        * [Tile transforms](#tile-transforms)
-        * [glTF transforms](#gltf-transforms)
-    * [Tile JSON](#tile-json)
-  * [Tileset JSON](#tileset-json)
-    * [External tilesets](#external-tilesets)
-    * [Bounding volume spatial coherence](#bounding-volume-spatial-coherence)
-    * [Spatial data structures](#spatial-data-structures)
-        * [Quadtrees](#quadtrees)
-        * [K-d trees](#k-d-trees)
-        * [Octrees](#octrees)
-        * [Grids](#grids)
-  * [Specifying extensions and application specific extras](#specifying-extensions-and-application-specific-extras)
-* [Tile format specifications](#tile-format-specifications)
-* [Declarative styling specification](#declarative-styling-specification)
-* [Property reference](#property-reference)
-* [License](#license)
+* [介绍](#介绍)
+* [文件扩展与MIME类型](#文件扩展与MIME类型)
+* [JSON编码](#JSON编码)
+* [统一资源标识符 URIs](#统一资源标识符 uris)
+* [单元 Units](#单元 units)
+* [相关概念](#相关概念)
+  * [坐标参考系(CRS)](#坐标参考系(CRS))
+  * [瓦片](#瓦片)
+    * [几何误差](#几何误差)
+    * [精细化](#精细化)
+        * [改变精度](#改变精度)
+        * [增加精度](#增加精度)
+    * [外接边界](#外接边界)
+        * [外接边界区域](#外接边界区域)
+        * [外接边界盒子](#外接边界盒子)
+        * [外接边界球体](#外接边界球体)
+    * [视图请求外接边界](#视图请求外接边界)
+    * [转换](#转换)
+        * [瓦片转换](#瓦片转换)
+        * [glTF转换](#glTF转换)
+    * [瓦片JSON索引](#瓦片JSON索引)
+    * [瓦片集JSON索引](#瓦片集JSON索引)
+    * [外部瓦片集](#外部瓦片集)
+    * [外接边界空间连续性](#外接边界空间连续性)
+    * [空间数据结构](#空间数据结构)
+        * [四叉树](#四叉树)
+        * [K-d树](#K-d树)
+        * [八叉树](#八叉树)
+        * [空间网格](#空间网格)
+  * [扩展与附加应用](#扩展与附加应用)
+        * [扩展](#扩展)
+        * [附加应用](#附加应用)
+* [瓦片格式说明](#瓦片格式说明)
+* [样式声明](#样式声明)
+* [参考](#参考)
+* [许可](#许可)
 
-## Introduction
+## 介绍
 
 3D Tiles is designed for streaming and rendering massive 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds. It defines a hierarchical data structure and a set of tile formats which deliver renderable content. 3D Tiles does not define explicit rules for visualization of the content; a client may visualize 3D Tiles data however it sees fit.
 
@@ -102,7 +106,7 @@ A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling
 
 Optionally a [3D Tiles Style](./Styling/), or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
 
-## File extensions and MIME types
+## 文件扩展与MIME类型
 
 3D Tiles uses the following file extensions and MIME types.
 
@@ -112,7 +116,7 @@ Optionally a [3D Tiles Style](./Styling/), or _style_, may be applied to a tiles
 
 Explicit file extensions are optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
-## JSON encoding
+## JSON编码
 
 3D Tiles has the following restrictions on JSON formatting and encoding.
 
@@ -120,7 +124,7 @@ Explicit file extensions are optional. Valid implementations may ignore it and i
   2. All strings defined in this spec (properties names, enums) use only ASCII charset and must be written as plain text.
   3. Names (keys) within JSON objects must be unique, i.e., duplicate keys aren't allowed.
 
-## URIs
+## 统一资源标识符 URIs
 
 3D Tiles uses URIs to reference tile content. These URIs may point to [relative external references (RFC3986)](https://tools.ietf.org/html/rfc3986#section-4.2) or be data URIs that embed resources in the JSON. Embedded resources use [the "data" URI scheme (RFC2397)](https://tools.ietf.org/html/rfc2397).
 
@@ -128,13 +132,15 @@ When the URI is relative, its base is always relative to the referring tileset J
 
 Client implementations are required to support relative external references and embedded resources. Optionally, client implementations may support other schemes (such as `http://`). All URIs must be valid and resolvable.
 
-## Units
+## 单元 Units
 
 The unit for all linear distances is meters.
 
 All angles are in radians.
 
-## Coordinate reference system (CRS)
+## 相关概念
+
+### 坐标参考系(CRS)
 
 3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. A tileset's global coordinate system will often be in a [WGS 84](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf) earth-centered, earth-fixed (ECEF) reference frame ([EPSG 4978](http://spatialreference.org/ref/epsg/4978/)), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
@@ -142,13 +148,11 @@ An additional [tile transform](#tile-transforms) may be applied to transform a t
 
 The [region](#region) bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically [EPSG 4979](http://spatialreference.org/ref/epsg/4979/).
 
-## Concepts
-
-### Tiles
+### 瓦片
 
 Tiles consist of metadata used to determine if a tile is rendered, a reference to the renderable content, and an array of any children tiles.
 
-#### Geometric error
+#### 几何误差
 
 Tiles are structured into a tree incorporating _Hierarchical Level of Detail_ (HLOD) so that at runtime a client implementation will need to determine if a tile is sufficiently detailed for rendering and if the content of tiles should be successively refined by children tiles of higher resolution. An implementation will consider a maximum allowed _Screen-Space Error_ (SSE), the error measured in pixels.
 
@@ -158,7 +162,7 @@ In a client implementation, geometric error is used with other screen space metr
 
 The geometric error is formulated based on a metric like point density, tile size in meters, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner.
 
-#### Refinement
+#### 精细化
 
 Refinement determines the process by which a lower resolution parent tile renders when its higher resolution children are selected to be rendered. Permitted refinement types are replacement (`"REPLACE"`) and additive (`"ADD"`). If the tile has replacement refinement, the children tiles are rendered in place of the parent, that is, the parent tile is no longer rendered. If the tile has additive refinement, the children are rendered in addition to the parent tile.
 
@@ -166,7 +170,7 @@ A tileset can use replacement refinement exclusively, additive refinement exclus
 
 A refinement type is required for the root tile of a tileset; it is optional for all other tiles. When omitted, a tile inherits the refinement type of its parent.
 
-##### Replacement
+##### 改变精度
 
 If a tile uses replacement refinement, when refined it renders its children in place of itself.
 
@@ -174,7 +178,7 @@ If a tile uses replacement refinement, when refined it renders its children in p
 |:---:|:--:|
 | ![](figures/replacement_1.jpg) | ![](figures/replacement_2.jpg) |
 
-##### Additive
+##### 增加精度
 
 If a tile uses additive refinement, when refined it renders itself and its children simultaneously.
 
@@ -182,7 +186,7 @@ If a tile uses additive refinement, when refined it renders itself and its child
 |:---:|:--:|
 | ![](figures/additive_1.jpg) | ![](figures/additive_2.jpg) |
 
-#### Bounding volumes
+#### 外接边界
 
 A bounding volume defines the spatial extent enclosing a tile or a tile's content. To support tight fitting volumes for a variety of datasets such as regularly divided terrain, cities not aligned with a line of latitude or longitude, or arbitrary point clouds, the bounding volume types include an oriented bounding box, a bounding sphere, and a geographic region defined by minimum and maximum latitudes, longitudes, and heights.
 
@@ -190,7 +194,7 @@ A bounding volume defines the spatial extent enclosing a tile or a tile's conten
 |:---:|:---:|:---:|
 | ![Bounding Box](figures/BoundingBox.jpg) | ![Bounding Sphere](figures/BoundingSphere.jpg) | ![Bounding Region](figures/BoundingRegion.jpg) |
 
-##### Region
+##### 外接边界区域
 
 The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order `[west, south, east, north, minimum height, maximum height]`. Latitudes and longitudes are in the WGS 84 datum as defined in [EPSG 4979](http://spatialreference.org/ref/epsg/4979/) and are in radians. Heights are in meters above (or below) the [WGS 84 ellipsoid](http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf).
 
@@ -209,7 +213,7 @@ The `boundingVolume.region` property is an array of six numbers that define the 
 }
 ```
 
-##### Box
+##### 外接边界盒子
 
 The `boundingVolume.box` property is an array of 12 numbers that define an oriented bounding box in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the _z_-axis is up. The first three elements define the x, y, and z values for the center of the box. The next three elements (with indices 3, 4, and 5) define the _x_-axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the _y_-axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the _z_-axis direction and half-length.
 
@@ -226,7 +230,7 @@ The `boundingVolume.box` property is an array of 12 numbers that define an orien
 }
 ```
 
-##### Sphere
+##### 外接边界球体
 
 The `boundingVolume.sphere` property is an array of four numbers that define a bounding sphere.  The first three elements define the x, y, and z values for the center of the sphere in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the _z_-axis is up.  The last element (with index 3) defines the radius in meters.
 
@@ -243,7 +247,7 @@ The `boundingVolume.sphere` property is an array of four numbers that define a b
 }
 ```
 
-#### Viewer request volume
+#### 视图请求外接边界
 
 A tile's `viewerRequestVolume` can be used for combining heterogeneous datasets, and can be combined with [external tilesets](#external-tilesets).
 
@@ -293,9 +297,9 @@ The following example has a building in a `b3dm` tile and a point cloud inside t
 
 For more on request volumes, see the [sample tileset](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples/tree/master/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
 
-#### Transforms
+#### 转换
 
-##### Tile transforms
+##### 瓦片转换
 
 To support local coordinate systems&mdash;e.g., so a building tileset inside a city tileset can be defined in its own coordinate system, and a point cloud tileset inside the building could, again, be defined in its own coordinate system&mdash;each tile has an optional `transform` property.
 
@@ -323,7 +327,7 @@ When `transform` is not defined, it defaults to the identity matrix:
 
 The transformation from each tile's local coordinate system to the tileset's global coordinate system is computed by a top-down traversal of the tileset and by post-multiplying a child's `transform` with its parent's `transform` like a traditional scene graph or node hierarchy in computer graphics.
 
-##### glTF transforms
+##### glTF转换
 
 [Batched 3D Model](TileFormats/Batched3DModel/README.md) and [Instanced 3D Model](TileFormats/Instanced3DModel/README.md) tiles embed glTF, which defines its own node hierarchy and uses a _y_-up coordinate system. Any transforms specific to a tile format and the `tile.transform` property are applied after these transforms are resolved.
 
@@ -424,7 +428,7 @@ function computeTransform(tile, transformToRoot) {
 }
 ```
 
-#### Tile JSON
+#### 瓦片JSON索引
 
 A tile JSON object consists of the following properties.
 
@@ -487,7 +491,7 @@ The `children` property is an array of objects that define child tiles. Each chi
 
 See [Property reference](#property-reference) for the tile JSON schema reference. The full JSON schema can be found in [`tile.schema.json`](./schema/tile.schema.json).
 
-### Tileset JSON
+### 瓦片集JSON索引
 
 3D Tiles uses one main tileset JSON file as the entry point to define a tileset. Both entry and external tileset JSON files are not required to follow a specific naming convention.
 
@@ -546,7 +550,7 @@ The tileset JSON has four top-level properties: `asset`, `properties`, `geometri
 
 `root` is an object that defines the root tile using the tile JSON described in the [above section](#tiles).  `root.geometricError` is not the same as the tileset's top-level `geometricError`. The tileset's `geometricError` is used at runtime to determine the SSE at which the tileset's root tile renders; `root.geometricError` is used at runtime to determine the SSE at which the root tile's children are rendered.
 
-#### External tilesets
+#### 外部瓦片集
 
 To create a tree of trees, a tile's `content.uri` can point to an external tileset (the uri of another tileset JSON file).  This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
 
@@ -560,7 +564,7 @@ When a tile points to an external tileset, the tile:
 
 ![](figures/tileTransformExternalTileset.png)
 
-#### Bounding volume spatial coherence
+#### 外接边界空间连续性
 
 As described above, the tree has spatial coherence; each tile has a bounding volume completely enclosing its content, and the content for child tiles are completely inside the parent's bounding volume.  This does not imply that a child's bounding volume is completely inside its parent's bounding volume.  For example:
 
@@ -574,7 +578,7 @@ As described above, the tree has spatial coherence; each tile has a bounding vol
   Bounding spheres for the four child tiles.  The children's content is completely inside the parent's bounding volume, but the children's bounding volumes are not since they are not tightly fit.
 </p>
 
-#### Spatial data structures
+#### 空间数据结构
 
 3D Tiles incorporates the concept of Hierarchical Level of Detail (HLOD) for optimal rendering of spatial data. A tileset is composed of a tree, defined by `root` and, recursively, its `children` tiles, which can be organized by different types of spatial data structures.
 
@@ -584,7 +588,7 @@ A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling
 
 Included below is a brief description of how 3D Tiles can represent various spatial data structures.
 
-##### Quadtrees
+##### 四叉树
 
 A quadtree is created when each tile has four uniformly subdivided children (e.g., using the center latitude and longitude), similar to typical 2D geospatial tiling schemes.  Empty child tiles can be omitted.
 
@@ -615,7 +619,7 @@ Below, the green buildings are in the left child and the purple buildings are in
 
 ![](figures/looseQuadtree.png)
 
-##### K-d trees
+##### K-d树
 
 A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the _x_, _y_, or _z_ axis (or latitude, longitude, height).  The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
 
@@ -628,7 +632,7 @@ Note that a k-d tree does not have uniform subdivision like typical 2D geospatia
 
 3D Tiles enables variations on k-d trees such as [multi-way k-d trees](http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Goswami:2013:EMF%27) where, at each leaf of the tree, there are multiple splits along an axis.  Instead of having two children per tile, there are `n` children.
 
-##### Octrees
+##### 八叉树
 
 An octree extends a quadtree by using three orthogonal splitting planes to subdivide a tile into eight children.  Like quadtrees, 3D Tiles allows variations to octrees such as non-uniform subdivision, tight bounding volumes, and overlapping children.
 
@@ -642,7 +646,7 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
   Non-uniform octree subdivision for a point cloud using additive refinement. Point Cloud of <a href="http://robotics.cs.columbia.edu/~atroccol/ijcv/chappes.html">the Church of St Marie at Chappes, France</a> by Prof. Peter Allen, Columbia University Robotics Lab. Scanning by Alejandro Troccoli and Matei Ciocarlie.
 </p>
 
-##### Grids
+##### 空间网格
 
 3D Tiles enables uniform, non-uniform, and overlapping grids by supporting an arbitrary number of child tiles.  For example, here is a top-down view of a non-uniform overlapping grid of Cambridge:
 
@@ -650,11 +654,11 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 
 3D Tiles takes advantage of empty tiles: those tiles that have a bounding volume, but no content. Since a tile's `content` property does not need to be defined, empty non-leaf tiles can be used to accelerate non-uniform grids with hierarchical culling. This essentially creates a quadtree or octree without hierarchical levels of detail (HLOD).
 
-### Specifying extensions and application specific extras
+### 扩展与附加应用
 
 3D Tiles defines extensions to allow the base specification to have extensibility for new features, as well as extras to allow for application specific metadata.
 
-#### Extensions
+#### 扩展
 
 Extensions allow the base specification to be extended with new features. The optional `extensions` dictionary property may be added to any 3D Tiles JSON object, which contains the name of the extensions and the extension specific objects. The following example shows a tile object with a hypothetical vendor extension which specifies a separate collision volume.
 ```JSON
@@ -702,7 +706,7 @@ All extensions used in a tileset or any descendant external tilesets must be lis
 
 All extensions required to load and render a tileset or any descendant external tilesets must also be listed in the entry tileset JSON in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` must also exist in `extensionsUsed`.
 
-#### Extras
+#### 附加应用
 
 The `extras` property allows application specific metadata to be added to any 3D Tiles JSON object. The following example shows a tile object with an additional application specific name property.
 ```JSON
@@ -733,7 +737,7 @@ The `extras` property allows application specific metadata to be added to any 3D
 
 See [Property reference](#property-reference) for the tileset JSON schema reference. The full JSON schema can be found in [`tileset.schema.json`](./schema/tileset.schema.json).
 
-## Tile format specifications
+## 瓦片格式说明
 
 Each tile's `content.uri` property may be the uri of binary blob that contains information for rendering the tile's 3D content. The content is an instance of one of the formats listed in the table below.
 
@@ -746,7 +750,7 @@ Format|Uses
 
 A tileset can contain any combination of tile formats.  3D Tiles may also support different formats in the same tile using a [Composite](./TileFormats/Composite/README.md) tile.
 
-## Declarative styling specification
+## 样式声明
 
 3D Tiles includes concise declarative styling defined with JSON and expressions written in a small subset of JavaScript augmented for styling.
 
@@ -761,7 +765,7 @@ The following example colors features with a height above 90 as red and the othe
 
 For complete details, see the [Declarative Styling](./Styling/) specification.
 
-## Property reference
+## 参考
 
 * [`Tileset`](#reference-tileset)
   * [`Asset`](#reference-asset)
@@ -1175,7 +1179,7 @@ Application-specific data.
 * **Required**: No
 
 
-## License
+## 许可
 
 Copyright 2016 - 2018 Cesium
 
