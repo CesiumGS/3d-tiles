@@ -1242,7 +1242,7 @@ For example:
 ```
 
 > **Implementation Note:** Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Some of these features include:
-> * Evaluation of `isNan` and `isFinite` (GLSL 2.0+ supports `isnan` and `isinf` for these functions respectively)
+> * Evaluation of `isNaN` and `isFinite` (GLSL 2.0+ supports `isnan` and `isinf` for these functions respectively)
 > * The types `null` and `undefined`
 > * Strings, including accessing object properties (`color()['r']`) and batch table values
 > * Regular expressions
