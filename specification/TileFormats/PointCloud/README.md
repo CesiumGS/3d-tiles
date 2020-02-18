@@ -153,7 +153,7 @@ The normals will be transformed using the inverse transpose of the tileset trans
 
 Oct-encoding is described in [*A Survey of Efficient Representations of Independent Unit Vectors*](http://jcgt.org/published/0003/02/01/). Oct-encoded values are stored in unsigned, unnormalized range (`[0, 255]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
 
-> An implementation for encoding and decoding these unit vectors can be found in Cesium's [AttributeCompression](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/AttributeCompression.js)
+> An implementation for encoding and decoding these unit vectors can be found in CesiumJS's [AttributeCompression](https://github.com/CesiumGS/cesium/blob/master/Source/Core/AttributeCompression.js)
 module.
 
 ### Batched points
@@ -343,7 +343,7 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 
 _This section is non-normative_
 
-Code for reading the header can be found in [`PointCloud3DModelTileContent.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/PointCloud3DTileContent.js) in the Cesium implementation of 3D Tiles.
+Code for reading the header can be found in [`PointCloud3DModelTileContent.js`](https://github.com/CesiumGS/cesium/blob/master/Source/Scene/PointCloud3DTileContent.js) in the CesiumJS implementation of 3D Tiles.
 
 ## Property reference
 

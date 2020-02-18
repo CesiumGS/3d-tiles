@@ -163,7 +163,7 @@ var geographicArray = new Float64Array(batchTableBinary.buffer, byteOffset, geog
 var geographicOfFeature = positionArray.subarray(batchId * numberOfComponents, batchId * numberOfComponents + numberOfComponents); // Using subarray creates a view into the array, and not a new array.
 ```
 
-Code for reading the Batch Table can be found in [`Cesium3DTileBatchTable.js`](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Scene/Cesium3DTileBatchTable.js) in the Cesium implementation of 3D Tiles.
+Code for reading the Batch Table can be found in [`Cesium3DTileBatchTable.js`](https://github.com/CesiumGS/cesium/blob/master/Source/Scene/Cesium3DTileBatchTable.js) in the CesiumJS implementation of 3D Tiles.
 
 ## Property reference
 

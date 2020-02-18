@@ -8,9 +8,9 @@ This document describes the specification for 3D Tiles, an open standard for str
 
 
 Editors:
-  * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [pcozzi@agi.com](mailto:pcozzi@agi.com)
-  * Sean Lilley, [@lilleyse](https://twitter.com/lilleyse), [slilley@agi.com](mailto:slilley@agi.com)
-  * Gabby Getz, [@gabbygetz](https://twitter.com/gabbygetz), [ggetz@agi.com](mailto:ggetz@agi.com)
+  * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi), [patrick@cesium.com](mailto:patrick@cesium.com)
+  * Sean Lilley, [@lilleyse](https://twitter.com/lilleyse), [sean@cesium.com](mailto:sean@cesium.com)
+  * Gabby Getz, [@gabbygetz](https://twitter.com/gabbygetz), [gabby@cesium.com](mailto:gabby@cesium.com)
 
 Acknowledgements:
 * Matt Amato, [@matt_amato](https://twitter.com/matt_amato)
@@ -291,7 +291,7 @@ The following example has a building in a `b3dm` tile and a point cloud inside t
 }
 ```
 
-For more on request volumes, see the [sample tileset](https://github.com/AnalyticalGraphicsInc/3d-tiles-samples/tree/master/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
+For more on request volumes, see the [sample tileset](https://github.com/CesiumGS/3d-tiles-samples/tree/master/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
 
 #### Transforms
 
@@ -395,7 +395,7 @@ Therefore, the full computed transforms for the above example are:
 
 _This section is non-normative_
 
-The following JavaScript code shows how to compute this using Cesium's [Matrix4](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix4.js) and [Matrix3](https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/Matrix3.js) types.
+The following JavaScript code shows how to compute this using Cesium's [Matrix4](https://github.com/CesiumGS/cesium/blob/master/Source/Core/Matrix4.js) and [Matrix3](https://github.com/CesiumGS/cesium/blob/master/Source/Core/Matrix3.js) types.
 
 ```javascript
 function computeTransforms(tileset) {
@@ -477,7 +477,7 @@ A file extension is not required for `content.uri`.  A content's [tile format](#
 
 The `content.boundingVolume` property defines an optional [bounding volume](#bounding-volumes) similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's content.  `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling, excluding from rendering any content not in the volume of what is potentially in view.  When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
 
-The screenshot below shows the bounding volumes for the root tile for [Canary Wharf](http://cesiumjs.org/CanaryWharf/).  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
+The screenshot below shows the bounding volumes for the root tile for Canary Wharf.  `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
 
 ![](figures/contentsBox.png)
 
@@ -491,7 +491,7 @@ See [Property reference](#property-reference) for the tile JSON schema reference
 
 3D Tiles uses one main tileset JSON file as the entry point to define a tileset. Both entry and external tileset JSON files are not required to follow a specific naming convention.
 
-Here is a subset of the tileset JSON used for [Canary Wharf](http://cesiumjs.org/CanaryWharf/) (also see the complete file, [`tileset.json`](../examples/tileset.json)):
+Here is a subset of the tileset JSON used for Canary Wharf (also see the complete file, [`tileset.json`](../examples/tileset.json)):
 ```json
 {
   "asset" : {
@@ -1177,7 +1177,7 @@ Application-specific data.
 
 ## License
 
-Copyright 2016 - 2018 Cesium
+Copyright 2016 - 2020 Cesium GS, Inc.
 
 This Specification is licensed under a [Creative Commons Attribution 4.0 International License (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/).
 

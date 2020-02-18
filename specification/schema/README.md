@@ -6,7 +6,7 @@ Parts of 3D Tiles, such as [Tileset JSON](../README.md#tileset-json), [Feature T
 
 A JSON object can be validated against the schema using a JSON schema validator such as [Ajv: Another JSON Schema Validator](https://github.com/epoberezkin/ajv), which supports JSON Schema draft v4.  A command-line tool is available on npm as [ajv-cli](https://www.npmjs.com/package/ajv-cli).
 
-Validating against the schema does not prove full compliance with the 3D Tiles specification since not all requirements can be represented with JSON schema.  For full compliance validation, see [3d-tiles-tools](https://github.com/AnalyticalGraphicsInc/3d-tiles-tools/).
+Validating against the schema does not prove full compliance with the 3D Tiles specification since not all requirements can be represented with JSON schema.  For full compliance validation, see [3d-tiles-validator](https://github.com/CesiumGS/3d-tiles-validator/).
 
 ### Example
 
