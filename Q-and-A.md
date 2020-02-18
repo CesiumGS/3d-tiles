@@ -23,15 +23,15 @@
 
 #### Is 3D Tiles specific to Cesium?
 
-No, 3D Tiles is a general spec for streaming massive heterogeneous 3D geospatial datasets.  The Cesium team started this initiative because we need an open format optimized for streaming 3D content to Cesium.  [AGI](http://www.agi.com/), the founder of Cesium, is also developing tools for creating 3D Tiles.  We expect to see other visualization engines and conversion tools use 3D Tiles.
+No, 3D Tiles is a general spec for streaming massive heterogeneous 3D geospatial datasets.  The Cesium team started this initiative because we need an open format optimized for streaming 3D content to CesiumJS.  We expect to see other visualization engines and conversion tools use 3D Tiles.
 
 #### What is the relationship between 3D Tiles and glTF?
 
-[glTF](https://www.khronos.org/gltf) is an open standard for 3D models from Khronos (the same group that does WebGL and COLLADA).  Cesium uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter.  We recommend using glTF in Cesium for individual assets, e.g., an aircraft, a character, or a 3D building.
+[glTF](https://www.khronos.org/gltf) is an open standard for 3D models from Khronos (the same group that does WebGL and COLLADA).  CesiumJS uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter.  We recommend using glTF in CesiumJS for individual assets, e.g., an aircraft, a character, or a 3D building.
 
-We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, that Cesium has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles use glTF for some tile formats such as [Batched 3D Model](./specification/TileFormats/Batched3DModel/README.md).
+We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, that CesiumJS has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles use glTF for some tile formats such as [Batched 3D Model](./specification/TileFormats/Batched3DModel/README.md).
 
-Taking this approach allows us to improve Cesium, glTF, and 3D Tiles at the same time, e.g., when we add mesh compression to glTF, it benefits 3D models in Cesium, the glTF ecosystem, and 3D Tiles.
+Taking this approach allows us to improve CesiumJS, glTF, and 3D Tiles at the same time, e.g., when we add mesh compression to glTF, it benefits 3D models in CesiumJS, the glTF ecosystem, and 3D Tiles.
 
 #### Does 3D Tiles support runtime editing?
 
@@ -41,7 +41,7 @@ The general case runtime editing of geometry on a building, vector data, etc., a
 
 #### Will 3D Tiles include terrain?
 
-Yes, a [quantized-mesh](https://github.com/AnalyticalGraphicsInc/quantized-mesh/blob/master/README.md)-like tile would fit well with 3D Tiles and allow engines to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to the tileset JSON).
+Yes, a [quantized-mesh](https://github.com/CesiumGS/quantized-mesh/blob/master/README.md)-like tile would fit well with 3D Tiles and allow engines to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to the tileset JSON).
 
 However, since quantized-mesh already streams terrain well, we are not focused on this in the short-term.
 
@@ -89,7 +89,7 @@ At runtime, a tile's `geometricError` is used to compute the screen space error 
 
 However, we do anticipate other metadata for driving refinement.  SSE may not be appropriate for all datasets; for example, points of interest may be better served with on/off distances and a label collision factor computed at runtime.  Note that the viewer's height above the ground is rarely a good metric for 3D since 3D supports arbitrary views.
 
-See [#15](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/15).
+See [#15](https://github.com/CesiumGS/3d-tiles/issues/15).
 
 #### How are cracks between tiles with vector data handled?
 
@@ -101,7 +101,7 @@ Often when using replacement refinement, a tile's children are not rendered unti
 
 We may design 3D Tiles to support downloading all children in a single request by allowing the tileset to point to a subset of a payload for a tile's content similiar to glTF [buffers and buffer views](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views).  [HTTP/2](http://chimera.labs.oreilly.com/books/1230000000545/ch12.html#_brief_history_of_spdy_and_http_2) will also make the overhead of multiple requests less important.
 
-See [#9](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/9).
+See [#9](https://github.com/CesiumGS/3d-tiles/issues/9).
 
 #### How can additive refinement be optimized?
 
@@ -109,7 +109,7 @@ Compared to replacement refinement, additive refinement has a size advantage bec
 
 3D Tiles can optimize this by storing an optional spatial data structure in each tile.  For example, a tile could contain a simple 2x2 grid, and if the tile's bounding volume is not completely inside the view frustum, each box in the grid is checked against the frustum, and only those inside or intersecting are rendered.
 
-See [#11](https://github.com/AnalyticalGraphicsInc/3d-tiles/issues/11).
+See [#11](https://github.com/CesiumGS/3d-tiles/issues/11).
 
 #### What compressed texture formats does 3D Tiles use?
 

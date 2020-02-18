@@ -3,7 +3,7 @@
 To add any schema or markdown updates to the 3D Tiles Specification PDF, take the following steps:
 
 1. Generate markdown property references from the schema.
-    * Run the [wetzel](https://github.com/AnalyticalGraphicsInc/wetzel) tool on the schema to generate markdown property reference on the schemas in the `specification/schema` directory.
+    * Run the [wetzel](https://github.com/CesiumGS/wetzel) tool on the schema to generate markdown property reference on the schemas in the `specification/schema` directory.
     * Paste the generated markdown in the corresponding section of `specification/README.md` or the `specification/TileFormats/<TILE_FORMAT>/README.md`.
 
 1. Generate a `.docx` file for each section.

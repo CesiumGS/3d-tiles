@@ -1,6 +1,6 @@
 ## Who's using 3D Tiles?
 
-![](figures/ecosystem/composer.jpg) [Cesium ion](https://www.cesium.com/) converters | ![](figures/ecosystem/AGI.jpg) [Cesium](http://cesiumjs.org/) |
+![](figures/ecosystem/composer.jpg) [Cesium ion](https://cesium.com/) converters | ![](figures/ecosystem/AGI.jpg) [CesiumJS](https://cesium.com/cesiumjs/) |
 |:---:|:---:|
 ![](figures/ecosystem/Vricon.jpg) [Vricon](http://www.vricon.com/) | ![](figures/ecosystem/swisstopo.jpg) Federal Office of Topography <br/> [swisstopo](https://map.geo.admin.ch)  |
 ![](figures/ecosystem/BentleyContextCapture.jpg) [Bentley ContextCapture](https://www.linkedin.com/pulse/contextcapture-web-publishing-cesium-aude-camus) | ![](figures/ecosystem/microstation.jpg) [Bentley MicroStation](https://www.bentley.com/en/products/brands/microstation) (in progress) |
@@ -11,5 +11,5 @@
 ![](figures/ecosystem/sitesee.jpg) [SiteSee](http://www.sitesee.com.au/) (using three.js) | [Peaxy](https://peaxy.net/)  |
 ![](figures/ecosystem/virtualgis.jpg) [VirtualGIS](https://www.virtualgis.io/) | ![](figures/ecosystem/grandlyon.jpg) [LOPoCS ](https://github.com/Oslandia/lopocs) and [py3dtiles](https://github.com/Oslandia/py3dtiles)
 ![](figures/ecosystem/itowns.jpg) [iTowns 2](https://github.com/iTowns/itowns) | ![](figures/ecosystem/osm-cesium-3d-tiles.jpg) [osm-cesium-3d-tiles](https://github.com/kiselev-dv/osm-cesium-3d-tiles) |
-![](figures/ecosystem/geopipe.jpg) [geopipe](https://geopi.pe/) | ![](figures/ecosystem/poulain.jpg) [3D Digital Territory Lab](https://cesiumjs.org/demos/grandlyon/) |
-![](figures/ecosystem/cesme.jpg) [Çeşme 3D City Model](https://cesiumjs.org/demos/Cesme3DCityModel/) |
+![](figures/ecosystem/geopipe.jpg) [geopipe](https://geopi.pe/) | ![](figures/ecosystem/poulain.jpg) [3D Digital Territory Lab](https://cesium.com/blog/2018/02/05/digital-territory-lab/) |
+![](figures/ecosystem/cesme.jpg) [Çeşme 3D City Model](https://cesium.com/blog/2018/03/26/cesme-3d-city-model/) |
