@@ -2,9 +2,9 @@
 
 [![](figures/../../figures/3d-tiles-overview-single-layout-8x3.jpg)](../3d-tiles-overview.pdf)
 
-The [**3D Tiles Overview**](../3d-tiles-overview.pdf) is an approachable and concise guide to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles support into runtime engines for visualization and analysis of massive heterogeneous 3D geospatial content.
+The [**3D Tiles Overview**](../3d-tiles-overview.pdf) is an approachable and concise guide to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles into runtime engines for visualization and analysis of massive heterogeneous 3D geospatial content.
 
-This guide augments the fully detailed 3D Tiles specification with concise coverage of key concepts to help developers jumpstart adopting 3D Tiles.
+This guide augments the fully detailed 3D Tiles specification with coverage of key concepts to help developers jumpstart adopting 3D Tiles.
 
 ## Changelog
 
@@ -22,6 +22,6 @@ The resulting PDF files can be combined with any PDF tool, for example [PDFtk Se
 
 ### Resources
 
-The `/resources` subdirectory contains the images (screenshots and SVG versions of the logos) that are used in the overview. They are not necessary for creating the PDF files, but added here for reference.
+The `/resources` subdirectory contains the images (screenshots and SVG versions of the logos) that are used in the overview. They are not necessary for creating the PDF files, but are added here for reference.
 
 The file `/resources/3d-tiles-overview-tables.odt` is an [OpenDocument Text](https://en.wikipedia.org/wiki/OpenDocument) that can be edited with any standard office program. It contains most of the tables that are used in the overview. In order to change one of the tables, it is edited in the ODT file, exported as PDF, and imported into Inkscape. (Considering the limited support for tables in Inkscape, this still seemed to be the most simple approach here.)

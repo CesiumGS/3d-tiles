@@ -49,9 +49,9 @@ See the [3D Tiles Ecosystem](./ECOSYSTEM.md) for examples of who's using 3D Tile
 
 <a href="./3d-tiles-overview.pdf"><img src="./figures/3d-tiles-overview-page-1.jpg" width="300px"></a>
 
-The [**3D Tiles Overview**](./3d-tiles-overview.pdf) is an approachable and concise guide to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles support into runtime engines for visualization and analysis of massive heterogeneous 3D geospatial content.
+The [**3D Tiles Overview**](./3d-tiles-overview.pdf) is an approachable and concise guide to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles into runtime engines for visualization and analysis of massive heterogeneous 3D geospatial content.
 
-This guide augments the fully detailed 3D Tiles specification with concise coverage of key concepts to help developers jumpstart adopting 3D Tiles.
+This guide augments the fully detailed 3D Tiles specification with coverage of key concepts to help developers jumpstart adopting 3D Tiles.
 
 ## Future Work
 
