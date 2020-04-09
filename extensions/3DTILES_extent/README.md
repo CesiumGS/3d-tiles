@@ -15,13 +15,13 @@
 
 ## Overview
 
-This extension allows the user to annotate the existence of a 2D region(s) (an extent) in a given tileset JSON via a 2D array of decimal coordinate pairs. The first two elements of each coordinate are the longitude (easting) followed by the latitude (northing). The elevation / altitude may be provided as an optional third component for **each** extent coordinate pair: If one coordinate has an explicit elevation, all coordinates must also have explicit elevations. The extension is useful for a variety of scenarios such as: Overlaying high resolution geometry ontop of low level geometry, defining a 2D collision boundary, or clipping excess geometry inside of a provided tileset.
+This extension allows the user to annotate the existence of a 2D region(s) (an extent) in a given tileset JSON via a 2D array of decimal coordinate pairs. The first two elements of each coordinate are the longitude (easting) followed by the latitude (northing). The elevation / altitude may be provided as an optional third component for **each** extent coordinate pair: If one coordinate has an explicit elevation, all coordinates must also have explicit elevations. The extension is useful for a variety of scenarios such as: Overlaying high resolution geometry on top of low level geometry, defining a 2D collision boundary, or clipping excess geometry inside of a provided tileset.
 
 ## Defining Extents
 
-An extent is a collection of longitude and latitude coordinate pairs. Extents are two dimensional in nature, but an optional third component can be specified for **each** extent coordinate to specify its height (in meters) above the WGS84 ellipsoid. The coordinate pairs should be provided in **counterclockwise** winding order. Multiple extents can be specified. Convex and concave extents are both supported. At least three coordinates must be provided for an extent to be valid. Extends may overlap each other, but self-intersecting extens are forbidden.
+An extent is a collection of longitude and latitude coordinate pairs. Extents are two-dimensional in nature, but an optional third component can be specified for **each** extent coordinate to specify its height (in meters) above the WGS84 ellipsoid. The coordinate pairs should be provided in **counterclockwise** winding order. Multiple extents can be specified. Convex and concave extents are both supported. At least three coordinates must be provided for an extent to be valid. Extents may overlap each other, but self-intersecting extents are forbidden.
 
-The extent region definitions can be directly embedded in the `tileset JSON` or located in a separate file and referred to using a `uri` reference in the corresponding `tileset JSON` file.
+The extent region definitions can be directly embedded in the tileset JSON or located in a separate file and referred to using a `uri` reference in the corresponding tileset JSON file.
 
 ### External extent definition
 
@@ -99,7 +99,7 @@ The extent region definitions can be directly embedded in the `tileset JSON` or 
 
 ## Holes in Extents
 
-Holes are also supported, simpliy provide a `holes` object for a given polygon, e.g:
+Extents support holes; simply provide a `holes` object for a given polygon, e.g:
 
 ```json
   "extensions": {
@@ -128,7 +128,7 @@ Holes are also supported, simpliy provide a `holes` object for a given polygon, 
   }
 ```
 
-Holes should be provided in **counterclockwise** winding order, and at least three coordinates must be provided. Holes may overlap each other, but self-intersecting holes are forbidden. Any overlapping holes are treated as a boolean union.
+Holes should be provided in **counterclockwise** winding order, and at least three coordinates must be provided. Holes may overlap each other, but self-intersecting holes are forbidden. Overlapping holes are treated as a boolean union.
 
 ## Arc Types
 
@@ -136,4 +136,4 @@ Lines formed by consecutive coordinates represent **geodesic** lines. These are 
 
 ## Coordinate System
 
-Coordinates specified in the extent / holes section should adhere to the Cartographic ESPG:4326 standard (lattitude, then longitude).
+Coordinates specified in the extent / holes section should be provided in longitude / latitude order and represent coordinates relative to the WGS84 ellipsoid.
