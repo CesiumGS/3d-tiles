@@ -15,7 +15,7 @@
 
 ## Overview
 
-This extension allows the user to annotate the existence of a smaller 2D region(s) (an extent) in a given `tileset.json` via a 2D array of latitude, longitude pairs. This is useful for a variety of scenarios such as: Overlaying high resolution geometry ontop of low level geometry, insetting one tileset into another tileset, or clipping excess geometry inside of a provided tileset.
+This extension allows the user to annotate the existence of a 2D region(s) (an extent) in a given `tileset.json` via a 2D array of latitude, longitude pairs. This is useful for a variety of scenarios such as: Overlaying high resolution geometry ontop of low level geometry, insetting one tileset into another tileset, or clipping excess geometry inside of a provided tileset.
 
 ## Defining Extents
 
