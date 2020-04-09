@@ -19,7 +19,7 @@ This extension allows the user to annotate the existence of a 2D region(s) (an e
 
 ## Defining Extents
 
-An extent is a collection of latitude and longitude coordinate pairs. Extents are two dimensional in nature, but an optional third component can be specified for **each** extent coordinate to specify its height (in meters). The coordinate pairs should be provided in **counterclockwise** winding order. Multiple extents can be specified. Convex and concave extents are both supported. At least three coordinates must be provided for an extent to be valid.
+An extent is a collection of latitude and longitude coordinate pairs. Extents are two dimensional in nature, but an optional third component can be specified for **each** extent coordinate to specify its height (in meters). The coordinate pairs should be provided in **counterclockwise** winding order. Multiple extents can be specified. Convex and concave extents are both supported. At least three coordinates must be provided for an extent to be valid. Extends may overlap each other, but self-intersecting extens are forbidden.
 
 The extent region definitions can be directly embedded in the `tileset JSON` or located in a separate file and referred to using a `uri` reference in the corresponding `tileset JSON` file.
 
