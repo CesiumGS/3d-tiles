@@ -7,11 +7,17 @@
 
 ## Contents
 
-* [Overview](#overview)
-* [Defining Extents](#defining-extents)
-* [Holes in Extents](#holes-in-extents)
-* [Arc Types](#arc-types)
-* [Coordinate System](#coordinate-system)
+- [3DTILES_extent](#3dtilesextent)
+  - [Contributors](#contributors)
+  - [Contents](#contents)
+  - [Overview](#overview)
+  - [Defining Extents](#defining-extents)
+    - [External extent definition](#external-extent-definition)
+    - [`extent.json`](#extentjson)
+    - [Embedded extent definition](#embedded-extent-definition)
+  - [Holes in Extents](#holes-in-extents)
+  - [Arc Types](#arc-types)
+  - [Coordinate System](#coordinate-system)
 
 ## Overview
 
