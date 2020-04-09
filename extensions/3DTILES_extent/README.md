@@ -2,8 +2,8 @@
 
 ## Contributors
 
-* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Samuel Vargas [@Samulus](https://github.com/Samulus)
+* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 
 ## Contents
 
