@@ -15,7 +15,7 @@
 
 ## Overview
 
-This extension allows the user to annotate the existence of a 2D region(s) (an extent) in a given tileset JSON via a 2D array of decimal coordinate pairs. The first two elements of each coordinate are the longitude (easting) followed by the latitude (northing). The elevation / altitude may be provided as an optional third component for **each** extent coordinate pair: If one coordinate has an explicit elevation, all coordinates must also have explicit elevations. The extension is useful for a variety of scenarios such as: Overlaying high resolution geometry ontop of low level geometry, insetting one tileset into another tileset, or clipping excess geometry inside of a provided tileset.
+This extension allows the user to annotate the existence of a 2D region(s) (an extent) in a given tileset JSON via a 2D array of decimal coordinate pairs. The first two elements of each coordinate are the longitude (easting) followed by the latitude (northing). The elevation / altitude may be provided as an optional third component for **each** extent coordinate pair: If one coordinate has an explicit elevation, all coordinates must also have explicit elevations. The extension is useful for a variety of scenarios such as: Overlaying high resolution geometry ontop of low level geometry, defining a 2D collision boundary, or clipping excess geometry inside of a provided tileset.
 
 ## Defining Extents
 
