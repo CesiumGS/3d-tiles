@@ -115,14 +115,17 @@ Holes are also supported, simpliy provide a `holes` object for a given polygon, 
               [32.511166344475825, -116.61512629247555]
             ],
             "holes": [
+              [
                 [32.2032301338380, -116.61521629247]
                 [32.3482030238302, -116.323208320832]
                 [32.7382033280322, -116.4830243804380]
+              ]
             ]
           }
         ]
       }
     }
+  }
 ```
 
 Holes should be provided in **counterclockwise** winding order, and at least three coordinates must be provided.
