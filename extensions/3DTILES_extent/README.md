@@ -128,7 +128,7 @@ Holes are also supported, simpliy provide a `holes` object for a given polygon, 
   }
 ```
 
-Holes should be provided in **counterclockwise** winding order, and at least three coordinates must be provided.
+Holes should be provided in **counterclockwise** winding order, and at least three coordinates must be provided. Holes may overlap each other, but self-intersecting holes are forbidden.
 
 ## Arc Types
 
