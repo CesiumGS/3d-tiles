@@ -15,17 +15,17 @@
 
 ## Overview
 
-This extension allows the user to annotate the existence of a 2D region(s) (an extent) in a given `tileset.json` via a 2D array of latitude, longitude pairs. This is useful for a variety of scenarios such as: Overlaying high resolution geometry ontop of low level geometry, insetting one tileset into another tileset, or clipping excess geometry inside of a provided tileset.
+This extension allows the user to annotate the existence of a 2D region(s) (an extent) in a given `tileset JSON` via a 2D array of latitude, longitude pairs. This is useful for a variety of scenarios such as: Overlaying high resolution geometry ontop of low level geometry, insetting one tileset into another tileset, or clipping excess geometry inside of a provided tileset.
 
 ## Defining Extents
 
 An extent is a collection of latitude and longitude coordinate pairs. Extents are two dimensional in nature, but an optional third component can be specified for **each** extent coordinate to specify its height (in meters). The coordinate pairs should be provided in **counterclockwise** winding order. Multiple extents can be specified. Convex and concave extents are both supported. At least three coordinates must be provided for an extent to be valid.
 
-The extent region definitions can be directly embedded in the `tileset.json` or located in a separate file and referred to using a `uri` reference in the corresponding `tileset.json` file.
+The extent region definitions can be directly embedded in the `tileset JSON` or located in a separate file and referred to using a `uri` reference in the corresponding `tileset JSON` file.
 
 ### External extent definition
 
-`tileset.json`
+`tileset JSON`
 
 ```json
 {
@@ -65,7 +65,7 @@ The extent region definitions can be directly embedded in the `tileset.json` or 
 
 ### Embedded extent definition
 
-`tileset.json`
+`tileset JSON`
 
 ```json
 {
