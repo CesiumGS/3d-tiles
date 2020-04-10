@@ -131,7 +131,7 @@ Extents support holes; simply provide a `holes` array for a given polygon, e.g:
   }
 ```
 
-Holes should be provided in **counterclockwise** winding order, and at least three coordinates must be provided. Holes may overlap each other, but self-intersecting holes are forbidden. Overlapping holes are treated as a boolean union. Holes may go beyond the extent.
+Holes should be provided in **counterclockwise** winding order, and at least three coordinates must be provided. Holes may **not** overlap each other and self-intersecting holes are forbidden. Holes may not extend beyond the specified extent.
 
 ## Arc Types
 
