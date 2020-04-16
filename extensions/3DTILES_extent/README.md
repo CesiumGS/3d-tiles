@@ -18,6 +18,7 @@
   - [Holes in Extents](#holes-in-extents)
   - [Arc Types](#arc-types)
   - [Coordinate System](#coordinate-system)
+  - [Example](#example)
 
 ## Overview
 
@@ -140,3 +141,9 @@ Lines formed by consecutive coordinates represent **geodesic** lines. These are 
 ## Coordinate System
 
 Coordinates specified in the extent / holes section should be provided in longitude / latitude order and represent coordinates relative to the WGS84 ellipsoid.
+
+## Example
+
+Two polygons, one with a hole and one without. The combined extent is the boolean union of the two polygons.
+
+<img src="./figures/multiple-polygons.png" width="400">
