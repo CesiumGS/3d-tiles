@@ -13,6 +13,7 @@
    * [Operators](#operators)
    * [Types](#types)
       * [Number](#number)
+      * [String](#string)
       * [vec2](#vector)
       * [vec3](#vector)
       * [vec4](#vector)
@@ -264,6 +265,10 @@ As in JavaScript, numbers can be `NaN` or `Infinity`.  The following test functi
 * `isNaN(testValue : Number) : Boolean`
 * `isFinite(testValue : Number) : Boolean`
 
+#### String
+
+Strings are encoded in UTF-8.
+
 #### Vector
 
 The styling language includes 2, 3, and 4 component floating-point vector types: `vec2`, `vec3`, and `vec4`. Vector constructors share the same rules as GLSL:
@@ -508,7 +513,7 @@ Euler's constant and the base of the natural logarithm, approximately `2.71828`.
 
 ### Variables
 
-Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)) template literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name.  `feature` is implicit and can be omitted in most cases.
+Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)) template literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name. Variable names are encoded in UTF-8. `feature` is implicit and can be omitted in most cases. If the identifier contains non-alphanumeric characters, such as `:`, `-`, `#`, or spaces, the `${feature['identifier']}` form should be used.
 
 Variables can be used anywhere a valid expression is accepted, except inside other variable identifiers. For example, the following is not allowed:
 ```
