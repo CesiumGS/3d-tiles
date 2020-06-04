@@ -1,0 +1,10 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "3DTILES_tile_metadata extension",
+    "type": "object",
+    "properties": {
+        "properties": {
+            "$ref": "3DTILES_tile_metadata.property.json"
+        }
+    }
+}
