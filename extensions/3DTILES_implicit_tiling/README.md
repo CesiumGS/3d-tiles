@@ -2,7 +2,30 @@
 
 ## Contributors
 
-Cesium Man
+- Sean Lilley, Cesium
+- Patrick Cozzi, Cesium
+- Sam Suhag, Cesium
+
+## Contents
+
+* [Overview](#overview)
+* [Concepts](#concepts)
+    * [Tiling Scheme](#tiling-scheme)
+    * [Levels](#levels)
+    * [Tile Location](#tile-location)
+    * [Tile States](#tile-states)
+        * [Subdivision](#subdivision)
+        * [Content](#content)
+        * [Metadata](#metadata)
+    * [Bitstream Layout](#bitstream-layout)
+    * [Root Tiles](#root-tiles)
+    * [Jump Buffer](#jump-buffer)
+* [Properties Reference](#properties-reference)
+* [Appendix](#appendix)
+    * [Algorithms](#algorithms)
+        * [Jump Buffer Construction](#jump-buffer-construction)
+        * [Tile Index Lookup](#tile-index)
+    * [Samples](#samples)
 
 ## Overview
 
@@ -256,7 +279,7 @@ Provides information about the content of the tileset.
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**levelOffset**|`number`|An integer describing which level the content bitsream, if provided, starts at|No|
-|**levelOffsetFill**|`number`|An integer describing the default value for the content bit for all levels up to the `levelOffset`.|No|
+|**levelOffsetFill**|`number`|An integer describing the state value for the content bit for all levels up to the `levelOffset`.|No|
 |**bufferView**|`number`|An index to the buffer view containing the content buffer.|No|
 
 ---
@@ -270,7 +293,7 @@ Provides information about the metadata of the tileset.
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**levelOffset**|`number`|An integer describing which level the metadata bitsream, if provided, starts at|No|
-|**levelOffsetFill**|`number`|An integer describing the default value for the metadata bit for all levels up to the `levelOffset`.|No|
+|**levelOffsetFill**|`number`|An integer describing the state value for the metadata bit for all levels up to the `levelOffset`.|No|
 |**bufferView**|`number`|An index to the buffer view containing the metadata buffer.|No|
 
 ## Appendix
@@ -300,7 +323,7 @@ function createJumpBuffer(sBuffer) {
 }
 ```
 
-#### Tile index
+#### Tile Index Lookup
 
 ```javascript
 function getIndex(level, x, y, z) {
@@ -341,7 +364,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 
 #### Complete Quadtree
 
-##### Base Tileset
+##### Base Tileset - tileset.json
 
 ```json
 {
@@ -368,7 +391,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             },
             "metadata": {
                 "levelOffset": 8,
-                "levelOffsetFill": 0
+                "levelOffsetFill": 1
             },
             "subdivision": {
                 "completeLevels": 7
@@ -380,7 +403,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 
 #### Sparse Octree with Content
 
-##### Base Tileset
+##### Base Tileset - tileset.json
 
 ```json
 {
@@ -404,10 +427,10 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "tileExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
-                "bufferView": 1
+                "bufferView": 0
             },
             "content": {
-                "bufferView": 0
+                "bufferView": 1
             }
         }
     }
@@ -416,7 +439,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 
 #### Quadtree with External Octree
 
-#### Base tileset.json
+##### Base Tileset - tileset.json
 
 ```json
 {
@@ -448,7 +471,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 }
 ```
 
-##### Root Tile 0 `tileset.json`
+##### Root Tile 0 - tileset.json
 
 ```json
 {
@@ -530,7 +553,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 
 ![Global Cell Coverage](figures/cell_global.png)
 
-##### Base `tileset.json`
+##### Base Tileset - tileset.json
 
 ```json
 {
@@ -570,7 +593,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 }
 ```
 
-##### Root Tile 0 `tileset.json`
+##### Root Tile 0 - tileset.json
 
 ```json
 {
@@ -603,3 +626,5 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
         }
     }
 ```
+
+*Note: This example is not complete for brevity. The diagram above contains 6 tilesets.*
