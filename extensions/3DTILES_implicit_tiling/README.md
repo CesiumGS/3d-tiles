@@ -299,8 +299,8 @@ function createJumpBuffer(sBuffer) {
 #### Tile index
 
 ```javascript
-function getIndex(level, x, y) {
-    const mortonIndex = morton(x, y);
+function getIndex(level, x, y, z) {
+    const mortonIndex = morton(x, y, z);
     if (level === 1) {
         return 1 + mortonIndex;
     }
