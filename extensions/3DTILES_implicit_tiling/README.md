@@ -227,6 +227,10 @@ An array of 10 numbers that defines a geodesic quadrilateral cell. The first 8 e
 * **Type**: `number` `[10]`
 * **Required**: No
 
+| Cell | Quadtree | Octree |
+|:---:|:--:|:--:|
+| ![](figures/cell.png) | ![](figures/cell_quadtree.png) | ![](figures/cell_octree.png)  |
+
 
 ---
 
