@@ -207,7 +207,7 @@ The next three elements (indices 6, 7, and 8) define the y axis direction and ha
 
 | Box | Quadtree | Octree |
 |:---:|:--:|:--:|
-| ![](figures/box.png) | ![](figures/box_quadtree.png) | ![](figures/box_octree.png)  |
+| ![](figures/box_one.png) | ![](figures/box_quadtree_one.png) | ![](figures/box_octree_one.png)  |
 
 #### boundingVolume.region
 
