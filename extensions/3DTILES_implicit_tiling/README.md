@@ -30,7 +30,7 @@
 
 ## Overview
 
-This extension enables 3D Tiles to support tilesets with implied subdivision schemes. This improves interoperability with existing geospatial data formats that use implicing tiling schemes, such as [CDB](https://www.ogc.org/standards/cdb) and [WMTS](https://www.ogc.org/standards/wmts). When subdivision is implied, it enables simplification at every stage of the tileset's lifetime: querying tree structure from the server, data storage on the client, as well as simplification and optimization of algorithms involved with the structure of the tree such as traversal, visibility, arbitrary selection of tiles in a region, ray casting, analysis, etc.
+This extension enables 3D Tiles to support tilesets with implied subdivision schemes. This improves interoperability with existing geospatial data formats that use implicit tiling schemes, such as [CDB](https://www.ogc.org/standards/cdb) and [WMTS](https://www.ogc.org/standards/wmts). When subdivision is implied, it enables simplification at every stage of the tileset's lifetime: querying tree structure from the server, data storage on the client, as well as simplification and optimization of algorithms involved with the structure of the tree such as traversal, visibility, arbitrary selection of tiles in a region, ray casting, analysis, etc.
 
 ## Concepts
 
@@ -42,7 +42,7 @@ Tiling schemes specify how each tile in a level will subdivide in the next level
 
 ![Quadtree Image](figures/quadtree.png)
 
-When a tile subdividies into a [quadtree](https://en.wikipedia.org/wiki/Quadtree), it produces 4 equally sized children tiles that occupy the same area as the parent tile. The tile is split on the XY plane at the midpoint of the bounds along the X and Y axes.
+When a tile subdivides into a [quadtree](https://en.wikipedia.org/wiki/Quadtree), it produces 4 equally sized children tiles that occupy the same area as the parent tile. The tile is split on the XY plane at the midpoint of the bounds along the X and Y axes.
 
 #### Octree
 
@@ -66,17 +66,17 @@ Level grids are indexed from the bottom left, using a right handed coordinate sy
 
 Tiles in a level are indexed by applying the [Morton/Z-order](https://en.wikipedia.org/wiki/Z-order_curve) curve to the grid at that level. Using the Morton order serves three primary purposes:
 
-- increasing spatial locality of reference: Tiles that are close to each in other in space will be located close to each other on the file system.
-- efficient tile location decomposition: The Morton order allows efficient encoding and decoding of locations of a tile in the level grid to it's location in the availability bitstream
-- efficent traversal: The binary representation of tile locations in the grid allow for easy traversal of the tileset.
+- Increasing spatial locality of reference: Tiles that are close to each in other in space will be located close to each other on the file system.
+- Efficient tile location decomposition: The Morton order allows efficient encoding and decoding of locations of a tile in the level grid to its location in the availability bitstream
+- Efficient traversal: The binary representation of tile locations in the grid allow for easy traversal of the tileset.
 
 #### Location on disk
 
-Tiles are located in the file system according to their position in the tileset heirarchy. For example, in a tilset using the quadtree tiling scheme, the 3rd tile at Level 2, which is a child of the 1st tile at Level 1, will be located at `0/1/3`.
+Tiles are located in the file system according to their position in the tileset hierarchy. For example, in a tileset using the quadtree tiling scheme, the 3rd tile at Level 2, which is a child of the 1st tile at Level 1, will be located at `0/1/3`.
 
 ### Tile States
 
-Information about the state of each tile in the tileset is present in 2 categories. The first category is related to **structure** of the spatial heirarchy of the tileset, and if/how a tile subdivides into external tilesets. The second category is related to **availability**, of content and metadata, for each tile.
+Information about the state of each tile in the tileset is present in 2 categories. The first category is related to **structure** of the spatial hierarchy of the tileset, and if/how a tile subdivides into external tilesets. The second category is related to **availability**, of content and metadata, for each tile.
 
 State information for the tileset is stored in the following bitstreams:
 
@@ -91,23 +91,23 @@ State information for the tileset is stored in the following bitstreams:
 
 The subdivision state for each tile determines if and how it subdivides into children tiles, as per the `tilingScheme`. The subdivision state is encoded in 2 bits, and padded with 0s at the end to meet byte boundaries. The jump buffer generation will ignore the padding. Subdivision in a tile can have one of the following states:
 
-| Code | Description       |
-|:--:|:-------------------|
-| `00` | Does not subdivide. |
+| Code | Description                                            |
+|------|--------------------------------------------------------|
+| `00` | Does not subdivide.                                    |
 | `01` | Subdivides into external tileset at implicit location. | 
 | `10` | Subdivides into external tileset at explicit location. |
-| `11` | Subdivides internally. |
+| `11` | Subdivides internally.                                 |
 
-When a tile divides externally, the content and metadata for the root tile are obtained from the external tileset.
-#### External Tileset at Implicit Location
+When a tile subdivides externally, the content and metadata for the root tile are obtained from the external tileset.
+##### External Tileset at Implicit Location
 
 An external tileset may exist within the file structure of its parent tileset, with the root of the external tileset being present at the implicit location of the tile with subdivision state `01`.
 
-#### External Tileset at Implicit Location
+##### External Tileset at Implicit Location
 
 An external tileset may exist outside the file structure of its parent tileset, with the root of the external tileset being present in the `tile.json` at the implicit location of the tile with subdivision state `10`.
 
-#### Complete Levels
+##### Complete Levels
 
 For tilesets that have uniform subdivision for each tile up to a certain level, it is redundant to store the tile subdivision state information. The `completeLevels` property is used to indicate how many levels within the tileset are complete. Complete levels are levels in which all tiles subdivide implicitly and internally (using the bitcode `11`).
 
@@ -117,8 +117,8 @@ This is a one bit representation of whether or not a tile has content associated
 
 | Code | Description       |
 |------|-------------------|
-| `0`   | No content       |
-| `1`   | Has content |
+| `0`  | No content        |
+| `1`  | Has content       |
 
 When the tile has content, the content payload can be found implicitly by combining the tile location with the tile extension.
 
@@ -128,8 +128,8 @@ This is a one bit representation of whether or not a tile has content associated
 
 | Code | Description       |
 |------|-------------------|
-| `0`   | No metadata       |
-| `1`   | Has metadata |
+| `0`  | No metadata       |
+| `1`  | Has metadata      |
 
 
 When the tile has content, the index of the tile in the subdivision buffer will be the index of corresponding metadata property in the associated buffer in the `3DTILES_tile_metadata` extension.
@@ -144,7 +144,7 @@ The level offset fill describes the state of all tiles in levels before the leve
 
 ### Bitstream Layout
 
-Each bitstream encodes tile state information using an adaptive linear quadtree or octree (depending on the `tilingScheme`) representation of the heirarchy. Tile states are packed in increasing order of level and Morton index of tiles within that level. Only tiles that subdivide internally will have information about their children present at the next level. This allows for a space efficient representation of sparse heirarchies.
+Each bitstream encodes tile state information using an adaptive linear quadtree or octree (depending on the `tilingScheme`) representation of the hierarchy. Tile states are packed in increasing order of level and Morton index of tiles within that level. Only tiles that subdivide internally will have information about their children present at the next level. This allows for a space efficient representation of sparse hierarchies.
 
 *The following section is non-normative.*
 
@@ -165,8 +165,8 @@ The following example illustrates the usage of these buffers in a sparse quadtre
         "levelOffset": 2,
         "levelOffsetFill": 0,
         "bufferView": 0
-    },
-...
+    }
+}
 ```
 
 Only the information with grey background is present in the bitstream.
@@ -175,7 +175,7 @@ Only the information with grey background is present in the bitstream.
 
 ### Root Tiles
 
-Mulitple tilesets using this extension can be combined by using parent tileset referring to one or more external tilesets using `3DTILES_implicit_tiling` as the children of the root tile.
+Multiple tilesets using this extension can be combined by using parent tileset referring to one or more external tilesets using `3DTILES_implicit_tiling` as the children of the root tile.
 
 ### Jump Buffer
 
@@ -199,8 +199,8 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 |**metadata**|`object`|An object containing high level information about the metadata buffer. This may be omitted if no tiles in the tileset contain metadata.|No|
 |**bufferViews**|`array`|An array containing typed views into buffers|No|
 |**buffers**|`array`|An array of buffers.|No|
-|**tileExtension**|`array`|The extension applied to each tile in the tileset.|No|
-|**tilesetExtension**|`array`|The extension applied to each implict external tileset in the tileset.|No|
+|**tileExtension**|`string`|The extension applied to each tile in the tileset.|No|
+|**tilesetExtension**|`string`|The extension applied to each implicit external tileset in the tileset.|No|
 
 Additional properties are not allowed.
 
@@ -506,7 +506,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 
 ##### Directory Structure
 
-*Note: Directory structure is not complete. Only for demonstation purposes.*
+*Note: Directory structure is not complete. Only for demonstration purposes.*
  
 ```
 .
@@ -623,9 +623,10 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "content": {
                 "levelOffset": 4,
                 "levelOffsetFill": 1
-            },
+            }
         }
     }
+}
 ```
 
 *Note: This example is not complete for brevity. The diagram above contains 6 tilesets.*
