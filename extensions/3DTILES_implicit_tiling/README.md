@@ -2,9 +2,10 @@
 
 ## Contributors
 
-- Sean Lilley, Cesium
-- Patrick Cozzi, Cesium
 - Sam Suhag, Cesium
+- Sean Lilley, Cesium
+- Josh Lawrence, Cesium
+- Patrick Cozzi, Cesium
 
 ## Contents
 
