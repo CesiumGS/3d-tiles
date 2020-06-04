@@ -36,7 +36,7 @@ This extension enables 3D Tiles to support tilesets with implied subdivision sch
 
 ### Tiling Scheme
 
-Tiling schemes specify how each tile in a level will subdivide in the next level. A tileset cannot have more than one tileset, however, tiling schemes can be combined by using external tilesets.
+Tiling schemes specify how each tile in a level will subdivide in the next level. The tiling scheme remains consistent in a tileset, however, tiling schemes can be combined by using external tilesets.
 
 #### Quadtree
 
