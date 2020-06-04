@@ -63,7 +63,7 @@ State information for the tileset is stored in the following bitstreams:
 
 #### Subdivision
 
-The subdivision state for each tile determines if and how it subdivides into children tiles, as per the `tilingScheme`. The subdivision state is encoded in 2 bits, and has the following possible states:
+The subdivision state for each tile determines if and how it subdivides into children tiles, as per the `tilingScheme`. The subdivision state is encoded in 2 bits, and padded with 0s at the end to meet byte boundaries. The jump buffer generation will ignore the padding. Subdivision in a tile can have one of the following states:
 
 | Code | Description       |
 |:--:|:-------------------|
@@ -73,7 +73,6 @@ The subdivision state for each tile determines if and how it subdivides into chi
 | `11` | Subdivides internally. |
 
 When a tile divides externally, the content and metadata for the root tile are obtained from the external tileset.
-
 #### External Tileset at Implicit Location
 
 An external tileset may exist within the file structure of its parent tileset, with the root of the external tileset being present at the implicit location of the tile with subdivision state `01`.
@@ -392,36 +391,64 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "tilingScheme": "octree",
             "tileExtension": "glb",
             "tilesetExtension": "json",
-            "content": {
-                "bufferView": 0
-            },
             "subdivision": {
                 "bufferView": 1
             },
-            "bufferViews": [
-                {
-                    "buffer": 0,
-                    "byteOffset": 0,
-                    "byteLength": 0
-                },
-                {
-                    "buffer": 0,
-                    "byteOffset": 1,
-                    "byteLength": 0
-                }
-            ],
-            "buffers": [
-                {
-                    "uri": "implicit.bin",
-                    "byteLength": 0
-                }
-            ]
+            "content": {
+                "bufferView": 0
+            }
         }
     }
 }
 ```
 
-#### Non-Sparse Octree with Content and Metadata
+#### Quadtree with External Octree
+
+Directory Structure
+ 
+```
+.
+├── tileset.json
+└── R0/
+    ├── tileset.json
+    └── 0/
+        ├── tile.glb
+        ├── 0/
+        │   ├── tile.glb
+        │   ├── 0/
+        │   │   ├── tileset.json
+        │   │   └── 0/
+        │   │       ├── tile.glb
+        │   │       ├── 0/
+        │   │       │   └── tile.glb
+        │   │       ├── 1/
+        │   │       │   └── tile.glb
+        │   │       ├── 2/
+        │   │       │   └── tile.glb
+        │   │       ├── 3/
+        │   │       │   └── tile.glb
+        │   │       ├── 4/
+        │   │       │   └── tile.glb
+        │   │       ├── 5/
+        │   │       │   └── tile.glb
+        │   │       ├── 6/
+        │   │       │   └── tile.glb
+        │   │       └── 7/
+        │   │           └── tile.glb
+        │   ├── 1
+        │   ├── 2
+        │   └── 3
+        ├── 1/
+        │   ├── tile.glb
+        │   └── ...
+        ├── 2/
+        │   └── tile.glb
+        └── 3/
+            └── tile.glb
+```
+
+tileset.json
+
 ```json
 {
     "asset": {
@@ -440,12 +467,44 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             },
             "tilingScheme": "octree",
             "tileExtension": "glb",
-            "content": {
-                "levelOffset": 2,
-                "levelOffsetFill": 1
-            },
             "subdivision": {
-                "completeLevels": 2
+                "completeLevels": 3
+            },
+            "content": {
+                "levelOffset": 4,
+                "levelOffsetFill": 1
+            }
+        }
+    }
+}
+```
+
+R0/tileset.json
+
+```json
+{
+    "asset": {
+        "version": "2.0.0-alpha.0"
+    },
+    "geometricError": 1000,
+    "extensions": {
+        "3DTILES_implicit_tiling": {
+            "boundingVolume": {
+                "box": [
+                    0, 0, 0,
+                    4, 0, 0,
+                    0, 4, 0,
+                    0, 0, 4
+                ]
+            },
+            "tilingScheme": "octree",
+            "tileExtension": "glb",
+            "subdivision": {
+                "completeLevels": 3
+            },
+            "content": {
+                "levelOffset": 4,
+                "levelOffsetFill": 1
             }
         }
     }
