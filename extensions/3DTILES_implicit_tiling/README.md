@@ -38,6 +38,8 @@ Every level of the tree can be thought of as a fixed grid of equally sized tiles
 
 ![Morton](figures/morton.png)
 
+Level grids are indexed from the bottom left, using a right handed coordinate system, with +Z pointing in the up direction.
+
 Tiles in a level are indexed by applying the [Morton/Z-order](https://en.wikipedia.org/wiki/Z-order_curve) curve to the grid at that level. Using the Morton order serves three primary purposes:
 
 - increasing spatial locality of reference: Tiles that are close to each in other in space will be located close to each other on the file system.
@@ -149,7 +151,7 @@ Only the information with grey background is present in the bitstream.
 
 ### Root Tiles
 
-Each tileset provides a set of one or more root tiles, each of which serve as the targets for subdivision, according to the given tiling scheme.
+Mulitple tilesets using this extension can be combined by using parent tileset referring to one or more external tilesets using `3DTILES_implicit_tiling` as the children of the root tile.
 
 ### Jump Buffer
 
@@ -404,7 +406,73 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 
 #### Quadtree with External Octree
 
-Directory Structure
+#### tileset.json
+
+```json
+{
+    "asset": {
+        "version": "2.0.0-alpha.0"
+    },
+    "geometricError": 1000,
+    "extensions": {
+        "3DTILES_implicit_tiling": {
+            "boundingVolume": {
+                "box": [
+                    0, 0, 0,
+                    4, 0, 0,
+                    0, 4, 0,
+                    0, 0, 4
+                ]
+            },
+            "tilingScheme": "octree",
+            "tileExtension": "glb",
+            "subdivision": {
+                "completeLevels": 3
+            },
+            "content": {
+                "levelOffset": 4,
+                "levelOffsetFill": 1
+            }
+        }
+    }
+}
+```
+
+##### Root Tile 0 `tileset.json`
+
+```json
+{
+    "asset": {
+        "version": "2.0.0-alpha.0"
+    },
+    "geometricError": 1000,
+    "extensions": {
+        "3DTILES_implicit_tiling": {
+            "boundingVolume": {
+                "box": [
+                    0, 0, 0,
+                    4, 0, 0,
+                    0, 4, 0,
+                    0, 0, 4
+                ]
+            },
+            "tilingScheme": "octree",
+            "tileExtension": "glb",
+            "subdivision": {
+                "completeLevels": 3
+            },
+            "content": {
+                "levelOffset": 4,
+                "levelOffsetFill": 1
+            }
+        }
+    }
+}
+```
+
+##### Directory Structure
+
+*Note: Directory structure is not complete. Only for demonstation purposes.*
  
 ```
 .
@@ -447,70 +515,81 @@ Directory Structure
             └── tile.glb
 ```
 
-tileset.json
-
-```json
-{
-    "asset": {
-        "version": "2.0.0-alpha.0"
-    },
-    "geometricError": 1000,
-    "extensions": {
-        "3DTILES_implicit_tiling": {
-            "boundingVolume": {
-                "box": [
-                    0, 0, 0,
-                    4, 0, 0,
-                    0, 4, 0,
-                    0, 0, 4
-                ]
-            },
-            "tilingScheme": "octree",
-            "tileExtension": "glb",
-            "subdivision": {
-                "completeLevels": 3
-            },
-            "content": {
-                "levelOffset": 4,
-                "levelOffsetFill": 1
-            }
-        }
-    }
-}
-```
-
-R0/tileset.json
-
-```json
-{
-    "asset": {
-        "version": "2.0.0-alpha.0"
-    },
-    "geometricError": 1000,
-    "extensions": {
-        "3DTILES_implicit_tiling": {
-            "boundingVolume": {
-                "box": [
-                    0, 0, 0,
-                    4, 0, 0,
-                    0, 4, 0,
-                    0, 0, 4
-                ]
-            },
-            "tilingScheme": "octree",
-            "tileExtension": "glb",
-            "subdivision": {
-                "completeLevels": 3
-            },
-            "content": {
-                "levelOffset": 4,
-                "levelOffsetFill": 1
-            }
-        }
-    }
-}
-```
 
 #### Global Coverage with Cells
 
 ![Global Cell Coverage](figures/cell_global.png)
+
+##### Global `tileset.json`
+
+```json
+{
+    "asset": {
+        "version": "2.0.0-alpha.0"
+    },
+    "geometricError": 1000,
+    "root": {
+        "boundingVolume": {
+            "sphere": [
+                0,
+                0,
+                0,
+                6378000
+            ]
+        },
+        "geometricError": 10000,
+        "children": [
+            {
+                "boundingVolume": {
+                    "region": [
+                        -3.14159,
+                        -0.523599,
+                        -1.5708,
+                        0.0523599,
+                        0,
+                        10000
+                    ]
+                },
+                "geometricError": 1000,
+                "content": {
+                    "uri": "./RO/tileset.json"
+                }
+            }
+        ]
+    }
+}
+```
+
+##### Root Tile 0 `tileset.json`
+
+```json
+{
+    "asset": {
+        "version": "2.0.0-alpha.0"
+    },
+    "geometricError": 1000,
+    "extensions": {
+        "3DTILES_implicit_tiling": {
+            "boundingVolume": {
+                "cell": [
+                    -1.5708,0.523599,
+                    0,0.523599,
+                    1.5708,0.523599,
+                    3.14159,0.523599,
+                    0,
+                    10000
+                ]
+            },
+            "tilingScheme": "quadtree",
+            "tileExtension": "glb",
+            "tilesetExtension": "json",
+            "subdivision": {
+                "completeLevels": 3
+            },
+            "content": {
+                "levelOffset": 4,
+                "levelOffsetFill": 1
+            },
+        }
+    }
+```
