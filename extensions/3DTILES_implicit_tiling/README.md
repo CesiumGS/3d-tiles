@@ -222,7 +222,7 @@ An array of six numbers that define a bounding geographic region in EPSG:4979 co
 
 #### boundingVolume.cell
 
-An array of 10 numbers that defines a geodesic quadrilateral cell. The first 8 elements are 4 pairs of EPSG:4979 coordinates in radians, and the last 2 elements are heights in meters above the WGS84 ellipsoid.
+An array of 10 numbers that defines a geodesic quadrilateral cell. The first 8 elements are 4 pairs of EPSG:4979 coordinates in degrees in counterclockwise order, and the last 2 elements are heights in meters above the WGS84 ellipsoid.
 
 * **Type**: `number` `[10]`
 * **Required**: No
@@ -331,9 +331,13 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 ```
 
 
+
+
 ### Samples
 
 #### Complete Quadtree
+
+##### Base Tileset
 
 ```json
 {
@@ -372,6 +376,8 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 
 #### Sparse Octree with Content
 
+##### Base Tileset
+
 ```json
 {
     "asset": {
@@ -382,10 +388,10 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
         "3DTILES_implicit_tiling": {
             "boundingVolume": {
                 "cell": [
-                    -1.5708,0.523599,
-                    0,0.523599,
-                    1.5708,0.523599,
-                    3.14159,0.523599,
+                    -90, 30,
+                    0, 30,
+                    90, 30,
+                    180, 30,
                     0,
                     10000
                 ]
@@ -406,7 +412,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 
 #### Quadtree with External Octree
 
-#### tileset.json
+#### Base tileset.json
 
 ```json
 {
@@ -520,7 +526,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 
 ![Global Cell Coverage](figures/cell_global.png)
 
-##### Global `tileset.json`
+##### Base `tileset.json`
 
 ```json
 {
@@ -572,10 +578,10 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
         "3DTILES_implicit_tiling": {
             "boundingVolume": {
                 "cell": [
-                    -1.5708,0.523599,
-                    0,0.523599,
-                    1.5708,0.523599,
-                    3.14159,0.523599,
+                    -90,30,
+                    0, 30,
+                    90,30,
+                    180,30,
                     0,
                     10000
                 ]

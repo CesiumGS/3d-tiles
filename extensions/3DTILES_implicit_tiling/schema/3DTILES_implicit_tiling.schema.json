@@ -59,6 +59,20 @@
                     "description": "The state applied to each tile in all levels before the levelOffset."
                 }
             }
+        },
+        "bufferViews": {
+            "type": "array",
+            "description": "An array of buffer views.",
+            "items": {
+                "type": "object"
+            }
+        },
+        "buffers": {
+            "type": "array",
+            "description": "An arry of buffers.",
+            "items": {
+                "type": "object"
+            }
         }
     },
     "required": [ "tilingScheme" ]
