@@ -12,6 +12,7 @@
 * [Overview](#overview)
 * [Concepts](#concepts)
     * [Tiling Scheme](#tiling-scheme)
+    * [Root Tiles](#root-tiles)
     * [Levels](#levels)
     * [Tile Location](#tile-location)
     * [Tile States](#tile-states)
@@ -19,8 +20,6 @@
         * [Content](#content)
         * [Metadata](#metadata)
     * [Bitstream Layout](#bitstream-layout)
-    * [Root Tiles](#root-tiles)
-    * [Jump Buffer](#jump-buffer)
 * [Properties Reference](#properties-reference)
 * [Appendix](#appendix)
     * [Algorithms](#algorithms)
@@ -42,7 +41,7 @@ Tiling schemes specify how each tile in a level will subdivide in the next level
 
 ![Quadtree Image](figures/quadtree.png)
 
-When a tile subdivides into a [quadtree](https://en.wikipedia.org/wiki/Quadtree), it produces 4 equally sized children tiles that occupy the same area as the parent tile. The tile is split on the XY plane at the midpoint of the bounds along the X and Y axes.
+When a tile subdivides into a [quadtree](https://en.wikipedia.org/wiki/Quadtree), it produces 4 children tile that occupy the same area as the parent tile. The tile is split on the XY plane at the midpoint of the bounds along the X and Y axes.
 
 #### Octree
 
@@ -50,11 +49,15 @@ When a tile subdivides into a [quadtree](https://en.wikipedia.org/wiki/Quadtree)
 
 When a tile subdivides into an [octree](https://en.wikipedia.org/wiki/Octree), it produces 8 equally size children tiles that occupy the same volume as the parent tile. The tile is split at the midpoint of the bounds along X, Y and Z axes.
 
+### Root Tiles
+
+Multiple tilesets using this extension can be combined by using parent tileset referring to one or more external tilesets using `3DTILES_implicit_tiling` as the children of the root tile.
+
 ### Levels
 
 ![Levels](figures/levels.png)
 
-Every level of the tree can be thought of as a fixed grid of equally sized tiles, where the level occupies the same space as the previous level but with double the amount of tiles along each axis that gets split (2 in case of [quadtree](https://en.wikipedia.org/wiki/Quadtree) and 3 in case of [octree](https://en.wikipedia.org/wiki/Octree)).
+Every level of the tree can be thought of as a fixed grid of tiles of equal size, where the level occupies the same space as the previous level but with double the amount of tiles along each axis that gets split (2 in case of [quadtree](https://en.wikipedia.org/wiki/Quadtree) and 3 in case of [octree](https://en.wikipedia.org/wiki/Octree)).
 
 ### Tile Location
 
@@ -72,7 +75,7 @@ Tiles in a level are indexed by applying the [Morton/Z-order](https://en.wikiped
 
 #### Location on disk
 
-Tiles are located in the file system according to their position in the tileset hierarchy. For example, in a tileset using the quadtree tiling scheme, the 3rd tile at Level 2, which is a child of the 1st tile at Level 1, will be located at `0/1/3`.
+Tiles are located in the file system according to their position in the tileset hierarchy in the following order: `Root/Level/X/Y/Z`. 
 
 ### Tile States
 
@@ -132,7 +135,7 @@ This is a one bit representation of whether or not a tile has content associated
 | `1`  | Has metadata      |
 
 
-When the tile has content, the index of the tile in the subdivision buffer will be the index of corresponding metadata property in the associated buffer in the `3DTILES_tile_metadata` extension.
+When the tile has metadata, the index of the tile in the subdivision buffer will be the index of corresponding metadata property in the associated buffer in the `3DTILES_tile_metadata` extension.
 
 #### Level Offsets
 
@@ -173,14 +176,6 @@ Only the information with grey background is present in the bitstream.
 
 ![States](figures/states.png)
 
-### Root Tiles
-
-Multiple tilesets using this extension can be combined by using parent tileset referring to one or more external tilesets using `3DTILES_implicit_tiling` as the children of the root tile.
-
-### Jump Buffer
-
-The jump buffer is a buffer created at runtime to allow efficient traversal and tile lookup functions. The jump buffer is a bijection between a tile's Morton index and its index in the level.
-
 ## Properties Reference
 
 ---------------------------------------
@@ -199,7 +194,7 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 |**metadata**|`object`|An object containing high level information about the metadata buffer. This may be omitted if no tiles in the tileset contain metadata.|No|
 |**bufferViews**|`array`|An array containing typed views into buffers|No|
 |**buffers**|`array`|An array of buffers.|No|
-|**tileExtension**|`string`|The extension applied to each tile in the tileset.|No|
+|**contentExtension**|`string`|The extension applied to each tile in the tileset.|No|
 |**tilesetExtension**|`string`|The extension applied to each implicit external tileset in the tileset.|No|
 
 Additional properties are not allowed.
@@ -303,6 +298,8 @@ Provides information about the metadata of the tileset.
 
 #### Jump Buffer Construction
 
+The jump buffer is a buffer created at runtime to allow efficient traversal and tile lookup functions. The jump buffer is a bijection between a tile's Morton index and its index in the level.
+
 ```javascript
 function createJumpBuffer(sBuffer) {   
     let jBuffer = [];
@@ -363,9 +360,9 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 
 ### Samples
 
-#### Complete Quadtree
+#### Complete Octree
 
-##### Base Tileset - tileset.json
+##### Root Tileset - tileset.json
 
 ```json
 {
@@ -383,49 +380,73 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                     0, 0, 5
                 ]
             },
-            "tilingScheme": "quadtree",
-            "tileExtension": "glb",
+            "tilingScheme": "octree",
+            "contentExtension": "glb",
             "tilesetExtension": "json",
             "content": {
-                "levelOffset": 8,
-                "levelOffsetFill": 1
-            },
-            "metadata": {
-                "levelOffset": 8,
+                "levelOffset": 4,
                 "levelOffsetFill": 1
             },
             "subdivision": {
-                "completeLevels": 7
+                "completeLevels": 3
             }
         }
     }
 }
 ```
 
-#### Sparse Octree with Content
+##### Directory Structure
 
-##### Base Tileset - tileset.json
+```
+.
+└── tileset.json/
+    ├── L0/
+    │   └── 0/0/0/
+    │       └── 0/0/0.glb
+    ├── L1/
+    │   ├── 0/0/0/
+    │   │   └── 0/0/0.glb
+    │   ├── 0/1/0/
+    │   │   └── 0/1/0.glb
+    │   ├── 1/0/0/
+    │   │   └── 1/0/0.glb
+    │   ├── 1/1/0/
+    │   │   └── 1/1/0.glb
+    │   ├── 0/0/1/
+    │   │   └── 0/0/1.glb
+    │   ├── 0/1/1/
+    │   │   └── 0/1/1.glb
+    │   ├── 1/0/1/
+    │   │   └── 1/0/1.glb
+    │   └── 1/1/1/
+    │       └── 1/1/1.glb
+    ├── L2/
+    │   └── ...
+    └── ...    
+```
+
+#### Double Headed Quadtree (as 2 separate tilesets)
+
+##### Root 0 Tileset - tileset.json
 
 ```json
 {
     "asset": {
         "version": "2.0.0-alpha.0"
     },
-    "geometricError": 1000,
+    "geometricError": 500,
     "extensions": {
         "3DTILES_implicit_tiling": {
             "boundingVolume": {
-                "cell": [
-                    -90, 30,
-                    0, 30,
-                    90, 30,
-                    180, 30,
-                    0,
-                    10000
+                "box": [
+                    0, 0, 0,
+                    5, 0, 0,
+                    0, 5, 0,
+                    0, 0, 5
                 ]
             },
-            "tilingScheme": "octree",
-            "tileExtension": "glb",
+            "tilingScheme": "quadtree",
+            "contentExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
                 "bufferView": 0
@@ -438,66 +459,32 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 }
 ```
 
-#### Quadtree with External Octree
-
-##### Base Tileset - tileset.json
+##### Root 1 Tileset - tileset.json
 
 ```json
 {
     "asset": {
         "version": "2.0.0-alpha.0"
     },
-    "geometricError": 1000,
+    "geometricError": 500,
     "extensions": {
         "3DTILES_implicit_tiling": {
             "boundingVolume": {
                 "box": [
-                    0, 0, 0,
-                    4, 0, 0,
-                    0, 4, 0,
-                    0, 0, 4
+                    10, 0, 0,
+                    5, 0, 0,
+                    0, 5, 0,
+                    0, 0, 5
                 ]
             },
-            "tilingScheme": "octree",
-            "tileExtension": "glb",
+            "tilingScheme": "quadtree",
+            "contentExtension": "glb",
+            "tilesetExtension": "json",
             "subdivision": {
-                "completeLevels": 3
+                "bufferView": 0
             },
             "content": {
-                "levelOffset": 4,
-                "levelOffsetFill": 1
-            }
-        }
-    }
-}
-```
-
-##### Root Tile 0 - tileset.json
-
-```json
-{
-    "asset": {
-        "version": "2.0.0-alpha.0"
-    },
-    "geometricError": 1000,
-    "extensions": {
-        "3DTILES_implicit_tiling": {
-            "boundingVolume": {
-                "box": [
-                    0, 0, 0,
-                    4, 0, 0,
-                    0, 4, 0,
-                    0, 0, 4
-                ]
-            },
-            "tilingScheme": "octree",
-            "tileExtension": "glb",
-            "subdivision": {
-                "completeLevels": 3
-            },
-            "content": {
-                "levelOffset": 4,
-                "levelOffsetFill": 1
+                "bufferView": 1
             }
         }
     }
@@ -506,51 +493,205 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 
 ##### Directory Structure
 
-*Note: Directory structure is not complete. Only for demonstration purposes.*
- 
+```
+.
+├── Tileset 0/
+│   └── tileset.json/
+│       ├── L0/
+│       │   └── 0/0/
+│       │       └── 0/0.glb
+│       ├── L1/
+│       │   ├── 0/0/
+│       │   │   └── 0/0.glb
+│       │   ├── 0/1/
+│       │   │   └── 0/1.glb
+│       │   ├── 1/0/
+│       │   │   └── 1/0.glb
+│       │   └── 1/1/
+│       │       └── 1/1.glb
+│       ├── L2/
+│       │   └── ...
+│       └── ...
+└── Tileset 1/
+    └── tileset.json/
+        ├── L0/
+        │   └── 0/0/
+        │       └── 0/0.glb
+        ├── L1/
+        │   ├── 0/0/
+        │   │   └── 0/0.glb
+        │   ├── 0/1/
+        │   │   └── 0/1.glb
+        │   ├── 1/0/
+        │   │   └── 1/0.glb
+        │   └── 1/1/
+        │       └── 1/1.glb
+        ├── L2/
+        │   └── ...
+        └── ...
+        
+```
+
+#### Double Headed Quadtree (combined using a base tileset)
+
+##### Base Tileset
+
+```json
+{
+    "asset": {
+        "version": "1.0"
+    },
+    "geometricError": 1000,
+    "root": {
+        "boundingVolume": {
+            "box": [
+                5, 0, 0,
+                10, 0, 0,
+                0, 5, 0,
+                0, 0, 5
+            ]
+        },
+        "geometricError": 1000,
+        "children": [
+            {
+                "boundingVolume": {
+                    "box": [
+                        0, 0, 0,
+                        5, 0, 0,
+                        0, 5, 0,
+                        0, 0, 5
+                    ]
+                },
+                "geometricError": 500,
+                "content": {
+                    "uri": "./R0/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "box": [
+                        10, 0, 0,
+                        5, 0, 0,
+                        0, 5, 0,
+                        0, 0, 5
+                    ]
+                },
+                "geometricError": 500,
+                "content": {
+                    "uri": "./R1/tileset.json"
+                }
+            }
+        ]
+    }
+}
+```
+
+##### Root 0 Tileset - tileset.json
+
+```json
+{
+    "asset": {
+        "version": "2.0.0-alpha.0"
+    },
+    "geometricError": 500,
+    "extensions": {
+        "3DTILES_implicit_tiling": {
+            "boundingVolume": {
+                "box": [
+                    0, 0, 0,
+                    5, 0, 0,
+                    0, 5, 0,
+                    0, 0, 5
+                ]
+            },
+            "tilingScheme": "quadtree",
+            "contentExtension": "glb",
+            "tilesetExtension": "json",
+            "subdivision": {
+                "bufferView": 0
+            },
+            "content": {
+                "bufferView": 1
+            }
+        }
+    }
+}
+```
+
+##### Root 1 Tileset - tileset.json
+
+```json
+{
+    "asset": {
+        "version": "2.0.0-alpha.0"
+    },
+    "geometricError": 500,
+    "extensions": {
+        "3DTILES_implicit_tiling": {
+            "boundingVolume": {
+                "box": [
+                    10, 0, 0,
+                    5, 0, 0,
+                    0, 5, 0,
+                    0, 0, 5
+                ]
+            },
+            "tilingScheme": "quadtree",
+            "contentExtension": "glb",
+            "tilesetExtension": "json",
+            "subdivision": {
+                "bufferView": 0
+            },
+            "content": {
+                "bufferView": 1
+            }
+        }
+    }
+}
+```
+
+##### Directory Structure
+
 ```
 .
 ├── tileset.json
-└── R0/
-    ├── tileset.json
-    └── 0/
-        ├── tile.glb
-        ├── 0/
-        │   ├── tile.glb
-        │   ├── 0/
-        │   │   ├── tileset.json
-        │   │   └── 0/
-        │   │       ├── tile.glb
-        │   │       ├── 0/
-        │   │       │   └── tile.glb
-        │   │       ├── 1/
-        │   │       │   └── tile.glb
-        │   │       ├── 2/
-        │   │       │   └── tile.glb
-        │   │       ├── 3/
-        │   │       │   └── tile.glb
-        │   │       ├── 4/
-        │   │       │   └── tile.glb
-        │   │       ├── 5/
-        │   │       │   └── tile.glb
-        │   │       ├── 6/
-        │   │       │   └── tile.glb
-        │   │       └── 7/
-        │   │           └── tile.glb
-        │   ├── 1
-        │   ├── 2
-        │   └── 3
-        ├── 1/
-        │   ├── tile.glb
+├── R0/
+│   └── tileset.json/
+│       ├── L0/
+│       │   └── 0/0/
+│       │       └── 0/0.glb
+│       ├── L1/
+│       │   ├── 0/0/
+│       │   │   └── 0/0.glb
+│       │   ├── 0/1/
+│       │   │   └── 0/1.glb
+│       │   ├── 1/0/
+│       │   │   └── 1/0.glb
+│       │   └── 1/1/
+│       │       └── 1/1.glb
+│       ├── L2/
+│       │   └── ...
+│       └── ...
+└── R1/
+    └── tileset.json/
+        ├── L0/
+        │   └── 0/0/
+        │       └── 0/0.glb
+        ├── L1/
+        │   ├── 0/0/
+        │   │   └── 0/0.glb
+        │   ├── 0/1/
+        │   │   └── 0/1.glb
+        │   ├── 1/0/
+        │   │   └── 1/0.glb
+        │   └── 1/1/
+        │       └── 1/1.glb
+        ├── L2/
         │   └── ...
-        ├── 2/
-        │   └── tile.glb
-        └── 3/
-            └── tile.glb
+        └── ...
 ```
 
-
-#### Global Coverage with Cells
+#### Six-headed Global Cells (combined using a base tileset)
 
 ![Global Cell Coverage](figures/cell_global.png)
 
@@ -576,17 +717,97 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             {
                 "boundingVolume": {
                     "region": [
-                        -3.14159,
-                        -0.523599,
-                        -1.5708,
-                        0.0523599,
+                        -90, 30,
+                        0, 30,
+                        90, 30,
+                        180, 30
+                        0,
+                        100000
+                    ]
+                },
+                "geometricError": 1000,
+                "content": {
+                    "uri": "./RO/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "region": [
+                        -90, -30,
+                        0, -30,
+                        90, -30,
+                        180, -30
+                        0,
+                        100000
+                    ]
+                },
+                "geometricError": 1000,
+                "content": {
+                    "uri": "./R1/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "region": [
+                        -90, 30,
+                        0, 30,
+                        0, -30,
+                        -90, -30
+                        0,
+                        100000
+                    ]
+                },
+                "geometricError": 1000,
+                "content": {
+                    "uri": "./R2/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "region": [
+                        0, 30,
+                        90, 30,
+                        90, -30,
+                        0, -30
                         0,
                         10000
                     ]
                 },
                 "geometricError": 1000,
                 "content": {
-                    "uri": "./RO/tileset.json"
+                    "uri": "./R3/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "region": [
+                        90, 30,
+                        180, 30,
+                        180, -30,
+                        90, -30
+                        0,
+                        10000
+                    ]
+                },
+                "geometricError": 1000,
+                "content": {
+                    "uri": "./R4/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "region": [
+                        180, 30,
+                        -90, 30,
+                        -90, -30,
+                        180, -30
+                        0,
+                        10000
+                    ]
+                },
+                "geometricError": 1000,
+                "content": {
+                    "uri": "./R5/tileset.json"
                 }
             }
         ]
@@ -594,7 +815,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 }
 ```
 
-##### Root Tile 0 - tileset.json
+##### Root 0 Tileset - tileset.json
 
 ```json
 {
@@ -611,11 +832,11 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                     90,30,
                     180,30,
                     0,
-                    10000
+                    100000
                 ]
             },
             "tilingScheme": "quadtree",
-            "tileExtension": "glb",
+            "contentExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
                 "completeLevels": 3
@@ -626,7 +847,57 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             }
         }
     }
+        
 }
+```
+
+#### Directory Structure
+
+```json
+.
+├── tileset.json
+├── R0/
+│   └── tileset.json/
+│       ├── L0/
+│       │   └── 0/0/
+│       │       └── 0/0.glb
+│       ├── L1/
+│       │   ├── 0/0/
+│       │   │   └── 0/0.glb
+│       │   ├── 0/1/
+│       │   │   └── 0/1.glb
+│       │   ├── 1/0/
+│       │   │   └── 1/0.glb
+│       │   └── 1/1/
+│       │       └── 1/1.glb
+│       ├── L2/
+│       │   └── ...
+│       └── ...
+├── R1/
+│   └── tileset.json/
+│       ├── L0/
+│       │   └── 0/0/
+│       │       └── 0/0.glb
+│       ├── L1/
+│       │   ├── 0/0/
+│       │   │   └── 0/0.glb
+│       │   ├── 0/1/
+│       │   │   └── 0/1.glb
+│       │   ├── 1/0/
+│       │   │   └── 1/0.glb
+│       │   └── 1/1/
+│       │       └── 1/1.glb
+│       ├── L2/
+│       │   └── ...
+│       └── ...
+├── R2/
+│   └── ...
+├── R3/
+│   └── ...
+├── R4/
+│   └── ...
+└── R5/
+    └── ...
 ```
 
 *Note: This example is not complete for brevity. The diagram above contains 6 tilesets.*
