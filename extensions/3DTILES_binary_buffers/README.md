@@ -41,3 +41,100 @@ Buffers are binary blobs of data.
 ### Buffer Views
 
 Buffer views offer typed views into buffers. They specify a subset of the data stored in a buffer through a `byteOffset` and a `byteLength`. The type of data inside the buffers can be derived from the `elementType` and the `componentType` properties.
+
+## Examples
+
+### 3DTILES_implicit_tiling and 3DTILES_tile_metadata
+
+```json
+{
+    "asset": {
+        "version": "2.0.0-alpha.0"
+    },
+    "extensions": {
+        "3DTILES_implicit_tiling": {
+            "tilingScheme": "quadtree",
+            "subdivision": {
+                "completeLevels": 2,
+                "bufferView": 0
+            },
+            "content": {
+                "levelOffset": 2,
+                "levelOffsetFill": 0,
+                "bufferView": 1
+            },
+            "metadata": {
+                "levelOffset": 2,
+                "levelOffsetFill": 0,
+                "bufferView": 1
+            }
+        },
+        "3DTILES_tile_metadata": {
+            "properties": {
+                "surfaceArea": {
+                    "semantic": "_SURFACE_AREA",
+                    "bufferView": 2
+                },
+                "tileId": {
+                    "semantic": "_TILE_ID",
+                    "bufferView": 3
+                }
+            }
+        },
+        "3DTILES_binary_buffers": {
+            "bufferViews": [
+                {
+                    "elementType": "VEC2",
+                    "componentType": "BIT",
+                    "byteOffset": 0,
+                    "byteLength": 2,
+                    "buffer": 0
+                },
+                {
+                    "elementType": "SCALAR",
+                    "componentType": "BIT",
+                    "byteOffset": 2,
+                    "byteLength": 4,
+                    "buffer": 0
+                },
+                {
+                    "elementType": "SCALAR",
+                    "componentType": "FLOAT",
+                    "byteOffset": 0,
+                    "byteLength": 32,
+                    "buffer": 1
+                },
+                {
+                    "elementType": "STRING",
+                    "byteOffset": 32,
+                    "byteLength": 64,
+                    "elementsOffsetBufferView": 5,
+                    "buffer": 2
+                },
+                {
+                    "elementType": "SCALAR",
+                    "componentType": "UNSIGNED_INT",
+                    "byteOffset": 0,
+                    "byteLength": 32,
+                    "buffer": 2
+                }
+            ],
+            "buffer": [
+                {
+                    "uri": "implicit.bin",
+                    "byteLength": 6
+                },
+                {
+                    "uri": "metadata_surface_area.bin",
+                    "byteLength": 32
+                },
+                {
+                    "uri": "metadata_tile_id.bin",
+                    "byteLength": 96
+                }
+            ]
+        }
+    }
+}
+
+```
