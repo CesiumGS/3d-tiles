@@ -75,7 +75,7 @@ Tiles in a level are indexed by applying the [Morton/Z-order](https://en.wikiped
 
 #### Location on disk
 
-Tiles are located in the file system according to their position in the tileset hierarchy in the following order: `Root/Level/X/Y/Z`. 
+Tiles are located in the file system according to their position in the tileset hierarchy in the following order: `Level/X/Y/Z`. In the case of a quadtree, the `Z` index can be ommitted.
 
 ### Tile States
 
