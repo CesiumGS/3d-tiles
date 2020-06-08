@@ -191,6 +191,7 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 |---|----|-----------|--------|
 |**boundingVolume**|`object`|A bounding volume that encloses the tileset.|☑️ Yes|
 |**tilingScheme**|`string`|A string describing the tiling scheme used within the tileset|☑️ Yes|
+|**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This property will apply to all available levels in the tileset.|☑️ Yes|
 |**subdivision**|`object`|An object containing high level information about the subdivision buffer|☑️ Yes|
 |**content**|`object`|An object containing high level information about the content buffer. This may be omitted if no tiles in the tileset contain content.|No|
 |**metadata**|`object`|An object containing high level information about the metadata buffer. This may be omitted if no tiles in the tileset contain metadata.|No|
@@ -264,13 +265,24 @@ When using the quadtree tiling scheme, the first split axis is defined through t
 
 Describes the tiling scheme used in the tileset.
 
-**Allowed Values**
+ - **Type**: string
+ - **Required**: No
+ - **Allowed Values**:
+    - "quadtree"
+    - "octree"
 
-|tilingScheme|Description|
-|:------------:|:-----------|
-|`"quadtree"`|Splits the bounding volume on 2 axes (X/Y)|
-|`"octree"`|Splits the bounding volume on 2 axes (X/Y/Z)|
 
+---
+
+### refine
+
+Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This property is required for the root tile of a tileset; it is optional for all other tiles. The default is to inherit from the parent tile.
+
+ - **Type**: string
+ - **Required**: Yes
+ - **Allowed Values**:
+    - "ADD"
+    - "REPLACE"
 
 ---
 
@@ -401,6 +413,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                     0, 0, 5
                 ]
             },
+            "refine": "REPLACE",
             "tilingScheme": "octree",
             "contentExtension": "glb",
             "tilesetExtension": "json",
@@ -467,6 +480,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                 ]
             },
             "tilingScheme": "quadtree",
+            "refine": "REPLACE",
             "contentExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
@@ -499,6 +513,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                 ]
             },
             "tilingScheme": "quadtree",
+            "refine": "REPLACE",
             "contentExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
@@ -626,6 +641,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                 ]
             },
             "tilingScheme": "quadtree",
+            "refine": "REPLACE",
             "contentExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
@@ -658,6 +674,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                 ]
             },
             "tilingScheme": "quadtree",
+            "refine": "REPLACE",
             "contentExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
@@ -857,6 +874,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                 ]
             },
             "tilingScheme": "quadtree",
+            "refine": "ADD",
             "contentExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
