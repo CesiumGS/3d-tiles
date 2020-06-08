@@ -288,7 +288,7 @@ Specifies if additive or replacement refinement is used when traversing the tile
 
 ### subdivision
 
-Provides information about the subdivision of the tileset. The structure of the tileset can be specified through the `completeLevels` property for tilesets that subdivide completely to a certain level or, for sparse tilesets, the structure bitstream can be read from the associated `bufferView`. 
+Provides information about the subdivision of the tileset. The structure of the tileset can be specified through the `completeLevels` property for tilesets that subdivide completely to a certain level. For all levels after `completeLevels`, the subdivision bitstream can be read from the associated `bufferView`.
 
 **Properties**
 
