@@ -301,7 +301,7 @@ Provides information about the subdivision of the tileset. The structure of the 
 
 ### content
 
-Provides information about the content of the tileset. The content bitstream can be read from the associated `bufferView.` For tilesets that have uniform content states till some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the content state value for all tiles in levels before the `levelOffset`.
+Provides information about the content of the tileset. The content bitstream can be read from the associated `bufferView.` For tilesets that have uniform content states till some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the content state value for all tiles in levels before the `levelOffset`. For all levels starting from the `levelOffset`, the content bitstream can be read from the associated `bufferView`.
 
 **Properties**
 
@@ -315,7 +315,7 @@ Provides information about the content of the tileset. The content bitstream can
 
 ### metadata
 
-Provides information about the metadata of the tileset. The metadata bitstream can be read from the associated `bufferView.` For tilesets that have uniform metadata states till some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the metadata state value for all tiles in levels before the `levelOffset`.
+Provides information about the metadata of the tileset. For tilesets that have uniform metadata states till some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the metadata state value for all tiles in levels before the `levelOffset`. For all levels starting from the `levelOffset`, the metadata bitstream can be read from the associated `bufferView`.
 
 **Properties**
 
