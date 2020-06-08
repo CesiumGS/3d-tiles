@@ -4,9 +4,27 @@
 
 This extension to 3D Tiles enables storage of binary data in external buffers.
 
-## Concepts
+## Properties Reference
 
-### Element Types
+---------------------------------------
+### 3DTILES_binary_buffers.bufferViews
+
+`bufferViews` provide a typed view into a `buffer`.
+
+**Properties**
+
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**buffer**|`integer`|The index of the buffer.|☑️ Yes|
+|**byteOffset**|`integer`|The offset relative to the start of the buffer in bytes.|☑️ Yes|
+|**byteLength**|`integer`|The length of the bufferView in bytes.| ☑️ Yes|
+|**elementCount**|`integer`|The number of elements in the buffer view.| ☑️ Yes|
+|**elementByteOffsetsBufferView**|`integer`|The index of the bufferView containing byte offsets for each element. Must be defined for the STRING type.|No|
+|**elementType**|`string`|Specifies if the attribute is a scalar, vector, matrix or string.|No, default is `SCALAR`.|
+|**componentType**|`string`|The datatype of components in the attribute.|☑️ Yes|
+
+
+#### Element Types
 
 | Element Type | No. of components |
 |:------------:|:-----------------:|
@@ -19,7 +37,9 @@ This extension to 3D Tiles enables storage of binary data in external buffers.
 | MAT3 | 9 |
 | MAT4 | 16 |
 
-### Component Types
+*Note: The `STRING` element type only stores UTF-8 encoded strings.*
+
+#### Component Types
 
 | Component | Size (bits) |
 |:---------:|:------------:|
@@ -34,13 +54,17 @@ This extension to 3D Tiles enables storage of binary data in external buffers.
 | FLOAT | 32 |
 | DOUBLE | 64 |
 
-### Buffers
 
-Buffers are binary blobs of data.
+---------------------------------------
+### 3DTILES_binary_buffers.buffers
+A buffer points to a blob data.
 
-### Buffer Views
+**Properties**
 
-Buffer views offer typed views into buffers. They specify a subset of the data stored in a buffer through a `byteOffset` and a `byteLength`. The type of data inside the buffers can be derived from the `elementType` and the `componentType` properties.
+|   |Type|Description|Required|
+|---|----|-----------|--------|
+|**uri**|`string`|The uri of the buffer.| ☑️ Yes|
+|**byteLength**|`integer`|The total byte length of the buffer view.| ☑️ Yes|
 
 ## Examples
 
@@ -108,7 +132,7 @@ Buffer views offer typed views into buffers. They specify a subset of the data s
                     "elementType": "STRING",
                     "byteOffset": 32,
                     "byteLength": 64,
-                    "elementsOffsetBufferView": 5,
+                    "elementByteOffsetsBufferView": 5,
                     "buffer": 2
                 },
                 {
