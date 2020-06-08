@@ -288,20 +288,20 @@ Specifies if additive or replacement refinement is used when traversing the tile
 
 ### subdivision
 
-Provides information about the subdivision of the tileset.
+Provides information about the subdivision of the tileset. The structure of the tileset can be specified through the `completeLevels` property for tilesets that subdivide completely to a certain level or, for sparse tilesets, the structure bitstream can be read from the associated `bufferView`. 
 
 **Properties**
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**completeLevels**|`number`|An integer describing how many levels subdivide internally. The default value for the subdivision state for all tiles on complete levels is `11`.|No|
+|**completeLevels**|`number`|An integer describing how many levels subdivide internally. The default value for the subdivision state for all tiles on complete levels is `11`.|No, the default value is 0.|
 |**bufferView**|`number`|An index to the buffer view containing the subdivision buffer.|No|
 
 ---
 
 ### content
 
-Provides information about the content of the tileset.
+Provides information about the content of the tileset. The content bitstream can be read from the associated `bufferView.` For tilesets that have uniform content states till some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the content state value for all tiles in levels before the `levelOffset`.
 
 **Properties**
 
@@ -315,7 +315,7 @@ Provides information about the content of the tileset.
 
 ### metadata
 
-Provides information about the metadata of the tileset.
+Provides information about the metadata of the tileset. The metadata bitstream can be read from the associated `bufferView.` For tilesets that have uniform metadata states till some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the metadata state value for all tiles in levels before the `levelOffset`.
 
 **Properties**
 
