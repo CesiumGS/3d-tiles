@@ -362,6 +362,16 @@ function createJumpBuffer(sBuffer) {
 
 #### Tile Index Lookup
 
+For all tile lookups in complete levels, the tile index in the content and subdivision buffers can be found by directly calculating the Morton index and adding to it the number of tiles in all levels before search level:
+
+```
+(TILING_SCHEME ** (LEVEL + 1)) - 1) / (TILING_SCHEME - 1) + MORTON(X, Y, Z)
+```
+
+where `TILING_SCHEME` is 4 for quadtree and 8 for octree.
+
+For sparse trees, the tile lookups can be performed using the following algorithm:
+
 ```javascript
 function getIndex(level, x, y, z) {
     const mortonIndex = morton(x, y, z);
