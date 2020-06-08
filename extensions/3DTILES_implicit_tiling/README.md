@@ -204,7 +204,7 @@ Additional properties are not allowed.
 
 ### boundingVolume 
 
-A bounding volume that encloses the tileset.  Exactly one `box`, `region` or `cell` property is required.
+A bounding volume that encloses the tileset.  Exactly one `box`, `region` or `geodesicQuad` property is required.
 
 **Properties**
 
@@ -212,7 +212,7 @@ A bounding volume that encloses the tileset.  Exactly one `box`, `region` or `ce
 |---|----|-----------|--------|
 |**box**|`number` `[12]`|An array of 12 numbers that define an oriented bounding box. The first three elements define the x, y, and z values for the center of the box.  The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the y axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.|No|
 |**region**|`number` `[6]`|An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.|No|
-|**cell**|`number` `[3]`|An array of 10 numbers that defines a geodesic quadrilateral cell. The first 8 elements are 4 pairs of EPSG:4979 coordinates in radians, and the last 2 elements are heights in meters above the WGS84 ellipsoid.|No|
+|**geodesicQuad**|`number` `[3]`|An array of 10 numbers that defines a geodesic quadrilateral. The first 8 elements are 4 pairs of EPSG:4979 coordinates in radians, and the last 2 elements are heights in meters above the WGS84 ellipsoid.|No|
 
 Additional properties are not allowed.
 
@@ -243,16 +243,16 @@ When using the quadtree tiling scheme, the split axes are defined on the X-Z pla
 |:---:|:--:|:--:|
 | ![](figures/region.png) | ![](figures/region_quadtree.png) | ![](figures/region_octree.png)  |
 
-#### boundingVolume.cell
+#### boundingVolume.geodesicQuad
 
-An array of 10 numbers that defines a geodesic quadrilateral cell. The first 8 elements are 4 pairs of EPSG:4979 coordinates in degrees in counterclockwise order, and the last 2 elements are heights in meters above the WGS84 ellipsoid.
+An array of 10 numbers that defines a geodesic quadrilateral. The first 8 elements are 4 pairs of EPSG:4979 coordinates in degrees in counterclockwise order, and the last 2 elements are heights in meters above the WGS84 ellipsoid.
 
 When using the quadtree tiling scheme, the first split axis is defined through the midpoint of the geodesic between the first and second point and the midpoint of the geodesic between the third and the fourth point. The second split axis is defined through the midpoint of the geodesic between the second and third point and the midpoint of the geodesic between the fourth and the first point. When using the octree tiling scheme, an additional split axis is defined at `(maxHeight - minHeight) * 0.5`.
 
 * **Type**: `number` `[10]`
 * **Required**: No
 
-| Cell | Quadtree | Octree |
+| Goedesic Quad | Quadtree | Octree |
 |:---:|:--:|:--:|
 | ![](figures/cell.png) | ![](figures/cell_quadtree.png) | ![](figures/cell_octree.png)  |
 
@@ -280,7 +280,7 @@ Provides information about the subdivision of the tileset.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**completeLevels**|`number`|An integer describing how many levels subdivide internally. We can assume the subdivision bitcode for all tiles on levels before this one to be `11`.|No|
+|**completeLevels**|`number`|An integer describing how many levels subdivide internally. The default value for the subdivision state for all tiles on complete levels is `11`.|No|
 |**bufferView**|`number`|An index to the buffer view containing the subdivision buffer.|No|
 
 ---
@@ -294,7 +294,7 @@ Provides information about the content of the tileset.
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**levelOffset**|`number`|An integer describing which level the content bitsream, if provided, starts at|No|
-|**levelOffsetFill**|`number`|An integer describing the state value for the content bit for all levels up to the `levelOffset`.|No|
+|**levelOffsetFill**|`number`|An integer describing the state value for the content bit for all levels up to the `levelOffset`. The default value is `0`. |No|
 |**bufferView**|`number`|An index to the buffer view containing the content buffer.|No|
 
 ---
@@ -308,7 +308,7 @@ Provides information about the metadata of the tileset.
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**levelOffset**|`number`|An integer describing which level the metadata bitsream, if provided, starts at|No|
-|**levelOffsetFill**|`number`|An integer describing the state value for the metadata bit for all levels up to the `levelOffset`.|No|
+|**levelOffsetFill**|`number`|An integer describing the state value for the metadata bit for all levels up to the `levelOffset`. The default value is `0`. |No|
 |**bufferView**|`number`|An index to the buffer view containing the metadata buffer.|No|
 
 ## Appendix
@@ -710,9 +710,9 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
         └── ...
 ```
 
-#### Six-headed Global Cells (combined using a base tileset)
+#### Six-headed Global Geodesic Quads (combined using a base tileset)
 
-![Global Cell Coverage](figures/cell_global.png)
+![Global Geodesic Quad Coverage](figures/cell_global.png)
 
 ##### Base Tileset - tileset.json
 
@@ -845,7 +845,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
     "extensions": {
         "3DTILES_implicit_tiling": {
             "boundingVolume": {
-                "cell": [
+                "geodesicQuad": [
                     -90,30,
                     0, 30,
                     90,30,
