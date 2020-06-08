@@ -10,6 +10,7 @@
 ## Contents
 
 * [Overview](#overview)
+* [Dependencies](#dependencies)
 * [Concepts](#concepts)
     * [Tiling Scheme](#tiling-scheme)
     * [Root Tiles](#root-tiles)
@@ -30,6 +31,10 @@
 ## Overview
 
 This extension enables 3D Tiles to support tilesets with implied subdivision schemes. This improves interoperability with existing geospatial data formats that use implicit tiling schemes, such as [CDB](https://www.ogc.org/standards/cdb) and [WMTS](https://www.ogc.org/standards/wmts). When subdivision is implied, it enables simplification at every stage of the tileset's lifetime: querying tree structure from the server, data storage on the client, as well as simplification and optimization of algorithms involved with the structure of the tree such as traversal, visibility, arbitrary selection of tiles in a region, ray casting, analysis, etc.
+
+## Dependencies
+
+This extension depends on [3DTILES_binary_buffers](https://github.com/CesiumGS/3d-tiles/blob/3DTILES_binary_buffers/extensions/3DTILES_binary_buffers/README.md) for storage of the binary data and [3DTILES_tile_metadata](https://github.com/CesiumGS/3d-tiles/blob/3DTILES_tile_metadata/extensions/3DTILES_tile_metadata/README.md) for tile metadata.
 
 ## Concepts
 
@@ -403,9 +408,6 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
     }
 }
 ```
-
-
-
 
 ### Samples
 
