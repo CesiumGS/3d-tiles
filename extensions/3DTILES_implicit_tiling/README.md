@@ -221,6 +221,8 @@ Additional properties are not allowed.
 An array of 12 numbers that define an oriented bounding box. The first three elements define the x, y, and z values for the center of the box. The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.
 The next three elements (indices 6, 7, and 8) define the y axis direction and half-length. The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.
 
+When using the quadtree tiling scheme, the split axes are defined on the X-Z plane at `Y * 0.5` and the Y-Z plane at `X * 0.5`. When using the octree tiling scheme, an additional split axis is defined on the X-Y plane at `Z * 0.5`.
+
 * **Type**: `number` `[12]`
 * **Required**: No
 
@@ -232,6 +234,8 @@ The next three elements (indices 6, 7, and 8) define the y axis direction and ha
 
 An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
 
+When using the quadtree tiling scheme, the split axes are defined on the X-Z plane at `(west - east) * 0.5` and the Y-Z plane at `(south - north) * 0.5`. When using the octree tiling scheme, an additional split axis is defined on the X-Y plane at `(maxHeight - minHeight) * 0.5`.
+
 * **Type**: `number` `[6]`
 * **Required**: No
 
@@ -242,6 +246,8 @@ An array of six numbers that define a bounding geographic region in EPSG:4979 co
 #### boundingVolume.cell
 
 An array of 10 numbers that defines a geodesic quadrilateral cell. The first 8 elements are 4 pairs of EPSG:4979 coordinates in degrees in counterclockwise order, and the last 2 elements are heights in meters above the WGS84 ellipsoid.
+
+When using the quadtree tiling scheme, the first split axis is defined through the midpoint of the geodesic between the first and second point and the midpoint of the geodesic between the third and the fourth point. The second split axis is defined through the midpoint of the geodesic between the second and third point and the midpoint of the geodesic between the fourth and the first point. When using the octree tiling scheme, an additional split axis is defined at `(maxHeight - minHeight) * 0.5`.
 
 * **Type**: `number` `[10]`
 * **Required**: No
