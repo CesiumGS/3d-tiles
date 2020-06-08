@@ -116,6 +116,10 @@ An external tileset may exist outside the file structure of its parent tileset, 
 
 For tilesets that have uniform subdivision for each tile up to a certain level, it is redundant to store the tile subdivision state information. The `completeLevels` property is used to indicate how many levels within the tileset are complete. Complete levels are levels in which all tiles subdivide implicitly and internally (using the bitcode `11`).
 
+##### Maximum Level
+
+The maximum level property describes the highest level of subdivision in the tileset.
+
 #### Content
 
 This is a one bit representation of whether or not a tile has content associated with it.
@@ -159,7 +163,8 @@ The following example illustrates the usage of these buffers in a sparse quadtre
 {
     "tilingScheme": "quadtree",
     "subdivision": {
-        "bufferView": 0
+        "bufferView": 0,
+        "maximumLevel": 2
     },
     "content": {
         "levelOffset": 2,
@@ -295,6 +300,7 @@ Provides information about the subdivision of the tileset. The structure of the 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**completeLevels**|`number`|An integer describing how many levels subdivide internally. The default value for the subdivision state for all tiles on complete levels is `11`.|No, the default value is 0.|
+|**maximumLevel**|`number`|An integer describing the highest level of internal subdivision.|No, default value is 1.|
 |**bufferView**|`number`|An index to the buffer view containing the subdivision buffer.|No|
 
 ---
