@@ -56,9 +56,9 @@ When a tile subdivides into an [octree](https://en.wikipedia.org/wiki/Octree), i
 
 ### Root Tiles
 
-Multiple tilesets using this extension can be combined by using parent tileset referring to one or more external tilesets using `3DTILES_implicit_tiling` as the children of the root tile. Such a configuration can be used to represent structures like double-headed quadtrees in formats such as [TMS](https://wiki.osgeo.org/wiki/Tile_Map_Service_Specification) and [quantized-mesh](https://github.com/CesiumGS/quantized-mesh) and six-headed quadtrees in tiling schemes such as [S2geometry](https://s2geometry.io/).
+Multiple tilesets using this extension can be combined by using a "base" tileset referring to one or more external tilesets using `3DTILES_implicit_tiling` as the children of the root tile. Such a configuration can be useful in representing structures like double-headed quadtrees in formats such as [TMS](https://wiki.osgeo.org/wiki/Tile_Map_Service_Specification) and [quantized-mesh](https://github.com/CesiumGS/quantized-mesh) and six-headed quadtrees in tiling schemes such as [S2geometry](https://s2geometry.io/).
 
-When the tileset is using the `3DTILES_implicit_tiling` extension, the runtime should ignore the `root` property of the `tileset.json`.
+When a tileset is using the `3DTILES_implicit_tiling` extension, the runtime should ignore the `root` property of the `tileset.json`.
 
 ### Levels
 
@@ -82,7 +82,7 @@ Tiles in a level are indexed by applying the [Morton/Z-order](https://en.wikiped
 
 #### Location on disk
 
-Tiles are located in the file system according to their position in the tileset hierarchy in the following order: `Level/X/Y/Z`. In the case of a quadtree, the `Z` index can be ommitted.
+Tiles are located in the file system according to their level in the tileset hierarchy in the following order: `Level/X,Y,Z`. In the case of a quadtree, the `Z` parameter is ommitted.
 
 ### Tile States
 
@@ -99,9 +99,9 @@ State information for the tileset is stored in the following bitstreams:
 
 #### Subdivision
 
-The subdivision state for each tile determines if and how it subdivides into children tiles, as per the `tilingScheme`. The subdivision state is encoded in 2 bits, and padded with 0s at the end to meet byte boundaries. The jump buffer generation will ignore the padding. Subdivision in a tile can have one of the following states:
+The subdivision state for each tile determines if and how it subdivides into children tiles, as per the `tilingScheme`. The subdivision state is encoded in 2 bits, and padded with 0s at the end to meet byte boundaries. At runtime, these padding bits will be ignored. A tile can have one of the following subdivision states:
 
-| Code | Description                                            |
+| Bitcode | Description                                            |
 |------|--------------------------------------------------------|
 | `00` | Does not subdivide.                                    |
 | `01` | Subdivides into external tileset at implicit location. | 
@@ -109,6 +109,7 @@ The subdivision state for each tile determines if and how it subdivides into chi
 | `11` | Subdivides internally.                                 |
 
 When a tile subdivides externally, the content and metadata for the root tile are obtained from the external tileset.
+
 ##### External Tileset at Implicit Location
 
 An external tileset may exist within the file structure of its parent tileset, with the root of the external tileset being present at the implicit location of the tile with subdivision state `01`.
@@ -119,7 +120,7 @@ An external tileset may exist outside the file structure of its parent tileset, 
 
 ##### Complete Levels
 
-For tilesets that have uniform subdivision for each tile up to a certain level, it is redundant to store the tile subdivision state information. The `completeLevels` property is used to indicate how many levels within the tileset are complete. Complete levels are levels in which all tiles subdivide implicitly and internally (using the bitcode `11`).
+For tilesets that have uniform subdivision for each tile up to a certain level, it is redundant to store the tile subdivision state information. The `completeLevels` property is used to indicate how many levels within the tileset are complete; complete levels are levels in which all tiles subdivide implicitly and internally (using the bitcode `11`).
 
 ##### Maximum Level
 
@@ -146,15 +147,19 @@ This is a one bit representation of whether or not a tile has metadata associate
 | `1`  | Has metadata      |
 
 
-When the tile has metadata, the index of the tile in the subdivision buffer will be the index of corresponding metadata property in the associated buffer in the `3DTILES_tile_metadata` extension.
+When the tile has metadata, the index of the tile in the subdivision buffer will be the index of corresponding metadata property in the `3DTILES_tile_metadata` extension.
 
 #### Level Offsets
 
-In the content and metadata objects, a level offset and a default value can be specified to implicitly apply the default value to each tile in all levels before the specified level offset. Similar to 
+In the content and metadata objects, a level offset and a default value can be specified to implicitly apply the default value to each tile in all levels before the specified level offset.
 
 #### Level Offset Fill
 
 The level offset fill describes the state of all tiles in levels before the level offset.
+
+### Bitstream Storage
+
+Bitstreams are stored in `bufferView`s, which are typed views into a binary buffer. The value of any `bufferView` property used in this extension is an index into the `bufferViews` array of the `3DTILES_binary_buffers` extension.
 
 ### Bitstream Layout
 
@@ -184,7 +189,7 @@ The following example illustrates the usage of these buffers in a sparse quadtre
 }
 ```
 
-Only the information with grey background is present in the bitstream.
+Only the information with bold text is present in the bitstream.
 
 ![States](figures/states.png)
 
@@ -200,13 +205,11 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**boundingVolume**|`object`|A bounding volume that encloses the tileset.|☑️ Yes|
-|**tilingScheme**|`string`|A string describing the tiling scheme used within the tileset|☑️ Yes|
-|**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This property will apply to all available levels in the tileset.|☑️ Yes|
+|**tilingScheme**|`string`|A string describing the tiling scheme used within the tileset.|☑️ Yes|
+|**refine**|`string`|A string to indicate if additive or replacement refinement is used when traversing the tileset for rendering. This property will apply to all available levels in the tileset.|☑️ Yes|
 |**subdivision**|`object`|An object containing high level information about the subdivision buffer|☑️ Yes|
 |**content**|`object`|An object containing high level information about the content buffer. This may be omitted if no tiles in the tileset contain content.|No|
 |**metadata**|`object`|An object containing high level information about the metadata buffer. This may be omitted if no tiles in the tileset contain metadata.|No|
-|**bufferViews**|`array`|An array containing typed views into buffers|No|
-|**buffers**|`array`|An array of buffers.|No|
 |**contentExtension**|`string`|The extension applied to each tile in the tileset.|No|
 |**tilesetExtension**|`string`|The extension applied to each implicit external tileset in the tileset.|No|
 
@@ -298,7 +301,7 @@ Specifies if additive or replacement refinement is used when traversing the tile
 
 ### subdivision
 
-Provides information about the subdivision of the tileset. The structure of the tileset can be specified through the `completeLevels` property for tilesets that subdivide completely to a certain level. For all levels after `completeLevels`, the subdivision bitstream can be read from the associated `bufferView`.
+Provides information about the spatial hierarchy of the tileset. The structure of the tileset may be specified through the `completeLevels` property for tilesets that subdivide completely to a certain level. For all levels between the `completeLevels` and the `maximumLevel`, the subdivision bitstream is available in the `bufferView`. If a tileset is complete, the `bufferView` may be omitted.
 
 **Properties**
 
@@ -312,7 +315,7 @@ Provides information about the subdivision of the tileset. The structure of the 
 
 ### content
 
-Provides information about the content of the tileset. The content bitstream can be read from the associated `bufferView.` For tilesets that have uniform content states till some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the content state value for all tiles in levels before the `levelOffset`. For all levels starting from the `levelOffset`, the content bitstream can be read from the associated `bufferView`.
+Provides information about the content of the tileset. The content bitstream can be read from the associated `bufferView.` For tilesets that have uniform content states till some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the content state value for all tiles in levels before the `levelOffset`. For all levels between the `levelOffset` and the `maximumLevel`, the content bitstream is available in the associated `bufferView`.
 
 **Properties**
 
@@ -326,7 +329,7 @@ Provides information about the content of the tileset. The content bitstream can
 
 ### metadata
 
-Provides information about the metadata of the tileset. For tilesets that have uniform metadata states till some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the metadata state value for all tiles in levels before the `levelOffset`. For all levels starting from the `levelOffset`, the metadata bitstream can be read from the associated `bufferView`.
+Provides information about the metadata of the tileset. For tilesets that have uniform metadata states till some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the metadata state value for all tiles in levels before the `levelOffset`. For all levels between the `levelOffset` and the `maximumLevel`, the metadata bitstream can be read from the associated `bufferView`.
 
 **Properties**
 
