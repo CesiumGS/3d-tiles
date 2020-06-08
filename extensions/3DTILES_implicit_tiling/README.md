@@ -129,7 +129,7 @@ When the tile has content, the content payload can be found implicitly by combin
 
 #### Metadata
 
-This is a one bit representation of whether or not a tile has content associated with it.
+This is a one bit representation of whether or not a tile has metadata associated with it.
 
 | Code | Description       |
 |------|-------------------|
