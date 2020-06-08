@@ -256,6 +256,19 @@ When using the quadtree tiling scheme, the first split axis is defined through t
 |:---:|:--:|:--:|
 | ![](figures/cell.png) | ![](figures/cell_quadtree.png) | ![](figures/cell_octree.png)  |
 
+---
+
+### tilingScheme
+
+Describes the tiling scheme used in the tileset.
+
+**Allowed Values**
+
+|tilingScheme|Description|
+|:------------:|:-----------|
+|`"quadtree"`|Splits the bounding volume on 2 axes (X/Y)|
+|`"octree"`|Splits the bounding volume on 2 axes (X/Y/Z)|
+
 
 ---
 
