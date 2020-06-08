@@ -10,6 +10,10 @@ When using 3D Tiles 1.0, the tile metadata is indexed using the Depth First Trav
 
 When using the `3DTILES_implicit_tiling` extension, the tile metadata is indexed using the metadata bitstream.
 
+## Dependencies
+
+This extension depends on [3DTILES_binary_buffers](https://github.com/CesiumGS/3d-tiles/blob/3DTILES_binary_buffers/extensions/3DTILES_binary_buffers/README.md) for storage of the binary data.
+
 ## Properties Reference
 
 ---------------------------------------
@@ -32,62 +36,10 @@ This property of the 3DTILES_tile_metadata object enumerates the different metad
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**semantic**|`string`|The name of the feature. Semantic names must be unique.|No|
-|**bufferView**|`integer`|The index of the bufferView.|☑️ Yes|
-
+|**semantic**|`string`|The name of the property. Semantic names must be unique.|No|
+|**bufferView**|`integer`|The index of the bufferView in the the bufferViews array of `3DTILES_binary_buffers`.|☑️ Yes|
 
 Application-specific semantics may also be defined, with the caveat that they must begin with an underscore, e.g. _CLASSIFICATION.
-
----------------------------------------
-### 3DTILES_tile_metadata.bufferViews
-
-`bufferViews` provide a typed view into a `buffer`.
-
-**Properties**
-
-|   |Type|Description|Required|
-|---|----|-----------|--------|
-|**buffer**|`integer`|The index of the buffer.|☑️ Yes|
-|**byteOffset**|`integer`|The offset relative to the start of the buffer in bytes.|☑️ Yes|
-|**byteLength**|`integer`|The length of the bufferView in bytes.| ☑️ Yes|
-|**elementByteOffsetsBufferView**|`integer`|The index of the bufferView containing byte offsets for each element. Must be defined for the STRING type.|No|
-|**type**|`string`|Specifies if the attribute is a scalar, vector, matrix or string.|No, default is one element.|
-|**componentType**|`string`|The datatype of components in the attribute.|☑️ Yes|
-
-Allowed `componentType`s:
-
-- `"BYTE"`
-- `"UNSIGNED_BYTE"`
-- `"SHORT"`
-- `"UNSIGNED_SHORT"`
-- `"INT"`
-- `"UNSIGNED_INT"`
-- `"FLOAT"`
-- `"DOUBLE"`
-
-Allowed `type`s:
-
-| `type` | Number of components |
-|:------:|:--------------------:|
-| `"SCALAR"` | 1 |
-| `"STRING"` | 1 |
-| `"VEC2"` | 2 |
-| `"VEC3"` | 3 |
-| `"VEC4"` | 4 |
-| `"MAT2"` | 4 |
-| `"MAT3"` | 9 |
-| `"MAT4"` | 16 |
-
----------------------------------------
-### 3DTILES_tile_metadata.buffers
-A buffer points to binary data.
-
-**Properties**
-
-|   |Type|Description|Required|
-|---|----|-----------|--------|
-|**uri**|`string`|The uri of the buffer.|No|
-|**byteLength**|`integer`|The total byte length of the buffer view.| ☑️ Yes|
 
 ## Example
 
