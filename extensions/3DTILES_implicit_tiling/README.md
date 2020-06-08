@@ -51,7 +51,7 @@ When a tile subdivides into an [octree](https://en.wikipedia.org/wiki/Octree), i
 
 ### Root Tiles
 
-Multiple tilesets using this extension can be combined by using parent tileset referring to one or more external tilesets using `3DTILES_implicit_tiling` as the children of the root tile.
+Multiple tilesets using this extension can be combined by using parent tileset referring to one or more external tilesets using `3DTILES_implicit_tiling` as the children of the root tile. Such a configuration can be used to represent structures like double-headed quadtrees in formats such as [TMS](https://wiki.osgeo.org/wiki/Tile_Map_Service_Specification) and [quantized-mesh](https://github.com/CesiumGS/quantized-mesh) and six-headed quadtrees in tiling schemes such as [S2geometry](https://s2geometry.io/).
 
 ### Levels
 
