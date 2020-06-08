@@ -19,9 +19,9 @@ This extension to 3D Tiles enables storage of binary data in external buffers.
 |**byteOffset**|`integer`|The offset relative to the start of the buffer in bytes.|☑️ Yes|
 |**byteLength**|`integer`|The length of the bufferView in bytes.| ☑️ Yes|
 |**elementCount**|`integer`|The number of elements in the buffer view.| ☑️ Yes|
-|**elementByteOffsetsBufferView**|`integer`|The index of the bufferView containing byte offsets for each element. Must be defined for the STRING type.|No|
+|**elementByteOffsetsBufferView**|`integer`|The index of the bufferView containing byte offsets for each element. Must be defined for the STRING element type.|No|
 |**elementType**|`string`|Specifies if the attribute is a scalar, vector, matrix or string.|No, default is `SCALAR`.|
-|**componentType**|`string`|The datatype of components in the attribute.|☑️ Yes|
+|**componentType**|`string`|The datatype of components in the attribute. Cannot be defined for the STRING element type.|No|
 
 
 #### Element Types
