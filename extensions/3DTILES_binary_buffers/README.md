@@ -55,6 +55,8 @@ This extension to 3D Tiles enables storage of binary data in external buffers.
 | DOUBLE | 64 |
 
 
+*Note: The buffer views for the `BIT` component type must be padded with trailing `0`s to meet the nearest byte boundary.*
+
 ---------------------------------------
 ### 3DTILES_binary_buffers.buffers
 A buffer points to a blob data.
