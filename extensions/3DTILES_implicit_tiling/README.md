@@ -25,7 +25,7 @@
 * [Appendix](#appendix)
     * [Algorithms](#algorithms)
         * [Jump Buffer Construction](#jump-buffer-construction)
-        * [Tile Index Lookup](#tile-index)
+        * [Tile Index Lookup](#tile-index-lookup)
     * [Samples](#samples)
 
 ## Overview
@@ -46,13 +46,13 @@ Tiling schemes specify how each tile in a level will subdivide in the next level
 
 ![Quadtree Image](figures/quadtree.png)
 
-When a tile subdivides into a [quadtree](https://en.wikipedia.org/wiki/Quadtree), it produces 4 children tile that occupy the same area as the parent tile. The tile is split on the XY plane at the midpoint of the bounds along the X and Y axes.
+When a tile subdivides into a [quadtree](https://en.wikipedia.org/wiki/Quadtree), it produces 4 children tiles that occupy the same area as the parent tile. The tile is split on the XY plane at the midpoint of the bounds along the X and Y axes.
 
 #### Octree
 
 ![Octree Image](figures/octree.png)
 
-When a tile subdivides into an [octree](https://en.wikipedia.org/wiki/Octree), it produces 8 equally size children tiles that occupy the same volume as the parent tile. The tile is split at the midpoint of the bounds along X, Y and Z axes.
+When a tile subdivides into an [octree](https://en.wikipedia.org/wiki/Octree), it produces 8 equally size children tiles that occupy the same volume as the parent tile. The tile is split at the midpoint of the bounds along the X, Y and Z axes.
 
 ### Root Tiles
 
@@ -82,7 +82,7 @@ Tiles in a level are indexed by applying the [Morton/Z-order](https://en.wikiped
 
 #### Location on disk
 
-Tiles are located in the file system according to their level in the tileset hierarchy in the following order: `Level/X,Y,Z`. In the case of a quadtree, the `Z` parameter is ommitted.
+Tiles are located in the file system according to their level in the tileset hierarchy in the following order: `Level/X/Y/Z`. In the case of a quadtree, the `Z` parameter is omitted.
 
 ### Tile States
 
@@ -94,12 +94,12 @@ State information for the tileset is stored in the following bitstreams:
 | Bitstream | Description       | Size (bits) |
 |------|-------------------|---|
 |  subdivision  | Encodes subdivision of each tile | 2 |
-|  content  | Encodes availability of content for tile | 1 |
-|  metadata  | Encodes availability of metadata for tile | 1 |
+|  content  | Encodes availability of content for each tile | 1 |
+|  metadata  | Encodes availability of metadata for each tile | 1 |
 
 #### Subdivision
 
-The subdivision state for each tile determines if and how it subdivides into children tiles, as per the `tilingScheme`. The subdivision state is encoded in 2 bits, and padded with 0s at the end to meet byte boundaries. At runtime, these padding bits will be ignored. A tile can have one of the following subdivision states:
+The subdivision state for each tile determines if and how it subdivides into children tiles, as per the `tilingScheme`. The subdivision state is encoded in 2 bits, and padded with 0s at the end to meet byte boundaries. At runtime, these padding bits are ignored. A tile can have one of the following subdivision states:
 
 | Bitcode | Description                                            |
 |------|--------------------------------------------------------|
@@ -135,7 +135,7 @@ This is a one bit representation of whether or not a tile has content associated
 | `0`  | No content        |
 | `1`  | Has content       |
 
-When the tile has content, the content payload can be found implicitly by combining the tile location with the tile extension.
+When the tile has content, the content payload can be found implicitly by combining the tile location with the content extension.
 
 #### Metadata
 
@@ -151,7 +151,7 @@ When the tile has metadata, the index of the tile in the subdivision buffer will
 
 #### Level Offsets
 
-In the content and metadata objects, a level offset and a default value can be specified to implicitly apply the default value to each tile in all levels before the specified level offset.
+In the content and metadata objects, a level offset and a default value can be specified to apply the default value to each tile in all levels before the specified level offset.
 
 #### Level Offset Fill
 
@@ -171,7 +171,7 @@ The following example illustrates the usage of these buffers in a sparse quadtre
 
 ```json
 {
-    "tilingScheme": "quadtree",
+    "tilingScheme": "QUADTREE",
     "subdivision": {
         "bufferView": 0,
         "maximumLevel": 2
@@ -198,7 +198,7 @@ Only the information with bold text is present in the bitstream.
 ---------------------------------------
 ### 3DTILES_implicit_tiling Tileset JSON extension
 
-Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
+Specifies the properties for the 3DTILES_implicit_tiling object.
 
 **Properties**
 
@@ -206,12 +206,12 @@ Specifies the Tileset JSON properties for the 3DTILES_implicit_tiling.
 |---|----|-----------|--------|
 |**boundingVolume**|`object`|A bounding volume that encloses the tileset.|☑️ Yes|
 |**tilingScheme**|`string`|A string describing the tiling scheme used within the tileset.|☑️ Yes|
-|**refine**|`string`|A string to indicate if additive or replacement refinement is used when traversing the tileset for rendering. This property will apply to all available levels in the tileset.|☑️ Yes|
+|**refine**|`string`|A string to indicate if additive or replacement refinement is used when traversing the tileset for rendering. This property applies to all tiles in the tileset.|☑️ Yes|
 |**subdivision**|`object`|An object containing high level information about the subdivision buffer|☑️ Yes|
 |**content**|`object`|An object containing high level information about the content buffer. This may be omitted if no tiles in the tileset contain content.|No|
 |**metadata**|`object`|An object containing high level information about the metadata buffer. This may be omitted if no tiles in the tileset contain metadata.|No|
-|**contentExtension**|`string`|The extension applied to each tile in the tileset.|No|
-|**tilesetExtension**|`string`|The extension applied to each implicit external tileset in the tileset.|No|
+|**contentExtension**|`string`|The extension used to query tile content.|No|
+|**tilesetExtension**|`string`|The extension used to query implicit external tilesets.|No|
 
 Additional properties are not allowed.
 
@@ -228,7 +228,7 @@ A bounding volume that encloses the tileset.  Exactly one `box`, `region` or `ge
 |---|----|-----------|--------|
 |**box**|`number` `[12]`|An array of 12 numbers that define an oriented bounding box. The first three elements define the x, y, and z values for the center of the box.  The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length.  The next three elements (indices 6, 7, and 8) define the y axis direction and half-length.  The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.|No|
 |**region**|`number` `[6]`|An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.|No|
-|**geodesicQuad**|`number` `[3]`|An array of 10 numbers that defines a geodesic quadrilateral. The first 8 elements are 4 pairs of EPSG:4979 coordinates in radians, and the last 2 elements are heights in meters above the WGS84 ellipsoid.|No|
+|**geodesicQuad**|`number` `[10]`|An array of 10 numbers that defines a geodesic quadrilateral. The first 8 elements are 4 pairs of EPSG:4979 coordinates in radians, and the last 2 elements are heights in meters above the WGS84 ellipsoid.|No|
 
 Additional properties are not allowed.
 
@@ -268,7 +268,7 @@ When using the quadtree tiling scheme, the first split axis is defined through t
 * **Type**: `number` `[10]`
 * **Required**: No
 
-| Goedesic Quad | Quadtree | Octree |
+| Geodesic Quad | Quadtree | Octree |
 |:---:|:--:|:--:|
 | ![](figures/cell.png) | ![](figures/cell_quadtree.png) | ![](figures/cell_octree.png)  |
 
@@ -281,8 +281,8 @@ Describes the tiling scheme used in the tileset.
  - **Type**: string
  - **Required**: No
  - **Allowed Values**:
-    - "quadtree"
-    - "octree"
+    - "QUADTREE"
+    - "OCTREE"
 
 
 ---
@@ -315,7 +315,7 @@ Provides information about the spatial hierarchy of the tileset. The structure o
 
 ### content
 
-Provides information about the content of the tileset. The content bitstream can be read from the associated `bufferView.` For tilesets that have uniform content states till some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the content state value for all tiles in levels before the `levelOffset`. For all levels between the `levelOffset` and the `maximumLevel`, the content bitstream is available in the associated `bufferView`.
+Provides information about the content of the tileset. The content bitstream can be read from the associated `bufferView`. For tilesets that have uniform content states up to some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the content state value for all tiles in levels before the `levelOffset`. For all levels between the `levelOffset` and the `maximumLevel`, the content bitstream is available in the associated `bufferView`.
 
 **Properties**
 
@@ -329,7 +329,7 @@ Provides information about the content of the tileset. The content bitstream can
 
 ### metadata
 
-Provides information about the metadata of the tileset. For tilesets that have uniform metadata states till some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the metadata state value for all tiles in levels before the `levelOffset`. For all levels between the `levelOffset` and the `maximumLevel`, the metadata bitstream can be read from the associated `bufferView`.
+Provides information about the metadata of the tileset. For tilesets that have uniform metadata states up to some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the metadata state value for all tiles in levels before the `levelOffset`. For all levels between the `levelOffset` and the `maximumLevel`, the metadata bitstream can be read from the associated `bufferView`.
 
 **Properties**
 
@@ -421,9 +421,9 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 ```json
 {
     "asset": {
-        "version": "2.0.0-alpha.0"
+        "version": "1.0"
     },
-    "geometricValue": 10000,
+    "geometricError": 10000,
     "extensions": {
         "3DTILES_implicit_tiling": {
             "boundingVolume": {
@@ -435,7 +435,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                 ]
             },
             "refine": "REPLACE",
-            "tilingScheme": "octree",
+            "tilingScheme": "OCTREE",
             "contentExtension": "glb",
             "tilesetExtension": "json",
             "content": {
@@ -487,7 +487,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 ```json
 {
     "asset": {
-        "version": "2.0.0-alpha.0"
+        "version": "1.0"
     },
     "geometricError": 500,
     "extensions": {
@@ -500,7 +500,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                     0, 0, 5
                 ]
             },
-            "tilingScheme": "quadtree",
+            "tilingScheme": "QUADTREE",
             "refine": "REPLACE",
             "contentExtension": "glb",
             "tilesetExtension": "json",
@@ -520,7 +520,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 ```json
 {
     "asset": {
-        "version": "2.0.0-alpha.0"
+        "version": "1.0"
     },
     "geometricError": 500,
     "extensions": {
@@ -533,7 +533,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                     0, 0, 5
                 ]
             },
-            "tilingScheme": "quadtree",
+            "tilingScheme": "QUADTREE",
             "refine": "REPLACE",
             "contentExtension": "glb",
             "tilesetExtension": "json",
@@ -598,7 +598,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
     "asset": {
         "version": "1.0"
     },
-    "geometricError": 1000,
+    "geometricError": 10000,
     "root": {
         "boundingVolume": {
             "box": [
@@ -648,7 +648,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 ```json
 {
     "asset": {
-        "version": "2.0.0-alpha.0"
+        "version": "1.0"
     },
     "geometricError": 500,
     "extensions": {
@@ -661,7 +661,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                     0, 0, 5
                 ]
             },
-            "tilingScheme": "quadtree",
+            "tilingScheme": "QUADTREE",
             "refine": "REPLACE",
             "contentExtension": "glb",
             "tilesetExtension": "json",
@@ -681,7 +681,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 ```json
 {
     "asset": {
-        "version": "2.0.0-alpha.0"
+        "version": "1.0"
     },
     "geometricError": 500,
     "extensions": {
@@ -694,7 +694,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                     0, 0, 5
                 ]
             },
-            "tilingScheme": "quadtree",
+            "tilingScheme": "QUADTREE",
             "refine": "REPLACE",
             "contentExtension": "glb",
             "tilesetExtension": "json",
@@ -879,7 +879,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
 ```json
 {
     "asset": {
-        "version": "2.0.0-alpha.0"
+        "version": "1.0"
     },
     "geometricError": 1000,
     "extensions": {
@@ -894,7 +894,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                     100000
                 ]
             },
-            "tilingScheme": "quadtree",
+            "tilingScheme": "QUADTREE",
             "refine": "ADD",
             "contentExtension": "glb",
             "tilesetExtension": "json",
