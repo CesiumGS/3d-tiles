@@ -59,6 +59,8 @@ Application-specific semantics may also be defined, with the caveat that they mu
           "bufferView": 3
         }
       },
+    },
+    "3DTILES_binary_buffers": {
       "bufferViews": [
         {
           "buffer": 0,
