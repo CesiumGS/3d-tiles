@@ -307,7 +307,7 @@ Provides information about the spatial hierarchy of the tileset. The structure o
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**completeLevels**|`number`|An integer describing how many levels subdivide internally. The default value for the subdivision state for all tiles on complete levels is `11`.|No, the default value is 0.|
-|**maximumLevel**|`number`|An integer describing the highest level of internal subdivision.|No, default value is 1.|
+|**maximumLevel**|`number`|An integer describing the highest level of internal subdivision.|Yes|
 |**bufferView**|`number`|An index to the buffer view containing the subdivision buffer.|No|
 
 ---
@@ -437,12 +437,13 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "tilingScheme": "OCTREE",
             "contentExtension": "glb",
             "tilesetExtension": "json",
+            "subdivision": {
+                "completeLevels": 3,
+                "maximumLevel": 3
+            },
             "content": {
                 "levelOffset": 4,
                 "levelOffsetFill": 1
-            },
-            "subdivision": {
-                "completeLevels": 3
             }
         }
     }
@@ -504,7 +505,8 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "contentExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
-                "bufferView": 0
+                "bufferView": 0,
+                "maximumLevel": 4
             },
             "content": {
                 "bufferView": 1
@@ -537,7 +539,8 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "contentExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
-                "bufferView": 0
+                "bufferView": 0,
+                "maximumLevel": 4
             },
             "content": {
                 "bufferView": 1
@@ -665,7 +668,8 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "contentExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
-                "bufferView": 0
+                "bufferView": 0,
+                "maximumLevel": 4
             },
             "content": {
                 "bufferView": 1
@@ -698,7 +702,8 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "contentExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
-                "bufferView": 0
+                "bufferView": 0,
+                "maximumLevel": 4
             },
             "content": {
                 "bufferView": 1
@@ -898,7 +903,8 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "contentExtension": "glb",
             "tilesetExtension": "json",
             "subdivision": {
-                "completeLevels": 3
+                "completeLevels": 3,
+                "maximumLevel": 8
             },
             "content": {
                 "levelOffset": 4,
