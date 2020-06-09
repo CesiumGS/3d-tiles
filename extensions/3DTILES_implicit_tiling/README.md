@@ -435,8 +435,8 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             },
             "refine": "REPLACE",
             "tilingScheme": "OCTREE",
-            "contentExtension": "glb",
-            "tilesetExtension": "json",
+            "contentExtension": ".glb",
+            "tilesetExtension": ".json",
             "subdivision": {
                 "completeLevels": 3,
                 "maximumLevel": 3
@@ -502,8 +502,8 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             },
             "tilingScheme": "QUADTREE",
             "refine": "REPLACE",
-            "contentExtension": "glb",
-            "tilesetExtension": "json",
+            "contentExtension": ".glb",
+            "tilesetExtension": ".json",
             "subdivision": {
                 "bufferView": 0,
                 "maximumLevel": 4
@@ -536,8 +536,8 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             },
             "tilingScheme": "QUADTREE",
             "refine": "REPLACE",
-            "contentExtension": "glb",
-            "tilesetExtension": "json",
+            "contentExtension": ".glb",
+            "tilesetExtension": ".json",
             "subdivision": {
                 "bufferView": 0,
                 "maximumLevel": 4
@@ -665,8 +665,8 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             },
             "tilingScheme": "QUADTREE",
             "refine": "REPLACE",
-            "contentExtension": "glb",
-            "tilesetExtension": "json",
+            "contentExtension": ".glb",
+            "tilesetExtension": ".json",
             "subdivision": {
                 "bufferView": 0,
                 "maximumLevel": 4
@@ -699,8 +699,8 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             },
             "tilingScheme": "QUADTREE",
             "refine": "REPLACE",
-            "contentExtension": "glb",
-            "tilesetExtension": "json",
+            "contentExtension": ".glb",
+            "tilesetExtension": ".json",
             "subdivision": {
                 "bufferView": 0,
                 "maximumLevel": 4
@@ -900,8 +900,8 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             },
             "tilingScheme": "QUADTREE",
             "refine": "ADD",
-            "contentExtension": "glb",
-            "tilesetExtension": "json",
+            "contentExtension": ".glb",
+            "tilesetExtension": ".json",
             "subdivision": {
                 "completeLevels": 3,
                 "maximumLevel": 8
