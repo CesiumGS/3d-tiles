@@ -76,7 +76,7 @@ Level grids are indexed from the bottom left, using a right handed coordinate sy
 
 Tiles in a level are indexed by applying the [Morton/Z-order](https://en.wikipedia.org/wiki/Z-order_curve) curve to the grid at that level. Using the Morton order serves two primary purposes:
 
-- Efficient tile location decomposition: The Morton order allows efficient encoding and decoding of locations of a tile in the level grid to its location in the availability bitstream
+- Efficient tile location decomposition: The Morton order allows efficient encoding and decoding of locations of a tile in the level grid to its location in the tile state bitstreams.
 - Efficient traversal: The binary representation of tile locations in the grid allow for easy traversal of the tileset.
 
 #### Location on disk
