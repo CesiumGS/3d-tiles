@@ -98,7 +98,7 @@ State information for the tileset is stored in the following bitstreams:
 
 #### Subdivision
 
-The subdivision state for each tile determines if and how it subdivides into children tiles, as per the `tilingScheme`. The subdivision state is encoded in 2 bits, and padded with 0s at the end to meet byte boundaries. At runtime, these padding bits are ignored. A tile can have one of the following subdivision states:
+The subdivision state for each tile determines if and how it subdivides into children tiles, as per the `tilingScheme`. The subdivision state is encoded in 2 bits. The buffer will use the `BIT` component type and associated layout rules, as defined in the [3DTILES_binary_buffers](https://github.com/CesiumGS/3d-tiles/blob/3DTILES_binary_buffers/extensions/3DTILES_binary_buffers/README.md#3dtiles_binary_buffersbufferviews) extension. A tile can have one of the following subdivision states:
 
 | Bitcode | Description                                            |
 |------|--------------------------------------------------------|
