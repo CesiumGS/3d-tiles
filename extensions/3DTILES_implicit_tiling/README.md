@@ -205,6 +205,7 @@ Specifies the properties for the 3DTILES_implicit_tiling object.
 |---|----|-----------|--------|
 |**boundingVolume**|`object`|A bounding volume that encloses the tileset.|☑️ Yes|
 |**tilingScheme**|`string`|A string describing the tiling scheme used within the tileset.|☑️ Yes|
+|**geometricError**|`number`|The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.|☑️ Yes|
 |**refine**|`string`|A string to indicate if additive or replacement refinement is used when traversing the tileset for rendering. This property applies to all tiles in the tileset.|☑️ Yes|
 |**subdivision**|`object`|An object containing high level information about the subdivision buffer|☑️ Yes|
 |**content**|`object`|An object containing high level information about the content buffer. This may be omitted if no tiles in the tileset contain content.|No|
@@ -283,6 +284,15 @@ Describes the tiling scheme used in the tileset.
     - "QUADTREE"
     - "OCTREE"
 
+---
+
+### geometricError
+
+The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels. The geometric error is halved for each level of subdivision within an implicit tileset.
+
+- **Type**: number
+- **Required**: Yes
+- **Minimum**: >= 0
 
 ---
 
@@ -433,8 +443,9 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                     0, 0, 5
                 ]
             },
-            "refine": "REPLACE",
             "tilingScheme": "OCTREE",
+            "geometricError": 5000,
+            "refine": "REPLACE",
             "contentExtension": ".glb",
             "tilesetExtension": ".json",
             "subdivision": {
@@ -501,6 +512,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                 ]
             },
             "tilingScheme": "QUADTREE",
+            "geometricError": 5000,
             "refine": "REPLACE",
             "contentExtension": ".glb",
             "tilesetExtension": ".json",
@@ -535,6 +547,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                 ]
             },
             "tilingScheme": "QUADTREE",
+            "geometricError": 5000,
             "refine": "REPLACE",
             "contentExtension": ".glb",
             "tilesetExtension": ".json",
@@ -664,6 +677,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                 ]
             },
             "tilingScheme": "QUADTREE",
+            "geometricError": 500,
             "refine": "REPLACE",
             "contentExtension": ".glb",
             "tilesetExtension": ".json",
@@ -698,6 +712,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                 ]
             },
             "tilingScheme": "QUADTREE",
+            "geometricError": 500,
             "refine": "REPLACE",
             "contentExtension": ".glb",
             "tilesetExtension": ".json",
@@ -899,6 +914,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
                 ]
             },
             "tilingScheme": "QUADTREE",
+            "geometricError": 1000,
             "refine": "ADD",
             "contentExtension": ".glb",
             "tilesetExtension": ".json",
