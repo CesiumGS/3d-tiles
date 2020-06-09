@@ -24,8 +24,6 @@ This extension depends on [3DTILES_binary_buffers](https://github.com/CesiumGS/3
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**properties**|`object`|An object containing one or more metadata properties associated with each tile.|No|
-|**bufferViews**|`array`|An array containing typed views into buffers|No|
-|**buffers**|`array`|An array of buffers.|No|
 
 ---------------------------------------
 ### 3DTILES_tile_metadata.properties
