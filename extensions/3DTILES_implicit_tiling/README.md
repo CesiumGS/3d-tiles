@@ -147,7 +147,7 @@ This is a one bit representation of whether or not a tile has metadata associate
 | `1`  | Has metadata      |
 
 
-When the tile has metadata, the index of the tile in the subdivision buffer will be the index of corresponding metadata property in the `3DTILES_tile_metadata` extension.
+When the tile has metadata, the index of the tile's properties in the `3DTILES_tile_metadata` buffers will be the index of the tile in the metadata bitstream added to the number of tiles in all levels before the level offset, if the level offset fill is `1`.
 
 #### Level Offsets
 
