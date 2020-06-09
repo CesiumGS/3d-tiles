@@ -21,7 +21,7 @@ This extension to 3D Tiles enables storage of binary data in external buffers.
 |**elementCount**|`integer`|The number of elements in the buffer view.| ☑️ Yes|
 |**elementByteOffsetsBufferView**|`integer`|The index of the bufferView containing byte offsets for each element. Must be defined for the STRING element type.|No|
 |**elementType**|`string`|Specifies if the attribute is a scalar, vector, matrix or string.|No, default is `SCALAR`.|
-|**componentType**|`string`|The datatype of components in the attribute. Cannot be defined for the STRING element type.|No|
+|**componentType**|`string`|The datatype of components in the attribute. Must be defined for every other element type, except STRING (in which case it will be ignored).|No|
 
 
 #### Element Types
@@ -64,7 +64,7 @@ A buffer points to a blob data.
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**uri**|`string`|The uri of the buffer.| ☑️ Yes|
-|**byteLength**|`integer`|The total byte length of the buffer view.| ☑️ Yes|
+|**byteLength**|`integer`|The total byte length of the buffer.| ☑️ Yes|
 
 ## Examples
 
@@ -73,7 +73,7 @@ A buffer points to a blob data.
 ```json
 {
     "asset": {
-        "version": "2.0.0-alpha.0"
+        "version": "1.0"
     },
     "extensions": {
         "3DTILES_implicit_tiling": {
@@ -132,7 +132,7 @@ A buffer points to a blob data.
                     "elementType": "STRING",
                     "byteOffset": 32,
                     "byteLength": 64,
-                    "elementByteOffsetsBufferView": 5,
+                    "elementByteOffsetsBufferView": 4,
                     "buffer": 2
                 },
                 {
@@ -143,7 +143,7 @@ A buffer points to a blob data.
                     "buffer": 2
                 }
             ],
-            "buffer": [
+            "buffers": [
                 {
                     "uri": "implicit.bin",
                     "byteLength": 6
