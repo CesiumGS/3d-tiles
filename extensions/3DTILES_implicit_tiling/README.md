@@ -56,7 +56,7 @@ When a tile subdivides into an [octree](https://en.wikipedia.org/wiki/Octree), i
 
 ### Root Tiles
 
-Multiple tilesets using this extension can be combined by using a "base" tileset referring to one or more external tilesets using `3DTILES_implicit_tiling` as the children of the root tile. Such a configuration can be useful in representing structures like double-headed quadtrees in formats such as [TMS](https://wiki.osgeo.org/wiki/Tile_Map_Service_Specification) and [quantized-mesh](https://github.com/CesiumGS/quantized-mesh) and six-headed quadtrees in tiling schemes such as [S2geometry](https://s2geometry.io/). The [examples](#examples) section includes some templates for representation of such data structures using this extension.
+Existing formats that use implicit tiling schemes often use data structures such as double-headed quadtrees, in the case of [TMS](https://wiki.osgeo.org/wiki/Tile_Map_Service_Specification) and [quantized-mesh](https://github.com/CesiumGS/quantized-mesh), and six-headed quadtrees in tiling schemes such as [S2geometry](https://s2geometry.io/). To represent such tiling schemes, a "base" or parent tileset may be used to combine multiple tilesets that use this extension, where each tileset serves as the "head" or the root of subdivision.  The [examples](#examples) section includes some templates for representation of such data structures using this extension.
 
 When a tileset is using the `3DTILES_implicit_tiling` extension, the runtime should ignore the `root` property of the `tileset.json`.
 
