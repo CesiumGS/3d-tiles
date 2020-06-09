@@ -298,7 +298,7 @@ The error, in meters, introduced if this tile is rendered and its children are n
 
 ### refine
 
-Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This property is required for the root tile of a tileset; it is optional for all other tiles. The default is to inherit from the parent tile.
+Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This property applies to all tiles in the tileset.
 
  - **Type**: string
  - **Required**: Yes
