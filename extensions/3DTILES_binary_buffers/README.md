@@ -4,6 +4,35 @@
 
 This extension to 3D Tiles enables storage of binary data in external buffers.
 
+## Data Alignment
+
+The byte offset of a buffer view into a buffer must be a multiple of the size of the buffer view's component type. For a buffer view that uses the `BIT` element type, the data must be padded with `0`s to meet the nearest byte boundary.
+
+Buffer views of matrix type have data stored in column-major order; start of each column must be aligned to 4-byte boundaries. To achieve this, three `elementType`/`componentType` combinations require special layout:
+
+**MAT2, 1-byte components**
+```
+| 00| 01| 02| 03| 04| 05| 06| 07| 
+|===|===|===|===|===|===|===|===|
+|m00|m10|---|---|m01|m11|---|---|
+```
+
+**MAT3, 1-byte components**
+```
+| 00| 01| 02| 03| 04| 05| 06| 07| 08| 09| 0A| 0B|
+|===|===|===|===|===|===|===|===|===|===|===|===|
+|m00|m10|m20|---|m01|m11|m21|---|m02|m12|m22|---|
+```
+
+**MAT3, 2-byte components**
+```
+| 00| 01| 02| 03| 04| 05| 06| 07| 08| 09| 0A| 0B| 0C| 0D| 0E| 0F| 10| 11| 12| 13| 14| 15| 16| 17|
+|===|===|===|===|===|===|===|===|===|===|===|===|===|===|===|===|===|===|===|===|===|===|===|===|
+|m00|m00|m10|m10|m20|m20|---|---|m01|m01|m11|m11|m21|m21|---|---|m02|m02|m12|m12|m22|m22|---|---|
+```
+
+Alignment requirements apply only to start of each column, so trailing bytes could be omitted if there's no further data. 
+
 ## Properties Reference
 
 ---------------------------------------
@@ -19,9 +48,9 @@ This extension to 3D Tiles enables storage of binary data in external buffers.
 |**byteOffset**|`integer`|The offset relative to the start of the buffer in bytes.|☑️ Yes|
 |**byteLength**|`integer`|The length of the bufferView in bytes.| ☑️ Yes|
 |**elementCount**|`integer`|The number of elements in the buffer view.| ☑️ Yes|
-|**elementByteOffsetsBufferView**|`integer`|The index of the bufferView containing byte offsets for each element. Must be defined for the STRING element type.|No|
+|**elementByteOffsetsBufferView**|`integer`|The index of the bufferView containing byte offsets for each element. Must be defined for the STRING and NONUNIFORM element types.|No|
 |**elementType**|`string`|Specifies if the attribute is a scalar, vector, matrix or string.|No, default is `SCALAR`.|
-|**componentType**|`string`|The datatype of components in the attribute. Must be defined for every other element type, except STRING (in which case it will be ignored).|No|
+|**componentType**|`string`|The datatype of components in the attribute. Must be defined for every other element type, except STRING and NONUNIFORM (in which case it will be ignored).|No|
 
 
 #### Element Types
@@ -30,6 +59,7 @@ This extension to 3D Tiles enables storage of binary data in external buffers.
 |:------------:|:-----------------:|
 | SCALAR | 1 |
 | STRING | 1 |
+| NONUNIFORM | 1 |
 | VEC2 | 2 |
 | VEC3 | 3 | 
 | VEC4 | 4 |
@@ -54,8 +84,6 @@ This extension to 3D Tiles enables storage of binary data in external buffers.
 | FLOAT | 32 |
 | DOUBLE | 64 |
 
-
-*Note: The buffer views for the `BIT` component type must be padded with trailing `0`s to meet the nearest byte boundary.*
 
 ---------------------------------------
 ### 3DTILES_binary_buffers.buffers
