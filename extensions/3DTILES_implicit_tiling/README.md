@@ -117,13 +117,13 @@ An external tileset may exist within the file structure of its parent tileset, w
 
 An external tileset may exist outside the file structure of its parent tileset, with the root of the external tileset being present in the `tile.json` at the implicit location of the tile with subdivision state `10`.
 
-##### Complete Levels
+##### Complete Depth
 
-For tilesets that have uniform subdivision for each tile up to a certain level, it is redundant to store the tile subdivision state information. The `completeLevels` property is used to indicate how many levels within the tileset are complete; complete levels are levels in which all tiles subdivide implicitly and internally (using the bitcode `11`).
+For tilesets that have uniform subdivision for each tile up to a certain level, it is redundant to store the tile subdivision state information. The `completeDepth` property is used to indicate how many levels within the tileset are complete; levels are considered complete if all tiles subdivide implicitly and internally (using the bitcode `11`).
 
-##### Maximum Level
+##### Maximum Depth
 
-The maximum level property describes the highest level of subdivision in the tileset.
+The maximum depth property describes the highest level of subdivision in the tileset.
 
 #### Content
 
@@ -148,13 +148,13 @@ This is a one bit representation of whether or not a tile has metadata associate
 
 When the tile has metadata, the index of of the tile's properties in the `3DTILES_tile_metadata` buffers is the number of tiles containing metadata preceding this tile.
 
-#### Level Offsets
+#### Fill Offset
 
-In the content and metadata objects, a level offset and a default value can be specified to apply the default value to each tile in all levels before the specified level offset.
+In the content and metadata objects, a fill offset may be specified to apply the fill value to each tile in all levels up to and including the fill offset.
 
-#### Level Offset Fill
+#### Fill Value
 
-The level offset fill describes the state of all tiles in levels before the level offset.
+The fill value is the state value that will apply to each tile in a all levels up to and including the fill offset.
 
 ### Bitstream Storage
 
@@ -173,16 +173,16 @@ The following example illustrates the usage of these buffers in a sparse quadtre
     "tilingScheme": "QUADTREE",
     "subdivision": {
         "bufferView": 0,
-        "maximumLevel": 2
+        "maximumDepth": 2
     },
     "content": {
-        "levelOffset": 2,
-        "levelOffsetFill": 1,
+        "fillOffset": 2,
+        "fillValue": 1,
         "bufferView": 1
     },
     "metadata": {
-        "levelOffset": 2,
-        "levelOffsetFill": 0,
+        "fillOffset": 2,
+        "fillValue": 0,
         "bufferView": 0
     }
 }
@@ -310,42 +310,42 @@ Specifies if additive or replacement refinement is used when traversing the tile
 
 ### subdivision
 
-Provides information about the spatial hierarchy of the tileset. The structure of the tileset may be specified through the `completeLevels` property for tilesets that subdivide completely to a certain level. For all levels between the `completeLevels` and the `maximumLevel`, the subdivision bitstream is available in the `bufferView`. If a tileset is complete, the `bufferView` may be omitted.
+Provides information about the spatial hierarchy of the tileset. The structure of the tileset may be specified through the `completeDepth` property for tilesets that subdivide completely to a certain level. For all levels between the `completeDepth` and the `maximumDepth`, the subdivision bitstream is available in the `bufferView`. If a tileset is complete, the `bufferView` may be omitted.
 
 **Properties**
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**completeLevels**|`number`|An integer describing how many levels subdivide internally. The default value for the subdivision state for all tiles on complete levels is `11`.|No, the default value is 0.|
-|**maximumLevel**|`number`|An integer describing the highest level of internal subdivision.|Yes|
+|**completeDepth**|`number`|An integer describing how many levels subdivide internally. The default value for the subdivision state for all tiles on complete levels is `11`.|No, the default value is 0.|
+|**maximumDepth**|`number`|An integer describing the highest level of internal subdivision.|Yes|
 |**bufferView**|`number`|An index to the buffer view containing the subdivision buffer.|No|
 
 ---
 
 ### content
 
-Provides information about the content of the tileset. The content bitstream can be read from the associated `bufferView`. For tilesets that have uniform content states up to some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the content state value for all tiles in levels before the `levelOffset`. For all levels between the `levelOffset` and the `maximumLevel`, the content bitstream is available in the associated `bufferView`.
+Provides information about the content of the tileset. The content bitstream can be read from the associated `bufferView`. For tilesets that have uniform content states up to some level `n`, a `fillOffset` may be specified, which enables the runtime to assume that the provided `fillValue` is the content state value for all tiles in levels up to and including the `fillOffset`. For all levels between the `fillOffset` and the `maximumDepth`, the content bitstream is available in the associated `bufferView`.
 
 **Properties**
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**levelOffset**|`number`|An integer describing which level the content bitsream, if provided, starts at|No|
-|**levelOffsetFill**|`number`|An integer describing the state value for the content bit for all levels up to the `levelOffset`. The default value is `0`. |No|
+|**fillOffset**|`number`|An integer describing which level the content bitsream, if provided, starts at|No|
+|**fillValue**|`number`|An integer describing the state value for the content bit for all levels up to and including the `fillOffset`. The default value is `0`. |No|
 |**bufferView**|`number`|An index to the buffer view containing the content buffer.|No|
 
 ---
 
 ### metadata
 
-Provides information about the metadata of the tileset. For tilesets that have uniform metadata states up to some level `n`, a `levelOffset` may be specified, which enables the runtime to assume that the provided `levelOffsetFill` is the metadata state value for all tiles in levels before the `levelOffset`. For all levels between the `levelOffset` and the `maximumLevel`, the metadata bitstream can be read from the associated `bufferView`.
+Provides information about the metadata of the tileset. For tilesets that have uniform metadata states up to some level `n`, a `fillOffset` may be specified, which enables the runtime to assume that the provided `fillValue` is the metadata state value for all tiles in levels up to and including the `fillOffset`. For all levels between the `fillOffset` and the `maximumDepth`, the metadata bitstream can be read from the associated `bufferView`.
 
 **Properties**
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**levelOffset**|`number`|An integer describing which level the metadata bitsream, if provided, starts at|No|
-|**levelOffsetFill**|`number`|An integer describing the state value for the metadata bit for all levels up to the `levelOffset`. The default value is `0`. |No|
+|**fillOffset**|`number`|An integer describing which level the metadata bitstream, if provided, starts at|No|
+|**fillValue**|`number`|An integer describing the state value for the metadata bit for all levels up to and including the `fillOffset`. The default value is `0`. |No|
 |**bufferView**|`number`|An index to the buffer view containing the metadata buffer.|No|
 
 ## Appendix
@@ -404,17 +404,17 @@ function getIndex(level, x, y, z) {
     return -1;
 }
 
-function traverse(targetLevel, morton, currentLevel, levelOffset) {
+function traverse(targetLevel, morton, currentLevel, fillOffset) {
     const parentTileMorton = morton >> (2 ^ (targetLevel - currentLevel + 1));
     const currentTileOffset = morton % 4;
-    const currentTileBufferOffset = levelOffset + jBuffer[currentLevel - 1].indexOf(parentTileMorton) + currentTileOffset;
+    const currentTileBufferOffset = fillOffset + jBuffer[currentLevel - 1].indexOf(parentTileMorton) + currentTileOffset;
 
     if (targetLevel === currentLevel) {
         return currentTileBufferOffset;
     }
 
     if (sBuffer[currentTileBufferOffset] === 1) {
-        return traverse(targetLevel, morton, currentLevel + 1, levelOffset + (jBuffer[currentLevel].length * tilingScheme));
+        return traverse(targetLevel, morton, currentLevel + 1, fillOffset + (jBuffer[currentLevel].length * tilingScheme));
     } else {
         return -1;
     }
@@ -449,12 +449,12 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "contentExtension": ".glb",
             "tilesetExtension": ".json",
             "subdivision": {
-                "completeLevels": 3,
-                "maximumLevel": 3
+                "completeDepth": 3,
+                "maximumDepth": 3
             },
             "content": {
-                "levelOffset": 4,
-                "levelOffsetFill": 1
+                "fillOffset": 4,
+                "fillValue": 1
             }
         }
     }
@@ -519,7 +519,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "tilesetExtension": ".json",
             "subdivision": {
                 "bufferView": 0,
-                "maximumLevel": 4
+                "maximumDepth": 4
             },
             "content": {
                 "bufferView": 1
@@ -554,7 +554,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "tilesetExtension": ".json",
             "subdivision": {
                 "bufferView": 0,
-                "maximumLevel": 4
+                "maximumDepth": 4
             },
             "content": {
                 "bufferView": 1
@@ -681,7 +681,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "tilesetExtension": ".json",
             "subdivision": {
                 "bufferView": 0,
-                "maximumLevel": 4
+                "maximumDepth": 4
             },
             "content": {
                 "bufferView": 1
@@ -716,7 +716,7 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "tilesetExtension": ".json",
             "subdivision": {
                 "bufferView": 0,
-                "maximumLevel": 4
+                "maximumDepth": 4
             },
             "content": {
                 "bufferView": 1
@@ -914,12 +914,12 @@ function traverse(targetLevel, morton, currentLevel, levelOffset) {
             "contentExtension": ".glb",
             "tilesetExtension": ".json",
             "subdivision": {
-                "completeLevels": 3,
-                "maximumLevel": 8
+                "completeDepth": 3,
+                "maximumDepth": 8
             },
             "content": {
-                "levelOffset": 4,
-                "levelOffsetFill": 1
+                "fillOffset": 4,
+                "fillValue": 1
             }
         }
     }
