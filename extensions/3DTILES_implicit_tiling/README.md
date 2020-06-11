@@ -107,7 +107,7 @@ The subdivision state for each tile determines if and how it subdivides into chi
 | `10` | Subdivides into external tileset at explicit location. |
 | `11` | Subdivides internally.                                 |
 
-When a tile subdivides externally, the content and metadata for the root tile are obtained from the external tileset.
+When a tile subdivides externally, the content and metadata for the root tile are obtained from the external tileset. Only leaf nodes may subdivide externally; the root tile of a tileset using this extension may only subdivide internally.
 
 ##### External Tileset at Implicit Location
 
