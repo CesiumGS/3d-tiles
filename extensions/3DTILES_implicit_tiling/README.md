@@ -123,42 +123,39 @@ The directory structure for this tileset would look as follows, with all tiles a
 
 ```
 .
-├── tileset.json
-├── 0/
-│   └── 0/
-│       └── 0.glb
-├── 1/
-│   ├── 0/
-│   │   ├── 0.glb
-│   │   ├── 0.json
-│   │   ├── 1.glb
-│   │   └── 1.json
-│   └── 1/
-│       ├── 0.glb
-│       ├── 0.json
-│       ├── 1.glb
-│       └── 1.json
-└── 2/
+└── MainArchive/
+    ├── tileset.json
     ├── 0/
-    │   ├── 0.glb
-    │   ├── 1.glb
-    │   ├── 2.glb
-    │   └── 3.glb
+    │   └── 0/
+    │       └── 0.glb
     ├── 1/
-    │   ├── 0.glb
-    │   ├── 1.glb
-    │   ├── 2.glb
-    │   └── 3.glb
-    ├── 2/
-    │   ├── 0.glb
-    │   ├── 1.glb
-    │   ├── 2.glb
-    │   └── 3.glb
-    └── 3/
-        ├── 0.glb
-        ├── 1.glb
-        ├── 2.glb
-        └── 3.glb
+    │   ├── 0/
+    │   │   ├── 0.json
+    │   │   └── 1.json
+    │   └── 1/
+    │       ├── 0.json
+    │       └── 1.json
+    └── 2/
+        ├── 0/
+        │   ├── 0.glb
+        │   ├── 1.glb
+        │   ├── 2.glb
+        │   └── 3.glb
+        ├── 1/
+        │   ├── 0.glb
+        │   ├── 1.glb
+        │   ├── 2.glb
+        │   └── 3.glb
+        ├── 2/
+        │   ├── 0.glb
+        │   ├── 1.glb
+        │   ├── 2.glb
+        │   └── 3.glb
+        └── 3/
+            ├── 0.glb
+            ├── 1.glb
+            ├── 2.glb
+            └── 3.glb
 ```
 
 ##### External Tileset at Implicit Location
