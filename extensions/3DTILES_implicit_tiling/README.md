@@ -513,6 +513,25 @@ where `TILING_SCHEME` is 4 for quadtree and 8 for octree.
 For sparse trees, the tile lookups can be performed using the following algorithm:
 
 ```javascript
+Input:
+    1. L - Tile level
+    2. X - X coordinate of tile at level L
+    3. Y - Y coordinate of tile at level L
+    4. Z - Z coordinate of tile at level L
+
+Algorithm:
+    M = morton(X, Y, Z)
+    if (L < completeLevels):
+    else
+        while (currentLevel <= L)
+            // Index of the parent tile (Check the most significant LEVEL + 1 bits)
+            parentTileMorton = M >> (2 ^ (L - currentLevel + 1))
+            // Get the index of the current tile in the parent tile
+            currentTileOffset = morton % TILING_SCHEME
+            currentTileLocation = fillOffset + jumpBuffer[currentLevel - 1].indexOf(parentTileMorton) + currentTileOffset
+
+---------------------
+
 function getIndex(level, x, y, z) {
     const mortonIndex = morton(x, y, z);
     if (level === 1) {
