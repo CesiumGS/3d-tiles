@@ -216,6 +216,7 @@ Specifies the properties for the 3DTILES_implicit_tiling object.
 |**geometricError**|`number`|The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.|☑️ Yes|
 |**refine**|`string`|A string to indicate if additive or replacement refinement is used when traversing the tileset for rendering. This property applies to all tiles in the tileset.|☑️ Yes|
 |**subdivision**|`object`|An object containing high level information about the subdivision buffer|☑️ Yes|
+|**transform**|`number` `[16]`|A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system. transform does not apply to geometricError, nor does it apply any volume property when the volume is a region or a cell, defined in EPSG:4979 coordinates.|No|
 |**content**|`object`|An object containing high level information about the content buffer. This may be omitted if no tiles in the tileset contain content.|No|
 |**metadata**|`object`|An object containing high level information about the metadata buffer. This may be omitted if no tiles in the tileset contain metadata.|No|
 |**contentExtension**|`string`|The extension used to query tile content.|No|
@@ -313,6 +314,15 @@ Specifies if additive or replacement refinement is used when traversing the tile
  - **Allowed Values**:
     - "ADD"
     - "REPLACE"
+
+---
+
+### transform
+
+A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system. transform does not apply to geometricError, nor does it apply any volume property when the volume is a region, defined in EPSG:4979 coordinates.
+
+- **Type**: number [16]
+- **Required**: No, default: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
 
 ---
 
