@@ -113,17 +113,125 @@ When a tile subdivides externally, the content and metadata for the root tile ar
 
 An external tileset may exist within the file structure of its parent tileset, with the `tileset.json` of the external tileset being present at the implicit location of the tile with subdivision state `01`. All tiles in that belong to this tileset belong are located according to the parent tileset's file structure.
 
+**The following section is non-normative**
+
+The following diagrams illustrate how external subdivision at implicit location works. In this tileset, all tiles at level 1 have the subdivision bitcode `01`.
+
+![](figures/quadtree_with_implicit_external_quadtree.png)
+
+The directory structure for this tileset would look as follows, with all tiles at level 1 and 2 belonging to their respective parent tiles at level 1; however, the tiles are still following the file layout of the base tileset.
+
+```
+.
+├── tileset.json
+├── 0/
+│   └── 0/
+│       └── 0.glb
+├── 1/
+│   ├── 0/
+│   │   ├── 0.glb
+│   │   ├── 0.json
+│   │   ├── 1.glb
+│   │   └── 1.json
+│   └── 1/
+│       ├── 0.glb
+│       ├── 0.json
+│       ├── 1.glb
+│       └── 1.json
+└── 2/
+    ├── 0/
+    │   ├── 0.glb
+    │   ├── 1.glb
+    │   ├── 2.glb
+    │   └── 3.glb
+    ├── 1/
+    │   ├── 0.glb
+    │   ├── 1.glb
+    │   ├── 2.glb
+    │   └── 3.glb
+    ├── 2/
+    │   ├── 0.glb
+    │   ├── 1.glb
+    │   ├── 2.glb
+    │   └── 3.glb
+    └── 3/
+        ├── 0.glb
+        ├── 1.glb
+        ├── 2.glb
+        └── 3.glb
+```
+
 ##### External Tileset at Implicit Location
 
 An external tileset may exist outside the file structure of its parent tileset, with the root of the external tileset being present in the `tile.json` at the implicit location of the tile with subdivision state `10`. All tiles in that belong to this tileset belong are located according to its own file structure.
 
-**The following section is non-normative**
+The following diagrams illustrate how external subdivision at implicit location works. In this tileset, all tiles at level 1 have the subdivision bitcode `10`.
 
-The following diagrams illustrate how external subdivision works. The main archive represents the file structure of the parent tileset. The external archive represents the file structure of the external tilesets.
+![](figures/quadtree_with_explicit_external_quadtree.png)
 
-| Subdivision at Implicit Location | Subdivision at Explicit Location |
-|----------------------------------|----------------------------------|
-|![](figures/quadtree_with_implicit_external_quadtree.png)|![](figures/quadtree_with_explicit_external_quadtree.png)||
+The directory structure for this tileset would look as follows, with all tiles at level 2 belonging to their respective parent tiles at level 1. Each tile at level follows an independent file layout.
+
+```
+.
+├── MainArchive/
+│   ├── tileset.json
+│   ├── 0/
+│   │   └── 0/
+│   │       └── 0.glb
+│   └── 1/
+│       ├── 0/
+│       │   ├── 0.json
+│       │   └── 1.json
+│       └── 1/
+│           ├── 0.json
+│           └── 1.json
+└── ExternalArchive/
+    ├── 0/
+    │   ├── tileset.json
+    │   ├── 0/
+    │   │   └── 0.glb
+    │   └── 1/
+    │       ├── 0/
+    │       │   ├── 0.glb
+    │       │   └── 1.glb
+    │       └── 1/
+    │           ├── 0.glb
+    │           └── 1.glb
+    ├── 1/
+    │   ├── tileset.json
+    │   ├── 0/
+    │   │   └── 0.glb
+    │   └── 1/
+    │       ├── 0/
+    │       │   ├── 0.glb
+    │       │   └── 1.glb
+    │       └── 1/
+    │           ├── 0.glb
+    │           └── 1.glb
+    ├── 2/
+    │   ├── tileset.json
+    │   ├── 0/
+    │   │   └── 0.glb
+    │   └── 1/
+    │       ├── 0/
+    │       │   ├── 0.glb
+    │       │   └── 1.glb
+    │       └── 1/
+    │           ├── 0.glb
+    │           └── 1.glb
+    └── 3/
+        ├── tileset.json
+        ├── 0/
+        │   └── 0.glb
+        └── 1/
+            ├── 0/
+            │   ├── 0.glb
+            │   └── 1.glb
+            └── 1/
+                ├── 0.glb
+                └── 1.glb
+```
+
 
 ##### Complete Depth
 
