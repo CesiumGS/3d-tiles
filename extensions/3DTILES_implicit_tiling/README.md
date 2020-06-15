@@ -117,7 +117,7 @@ An external tileset may exist within the file structure of its parent tileset, w
 
 An external tileset may exist outside the file structure of its parent tileset, with the root of the external tileset being present in the `tile.json` at the implicit location of the tile with subdivision state `10`. All tiles in that belong to this tileset belong are located according to its own file structure.
 
-**The following section is non-normative**
+*The following section is non-normative*
 
 The following diagrams illustrate how external subdivision works. The main archive represents the file structure of the parent tileset. The external archive represents the file structure of the external tilesets.
 
