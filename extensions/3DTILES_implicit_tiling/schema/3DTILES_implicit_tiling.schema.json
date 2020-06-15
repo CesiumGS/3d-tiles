@@ -4,9 +4,21 @@
     "type": "object",
     "description": "The root object for the 3DTILES_implicit_tiling extension.",
     "properties": {
+        "boundingVolume": {
+            "type": "object",
+            "description": "The bounding volume that encloses the root tile."
+        },
         "tilingScheme": {
             "type": "string",
             "description": "The tiling scheme used within the tileset."
+        },
+        "geometricError": {
+            "type": "number",
+            "description": "The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels."
+        },
+        "refine": {
+            "type": "string",
+            "description": "The type of replacement - additive or replacement - to use when traversing this tileset for rendering."
         },
         "subdivision": {
             "type": "object",
@@ -16,9 +28,13 @@
                     "type": "integer",
                     "description": "The index of the bufferView containing the subdivision buffer."
                 },
-                "completeLevels": {
+                "completeDepth": {
                     "type": "integer",
                     "description": "The number of levels in the tileset that are complete."
+                },
+                "maximumDepth": {
+                    "type": "integer",
+                    "description": "The last level of subdivision in this tileset."
                 }
             }   
         },
@@ -30,12 +46,12 @@
                     "type": "integer",
                     "description": "The index of the bufferView containing the content buffer."
                 },
-                "levelOffset": {
+                "fillOffset": {
                     "type": "integer",
                     "description": "The level for which the content state information is present in the content buffer.",
                     "default": 0
                 },
-                "levelOffsetFill": {
+                "fillValue": {
                     "type": "integer",
                     "description": "The state applied to each tile in all levels before the levelOffset."
                 }
@@ -60,20 +76,14 @@
                 }
             }
         },
-        "bufferViews": {
-            "type": "array",
-            "description": "An array of buffer views.",
-            "items": {
-                "type": "object"
-            }
+        "contentExtension": {
+            "type": "string",
+            "description": "The file extension used for tile content."
         },
-        "buffers": {
-            "type": "array",
-            "description": "An arry of buffers.",
-            "items": {
-                "type": "object"
-            }
+        "tilesetExtension": {
+            "type": "string",
+            "description": "The file extension used for external tilesets."
         }
     },
-    "required": [ "tilingScheme" ]
+    "required": [ "tilingScheme", "boundingVolue", "geometricError", "refine", "subdivision" ]
 }
