@@ -1,7 +1,7 @@
 digraph {
 
     graph [nodesep=0.5, compound=true]
-    node [shape=record]
+    node [shape=record, fontsize=18]
     labeljust = "r"
     labelloc = "b"
     rankdir=TB
