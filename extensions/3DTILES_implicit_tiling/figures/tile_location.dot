@@ -1,0 +1,222 @@
+digraph {
+
+    graph [nodesep=0.5, compound=true]
+    node [shape=record]
+    labeljust = "r"
+    labelloc = "b"
+    rankdir=TB
+    splines=false
+    ranksep=0
+
+    {
+        subgraph cluster_L3 {
+            subgraph cluster_L2 {
+                subgraph cluster_L1 {
+                    {
+                        L10 [style=invis]
+                        B0 [label="0"]
+                        B1 [label="1"]
+                        L10 -> B0 [style=invis]
+                        L10 -> B1 [style=invis]
+                    }
+                    label = "Level 1"
+                }
+                {
+                    L20 [style=invis] 
+                    B2 [label="0"]
+                    B3 [label="0"]
+                    L20 -> B2  [style=invis]
+                    L20 -> B3  [style=invis]
+                }
+                label = "Level 2"
+            }
+            {
+                L30 [style=invis]
+                B4 [label="1"]
+                B5 [label="1"]
+                L30 -> B4  [style=invis]
+                L30 -> B5  [style=invis]
+            }
+            label = "Level 3"
+        }
+
+    }
+
+    {
+        L1 [shape=none, margin=0, label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="16" FIXEDSIZE="TRUE">
+            <tr>
+                <td border="0">1</td>
+                <td border="1" width="256" height="256">10</td>
+                <td border="1" width="256" height="256">11</td>
+            </tr>
+            <tr>
+                <td border="0">0</td>
+                <td border="1" width="256" height="256">00</td>
+                <td border="8" width="256" height="256" COLOR="green">01</td>
+            </tr>
+            <tr>
+                <td border="0">Y↑,X→</td>
+                <td border="0">0</td>
+                <td border="0">1</td>
+            </tr>
+            </TABLE>
+            >
+        ]
+
+        L2 [shape=none, margin=0, label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="16" FIXEDSIZE="TRUE">
+            <tr>
+                <td border="0">3</td>
+                <td border="1" width="128" height="128">1010</td>
+                <td border="1" width="128" height="128">1011</td>
+                <td border="1" width="128" height="128">1110</td>
+                <td border="1" width="128" height="128">1111</td>
+            </tr>
+            <tr>
+                <td border="0">2</td>
+                <td border="1" width="128" height="128">1000</td>
+                <td border="1" width="128" height="128">1001</td>
+                <td border="1" width="128" height="128">1100</td>
+                <td border="1" width="128" height="128">1101</td>
+            </tr>
+            <tr>
+                <td border="0">1</td>
+                <td border="1" width="128" height="128">0010</td>
+                <td border="1" width="128" height="128">0011</td>
+                <td border="1" width="128" height="128">0110</td>
+                <td border="1" width="128" height="128">0111</td>
+            </tr>
+            <tr>
+                <td border="0">0</td>
+                <td border="1" width="128" height="128">0000</td>
+                <td border="1" width="128" height="128">0001</td>
+                <td border="4" width="128" height="128" COLOR="green">0100</td>
+                <td border="1" width="128" height="128">0101</td>
+            </tr>
+            <tr>
+                <td border="0">Y↑,X→</td>
+                <td border="0">0</td>
+                <td border="0">1</td>
+                <td border="0">2</td>
+                <td border="0">3</td>
+            </tr>
+            </TABLE>
+            >
+        ]
+
+        L3 [shape=none, margin=0, label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="16" FIXEDSIZE="TRUE">
+                <tr>
+                    <td border="0">7</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">101010</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">101011</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">101110</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">101111</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">111010</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">111011</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">111110</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">111111</td>
+                </tr>
+                <tr>
+                    <td border="0">6</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">101000</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">101001</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">101100</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">101101</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">111000</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">111001</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">111100</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">111101</td>
+                </tr>
+                <tr>
+                    <td border="0">5</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">100010</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">100011</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">100110</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">100111</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">110010</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">110011</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">110110</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">110111</td>
+                </tr>
+                <tr>
+                    <td border="0">4</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">100000</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">100001</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">100100</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">100101</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">110000</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">110001</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">110100</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">110101</td>
+                </tr>
+                <tr>
+                    <td border="0">3</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">001010</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">001011</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">001110</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">001111</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">011010</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">011011</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">011110</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">011111</td>
+                </tr>
+                <tr>
+                    <td border="0">2</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">001000</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">001001</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">001100</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">001101</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">011000</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">011001</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">011100</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">011101</td>
+                </tr>
+                <tr>
+                    <td border="0">1</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">000010</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">000011</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">000110</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">000111</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">010010</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE" BGCOLOR="green">010011</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">010110</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">010111</td>
+                </tr>
+                <tr>
+                    <td border="0">0</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">00000</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">000001</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">000100</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">000101</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">010000</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">010001</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">010100</td>
+                    <td border="1" width="64" height="64" FIXEDSIZE="TRUE">010101</td>
+                </tr>
+                <tr>
+                    <td border="0">Y↑,X→</td>
+                    <td border="0">0</td>
+                    <td border="0">1</td>
+                    <td border="0">2</td>
+                    <td border="0">3</td>
+                    <td border="0">4</td>
+                    <td border="0">5</td>
+                    <td border="0">6</td>
+                    <td border="0">7</td>
+                </tr>
+            </TABLE>
+            >
+        ]
+
+        rank=same;
+    }
+
+    L1 -> L2 [style=invis]
+    L2 -> L3 [style=invis]
+
+    B1 -> L1 [ltail=cluster_L1, minlen=16]
+    B3 -> L2 [ltail=cluster_L2, minlen=16]
+    B5 -> L3 [ltail=cluster_L3, minlen=16]
+}

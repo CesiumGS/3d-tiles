@@ -79,6 +79,12 @@ Tiles in a level are indexed by applying the [Morton/Z-order](https://en.wikiped
 - Efficient tile location decomposition: The Morton order allows efficient encoding and decoding of locations of a tile in the level grid to its location in the tile state bitstreams.
 - Efficient traversal: The binary representation of tile locations in the grid allow for easy traversal of the tileset.
 
+*The following section is non-normative*
+
+The figure below shows the tile location decomposition of the tile `3/5/1` (Level: 3, X: 5, Y: 1). We first convert the tile location to its Morton index, which is `19`. At Level 3 of a Quadtree, we'll use 6 bits to represent the binary value of the Morton index: `010011`.
+
+![Tile Location](figures/tile_location.png)
+
 #### Location on disk
 
 Tiles are located in the file system according to their level in the tileset hierarchy in the following order: `Level/X/Y/Z`. In the case of a quadtree, the `Z` parameter is omitted.
