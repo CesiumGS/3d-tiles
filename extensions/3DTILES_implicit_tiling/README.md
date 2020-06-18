@@ -364,7 +364,7 @@ When using the quadtree tiling scheme, the split axes are defined on the X-Z pla
 
 | Box | Quadtree | Octree |
 |:---:|:--:|:--:|
-| ![](figures/box_one.png) | ![](figures/box_quadtree_one.png) | ![](figures/box_octree_one.png)  |
+| ![](figures/box.png) | ![](figures/box_quadtree.png) | ![](figures/box_octree.png)  |
 
 #### boundingVolume.region
 
