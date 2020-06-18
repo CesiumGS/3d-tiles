@@ -64,7 +64,7 @@ When a tileset is using the `3DTILES_implicit_tiling` extension, the runtime sho
 
 ![Levels](figures/levels.png)
 
-Every level of the tree can be thought of as a fixed grid of tiles of equal size, where the level occupies the same space as the previous level but with double the amount of tiles along each axis that gets split (2 in case of [quadtree](https://en.wikipedia.org/wiki/Quadtree) and 3 in case of [octree](https://en.wikipedia.org/wiki/Octree)).
+Every level of the tree can be thought of as a fixed grid of tiles, where the level occupies the same space as the previous level but with double the amount of tiles along each axis that gets split (2 in case of [quadtree](https://en.wikipedia.org/wiki/Quadtree) and 3 in case of [octree](https://en.wikipedia.org/wiki/Octree)).
 
 ### Tile Location
 
