@@ -104,7 +104,7 @@ State information for the tileset is stored in the following bitstreams:
 
 #### Subdivision
 
-The subdivision state for each tile determines if and how it subdivides into children tiles, as per the `tilingScheme`. The subdivision state is encoded in 2 bits. The buffer will use the `BIT` component type and associated layout rules, as defined in the [3DTILES_binary_buffers](https://github.com/CesiumGS/3d-tiles/blob/3DTILES_binary_buffers/extensions/3DTILES_binary_buffers/README.md#3dtiles_binary_buffersbufferviews) extension. A tile can have one of the following subdivision states:
+The subdivision state for each tile determines if and how it subdivides into children tiles, as per the `tilingScheme`. The subdivision state is encoded in 2 bits. The buffer will use the `BIT` component type and associated layout rules, as defined in the [3DTILES_binary_buffers](https://github.com/CesiumGS/3d-tiles/blob/3DTILES_binary_buffers/extensions/3DTILES_binary_buffers/README.md#3dtiles_binary_buffersubdivisionBufferviews) extension. A tile can have one of the following subdivision states:
 
 | Bitcode | Description                                            |
 |------|--------------------------------------------------------|
@@ -486,23 +486,23 @@ Provides information about the metadata of the tileset. For tilesets that have u
 The jump buffer is a buffer created at runtime to allow efficient traversal and tile lookup functions. The jump buffer is a bijection between a tile's Morton index and its index in the level.
 
 ```javascript
-function createJumpBuffer(sBuffer) {   
-    let jBuffer = [];
-    let sBufferIndex = 1;
+function createJumpBuffer(subdivisionBuffer) {   
+    let jumpBuffer = [];
+    let subdivisionBufferIndex = 1;
     let currentLevel = 0;
-    while (sBufferIndex != sBuffer.length) {
+    while (subdivisionBufferIndex != subdivisionBuffer.length) {
         currentLevel++;
-        jBuffer.push([]);
+        jumpBuffer.push([]);
         // Get maximum number of elements in this level, based on number of tiles in the level above that will subdivide.
-        let currentLevelMax = jBuffer[currentLevel - 1].length * tilingScheme;
+        let currentLevelMax = jumpBuffer[currentLevel - 1].length * tilingScheme;
         jumpBufferSize += currentLevelMax;
         for (let i = 0; i < currentLevelMax; i++) {
-            if (sBuffer[sBufferIndex++] === 1) {
-                jBuffer[currentLevel].push(jBuffer[currentLevel - 1][Math.floor(i / tilingScheme)] * tilingScheme + (i % tilingScheme));
+            if (subdivisionBuffer[subdivisionBufferIndex++] === 1) {
+                jumpBuffer[currentLevel].push(jumpBuffer[currentLevel - 1][Math.floor(i / tilingScheme)] * tilingScheme + (i % tilingScheme));
             }
         }
     }
-    return jBuffer;
+    return jumpBuffer;
 }
 ```
 
@@ -545,7 +545,7 @@ function getIndex(level, x, y, z) {
     }
     // Level 1 Search
     const levelOneCellMorton = mortonIndex >> 2;
-    if (sBuffer[1 + levelOneCellMorton] === 1) {
+    if (subdivisionBuffer[1 + levelOneCellMorton] === 1) {
         // Level 2... Search
         return traverse(level, mortonIndex, 2, 5);
     }
@@ -555,14 +555,14 @@ function getIndex(level, x, y, z) {
 function traverse(targetLevel, morton, currentLevel, fillOffset) {
     const parentTileMorton = morton >> (2 ^ (targetLevel - currentLevel + 1));
     const currentTileOffset = morton % 4;
-    const currentTileBufferOffset = fillOffset + jBuffer[currentLevel - 1].indexOf(parentTileMorton) + currentTileOffset;
+    const currentTileBufferOffset = fillOffset + jumpBuffer[currentLevel - 1].indexOf(parentTileMorton) + currentTileOffset;
 
     if (targetLevel === currentLevel) {
         return currentTileBufferOffset;
     }
 
-    if (sBuffer[currentTileBufferOffset] === 1) {
-        return traverse(targetLevel, morton, currentLevel + 1, fillOffset + (jBuffer[currentLevel].length * tilingScheme));
+    if (subdivisionBuffer[currentTileBufferOffset] === 1) {
+        return traverse(targetLevel, morton, currentLevel + 1, fillOffset + (jumpBuffer[currentLevel].length * tilingScheme));
     } else {
         return -1;
     }
