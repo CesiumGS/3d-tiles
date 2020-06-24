@@ -459,7 +459,7 @@ Provides information about the content of the tileset. The content bitstream can
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**fillOffset**|`number`|An integer describing which level the content bitsream, if provided, starts at|No|
+|**fillOffset**|`number`|An integer describing which level the content bitstream, if provided, starts at|No|
 |**fillValue**|`number`|An integer describing the state value for the content bit for all levels up to and including the `fillOffset`. The default value is `0`. |No|
 |**bufferView**|`number`|An index to the buffer view containing the content buffer.|No|
 
