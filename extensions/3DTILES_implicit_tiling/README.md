@@ -46,13 +46,29 @@ Tiling schemes specify how each tile in a level will subdivide in the next level
 
 ![Quadtree Image](figures/quadtree.png)
 
-When a tile subdivides into a [quadtree](https://en.wikipedia.org/wiki/Quadtree), it produces 4 children tiles that occupy the same area as the parent tile. The tile is split on the XY plane at the midpoint of the bounds along the X and Y axes.
+When a tile subdivides into a [quadtree](https://en.wikipedia.org/wiki/Quadtree), it produces 4 children tiles that occupy the same area as the parent tile. The tile is split on the XY plane at the midpoint of the bounds along the X and Y axes. The following diagrams illustrate quadtree subdivision for the various bounding volume types in 3D Tiles:
 
 #### Octree
 
 ![Octree Image](figures/octree.png)
 
 When a tile subdivides into an [octree](https://en.wikipedia.org/wiki/Octree), it produces 8 equally size children tiles that occupy the same volume as the parent tile. The tile is split at the midpoint of the bounds along the X, Y and Z axes.
+
+#### Bounding Volumes
+
+The following diagrams illustrate the subdivision in the bounding volume types supported by 3D Tiles:
+
+##### Box
+
+| Root | Quadtree | Octree |
+|:---:|:--:|:--:|
+| ![](figures/box.png) | ![](figures/box_quadtree.png) | ![](figures/box_octree.png)  |
+
+##### Region
+
+| Region | Quadtree | Octree |
+|:---:|:--:|:--:|
+| ![](figures/region.png) | ![](figures/region_quadtree.png) | ![](figures/region_octree.png)  |
 
 ### Root Tiles
 
@@ -362,10 +378,6 @@ When using the quadtree tiling scheme, the split axes are defined on the X-Z pla
 * **Type**: `number` `[12]`
 * **Required**: No
 
-| Box | Quadtree | Octree |
-|:---:|:--:|:--:|
-| ![](figures/box.png) | ![](figures/box_quadtree.png) | ![](figures/box_octree.png)  |
-
 #### boundingVolume.region
 
 An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
@@ -375,10 +387,6 @@ When using the quadtree tiling scheme, the split axes are defined on the X-Z pla
 * **Type**: `number` `[6]`
 * **Required**: No
 
-| Region | Quadtree | Octree |
-|:---:|:--:|:--:|
-| ![](figures/region.png) | ![](figures/region_quadtree.png) | ![](figures/region_octree.png)  |
-
 #### boundingVolume.geodesicQuad
 
 An array of 10 numbers that defines a geodesic quadrilateral. The first 8 elements are 4 pairs of EPSG:4979 coordinates in degrees in counterclockwise order, and the last 2 elements are heights in meters above the WGS84 ellipsoid.
@@ -387,10 +395,6 @@ When using the quadtree tiling scheme, the first split axis is defined through t
 
 * **Type**: `number` `[10]`
 * **Required**: No
-
-| Geodesic Quad | Quadtree | Octree |
-|:---:|:--:|:--:|
-| ![](figures/cell.png) | ![](figures/cell_quadtree.png) | ![](figures/cell_octree.png)  |
 
 ---
 
