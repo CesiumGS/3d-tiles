@@ -164,9 +164,9 @@ The directory structure for this tileset would look as follows, with all tiles a
             └── 3.glb
 ```
 
-##### External Tileset at Implicit Location
+##### External Tileset at Explicit Location
 
-An external tileset may exist outside the file structure of its parent tileset, with the root of the external tileset being present in the `tile.json` at the implicit location of the tile with subdivision state `10`. All tiles in that belong to this tileset belong are located according to its own file structure.
+An external tileset may exist outside the file structure of its parent tileset, with the location of the external tileset being present in the `tile.json` at the implicit location of the tile with subdivision state `10`. All tiles in that belong to this tileset belong are located according to its own file structure.
 
 The following diagrams illustrate how external subdivision at implicit location works. In this tileset, all tiles at level 1 have the subdivision bitcode `10`.
 
