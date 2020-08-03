@@ -123,6 +123,7 @@ The positions are represented by u, v, and height values that are quantized and 
 
 The values are then delta and ZigZag encoded. The delta encoding ensures the values are small integers. The ZigZag encoding ensures the values are positive integers. Example encoding code is listed below:
 ```javascript
+// `value` must be an integer. Otherwise, the decoded value won't neccessarily equal the encoded one.
 function zigZag(value) {
     return ((value << 1) ^ (value >> 15)) & 0xFFFF;
 }
