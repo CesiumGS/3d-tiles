@@ -4,7 +4,7 @@
 
 The [**3D Tiles Overview**](../3d-tiles-overview.pdf) is an approachable and concise guide to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles into runtime engines for visualization and analysis of massive heterogeneous 3D geospatial content.
 
-This guide augments the fully detailed 3D Tiles specification with coverage of key concepts to help developers jumpstart adopting 3D Tiles.
+This guide augments the fully detailed [3D Tiles specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#3d-tiles-format-specification) with coverage of key concepts to help developers jumpstart adopting 3D Tiles.
 
 ## Changelog
 
