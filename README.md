@@ -27,6 +27,13 @@ Bringing techniques from the field of 3D graphics and built on [glTF](https://gi
 
 3D Tiles preserve per-feature metadata to allow interaction such as selecting, querying, filtering, and styling efficiently at runtime.
 
+## Specification
+
+* [3D Tiles Format Specification](./specification/)
+* [3D Tiles Extension Registry](./extensions/)
+
+Please provide spec feedback by [submitting issues](https://github.com/CesiumGS/3d-tiles/issues). For questions on implementation, generating 3D Tiles, or to showcase your work, join the [Cesium community forum](https://community.cesium.com/).
+
 ## 3D Tiles Ecosystem
 
 | Tool | Description |
@@ -39,11 +46,6 @@ Bringing techniques from the field of 3D graphics and built on [glTF](https://gi
 | [Bentley ContextCapture](https://www.bentley.com/en/products/product-line/reality-modeling-software/contextcapture) | Desktop application for converting photographs and/or point clouds to 3D Tiles. |
 
 See the [3D Tiles Ecosystem](./ECOSYSTEM.md) for examples of who's using 3D Tiles.
-
-## Specification
-
-* [3D Tiles Format Specification](./specification/)
-* [3D Tiles Extension Registry](./extensions/)
 
 ## 3D Tiles Overview
 
