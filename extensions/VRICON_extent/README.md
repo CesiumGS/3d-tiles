@@ -23,6 +23,8 @@ The GeoJSON must contain Polygon or MultiPolygon shapes only.
 
 The extension is useful for a variety of scenarios such as: Overlaying high resolution geometry on top of low level geometry, defining a 2D collision boundary, or clipping excess geometry inside of a provided tileset.
 
+**Note: this specification is deprecated and is here for documentation only, the replacement specification is [3DTILES_extent](https://github.com/CesiumGS/3d-tiles/tree/3DTILES_extent/extensions/3DTILES_extent).**
+
 ## Defining Extents
 
 An extent is a collection of longitude and latitude coordinate pairs. Extents are two-dimensional in nature, but an optional third component can be specified for **each** extent coordinate to specify its height (in meters) above the WGS84 ellipsoid.
