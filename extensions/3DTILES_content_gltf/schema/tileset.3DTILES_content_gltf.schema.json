@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "3DTILES_content_gltf extension",
+    "type": "object",
+    "properties" : {
+        "gltfExtensionsUsed": {
+            "type": "array",
+            "description": "An array of glTF extensions used by glTF content in the tileset.",
+            "items": {
+                "type": ["string"]
+            },
+            "minItems": 1
+        },
+        "gltfExtensionsRequired": {
+            "type": "array",
+            "description": "An array of glTF extensions required by glTF content in the tileset.",
+            "items": {
+                "type": ["string"]
+            },
+            "minItems": 1
+        },
+        "extensions": {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
+        }
+    }
+}
