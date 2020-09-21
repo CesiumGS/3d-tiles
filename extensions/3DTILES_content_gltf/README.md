@@ -2,7 +2,7 @@
 
 ## Contributors
 
-* Sean Lilley, [@lilleyse](https://github.com/lilleyse)
+* Sean Lilley, Cesium
 
 ## Status
 
