@@ -1,4 +1,4 @@
-# 3DTILES_content_gltf Extension
+# 3DTILES_content_gltf
 
 ## Contributors
 
