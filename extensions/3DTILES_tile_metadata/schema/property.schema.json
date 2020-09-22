@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "Property type",
+    "type": "object",
+    "description": "A property type.",
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength" : 1,
+            "description": "The name of the property, e.g. for display purposes. The string is UTF-8 encoded."
+        },
+        "semantic": {
+            "type": "string",
+            "minLength" : 1,
+            "description": "Identifies a property with a well-known meaning. The string is UTF-8 encoded."
+        },
+        "valueType": {
+            "type": "string",
+            "enum": ["BOOLEAN", "INT8", "UINT8", "INT16", "UINT16", "INT32", "UINT32", "INT64", "UINT64", "FLOAT16", "FLOAT32", "FLOAT64", "STRING", "BINARY"],
+            "description": "The value type of each element. `STRING` values are UTF-8 encoded."
+        },
+        "valueByteLength": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "A fixed-size byte length for `STRING` and `BINARY` values. When omitted, values are variable-size."
+        },
+        "elementType": {
+            "type": "string",
+            "enum": ["SINGLE", "ARRAY", "VARIABLE_SIZE_ARRAY"],
+            "default": "SINGLE",
+            "description": "The element type. This value must be `SINGLE` when `valueType` is `STRING` or `BINARY`."
+        },
+        "valuesPerElement": {
+            "type": "integer",
+            "minimum": 1,
+            "default": 1,
+            "description": "The number of values per element for `ARRAY` elements."
+        },
+        "normalized": {
+            "type": "boolean",
+            "description": "Specifies whether integer values should be normalized.",
+            "default": false
+        },
+        "max": {
+            "type": "array",
+            "description": "Maximum allowed values for property data. Only applicable for fixed-size numeric element types (`SCALAR` and `ARRAY`). Both `min` and `max` arrays have the same length. The length is determined by `valuesPerElement`. `normalized` property has no effect on array values: they always correspond to the integer values.",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 1
+        },
+        "min": {
+            "type": "array",
+            "description": "Minimum allowed values for property data. Only applicable for fixed-size numeric element types (`SCALAR` and `ARRAY`). Both `min` and `max` arrays have the same length. The length is determined by `valuesPerElement`. `normalized` property has no effect on array values: they always correspond to the integer values.",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 1
+        },
+        "extensions": {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
+        }
+    },
+    "dependencies": {
+        "valuesPerElement": [ "elementType" ]
+    },
+    "required": [ "name", "valueType"]
+  }
+  

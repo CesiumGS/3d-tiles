@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "3DTILES_tile_metadata extension",
+    "type": "object",
+    "description": "3D Tiles extension that enables storage of per-tile metadata.",
+    "properties": {
+        "properties": {
+            "type": "array",
+            "description": "An array of property types.",
+            "items": {
+                "$ref": "property.schema.json"
+            },
+            "minItems": 1
+        },
+        "arrayLengths": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "The number of elements in each of the property arrays. Equal to the number of tiles in this tileset JSON."
+        },
+        "propertyArrays": {
+            "type": "array",
+            "description": "An array of property arrays containing tile data. Elements in `propertyArrays` have a one-to-one correspondence to elements in `properties`.",
+            "items": {
+                "$ref": "propertyArray.schema.json"
+            },
+            "minItems": 1
+        },
+        "extensions": {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
+        }
+    },
+    "required": [ "properties", "arrayLengths", "propertyArrays" ]
+  }
+  

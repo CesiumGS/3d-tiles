@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "Property array",
+    "type": "object",
+    "description": "A property array containing tile data.",
+    "properties": {
+        "bufferView": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The index of the `bufferView` containing values encoded in Apache Arrow Columnar Format 1.0 according to the property type."
+        },
+        "offsetsBufferView": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The index of the `bufferView` containing offsets to values. Required for variable-size strings, variable-size binary values, and variable-size arrays. The offsets buffer contains `arrayLengths + 1` signed integers (32-bit or 64-bit), which encode the start position of each element in the values buffer. The string byte length, binary value byte length, or element array length is computed using the difference between the current offset and the subsequent offset. See Apache Arrow Columnar Format 1.0 for more details."
+        },
+        "extensions": {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
+        }
+    },
+    "required": [ "bufferView" ]
+  }
+  
