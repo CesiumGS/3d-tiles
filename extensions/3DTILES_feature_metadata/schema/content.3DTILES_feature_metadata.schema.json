@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "Content feature metadata",
+    "type": "object",
+    "description": "Links tile content with its feature metadata.",
+    "properties": {
+        "uri": {
+            "type": "string",
+            "format" : "uriref",
+            "description": "The uri that point to the content's feature metadata."
+        },
+        "extensions": {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
+        }
+    },
+    "required" : ["uri"]
+}

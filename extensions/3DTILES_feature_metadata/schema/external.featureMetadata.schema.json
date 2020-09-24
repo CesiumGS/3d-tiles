@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "External feature metadata",
+    "type": "object",
+    "description": "Feature metadata for tile content.",
+    "properties": {
+        "featureMetadata": {
+            "type": "object",
+            "description": "An object that defines feature types and feature property arrays. The schema mirrors gltf.EXT_feature_metadata.schema.json in https://github.com/CesiumGS/glTF/blob/feature-metadata/extensions/2.0/Vendor/EXT_feature_metadata/"
+        },
+        "binaryBuffers": {
+            "type": "array",
+            "description": "An object that provides access to binary buffers for property array storage. The schema mirrors tileset.3DTILES_binary_buffers.schema.json in https://github.com/CesiumGS/3d-tiles/blob/3DTILES_binary_buffers/extensions/3DTILES_binary_buffers/"
+        },
+        "extensions": {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
+        }
+    },
+    "required" : ["featureMetadata", "binaryBuffers"]
+}

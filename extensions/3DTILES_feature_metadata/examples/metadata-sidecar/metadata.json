@@ -1,0 +1,116 @@
+{
+  "binaryBuffers": {
+    "bufferViews": [
+      {
+        "buffer": 0,
+        "byteOffset": 0,
+        "byteLength": 16
+      },
+      {
+        "buffer": 0,
+        "byteOffset": 16,
+        "byteLength": 8
+      },
+      {
+        "buffer": 0,
+        "byteOffset": 24,
+        "byteLength": 12
+      },
+      {
+        "buffer": 0,
+        "byteOffset": 36,
+        "byteLength": 24
+      },
+      {
+        "buffer": 0,
+        "byteOffset": 60,
+        "byteLength": 32
+      },
+      {
+        "buffer": 0,
+        "byteOffset": 92,
+        "byteLength": 16
+      }
+    ],
+    "buffers": [
+      {
+        "uri": "external.bin",
+        "byteLength": 108
+      }
+    ]
+  },
+  "featureMetadata": {
+    "featureTypes": [
+      {
+        "name": "LAS point",
+        "semantic": "_LAS_POINT",
+        "properties": [
+          {
+            "name": "Intensity",
+            "semantic": "_INTENSITY",
+            "valueType": "UINT16",
+            "normalized": true
+          },
+          {
+            "name": "Classification",
+            "semantic": "_CLASSIFICATION",
+            "valueType": "UINT8"
+          }
+        ]
+      },
+      {
+        "name": "Building",
+        "semantic": "_BUILDING",
+        "properties": [
+          {
+            "name": "Building ID",
+            "valueType": "UINT32"
+          },
+          {
+            "name": "Coordinates",
+            "valueType": "FLOAT32",
+            "elementType": "ARRAY",
+            "valuesPerElement": 2
+          },
+          {
+            "name": "Name",
+            "semantic": "NAME",
+            "valueType": "STRING"
+          }
+        ]
+      }
+    ],
+    "featureCollections": [
+      {
+        "featureType": 0,
+        "featureCount": 8,
+        "arrayLengths": 8,
+        "propertyArrays": [
+          {
+            "bufferView": 0
+          },
+          {
+            "bufferView": 1
+          }
+        ]
+      },
+      {
+        "featureType": 1,
+        "featureCount": 3,
+        "arrayLengths": 3,
+        "propertyArrays": [
+          {
+            "bufferView": 2
+          },
+          {
+            "bufferView": 3
+          },
+          {
+            "bufferView": 4,
+            "offsetBufferView": 5
+          }
+        ]
+      }
+    ]
+  }
+}

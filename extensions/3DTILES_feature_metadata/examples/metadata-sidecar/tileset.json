@@ -1,0 +1,76 @@
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": ["3DTILES_feature_metadata", "3DTILES_content_gltf"],
+  "extensionsRequired": ["3DTILES_content_gltf"],
+  "extensions": {
+    "3DTILES_feature_metadata": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "featureTypes": [
+        {
+          "name": "LAS point",
+          "semantic": "_LAS_POINT",
+          "properties": [
+            {
+              "name": "Intensity",
+              "semantic": "_INTENSITY",
+              "valueType": "UINT16",
+              "normalized": true
+            },
+            {
+              "name": "Classification",
+              "semantic": "_CLASSIFICATION",
+              "valueType": "UINT8"
+            }
+          ]
+        },
+        {
+          "name": "Building",
+          "semantic": "_BUILDING",
+          "properties": [
+            {
+              "name": "Building ID",
+              "valueType": "UINT32"
+            },
+            {
+              "name": "Coordinates",
+              "valueType": "FLOAT32",
+              "elementType": "ARRAY",
+              "valuesPerElement": 2
+            },
+            {
+              "name": "Name",
+              "semantic": "NAME",
+              "valueType": "STRING"
+            }
+          ]
+        }
+      ]
+    },
+    "3DTILES_content_gltf": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "gltfExtensionsUsed": ["EXT_feature_metadata"]
+    }
+  },
+  "geometricError": 240,
+  "root": {
+    "boundingVolume": {
+      "region": [-1.31972, 0.69884, -1.31964, 0.6989, 0, 88]
+    },
+    "geometricError": 0,
+    "refine": "ADD",
+    "content": {
+      "uri": "tile.gltf",
+      "extensions": {
+        "3DTILES_feature_metadata": {
+          "uri": "metadata.json"
+        }
+      }
+    }
+  }
+}

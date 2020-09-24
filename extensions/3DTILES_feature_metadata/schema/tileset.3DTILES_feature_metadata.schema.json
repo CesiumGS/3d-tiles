@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "Feature metadata",
+    "type": "object",
+    "description": "High-level summary of feature metadata in the tileset.",
+    "properties": {
+        "featureTypes": {
+            "type": "array",
+            "description": "Lists feature types referenced by tiles in the tileset. Mirrors featureType.property.schema.json in https://github.com/CesiumGS/glTF/blob/feature-metadata/extensions/2.0/Vendor/EXT_feature_metadata/",
+            "items": {
+                "type": "object"
+            },
+            "minItems": 1
+        },
+        "extensions": {
+            "$ref": "extension.schema.json"
+        },
+        "extras" : {
+            "$ref": "extras.schema.json"
+        }
+    }
+}

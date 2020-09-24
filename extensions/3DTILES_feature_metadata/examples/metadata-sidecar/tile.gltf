@@ -1,0 +1,95 @@
+{
+  "accessors": [
+    {
+      "name": "Positions",
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 8,
+      "type": "VEC3"
+    },
+    {
+      "name": "Colors",
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5121,
+      "count": 8,
+      "stride": 4,
+      "type": "VEC3"
+    },
+    {
+      "name": "Feature IDs",
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 8,
+      "type": "SCALAR"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 96
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 96,
+      "byteLength": 32
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 128,
+      "byteLength": 32
+    }
+  ],
+  "buffer": [
+    {
+      "byteLength": 160,
+      "uri": "external.bin"
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "COLOR_0": 1,
+            "_FEATURE_ID_0": 2
+          },
+          "mode": 0,
+          "extensions": {
+            "EXT_feature_metadata": {
+              "featureMappings": [
+                {
+                  "featureCollection": 0,
+                  "featureIds": {
+                    "constant": 0,
+                    "vertexStride": 1
+                  }
+                },
+                {
+                  "featureCollection": 1,
+                  "featureIds": {
+                    "attribute": "_FEATURE_ID_0"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "extensionsUsed": [
+    "EXT_feature_metadata"
+  ],
+  "extensions": {
+    "EXT_feature_metadata": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      }
+    }
+  }
+}
