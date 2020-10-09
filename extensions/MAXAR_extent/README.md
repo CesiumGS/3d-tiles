@@ -1,4 +1,4 @@
-# VRICON_extent
+# MAXAR_extent
 
 ## Contributors
 
@@ -7,7 +7,7 @@
 
 ## Contents
 
-- [VRICON_extent](#vriconextent)
+- [MAXAR_extent](#maxarextent)
   - [Contributors](#contributors)
   - [Contents](#contents)
   - [Overview](#overview)
@@ -22,8 +22,6 @@ This extension allows the user to annotate the existence of a 2D region(s) (an e
 The GeoJSON must contain Polygon or MultiPolygon shapes only.
 
 The extension is useful for a variety of scenarios such as: Overlaying high resolution geometry on top of low level geometry, defining a 2D collision boundary, or clipping excess geometry inside of a provided tileset.
-
-**Note: this specification is deprecated and is here for documentation only, the replacement specification is [3DTILES_extent](https://github.com/CesiumGS/3d-tiles/tree/3DTILES_extent/extensions/3DTILES_extent).**
 
 ## Defining Extents
 
@@ -45,10 +43,10 @@ The extent region definition must be located in a separate file and referred to 
     "version": "1.0"
   },
   "extensionsUsed": [
-    "VRICON_extent"
+    "MAXAR_extent"
   ],
   "extensions": {
-    "VRICON_extent": {
+    "MAXAR_extent": {
       "uri": "extent.geojson"
     }
   },
