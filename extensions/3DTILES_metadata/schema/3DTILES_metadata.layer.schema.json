@@ -1,24 +1,24 @@
 {
-    "$schema": "https://json-schema.org/draft-04/schema",
-    "title": "Layer",
-    "type": "object",
-    "description": "An object containing metadata about layers available in the tileset.",
+  "$schema": "https://json-schema.org/draft-04/schema",
+  "title": "Layer",
+  "type": "object",
+  "description": "An object containing metadata about layers available in the tileset.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the tileset."
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the tileset."
+    },
     "properties": {
-        "name": {
-            "type": "string",
-            "description": "The name of the tileset."
-        },
-        "description": {
-            "type": "string",
-            "description": "The description of the tileset."
-        },
-        "properties": {
-            "type": "object",
-            "description": "A collection of key-value pairs associated with the tileset."
-        },
-        "featureClasses": {
-            "type": "array",
-            "description": "The feature classes available in the layer content."
-        }
+      "type": "object",
+      "description": "A collection of key-value pairs associated with the tileset."
+    },
+    "featureClasses": {
+      "type": "array",
+      "description": "The feature classes available in the layer content."
     }
+  }
 }

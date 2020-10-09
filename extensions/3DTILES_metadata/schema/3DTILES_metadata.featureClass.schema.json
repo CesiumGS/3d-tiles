@@ -1,24 +1,24 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "Feature class",
-    "type": "object",
-    "description": "A feature class defining the properties that distinguish one set of features from another.",
-    "allOf": [{ "$ref": "glTFProperty.schema.json" }],
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Feature class",
+  "type": "object",
+  "description": "A feature class defining the properties that distinguish one set of features from another.",
+  "allOf": [{ "$ref": "glTFProperty.schema.json" }],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The name of the feature class, e.g. for display purposes. The string is UTF-8 encoded."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The description of the feature class. The string is UTF-8 encoded."
+    },
     "properties": {
-        "name": {
-            "type": "string",
-            "minLength": 1,
-            "description": "The name of the feature class, e.g. for display purposes. The string is UTF-8 encoded."
-        },
-        "description": {
-            "type": "string",
-            "minLength": 1,
-            "description": "The description of the feature class. The string is UTF-8 encoded."
-        },
-        "properties": {
-            "type": "object",
-            "description": "A dictionary, where each key is a property ID and each value is an object defining the property.",
-            "minProperties": 1
-        }
+      "type": "object",
+      "description": "A dictionary, where each key is a property ID and each value is an object defining the property.",
+      "minProperties": 1
     }
+  }
 }
