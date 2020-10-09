@@ -1,0 +1,60 @@
+{
+    "asset": {
+        "version": "1.0",
+        "draftVersion": "0.1.0"
+    },
+    "extensionsUsed": [
+        "3DTILES_layers",
+        "3DTILES_metadata",
+        "MAXAR_3tz_archive"
+    ],
+    "extensionsRequired": [
+        "3DTILES_layers",
+        "3DTILES_metadata",
+        "MAXAR_3tz_archive"
+    ],
+    "extensions": {
+        "3DTILES_metadata": {
+            "tileset": {
+                "name": "STE Terrain",
+                "properties": {
+                    "producer": "Maxar"
+                }
+            },
+            "tiles": {
+                "properties": {
+                    "name": "Horizon Occlusion Point",
+                    "semantic": "_HORIZON_OCCLUSION_POINT",
+                    "description": "The point that will become visible to the viewer at the same time or before any part of the geometry becomes visible",
+                    "elementType": "ARRAY",
+                    "valueType": "FLOAT64",
+                    "valueCount": "4"
+                }
+            },
+            "layers": {
+                "Raster_DTM": {
+                    "name": "Raster DTM",
+                    "description": "Raster heightmaps"
+                },
+                "3D_Highres": {
+                    "name": "3D HighRes",
+                    "description": "High Resolution 3D insets"
+                }
+            }
+        }
+    },
+    "geometricError": 500,
+    "root": {
+        "boundingVolume": {
+            "region": [
+                -1.2419, 0.7395, -1.2415, 0.7396, 0, 20.4
+            ]
+        },
+        "geometricError": 500,
+        "refine": "ADD",
+        "extensions": [ 
+            {
+            }
+        }
+    }
+}

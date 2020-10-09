@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema",
+    "title": "3DTILES_metadata object",
+    "type": "object",
+    "description": "An object containing description of metadata available",
+    "properties": {
+        "tileset": {
+            "$ref": "3DTILES_metadata.tileset.schema.json"
+        },
+        "tile": {
+            "$ref": "3DTILES_metadata.tile.schema.json"
+        },
+        "content": {
+            "$ref": "3DTILES_metadata.content.schema.json"
+        },
+        "featureClass": {
+            "$ref": "3DTILES_metadata.featureClass.schema.json"
+        }
+    }
+}

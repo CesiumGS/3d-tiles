@@ -1,0 +1,7 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema",
+    "title": "Tiles",
+    "type": "object",
+    "description": "An object containing description of metadata available for each tile in the tileset.",
+
+}

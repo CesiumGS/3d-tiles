@@ -1,0 +1,70 @@
+{
+    "asset": {
+        "version": "1.0",
+        "draftVersion": "0.1.0"
+    },
+    "extensions": {
+        "3DTILES_metadata": {
+            "tileset": {
+                "name": "Microcosm",
+                "description": "3D Tiles example",
+                "properties": {
+                    "author": "Cesium"
+                }
+            },
+            "layer": {
+                "Vegetation": {
+                    "name": "Vegetation Layer",
+                    "description": "Contains vegetation information and tree geometry.",
+                    "properties": {
+                        "author": "Cesium"
+                    },
+                    "featureClasses": ["NVDI", "LULC"]
+                }
+            },
+            "tile": {
+                "properties": {
+                    "_BBOX": {
+                        "name": "Bounding Box",
+                        "description": "Bounding box of the given tile.",
+                        "elementType": "ARRAY",
+                        "componentType": "FLOAT64",
+                        "componentsPerElement": 6
+                    }
+                }
+            },
+            "content": {
+                "properties": {
+                    "_TREE_HEIGHTS_MIN_MAX": {
+                        "name": "Minimum and Maximum Tree Heights",
+                        "description": "Minimum and Maximum Tree Heights in meters.",
+                        "elementType": "ARRAY",
+                        "componentType": "FLOAT64",
+                        "componentsPerElement": 2
+                    }
+                }
+            },
+            "featureClass": {
+                "NVDI": {
+                    "name": "Normalized Difference Vegetation Index",
+                    "properties": {
+                        "NVDI": {
+                            "elementType": "SCALAR",
+                            "componentType": "UINT8",
+                            "normalized": "true"
+                        }
+                    }
+                },
+                "LULC": {
+                    "name": "Landcover/Landuse",
+                    "properties": {
+                        "Name": {
+                            "name": "Name",
+                            "elementType": "STRING"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
