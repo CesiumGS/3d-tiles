@@ -34,6 +34,7 @@
             },
             "classes": {
                 "OWT_Tileset": {
+                    "semantic": "_TERRAIN",
                     "properties": {
                         "producer": {
                             "elementType": "STRING"
@@ -60,19 +61,25 @@
                     }
                 },
                 "NDVI": {
+                    "semantic": "NVDI",
                     "properties": {
                         "NDVI": {
-                            "valueType": "UINT8",
+                            "name": "NVDI",
+                            "semantic": "NVDI",
+                            "elementType": "UINT8",
                             "normalized": true
                         }
                     }
                 },
                 "LULC": {
+                    "semantic": "LULC",
                     "properties": {
                         "Name": {
+                            "semantic": "NAME",
                             "elementType": "STRING"
                         },
                         "Color": {
+                            "semantic": "COLOR",
                             "elementType": "ARRAY",
                             "componentType": "UINT8",
                             "componentsPerElement": 3
