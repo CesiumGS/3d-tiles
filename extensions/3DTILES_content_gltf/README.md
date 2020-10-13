@@ -40,8 +40,8 @@ This extension is required, meaning it should be placed in the tileset JSON top-
 
 `3DTILES_content_gltf` is a property of the top-level `extensions` object and contains two optional properties:
 
-* `gltfExtensionsUsed`: an array of glTF extensions used by glTF content in the tileset.
-* `gltfExtensionsRequired`: an array of glTF extensions required by glTF content in the tileset.
+* `extensionsUsed`: an array of glTF extensions used by glTF content in the tileset.
+* `extensionsRequired`: an array of glTF extensions required by glTF content in the tileset.
 
 The full JSON schema can be found in [tileset.3DTILES_content_gltf.schema.json](schema/tileset.3DTILES_content_gltf.schema.json).
 

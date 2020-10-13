@@ -4,7 +4,7 @@
     "type": "object",
     "description": "3D Tiles extension that allows a tileset to use glTF 2.0 and GLB models directly as tile content.",
     "properties" : {
-        "gltfExtensionsUsed": {
+        "extensionsUsed": {
             "type": "array",
             "description": "An array of glTF extensions used by glTF content in the tileset.",
             "items": {
@@ -12,7 +12,7 @@
             },
             "minItems": 1
         },
-        "gltfExtensionsRequired": {
+        "extensionsRequired": {
             "type": "array",
             "description": "An array of glTF extensions required by glTF content in the tileset.",
             "items": {
