@@ -1,0 +1,85 @@
+{
+    "asset": {
+        "version": "1.0"
+    },
+    "geometricError": 500,
+    "root": {
+        "boundingVolume": {
+            "region": [-1.2419, 0.7395, -1.2415, 0.7396, 0, 20.4]
+        },
+        "geometricError": 500,
+        "refine": "REPLACE",
+        "content": {
+            "uri": "apa.gltf",
+            "type": "model/gltf+json"
+        }
+    },
+    "extensions": {
+        "3DTILES_content_gltf": {
+            "extensionsUsed": ["EXT_feature_metadata"]
+        },
+        "3DTILES_metadata": {
+            "tileset": {
+                "name": "3D Terrain",
+                "class": "OWT_Tileset",
+                "properties": {
+                    "producer": "Maxar",
+                    "featureClasses": ["NVDI", "LULC"],
+                    "geometryModel": "bare_earth",
+                    "slim_level": 0,
+                    "production_method": "MULTIVIEW_SAT_STEREO",
+                    "source_uid": "bcf25eee-f4af-4724-8244-2cd2001acb85",
+                    "uid": "1e7444d7-e816-48c6-8786-c24ab354425f"
+                }
+            },
+            "classes": {
+                "OWT_Tileset": {
+                    "properties": {
+                        "producer": {
+                            "elementType": "STRING"
+                        },
+                        "featureClasses": {
+                            "elementType": "VARIABLE_SIZE_ARRAY",
+                            "componentType": "STRING"
+                        },
+                        "geometryModel": {
+                            "elementType": "STRING"
+                        },
+                        "slim_level": {
+                            "elementType": "UINT8"
+                        },
+                        "production_method": {
+                            "elementType": "STRING"
+                        },
+                        "source_uid": {
+                            "elementType": "STRING"
+                        },
+                        "uid": {
+                            "elementType": "STRING"
+                        }
+                    }
+                },
+                "NDVI": {
+                    "properties": {
+                        "NDVI": {
+                            "valueType": "UINT8",
+                            "normalized": true
+                        }
+                    }
+                },
+                "LULC": {
+                    "properties": {
+                        "Name": {
+                            "elementType": "STRING"
+                        },
+                        "Color": {
+                            "elementType": "ARRAY",
+                            "componentType": "UINT8",
+                            "componentsPerElement": 3
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

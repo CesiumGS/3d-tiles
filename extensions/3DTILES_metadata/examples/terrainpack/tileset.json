@@ -1,0 +1,47 @@
+{
+    "asset": {
+        "version": "1.0"
+    },
+    "extensions": {
+        "3DTILES_content_gltf": {
+            "extensionsUsed": ["EXT_feature_metadata"]
+        },
+        "3DTILES_metadata": {
+            "classes": {
+                "Raster_DTM": {
+                    "properties": {
+                        "LastEdited": {
+                            "elementType": "STRING"
+                        }
+                    }
+                },
+                "3D_Terrain": {
+                    "properties": {
+                        "LastEdited": {
+                            "elementType": "STRING"
+                        }
+                    }
+                },
+                "Water_Vectors": {
+                    "properties": {
+                        "LastEdited": {
+                            "elementType": "STRING"
+                        }
+                    }
+                }
+            }
+        },
+        "3DTILES_layers": {
+            "layers": {
+                "Raster_DTM": {
+                    "name": "Raster DTM",
+                    "semantic": "Raster_DTM",
+                    "description": "Raster DTM layer",
+                    "properties": {
+                        "LastModified": "2020-10-13T15:31:42Z"
+                    }
+                }
+            }
+        }
+    }
+}

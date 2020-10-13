@@ -1,0 +1,245 @@
+{
+    "asset": {
+        "version": "2.0"
+    },
+    "scene": 0,
+    "scenes": [
+        {
+            "nodes": [0]
+        }
+    ],
+    "nodes": [
+        {
+            "mesh": 0
+        }
+    ],
+    "extensionsUsed": ["EXT_feature_metadata"],
+    "accessors": [
+        {
+            "name": "Positions",
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 6,
+            "type": "VEC3",
+            "min": [0, 0, 0],
+            "max": [1, 1, 0]
+        },
+        {
+            "name": "Texcoords for color",
+            "bufferView": 4,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 6,
+            "type": "VEC2"
+        },
+        {
+            "name": "Texcoords for ortho",
+            "bufferView": 5,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 6,
+            "type": "VEC2"
+        },
+        {
+            "name": "Indices",
+            "bufferView": 6,
+            "byteOffset": 0,
+            "componentType": 5123,
+            "count": 12,
+            "type": "SCALAR"
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 106
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 106,
+            "byteLength": 44
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 150,
+            "byteLength": 30
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 180,
+            "byteLength": 72
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 252,
+            "byteLength": 48
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 300,
+            "byteLength": 48
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 348,
+            "byteLength": 24
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 372,
+            "uri": "external.bin"
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9728,
+            "minFilter": 9728
+        }
+    ],
+    "images": [
+        {
+            "uri": "color.jpg"
+        },
+        {
+            "uri": "lulc.png"
+        },
+        {
+            "uri": "ndvi.jpg"
+        }
+    ],
+    "textures": [
+        {
+            "source": 0
+        },
+        {
+            "source": 1,
+            "sampler": 0,
+            "extensions": {
+                "EXT_feature_metadata": {
+                    "featureMappings": [
+                        {
+                            "featureCollection": 0,
+                            "featureIds": {
+                                "channel": "r"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "source": 2,
+            "extensions": {
+                "EXT_feature_metadata": {
+                    "features": [
+                        {
+                            "featureClass": "NDVI",
+                            "properties": {
+                                "NDVI": {
+                                    "channels": "r"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "materials": [
+        {
+            "pbrMetallicRoughness": {
+                "baseColorTexture": {
+                    "index": 0,
+                    "texCoord": 0
+                }
+            },
+            "extensions": {
+                "EXT_feature_metadata": {
+                    "textures": [
+                        {
+                            "index": 1,
+                            "texCoord": 1
+                        },
+                        {
+                            "index": 2,
+                            "texCoord": 1
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "meshes": [
+        {
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": 0,
+                        "TEXCOORD_0": 1,
+                        "TEXCOORD_1": 2
+                    },
+                    "indices": 3,
+                    "material": 0,
+                    "mode": 4
+                }
+            ]
+        }
+    ],
+    "extensions": {
+        "EXT_feature_metadata": {
+            "extras": {
+                "draftVersion": "0.0.0"
+            },
+            "featureClasses": {
+                "NDVI": {
+                    "name": "Normalized difference vegetation index",
+                    "semantic": "NDVI",
+                    "properties": {
+                        "NDVI": {
+                            "semantic": "NDVI",
+                            "valueType": "UINT8",
+                            "normalized": true
+                        }
+                    }
+                },
+                "LULC": {
+                    "name": "Landcover/Landuse",
+                    "semantic": "LULC",
+                    "properties": {
+                        "Name": {
+                            "name": "Name",
+                            "semantic": "NAME",
+                            "valueType": "STRING"
+                        },
+                        "Color": {
+                            "name": "Color",
+                            "semantic": "COLOR",
+                            "valueType": "UINT8",
+                            "valueCount": 3
+                        }
+                    }
+                }
+            },
+            "featureCollections": [
+                {
+                    "featureClass": "LULC",
+                    "featureCount": 10,
+                    "properties": {
+                        "Name": {
+                            "elementCount": 10,
+                            "bufferView": 0,
+                            "offsetsBufferView": 1
+                        },
+                        "Color": {
+                            "elementCount": 10,
+                            "bufferView": 2
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
