@@ -13,9 +13,6 @@
         "MAXAR_3tz_archive"
     ],
     "extensions": {
-        "3DTILES_content_gltf": {
-            "extensionsUsed": ["EXT_feature_metadata"]
-        },
         "3DTILES_metadata": {
             "tileset": {
                 "class": "OWT_TerrainPack",
