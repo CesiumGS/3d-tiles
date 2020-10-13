@@ -46,7 +46,6 @@
                     "semantic": "NVDI",
                     "properties": {
                         "NDVI": {
-                            "name": "NVDI",
                             "semantic": "NVDI",
                             "elementType": "UINT8",
                             "normalized": true
