@@ -1,0 +1,108 @@
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": ["3DTILES_content_gltf", "3DTILES_metadata"],
+  "extensionsRequired": ["3DTILES_content_gltf", "3DTILES_metadata"],
+  "extensions": {
+    "3DTILES_content_gltf": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "extensionsUsed": ["EXT_3dtiles_feature_metadata"]
+    },
+    "3DTILES_metadata": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "tileset": {
+        "name": "Fort Hood",
+        "class": "_WFF_DATASET",
+        "featureClasses": ["NDVI", "LULC"],
+        "properties": {
+          "wff_version": "1.0",
+          "runtime_enabled": true,
+          "geometry_model": "BARE_EARTH",
+          "content_type": "MESH",
+          "capture_platform": "SATELLITE",
+          "capture_sensor": "ELECTRO_OPTICAL",
+          "provider": "Maxar",
+          "id": "2e7444d7-e816-48c6-8786-c24ab354422e",
+          "created": "2020-10-05T13:46:46.672632Z"
+        }
+      },
+      "classes": {
+        "_WFF_DATASET": {
+          "semantic": "_WFF_DATASET",
+          "properties": {
+            "wff_version": {
+              "elementType": "STRING"
+            },
+            "runtime_enabled": {
+              "elementType": "BOOLEAN"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "content_type": {
+              "elementType": "STRING"
+            },
+            "capture_platform": {
+              "elementType": "STRING"
+            },
+            "capture_sensor": {
+              "elementType": "STRING"
+            },
+            "provider": {
+              "elementType": "STRING"
+            },
+            "id": {
+              "elementType": "STRING"
+            },
+            "created": {
+              "elementType": "STRING"
+            }
+          }
+        },
+        "NDVI": {
+          "description": "Normalized difference vegetation index",
+          "semantic": "_WFF_NDVI",
+          "properties": {
+            "NDVI": {
+              "semantic": "_WFF_NDVI",
+              "elementType": "UINT8",
+              "normalized": true
+            }
+          }
+        },
+        "LULC": {
+          "name": "Landcover",
+          "semantic": "_WFF_LULC",
+          "properties": {
+            "Name": {
+              "semantic": "NAME",
+              "elementType": "STRING"
+            },
+            "Color": {
+              "semantic": "_COLOR",
+              "elementType": "ARRAY",
+              "componentType": "UINT8",
+              "componentsPerElement": 3
+            }
+          }
+        }
+      }
+    }
+  },
+  "geometricError": 500,
+  "root": {
+    "boundingVolume": {
+      "region": [-1.2419, 0.7395, -1.2415, 0.7396, 0, 20.4]
+    },
+    "geometricError": 500,
+    "refine": "REPLACE",
+    "content": {
+      "uri": "microcosm/microcosm.gltf"
+    }
+  }
+}

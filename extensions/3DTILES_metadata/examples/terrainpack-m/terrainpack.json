@@ -1,0 +1,311 @@
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": ["3DTILES_layers", "3DTILES_metadata", "MAXAR_3tz_archive"],
+  "extensionsRequired": [
+    "3DTILES_layers",
+    "3DTILES_metadata",
+    "MAXAR_3tz_archive"
+  ],
+  "extensions": {
+    "3DTILES_metadata": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "tileset": {
+        "name": "Fort Hood Terrain Pack",
+        "semantic": "_WFF_DATA_PACKAGE",
+        "class": "_WFF_DATASET",
+        "properties": {
+          "wff_version": "1.0",
+          "runtime_enabled": true,
+          "geometry_model": "MIXED",
+          "content_type": "MIXED",
+          "capture_platform": "MIXED",
+          "capture_sensor": "UNKNOWN",
+          "provider": "Maxar",
+          "id": "2e7444d7-e816-48c6-8786-c24ab354422e",
+          "created": "2020-10-05T13:46:46.672632Z"
+        }
+      },
+      "classes": {
+        "_WFF_DATASET": {
+          "semantic": "_WFF_DATASET",
+          "properties": {
+            "wff_version": {
+              "elementType": "STRING"
+            },
+            "runtime_enabled": {
+              "elementType": "BOOLEAN"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "content_type": {
+              "elementType": "STRING"
+            },
+            "capture_platform": {
+              "elementType": "STRING"
+            },
+            "capture_sensor": {
+              "elementType": "STRING"
+            },
+            "provider": {
+              "elementType": "STRING"
+            },
+            "id": {
+              "elementType": "STRING"
+            },
+            "created": {
+              "elementType": "STRING"
+            }
+          }
+        }
+      }
+    },
+    "3DTILES_layers": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "layers": {
+        "Raster_DTM": {
+          "name": "Raster DTM",
+          "class": "_WFF_DATASET",
+          "properties": {
+            "wff_version": "1.0",
+            "runtime_enabled": true,
+            "geometry_model": "BARE_EARTH",
+            "content_type": "RASTER",
+            "capture_platform": "SATELLITE",
+            "capture_sensor": "ELECTRO_OPTICAL",
+            "provider": "Maxar",
+            "id": "2e7444d7-e816-48c6-8786-c24ab35445a",
+            "created": "2020-10-05T13:46:46.672632Z"
+          }
+        },
+        "Raster_LULC": {
+          "name": "Raster LULC",
+          "semantic": "_WFF_LULC",
+          "class": "_WFF_DATASET",
+          "properties": {
+            "wff_version": "1.0",
+            "runtime_enabled": true,
+            "geometry_model": "UNKNOWN",
+            "content_type": "RASTER",
+            "capture_platform": "MIXED",
+            "capture_sensor": "UNKNOWN",
+            "provider": "Maxar",
+            "id": "2e7444d7-e816-48c6-8786-c24ab354422f",
+            "created": "2020-10-05T13:46:46.672632Z"
+          }
+        },
+        "Raster_Ortho": {
+          "name": "Raster_Ortho",
+          "class": "_WFF_DATASET",
+          "properties": {
+            "wff_version": "1.0",
+            "runtime_enabled": true,
+            "geometry_model": "SURFACE",
+            "content_type": "RASTER",
+            "capture_platform": "SATELLITE",
+            "capture_sensor": "ELECTRO_OPTICAL",
+            "provider": "Maxar",
+            "id": "2e7444d7-e816-48c6-8786-c24ab3544222",
+            "created": "2020-10-05T13:46:46.672632Z"
+          }
+        },
+        "3D_Terrain": {
+          "name": "3D Terrain",
+          "class": "_WFF_DATASET",
+          "featureClasses": ["NVDI", "LULC"],
+          "properties": {
+            "wff_version": "1.0",
+            "runtime_enabled": true,
+            "geometry_model": "BARE_EARTH",
+            "content_type": "MESH",
+            "capture_platform": "SATELLITE",
+            "capture_sensor": "ELECTRO_OPTICAL",
+            "provider": "Maxar",
+            "id": "2e7444d7-e816-48c6-8786-c24ab354422e",
+            "created": "2020-10-05T13:46:46.672632Z"
+          }
+        },
+        "3D_Highres": {
+          "name": "3D Highres",
+          "class": "_WFF_DATASET",
+          "properties": {
+            "wff_version": "1.0",
+            "runtime_enabled": true,
+            "geometry_model": "SURFACE",
+            "content_type": "MESH",
+            "capture_platform": "MIXED",
+            "capture_sensor": "UNKNOWN",
+            "provider": "Maxar",
+            "id": "2e7444d7-e816-48c6-8786-c24ab3544223",
+            "created": "2020-10-05T13:46:46.672632Z"
+          }
+        },
+        "Road_Vectors": {
+          "name": "Road Vectors",
+          "class": "_WFF_DATASET",
+          "properties": {
+            "wff_version": "1.0",
+            "runtime_enabled": true,
+            "geometry_model": "3DOBJECTS",
+            "content_type": "VECTOR",
+            "capture_platform": "UNKNOWN",
+            "capture_sensor": "UNKNOWN",
+            "provider": "Maxar",
+            "id": "2e7444d7-e816-48c6-8786-c24ab354422f",
+            "created": "2020-10-05T13:46:46.672632Z"
+          }
+        },
+        "Water_Vectors": {
+          "name": "Water Vectors",
+          "class": "_WFF_DATASET",
+          "properties": {
+            "wff_version": "1.0",
+            "runtime_enabled": true,
+            "geometry_model": "3DOBJECTS",
+            "content_type": "VECTOR",
+            "capture_platform": "UNKNOWN",
+            "capture_sensor": "UNKNOWN",
+            "provider": "Maxar",
+            "id": "2e7444d7-e816-48c6-8786-c24ab354422b",
+            "created": "2020-10-05T13:46:46.672632Z"
+          }
+        },
+        "3D_Buildings": {
+          "name": "3D_Buildings",
+          "class": "_WFF_DATASET",
+          "properties": {
+            "wff_version": "1.0",
+            "runtime_enabled": true,
+            "geometry_model": "3DOBJECTS",
+            "content_type": "MESH",
+            "capture_platform": "SATELLITE",
+            "capture_sensor": "ELECTRO_OPTICAL",
+            "provider": "Maxar",
+            "id": "2e7444d7-e816-48c6-8786-c24ab3544244",
+            "created": "2020-10-05T13:46:46.672632Z"
+          }
+        },
+        "Bridges": {
+          "name": "Bridges",
+          "class": "_WFF_DATASET",
+          "properties": {
+            "wff_version": "1.0",
+            "runtime_enabled": true,
+            "geometry_model": "3DOBJECTS",
+            "content_type": "MESH",
+            "capture_platform": "SATELLITE",
+            "capture_sensor": "ELECTRO_OPTICAL",
+            "provider": "Maxar",
+            "id": "2e7444d7-e816-48c6-8786-c24ab3544244",
+            "created": "2020-10-05T13:46:46.672632Z"
+          }
+        },
+        "Vertical_Obstructions": {
+          "name": "Vertical Obstructions",
+          "class": "_WFF_DATASET",
+          "properties": {
+            "wff_version": "1.0",
+            "runtime_enabled": true,
+            "geometry_model": "3DOBJECTS",
+            "content_type": "MESH",
+            "capture_platform": "MIXED",
+            "capture_sensor": "UNKNOWN",
+            "provider": "SE Core",
+            "id": "2e7444d7-e816-48c6-8786-c24ab3544245",
+            "created": "2020-10-05T13:46:46.672632Z"
+          }
+        },
+        "Airport_Features": {
+          "name": "Airport Features",
+          "class": "_WFF_DATASET",
+          "properties": {
+            "wff_version": "1.0",
+            "runtime_enabled": true,
+            "geometry_model": "3DOBJECTS",
+            "content_type": "MESH",
+            "capture_platform": "MIXED",
+            "capture_sensor": "UNKNOWN",
+            "provider": "SE Core",
+            "id": "2e7444d7-e816-48c6-8786-c24ab3544246",
+            "created": "2020-10-05T13:46:46.672632Z"
+          }
+        }
+      }
+    }
+  },
+  "geometricError": 500,
+  "root": {
+    "boundingVolume": {
+      "region": [-1.2419, 0.7395, -1.2415, 0.7396, 0, 20.4]
+    },
+    "geometricError": 500,
+    "refine": "ADD",
+    "extensions": {
+      "3DTILES_layers": {
+        "contents": [
+          {
+            "layer": "Raster_DTM",
+            "uri": "raster_dtm.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Raster_LULC",
+            "uri": "raster_lulc.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Raster_Ortho",
+            "uri": "raster_ortho.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "3D_Terrain",
+            "uri": "terrain.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Road_Vectors",
+            "uri": "roads.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Water_Vectors",
+            "uri": "water.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "3D_Buildings",
+            "uri": "buildings.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Bridges",
+            "uri": "bridges.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "3D_Highres",
+            "uri": "highres_insets.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Vertical_Obstructions",
+            "uri": "vertical_obstructions.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Airport_Features",
+            "uri": "airport_features.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          }
+        ]
+      }
+    }
+  }
+}
