@@ -32,7 +32,6 @@
       },
       "classes": {
         "_WFF_DATASET": {
-          "semantic": "_WFF_DATASET",
           "properties": {
             "wff_version": {
               "elementType": "STRING"
