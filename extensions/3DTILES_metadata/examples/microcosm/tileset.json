@@ -19,7 +19,7 @@
           "properties": {
             "author": "Cesium"
           },
-          "featureClasses": ["NVDI", "LULC"]
+          "featureClasses": ["NDVI", "LULC"]
         }
       },
       "tile": {
@@ -45,10 +45,10 @@
         }
       },
       "featureClass": {
-        "NVDI": {
+        "NDVI": {
           "name": "Normalized Difference Vegetation Index",
           "properties": {
-            "NVDI": {
+            "NDVI": {
               "elementType": "SCALAR",
               "componentType": "UINT8",
               "normalized": "true"

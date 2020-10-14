@@ -14,6 +14,7 @@
         "draftVersion": "0.0.0"
       },
       "tileset": {
+        "name": "Fort Hood Terrain Pack",
         "class": "_WFF_DATA_PACKAGE",
         "properties": {
           "wff_version": "1.0",
@@ -29,7 +30,6 @@
       },
       "classes": {
         "_WFF_DATA_PACKAGE": {
-          "name": "Fort Hood Terrain Pack",
           "semantic": "_WFF_DATA_PACKAGE",
           "properties": {
             "wff_version": {
@@ -457,7 +457,7 @@
             "provider": "Maxar",
             "id": "2e7444d7-e816-48c6-8786-c24ab354422e",
             "created": "2020-10-05T13:46:46.672632Z",
-            "featureClasses": ["NVDI", "LULC"]
+            "featureClasses": ["NDVI", "LULC"]
           }
         },
         "3D_Highres": {

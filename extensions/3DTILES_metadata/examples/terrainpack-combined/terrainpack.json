@@ -141,7 +141,7 @@
             "id": "2e7444d7-e816-48c6-8786-c24ab354422e",
             "created": "2020-10-05T13:46:46.672632Z",
             "semantic": "_WFF_DATASET",
-            "featureClasses": ["NVDI", "LULC"]
+            "featureClasses": ["NDVI", "LULC"]
           }
         },
         "3D_Highres": {
