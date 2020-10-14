@@ -1,226 +1,219 @@
 {
-    "asset": {
-        "version": "1.0"
-    },
-    "extensionsUsed": [
-        "3DTILES_layers",
-        "3DTILES_metadata",
-        "MAXAR_3tz_archive"
-    ],
-    "extensionsRequired": [
-        "3DTILES_layers",
-        "3DTILES_metadata",
-        "MAXAR_3tz_archive"
-    ],
-    "extensions": {
-        "3DTILES_metadata": {
-            "tileset": {
-                "class": "OWT_TerrainPack",
-                "properties": {
-                    "producer": "Maxar",
-                    "uid": "2e7444d7-e816-48c6-8786-c24ab354422e"
-                }
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": [
+    "3DTILES_layers",
+    "3DTILES_metadata",
+    "MAXAR_3tz_archive"
+  ],
+  "extensionsRequired": [
+    "3DTILES_layers",
+    "3DTILES_metadata",
+    "MAXAR_3tz_archive"
+  ],
+  "extensions": {
+    "3DTILES_metadata": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "classes": {
+        "OWT_TerrainPack": {
+          "name": "OWT Terrain Pack",
+          "semantic": "OWT_TERRAIN_PACK",
+          "properties": {
+            "producer": {
+              "elementType": "STRING"
             },
-            "classes": {
-                "OWT_TerrainPack": {
-                    "semantic": "_TERRAIN_PACK",
-                    "properties": {
-                        "producer": {
-                            "elementType": "STRING"
-                        },
-                        "uid": {
-                            "elementType": "STRING"
-                        }
-                    }
-                },
-                "3D_Terrain": {
-                    "semantic": "_3D_TERRAIN",
-                    "properties": {
-                        "featureClasses": {
-                            "elementType": "VARIABLE_SIZE_ARRAY",
-                            "componentType": "STRING"
-                        }
-                    }
-                },
-                "NDVI": {
-                    "semantic": "NVDI",
-                    "properties": {
-                        "NDVI": {
-                            "semantic": "NVDI",
-                            "elementType": "UINT8",
-                            "normalized": true
-                        }
-                    }
-                },
-                "LULC": {
-                    "semantic": "LULC",
-                    "properties": {
-                        "Name": {
-                            "semantic": "NAME",
-                            "elementType": "STRING"
-                        },
-                        "Color": {
-                            "semantic": "COLOR",
-                            "elementType": "ARRAY",
-                            "componentType": "UINT8",
-                            "componentsPerElement": 3
-                        }
-                    }
-                }
+            "uid": {
+              "elementType": "STRING"
             }
+          }
         },
-        "3DTILES_layers": {
-            "layers": {
-                "Raster_DTM": {
-                    "name": "Raster DTM",
-                    "semantic": "Raster_DTM",
-                    "description": "Raster DTM layer"
-                },
-                "Raster_LULC": {
-                    "name": "Raster LULC",
-                    "description": "Land cover raster",
-                    "semantic": "_RASTER_LULC"
-                },
-                "Raster_Ortho": {
-                    "name": "Raster Ortho",
-                    "description": "ortho texture layer",
-                    "semantic": "_RASTER_ORTHO"
-                },
-                "3D_Terrain": {
-                    "name": "3D Terrain",
-                    "description": "",
-                    "semantic": "_TERRAIN",
-                    "properties": {
-                        "featureClasses": ["NDVI", "LULC"]
-                    }
-                },
-                "3D_Highres": {
-                    "name": "3D Highres",
-                    "description": "",
-                    "semantic": "_SURFACE"
-                },
-                "Road_Vectors": {
-                    "name": "Road_Vectors",
-                    "description": "",
-                    "semantic": "_ROAD"
-                },
-                "Water_Vectors": {
-                    "name": "Water_Vectors",
-                    "description": "",
-                    "semantic": "_WATER"
-                },
-                "3D_Buildings": {
-                    "name": "3D_Buildings",
-                    "description": "",
-                    "semantic": "_BUILDINGS"
-                },
-                "Bridges": {
-                    "name": "Bridges",
-                    "description": "",
-                    "semantic": "_BRIDGES"
-                },
-                "Vertical_Obstructions": {
-                    "name": "Vertical_Obstructions",
-                    "description": "",
-                    "semantic": "_VERTICAL_OBSTRUCTIONS"
-                },
-                "Airport_Features": {
-                    "name": "Airport_Features",
-                    "description": "",
-                    "semantic": "_AIRPORT_FEATURES"
-                }
+        "3D_Terrain": {
+          "name": "3D Terrain",
+          "semantic": "OWT_3D_TERRAIN",
+          "properties": {
+            "featureClasses": {
+              "semantic": "FEATURE_CLASSES",
+              "elementType": "VARIABLE_SIZE_ARRAY",
+              "componentType": "STRING"
             }
+          }
+        },
+        "Raster_DTM": {
+          "name": "Raster DTM",
+          "description": "Raster DTM layer",
+          "semantic": "OWT_RASTER_DTM"
+        },
+        "Raster_LULC": {
+          "name": "Raster LULC",
+          "description": "Land cover raster",
+          "semantic": "OWT_RASTER_LULC"
+        },
+        "Raster_Ortho": {
+          "name": "Raster Ortho",
+          "description": "Ortho texture raster",
+          "semantic": "OWT_RASTER_ORTHO"
+        },
+        "3D_Highres": {
+          "name": "3D Highres",
+          "semantic": "OWT_SURFACE"
+        },
+        "Road_Vectors": {
+          "name": "Road Vectors",
+          "semantic": "OWT_ROAD"
+        },
+        "Water_Vectors": {
+          "name": "Water Vectors",
+          "semantic": "OWT_WATER"
+        },
+        "3D_Buildings": {
+          "name": "3D Buildings",
+          "semantic": "OWT_BUILDINGS"
+        },
+        "Bridges": {
+          "name": "Bridges",
+          "semantic": "OWT_BRIDGES"
+        },
+        "Vertical_Obstructions": {
+          "name": "Vertical Obstructions",
+          "semantic": "OWT_VERTICAL_OBSTRUCTIONS"
+        },
+        "Airport_Features": {
+          "name": "Airport Features",
+          "semantic": "OWT_AIRPORT_FEATURES"
         }
+      },
+      "tileset": {
+        "class": "OWT_TerrainPack",
+        "properties": {
+          "producer": "Maxar",
+          "uid": "2e7444d7-e816-48c6-8786-c24ab354422e"
+        }
+      }
+    },
+    "3DTILES_layers": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "layers": {
+        "Raster_DTM": {
+          "class": "Raster_DTM"
+        },
+        "Raster_LULC": {
+          "class": "Raster_LULC"
+        },
+        "Raster_Ortho": {
+          "class": "Raster_Ortho"
+        },
+        "3D_Terrain": {
+          "class": "3D_Terrain", 
+          "properties": {
+            "featureClasses": [
+              "NDVI",
+              "LULC"
+            ]
+          }
+        },
+        "3D_Highres": {
+          "class": "3D_Highres"
+        },
+        "Road_Vectors": {
+          "class": "Road_Vectors"
+        },
+        "Water_Vectors": {
+          "class": "Water_Vectors"
+        },
+        "3D_Buildings": {
+          "class": "3D_Buildings"
+        },
+        "Bridges": {
+          "class": "Bridges"
+        },
+        "Vertical_Obstructions": {
+          "class": "Vertical_Obstructions"
+        },
+        "Airport_Features": {
+          "class": "Airport_Features"
+        }
+      }
+    }
+  },
+  "geometricError": 500,
+  "root": {
+    "boundingVolume": {
+      "region": [
+        -1.2419,
+        0.7395,
+        -1.2415,
+        0.7396,
+        0,
+        20.4
+      ]
     },
     "geometricError": 500,
-    "root": {
-        "boundingVolume": {
-            "region": [-1.2419, 0.7395, -1.2415, 0.7396, 0, 20.4]
-        },
-        "geometricError": 500,
-        "refine": "ADD",
-        "extensions": {
-            "3DTILES_layers": {
-                "contents": [
-                    {
-                        "layer": "Raster_DTM",
-                        "content": {
-                            "uri": "raster_dtm.3tz#legacy/legacy-tileset.json",
-                            "type": "application/vnd.maxar.archive.3tz"
-                        }
-                    },
-                    {
-                        "layer": "Raster_LULC",
-                        "content": {
-                            "uri": "raster_lulc.3tz#legacy/legacy-tileset.json",
-                            "type": "application/vnd.maxar.archive.3tz"
-                        }
-                    },
-                    {
-                        "layer": "Raster_Ortho",
-                        "content": {
-                            "uri": "raster_ortho.3tz#legacy/legacy-tileset.json",
-                            "type": "application/vnd.maxar.archive.3tz"
-                        }
-                    },
-                    {
-                        "layer": "3D_Terrain",
-                        "content": {
-                            "uri": "terrain.3tz",
-                            "type": "application/vnd.maxar.archive.3tz"
-                        }
-                    },
-                    {
-                        "layer": "Road_Vectors",
-                        "content": {
-                            "uri": "roads.3tz",
-                            "type": "application/vnd.maxar.archive.3tz"
-                        }
-                    },
-                    {
-                        "layer": "Water_Vectors",
-                        "content": {
-                            "uri": "water.3tz",
-                            "type": "application/vnd.maxar.archive.3tz"
-                        }
-                    },
-                    {
-                        "layer": "3D_Buildings",
-                        "content": {
-                            "uri": "buildings.3tz",
-                            "type": "application/vnd.maxar.archive.3tz"
-                        }
-                    },
-                    {
-                        "layer": "Bridges",
-                        "content": {
-                            "uri": "bridges.3tz",
-                            "type": "application/vnd.maxar.archive.3tz"
-                        }
-                    },
-                    {
-                        "layer": "3D_Highres",
-                        "content": {
-                            "uri": "highres_insets.3tz",
-                            "type": "application/vnd.maxar.archive.3tz"
-                        }
-                    },
-                    {
-                        "layer": "Vertical_Obstructions",
-                        "content": {
-                            "uri": "vertical_obstructions.3tz",
-                            "type": "application/vnd.maxar.archive.3tz"
-                        }
-                    },
-                    {
-                        "layer": "Airport_Features",
-                        "content": {
-                            "uri": "airport_features.3tz",
-                            "type": "application/vnd.maxar.archive.3tz"
-                        }
-                    }
-                ]
-            }
-        }
+    "refine": "ADD",
+    "extensions": {
+      "3DTILES_layers": {
+        "contents": [
+          {
+            "layer": "Raster_DTM",
+            "uri": "raster_dtm.3tz#legacy/legacy-tileset.json",
+            "mimeType": "application/vnd.maxar.archive.3tz"
+          },
+          {
+            "layer": "Raster_LULC",
+            "uri": "raster_lulc.3tz#legacy/legacy-tileset.json",
+            "mimeType": "application/vnd.maxar.archive.3tz"
+          },
+          {
+            "layer": "Raster_Ortho",
+            "uri": "raster_ortho.3tz#legacy/legacy-tileset.json",
+            "mimeType": "application/vnd.maxar.archive.3tz"
+          },
+          {
+            "layer": "3D_Terrain",
+            "uri": "terrain.3tz",
+            "mimeType": "application/vnd.maxar.archive.3tz"
+          },
+          {
+            "layer": "Road_Vectors",
+            "uri": "roads.3tz",
+            "mimeType": "application/vnd.maxar.archive.3tz"
+          },
+          {
+            "layer": "Water_Vectors",
+            "uri": "water.3tz",
+            "mimeType": "application/vnd.maxar.archive.3tz"
+          },
+          {
+            "layer": "3D_Buildings",
+            "uri": "buildings.3tz",
+            "mimeType": "application/vnd.maxar.archive.3tz"
+          },
+          {
+            "layer": "Bridges",
+            "uri": "bridges.3tz",
+            "mimeType": "application/vnd.maxar.archive.3tz"
+          },
+          {
+            "layer": "3D_Highres",
+            "uri": "highres_insets.3tz",
+            "mimeType": "application/vnd.maxar.archive.3tz"
+          },
+          {
+            "layer": "Vertical_Obstructions",
+            "uri": "vertical_obstructions.3tz",
+            "mimeType": "application/vnd.maxar.archive.3tz"
+          },
+          {
+            "layer": "Airport_Features",
+            "uri": "airport_features.3tz",
+            "mimeType": "application/vnd.maxar.archive.3tz"
+          }
+        ]
+      }
     }
+  }
 }

@@ -1,91 +1,122 @@
 {
-    "asset": {
-        "version": "1.0"
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": [
+    "3DTILES_content_gltf",
+    "3DTILES_metadata"
+  ],
+  "extensionsRequired": [
+    "3DTILES_content_gltf",
+    "3DTILES_metadata"
+  ],
+  "extensions": {
+    "3DTILES_content_gltf": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "extensionsUsed": [
+        "EXT_feature_metadata"
+      ]
+    },
+    "3DTILES_metadata": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "tileset": {
+        "class": "3D_Terrain",
+        "properties": {
+          "producer": "Maxar",
+          "geometry_model": "bare_earth",
+          "slim_level": 0,
+          "production_method": "MULTIVIEW_SAT_STEREO",
+          "source_uid": "bcf25eee-f4af-4724-8244-2cd2001acb85",
+          "uid": "1e7444d7-e816-48c6-8786-c24ab354425f",
+          "featureClasses": [
+            "NDVI",
+            "LULC"
+          ]
+        }
+      },
+      "classes": {
+        "3D_Terrain": {
+          "name": "3D Terrain",
+          "semantic": "OWT_3D_TERRAIN",
+          "properties": {
+            "producer": {
+              "elementType": "STRING"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "slim_level": {
+              "elementType": "UINT8"
+            },
+            "production_method": {
+              "elementType": "STRING"
+            },
+            "source_uid": {
+              "elementType": "STRING"
+            },
+            "uid": {
+              "elementType": "STRING"
+            },
+            "featureClasses": {
+              "semantic": "FEATURE_CLASSES",
+              "elementType": "VARIABLE_SIZE_ARRAY",
+              "componentType": "STRING"
+            }
+          }
+        },
+        "NDVI": {
+          "name": "Normalized difference vegetation index",
+          "semantic": "NDVI",
+          "properties": {
+            "NDVI": {
+              "name": "Normalized Difference Vegetation Index",
+              "semantic": "NDVI",
+              "elementType": "UINT8",
+              "normalized": true
+            }
+          }
+        },
+        "LULC": {
+          "name": "Landcover/Landuse",
+          "semantic": "LULC",
+          "properties": {
+            "Name": {
+              "name": "Name",
+              "semantic": "NAME",
+              "elementType": "STRING"
+            },
+            "Color": {
+              "name": "Color",
+              "semantic": "COLOR",
+              "elementType": "ARRAY",
+              "componentType": "UINT8",
+              "componentsPerElement": 3
+            }
+          }
+        }
+      }
+    }
+  },
+  "geometricError": 500,
+  "root": {
+    "boundingVolume": {
+      "region": [
+        -1.2419,
+        0.7395,
+        -1.2415,
+        0.7396,
+        0,
+        20.4
+      ]
     },
     "geometricError": 500,
-    "root": {
-        "boundingVolume": {
-            "region": [-1.2419, 0.7395, -1.2415, 0.7396, 0, 20.4]
-        },
-        "geometricError": 500,
-        "refine": "REPLACE",
-        "content": {
-            "uri": "apa.gltf",
-            "type": "model/gltf+json"
-        }
-    },
-    "extensions": {
-        "3DTILES_content_gltf": {
-            "extensionsUsed": ["EXT_feature_metadata"]
-        },
-        "3DTILES_metadata": {
-            "tileset": {
-                "name": "3D Terrain",
-                "class": "OWT_Tileset",
-                "properties": {
-                    "producer": "Maxar",
-                    "featureClasses": ["NVDI", "LULC"],
-                    "geometryModel": "bare_earth",
-                    "slim_level": 0,
-                    "production_method": "MULTIVIEW_SAT_STEREO",
-                    "source_uid": "bcf25eee-f4af-4724-8244-2cd2001acb85",
-                    "uid": "1e7444d7-e816-48c6-8786-c24ab354425f"
-                }
-            },
-            "classes": {
-                "OWT_Tileset": {
-                    "semantic": "_TERRAIN",
-                    "properties": {
-                        "producer": {
-                            "elementType": "STRING"
-                        },
-                        "featureClasses": {
-                            "elementType": "VARIABLE_SIZE_ARRAY",
-                            "componentType": "STRING"
-                        },
-                        "geometryModel": {
-                            "elementType": "STRING"
-                        },
-                        "slim_level": {
-                            "elementType": "UINT8"
-                        },
-                        "production_method": {
-                            "elementType": "STRING"
-                        },
-                        "source_uid": {
-                            "elementType": "STRING"
-                        },
-                        "uid": {
-                            "elementType": "STRING"
-                        }
-                    }
-                },
-                "NDVI": {
-                    "semantic": "NVDI",
-                    "properties": {
-                        "NDVI": {
-                            "semantic": "NVDI",
-                            "elementType": "UINT8",
-                            "normalized": true
-                        }
-                    }
-                },
-                "LULC": {
-                    "semantic": "LULC",
-                    "properties": {
-                        "Name": {
-                            "semantic": "NAME",
-                            "elementType": "STRING"
-                        },
-                        "Color": {
-                            "semantic": "COLOR",
-                            "elementType": "ARRAY",
-                            "componentType": "UINT8",
-                            "componentsPerElement": 3
-                        }
-                    }
-                }
-            }
-        }
+    "refine": "REPLACE",
+    "content": {
+      "uri": "microcosm/microcosm.gltf"
     }
+  }
 }
