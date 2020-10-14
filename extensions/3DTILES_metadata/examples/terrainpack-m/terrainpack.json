@@ -14,9 +14,7 @@
         "draftVersion": "0.0.0"
       },
       "tileset": {
-        "name": "Fort Hood Terrain Pack",
-        "semantic": "_WFF_DATA_PACKAGE",
-        "class": "_WFF_DATASET",
+        "class": "_WFF_DATA_PACKAGE",
         "properties": {
           "wff_version": "1.0",
           "runtime_enabled": true,
@@ -30,7 +28,342 @@
         }
       },
       "classes": {
-        "_WFF_DATASET": {
+        "_WFF_DATA_PACKAGE": {
+          "name": "Fort Hood Terrain Pack",
+          "semantic": "_WFF_DATA_PACKAGE",
+          "properties": {
+            "wff_version": {
+              "elementType": "STRING"
+            },
+            "runtime_enabled": {
+              "elementType": "BOOLEAN"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "content_type": {
+              "elementType": "STRING"
+            },
+            "capture_platform": {
+              "elementType": "STRING"
+            },
+            "capture_sensor": {
+              "elementType": "STRING"
+            },
+            "provider": {
+              "elementType": "STRING"
+            },
+            "id": {
+              "elementType": "STRING"
+            },
+            "created": {
+              "elementType": "STRING"
+            }
+          }
+        },
+        "Raster_DTM": {
+          "name": "Raster DTM",
+          "semantic": "_WFF_DATASET",
+          "properties": {
+            "wff_version": {
+              "elementType": "STRING"
+            },
+            "runtime_enabled": {
+              "elementType": "BOOLEAN"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "content_type": {
+              "elementType": "STRING"
+            },
+            "capture_platform": {
+              "elementType": "STRING"
+            },
+            "capture_sensor": {
+              "elementType": "STRING"
+            },
+            "provider": {
+              "elementType": "STRING"
+            },
+            "id": {
+              "elementType": "STRING"
+            },
+            "created": {
+              "elementType": "STRING"
+            }
+          }
+        },
+        "Raster_LULC": {
+          "name": "Raster LULC",
+          "semantic": "_WFF_LULC",
+          "properties": {
+            "wff_version": {
+              "elementType": "STRING"
+            },
+            "runtime_enabled": {
+              "elementType": "BOOLEAN"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "content_type": {
+              "elementType": "STRING"
+            },
+            "capture_platform": {
+              "elementType": "STRING"
+            },
+            "capture_sensor": {
+              "elementType": "STRING"
+            },
+            "provider": {
+              "elementType": "STRING"
+            },
+            "id": {
+              "elementType": "STRING"
+            },
+            "created": {
+              "elementType": "STRING"
+            }
+          }
+        },
+        "Raster_Ortho": {
+          "name": "Raster Ortho",
+          "semantic": "_WFF_DATASET",
+          "properties": {
+            "wff_version": {
+              "elementType": "STRING"
+            },
+            "runtime_enabled": {
+              "elementType": "BOOLEAN"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "content_type": {
+              "elementType": "STRING"
+            },
+            "capture_platform": {
+              "elementType": "STRING"
+            },
+            "capture_sensor": {
+              "elementType": "STRING"
+            },
+            "provider": {
+              "elementType": "STRING"
+            },
+            "id": {
+              "elementType": "STRING"
+            },
+            "created": {
+              "elementType": "STRING"
+            }
+          }
+        },
+        "3D_Terrain": {
+          "name": "3D Terrain",
+          "semantic": "_WFF_DATASET",
+          "properties": {
+            "wff_version": {
+              "elementType": "STRING"
+            },
+            "runtime_enabled": {
+              "elementType": "BOOLEAN"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "content_type": {
+              "elementType": "STRING"
+            },
+            "capture_platform": {
+              "elementType": "STRING"
+            },
+            "capture_sensor": {
+              "elementType": "STRING"
+            },
+            "provider": {
+              "elementType": "STRING"
+            },
+            "id": {
+              "elementType": "STRING"
+            },
+            "created": {
+              "elementType": "STRING"
+            },
+            "featureClasses": {
+              "elementType": "VARIABLE_SIZE_ARRAY",
+              "componentType": "STRING"
+            }
+          }
+        },
+        "Road_Vectors": {
+          "name": "Road Vectors",
+          "semantic": "_WFF_DATASET",
+          "properties": {
+            "wff_version": {
+              "elementType": "STRING"
+            },
+            "runtime_enabled": {
+              "elementType": "BOOLEAN"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "content_type": {
+              "elementType": "STRING"
+            },
+            "capture_platform": {
+              "elementType": "STRING"
+            },
+            "capture_sensor": {
+              "elementType": "STRING"
+            },
+            "provider": {
+              "elementType": "STRING"
+            },
+            "id": {
+              "elementType": "STRING"
+            },
+            "created": {
+              "elementType": "STRING"
+            }
+          }
+        },
+        "Water_Vectors": {
+          "name": "Water Vectors",
+          "semantic": "_WFF_DATASET",
+          "properties": {
+            "wff_version": {
+              "elementType": "STRING"
+            },
+            "runtime_enabled": {
+              "elementType": "BOOLEAN"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "content_type": {
+              "elementType": "STRING"
+            },
+            "capture_platform": {
+              "elementType": "STRING"
+            },
+            "capture_sensor": {
+              "elementType": "STRING"
+            },
+            "provider": {
+              "elementType": "STRING"
+            },
+            "id": {
+              "elementType": "STRING"
+            },
+            "created": {
+              "elementType": "STRING"
+            }
+          }
+        },
+        "3D_Buildings": {
+          "name": "3D Buildings",
+          "semantic": "_WFF_DATASET",
+          "properties": {
+            "wff_version": {
+              "elementType": "STRING"
+            },
+            "runtime_enabled": {
+              "elementType": "BOOLEAN"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "content_type": {
+              "elementType": "STRING"
+            },
+            "capture_platform": {
+              "elementType": "STRING"
+            },
+            "capture_sensor": {
+              "elementType": "STRING"
+            },
+            "provider": {
+              "elementType": "STRING"
+            },
+            "id": {
+              "elementType": "STRING"
+            },
+            "created": {
+              "elementType": "STRING"
+            }
+          }
+        },
+        "Bridges": {
+          "name": "Bridges",
+          "semantic": "_WFF_DATASET",
+          "properties": {
+            "wff_version": {
+              "elementType": "STRING"
+            },
+            "runtime_enabled": {
+              "elementType": "BOOLEAN"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "content_type": {
+              "elementType": "STRING"
+            },
+            "capture_platform": {
+              "elementType": "STRING"
+            },
+            "capture_sensor": {
+              "elementType": "STRING"
+            },
+            "provider": {
+              "elementType": "STRING"
+            },
+            "id": {
+              "elementType": "STRING"
+            },
+            "created": {
+              "elementType": "STRING"
+            }
+          }
+        },
+        "Vertical_Obstructions": {
+          "name": "Vertical Obstructions",
+          "semantic": "_WFF_DATASET",
+          "properties": {
+            "wff_version": {
+              "elementType": "STRING"
+            },
+            "runtime_enabled": {
+              "elementType": "BOOLEAN"
+            },
+            "geometry_model": {
+              "elementType": "STRING"
+            },
+            "content_type": {
+              "elementType": "STRING"
+            },
+            "capture_platform": {
+              "elementType": "STRING"
+            },
+            "capture_sensor": {
+              "elementType": "STRING"
+            },
+            "provider": {
+              "elementType": "STRING"
+            },
+            "id": {
+              "elementType": "STRING"
+            },
+            "created": {
+              "elementType": "STRING"
+            }
+          }
+        },
+        "Airport_Features": {
+          "name": "Airport Features",
           "semantic": "_WFF_DATASET",
           "properties": {
             "wff_version": {
@@ -71,7 +404,7 @@
       "layers": {
         "Raster_DTM": {
           "name": "Raster DTM",
-          "class": "_WFF_DATASET",
+          "class": "Raster_DTM",
           "properties": {
             "wff_version": "1.0",
             "runtime_enabled": true,
@@ -85,9 +418,7 @@
           }
         },
         "Raster_LULC": {
-          "name": "Raster LULC",
-          "semantic": "_WFF_LULC",
-          "class": "_WFF_DATASET",
+          "class": "Raster_LULC",
           "properties": {
             "wff_version": "1.0",
             "runtime_enabled": true,
@@ -101,8 +432,7 @@
           }
         },
         "Raster_Ortho": {
-          "name": "Raster_Ortho",
-          "class": "_WFF_DATASET",
+          "class": "Raster_Ortho",
           "properties": {
             "wff_version": "1.0",
             "runtime_enabled": true,
@@ -116,9 +446,7 @@
           }
         },
         "3D_Terrain": {
-          "name": "3D Terrain",
-          "class": "_WFF_DATASET",
-          "featureClasses": ["NVDI", "LULC"],
+          "class": "3D_Terrain",
           "properties": {
             "wff_version": "1.0",
             "runtime_enabled": true,
@@ -128,12 +456,12 @@
             "capture_sensor": "ELECTRO_OPTICAL",
             "provider": "Maxar",
             "id": "2e7444d7-e816-48c6-8786-c24ab354422e",
-            "created": "2020-10-05T13:46:46.672632Z"
+            "created": "2020-10-05T13:46:46.672632Z",
+            "featureClasses": ["NVDI", "LULC"]
           }
         },
         "3D_Highres": {
-          "name": "3D Highres",
-          "class": "_WFF_DATASET",
+          "class": "3D_Highres",
           "properties": {
             "wff_version": "1.0",
             "runtime_enabled": true,
@@ -147,8 +475,7 @@
           }
         },
         "Road_Vectors": {
-          "name": "Road Vectors",
-          "class": "_WFF_DATASET",
+          "class": "Road_Vectors",
           "properties": {
             "wff_version": "1.0",
             "runtime_enabled": true,
@@ -162,8 +489,7 @@
           }
         },
         "Water_Vectors": {
-          "name": "Water Vectors",
-          "class": "_WFF_DATASET",
+          "class": "Water_Vectors",
           "properties": {
             "wff_version": "1.0",
             "runtime_enabled": true,
@@ -177,8 +503,7 @@
           }
         },
         "3D_Buildings": {
-          "name": "3D_Buildings",
-          "class": "_WFF_DATASET",
+          "class": "3D_Buildings",
           "properties": {
             "wff_version": "1.0",
             "runtime_enabled": true,
@@ -192,8 +517,7 @@
           }
         },
         "Bridges": {
-          "name": "Bridges",
-          "class": "_WFF_DATASET",
+          "class": "Bridges",
           "properties": {
             "wff_version": "1.0",
             "runtime_enabled": true,
@@ -207,8 +531,7 @@
           }
         },
         "Vertical_Obstructions": {
-          "name": "Vertical Obstructions",
-          "class": "_WFF_DATASET",
+          "class": "Vertical_Obstructions",
           "properties": {
             "wff_version": "1.0",
             "runtime_enabled": true,
@@ -222,8 +545,7 @@
           }
         },
         "Airport_Features": {
-          "name": "Airport Features",
-          "class": "_WFF_DATASET",
+          "class": "Airport_Features",
           "properties": {
             "wff_version": "1.0",
             "runtime_enabled": true,

@@ -16,9 +16,7 @@
         "draftVersion": "0.0.0"
       },
       "tileset": {
-        "name": "Fort Hood",
         "class": "_WFF_DATASET",
-        "featureClasses": ["NDVI", "LULC"],
         "properties": {
           "wff_version": "1.0",
           "runtime_enabled": true,
@@ -28,11 +26,13 @@
           "capture_sensor": "ELECTRO_OPTICAL",
           "provider": "Maxar",
           "id": "2e7444d7-e816-48c6-8786-c24ab354422e",
-          "created": "2020-10-05T13:46:46.672632Z"
+          "created": "2020-10-05T13:46:46.672632Z",
+          "featureClasses": ["NDVI", "LULC"]
         }
       },
       "classes": {
         "_WFF_DATASET": {
+          "name": "Fort Hood",
           "semantic": "_WFF_DATASET",
           "properties": {
             "wff_version": {
@@ -61,6 +61,10 @@
             },
             "created": {
               "elementType": "STRING"
+            },
+            "featureClasses": {
+              "elementType": "VARIABLE_SIZE_ARRAY",
+              "componentType": "STRING"
             }
           }
         },
