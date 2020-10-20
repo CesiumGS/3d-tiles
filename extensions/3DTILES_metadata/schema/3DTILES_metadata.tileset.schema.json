@@ -12,9 +12,13 @@
       "type": "string",
       "description": "The description of the tileset."
     },
+    "class": {
+      "type": "string",
+      "description": "The class this metadata object conforms to."
+    },
     "properties": {
       "type": "object",
-      "description": "A collection of key-value pairs associated with the tileset."
+      "description": "The dictionary of properties, based on the class."
     }
   }
 }

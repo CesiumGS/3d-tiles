@@ -7,14 +7,23 @@
     "tileset": {
       "$ref": "3DTILES_metadata.tileset.schema.json"
     },
-    "tile": {
-      "$ref": "3DTILES_metadata.tile.schema.json"
+    "classes": {
+      "type": "object",
+      "description": "A dictionary, where each key is a class ID and each value is an object defining the class.",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "class.schema.json"
+      }
     },
-    "content": {
-      "$ref": "3DTILES_metadata.content.schema.json"
-    },
-    "featureClass": {
-      "$ref": "3DTILES_metadata.featureClass.schema.json"
+    "classesUri": {
+      "type": "string",
+      "minLength": 1,
+      "description": "A uri to an external JSON resource containing the classes. The external JSON resource must follow the same schema as `classes`. `classes` and `classesUri` cannot both be supplied. If neither `classes` nor `classesUri` is supplied the classes should be supplied through some other means."
     }
+  },
+  "not": {
+    "anyOf": [
+      { "required": ["classes", "classesUri"] }
+    ]
   }
 }
