@@ -86,13 +86,18 @@
       },
       "minItems": 1
     },
+    "default": {
+        "type": ["boolean", "number", "string", "array"],
+        "description": "A default value to use when no value for this property is specified. The data type here must match the property declaration. However, `default` cannot be used for a property with type `BLOB` (or array thereof)."
+    },
     "optional": {
         "type": "boolean",
-        "description": "Whether or not each layer"
+        "description": "If true, this property is optional and can take a null value."
     }
   },
   "dependencies": {
-    "componentCount": ["componentType"]
+    "componentCount": ["componentType"],
+    "default": ["optional"]
   },
   "required": ["type"]
 }
