@@ -3,7 +3,6 @@
   "title": "Class",
   "type": "object",
   "description": "A class defining the properties that distinguish one set of features from another.",
-  "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
   "properties": {
       "name": {
           "type": "string",
@@ -25,7 +24,7 @@
           "description": "A dictionary, where each key is a property ID and each value is an object defining the property.",
           "minProperties": 1,
           "additionalProperties" : {
-              "$ref": "class.property.schema.json"
+              "$ref": "3DTILES_metadata.classes.class.property.schema.json"
           }
       },
       "extensions": { },

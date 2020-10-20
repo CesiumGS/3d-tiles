@@ -3,7 +3,6 @@
   "title": "Property class",
   "type": "object",
   "description": "A property class.",
-  "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
   "properties": {
       "name": {
           "type": "string",

@@ -12,7 +12,7 @@
       "description": "A dictionary, where each key is a class ID and each value is an object defining the class.",
       "minProperties": 1,
       "additionalProperties": {
-        "$ref": "class.schema.json"
+        "$ref": "3DTILES_metadata.classes.class.schema.json"
       }
     },
     "classesUri": {
