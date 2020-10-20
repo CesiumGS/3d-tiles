@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "3DTILES_layers extension",
+  "type": "object",
+  "properties": {
+    "layers": {
+      "description": "Layers available in the tileset",
+      "type": "object",
+      "minProperties": 1
+    }
+  },
+  "required": ["layers"],
+  "additionalProperties" : false
+}

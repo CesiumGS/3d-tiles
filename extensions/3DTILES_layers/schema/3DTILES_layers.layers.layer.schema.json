@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Layer object",
+  "type": "object",
+  "properties": {
+    "class": {
+      "type": "string",
+      "description": "The metadata class this layer conforms to."
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name for the class."
+    },
+    "description": {
+      "type": "string",
+      "description": "The description for the class."
+    },
+    "properties": {
+      "type": "object",
+      "description": "List of key-value pairs based on the class."
+    }
+  },
+  "additionalProperties" : false
+}
