@@ -9,11 +9,6 @@
           "minLength": 1,
           "description": "The name of the class, e.g. for display purposes. The string is UTF-8 encoded."
       },
-      "semantic": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Identifies a property with a well-known meaning. The string is UTF-8 encoded. Semantics defined by this extension include `NAME` and `ID`"
-      },
       "description": {
           "type": "string",
           "minLength" : 1,

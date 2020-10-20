@@ -19,6 +19,14 @@
       "type": "string",
       "minLength": 1,
       "description": "A uri to an external JSON resource containing the classes. The external JSON resource must follow the same schema as `classes`. `classes` and `classesUri` cannot both be supplied. If neither `classes` nor `classesUri` is supplied the classes should be supplied through some other means."
+    },
+    "enums": {
+      "type": "object",
+      "description": "A dictionary, where each key is an enum ID and each value is an object defining the enum.",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "3DTILES_metadata.enums.enum.schema.json"
+      }
     }
   },
   "not": {

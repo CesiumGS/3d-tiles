@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Enum",
+  "type": "object",
+  "description": "An object to define the data type and values for the enum",
+  "properties": {
+    "valueType": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The data type for the enum.",
+      "enum": [
+        "INT8",
+        "UINT8",
+        "INT16",
+        "UINT16",
+        "INT32",
+        "UINT32",
+        "INT64",
+        "UINT64",
+        "FLOAT16",
+        "FLOAT32",
+        "FLOAT64"
+      ]
+    },
+    "values": {
+      "type": "object",
+      "description": "A dictionary, where each key is an enum name and each value is an enum value",
+      "minProperties": 1
+    }
+  }
+}
