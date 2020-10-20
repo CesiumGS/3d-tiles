@@ -6,7 +6,10 @@
     "layers": {
       "description": "Layers available in the tileset",
       "type": "object",
-      "minProperties": 1
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "3DTILES_layers.layers.layer.schema.json"
+      }
     }
   },
   "required": ["layers"],
