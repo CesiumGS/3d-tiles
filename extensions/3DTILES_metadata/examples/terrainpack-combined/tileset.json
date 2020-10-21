@@ -32,64 +32,111 @@
           "featureClasses": ["NDVI", "LULC"]
         }
       },
+      "enums": {
+        "GEOMETRY_MODEL_TYPE": {
+          "valueType": "UINT8",
+          "values": {
+            "UNKNOWN": 0,
+            "BARE_EARTH": 1,
+            "SURFACE": 2,
+            "3DOBJECTS": 3
+          }
+        },
+        "CONTENT_TYPE": {
+          "valueType": "UINT8",
+          "values": {
+            "UNKNOWN": 0,
+            "MESH": 1,
+            "VECTOR": 2,
+            "RASTER": 3
+          }
+        },
+        "CAPTURE_PLATFORM_TYPE": {
+          "valueType": "UINT8",
+          "values": {
+            "UNKNOWN": 0,
+            "SATELLITE": 1,
+            "MIXED": 2
+          }
+        },
+        "CAPTURE_SENSOR_TYPE": {
+          "valueType": "UINT8",
+          "values": {
+            "UNKNOWN": 0,
+            "ELECTRO_OPTICAL": 1
+          }
+        }
+      },
       "classes": {
         "_WFF_DATASET": {
           "properties": {
             "wff_version": {
-              "elementType": "STRING"
+              "type": "STRING",
+              "optional": false
             },
             "runtime_enabled": {
-              "elementType": "BOOLEAN"
+              "type": "BOOLEAN",
+              "optional": false
             },
             "geometry_model": {
-              "elementType": "STRING"
+              "type": "ENUM",
+              "enumType": "GEOMETRY_MODEL_TYPE",
+              "optional": false
             },
             "content_type": {
-              "elementType": "STRING"
+              "type": "ENUM",
+              "enumType": "CONTENT_TYPE",
+              "optional": false
             },
             "capture_platform": {
-              "elementType": "STRING"
+              "type": "ENUM",
+              "enumType": "CAPTURE_PLATFORM_TYPE",
+              "optional": false
             },
             "capture_sensor": {
-              "elementType": "STRING"
+              "type": "ENUM",
+              "enumType": "CAPTURE_SENSOR_TYPE",
+              "optional": false
             },
             "provider": {
-              "elementType": "STRING"
+              "type": "STRING",
+              "optional": false
             },
             "id": {
-              "elementType": "STRING"
+              "type": "STRING",
+              "optional": false
             },
             "created": {
-              "elementType": "STRING"
+              "type": "STRING",
+              "optional": false
             },
             "semantic": {
-              "elementType": "STRING"
+              "type": "ENUM",
+              "enumType": "SEMANTIC_TYPE",
+              "optional": false
             },
             "featureClasses": {
-              "elementType": "VARIABLE_SIZE_ARRAY",
-              "componentType": "STRING"
+              "type": "ARRAY",
+              "componentType": "STRING",
+              "optional": true,
+              "default": []
             }
           }
         },
         "NDVI": {
-          "description": "Normalized difference vegetation index",
           "properties": {
             "NDVI": {
-              "semantic": "_WFF_NDVI",
               "elementType": "UINT8",
               "normalized": true
             }
           }
         },
         "LULC": {
-          "name": "Landcover",
           "properties": {
             "Name": {
-              "semantic": "NAME",
               "elementType": "STRING"
             },
             "Color": {
-              "semantic": "_COLOR",
               "elementType": "ARRAY",
               "componentType": "UINT8",
               "componentsPerElement": 3

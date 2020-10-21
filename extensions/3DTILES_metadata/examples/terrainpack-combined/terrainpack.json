@@ -26,46 +26,97 @@
           "provider": "Maxar",
           "id": "2e7444d7-e816-48c6-8786-c24ab354422e",
           "created": "2020-10-05T13:46:46.672632Z",
-          "semantic": "_WFF_DATA_PACKAGE",
-          "featureClasses": []
+          "semantic": "_WFF_DATA_PACKAGE"
+        }
+      },
+      "enums": {
+        "GEOMETRY_MODEL_TYPE": {
+          "valueType": "UINT8",
+          "values": {
+            "UNKNOWN": 0,
+            "BARE_EARTH": 1,
+            "SURFACE": 2,
+            "3DOBJECTS": 3
+          }
+        },
+        "CONTENT_TYPE": {
+          "valueType": "UINT8",
+          "values": {
+            "UNKNOWN": 0,
+            "MESH": 1,
+            "VECTOR": 2,
+            "RASTER": 3
+          }
+        },
+        "CAPTURE_PLATFORM_TYPE": {
+          "valueType": "UINT8",
+          "values": {
+            "UNKNOWN": 0,
+            "SATELLITE": 1,
+            "MIXED": 2
+          }
+        },
+        "CAPTURE_SENSOR_TYPE": {
+          "valueType": "UINT8",
+          "values": {
+            "UNKNOWN": 0,
+            "ELECTRO_OPTICAL": 1
+          }
         }
       },
       "classes": {
         "_WFF_DATASET": {
           "properties": {
             "wff_version": {
-              "elementType": "STRING"
+              "type": "STRING",
+              "optional": false
             },
             "runtime_enabled": {
-              "elementType": "BOOLEAN"
+              "type": "BOOLEAN",
+              "optional": false
             },
             "geometry_model": {
-              "elementType": "STRING"
+              "type": "ENUM",
+              "enumType": "GEOMETRY_MODEL_TYPE",
+              "optional": false
             },
             "content_type": {
-              "elementType": "STRING"
+              "type": "ENUM",
+              "enumType": "CONTENT_TYPE",
+              "optional": false
             },
             "capture_platform": {
-              "elementType": "STRING"
+              "type": "ENUM",
+              "enumType": "CAPTURE_PLATFORM_TYPE",
+              "optional": false
             },
             "capture_sensor": {
-              "elementType": "STRING"
+              "type": "ENUM",
+              "enumType": "CAPTURE_SENSOR_TYPE",
+              "optional": false
             },
             "provider": {
-              "elementType": "STRING"
+              "type": "STRING",
+              "optional": false
             },
             "id": {
-              "elementType": "STRING"
+              "type": "STRING",
+              "optional": false
             },
             "created": {
-              "elementType": "STRING"
+              "type": "STRING",
+              "optional": false
             },
             "semantic": {
-              "elementType": "STRING"
+              "type": "ENUM",
+              "enumType": "SEMANTIC_TYPE",
+              "optional": false
             },
             "featureClasses": {
-              "elementType": "VARIABLE_SIZE_ARRAY",
-              "componentType": "STRING"
+              "type": "ARRAY",
+              "componentType": "STRING",
+              "optional": true,
+              "default": []
             }
           }
         }
@@ -89,8 +140,7 @@
             "provider": "Maxar",
             "id": "2e7444d7-e816-48c6-8786-c24ab35445a",
             "created": "2020-10-05T13:46:46.672632Z",
-            "semantic": "_WFF_DATASET",
-            "featureClasses": []
+            "semantic": "_WFF_DATASET"
           }
         },
         "Raster_LULC": {
@@ -106,8 +156,7 @@
             "provider": "Maxar",
             "id": "2e7444d7-e816-48c6-8786-c24ab354422f",
             "created": "2020-10-05T13:46:46.672632Z",
-            "semantic": "_WFF_LULC",
-            "featureClasses": []
+            "semantic": "_WFF_LULC"
           }
         },
         "Raster_Ortho": {
@@ -123,8 +172,7 @@
             "provider": "Maxar",
             "id": "2e7444d7-e816-48c6-8786-c24ab3544222",
             "created": "2020-10-05T13:46:46.672632Z",
-            "semantic": "_WFF_DATASET",
-            "featureClasses": []
+            "semantic": "_WFF_DATASET"
           }
         },
         "3D_Terrain": {
@@ -144,6 +192,7 @@
             "featureClasses": ["NDVI", "LULC"]
           }
         },
+
         "3D_Highres": {
           "name": "3D Highres",
           "class": "_WFF_DATASET",
@@ -157,8 +206,7 @@
             "provider": "Maxar",
             "id": "2e7444d7-e816-48c6-8786-c24ab3544223",
             "created": "2020-10-05T13:46:46.672632Z",
-            "semantic": "_WFF_DATASET",
-            "featureClasses": []
+            "semantic": "_WFF_DATASET"
           }
         },
         "Road_Vectors": {
@@ -174,8 +222,7 @@
             "provider": "Maxar",
             "id": "2e7444d7-e816-48c6-8786-c24ab354422f",
             "created": "2020-10-05T13:46:46.672632Z",
-            "semantic": "_WFF_DATASET",
-            "featureClasses": []
+            "semantic": "_WFF_DATASET"
           }
         },
         "Water_Vectors": {
@@ -191,8 +238,7 @@
             "provider": "Maxar",
             "id": "2e7444d7-e816-48c6-8786-c24ab354422b",
             "created": "2020-10-05T13:46:46.672632Z",
-            "semantic": "_WFF_DATASET",
-            "featureClasses": []
+            "semantic": "_WFF_DATASET"
           }
         },
         "3D_Buildings": {
@@ -208,8 +254,7 @@
             "provider": "Maxar",
             "id": "2e7444d7-e816-48c6-8786-c24ab3544244",
             "created": "2020-10-05T13:46:46.672632Z",
-            "semantic": "_WFF_DATASET",
-            "featureClasses": []
+            "semantic": "_WFF_DATASET"
           }
         },
         "Bridges": {
@@ -225,8 +270,7 @@
             "provider": "Maxar",
             "id": "2e7444d7-e816-48c6-8786-c24ab3544244",
             "created": "2020-10-05T13:46:46.672632Z",
-            "semantic": "_WFF_DATASET",
-            "featureClasses": []
+            "semantic": "_WFF_DATASET"
           }
         },
         "Vertical_Obstructions": {
@@ -242,8 +286,7 @@
             "provider": "SE Core",
             "id": "2e7444d7-e816-48c6-8786-c24ab3544245",
             "created": "2020-10-05T13:46:46.672632Z",
-            "semantic": "_WFF_DATASET",
-            "featureClasses": []
+            "semantic": "_WFF_DATASET"
           }
         },
         "Airport_Features": {
@@ -259,8 +302,7 @@
             "provider": "SE Core",
             "id": "2e7444d7-e816-48c6-8786-c24ab3544246",
             "created": "2020-10-05T13:46:46.672632Z",
-            "semantic": "_WFF_DATASET",
-            "featureClasses": []
+            "semantic": "_WFF_DATASET"
           }
         }
       }
