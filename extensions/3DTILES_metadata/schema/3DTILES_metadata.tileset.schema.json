@@ -14,7 +14,7 @@
     },
     "class": {
       "type": "string",
-      "description": "The class this metadata object conforms to."
+      "description": "The class this metadata object conforms to. The value should be a valid class declared in the `classes` dictionary."
     },
     "properties": {
       "type": "object",
