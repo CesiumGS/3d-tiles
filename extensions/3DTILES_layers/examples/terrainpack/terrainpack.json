@@ -1,0 +1,123 @@
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": ["3DTILES_layers", "3DTILES_metadata", "MAXAR_3tz_archive"],
+  "extensionsRequired": [
+    "3DTILES_layers",
+    "3DTILES_metadata",
+    "MAXAR_3tz_archive"
+  ],
+  "extensions": {
+
+    "3DTILES_layers": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "layers": {
+        "Raster_DTM": {
+          "name": "Raster DTM"
+        },
+        "Raster_LULC": {
+          "name": "Raster LULC"
+        },
+        "Raster_Ortho": {
+          "name": "Raster_Ortho"
+        },
+        "3D_Terrain": {
+          "name": "3D Terrain"
+        },
+        "3D_Highres": {
+          "name": "3D Highres"
+        },
+        "Road_Vectors": {
+          "name": "Road Vectors"
+        },
+        "Water_Vectors": {
+          "name": "Water Vectors"
+        },
+        "3D_Buildings": {
+          "name": "3D_Buildings"
+        },
+        "Bridges": {
+          "name": "Bridges"
+        },
+        "Vertical_Obstructions": {
+          "name": "Vertical Obstructions"
+        },
+        "Airport_Features": {
+          "name": "Airport Features"
+        }
+      }
+    }
+  },
+  "geometricError": 500,
+  "root": {
+    "boundingVolume": {
+      "region": [-1.2419, 0.7395, -1.2415, 0.7396, 0, 20.4]
+    },
+    "geometricError": 500,
+    "refine": "ADD",
+    "extensions": {
+      "3DTILES_layers": {
+        "contents": [
+          {
+            "layer": "Raster_DTM",
+            "uri": "raster_dtm.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Raster_LULC",
+            "uri": "raster_lulc.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Raster_Ortho",
+            "uri": "raster_ortho.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "3D_Terrain",
+            "uri": "terrain.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Road_Vectors",
+            "uri": "roads.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Water_Vectors",
+            "uri": "water.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "3D_Buildings",
+            "uri": "buildings.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Bridges",
+            "uri": "bridges.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "3D_Highres",
+            "uri": "highres_insets.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Vertical_Obstructions",
+            "uri": "vertical_obstructions.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          },
+          {
+            "layer": "Airport_Features",
+            "uri": "airport_features.3tz",
+            "type": "application/vnd.maxar.archive.3tz+zip"
+          }
+        ]
+      }
+    }
+  }
+}
