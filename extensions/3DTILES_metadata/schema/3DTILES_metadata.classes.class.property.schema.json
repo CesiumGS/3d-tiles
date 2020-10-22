@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
-  "title": "Property class",
+  "title": "Class Property",
   "type": "object",
-  "description": "A property class.",
+  "description": "A class property.",
   "properties": {
     "name": {
       "type": "string",
@@ -31,14 +31,14 @@
         "FLOAT64",
         "BLOB",
         "STRING",
-        "ARRAY",
-        "ENUM"
+        "ENUM",
+        "ARRAY"
       ],
-      "description": "The type of each element of the property array. A `type` is either a basic type used for `componentType`, or an `ARRAY`. If `ARRAY` is used, then `componentType` must also be specified. `ARRAY` is a fixed-length array when `componentCount` is defined, and variable-length otherwise. `BLOB` and `STRING` are variable-length unless the feature table has `elementByteLength` defined, in which case values must be exactly this length. When `featureTable.elementByteLength` is not specified, variable-length arrays, `STRING`, and `BLOB` also require a corresponding `offsetBufferView`. This is used to indicate where each element starts in the buffer. See further notes about offset buffers in the description for `componentType`."
+      "description": "The type of each element of the property array. A `type` is either a basic type used for `componentType` or an `ARRAY`. If `ENUM` is used, then `enumType` must also be specified. If `ARRAY` is used, then `componentType` must also be specified. `ARRAY` is a fixed-length array when `componentCount` is defined, and variable-length otherwise."
     },
     "enumType": {
-        "type": "string",
-        "description": "The name of the enum class as declared in the enums object. This should only be defined if type is ENUM."
+      "type": "string",
+      "description": "The name of the enum type as declared in the `enums` object. This must be specified when `type` or `componentType` is `ENUM`. All values must be of the same type as declared in the `enum.valueType`"
     },
     "componentType": {
       "enum": [
@@ -55,14 +55,14 @@
         "FLOAT32",
         "FLOAT64",
         "STRING",
-        "BLOB"
+        "BLOB",
+        "ENUM"
       ],
-      "description": "When `type` is `ARRAY` or is a variable-length array (i.e. the property has no `componentCount`), this indicates the type of each component of the array. `componentType` supports simple values (boolean, integer and float types) as well as support for strings and binary blobs. `BOOLEAN` values are packed as 1-bit fields in a bit vector. Bit vectors are represented as a sequence of bytes. The first bit is always stored in the first byte of the sequence. However, with each byte, bits are numbered from right to left. This allows for straightforward access using bitwise operations. `STRING` and `BLOB` always require at least one offset buffer to specify where each element starts in the buffer. When the array is variable-length, an offset buffer must be used to determine the start indices for each element. Note that for variable-size arrays of `STRING` or `BLOB`, two offset buffers must be specified. One buffer determines where each string/blob begins, and the second buffer groups these start indices into variable-length arrays of strings/blobs."
+      "description": "When `type` is `ARRAY` this indicates the type of each component of the array. `componentType` supports simple values (boolean, integer and float types) as well as support for strings and binary blobs."
     },
     "componentCount": {
       "type": "integer",
       "minimum": 1,
-      "default": 1,
       "description": "The number of components per element for `ARRAY` elements."
     },
     "normalized": {
@@ -72,7 +72,7 @@
     },
     "max": {
       "type": "array",
-      "description": "Maximum allowed values for property data. Only applicable for fixed-size numeric element types (integer, floats and `ARRAY`s thereof). Both `min` and `max` arrays have the same length. The length is determined by `componentCount`. `normalized` property has no effect on array values: they always correspond to the integer values.",
+      "description": "Maximum allowed values for property values. Only applicable for fixed-size numeric element types (integer, floats and `ARRAY`s thereof). Both `min` and `max` arrays have the same length. When `type` is `ARRAY` the length is determined by `componentCount`; otherwise the length is 1. `normalized` property has no effect on array values: they always correspond to the integer values.",
       "items": {
         "type": "number"
       },
@@ -80,20 +80,22 @@
     },
     "min": {
       "type": "array",
-      "description": "Minimum allowed values for property data. Only applicable for fixed-size numeric element types (integer, floats and `ARRAY`s thereof). Both `min` and `max` arrays have the same length. The length is determined by `componentCount`. `normalized` property has no effect on array values: they always correspond to the integer values.",
+      "description": "Minimum allowed values for property values. Only applicable for fixed-size numeric element types (integer, floats and `ARRAY`s thereof). Both `min` and `max` arrays have the same length. When `type` is `ARRAY` the length is determined by `componentCount`; otherwise the length is 1. `normalized` property has no effect on array values: they always correspond to the integer values.",
       "items": {
         "type": "number"
       },
       "minItems": 1
     },
     "default": {
-        "type": ["boolean", "number", "string", "array"],
-        "description": "A default value to use when no value for this property is specified. The data type here must match the property declaration. However, `default` cannot be used for a property with type `BLOB` (or array thereof)."
+      "type": ["boolean", "number", "string", "array"],
+      "description": "A default value to use when no value for this property is specified. The data type here must match the property declaration. However, `default` cannot be used for a property with type `BLOB` (or array thereof)."
     },
     "optional": {
-        "type": "boolean",
-        "description": "If true, this property is optional and can take a null value."
-    }
+      "type": "boolean",
+      "description": "If true, this property is optional and can take a null value."
+    },
+    "extensions": {},
+    "extras": {}
   },
   "dependencies": {
     "componentCount": ["componentType"],

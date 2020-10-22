@@ -2,11 +2,14 @@
   "asset": {
     "version": "1.0"
   },
-  "extensionsUsed": ["3DTILES_layers", "3DTILES_metadata", "MAXAR_3tz_archive"],
+  "extensionsUsed": [
+    "3DTILES_layers",
+    "3DTILES_metadata",
+    "MAXAR_content_3tz_archive"],
   "extensionsRequired": [
     "3DTILES_layers",
     "3DTILES_metadata",
-    "MAXAR_3tz_archive"
+    "MAXAR_content_3tz_archive"
   ],
   "extensions": {
     "3DTILES_metadata": {
@@ -14,7 +17,7 @@
         "draftVersion": "0.0.0"
       },
       "tileset": {
-        "name": "Fort Hood Terrain Pack",
+        "name": "Terrain Pack",
         "class": "_WFF_DATASET",
         "properties": {
           "wff_version": "1.0",
@@ -31,25 +34,27 @@
       },
       "enums": {
         "GEOMETRY_MODEL_TYPE": {
-          "valueType": "UINT8",
+          "valueType": "STRING",
           "values": {
             "UNKNOWN": 0,
             "BARE_EARTH": 1,
             "SURFACE": 2,
-            "3DOBJECTS": 3
+            "3DOBJECTS": 3,
+            "MIXED": 4
           }
         },
         "CONTENT_TYPE": {
-          "valueType": "UINT8",
+          "valueType": "STRING",
           "values": {
             "UNKNOWN": 0,
             "MESH": 1,
             "VECTOR": 2,
-            "RASTER": 3
+            "RASTER": 3,
+            "MIXED": 4
           }
         },
         "CAPTURE_PLATFORM_TYPE": {
-          "valueType": "UINT8",
+          "valueType": "STRING",
           "values": {
             "UNKNOWN": 0,
             "SATELLITE": 1,
@@ -57,7 +62,7 @@
           }
         },
         "CAPTURE_SENSOR_TYPE": {
-          "valueType": "UINT8",
+          "valueType": "STRING",
           "values": {
             "UNKNOWN": 0,
             "ELECTRO_OPTICAL": 1
@@ -108,15 +113,13 @@
               "optional": false
             },
             "semantic": {
-              "type": "ENUM",
-              "enumType": "SEMANTIC_TYPE",
+              "type": "STRING",
               "optional": false
             },
             "featureClasses": {
               "type": "ARRAY",
               "componentType": "STRING",
-              "optional": true,
-              "default": []
+              "optional": true
             }
           }
         }

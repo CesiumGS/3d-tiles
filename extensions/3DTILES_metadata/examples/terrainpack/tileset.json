@@ -16,7 +16,7 @@
         "draftVersion": "0.0.0"
       },
       "tileset": {
-        "name": "Fort Hood",
+        "name": "Dataset",
         "class": "_WFF_DATASET",
         "properties": {
           "wff_version": "1.0",
@@ -34,25 +34,27 @@
       },
       "enums": {
         "GEOMETRY_MODEL_TYPE": {
-          "valueType": "UINT8",
+          "valueType": "STRING",
           "values": {
             "UNKNOWN": 0,
             "BARE_EARTH": 1,
             "SURFACE": 2,
-            "3DOBJECTS": 3
+            "3DOBJECTS": 3,
+            "MIXED": 4
           }
         },
         "CONTENT_TYPE": {
-          "valueType": "UINT8",
+          "valueType": "STRING",
           "values": {
             "UNKNOWN": 0,
             "MESH": 1,
             "VECTOR": 2,
-            "RASTER": 3
+            "RASTER": 3,
+            "MIXED": 4
           }
         },
         "CAPTURE_PLATFORM_TYPE": {
-          "valueType": "UINT8",
+          "valueType": "STRING",
           "values": {
             "UNKNOWN": 0,
             "SATELLITE": 1,
@@ -60,7 +62,7 @@
           }
         },
         "CAPTURE_SENSOR_TYPE": {
-          "valueType": "UINT8",
+          "valueType": "STRING",
           "values": {
             "UNKNOWN": 0,
             "ELECTRO_OPTICAL": 1
@@ -111,22 +113,20 @@
               "optional": false
             },
             "semantic": {
-              "type": "ENUM",
-              "enumType": "SEMANTIC_TYPE",
+              "type": "STRING",
               "optional": false
             },
             "featureClasses": {
               "type": "ARRAY",
               "componentType": "STRING",
-              "optional": true,
-              "default": []
+              "optional": true
             }
           }
         },
         "NDVI": {
           "properties": {
             "NDVI": {
-              "elementType": "UINT8",
+              "type": "UINT8",
               "normalized": true
             }
           }
@@ -134,12 +134,12 @@
         "LULC": {
           "properties": {
             "Name": {
-              "elementType": "STRING"
+              "type": "STRING"
             },
             "Color": {
-              "elementType": "ARRAY",
+              "type": "ARRAY",
               "componentType": "UINT8",
-              "componentsPerElement": 3
+              "componentCount": 3
             }
           }
         }
@@ -154,7 +154,7 @@
     "geometricError": 500,
     "refine": "REPLACE",
     "content": {
-      "uri": "microcosm/microcosm.gltf"
+      "uri": "content.gltf"
     }
   }
 }

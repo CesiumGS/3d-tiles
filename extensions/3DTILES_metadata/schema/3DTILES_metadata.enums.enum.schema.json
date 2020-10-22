@@ -6,8 +6,6 @@
   "properties": {
     "valueType": {
       "type": "string",
-      "minLength": 1,
-      "description": "The data type for the enum.",
       "enum": [
         "INT8",
         "UINT8",
@@ -17,15 +15,13 @@
         "UINT32",
         "INT64",
         "UINT64",
-        "FLOAT16",
-        "FLOAT32",
-        "FLOAT64",
         "STRING"
-      ]
+      ],
+      "description": "The data type for the enum."
     },
     "values": {
       "type": "object",
-      "description": "A dictionary, where each key is an enum name and each value is an enum value",
+      "description": "A dictionary, where each key is an enum name and each value is an enum value. All values must be of the same type as declared in the `valueType`.",
       "minProperties": 1
     }
   }
