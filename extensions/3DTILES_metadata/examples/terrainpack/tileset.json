@@ -73,48 +73,38 @@
         "_WFF_DATASET": {
           "properties": {
             "wff_version": {
-              "type": "STRING",
-              "optional": false
+              "type": "STRING"
             },
             "runtime_enabled": {
-              "type": "BOOLEAN",
-              "optional": false
+              "type": "BOOLEAN"
             },
             "geometry_model": {
               "type": "ENUM",
-              "enumType": "GEOMETRY_MODEL_TYPE",
-              "optional": false
+              "enumType": "GEOMETRY_MODEL_TYPE"
             },
             "content_type": {
               "type": "ENUM",
-              "enumType": "CONTENT_TYPE",
-              "optional": false
+              "enumType": "CONTENT_TYPE"
             },
             "capture_platform": {
               "type": "ENUM",
-              "enumType": "CAPTURE_PLATFORM_TYPE",
-              "optional": false
+              "enumType": "CAPTURE_PLATFORM_TYPE"
             },
             "capture_sensor": {
               "type": "ENUM",
-              "enumType": "CAPTURE_SENSOR_TYPE",
-              "optional": false
+              "enumType": "CAPTURE_SENSOR_TYPE"
             },
             "provider": {
-              "type": "STRING",
-              "optional": false
+              "type": "STRING"
             },
             "id": {
-              "type": "STRING",
-              "optional": false
+              "type": "STRING"
             },
             "created": {
-              "type": "STRING",
-              "optional": false
+              "type": "STRING"
             },
             "semantic": {
-              "type": "STRING",
-              "optional": false
+              "type": "STRING"
             },
             "featureClasses": {
               "type": "ARRAY",
