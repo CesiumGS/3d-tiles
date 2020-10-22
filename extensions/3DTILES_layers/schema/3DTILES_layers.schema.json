@@ -12,6 +12,5 @@
       }
     }
   },
-  "required": ["layers"],
-  "additionalProperties" : false
+  "required": ["layers"]
 }
