@@ -1,26 +1,31 @@
 {
   "$schema": "https://json-schema.org/draft-04/schema",
-  "title": "3DTILES_metadata object",
+  "title": "3DTILES_metadata",
   "type": "object",
   "description": "An object containing description of metadata available",
   "properties": {
     "tileset": {
       "$ref": "3DTILES_metadata.tileset.schema.json"
     },
-    "classes": {
+    "namespaces": {
       "type": "object",
-      "description": "A dictionary, where each key is a class ID and each value is an object defining the class.",
+      "description": "A dictionary, where each key is a namespace ID and each value is an object defining the classes and enums associated with the namespace.",
       "minProperties": 1,
       "additionalProperties": {
-        "$ref": "3DTILES_metadata.classes.class.schema.json"
+        "$ref": "3DTILES_metadata.namespaces.namespace.schema.json"
       }
     },
-    "enums": {
+    "metadata": {
       "type": "object",
-      "description": "A dictionary, where each key is an enum ID and each value is an object defining the enum.",
+      "description": "An object containing information about the available metadata",
       "minProperties": 1,
-      "additionalProperties": {
-        "$ref": "3DTILES_metadata.enums.enum.schema.json"
+      "properties": {
+        "tileset": {
+          "$ref": "3DTILES_metadata.metadata.tileset.schema.json"
+        },
+        "layers": {
+          "$ref": "3DTILES_metadata.metadata.layers.schema.json"
+        }
       }
     }
   }

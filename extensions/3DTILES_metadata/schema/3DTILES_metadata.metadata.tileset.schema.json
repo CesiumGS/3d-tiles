@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft-04/schema",
-  "title": "Tileset",
+  "title": "Tileset metadata object",
   "type": "object",
   "description": "An object containing metadata about a 3D Tiles tileset.",
   "properties": {

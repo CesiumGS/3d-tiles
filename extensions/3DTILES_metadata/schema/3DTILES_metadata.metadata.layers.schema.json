@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Layers metadata dictionary",
+  "type": "object",
+  "minProperties": 1,
+  "additionalProperties": {
+    "$ref": "3DTILES_metadata.metadata.layers.layer.schema.json"
+  },
+  "required": ["layers"]
+}
