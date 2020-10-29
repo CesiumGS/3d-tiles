@@ -14,12 +14,9 @@ This extension to 3D Tiles enables storage of metadata at the tileset, layer and
 
 ## Concepts
 
-
+This extensions binds metadata to different levels of a 3D Tiles tileset through the declaration of classes and their properties, the binding of classes to tileset/layer/tile metadata objects and the assignment of values to the properties of the class the metadata object conforms to.
 
 ### Metadata
-
-Metadata refers to information about the content.
-
 
 #### Metadata Classes
 
@@ -27,7 +24,7 @@ Classes serve as the templates for the metadata objects - they provide a list of
 
 #### Metadata Class Properties
 
-Properties, as the name suggests, serve as the 
+Each class provides a list of properties. A property has a `type` and, for the applicable types,, it may include a `componentType` and a `componentCount`.
 
 #### Tileset Metadata
 
