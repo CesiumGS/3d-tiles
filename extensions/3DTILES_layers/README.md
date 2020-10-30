@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 3DTILES_layers
 
 ## Overview
@@ -101,6 +100,3 @@ To associate content with a layers, it must be added as an object to the `conten
 ### Property Reference
 
 *TODO*
-=======
-# 3DTILES_layers
->>>>>>> 7c906811e4e6b0d43dc36687143df8f637aae194
