@@ -17,7 +17,7 @@ To associate a `name`, `description` with a layer, it must be delcared as a top-
 ```javascript
 {
   "asset": {
-    "version": 2.0.0-alpha.0
+    "version": "2.0.0-alpha.0"
   },
   "extensions": {
     "3DTILES_layers": {
@@ -35,7 +35,7 @@ Additionally, if a layer needs to associate some metadata with itself, there nee
 ```javascript
 {
   "asset": {
-    "version": 2.0.0-alpha.0
+    "version": "2.0.0-alpha.0"
   },
   "extensions": {
     "3DTILES_metadata": {
@@ -43,7 +43,7 @@ Additionally, if a layer needs to associate some metadata with itself, there nee
         "CITY_LAYER": {
           "properties": {
             "LastModified": {
-              "type": STRING,
+              "type": "STRING",
               "optional": false
             }
           }
@@ -66,12 +66,12 @@ Additionally, if a layer needs to associate some metadata with itself, there nee
 
 ### Layer Content
 
-To associate content with a layers, it must be added as an object to the `contents` array in the extension declared at the `root` of the tileset.json. This layer object needs to declare the `layer`, the `uri` of its contents and the `mimeType` for the content linked in the `uri`. For example,
+To associate content with a layers, it must be added as an object to the extension declared at the `root` of the tileset.json. To pair this content level layer object to the top level layer object, which declares the metadata, both objects must use the same key. This layer object needs to declare the `layer`, the `uri` of its contents and the `mimeType` for the content linked in the `uri`. For example,
 
 ```javascript
 {
   "asset": {
-    "version": 2.0.0-alpha.0
+    "version": "2.0.0-alpha.0"
   },
   "extensions": {
     "3DTILES_layers": {
