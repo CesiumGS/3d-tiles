@@ -20,11 +20,60 @@ This extensions binds metadata to different levels of a 3D Tiles tileset through
 
 #### Metadata Classes
 
-Classes serve as the templates for the metadata objects - they provide a list of properties and the type information for those properties.
+Classes serve as the templates for the metadata objects - they provide a list of properties and the type information for those properties. For example, a tileset containing different layers of 3D data might create classes for each type:
+
+```javascript
+"classes": {
+  "PhotogrammetryClass": {
+    "properties": {
+      //...
+    }
+  },
+  "BIMClass": {
+    "properties": {
+      //...
+    }
+  },
+  "PointCloudClass": {
+    "properties": {
+      //...
+    }
+  }
+}
+```
 
 #### Metadata Class Properties
 
 Each class provides a list of properties. A property has a `type` and, for the applicable types,, it may include a `componentType` and a `componentCount`. Additionally, a property may be designated as `optional`, and if so, a `defaultValue` for the property may be provided to apply to all instances of the class that do not set a value for the property.
+
+```javascript
+"classes": {
+  "PhotogrammetryClass": {
+    "properties": {
+      "sensorVersion": {
+        "type": "string",
+        "optional": false
+      }
+    }
+  },
+  "BIMClass": {
+    "properties": {
+      "modelAuthor": {
+        "type": "string",
+        "optional": false
+      }
+    }
+  },
+  "PointCloudClass": {
+    "properties": {
+      "scanner": {
+        "type": "string",
+        "optional": false
+      }
+    }
+  }
+}
+```
 
 #### Tileset Metadata
 
