@@ -1,5 +1,7 @@
 # Cesium 3D Metadata Specification
 
+**Version 0.0.0** November 6, 2020
+
 ## Contributors
 
 * Sean Lilley, Cesium,
@@ -89,30 +91,32 @@ The following example shows the basics of how classes describe the data types, w
 
 
 ```json
-"classes": {
-  "buildings": {
-    "name": "Buildings",
-    "properties": {
-      "address": {
-        "name": "Street Address",
-        "type": "STRING"
-      },
-      "height": {
-        "name": "Building Height (m)",
-        "type": "FLOAT32"
+{
+  "classes": {
+    "buildings": {
+      "name": "Buildings",
+      "properties": {
+        "address": {
+          "name": "Street Address",
+          "type": "STRING"
+        },
+        "height": {
+          "name": "Building Height (m)",
+          "type": "FLOAT32"
+        }
       }
-    }
-  },
-  "land": {
-    "properties": {
-      "elevation": {
-        "name": "Elevation (Normalized)",
-        "type": "UINT8",
-        "normalized": true
-      },
-      "isWater": {
-        "name": "Is Water?",
-        "type": "BOOLEAN"
+    },
+    "land": {
+      "properties": {
+        "elevation": {
+          "name": "Elevation (Normalized)",
+          "type": "UINT8",
+          "normalized": true
+        },
+        "isWater": {
+          "name": "Is Water?",
+          "type": "BOOLEAN"
+        }
       }
     }
   }
@@ -143,16 +147,18 @@ The following table shows a possible JSON encoding for the `buildings` class
 defined above.
 
 ```json
-"instanceTables": {
-  "buildingsTable": {
-    "class": "buildings",
-    "count": 2,
-    "properties": {
-      "address": {
-        "values": ["123 Somewhere St.", "456 Elsewhere St."]
-      },
-      "height": {
-        "values": [13.0, 20.0]
+{
+  "instanceTables": {
+    "buildingsTable": {
+      "class": "buildings",
+      "count": 2,
+      "properties": {
+        "address": {
+          "values": ["123 Somewhere St.", "456 Elsewhere St."]
+        },
+        "height": {
+          "values": [13.0, 20.0]
+        }
       }
     }
   }
@@ -167,17 +173,19 @@ The binary encoding is more involved than the JSON, as there are many considerat
 in this document. For now, here is a small example to show how the same `buildings` class described above would be described with a instance table.
 
 ```json
-"instanceTables": {
-  "buildingsTable": {
-    "class": "buildings",
-    "count": 2,
-    "properties": {
-      "address": {
-        "bufferView": 2,
-        "offsetBufferViews": [3],
-      },
-      "height": {
-        "bufferView": 4,
+{
+  "instanceTables": {
+    "buildingsTable": {
+      "class": "buildings",
+      "count": 2,
+      "properties": {
+        "address": {
+          "bufferView": 2,
+          "offsetBufferViews": [3],
+        },
+        "height": {
+          "bufferView": 4,
+        }
       }
     }
   }
@@ -191,26 +199,28 @@ The metadata texture encoding serves a different purpose than the other encoding
 This is useful for continuous properties such as elevation, depth, vector fields, and many other properties that vary with position. It also can be used for better compression of metadata values in some cases.
 
 ```json
-"classes": {
-  "vegetation": {
-    "properties": {
-      "vegetationIndex": {
-        "type": "UINT8",
-        "normalized": true
+{
+  "classes": {
+    "vegetation": {
+      "properties": {
+        "vegetationIndex": {
+          "type": "UINT8",
+          "normalized": true
+        }
       }
     }
-  }
-},
-"metadataTextures": {
-  "vegetationTexture": {
-    "class": "vegetation",
-    "properties": {
-      "vegetationIndex": {
-        "texture": {
-          "index": 0,
-          "texCoord": 0
-        },
-        "channels": "r"
+  },
+  "metadataTextures": {
+    "vegetationTexture": {
+      "class": "vegetation",
+      "properties": {
+        "vegetationIndex": {
+          "texture": {
+            "index": 0,
+            "texCoord": 0
+          },
+          "channels": "r"
+        }
       }
     }
   }
@@ -257,28 +267,30 @@ Classes are defined in a `classes` section of the JSON file
 Also note that both classes and properties can be annotated with display names and descriptions, as in the following example:
 
 ```json
-"classes": {
-  "ship": {
-    "name": "Ships",
-    "description": "Sailing ships seen in the ocean",
-    "properties": {
-      "length": {
-        "name": "Length (m)",
-        "type": "FLOAT64"
-      },
-      "name": {
-        "name": "Name",
-        "type": "STRING"
+{
+  "classes": {
+    "ship": {
+      "name": "Ships",
+      "description": "Sailing ships seen in the ocean",
+      "properties": {
+        "length": {
+          "name": "Length (m)",
+          "type": "FLOAT64"
+        },
+        "name": {
+          "name": "Name",
+          "type": "STRING"
+        }
       }
-    }
-  },
-  "fish": {
-    "name": "Fish",
-    "description": "Fish found in the ocean",
-    "properties": {
-      "length": {
-        "name": "Length (cm)",
-        "type": "FLOAT32"
+    },
+    "fish": {
+      "name": "Fish",
+      "description": "Fish found in the ocean",
+      "properties": {
+        "length": {
+          "name": "Length (cm)",
+          "type": "FLOAT32"
+        }
       }
     }
   }
@@ -304,22 +316,24 @@ For all arrays, set `type` to `ARRAY` and `componentType` to the desired type fo
 For vector-valued types such as a `vec3` or `mat4` in OpenGL, use a fixed-size array. For example, a `vec3` is an `ARRAY` of `FLOAT32` (or appropriate precision) with `componentCount` set to `3`. Meanwhile, a `mat4` would have a `componentCount` of 16.
 
 ```json
-"classes": {
-  "car": {
-    "name": "Car",
-    "properties": {
-      "forwardDirection": {
-        "name": "Forward Direction Vector",
-        "description": "This is equivalent to a double-precision vec2",
-        "type": "ARRAY",
-        "componentType": "FLOAT64",
-        "componentCount": 2
-      },
-      "passengers": {
-        "name": "Passenger Names",
-        "description": "There are a variable number of passengers because componentCount is undefined.",
-        "type": "ARRAY",
-        "componentType": "STRING",
+{
+  "classes": {
+    "car": {
+      "name": "Car",
+      "properties": {
+        "forwardDirection": {
+          "name": "Forward Direction Vector",
+          "description": "This is equivalent to a double-precision vec2",
+          "type": "ARRAY",
+          "componentType": "FLOAT64",
+          "componentCount": 2
+        },
+        "passengers": {
+          "name": "Passenger Names",
+          "description": "There are a variable number of passengers because componentCount is undefined.",
+          "type": "ARRAY",
+          "componentType": "STRING",
+        }
       }
     }
   }
@@ -333,25 +347,27 @@ Sometimes, it is desirable to mark cases where no data can be found. This can be
 Example:
 
 ```json
-"classes": {
-  "vehicle": {
-    "name": "Vehicle",
-    "description": "Various vehicles on the road",
-    "properties": {
-      "driver": {
-        "name": "Driver Name",
-        "type": "STRING"
-      },
-      "passenger": {
-        "name": "Passenger Name",
-        "type": "STRING",
-        "optional": true
-      },
-      "wheels": {
-        "name": "Number of Wheels",
-        "type": "UINT8",
-        "optional": true,
-        "default": 4
+{
+  "classes": {
+    "vehicle": {
+      "name": "Vehicle",
+      "description": "Various vehicles on the road",
+      "properties": {
+        "driver": {
+          "name": "Driver Name",
+          "type": "STRING"
+        },
+        "passenger": {
+          "name": "Passenger Name",
+          "type": "STRING",
+          "optional": true
+        },
+        "wheels": {
+          "name": "Number of Wheels",
+          "type": "UINT8",
+          "optional": true,
+          "default": 4
+        }
       }
     }
   }
@@ -373,40 +389,42 @@ For JSON encoding, basic types include integers, floating point numbers, boolean
 The following example shows a few of these cases
 
 ```json
-"classes": {
-  "basicTypes": {
-    "properties": {
-      "floatProperty": {
-        "type": "FLOAT64"
-      },
-      "integerProperty": {
-        "type": "INT32"
-      },
-      "booleanProperty": {
-        "type": "BOOLEAN"
-      },
-      "stringProperty": {
-        "type": "STRING"
+{
+  "classes": {
+    "basicTypes": {
+      "properties": {
+        "floatProperty": {
+          "type": "FLOAT64"
+        },
+        "integerProperty": {
+          "type": "INT32"
+        },
+        "booleanProperty": {
+          "type": "BOOLEAN"
+        },
+        "stringProperty": {
+          "type": "STRING"
+        }
       }
     }
-  }
-},
-"instanceTables": {
-  "basicTypesTable": {
-    "class": "basicTypes",
-    "count": 3,
-    "properties": {
-      "floatProperty": {
-        "values": [0.0, 0.5, 1.0]
-      },
-      "integerProperty": {
-        "values": [1000, 3000, 2500]
-      },
-      "booleanProperty": {
-        "values": [true, false, false]
-      },
-      "stringProperty": {
-        "values": ["Apple", "Orange", "Cherry"]
+  },
+  "instanceTables": {
+    "basicTypesTable": {
+      "class": "basicTypes",
+      "count": 3,
+      "properties": {
+        "floatProperty": {
+          "values": [0.0, 0.5, 1.0]
+        },
+        "integerProperty": {
+          "values": [1000, 3000, 2500]
+        },
+        "booleanProperty": {
+          "values": [true, false, false]
+        },
+        "stringProperty": {
+          "values": ["Apple", "Orange", "Cherry"]
+        }
       }
     }
   }
@@ -424,39 +442,41 @@ Array types are straightforward to encode into JSON: instead of a single array o
 The following example shows the usage for both fixed and variable size arrays:
 
 ```json
-"classes": {
-  "basicTypes": {
-    "properties": {
-      "fixedArrayProperty": {
-        "type": "ARRAY",
-        "componentType": "UINT8",
-        "componentCount": 2
-      },
-      "variableSizeArrayProperty": {
-        "type": "ARRAY",
-        "componentType": "STRING",
+{
+  "classes": {
+    "basicTypes": {
+      "properties": {
+        "fixedArrayProperty": {
+          "type": "ARRAY",
+          "componentType": "UINT8",
+          "componentCount": 2
+        },
+        "variableSizeArrayProperty": {
+          "type": "ARRAY",
+          "componentType": "STRING",
+        }
       }
     }
-  }
-},
-"instanceTables": {
-  "basicTypesTable": {
-    "class": "basicTypes",
-    "count": 3,
-    "properties": {
-      "fixedArrayProperty": {
-        "values": [
-          [3, 45],
-          [128, 110],
-          [63, 4]
-        ]
-      },
-      "variableSizeArrayProperty": {
-        "values": [
-          ["plaster", "wood", "brick"],
-          ["steel", "glass"],
-          ["concrete"]
-        ]
+  },
+  "instanceTables": {
+    "basicTypesTable": {
+      "class": "basicTypes",
+      "count": 3,
+      "properties": {
+        "fixedArrayProperty": {
+          "values": [
+            [3, 45],
+            [128, 110],
+            [63, 4]
+          ]
+        },
+        "variableSizeArrayProperty": {
+          "values": [
+            ["plaster", "wood", "brick"],
+            ["steel", "glass"],
+            ["concrete"]
+          ]
+        }
       }
     }
   }
@@ -470,26 +490,28 @@ Unlike the other data types, binary blobs do not have a straightforward JSON enc
 Base64 is easy to transmit as it only uses ASCII characters, but is not very efficient for storage. If large blobs are needed, it is highly recommended to use the binary metadata encoding instead.
 
 ```json
-"classes": {
-  "basicTypes": {
-    "properties": {
-      "blobProperty": {
-        "type": "BLOB"
+{
+  "classes": {
+    "basicTypes": {
+      "properties": {
+        "blobProperty": {
+          "type": "BLOB"
+        }
       }
     }
-  }
-},
-"instanceTables": {
-  "basicTypesTable": {
-    "class": "basicTypes",
-    "count": 3,
-    "properties": {
-      "blobProperty": {
-        "values": [
-          "TG9va2luZyBmb3Igc2VjcmV0cw==",
-          "WW91IGRlY29kZWQgdGhlIG1lc3NhZ2U=",
-          "QnV0IG5vbmUgY291bGQgYmUgZm91bmQ="
-        ]
+  },
+  "instanceTables": {
+    "basicTypesTable": {
+      "class": "basicTypes",
+      "count": 3,
+      "properties": {
+        "blobProperty": {
+          "values": [
+            "TG9va2luZyBmb3Igc2VjcmV0cw==",
+            "WW91IGRlY29kZWQgdGhlIG1lc3NhZ2U=",
+            "QnV0IG5vbmUgY291bGQgYmUgZm91bmQ="
+          ]
+        }
       }
     }
   }
@@ -504,32 +526,34 @@ the specification provides a `stringByteLength` property. In the JSON encoding, 
 `blobByteLength` is similar, but used for binary data. The length is measured as the _decoded_ binary length, not the length of the Base64 string.
 
 ```json
-"classes": {
-  "basicTypes": {
-    "properties": {
-      "date": {
-        "name": "Date (YYYYMMDD)",
-        "type": "STRING",
-        "stringByteLength": 4
-      },
-      "fixedBlobProperty": {
-        "type": "BLOB"
-        "blobByteLength": 4
+{
+  "classes": {
+    "basicTypes": {
+      "properties": {
+        "date": {
+          "name": "Date (YYYYMMDD)",
+          "type": "STRING",
+          "stringByteLength": 4
+        },
+        "fixedBlobProperty": {
+          "type": "BLOB"
+          "blobByteLength": 4
+        }
       }
     }
-  }
-},
-"instanceTables": {
-  "basicTypesTable": {
-    "class": "basicTypes",
-    "count": 3,
-    "properties": {
-      "blobProperty": {
-        "values": [
-          "AAECAw=="
-          "BAUGBw=="
-          "CAkKCw=="
-        ]
+  },
+  "instanceTables": {
+    "basicTypesTable": {
+      "class": "basicTypes",
+      "count": 3,
+      "properties": {
+        "blobProperty": {
+          "values": [
+            "AAECAw=="
+            "BAUGBw=="
+            "CAkKCw=="
+          ]
+        }
       }
     }
   }
@@ -542,58 +566,60 @@ In JSON, optional values can be expressed by using `null` in place of the value.
 
 
 ```jsonc
-"classes": {
-  "sensor": {
-    "name": "Temperature Sensor",
-    "properties": {
-      "currentValue": {
-        "name": "Current temperature",
-        "description": "A basic example of using `null` for unknown values",
-        "type": "FLOAT32",
-        "optional": true
-      },
-      "history": {
-        "name": "Previous 5 sensor readings",
-        "description": "This example demonstrates the use of `[]` for null arrays as well as how `null` can be used for individual array components.",
-        "type": "ARRAY",
-        "componentType": "STRING",
-        "optional": true,
-      },
-      "condition": {
-        "name": "Sensor condition",
-        "description": "This example shows how to use `default` to fill in `null` elements. In this case, `null` means `Good Condition`",
-        "type": "STRING",
-        "optional": true,
-        "default": "Good Condition"
+{
+  "classes": {
+    "sensor": {
+      "name": "Temperature Sensor",
+      "properties": {
+        "currentValue": {
+          "name": "Current temperature",
+          "description": "A basic example of using `null` for unknown values",
+          "type": "FLOAT32",
+          "optional": true
+        },
+        "history": {
+          "name": "Previous 5 sensor readings",
+          "description": "This example demonstrates the use of `[]` for null arrays as well as how `null` can be used for individual array components.",
+          "type": "ARRAY",
+          "componentType": "STRING",
+          "optional": true,
+        },
+        "condition": {
+          "name": "Sensor condition",
+          "description": "This example shows how to use `default` to fill in `null` elements. In this case, `null` means `Good Condition`",
+          "type": "STRING",
+          "optional": true,
+          "default": "Good Condition"
+        }
       }
     }
   }
-}
-"instanceTables": {
-  "sensorTable": {
-    "class": "sensor",
-    "count": 3,
-    "properties": {
-      "currentValue": {
-        "values": [
-          0.9,
-          0.8,
-          null
-        ]
-      },
-      "history": {
-        "values": [
-          [0.8, 0.9, 0.9, 0.8, 0.8],
-          [null, null, 0.7, 0.6, 0.7],
-          []
-        ]
-      },
-      "condition": {
-        "values": [
-          null,
-          null,
-          "Malfunctioning. Needs maintenance"
-        ]
+  "instanceTables": {
+    "sensorTable": {
+      "class": "sensor",
+      "count": 3,
+      "properties": {
+        "currentValue": {
+          "values": [
+            0.9,
+            0.8,
+            null
+          ]
+        },
+        "history": {
+          "values": [
+            [0.8, 0.9, 0.9, 0.8, 0.8],
+            [null, null, 0.7, 0.6, 0.7],
+            []
+          ]
+        },
+        "condition": {
+          "values": [
+            null,
+            null,
+            "Malfunctioning. Needs maintenance"
+          ]
+        }
       }
     }
   }
@@ -609,43 +635,45 @@ To enable this shorthand, omit the `count` field. Then `properties` is interpret
 The following example compares the two formats.
 
 ```json
-"classes": {
-  "datasetInfo": {
-    "properties": {
-      "date": {
-        "type": "STRING",
-      },
-      "authors": {
-        "type": "ARRAY",
-        "componentType": "STRING",
+{
+  "classes": {
+    "datasetInfo": {
+      "properties": {
+        "date": {
+          "type": "STRING",
+        },
+        "authors": {
+          "type": "ARRAY",
+          "componentType": "STRING",
+        }
       }
     }
-  }
-},
-"instanceTables": {
-  "verboseTable": {
-    "name": "Verbose property example",
-    "description": "This is the typical way to represent properties, as it supports any number of instances.",
-    "class": "datasetInfo",
-    "count": 1,
-    "properties": {
-      "date": {
-        "values": ["2020-11-03"]
-      },
-      "authors": {
-        "values": [
-          ["Jane Doe", "John Smith"]
-        ]
-      }
-    } 
   },
-  "shorthandTable": {
-    "name": "Shorthand property example",
-    "description": "This is equivalent to the table above, just more concise",
-    "class": "datasetInfo",
-    "properties": {
-      "date": "2020-11-03",
-      "authors": ["Jane Doe", "John Smith"]
+  "instanceTables": {
+    "verboseTable": {
+      "name": "Verbose property example",
+      "description": "This is the typical way to represent properties, as it supports any number of instances.",
+      "class": "datasetInfo",
+      "count": 1,
+      "properties": {
+        "date": {
+          "values": ["2020-11-03"]
+        },
+        "authors": {
+          "values": [
+            ["Jane Doe", "John Smith"]
+          ]
+        }
+      } 
+    },
+    "shorthandTable": {
+      "name": "Shorthand property example",
+      "description": "This is equivalent to the table above, just more concise",
+      "class": "datasetInfo",
+      "properties": {
+        "date": "2020-11-03",
+        "authors": ["Jane Doe", "John Smith"]
+      }
     }
   }
 }
@@ -662,30 +690,32 @@ In the binary encoding, numeric types (integers and floating point numbers) are 
 Here is an example of how to define an instance table for basic integer and float properties.
 
 ```json
-"classes": {
-  "tree": {
-    "properties": {
-      "height": {
-        "name": "Height (m)",
-        "type": "FLOAT64"
-      },
-      "leafCount": {
-        "name": "Number of Leaves (estimated)",
-        "type": "UINT32"
+{
+  "classes": {
+    "tree": {
+      "properties": {
+        "height": {
+          "name": "Height (m)",
+          "type": "FLOAT64"
+        },
+        "leafCount": {
+          "name": "Number of Leaves (estimated)",
+          "type": "UINT32"
+        }
       }
     }
-  }
-},
-"instanceTables": {
-  "treeTable": {
-    "class": "tree",
-    "count": 100,
-    "properties": {
-      "height": {
-        "bufferView": 7,
-      },
-      "leafCount": {
-        "bufferView": 8
+  },
+  "instanceTables": {
+    "treeTable": {
+      "class": "tree",
+      "count": 100,
+      "properties": {
+        "height": {
+          "bufferView": 7,
+        },
+        "leafCount": {
+          "bufferView": 8
+        }
       }
     }
   }
@@ -717,20 +747,22 @@ For an example, let's suppose we have weather forecast data that stores the UTF-
 The following code snippet and diagram show how this would be expressed using this metadata format.
 
 ```json
-"classes": {
-  "weather": {
-    "properties": {
-      "forecast": {
-        "type": "STRING"
+{
+  "classes": {
+    "weather": {
+      "properties": {
+        "forecast": {
+          "type": "STRING"
+        }
       }
     }
-  }
-},
-"instanceTables":  {
-  "count": 3,
-  "forecast": {
-    "bufferView": 5,
-    "offsetBufferViews": [6]
+  },
+  "instanceTables":  {
+    "count": 3,
+    "forecast": {
+      "bufferView": 5,
+      "offsetBufferViews": [6]
+    }
   }
 }
 ```
@@ -744,11 +776,13 @@ For fixed-length strings and blobs, we can avoid the overhead of the offset buff
 For strings, define the `stringByteLength` in the property definition. All strings must conform to this byte length **exactly** when UTF-8 encoded.
 
 ```json
-"classes": {
-  "date": {
-    "name": "Date YYYYMMDD",
-    "type": "STRING",
-    "stringByteLength": 6
+{
+  "classes": {
+    "date": {
+      "name": "Date YYYYMMDD",
+      "type": "STRING",
+      "stringByteLength": 6
+    }
   }
 }
 ```
@@ -758,11 +792,13 @@ TODO: Diagram for fixed-length string
 For binary blobs, the usage is similar. Use `blobByteLength` to describe the fixed length of each blob.
 
 ```json
-"classes": {
-  "barcode": {
-    "name": "Barcode Bytes",
-    "type": "BLOB",
-    "blobByteLength": 100
+{
+  "classes": {
+    "barcode": {
+      "name": "Barcode Bytes",
+      "type": "BLOB",
+      "blobByteLength": 100
+    }
   }
 }
 ```
@@ -850,27 +886,29 @@ Numeric values like `UINT8` are encoded directly in a single channel of a textur
 In the following example, a single-channel image is used to encode surface temperature data.
 
 ```json
-"classes": {
-  "ocean": {
-    "properties": {
-      "temperature": {
-        "name": "Surface Temperature (°C)",
-        "type": "UINT8",
-        "normalized": "true"
+{
+  "classes": {
+    "ocean": {
+      "properties": {
+        "temperature": {
+          "name": "Surface Temperature (°C)",
+          "type": "UINT8",
+          "normalized": "true"
+        }
       }
     }
-  }
-},
-"metadataTextures": {
-  "oceanTexture": {
-    "class": "ocean",
-    "properties": {
-      "depth": {
-        "texture": {
-          "index": 0,
-          "texCoord": 0
-        },
-        "channels": "r"
+  },
+  "metadataTextures": {
+    "oceanTexture": {
+      "class": "ocean",
+      "properties": {
+        "depth": {
+          "texture": {
+            "index": 0,
+            "texCoord": 0
+          },
+          "channels": "r"
+        }
       }
     }
   }
@@ -889,45 +927,46 @@ The example below demonstrates two concepts:
 2. How a single channel can be used to satisfy multiple property definitions
 
 ```json
-"classes": {
-  "river": {
-    "properties": {
-      "depth": {
-        "type": "UINT8",
-        "normalized": "true"
-      },
-      "current": {
-        "type": "ARRAY",
-        "componentType": "UINT8",
-        "componentCount": 2,
-        "normalized": true
+{
+  "classes": {
+    "river": {
+      "properties": {
+        "depth": {
+          "type": "UINT8",
+          "normalized": "true"
+        },
+        "current": {
+          "type": "ARRAY",
+          "componentType": "UINT8",
+          "componentCount": 2,
+          "normalized": true
+        }
       }
     }
-  }
-},
-"metadataTextures": {
-  "riverTexture": {
-    "class": "river",
-    "properties": {
-      "depth": {
-        "texture": {
-          "index": 0,
-          "texCoord": 0
+  },
+  "metadataTextures": {
+    "riverTexture": {
+      "class": "river",
+      "properties": {
+        "despth": {
+          "texture": {
+            "index": 0,
+            "texCoord": 0
+          },
+          "channels": "r"
         },
-        "channels": "r"
-      },
-      "current": {
-        "texture": {
-          "index": 0,
-          "texCoord": 0
-        },
-        "channels": "gb"
+        "current": {
+          "texture": {
+            "index": 0,
+            "texCoord": 0
+          },
+          "channels": "gb"
+        }
       }
     }
   }
 }
 ```
-
 
 TODO: Diagram of vec3 example
 

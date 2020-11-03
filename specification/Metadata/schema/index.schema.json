@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-04/schema",
     "title": "Specification Index",
     "type": "object",
-    "description": "Index of all the main schemas used in the specification. This file is intended for documentation purposes only.",
+    "description": "Index of all the main schemas used in the specification. This file is intended mainly for documentation purposes.",
     "properties": {
         "classes": {
             "type": "object",
