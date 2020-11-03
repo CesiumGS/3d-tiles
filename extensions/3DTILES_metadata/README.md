@@ -49,7 +49,7 @@ Classes serve as the templates for the metadata objects - they provide a list of
 
 This extensions uses the classes in compliance with the [Cesium 3D Metadata Specification]().
 
-#### Metadata Class Properties
+#### Properties
 
 Each class provides a list of properties. A property has a `type` and, for the applicable types,, it may include a `componentType` and a `componentCount`. Additionally, a property may be designated as `optional`, and if so, a `defaultValue` for the property may be provided to apply to all instances of the class that do not set a value for the property.
 
@@ -82,18 +82,12 @@ Each class provides a list of properties. A property has a `type` and, for the a
 }
 ```
 
+This extensions uses the classes in compliance with the [Cesium 3D Metadata Specification]().
+
 #### Tileset Metadata
 
 The tileset metadata object may specify a `name` and `description` to display the information in a user interface. The tileset metadata object may also conform to a `class` and assign values to the `properties` defined by the selected class.
 
-
-#### Layer Metadata
-
-The layer metadata object may specify a `name` and `description` to display the information in a user interface. A layer metadata object may also conform to a `class` and assign values to the `properties` defined by the selected class.
-
-#### Tile Metadata
-
-*TODO*
 
 
 ## Examples
