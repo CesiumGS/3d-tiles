@@ -10,20 +10,25 @@ Draft (version 0.0.0)
 
 ## Overview
 
-This extension enables the declaration and storage of metadata at the tileset, layer and tile levels in 3D Tiles. Metadata may be declared for one or all of these levels.
+This extension to 3D Tiles enables the declaration of metadata classes and the assignment of metadata to the tileset. Metadata may also be assigned to layers using [3DTILES_layers]().
 
 ## Concepts
 
 ### Metadata
 
-This extensions binds metadata to different levels of 3D Tiles through the declaration of classes and their properties, the association of classes to tileset/layer/tile metadata objects and the assignment of values to the properties of the class the metadata object conforms to.
+Metadata refers to information about the content of the tileset - it may be applicable to different components of 3D Tiles: tileset, layers and tiles.
 
-#### Metadata Classes
+#### Classes
 
 Classes serve as the templates for the metadata objects - they provide a list of properties and the type information for those properties. For example, a tileset containing different layers of 3D data might create classes for each type:
 
 ```javascript
 "classes": {
+  "DatasetClass": {
+    "properties": {
+      //...
+    }
+  },
   "PhotogrammetryClass": {
     "properties": {
       //...
@@ -41,6 +46,8 @@ Classes serve as the templates for the metadata objects - they provide a list of
   }
 }
 ```
+
+This extensions uses the classes in compliance with the [Cesium 3D Metadata Specification]().
 
 #### Metadata Class Properties
 
