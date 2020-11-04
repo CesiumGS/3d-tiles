@@ -10,8 +10,7 @@ Draft (version 0.0.0)
 
 ## Overview
 
-This extension to 3D Tiles enables the declaration of metadata classes and the assignment of metadata to the tileset. Metadata classes are declared and assigned based on the [Cesium 3D Metadata Specification](). Metadata may also be assigned to layers 
-using [3DTILES_layers](). The following diagrams illustrates how these extensions are connected:
+This extension to 3D Tiles enables the declaration of metadata classes and the assignment of metadata to the tileset. Metadata classes are declared and assigned based on the [Cesium 3D Metadata Specification](). Metadata may also be assigned to layers using [3DTILES_layers](). The following diagrams illustrates how these extensions are connected:
 
 ![3DTILES_metadata Spec Map](figures/spec_map.jpg)
 
