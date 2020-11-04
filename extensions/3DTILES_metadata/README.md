@@ -1,5 +1,10 @@
 # 3DTILES_metadata Extension
 
+## Version
+
+Version: **Version 0.0.0**
+Revision Date: November 6, 2020.
+
 ## Contributors
 
 Cesium
