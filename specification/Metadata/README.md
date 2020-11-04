@@ -4,8 +4,8 @@
 
 ## Contributors
 
-* Sean Lilley, Cesium,
-* Peter Gagliardi, Cesium,
+* Sean Lilley, Cesium
+* Peter Gagliardi, Cesium
 * Sam Suhag, Cesium
 * Bao Tran, Cesium
 * Samuel Vargas, Cesium
@@ -536,7 +536,7 @@ the specification provides a `stringByteLength` property. In the JSON encoding, 
           "stringByteLength": 4
         },
         "fixedBlobProperty": {
-          "type": "BLOB"
+          "type": "BLOB",
           "blobByteLength": 4
         }
       }
@@ -708,7 +708,7 @@ Here is an example of how to define an instance table for basic integer and floa
   "instanceTables": {
     "treeTable": {
       "class": "tree",
-      "count": 100,
+      "count": 5,
       "properties": {
         "height": {
           "bufferView": 7,
@@ -722,7 +722,9 @@ Here is an example of how to define an instance table for basic integer and floa
 }
 ```
 
-TODO: Diagram of storage
+![Numeric types binary layout](figures/numeric-types.png)
+
+(lengths measured in bytes)
 
 #### Strings and Blobs
 
@@ -767,7 +769,7 @@ The following code snippet and diagram show how this would be expressed using th
 }
 ```
 
-TODO: Include diagram of this case.
+![String property example](figures/unicode-strings.jpg)
 
 #### Fixed-length Strings and Blobs
 
@@ -787,7 +789,9 @@ For strings, define the `stringByteLength` in the property definition. All strin
 }
 ```
 
-TODO: Diagram for fixed-length string
+![Fixed-length string diagram](figures/fixed-length-strings.png)
+
+(lengths measured in bytes)
 
 For binary blobs, the usage is similar. Use `blobByteLength` to describe the fixed length of each blob.
 
@@ -797,22 +801,95 @@ For binary blobs, the usage is similar. Use `blobByteLength` to describe the fix
     "barcode": {
       "name": "Barcode Bytes",
       "type": "BLOB",
-      "blobByteLength": 100
+      "blobByteLength": 20
     }
   }
 }
 ```
 
-TODO: Diagram for binary string
+![Fixed-length blob diagram](figures/fixed-length-blobs.png)
 
-TODO: Diagram for array of fixed-length strings
+(lengths measured in bytes)
 
 #### Arrays
 
-OUTLINE:
-- Vec3 example
-- longer example (2x2 matrix = 4 components at every point)
-- diagrams of the above
+This specification allows both fixed-size arrays (this section) and variable-sized arrays (next section) to represent multiple values per-instance.
+
+Fixed-length arrays are useful for representing vector and matrix types. Here are a few examples of how common computer graphics types are represented:
+
+| Desired data type | `componentType` | `count` |
+|------------------|-----|----|
+| `vec3`  | `FLOAT32` | 3 |
+| `ivec2` | `INT32` | 2 |
+| `mat4`  | `FLOAT32` | 16 |
+| `float[6]` | `FLOAT32` | 6 |
+
+```jsonc
+{
+  "classes": {
+    "graphicsExample": {
+      // vec3
+      "normal": {
+        "type": "ARRAY",
+        "componentType": "FLOAT32",
+        "componentCount": 3
+      },
+      // ivec2
+      "cellId": {
+        "type": "ARRAY",
+        "componentType": "UINT32",
+        "componentCount": 2
+      },
+      // mat4
+      "transform": {
+        "type": "ARRAY",
+        "componentType": "FLOAT32",
+        "componentCount": 16
+      },
+      // float[6]
+      "parameters": {
+        "type": "ARRAY",
+        "componentType": "FLOAT32",
+        "componentCount": 6
+      },
+      // double[2]
+      "doubleTimes": {
+        "type": "ARRAY",
+        "componentType": "FLOAT64",
+        "componentCount": 2
+      }
+    }
+  },
+  "instanceTables": {
+    "graphicsTable": {
+      "count": 2,
+      "properties": {
+        "normal": {
+          "bufferView": 0
+        },
+        "cellId": {
+          "bufferView": 1
+        },
+        "transform": {
+          "bufferView": 2
+        },
+        "parameters": {
+          "bufferView": 3
+        },
+        "doubleTimes": {
+          "bufferView": 4
+        }
+      }
+    }
+  }
+}
+```
+
+Since this example has many properties, the two instances are color-coded for clarity. The green sections of the array belong to the first instance, the blue sections belong to the second instance.
+
+![Graphics array example](figures/graphics.png)
+
+(lengths measured in bytes)
 
 #### Variable-size Arrays
 
@@ -826,11 +903,86 @@ Offset buffers are declared in the instance table using an `offsetBufferViews` a
 | `STRING` or `BLOB` | 1x - Offsets indicate start byte of each element|
 | `ARRAY` of `STRING`/`BLOB` | 2x - First buffer indicates start index of each array, second buffer indicates start byte of each string | 
 
-TODO: example of this
+Below are two examples of variable length arrays. The first is na array of integers, while the second shows the most involved case of an aray of string.
 
-TODO: Diagram - variable-size array
+This example represents the following metadata:
 
-TODO: Diagram - variable-size array of string
+```json
+[
+  [1, 3, 5],
+  [2, 4, 6, 1],
+  [10, 14],
+  [1, 4, 5],
+  [5, 7, 2, 4]
+]
+```
+
+```json
+{
+  "classes": {
+    "arrayExample": {
+      "properties": {
+        "arrayProperty": {
+          "type": "ARRAY",
+          "componentType": "UINT8"
+        }
+      }
+    }
+  },
+  "instanceTables": {
+    "arrayExampleTable": {
+      "class": "arrayExample",
+      "count": 5,
+      "properties": {
+        "arrayProperty": {
+          "bufferView": 7,
+          "offsetBufferViews": [8]
+        }
+      }
+    }
+  }
+}
+```
+
+![Variable-length array](figures/array-of-ints.jpg)
+
+The second example is a continuation of the weather example
+described in the [Strings and Blobs](#strings-and-blobs) section. The three strings are the same, but this time they are grouped into two arrays.
+
+This example represents the following metadata:
+
+```json
+[
+  ["Rain🌧️", "T-storm⛈️"],
+  ["Sunny☀️"]
+]
+```
+
+```jsonc
+{
+  "classes": {
+    "weather": {
+      "properties": {
+        "forecastHistory": {
+          "type": "ARRAY",
+          "componentType": "STRING"
+        }
+      }
+    }
+  },
+  "instanceTables":  {
+    "count": 2,
+    "forecast": {
+      "bufferView": 5,
+      // bufferView 6 is the array index offsets
+      // bufferView 7 is the string byte offsets
+      "offsetBufferViews": [6, 7]
+    }
+  }
+}
+```
+
+![Variable-length array of string](figures/array-of-string.jpg)
 
 #### Boolean Data
 
@@ -873,11 +1025,15 @@ Due to the possibility of 64-bit data types, this extension requires that each `
 
 To meet this alignment requirement, padding is sometimes needed between `bufferView`s. When this happens, use `0x00` for padding.
 
-TODO: Binary alignment diagrams
+![Binary alignment diagram](figures/binary-alignment.png)
+
+(lengths measured in bytes)
 
 ### Metadata Texture Encoding
 
 For per-texel metadata, data values can be stored in textures rather than `bufferView`s. This metadata is then directly accessed via texture coordinates without having to refer to a instance table.
+
+![Metadata Texture](figures/metadata-texture.jpg)
 
 #### Numeric Textures
 
@@ -921,46 +1077,32 @@ Fixed-size (but not variable-size) arrays can be stored as a multi-channel textu
 
 This is accomplished by declaring the property as an `ARRAY` type with `componentCount` no more than 4 (corresponding to the 4 RGBA channels).
 
-The example below demonstrates two concepts:
-
-1. How to declare a vector-valued texture with two components
-2. How a single channel can be used to satisfy multiple property definitions
+The example below demonstrates representing a `vec3` using a 3-channel image. The red channel stores the x-component, the green channel stores the y-component, and the blue channel stores the z-component.
 
 ```json
 {
   "classes": {
-    "river": {
+    "wind": {
       "properties": {
-        "depth": {
-          "type": "UINT8",
-          "normalized": "true"
-        },
-        "current": {
+        "velocity": {
           "type": "ARRAY",
           "componentType": "UINT8",
-          "componentCount": 2,
-          "normalized": true
-        }
+          "normalized": "true",
+          "componentCount": 3,
+        },
       }
     }
   },
   "metadataTextures": {
-    "riverTexture": {
-      "class": "river",
+    "windTexture": {
+      "class": "wind",
       "properties": {
-        "despth": {
+        "velocity": {
           "texture": {
             "index": 0,
             "texCoord": 0
           },
-          "channels": "r"
-        },
-        "current": {
-          "texture": {
-            "index": 0,
-            "texCoord": 0
-          },
-          "channels": "gb"
+          "channels": "rgb"
         }
       }
     }
@@ -968,7 +1110,7 @@ The example below demonstrates two concepts:
 }
 ```
 
-TODO: Diagram of vec3 example
+![vec3 metadata texture](figures/vec3-texture.jpg)
 
 #### Implementation Notes
 
