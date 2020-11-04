@@ -62,7 +62,7 @@ Draft
 
 ## Abstract
 
-This specification provides a standard format for adding metadata to 3D models and tilesets. It provides a method for declaring metadata, as well as methods for storing this metadata in JSON, binary, or texture format. This metadata format is shared by several Cesium specifications. This avoids repetition and enforces a consistent data layout. Specifications that reference this document must include at least one metadata encoding as described in this document, and must make clear which encodings are supported.
+This specification provides a standard format for adding metadata to Cesium 3D Tiles as well as glTF models. It provides a method for declaring metadata, as well as methods for storing this metadata in JSON, binary, or texture format. This metadata format is shared by several Cesium specifications. This avoids repetition and enforces a consistent data layout. Specifications that reference this document must include at least one metadata encoding as described in this document, and must make clear which encodings are supported.
 
 ## Introduction
 
@@ -72,7 +72,7 @@ features = geometry + metadata
 
 Using terminology from the geospatial industry, **features** are geometric entities in 3D space (**geometry**) and may have application specific properties associated with them (**metadata**). These properties may span a myriad of domains, such as the heights of buildings in a city, the names of different structures in a CAD model, the classification of different points in a point cloud, or the age of different trees in a forest of instanced tree models.
 
-3D models are useful for describing geometry, but often there is limited support for annotating the geometry with metadata. This specification adds a mechanism for storing an unlimited amount of metadata to existing 3D model formats such as Khronos Group's glTF or Cesium's 3D Tiles. Metadata can be applied at various granularities: per-vertex, per-texel, as well as larger structures from meshes to tilesets. This metadata can be used for analytics purposes, as well as styling in a 3D renderer.
+This specification adds a mechanism for storing metadata in existing 3D model formats such as Khronos Group's glTF or Cesium's 3D Tiles. Metadata can be applied at various granularities: per-vertex, per-texel, as well as larger structures from meshes to tilesets. This metadata can be used for analytics purposes, as well as styling in a 3D renderer.
 
 Guiding principles for this specification include:
 
