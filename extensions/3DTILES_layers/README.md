@@ -12,7 +12,7 @@ Cesium
 
 ### Layer Metadata
 
-To associate a `name`, `description` with a layer, it must be delcared as a top-level extension to the tileset.json. For example,
+Layers are declared inside the top-level `3DTILES_layers` extension dictionary. Each layer is an object with its key being the layer's ID. The layer may declare a `name` and a `description`. 
 
 ```javascript
 {
@@ -30,7 +30,7 @@ To associate a `name`, `description` with a layer, it must be delcared as a top-
 }
 ```
 
-Additionally, if a layer needs to associate some metadata with itself, there needs to be a corresponding class declared in the `3DTILES_metadata` extension and the layer needs to conform to that class. For example,
+Additionally, if a layer needs to associate some metadata with itself, there needs to be a corresponding class declared in the `3DTILES_metadata` extension and the layer needs to conform to that class. To learn more about metadata classes, refer to the [Cesium 3D Metadata Specification](). For example,
 
 ```javascript
 {
@@ -96,7 +96,3 @@ To associate content with a layers, it must be added as an object to the extensi
   }
 }
 ```
-
-### Property Reference
-
-*TODO*
