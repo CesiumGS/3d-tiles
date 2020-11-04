@@ -65,7 +65,7 @@ Each class provides a list of properties. A property has a `type` and, for the a
   "PhotogrammetryClass": {
     "properties": {
       "sensorVersion": {
-        "type": "string",
+        "type": "STRING",
         "optional": false
       }
     }
@@ -73,7 +73,7 @@ Each class provides a list of properties. A property has a `type` and, for the a
   "BIMClass": {
     "properties": {
       "modelAuthor": {
-        "type": "string",
+        "type": "STRING",
         "optional": false
       }
     }
@@ -81,7 +81,7 @@ Each class provides a list of properties. A property has a `type` and, for the a
   "PointCloudClass": {
     "properties": {
       "scanner": {
-        "type": "string",
+        "type": "STRING",
         "optional": false
       }
     }
