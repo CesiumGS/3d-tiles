@@ -66,7 +66,7 @@ Additionally, if a layer needs to associate some metadata with itself, there nee
 
 ### Layer Content
 
-To associate content with a layers, it must be added as an object to the extension declared at the `root` of the tileset.json. To pair this content level layer object to the top level layer object, which declares the metadata, both objects must use the same key. This layer object needs to declare the `layer`, the `uri` of its contents and the `mimeType` for the content linked in the `uri`. For example,
+To associate content with a layer, it must be added as an object to the `contents` array of the extension declared at the `root` of the tileset.json. To pair the content to a layer, we must set the `layer` property of the layer content object to the ID of the layer declared at the top level extension. This layer object needs to declare the `layer`, the `uri` of its contents and the `mimeType` for the content linked in the `uri`. For example,
 
 ```javascript
 {
