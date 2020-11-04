@@ -58,7 +58,7 @@ This extensions uses the classes in compliance with the [Cesium 3D Metadata Spec
 
 #### Properties
 
-Each class provides a list of properties. A property has a `type` and, for the applicable types,, it may include a `componentType` and a `componentCount`. Additionally, a property may be designated as `optional`, and if so, a `defaultValue` for the property may be provided to apply to all instances of the class that do not set a value for the property.
+Each class provides a list of properties. A property has a `type` and, for the array types, it may include a `componentType` and a `componentCount`. Additionally, a property may be designated as `optional`, and if so, a `defaultValue` for the property may be provided to apply to all instances of the class that do not set a value for the property.
 
 ```javascript
 "classes": {
