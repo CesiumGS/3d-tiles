@@ -23,7 +23,7 @@ This extension to 3D Tiles enables the declaration of metadata classes and the a
 
 ### Metadata
 
-Metadata refers to information about the content of the tileset - it may be applicable to different components of 3D Tiles: tileset, layers and tiles.
+Metadata refers to application specific information. It can be associated with different components of 3D Tiles: tileset, layers and tiles.
 
 #### Classes
 
