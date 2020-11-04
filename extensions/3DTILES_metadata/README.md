@@ -54,7 +54,7 @@ Classes serve as the templates for the metadata objects - they provide a list of
 }
 ```
 
-This extensions uses the classes in compliance with the [Cesium 3D Metadata Specification]().
+This extension uses the classes in compliance with the [Cesium 3D Metadata Specification](https://github.com/CesiumGS/3d-tiles/tree/3d-metadata-spec/specification/Metadata#classes).
 
 #### Properties
 
@@ -89,7 +89,7 @@ Each class provides a list of properties. A property has a `type` and, for the a
 }
 ```
 
-This extensions uses the classes in compliance with the [Cesium 3D Metadata Specification]().
+This extension uses the classes in compliance with the [Cesium 3D Metadata Specification](https://github.com/CesiumGS/3d-tiles/tree/3d-metadata-spec/specification/Metadata#classes).
 
 #### Tileset Metadata
 
