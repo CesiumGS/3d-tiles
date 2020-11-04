@@ -4,8 +4,8 @@
 
 ## Contributors
 
-* Sean Lilley, Cesium
 * Peter Gagliardi, Cesium
+* Sean Lilley, Cesium
 * Sam Suhag, Cesium
 * Bao Tran, Cesium
 * Samuel Vargas, Cesium
@@ -129,13 +129,13 @@ For a more detailed description of how classes are defined, see the [Class Defin
 
 ### Instances
 
-A class definition is abstract, and just describes what metadata exists. Meanwhile, an **instance** is a concrete representation of the metadata for a single piece of geometry that can be stored in a file. This specification provides two main types of data storage for instances a columnar format (**instance tables**) and a texture-based format (**metadata textures**). The main distinction is that instance tables are designed for per-vertex metadata, while metadata textures are designed for per-texel metadata. Furthermore, instance tables can be stored in either JSON or binary formats, so there is a total of three storage encodings.
+A class definition is abstract, and only describes what metadata exists. Meanwhile, an **instance** is a concrete representation of the metadata for a single piece of geometry that can be stored in a file. This specification provides two main types of data storage for instances: a columnar format (**instance tables**) and a texture-based format (**metadata textures**). The primary distinction is that instance tables are designed for per-vertex metadata, while metadata textures are designed for per-texel metadata. Furthermore, instance tables can be stored in either JSON or binary formats, so there is a total of three storage encodings.
 
 A brief overview of each encoding follows to explain the concepts. The full details can be found further below in the [Storage Encodings](#storage-encodings) section.
 
 #### Instance Tables
 
-Instance tables are the typical method for storing metadata. An instance table is a mapping of (**instance IDs**) to metadata values which are stored in parallel vectors called **property arrays**. Instance IDs are simply integer indices into these arrays. The `i-th` value of every property array in an instance table together makes up the metadata for the `i-th` instance. 
+An instance table is a mapping of (**instance IDs**) to metadata values which are stored in parallel vectors called **property arrays**. Instance IDs are simply integer indices into these arrays. The `i-th` value of every property array in an instance table together makes up the metadata for the `i-th` instance. 
 
 The instance table has two possible representations on disk: JSON and binary. The following sections compare the two encodings.
 
@@ -260,9 +260,7 @@ This specification keeps class definition separate from instantiation. While thi
 
 ### Basic Types
 
-A class is a collection of properties. Each class requires a unique class ID. This can be any UTF-8 string. The uniqueness is enforced by a JSON dictionary. Within the class, one or more properties is defined. Each property has a type associated with it. Some types have extra options; the sections below discuss such cases.
-
-Classes are defined in a `classes` section of the JSON file 
+A class is a collection of properties. Each class requires a unique UTF-8 string as a class ID. This allows the classes to be referenced elsewhere in the JSON. Within the class, one or more properties is defined. Each property must have an ID that is unique within the class. Like the class IDs, this is a UTF-8 string. Each property has a type associated with it. Some types have extra options; the sections below discuss such cases.
 
 Also note that both classes and properties can be annotated with display names and descriptions, as in the following example:
 
@@ -628,7 +626,7 @@ In JSON, optional values can be expressed by using `null` in place of the value.
 
 #### Single Intance Shorthand
 
-In most situations, there are several instances of a class. Therefore, an array is a natural choice for the JSON representation. However, in cases where only a single instance is used, the syntax can feel cumbersome. This specification allows for a simpler property dictionary
+In most situations, there are several instances of a class. Therefore, an array is a natural choice for the JSON representation. In cases where only a single instance is used, this specification allows for a simpler property dictionary.
 
 To enable this shorthand, omit the `count` field. Then `properties` is interpreted as a dictionary of property names to single values. This is more convenient than the usual behavior where a nested object is used for each property.
 
