@@ -85,7 +85,7 @@ Guiding principles for this specification include:
 
 A **class** describes a collection of related pieces of metadata called **properties** and their respective data types. In some ways, this is similar to describing the columns of a database table. However, this analogy is not completely applicable, as this specification allows for texture storage, not just columnar formats.
 
-A class definition only describes what metadata is available. However, it does not describe how this metadata is stored. The section on [Instantiation](#instantiation) will provide more information.
+A class definition describes what metadata is available. However, it does not describe how this metadata is stored. The section on [Instantiation](#instantiation) will provide more information.
 
 The following example shows the basics of how classes describe the data types, without describing where the data is stored. The following section will show how to connect these classes to the actual metadata in various storage formats.
 
@@ -383,7 +383,7 @@ For vector-valued types such as a `vec3` or `mat4` in OpenGL, use a fixed-size a
           "description": "mat4 example representing a custom matrix field",
           "type": "ARRAY",
           "componentType": "FLOAT32",
-          "componetCount": 16
+          "componentCount": 16
         }
       }
     }
@@ -761,11 +761,9 @@ The following example compares the two formats of JSON encoding:
 
 ### Binary Encoding
 
-The binary encoding represents the columns of an instance table using parallel arrays called **property arrays**. These arrays are stored as **buffer views** in a binary **buffer**. A buffer is a contiguous array of bytes, while a buffer view is a subsequence of a buffer. A buffer view may be tightly packed, or it may be spread out with a constant stride between elements. Both buffer and buffer view correspond directly with [glTF concepts](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views).
+The binary encoding represents the columns of an instance table using parallel arrays called **property arrays**. These arrays are stored as **buffer views** in a binary **buffer**. A buffer is a contiguous array of bytes, while a buffer view is a subsequence of a buffer. Both buffers and buffer views correspond directly with [glTF concepts](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views).
 
-Buffer views are referred to by an integer index that counts the number of buffer views since the start of the file. There may be additional buffer views in a binary file not used for metadata. For example, in a glTF-based implementation, there may be other buffer views for storing the geometry of a 3D model.
-
-Since instance tables are a one-to-one representation of a class, each property of an instance table must correspond to a property of the same name from the class definition.
+Buffer views are referred to by an integer index. There may be additional buffer views in a binary file not used for metadata. For example, in a glTF-based implementation, there may be other buffer views for storing the geometry of a 3D model.
 
 #### Numeric Types 
 
@@ -1099,7 +1097,7 @@ However, when storing this, the sequence of bits is divided up into a sequence o
 76543210   321098 - bit index (0-13 in this case)
 ```
 
-For an `ARRAY` of `BOOLEAN`, `componentsPerElement` refers to the number of _bits_ per element. These bits are counted out from the overall bit vector sequence.
+For an `ARRAY` of `BOOLEAN`, `componentCount` refers to the number of _bits_ per element. These bits are counted out from the overall bit vector sequence.
 
 In the case of a `VARIABLE_SIZE_ARRAY` of `BOOLEAN`, the offset buffer represents
 the _bit_ offsets, rather than the usual byte offsets. Again, the offsets are counted relative to the overall bit vector sequence.
@@ -1108,7 +1106,7 @@ the _bit_ offsets, rather than the usual byte offsets. Again, the offsets are co
 
 Due to the possibility of 64-bit data types, this extension requires that each `bufferView` is aligned to a multiple of 8 bytes for efficient reads. This alignment requirement is always measured from the start of the binary file. This alignment requirement only applies to the start of each bufferView used for metadata.
 
-Note that to meet this alignment requirement, padding or other data must become between the `bufferView`s so that each starts on an 8-byte boundary.
+Note that to meet this alignment requirement, padding or other data must go between the `bufferView`s so that each starts on an 8-byte boundary.
 
 ![Binary alignment diagram](figures/binary-alignment.png)
 
@@ -1211,7 +1209,7 @@ In implementations that only support PNG and JPEG images such as glTF, the avail
 * **instance** - A concrete representation of a class consisting of a value for every property.
 * **instance table** - A mapping of instance IDs to metadata for each instance. The values are stored in parallel property arrays.
 * **buffer** - a contiguous sequence of bytes used for storing binary data. This is equivalent to the [glTF `buffer` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views).
-* **buffer view** or `bufferView` - A subsequence of a buffer that represents a single array. A buffer view is completely contained within a buffer, but is not necessarily contiguous (it could also be spread out with a constant stride). This is equivalent to the [glTF `bufferView` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views), though this specification uses bufferViews for a broader set of data types.
+* **buffer view** or `bufferView` - A subsequence of a buffer that represents a single array. A buffer view is completely contained within a buffer. This is equivalent to the [glTF `bufferView` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views), though this specification uses bufferViews for a broader set of data types.
 * **property array** - A single array that stores values for one property.  
 * **element** (of a property array) - a single entry of a property array. This stores the value of one property for a single instance.
 * **component** (of an element) - For elements of type `ARRAY`, the values contained within are called components. In other words, a property array contains elements which contain components. 
