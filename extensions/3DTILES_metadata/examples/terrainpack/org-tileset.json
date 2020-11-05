@@ -139,7 +139,7 @@
     },
     "3DTILES_metadata": {
       "tileset": {
-        "class": "WffDataset",
+        "class": "WFFDatasetClass",
         "name": "Ft Hood - Surface",
         "properties": {
           "capture_platform": "SATELLITE",
@@ -170,7 +170,7 @@
         }
       },
       "classes": {
-        "WffDataset": {
+        "WFFDatasetClass": {
           "properties": {
             "capture_platform": {
               "type": "STRING"
@@ -201,7 +201,9 @@
             },
             "texture_features": {
               "type": "ARRAY",
-              "componentType": "STRING"
+              "componentType": "STRING",
+              "optional": true,
+              "default": []
             },
             "wff_version": {
               "type": "STRING"

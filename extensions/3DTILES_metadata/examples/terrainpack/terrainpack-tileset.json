@@ -59,12 +59,11 @@
           "provider": "Maxar",
           "runtime_enabled": false,
           "schema": "wff/1",
-          "texture_features": [],
           "wff_version": "1.0"
         }
       },
       "classes": {
-        "WFFDatasetClassA": {
+        "WFFDatasetClass": {
           "properties": {
             "capture_platform": {
               "type": "STRING"
@@ -95,45 +94,9 @@
             },
             "texture_features": {
               "type": "ARRAY",
-              "componentType": "INT32"
-            },
-            "wff_version": {
-              "type": "STRING"
-            }
-          }
-        },
-        "WFFDatasetClassB": {
-          "properties": {
-            "capture_platform": {
-              "type": "STRING"
-            },
-            "capture_sensor": {
-              "type": "STRING"
-            },
-            "content_type": {
-              "type": "STRING"
-            },
-            "created": {
-              "type": "STRING"
-            },
-            "geometry_model": {
-              "type": "STRING"
-            },
-            "id": {
-              "type": "STRING"
-            },
-            "provider": {
-              "type": "STRING"
-            },
-            "runtime_enabled": {
-              "type": "BOOLEAN"
-            },
-            "schema": {
-              "type": "STRING"
-            },
-            "texture_features": {
-              "type": "ARRAY",
-              "componentType": "STRING"
+              "componentType": "STRING",
+              "optional": true,
+              "default": []
             },
             "wff_version": {
               "type": "STRING"
@@ -165,7 +128,9 @@
             },
             "texture_features": {
               "type": "ARRAY",
-              "componentType": "INT32"
+              "componentType": "INT32",
+              "optional": "true",
+              "default": []
             },
             "wff_version": {
               "type": "STRING"
@@ -180,7 +145,7 @@
     "3DTILES_layers": {
       "layers": {
         "org": {
-          "class": "WFFDatasetClassB",
+          "class": "WFFDatasetClass",
           "name": "Ft Hood - Surface",
           "properties": {
             "capture_platform": {
@@ -213,7 +178,7 @@
           }
         },
         "watermask": {
-          "class": "WFFDatasetClassA",
+          "class": "WFFDatasetClass",
           "name": "Ft Hood - Watermask",
           "properties": {
             "capture_platform": "SATELLITE",
@@ -225,7 +190,6 @@
             "provider": "Maxar",
             "runtime_enabled": false,
             "schema": "wff/1",
-            "texture_features": [],
             "wff_version": "1.0"
           }
         }
