@@ -1,0 +1,217 @@
+{
+  "asset": {
+    "version": "1.0",
+    "extras": {
+      "vricon": {
+        "title": "Ft Hood - Surface",
+        "createDate": "2020-10-28T13:15:07.171481Z"
+      }
+    }
+  },
+  "geometricError": 16384.0,
+  "root": {
+    "boundingVolume": {
+      "region": [
+        -1.7074684758166778,
+        0.54363284500803988,
+        -1.7067080890553497,
+        0.54416505068266019,
+        203.89508305676281,
+        253.11363569926471
+      ]
+    },
+    "geometricError": 16384.0,
+    "refine": "REPLACE",
+    "content": {
+      "uri": "0/0/0.json"
+    },
+    "extras": {
+      "key": [
+        0,
+        0,
+        0
+      ],
+      "vricon": {
+        "bbox": [
+          3446622.1318359375,
+          611455.4453125,
+          3449958.0620117188,
+          615572.5244140625,
+          -253.11366367340088,
+          -203.89511108398438
+        ]
+      }
+    }
+  },
+  "extensionsRequired": [
+    "3DTILES_content_gltf"
+  ],
+  "extensionsUsed": [
+    "3DTILES_content_gltf",
+    "3DTILES_metadata",
+    "MAXAR_extent",
+    "VRICON_class",
+    "VRICON_extent",
+    "VRICON_grid"
+  ],
+  "extensions": {
+    "VRICON_grid": {
+      "type": "quad",
+      "center": [
+        3097202.3706939998,
+        500000.0
+      ],
+      "size": [
+        2088960.0,
+        2088960.0
+      ],
+      "pcs": "ITRF2008[2005]:UTM14N,ELLIPSOID"
+    },
+    "VRICON_class": {
+      "geometry": [
+        {
+          "name": "dsm",
+          "class": 1
+        }
+      ],
+      "texture": [
+        {
+          "name": "r3dm::cdm_difference",
+          "class": 18
+        },
+        {
+          "name": "r3dm::date_avg",
+          "class": 98
+        },
+        {
+          "name": "r3dm::date_first",
+          "class": 96
+        },
+        {
+          "name": "r3dm::date_last",
+          "class": 97
+        },
+        {
+          "name": "r3dm::image_count",
+          "class": 32
+        },
+        {
+          "name": "r3dm::ndvi",
+          "class": 2314
+        },
+        {
+          "name": "r3dm::ndvi_cnt",
+          "class": 2317
+        },
+        {
+          "name": "r3dm::ndvi_max",
+          "class": 2315
+        },
+        {
+          "name": "r3dm::ndvi_min",
+          "class": 2316
+        },
+        {
+          "name": "r3dm::security",
+          "class": 48
+        },
+        {
+          "name": "r3dm::uncertainty_ce90",
+          "class": 49
+        },
+        {
+          "name": "r3dm::uncertainty_le90",
+          "class": 50
+        },
+        {
+          "name": "r3dm::universal_mix",
+          "class": 86
+        },
+        {
+          "name": "texture",
+          "class": 1
+        }
+      ]
+    },
+    "VRICON_extent": "extent.geojson",
+    "MAXAR_extent": {
+      "uri": "extent.geojson"
+    },
+    "3DTILES_metadata": {
+      "tileset": {
+        "class": "WffDataset",
+        "name": "Ft Hood - Surface",
+        "properties": {
+          "capture_platform": "SATELLITE",
+          "capture_sensor": "ELECTRO_OPTICAL",
+          "content_type": "MESH",
+          "created": "2020-10-28T13:15:07.171481Z",
+          "geometry_model": "BARE_EARTH",
+          "id": "56b7b942-e2c2-457c-b56b-a1992ac9c204",
+          "provider": "Maxar",
+          "runtime_enabled": false,
+          "schema": "wff/1",
+          "texture_features": [
+            "r3dm::cdm_difference",
+            "r3dm::date_avg",
+            "r3dm::date_first",
+            "r3dm::date_last",
+            "r3dm::image_count",
+            "r3dm::ndvi",
+            "r3dm::ndvi_cnt",
+            "r3dm::ndvi_max",
+            "r3dm::ndvi_min",
+            "r3dm::security",
+            "r3dm::uncertainty_ce90",
+            "r3dm::uncertainty_le90",
+            "r3dm::universal_mix"
+          ],
+          "wff_version": "1.0"
+        }
+      },
+      "classes": {
+        "WffDataset": {
+          "properties": {
+            "capture_platform": {
+              "type": "STRING"
+            },
+            "capture_sensor": {
+              "type": "STRING"
+            },
+            "content_type": {
+              "type": "STRING"
+            },
+            "created": {
+              "type": "STRING"
+            },
+            "geometry_model": {
+              "type": "STRING"
+            },
+            "id": {
+              "type": "STRING"
+            },
+            "provider": {
+              "type": "STRING"
+            },
+            "runtime_enabled": {
+              "type": "BOOLEAN"
+            },
+            "schema": {
+              "type": "STRING"
+            },
+            "texture_features": {
+              "type": "ARRAY",
+              "componentType": "STRING"
+            },
+            "wff_version": {
+              "type": "STRING"
+            }
+          }
+        }
+      },
+      "extras": {
+        "draftVersion": "0.0.0"
+      }
+    }
+  }
+}
