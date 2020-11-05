@@ -62,12 +62,12 @@
     "stringByteLength": {
       "type": "integer",
       "minimum": 1,
-      "description": "This property can only be used with a `STRING` property or an `ARRAY` of `STRING`. When present, all string values for this property must be exactly this length in bytes when UTF-8 encoded. If the property is an `ARRAY`, then each component must have this byte length when encoded as UTF-8. Furthermore, no `offsetBufferView` is needed for specifying the start byte of each string. When `stringByteLength` is ommitted, strings are variable-length."
+      "description": "This property can only be used with a `STRING` property or an `ARRAY` of `STRING`. When present, all string values for this property must be exactly this length in bytes when UTF-8 encoded. If the property is an `ARRAY`, then each component must have this byte length when encoded as UTF-8. Furthermore, no `offsetBufferView` is needed for specifying the start byte of each string. When `stringByteLength` is omitted, strings are variable-length."
     },
     "blobByteLength": {
       "type": "integer",
       "minimum": 1,
-      "description": "This property can only be used with a `BLOB` property or an `ARRAY` of `BLOB`. When present, all blob values for this property must be exactly this length in bytes. If the property is an `ARRAY`, then each component must have this byte length. Furthermore, no `offsetBufferView` is needed for specifying the start byte of each blob. When blob In cases where the blob is Base64 encoded in JSON (e.g. as a `defaultValue`), `blobByteLength` describes the **decoded** byte length, not the Base64 string."
+      "description": "This property can only be used with a `BLOB` property or an `ARRAY` of `BLOB`. When present, all blob values for this property must be exactly this length in bytes. If the property is an `ARRAY`, then each component must have this byte length. Furthermore, no `offsetBufferView` is needed for specifying the start byte of each blob. In cases where the blob is Base64 encoded in JSON, `blobByteLength` describes the **decoded** byte length, not the Base64 string."
     },
     "normalized": {
       "type": "boolean",

@@ -34,7 +34,15 @@
       "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value describes where property array data is stored.",
       "minProperties": 1,
       "additionalProperties": {
-        "$ref": "instanceTable.property.schema.json"
+        "oneOf": [
+          {
+            "type": ["boolean", "number", "string", "null", "array"],
+            "description": "The property value when using the single instance shorthand"
+          },
+          {
+            "$ref": "instanceTable.property.schema.json"
+          }
+        ]
       }
     },
     "extensions": {},
