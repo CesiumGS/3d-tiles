@@ -106,16 +106,21 @@ The following example shows the basics of how classes describe the data types, w
         }
       }
     },
-    "land": {
+    "tree": {
       "properties": {
-        "elevation": {
-          "name": "Elevation (Normalized)",
-          "type": "UINT8",
-          "normalized": true
+        "height": {
+          "name": "Height (m)",
+          "type": "FLOAT32",
         },
-        "isWater": {
-          "name": "Is Water?",
-          "type": "BOOLEAN"
+        "age": {
+          "name": "Age (years)",
+          "type": "UINT16"
+        },
+        "leafColor": {
+          "name": "Leaf Color",
+          "type": "STRING",
+          "optional": true,
+          "default": "green"
         }
       }
     }
@@ -123,7 +128,7 @@ The following example shows the basics of how classes describe the data types, w
 }
 ```
 
-Above, we define a `building` class to describe the street address and height of various buildings in a 3D scene. Since this information is about discrete parts of a scene, it will be best modeled as vertex metadata. Meanwhile, the `land` class describes information about the ground of the scene, such as the elevation at each point, and whether the point is water or land. Since these properties are more positional in nature, using a texture with per-texel metadata would be a good way to model this. However, note that the vertex/texel metadata distinction does not appear here in the class definition. Such details about vertex/texel-based storage are defined when instantiating the class
+Above, we define a `building` class to describe the street address and height of various buildings in a 3D scene. Likewise, the `tree` class describes trees that have a height, age, and leaf color.
 
 For a more detailed description of how classes are defined, see the [Class Definitions](#class-definitions) section below.
 
@@ -237,7 +242,7 @@ in this document. For now, here is a small example to show how the same `buildin
 
 The metadata texture encoding serves a different purpose than the other encodings. Instead of associating metadata with an instance, this encoding associates metadata with each individual texel in a texture. In this situation, values are indexed by texture coordinates rather than instance ID. This allows, among other things, interpolation of metadata values (at least for numeric types).
 
-This is useful for continuous properties such as elevation, depth, vector fields, and many other properties that vary with position. It also can be used for better compression of metadata values in some cases.
+This is useful for continuous properties such as elevation, vegetation index, vector fields, and many other properties that vary with position. It also can be used for better compression of metadata values in some cases.
 
 ```json
 {
