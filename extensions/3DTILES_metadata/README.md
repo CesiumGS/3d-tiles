@@ -58,7 +58,7 @@ This extension uses the classes in compliance with the [Cesium 3D Metadata Speci
 
 #### Properties
 
-Each class provides a list of properties. A property has a `type` and, for the array types, it may include a `componentType` and a `componentCount`. Additionally, a property may be designated as `optional`, and if so, a `default` value for the property may be provided to apply to all instances of the class that do not set a value for the property.
+Each class provides a list of properties. A property has a `type` and, for the array types, it may include a `componentType` and a `componentCount`. Additionally, a property may be designated as `optional`, and if so, a `default` value for the property may be provided to apply to all instances of the class that do not set a value for the property. To learn more about properties, refer to the [Cesium 3D Metadata Specification](https://github.com/CesiumGS/3d-tiles/tree/3d-metadata-spec/specification/Metadata#classes).
 
 ```javascript
 "classes": {
@@ -86,8 +86,30 @@ Each class provides a list of properties. A property has a `type` and, for the a
 }
 ```
 
-This extension uses the classes in compliance with the [Cesium 3D Metadata Specification](https://github.com/CesiumGS/3d-tiles/tree/3d-metadata-spec/specification/Metadata#classes).
 
 #### Tileset Metadata
 
-The tileset metadata object may specify a `name` and `description` to display the information in a user interface. The tileset metadata object may also conform to a `class` and assign values to the `properties` defined by the selected class.
+The tileset metadata object may specify a `name` and `description` to display the information in a user interface. The tileset metadata object may also conform to a `class` and assign values to the `properties` defined by the selected class. The tileset object must use the [single instance shorthand syntax](https://github.com/CesiumGS/3d-tiles/tree/3d-metadata-spec/specification/Metadata#single-intance-shorthand) to assign values to its properties.
+
+```javascript
+"extensions": {
+  "3DTILES_metadata": {
+    "classes": {
+      "dataset": {
+        "properties": {
+          "author": {
+            "type": "STRING"
+          }
+        }
+      }
+    },
+    "tileset": {
+      "class": "dataset",
+      "properties": {
+        "author": "Cesium"
+      }
+    }
+  }
+}
+```
+
