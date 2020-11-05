@@ -1,44 +1,44 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "Instance table",
-    "type": "object",
-    "description": "An instance table designated by a class and property values stored in arrays.",
-    "properties": {
-        "name": {
-            "type": "string",
-            "minLength" : 1,
-            "description": "The name of the instance table, e.g. for display purposes. The string is UTF-8 encoded."
-        },
-        "description": {
-            "type": "string",
-            "minLength" : 1,
-            "description": "The description of the instance table. The string is UTF-8 encoded."
-        },
-        "class": {
-            "type": "string",
-            "minLength" : 1,
-            "description": "The ID of the class."
-        },
-        "count": {
-            "type": "integer",
-            "minimum": 1,
-            "description": "The number of instances in the table. This is the number of unique instance IDs in the model that reference this instance table, not to be confused with `elementCount`."
-        },
-        "elementCount": {
-            "type": "integer",
-            "minimum": 1,
-            "description": "The number of elements in each property array. `elementCount` may be greater than `count` if the array contains extra elements not used by this model, e.g. if different models refer to different sections of a global array or if the arrays represents a larger data dictionary. if `elementCount` is not specified, it is assumed to be equal to `count`"
-        },
-        "properties": {
-            "type": "object",
-            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value describes where property array data is stored.",
-            "minProperties": 1,
-            "additionalProperties" : {
-                "$ref": "instanceTable.property.schema.json"
-            }
-        },
-        "extensions": { },
-        "extras": { }
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Instance table",
+  "type": "object",
+  "description": "An instance table designated by a class and property values stored in arrays.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The name of the instance table, e.g. for display purposes. The string is UTF-8 encoded."
     },
-    "required": [ "class" ]
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The description of the instance table. The string is UTF-8 encoded."
+    },
+    "class": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The ID of the class."
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The number of instances in the table. This is the number of unique instance IDs in the model that reference this instance table, not to be confused with `elementCount`."
+    },
+    "elementCount": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The number of elements in each property array. `elementCount` may be greater than `count` if the array contains extra elements not used by this model, e.g. if different models refer to different sections of a global array or if the arrays represents a larger data dictionary. if `elementCount` is not specified, it is assumed to be equal to `count`"
+    },
+    "properties": {
+      "type": "object",
+      "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value describes where property array data is stored.",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "instanceTable.property.schema.json"
+      }
+    },
+    "extensions": {},
+    "extras": {}
+  },
+  "required": ["class"]
 }
