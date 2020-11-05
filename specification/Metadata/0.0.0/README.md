@@ -625,10 +625,13 @@ the specification provides a `stringByteLength` property. In the JSON encoding, 
 
 #### Optional and Default Values
 
-In JSON, optional values can be expressed by using `null` in place of the value. This is true for each data type except for arrays. For arrays, use `[]` when either an array has 0 components or the entire array is undefined (this specification does not distinguish between the two). However, to mark a single component as missing, `null` is still used.
+In JSON, optional values can be expressed by using `null` in place of the value. This is true for each data type except for arrays which follow slightly different rules:
+
+* To denote a missing array, use `[]` instead of `null`.
+* To denote an array with a missing value, use `null` in place of the missing data. For example, `[1, 2, null, 4]`.
 
 
-```jsonc
+```json
 {
   "classes": {
     "sensor": {
@@ -708,6 +711,10 @@ The following example compares the two formats of JSON encoding:
         "authors": {
           "type": "ARRAY",
           "componentType": "STRING",
+        },
+        "company": {
+          "type": "STRING",
+          "optional": true
         }
       }
     }
@@ -726,6 +733,9 @@ The following example compares the two formats of JSON encoding:
           "values": [
             ["Jane Doe", "John Smith"]
           ]
+        },
+        "company": {
+          "values": [null]
         }
       } 
     },
