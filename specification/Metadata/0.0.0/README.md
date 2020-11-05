@@ -129,7 +129,48 @@ For a more detailed description of how classes are defined, see the [Class Defin
 
 ### Instances
 
-A class definition is abstract, and only describes what metadata exists. Meanwhile, an **instance** is a concrete representation of the metadata for a single piece of geometry that can be stored in a file. This specification provides two main types of data storage for instances: a columnar format (**instance tables**) and a texture-based format (**metadata textures**). The primary distinction is that instance tables are designed for per-vertex metadata, while metadata textures are designed for per-texel metadata. Furthermore, instance tables can be stored in either JSON or binary formats, so there is a total of three storage encodings.
+A class definition is abstract, and only describes what metadata exists. Meanwhile, an **instance** is a concrete representation of the metadata for a single entity. Instance is a general concept; the concept of "feature" mentioned in the introduction is one example of an instance.
+
+This specification provides two main ways for storing instances: a columnar format (**instance tables**) and a texture-based format (**metadata textures**). Instance tables are designed for a wide variety of use cases. Instance tables can be encoded in either JSON or binary.
+Metadata textures are useful for properties that vary with position (e.g. elevation or temperature) and can benefit from image compression.
+
+Whether an instance table or a metadata texture, the data must match one-to-one with a class definition. For example, in the previous section, the `building` class defined two properties, `address` and `height`. A corresponding instance table must include data for both `address` and `height`. The instance table may not have any extraneous properties. If more are desired, they can be defined in separate instance tables.
+
+Below is an example of a well-formed instance table representing a class.
+
+```json
+{
+  "classes": {
+    "building": {
+      "name": "Building",
+      "properties": {
+        "address": {
+          "name": "Street Address",
+          "type": "STRING"
+        },
+        "height": {
+          "name": "Building Height (m)",
+          "type": "FLOAT32"
+        }
+      }
+    },
+  },
+  "instanceTables": {
+    "buildingTable": {
+      "class": "building",
+      "count": 2,
+      "properties": {
+        "address": {
+          "values": ["123 Somewhere St.", "456 Elsewhere St."]
+        },
+        "height": {
+          "values": [13.0, 20.0]
+        }
+      }
+    }
+  }
+}
+```
 
 A brief overview of each encoding follows to explain the concepts. The full details can be found further below in the [Storage Encodings](#storage-encodings) section.
 
@@ -321,16 +362,23 @@ For vector-valued types such as a `vec3` or `mat4` in OpenGL, use a fixed-size a
       "properties": {
         "forwardDirection": {
           "name": "Forward Direction Vector",
-          "description": "This is equivalent to a double-precision vec2",
+          "description": "This is equivalent to a double-precision vec3",
           "type": "ARRAY",
           "componentType": "FLOAT64",
-          "componentCount": 2
+          "componentCount": 3
         },
         "passengers": {
           "name": "Passenger Names",
           "description": "There are a variable number of passengers because componentCount is undefined.",
           "type": "ARRAY",
           "componentType": "STRING",
+        },
+        "modelMatrix": {
+          "name": "Model Matrix",
+          "description": "mat4 example representing a custom matrix field",
+          "type": "ARRAY",
+          "componentType": "FLOAT32",
+          "componetCount": 16
         }
       }
     }
@@ -375,6 +423,10 @@ Example:
 **Note**: optional properties are disallowed for the binary encoding in the interest of efficient runtime performance.
 
 ## Storage Encodings
+
+The following sections provide a full description of each of the metadata encodings.
+
+**Note**: Each instance table must use the same encoding for all properties contained within. For example, if one property in an instance table is stored using binary encoding, then all other properties in this table must do likewise. If a mix of JSON and binary metadata is desired, this can be accomplished by using multiple instance tables.
 
 ### JSON Encoding
 
@@ -686,7 +738,7 @@ The following example compares the two formats of JSON encoding:
 
 ### Binary Encoding
 
-The binary encoding represents the columns of an instance table using parallel arrays called **property arrays**. These arrays are stored as `bufferViews` in a binary file. Each property array must correspond to a single property from a class definition.
+The binary encoding represents the columns of an instance table using parallel arrays called **property arrays**. These arrays are stored as `bufferViews` in a binary file. Since instance tables are a one-to-one representation of a class, each property of an instance table must correspond to a property of the same name from the class declaration.
 
 #### Numeric Types 
 
@@ -1029,7 +1081,7 @@ the _bit_ offsets, rather than the usual byte offsets. Again, the offsets are co
 
 Due to the possibility of 64-bit data types, this extension requires that each `bufferView` is aligned to a multiple of 8 bytes for efficient reads. This alignment requirement is always measured from the start of the binary file. This alignment requirement only applies to the start of each bufferView used for metadata.
 
-Note that to meet this requirement, some form of padding or other data is sometimes needed so the `bufferView` starts on an 8-byte boundary.
+Note that to meet this alignment requirement, padding or other data must become between the `bufferView`s so that each starts on an 8-byte boundary.
 
 ![Binary alignment diagram](figures/binary-alignment.png)
 
