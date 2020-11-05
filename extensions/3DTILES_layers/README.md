@@ -12,12 +12,12 @@ Cesium
 
 ### Layer Metadata
 
-To associate a `name`, `description` with a layer, it must be delcared as a top-level extension to the tileset.json. For example,
+Layers are declared inside the top-level `3DTILES_layers` extension dictionary. Each layer is an object with its key being the layer's ID. The layer may declare a `name` and a `description`. 
 
 ```javascript
 {
   "asset": {
-    "version": 2.0.0-alpha.0
+    "version": "2.0.0-alpha.0"
   },
   "extensions": {
     "3DTILES_layers": {
@@ -30,12 +30,12 @@ To associate a `name`, `description` with a layer, it must be delcared as a top-
 }
 ```
 
-Additionally, if a layer needs to associate some metadata with itself, there needs to be a corresponding class declared in the `3DTILES_metadata` extension and the layer needs to conform to that class. For example,
+Additionally, if a layer needs to associate some metadata with itself, there needs to be a corresponding class declared in the `3DTILES_metadata` extension and the layer needs to conform to that class. To learn more about metadata classes, refer to the [Cesium 3D Metadata Specification](). For example,
 
 ```javascript
 {
   "asset": {
-    "version": 2.0.0-alpha.0
+    "version": "2.0.0-alpha.0"
   },
   "extensions": {
     "3DTILES_metadata": {
@@ -43,7 +43,7 @@ Additionally, if a layer needs to associate some metadata with itself, there nee
         "CITY_LAYER": {
           "properties": {
             "LastModified": {
-              "type": STRING,
+              "type": "STRING",
               "optional": false
             }
           }
@@ -66,12 +66,12 @@ Additionally, if a layer needs to associate some metadata with itself, there nee
 
 ### Layer Content
 
-To associate content with a layers, it must be added as an object to the `contents` array in the extension declared at the `root` of the tileset.json. This layer object needs to declare the `layer` property and provide a unique layer ID, the `uri` of its contents and the `mimeType` for the content linked in the `uri`. For example,
+To associate content with a layer, it must be added as an object to the `contents` array of the extension declared at the `root` of the tileset.json. To pair the content to a layer, we must set the `layer` property of the layer content object to the ID of the layer declared at the top level extension. This layer object needs to declare the `layer`, the `uri` of its contents and the `mimeType` for the content linked in the `uri`. For example,
 
 ```javascript
 {
   "asset": {
-    "version": 2.0.0-alpha.0
+    "version": "2.0.0-alpha.0"
   },
   "extensions": {
     "3DTILES_layers": {
@@ -96,7 +96,3 @@ To associate content with a layers, it must be added as an object to the `conten
   }
 }
 ```
-
-### Property Reference
-
-*TODO*
