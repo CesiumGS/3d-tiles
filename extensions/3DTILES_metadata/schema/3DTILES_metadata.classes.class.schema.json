@@ -16,11 +16,13 @@
     },
     "properties": {
       "type": "object",
-      "description": "A dictionary, where each key is a property ID and each value is an defining the property.",
+      "description": "A dictionary, where each key is a property ID and each value is an object defining the property.",
       "minProperties": 1,
       "additionalProperties": {
         "$ref": "3DTILES_metadata.classes.class.property.schema.json"
       }
-    }
+    },
+    "extensions": {},
+    "extras": {}
   }
 }
