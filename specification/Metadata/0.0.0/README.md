@@ -1029,7 +1029,7 @@ the _bit_ offsets, rather than the usual byte offsets. Again, the offsets are co
 
 Due to the possibility of 64-bit data types, this extension requires that each `bufferView` is aligned to a multiple of 8 bytes for efficient reads. This alignment requirement is always measured from the start of the binary file. This alignment requirement only applies to the start of each bufferView used for metadata.
 
-To meet this alignment requirement, padding is sometimes needed between `bufferView`s. When this happens, use `0x00` for padding.
+Note that to meet this requirement, some form of padding or other data is sometimes needed so the `bufferView` starts on an 8-byte boundary.
 
 ![Binary alignment diagram](figures/binary-alignment.png)
 
@@ -1120,7 +1120,7 @@ The example below demonstrates representing a `vec3` using a 3-channel image. Th
 
 #### Implementation Notes
 
-Since the core glTF specification only supports PNG and JPEG images, in practice the data types available in textures is somewhat limited. Only data types based on `UINT8` or `INT8` (including normalized versions and fixed-length arrays of these) are straightforward to implement. Other data types would require additional glTF extensions to support other texture formats. Cases like these are left to the implementation to define.
+In implementations that only support PNG and JPEG images such as glTF, the available data types for textures is somewhat limited. Only data types based on `UINT8` (including normalized `UINT8` and/or fixed-length arrays) are straightforward to implement for PNG/JPEG images. Other data types such as floats or signed integers may require additional extensions of the underlying data format. Cases like these are left to the implementation to define.
 
 ## Glossary
 
@@ -1131,6 +1131,8 @@ Since the core glTF specification only supports PNG and JPEG images, in practice
 * **property** - A description of a single piece of metadata. This includes information such as a datatype.
 * **instance** - A concrete representation of a class consisting of a value for every property.
 * **instance table** - A mapping of instance IDs to metadata for each instance. The values are stored in parallel property arrays.
+* **buffer** - a contiguous sequence of bytes used for storing binary data. This is equivalent to the [glTF `buffer` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views).
+* **buffer view** or `bufferView` - A subsequence of a buffer that represents a single array. A buffer view is completely contained within a buffer, but is not necessarily contiguous. This is equivalent to the [glTF `bufferView` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views), though this specification uses bufferViews for a broader set of data types.
 * **property array** - A single array that stores values for one property.  
 * **element** (of a property array) - a single entry of a property array. This stores the value of one property for a single instance.
 * **component** (of an element) - For elements of type `ARRAY`, the values contained within are called components. In other words, a property array contains elements which contain components. 
