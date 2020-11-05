@@ -535,6 +535,12 @@ The following example shows the usage for both fixed and variable size arrays:
 
 #### Blob Base64 Encoding
 
+A Blob (Binary Large OBject) is a sequence of arbitrary bytes used for storing user-defined information. This is a flexible format for application-specific data. Some examples where this can be useful:
+
+* A CAD design could be attached to a 3D model of a building.
+* Points in a point cloud can be tagged with a proprietary format.
+* If a property contains sensitive information, the values could be encrypted and stored as a blob.
+
 Unlike the other data types, binary blobs do not have a straightforward JSON encoding. This is because JSON uses UTF-8 encoding, not arbitrary binary data. Raw binary values are often invalid UTF-8 sequences. This spec requires that binary blobs are Base64 encoded.
 
 Base64 is easy to transmit as it only uses ASCII characters, but is not very efficient for storage. If large blobs are needed, it is highly recommended to use the binary metadata encoding instead.
@@ -738,7 +744,9 @@ The following example compares the two formats of JSON encoding:
 
 ### Binary Encoding
 
-The binary encoding represents the columns of an instance table using parallel arrays called **property arrays**. These arrays are stored as **buffer views** in a binary **buffer**. A buffer is a contiguous array of bytes, while a buffer view is a subsequence of a buffer. A buffer view may be tightly packed, or it may be spread out with a constant stride between elements. Both buffer and buffer view correspond directly with [glTF concepts](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views)
+The binary encoding represents the columns of an instance table using parallel arrays called **property arrays**. These arrays are stored as **buffer views** in a binary **buffer**. A buffer is a contiguous array of bytes, while a buffer view is a subsequence of a buffer. A buffer view may be tightly packed, or it may be spread out with a constant stride between elements. Both buffer and buffer view correspond directly with [glTF concepts](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views).
+
+Buffer views are referred to by an integer index that counts the number of buffer views since the start of the file. There may be additional buffer views in a binary file not used for metadata. For example, in a glTF-based implementation, there may be other buffer views for storing the geometry of a 3D model.
 
 Since instance tables are a one-to-one representation of a class, each property of an instance table must correspond to a property of the same name from the class declaration.
 
