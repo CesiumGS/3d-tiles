@@ -545,6 +545,13 @@ the specification provides a `stringByteLength` property. In the JSON encoding, 
       "class": "basicTypes",
       "count": 3,
       "properties": {
+        "date": {
+          "values": [
+            "20201002",
+            "20201103",
+            "20201105"
+          ]
+        },
         "blobProperty": {
           "values": [
             "AAECAw=="
@@ -821,38 +828,39 @@ Fixed-length arrays are useful for representing vector and matrix types. Here ar
 | `ivec2` | `INT32` | 2 |
 | `mat4`  | `FLOAT32` | 16 |
 | `float[6]` | `FLOAT32` | 6 |
+| `double[2]` | `FLOAT64` | 2 |
 
 ```jsonc
 {
   "classes": {
     "graphicsExample": {
-      // vec3
       "normal": {
         "type": "ARRAY",
+        "description": "Example of a vec3",
         "componentType": "FLOAT32",
         "componentCount": 3
       },
-      // ivec2
       "cellId": {
         "type": "ARRAY",
+        "description": "Example of an ivec2",
         "componentType": "INT32",
         "componentCount": 2
       },
-      // mat4
       "transform": {
         "type": "ARRAY",
+        "description": "Example of a mat4",
         "componentType": "FLOAT32",
         "componentCount": 16
       },
-      // float[6]
       "parameters": {
         "type": "ARRAY",
+        "description": "Example of a float array with 6 components",
         "componentType": "FLOAT32",
         "componentCount": 6
       },
-      // double[2]
       "doubleTimes": {
         "type": "ARRAY",
+        "description": "Example of an array of double-precision floats with 2 components",
         "componentType": "FLOAT64",
         "componentCount": 2
       }
