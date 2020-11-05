@@ -4,5 +4,5 @@ This specification provides a standard format for adding metadata to Cesium 3D T
 
 ## Changelog
 
-* [**Version 0.0.0**](0.0.0/README.md) November 06, 2020
+* [**Version 0.0.0**](0.0.0/README.md) November 6, 2020
     * Initial draft
