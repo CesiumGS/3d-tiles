@@ -211,7 +211,7 @@ defined above.
 Binary encoding is the preferred encoding in most cases since it is designed for storage and runtime efficiency. It is designed with large datasets in mind.
 
 The binary encoding is more involved than the JSON, as there are many considerations about how to pack and align the data efficiently. A detailed discussion of this can be found in the [Binary Encoding](#binary-encoding) section further below
-in this document. For now, here is a small example to show how the same `building` class described above would be described with a instance table.
+in this document. For now, here is a small example to show how the same `building` class described above would be described with an instance table.
 
 ```json
 {
@@ -294,7 +294,7 @@ Comparison table:
 
 This specification keeps class definition separate from instantiation. While this adds a level of indirection, there are several reasons for this separation:
 
-* It allows the class definition to be stored seperately from the data itself. This is useful when one has a dataset that has many 3D models with the same type of metadata. Then instead of re-defining the class many times, a single definition can be shared across multiple models
+* It allows the class definition to be stored separately from the data itself. This is useful when one has a dataset that has many 3D models with the same type of metadata. Then instead of re-defining the class many times, a single definition can be shared across multiple models
 * It allows greater flexibility for storing properties. For example, take the `elevation` property from the example above. The natural representation is to use a metadata texture. However, if the corresponding 3D model is a high-resolution terrain mesh, storing the elevations per-vertex may be more appropriate.
 
 ## Class Definitions
@@ -805,11 +805,11 @@ _(lengths measured in bytes)_
 
 #### Strings and Blobs
 
-Strings and binary blobs are somewhat similar when represented in binary. They both represent a sequence of bytes treated as a single unit. However, the encoding and intent is different. Strings must be UTF-8 encoded, which means each Unicode code point can may take up 1-4 bytes. Meanwhile, binary blobs are an arbitrary sequence of bytes.
+Strings and binary blobs are somewhat similar when represented in binary. They both represent a sequence of bytes treated as a single unit. However, the encoding and intent is different. Strings must be UTF-8 encoded, which means that each Unicode code point may take up 1-4 bytes. Meanwhile, binary blobs are an arbitrary sequence of bytes.
 
 Strings and binary blobs are typically variable-length in terms of number of code points/bytes respectively. In order to store these efficiently in binary, some indirection is useful. The elements are packed tightly into a single `bufferView`. The index of this `bufferView` is referenced in the instance table's definition via the `bufferView` property.
 
-Since the length of each element is not predictable, an **offset buffer** is used instead. If there are `N` strings/blobs in the property array, then the offset buffer has `N + 1` elements. The first `N` of these point to the start byte of the each string/blob, while the last one points to the byte immediately after the last string/blob. This way, the length of the `i-th` string (0-indexed) can be determined with the formula `length = offsetBuffer[i + 1] - offsetBuffer[i]`. The offset buffer is referenced by adding the index to the `offsetBufferViews` array in the JSON. For strings and blobs, this will always be the **rightmost** index in the array. More on `offsetBufferViews` can be found in the [Variable-size Arrays](#variable-size-arrays) section below.
+Since the length of each element is not predictable, an **offset buffer** is used instead. If there are `N` strings/blobs in the property array, then the offset buffer has `N + 1` elements. The first `N` of these point to the start byte of each string/blob, while the last one points to the byte immediately after the last string/blob. This way, the length of the `i-th` string (0-indexed) can be determined with the formula `length = offsetBuffer[i + 1] - offsetBuffer[i]`. The offset buffer is referenced by adding the index to the `offsetBufferViews` array in the JSON. For strings and blobs, this will always be the **rightmost** index in the array. More on `offsetBufferViews` can be found in the [Variable-size Arrays](#variable-size-arrays) section below.
 
 The size of each offset can be configured with `offsetComponentType`. It defaults to `UINT32`, but it can be made as small as `UINT8` for small datasets or as large as `UINT64` for datasets with a large number of elements.
 
@@ -971,7 +971,7 @@ _(lengths measured in bytes)_
 
 #### Variable-size Arrays
 
-Variable-size arrays are arrays where the number of components can vary from instance to instance. Variable-size arrays use a similar offset buffer technique like [strings and blobs](#strings-and-blobs) do, with one main difference. Instead of storing a _byte_ offset, array offfset buffers store _array index_ offsets. For example, if this was an array of `FLOAT32`, an offset of `3` would correspond to element `3`. The byte offset would be `3 * sizeof(FLOAT32) = 12`.
+Variable-size arrays are arrays where the number of components can vary from instance to instance. Variable-size arrays use a similar offset buffer technique like [strings and blobs](#strings-and-blobs) do, with one main difference. Instead of storing a _byte_ offset, array offset buffers store _array index_ offsets. For example, if this was an array of `FLOAT32`, an offset of `3` would correspond to element `3`. The byte offset would be `3 * sizeof(FLOAT32) = 12`.
 
 Offset buffers are defined in the instance table using an `offsetBufferViews` array. This array may contain references to 1-2 `bufferViews`. There are three possible configurations:
 
@@ -981,7 +981,7 @@ Offset buffers are defined in the instance table using an `offsetBufferViews` ar
 | `STRING` or `BLOB` | 1x - Offsets indicate start byte of each element|
 | `ARRAY` of `STRING`/`BLOB` | 2x - First buffer indicates start index of each array, second buffer indicates start byte of each string | 
 
-Below are two examples of variable length arrays. The first is na array of integers, while the second shows the most involved case of an aray of string.
+Below are two examples of variable length arrays. The first is an array of integers, while the second shows the most involved case of an array of string.
 
 This example represents the following metadata:
 
@@ -1092,7 +1092,7 @@ However, when storing this, the sequence of bits is divided up into a sequence o
 76543210   321098 - bit index (0-13 in this case)
 ```
 
-For `ARRAY` of `BOOLEAN`, `componentsPerElement` refers to the number of _bits_ per element. These bits are counted out from the overall bit vector sequence.
+For an `ARRAY` of `BOOLEAN`, `componentsPerElement` refers to the number of _bits_ per element. These bits are counted out from the overall bit vector sequence.
 
 In the case of a `VARIABLE_SIZE_ARRAY` of `BOOLEAN`, the offset buffer represents
 the _bit_ offsets, rather than the usual byte offsets. Again, the offsets are counted relative to the overall bit vector sequence.
@@ -1109,7 +1109,7 @@ _(lengths measured in bytes)_
 
 ### Metadata Texture Encoding
 
-For per-texel metadata, data values can be stored in textures rather than `bufferView`s. This metadata is then directly accessed via texture coordinates without having to refer to a instance table.
+For per-texel metadata, data values can be stored in textures rather than `bufferView`s. This metadata is then directly accessed via texture coordinates without having to refer to an instance table.
 
 ![Metadata Texture](figures/metadata-texture.jpg)
 
