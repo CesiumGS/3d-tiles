@@ -62,7 +62,7 @@ Draft
 
 ## Abstract
 
-This specification provides a standard format for adding metadata to Cesium 3D Tiles as well as glTF models. It provides a method for declaring metadata, as well as methods for storing this metadata in JSON, binary, or texture encodings. This metadata format is shared by several Cesium specifications. This avoids repetition and enforces a consistent data layout. Specifications that reference this document must include at least one metadata encoding as described in this document, and must make clear which encodings are supported.
+This specification provides a standard format for adding metadata to Cesium 3D Tiles as well as glTF models. It provides a method for defining metadata, as well as methods for storing this metadata in JSON, binary, or texture encodings. This metadata format is shared by several Cesium specifications. This avoids repetition and enforces a consistent data layout. Specifications that reference this document must include at least one metadata encoding as described in this document, and must make clear which encodings are supported.
 
 ## Introduction
 
@@ -123,7 +123,7 @@ The following example shows the basics of how classes describe the data types, w
 }
 ```
 
-Above, we declare a `building` class to describe the street address and height of various buildings in a 3D scene. Since this information is about discrete parts of a scene, it will be best modeled as vertex metadata. Meanwhile, the `land` class describes information about the ground of the scene, such as the elevation at each point, and whether the point is water or land. Since these properties are more positional in nature, using a texture with per-texel metadata would be a good way to model this. However, note that the vertex/texel metadata distinction does not appear here in the class definition. Such details about vertex/texel-based storage are defined when instantiating the class
+Above, we define a `building` class to describe the street address and height of various buildings in a 3D scene. Since this information is about discrete parts of a scene, it will be best modeled as vertex metadata. Meanwhile, the `land` class describes information about the ground of the scene, such as the elevation at each point, and whether the point is water or land. Since these properties are more positional in nature, using a texture with per-texel metadata would be a good way to model this. However, note that the vertex/texel metadata distinction does not appear here in the class definition. Such details about vertex/texel-based storage are defined when instantiating the class
 
 For a more detailed description of how classes are defined, see the [Class Definitions](#class-definitions) section below.
 
@@ -294,7 +294,7 @@ Comparison table:
 
 This specification keeps class definition separate from instantiation. While this adds a level of indirection, there are several reasons for this separation:
 
-* It allows the class definition to be stored seperately from the data itself. This is useful when one has a dataset that has many 3D models with the same type of metadata. Then instead of re-declaring the class many times, a single definition can be shared across multiple models
+* It allows the class definition to be stored seperately from the data itself. This is useful when one has a dataset that has many 3D models with the same type of metadata. Then instead of re-defining the class many times, a single definition can be shared across multiple models
 * It allows greater flexibility for storing properties. For example, take the `elevation` property from the example above. The natural representation is to use a metadata texture. However, if the corresponding 3D model is a high-resolution terrain mesh, storing the elevations per-vertex may be more appropriate.
 
 ## Class Definitions
@@ -483,7 +483,7 @@ The following example shows a few of these cases
 
 #### Bit Depth of Numeric Types
 
-For numeric types like `UINT8` or `INT32`, the size in bits is made explicit. Even though JSON encoding only has a single `number` type for all integers and floating point numbers, the application that consumes the JSON may make a distinction. For example, C and C++ have several different integer types such as `uint8_t`, `uint32_t`. The application is responsible for interpreting the metadata using the type declared in the class definition.
+For numeric types like `UINT8` or `INT32`, the size in bits is made explicit. Even though JSON encoding only has a single `number` type for all integers and floating point numbers, the application that consumes the JSON may make a distinction. For example, C and C++ have several different integer types such as `uint8_t`, `uint32_t`. The application is responsible for interpreting the metadata using the type specified in the class definition.
 
 #### Array Types
 
@@ -758,7 +758,7 @@ The binary encoding represents the columns of an instance table using parallel a
 
 Buffer views are referred to by an integer index that counts the number of buffer views since the start of the file. There may be additional buffer views in a binary file not used for metadata. For example, in a glTF-based implementation, there may be other buffer views for storing the geometry of a 3D model.
 
-Since instance tables are a one-to-one representation of a class, each property of an instance table must correspond to a property of the same name from the class declaration.
+Since instance tables are a one-to-one representation of a class, each property of an instance table must correspond to a property of the same name from the class definition.
 
 #### Numeric Types 
 
@@ -850,7 +850,7 @@ The following code snippet and diagram show how this would be expressed using th
 
 #### Fixed-length Strings and Blobs
 
-For fixed-length strings and blobs, we can avoid the overhead of the offset buffer by declaring a constant size in bytes. Then the `bufferView` can be read using this constant size as a stride.
+For fixed-length strings and blobs, we can avoid the overhead of the offset buffer by specifying a constant length in bytes. Then the `bufferView` can be read using this constant size as a stride.
 
 For strings, define the `stringByteLength` in the property definition. All strings must conform to this byte length **exactly** when UTF-8 encoded.
 
@@ -973,7 +973,7 @@ _(lengths measured in bytes)_
 
 Variable-size arrays are arrays where the number of components can vary from instance to instance. Variable-size arrays use a similar offset buffer technique like [strings and blobs](#strings-and-blobs) do, with one main difference. Instead of storing a _byte_ offset, array offfset buffers store _array index_ offsets. For example, if this was an array of `FLOAT32`, an offset of `3` would correspond to element `3`. The byte offset would be `3 * sizeof(FLOAT32) = 12`.
 
-Offset buffers are declared in the instance table using an `offsetBufferViews` array. This array may contain references to 1-2 `bufferViews`. There are three possible configurations:
+Offset buffers are defined in the instance table using an `offsetBufferViews` array. This array may contain references to 1-2 `bufferViews`. There are three possible configurations:
 
 | Type | `offsetBufferViews` |
 |------|---------------------|
@@ -1153,7 +1153,7 @@ In the following example, a single-channel image is used to encode surface tempe
 
 Fixed-size (but not variable-size) arrays can be stored as a multi-channel texture. This is useful for encoding vector-valued properties.
 
-This is accomplished by declaring the property as an `ARRAY` type with `componentCount` no more than 4 (corresponding to the 4 RGBA channels).
+This is accomplished by defining the property as an `ARRAY` type with `componentCount` no more than 4 (corresponding to the 4 RGBA channels).
 
 The example below demonstrates representing a `vec3` using a 3-channel image. The red channel stores the x-component, the green channel stores the y-component, and the blue channel stores the z-component.
 
