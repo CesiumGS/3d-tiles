@@ -14,14 +14,6 @@
       "additionalProperties": {
         "$ref": "3DTILES_metadata.classes.class.schema.json"
       }
-    },
-    "enums": {
-      "type": "object",
-      "description": "A dictionary, where each key is an enum ID and each value is an object defining the enum.",
-      "minProperties": 1,
-      "additionalProperties": {
-        "$ref": "3DTILES_metadata.enums.enum.schema.json"
-      }
     }
   }
 }
