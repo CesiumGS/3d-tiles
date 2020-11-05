@@ -738,7 +738,9 @@ The following example compares the two formats of JSON encoding:
 
 ### Binary Encoding
 
-The binary encoding represents the columns of an instance table using parallel arrays called **property arrays**. These arrays are stored as `bufferViews` in a binary file. Since instance tables are a one-to-one representation of a class, each property of an instance table must correspond to a property of the same name from the class declaration.
+The binary encoding represents the columns of an instance table using parallel arrays called **property arrays**. These arrays are stored as **buffer views** in a binary **buffer**. A buffer is a contiguous array of bytes, while a buffer view is a subsequence of a buffer. A buffer view may be tightly packed, or it may be spread out with a constant stride between elements. Both buffer and buffer view correspond directly with [glTF concepts](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views)
+
+Since instance tables are a one-to-one representation of a class, each property of an instance table must correspond to a property of the same name from the class declaration.
 
 #### Numeric Types 
 
@@ -1184,7 +1186,7 @@ In implementations that only support PNG and JPEG images such as glTF, the avail
 * **instance** - A concrete representation of a class consisting of a value for every property.
 * **instance table** - A mapping of instance IDs to metadata for each instance. The values are stored in parallel property arrays.
 * **buffer** - a contiguous sequence of bytes used for storing binary data. This is equivalent to the [glTF `buffer` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views).
-* **buffer view** or `bufferView` - A subsequence of a buffer that represents a single array. A buffer view is completely contained within a buffer, but is not necessarily contiguous. This is equivalent to the [glTF `bufferView` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views), though this specification uses bufferViews for a broader set of data types.
+* **buffer view** or `bufferView` - A subsequence of a buffer that represents a single array. A buffer view is completely contained within a buffer, but is not necessarily contiguous (it could also be spread out with a constant stride). This is equivalent to the [glTF `bufferView` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views), though this specification uses bufferViews for a broader set of data types.
 * **property array** - A single array that stores values for one property.  
 * **element** (of a property array) - a single entry of a property array. This stores the value of one property for a single instance.
 * **component** (of an element) - For elements of type `ARRAY`, the values contained within are called components. In other words, a property array contains elements which contain components. 
