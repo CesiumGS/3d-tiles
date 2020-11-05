@@ -58,7 +58,7 @@ This extension uses the classes in compliance with the [Cesium 3D Metadata Speci
 
 #### Properties
 
-Each class provides a list of properties. A property has a `type` and, for the array types, it may include a `componentType` and a `componentCount`. Additionally, a property may be designated as `optional`, and if so, a `default` value for the property may be provided to apply to all instances of the class that do not set a value for the property. To learn more about properties, refer to the [Cesium 3D Metadata Specification](https://github.com/CesiumGS/3d-tiles/tree/3d-metadata-spec/specification/Metadata#classes).
+Each class provides a list of properties. A property has a `type` and, for the array types, it may include a `componentType` and a `componentCount`. Additionally, a property may be designated as `optional`, and if so, a `default` value for the property may be provided to apply to all instances of the class that do not set a value for the property. For example, a property of `ARRAY` type may provide an empty array as the `default`. To learn more about properties, refer to the [Cesium 3D Metadata Specification](https://github.com/CesiumGS/3d-tiles/tree/3d-metadata-spec/specification/Metadata#classes).
 
 ```javascript
 "classes": {
