@@ -1,5 +1,5 @@
 # 3DTILES_content_gltf
-
+**Version 0.0.0**, November, 6, 2020.
 ## Contributors
 
 * Sean Lilley, Cesium
