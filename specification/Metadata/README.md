@@ -45,7 +45,7 @@ Draft
       - [Blob Base64 Encoding](#blob-base64-encoding)
       - [Fixed-length Strings and Blobs](#fixed-length-strings-and-blobs)
       - [Optional and Default Values](#optional-and-default-values)
-      - [Single Intance Shorthand](#single-intance-shorthand)
+      - [Single Instance Shorthand](#single-instance-shorthand)
     - [Binary Encoding](#binary-encoding-1)
       - [Numeric Types](#numeric-types)
       - [Strings and Blobs](#strings-and-blobs)
@@ -62,7 +62,7 @@ Draft
 
 ## Abstract
 
-This specification provides a standard format for adding metadata to Cesium 3D Tiles as well as glTF models. It provides a method for declaring metadata, as well as methods for storing this metadata in JSON, binary, or texture format. This metadata format is shared by several Cesium specifications. This avoids repetition and enforces a consistent data layout. Specifications that reference this document must include at least one metadata encoding as described in this document, and must make clear which encodings are supported.
+This specification provides a standard format for adding metadata to Cesium 3D Tiles as well as glTF models. It provides a method for declaring metadata, as well as methods for storing this metadata in JSON, binary, or texture encodings. This metadata format is shared by several Cesium specifications. This avoids repetition and enforces a consistent data layout. Specifications that reference this document must include at least one metadata encoding as described in this document, and must make clear which encodings are supported.
 
 ## Introduction
 
@@ -93,8 +93,8 @@ The following example shows the basics of how classes describe the data types, w
 ```json
 {
   "classes": {
-    "buildings": {
-      "name": "Buildings",
+    "building": {
+      "name": "Building",
       "properties": {
         "address": {
           "name": "Street Address",
@@ -123,7 +123,7 @@ The following example shows the basics of how classes describe the data types, w
 }
 ```
 
-Above, we declare a `buildings` class to describe the street address and height of various buildings in a 3D scene. Since this information is about discrete parts of a scene, it will be best modeled as vertex metadata. Meanwhile, the `land` class describes information about the ground of the scene, such as the elevation at each point, and whether the point is water or land. Since these properties are more positional in nature, using a texture with per-texel metadata would be a good way to model this. However, note that the vertex/texel metadata distinction does not appear here in the class definition. Such details about vertex/texel-based storage are defined when instantiating the class
+Above, we declare a `building` class to describe the street address and height of various buildings in a 3D scene. Since this information is about discrete parts of a scene, it will be best modeled as vertex metadata. Meanwhile, the `land` class describes information about the ground of the scene, such as the elevation at each point, and whether the point is water or land. Since these properties are more positional in nature, using a texture with per-texel metadata would be a good way to model this. However, note that the vertex/texel metadata distinction does not appear here in the class definition. Such details about vertex/texel-based storage are defined when instantiating the class
 
 For a more detailed description of how classes are defined, see the [Class Definitions](#class-definitions) section below.
 
@@ -135,7 +135,7 @@ A brief overview of each encoding follows to explain the concepts. The full deta
 
 #### Instance Tables
 
-An instance table is a mapping of (**instance IDs**) to metadata values which are stored in parallel vectors called **property arrays**. Instance IDs are simply integer indices into these arrays. The `i-th` value of every property array in an instance table together makes up the metadata for the `i-th` instance. 
+An instance table is a mapping of **instance IDs** to metadata values which are stored in parallel arrays called **property arrays**. Instance IDs are simply integer indices into these arrays. The `i-th` value of every property array in an instance table together makes up the metadata for the `i-th` instance. 
 
 The instance table has two possible representations on disk: JSON and binary. The following sections compare the two encodings.
 
@@ -143,14 +143,14 @@ The instance table has two possible representations on disk: JSON and binary. Th
 
 JSON Encoding is designed for readability and convenience for small datasets. Data values are directly encoded in JSON wherever possible.
 
-The following table shows a possible JSON encoding for the `buildings` class
+The following table shows a possible JSON encoding for the `building` class
 defined above.
 
 ```json
 {
   "instanceTables": {
-    "buildingsTable": {
-      "class": "buildings",
+    "buildingTable": {
+      "class": "building",
       "count": 2,
       "properties": {
         "address": {
@@ -167,16 +167,16 @@ defined above.
 
 #### Binary Encoding
 
-Binary encoding is the preferred format in most cases since it is designed for storage and runtime efficiency. It is designed with large datasets in mind.
+Binary encoding is the preferred encoding in most cases since it is designed for storage and runtime efficiency. It is designed with large datasets in mind.
 
 The binary encoding is more involved than the JSON, as there are many considerations about how to pack and align the data efficiently. A detailed discussion of this can be found in the [Binary Encoding](#binary-encoding) section further below
-in this document. For now, here is a small example to show how the same `buildings` class described above would be described with a instance table.
+in this document. For now, here is a small example to show how the same `building` class described above would be described with a instance table.
 
 ```json
 {
   "instanceTables": {
-    "buildingsTable": {
-      "class": "buildings",
+    "buildingTable": {
+      "class": "building",
       "count": 2,
       "properties": {
         "address": {
@@ -253,7 +253,7 @@ Comparison table:
 
 This specification keeps class definition separate from instantiation. While this adds a level of indirection, there are several reasons for this separation:
 
-* It allows the class definition to be stored seperately from the data itself. This is useful when one has a dataset that has many 3D models with the same shape of metadata. Then instead of re-declaring the class many times, a single definition can be shared across multiple models
+* It allows the class definition to be stored seperately from the data itself. This is useful when one has a dataset that has many 3D models with the same type of metadata. Then instead of re-declaring the class many times, a single definition can be shared across multiple models
 * It allows greater flexibility for storing properties. For example, take the `elevation` property from the example above. The natural representation is to use a metadata texture. However, if the corresponding 3D model is a high-resolution terrain mesh, storing the elevations per-vertex may be more appropriate.
 
 ## Class Definitions
@@ -268,7 +268,7 @@ Also note that both classes and properties can be annotated with display names a
 {
   "classes": {
     "ship": {
-      "name": "Ships",
+      "name": "Ship",
       "description": "Sailing ships seen in the ocean",
       "properties": {
         "length": {
@@ -519,7 +519,7 @@ Base64 is easy to transmit as it only uses ASCII characters, but is not very eff
 #### Fixed-length Strings and Blobs
 
 In some cases, strings have a known, fixed length. For example, an application may require dates to be entered in `YYYYMMDD` format, which will fit in exactly 8 bytes. For this,
-the specification provides a `stringByteLength` property. In the JSON encoding, this byte length refers to the length of the string when UTF-8 encoded, regardless of how it is deplayed.
+the specification provides a `stringByteLength` property. In the JSON encoding, this byte length refers to the length of the string when UTF-8 encoded, regardless of how it is displayed.
 
 `blobByteLength` is similar, but used for binary data. The length is measured as the _decoded_ binary length, not the length of the Base64 string.
 
@@ -531,7 +531,7 @@ the specification provides a `stringByteLength` property. In the JSON encoding, 
         "date": {
           "name": "Date (YYYYMMDD)",
           "type": "STRING",
-          "stringByteLength": 4
+          "stringByteLength": 8
         },
         "fixedBlobProperty": {
           "type": "BLOB",
@@ -569,7 +569,7 @@ In JSON, optional values can be expressed by using `null` in place of the value.
     "sensor": {
       "name": "Temperature Sensor",
       "properties": {
-        "currentValue": {
+        "currentTemperature": {
           "name": "Current temperature",
           "description": "A basic example of using `null` for unknown values",
           "type": "FLOAT32",
@@ -597,7 +597,7 @@ In JSON, optional values can be expressed by using `null` in place of the value.
       "class": "sensor",
       "count": 3,
       "properties": {
-        "currentValue": {
+        "currentTemperature": {
           "values": [
             0.9,
             0.8,
@@ -624,13 +624,13 @@ In JSON, optional values can be expressed by using `null` in place of the value.
 }
 ```
 
-#### Single Intance Shorthand
+#### Single Instance Shorthand
 
 In most situations, there are several instances of a class. Therefore, an array is a natural choice for the JSON representation. In cases where only a single instance is used, this specification allows for a simpler property dictionary.
 
 To enable this shorthand, omit the `count` field. Then `properties` is interpreted as a dictionary of property names to single values. This is more convenient than the usual behavior where a nested object is used for each property.
 
-The following example compares the two formats.
+The following example compares the two formats of JSON encoding:
 
 ```json
 {
@@ -722,15 +722,15 @@ Here is an example of how to define an instance table for basic integer and floa
 
 ![Numeric types binary layout](figures/numeric-types.png)
 
-(lengths measured in bytes)
+_(lengths measured in bytes)_
 
 #### Strings and Blobs
 
 Strings and binary blobs are somewhat similar when represented in binary. They both represent a sequence of bytes treated as a single unit. However, the encoding and intent is different. Strings must be UTF-8 encoded, which means each Unicode code point can may take up 1-4 bytes. Meanwhile, binary blobs are an arbitrary sequence of bytes.
 
-Strings and binary blobs are typically variable-length in terms of number of code points/bytes respectively. In order to store these efficiently in binary, some indirection is useful. The elements are packed tightly into a single `bufferView`. The index of this `bufferView` is refrerenced in the instance table's definition via the `bufferView` property.
+Strings and binary blobs are typically variable-length in terms of number of code points/bytes respectively. In order to store these efficiently in binary, some indirection is useful. The elements are packed tightly into a single `bufferView`. The index of this `bufferView` is referenced in the instance table's definition via the `bufferView` property.
 
-Since the length of each element is not predictable, an **offset buffer** is used instead. If there are `N` strings/blobs in the property array, then the offset buffer has `N + 1` elements. The first `N` of these point to the start byte of the each string/blob, while the last one points to the byte immediately after the last string. This way, the length of the `i-th` string (0-indexed) can be determined with the formula `length = offsetBuffer[i + 1] - offsetBuffer[i]`. The offset buffer is referenced by adding the index to the `offsetBufferViews` array in the JSON. For strings and blobs, this will always be the **rightmost** index in the array. More on `offsetBufferViews` can be found in the [Variable-size Arrays](#variable-size-arrays) section below.
+Since the length of each element is not predictable, an **offset buffer** is used instead. If there are `N` strings/blobs in the property array, then the offset buffer has `N + 1` elements. The first `N` of these point to the start byte of the each string/blob, while the last one points to the byte immediately after the last string/blob. This way, the length of the `i-th` string (0-indexed) can be determined with the formula `length = offsetBuffer[i + 1] - offsetBuffer[i]`. The offset buffer is referenced by adding the index to the `offsetBufferViews` array in the JSON. For strings and blobs, this will always be the **rightmost** index in the array. More on `offsetBufferViews` can be found in the [Variable-size Arrays](#variable-size-arrays) section below.
 
 The size of each offset can be configured with `offsetComponentType`. It defaults to `UINT32`, but it can be made as small as `UINT8` for small datasets or as large as `UINT64` for datasets with a large number of elements.
 
@@ -781,7 +781,7 @@ For strings, define the `stringByteLength` in the property definition. All strin
     "date": {
       "name": "Date YYYYMMDD",
       "type": "STRING",
-      "stringByteLength": 6
+      "stringByteLength": 8
     }
   }
 }
@@ -789,7 +789,7 @@ For strings, define the `stringByteLength` in the property definition. All strin
 
 ![Fixed-length string diagram](figures/fixed-length-strings.png)
 
-(lengths measured in bytes)
+_(lengths measured in bytes)_
 
 For binary blobs, the usage is similar. Use `blobByteLength` to describe the fixed length of each blob.
 
@@ -807,7 +807,7 @@ For binary blobs, the usage is similar. Use `blobByteLength` to describe the fix
 
 ![Fixed-length blob diagram](figures/fixed-length-blobs.png)
 
-(lengths measured in bytes)
+_(lengths measured in bytes)_
 
 #### Arrays
 
@@ -835,7 +835,7 @@ Fixed-length arrays are useful for representing vector and matrix types. Here ar
       // ivec2
       "cellId": {
         "type": "ARRAY",
-        "componentType": "UINT32",
+        "componentType": "INT32",
         "componentCount": 2
       },
       // mat4
@@ -887,7 +887,7 @@ Since this example has many properties, the two instances are color-coded for cl
 
 ![Graphics array example](figures/graphics.png)
 
-(lengths measured in bytes)
+_(lengths measured in bytes)_
 
 #### Variable-size Arrays
 
@@ -1025,7 +1025,7 @@ To meet this alignment requirement, padding is sometimes needed between `bufferV
 
 ![Binary alignment diagram](figures/binary-alignment.png)
 
-(lengths measured in bytes)
+_(lengths measured in bytes)_
 
 ### Metadata Texture Encoding
 
