@@ -281,7 +281,7 @@ JSON encoding is useful for encoding data where readability matters. This works 
 
 Binary encoding is designed for storage efficiency, and is designed for use with large datasets. Data is packed in parallel arrays, one per property. This allows for storage optimizations based on data type, such as storing boolean properties as a tightly packed bit vector. This encoding is more involved than the JSON encoding, but it is much preferred in most cases where performance is an important consideration.
 
-These first two encodings are designed for discrete properties indexed by instance ID. In contrast, metadata textures are used when instances are identified by spatial position (i.e. texture coordinates within a texture). Heightmaps and normal maps are two examples. This type of per-texel metadata has many uses, but is also somewhat limited by the image formats used to store data.
+These first two encodings are designed for discrete properties indexed by instance ID. In contrast, metadata textures are used when instances are identified by spatial position (i.e. texture coordinates within a texture). Heightmaps and vector fields are two examples. This type of per-texel metadata has many uses, but is also somewhat limited by the image formats used to store data.
 
 Comparison table: 
 
