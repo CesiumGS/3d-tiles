@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
-  "title": "Enum Object",
+  "title": "Enum",
   "type": "object",
   "description": "An object to define the data type and values for the enum",
   "properties": {

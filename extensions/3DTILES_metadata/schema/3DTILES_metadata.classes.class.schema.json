@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
-  "title": "Class Object",
+  "title": "Class",
   "type": "object",
   "description": "A class defining the properties that distinguish one set of instances from another.",
   "properties": {
