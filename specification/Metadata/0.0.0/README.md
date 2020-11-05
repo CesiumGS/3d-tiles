@@ -703,6 +703,8 @@ In most situations, there are several instances of a class. Therefore, an array 
 
 To enable this shorthand, omit the `count` field. Then `properties` is interpreted as a dictionary of property names to single values. This is more convenient than the usual behavior where a nested object is used for each property.
 
+Optional properties may be omitted when using the shorthand, as in the case of the `company` field in the example below.
+
 The following example compares the two formats of JSON encoding:
 
 ```json
