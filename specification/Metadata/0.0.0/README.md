@@ -617,8 +617,8 @@ the specification provides a `stringByteLength` property. In the JSON encoding, 
         },
         "blobProperty": {
           "values": [
-            "AAECAw=="
-            "BAUGBw=="
+            "AAECAw==",
+            "BAUGBw==",
             "CAkKCw=="
           ]
         }
@@ -664,7 +664,7 @@ In JSON, optional values can be expressed by using `null` in place of the value.
         }
       }
     }
-  }
+  },
   "instanceTables": {
     "sensorTable": {
       "class": "sensor",
