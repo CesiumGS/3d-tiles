@@ -92,7 +92,7 @@
     },
     "default": {
       "type": ["boolean", "number", "string", "array"],
-      "description": "A default value to use when no value for this property is specified.  This happens only when using JSON encoding and `null` is used to indicate no value. If used, `optional` must be set to `true`. The data type here must match the property declaration. However, `BLOB` properties must be encoded in Base64 encoding since JSON does not support arbitrary binary sequences."
+      "description": "A default value to use when this property is not defined or is set to `null`. If used, `optional` must be set to true. This property is only valid when using JSON encoding. The type of the value must match the property declaration (e.g. for a `STRING`, use a JSON string. For an integer or floating point value, use a JSON number). However, `BLOB` properties must be encoded in Base64 encoding since JSON does not support arbitrary binary sequences."
     },
     "optional": {
       "type": "boolean",
