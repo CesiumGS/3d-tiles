@@ -74,7 +74,7 @@ Layers are declared inside the top-level `3DTILES_layers` extension dictionary. 
 }
 ```
 
-The [3DTILES_metadata extension]() enables the declaration of metadata `class` objects, which define a list of properties a conforming instance would need to provide. A layer in 3DTILES_layers may assign to itself a class declared in 3DTILES_metadata to provide additional metadata. Layers must follow the [single instance syntax]() for assigning values to the its `properties`. For example,
+The [3DTILES_metadata extension]() enables the declaration of metadata `class` objects, which define a list of properties a conforming instance would need to provide. A layer in 3DTILES_layers may assign to itself a class declared in 3DTILES_metadata to provide additional metadata. Layers must follow the [single instance syntax]() for assigning values to its `properties`. For example,
 
 ```javascript
 {
