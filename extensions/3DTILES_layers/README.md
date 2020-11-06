@@ -101,7 +101,7 @@ The 3DTILES_metadata extensions enables the declaration of metadata `class` obje
 
 ### Layer Content
 
-To associate content with a layer, it must be added as an object to the `contents` array of the extension declared at the `root` of the tileset.json. To pair the content to a layer, we must set the `layer` property of the layer content object to the ID of the layer declared at the top level extension. This layer object needs to declare the `layer`, the `uri` of its contents and the `mimeType` for the content linked in the `uri`. For example,
+Layer content is associated with a tile by adding the `3DTILES_layers` extension to the [tile JSON](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tile-json). The extension declares a `contents` array, which must contain one or more layer objects. Each layer object provides `uri` and a `mimeType` for its contents. The content here might be tile content, like a `b3dm` or a `glTF` file, or it may point to an external `tileset.json`. To associate this layer object with [metadata](#layer-metadata), the `layer` property may be set to the ID of a layer declared in the top-level extension. For example,
 
 ```javascript
 {
