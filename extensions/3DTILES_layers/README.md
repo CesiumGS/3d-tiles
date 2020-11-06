@@ -84,8 +84,9 @@ The [3DTILES_metadata extension]() enables the declaration of metadata `class` o
         }
       },
       "trees": {
-        "name": "Buildings",
-        "description": "3D Buildings Layer",
+        "name": "Trees",
+        "description": "3D Vegetation Layer",,
+        "class": "cityLayer",
         "properties": {
           "lastModified": "20201030T030100-0400",
           "highlightColor": "RED"
@@ -93,7 +94,8 @@ The [3DTILES_metadata extension]() enables the declaration of metadata `class` o
       },
       "roads": {
         "name": "Roads",
-        "description": "Vector Road Layer",
+        "description": "Vector Road Layer",,
+        "class": "cityLayer",
         "properties": {
           "lastModified": "20201030T030200-0400",
           "highlightColor": "BLUE"
@@ -118,6 +120,14 @@ Layer content is associated with a tile by adding the `3DTILES_layers` extension
       "buildings": {
         "name": "Buildings",
         "description": "3D Buildings Layer"
+      },
+      "trees": {
+        "name": "Buildings",
+        "description": "3D Vegetation Layer"
+      },
+      "roads": {
+        "name": "Roads",
+        "description": "Vector Road Layer"
       }
     }
   },
