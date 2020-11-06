@@ -85,7 +85,7 @@ Guiding principles for this specification include:
 
 A **class** describes a collection of related pieces of metadata called **properties** and their respective data types. In some ways, this is similar to describing the columns of a database table. However, this analogy is not completely applicable, as this specification allows for texture storage, not just columnar formats.
 
-A class definition describes what metadata is available. However, it does not describe how this metadata is stored. The section on [Instantiation](#instantiation) will provide more information.
+A class definition describes what metadata is available. However, it does not describe how this metadata is stored. The section on [Instances](#instances) will provide more information.
 
 The following example shows the basics of how classes describe the data types, without describing where the data is stored. The following section will show how to connect these classes to the actual metadata in various storage formats.
 
@@ -215,7 +215,7 @@ defined above.
 
 Binary encoding is the preferred encoding in most cases since it is designed for storage and runtime efficiency. It is designed with large datasets in mind.
 
-The binary encoding is more involved than the JSON, as there are many considerations about how to pack and align the data efficiently. A detailed discussion of this can be found in the [Binary Encoding](#binary-encoding) section further below
+The binary encoding is more involved than the JSON, as there are many considerations about how to pack and align the data efficiently. A detailed discussion of this can be found in the other [Binary Encoding](#binary-encoding-1) section further below
 in this document. For now, here is a small example to show how the same `building` class described above would be described with an instance table.
 
 ```json
