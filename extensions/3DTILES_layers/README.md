@@ -1,4 +1,4 @@
-# 3DTILES_metadata
+# 3DTILES_layers
 
 This extension to 3D Tiles enables assigning tile content to layers. Metadata may be associated with the layers using [3DTILES_metadata](../3DTILES_metadata/README.md).
 
