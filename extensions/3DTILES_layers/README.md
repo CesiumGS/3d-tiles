@@ -12,7 +12,9 @@ This extension provides a mechanism for tiles to have multiple contents that may
 
 This functionality is useful for pairing additional application specific content with the geometric content of a tile: an asset payload for use in game engines, for example. A tileset may choose to bundle a navigation mesh as a content layer to enable simulation capabilities. At runtime, clients can leverage layers to enhance visualization by toggling, styling or ordering the content layers.
 
-A layer may also associate application-specific metadata by conforming to a `class` defined in [3DTILES_metadata](). Metadata must be declared in conformance with the [Cesium 3D Metadata Specification]().
+A layer may also associate application-specific metadata by conforming to a `class` defined in [3DTILES_metadata](). Metadata must be declared in conformance with the [Cesium 3D Metadata Specification](). The following diagram illustrates the relationship between these documents:
+
+![3DTILES_layers Spec Map](figures/spec_map.jpg)
 
 ## Status
 
