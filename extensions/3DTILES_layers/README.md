@@ -8,7 +8,7 @@ A layer is a user-defined grouping of content - for example, a tileset of a city
 
 This extension provides a mechanism for tiles to have multiple contents that may be requested independently from each other. For a dataset that may have several layers using the same tiling scheme, this extension removes the need to separate the layers into multiple `tileset.json` files.
 
-This functionality is useful for pairing additional application specific content with the geometric content of a tile: for example, an asset payload for use in game engines. For example, a tileset may choose to bundle a navigation mesh as a layer to enable simulation capabilities. At runtime, clients can leverage layers to enhance visualization by toggling, styling or ordering layers.
+This functionality is useful for pairing additional application specific content with the geometric content of a tile: an asset payload for use in game engines, for example. A tileset may choose to bundle a navigation mesh as a content layer to enable simulation capabilities. At runtime, clients can leverage layers to enhance visualization by toggling, styling or ordering the content layers.
 
 A layer may also associate application-specific metadata by conforming to a `class` defined in [3DTILES_metadata](). Metadata must be declared in conformance with the [Cesium 3D Metadata Specification]().
 
