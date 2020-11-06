@@ -30,6 +30,14 @@ Layers are declared inside the top-level `3DTILES_layers` extension dictionary. 
       "buildings": {
         "name": "Buildings",
         "description": "3D Buildings Layer"
+      },
+      "trees": {
+        "name": "Trees",
+        "description": "3D Vegetation Layer"
+      },
+      "roads": {
+        "name": "Roads",
+        "description": "Vector Road Layer"
       }
     }
   }
@@ -48,7 +56,11 @@ The 3DTILES_metadata extensions enables the declaration of metadata `class` obje
       "classes": {
         "cityLayer": {
           "properties": {
-            "LastModified": {
+            "lastModified": {
+              "type": "STRING",
+              "optional": false
+            },
+            "highlightColor": {
               "type": "STRING",
               "optional": false
             }
@@ -62,7 +74,24 @@ The 3DTILES_metadata extensions enables the declaration of metadata `class` obje
         "description": "3D Buildings Layer",
         "class": "cityLayer",
         "properties": {
-          "LastModified": "20201030T030000-0400"
+          "lastModified": "20201030T030000-0400",
+          "highlightColor": "GREEN"
+        }
+      },
+      "trees": {
+        "name": "Buildings",
+        "description": "3D Buildings Layer",
+        "properties": {
+          "lastModified": "20201030T030100-0400",
+          "highlightColor": "RED"
+        }
+      },
+      "roads": {
+        "name": "Roads",
+        "description": "Vector Road Layer",
+        "properties": {
+          "lastModified": "20201030T030200-0400",
+          "highlightColor": "BLUE"
         }
       }
     }
@@ -95,6 +124,16 @@ To associate content with a layer, it must be added as an object to the `content
             "layer": "buildings",
             "mimeType": "application/json",
             "uri": "layers/buildings/tileset.json"
+          },
+          {
+            "layer": "trees",
+            "mimeType": "application/json",
+            "uri": "layers/trees/tileset.json"
+          },
+          {
+            "layer": "roads",
+            "mimeType": "application/json",
+            "uri": "layers/roads/tileset.json"
           }
         ]
       }
