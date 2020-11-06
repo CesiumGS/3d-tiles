@@ -4,6 +4,12 @@
 
 This extension to 3D Tiles enables grouping of different types of content into layers. A layer is a user-defined grouping of content - for example, a tileset of a city may have a buildings layer, a roads layer and a vegetation layer. Each layer follows an independent layout for its tiles and there are not dependencies between layers. A layer may also associate with itself some metadata by conforming to a `class` declared in `3DTILES_metadata`.
 
+This extension to 3D Tiles enables assigning tile content to layers. Layers provide a mechanism for tiles to have multiple contents that may be requested independently from each other. For a dataset that may have several layers using the same tiling scheme, this extension removes the need to separate the layers into multiple `tileset.json` files.
+
+This functionality is useful for pairing additional application specific content with the geometric content of a tile: for example, an asset payload for use in game engines. For example, a tileset may choose to bundle a navigation mesh as a layer to enable simulation capabilities. At runtime, clients can leverage layers to enhance visualization by toggling, styling or ordering layers.
+
+A layer may also associate application-specific metadata by conforming to a `class` defined in [3DTILES_metadata](). Metadata must be declared in conformance with the [Cesium 3D Metadata Specification]().
+
 ## Contributors
 
 Cesium
