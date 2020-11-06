@@ -110,7 +110,7 @@ The [3DTILES_metadata extension](../../3DTILES_metadata/0.0.0/README.md) enables
       },
       "trees": {
         "name": "Trees",
-        "description": "3D Vegetation Layer",,
+        "description": "3D Vegetation Layer",
         "class": "cityLayer",
         "properties": {
           "lastModified": "20201030T030100-0400",
@@ -119,7 +119,7 @@ The [3DTILES_metadata extension](../../3DTILES_metadata/0.0.0/README.md) enables
       },
       "roads": {
         "name": "Roads",
-        "description": "Vector Road Layer",,
+        "description": "Vector Road Layer",
         "class": "cityLayer",
         "properties": {
           "lastModified": "20201030T030200-0400",
