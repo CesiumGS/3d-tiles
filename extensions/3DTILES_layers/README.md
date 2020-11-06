@@ -23,7 +23,7 @@ Layers are declared inside the top-level `3DTILES_layers` extension dictionary. 
 ```javascript
 {
   "asset": {
-    "version": "2.0.0-alpha.0"
+    "version": "1.0"
   },
   "extensions": {
     "3DTILES_layers": {
@@ -41,7 +41,7 @@ Additionally, if a layer needs to associate some metadata with itself, there nee
 ```javascript
 {
   "asset": {
-    "version": "2.0.0-alpha.0"
+    "version": "1.0"
   },
   "extensions": {
     "3DTILES_metadata": {
@@ -77,7 +77,7 @@ To associate content with a layer, it must be added as an object to the `content
 ```javascript
 {
   "asset": {
-    "version": "2.0.0-alpha.0"
+    "version": "1.0"
   },
   "extensions": {
     "3DTILES_layers": {
