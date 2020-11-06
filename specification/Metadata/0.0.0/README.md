@@ -85,7 +85,7 @@ Guiding principles for this specification include:
 
 A **class** describes a collection of related pieces of metadata called **properties** and their respective data types. In some ways, this is similar to describing the columns of a database table. However, this analogy is not completely applicable, as this specification allows for texture storage, not just columnar formats.
 
-A class definition describes what metadata is available. However, it does not describe how this metadata is stored. The section on [Instantiation](#instantiation) will provide more information.
+A class definition describes what metadata is available. However, it does not describe how this metadata is stored. The section on [Instances](#instances) will provide more information.
 
 The following example shows the basics of how classes describe the data types, without describing where the data is stored. The following section will show how to connect these classes to the actual metadata in various storage formats.
 
@@ -215,7 +215,7 @@ defined above.
 
 Binary encoding is the preferred encoding in most cases since it is designed for storage and runtime efficiency. It is designed with large datasets in mind.
 
-The binary encoding is more involved than the JSON, as there are many considerations about how to pack and align the data efficiently. A detailed discussion of this can be found in the [Binary Encoding](#binary-encoding) section further below
+The binary encoding is more involved than the JSON, as there are many considerations about how to pack and align the data efficiently. A detailed discussion of this can be found in the other [Binary Encoding](#binary-encoding-1) section further below
 in this document. For now, here is a small example to show how the same `building` class described above would be described with an instance table.
 
 ```json
@@ -349,7 +349,7 @@ In this specification, the following normalization rules are applied when the pr
 * For unsigned integer types (`UINT8, UINT16, UINT32, UINT64`), the values will be rescaled to the range `[0, 1]` (inclusive).
 * For signed integer types (`INT8, INT16, INT32, INT64`), values will be rescaled to the range `[-1, 1]` (inclusive).
 
-**Implementation Note:** Depending on the implementation and the chosen integer type, there may be some loss of precision in the normalized values. For example, if the implementation uses 32-bit floating point variables to represent the normalized value, there are only 23 bits in the mantissa. In this case, if the value to normalize is 16-, 32- or 64-bit, a number of lower bits will be truncated when normalized. Therefore, it is highly recommended that implementations use the highest precision floats available for representing the result, and make this choice clear.
+**Implementation Note:** Depending on the implementation and the chosen integer type, there may be some loss of precision in the normalized values. For example, if the implementation uses 32-bit floating point variables to represent the normalized value, there are only 23 bits in the mantissa. In this case, if the value to normalize is 32- or 64-bit, a number of lower bits will be truncated when normalized. Therefore, it is highly recommended that implementations use the highest precision floats available for representing the result, and make this choice clear.
 
 ### Arrays
 
@@ -439,7 +439,7 @@ The JSON encoding is the simplest encoding, designed to be human-readable.
 
 #### Basic Types
 
-For JSON encoding, basic types include integers, floating point numbers, booleans, and strings. These are encoded in the most natural type available in JSON. Numeric types are represented as `number`, booleans as `boolean`, and `string` as `string`.
+For JSON encoding, basic types include integers, floating point numbers, booleans, and strings. These are encoded in whatever JSON type is most appropriate. Numeric types are represented as `number`, booleans as `boolean`, and strings as `string`.
 
 The following example shows a few of these cases
 
@@ -895,7 +895,7 @@ _(lengths measured in bytes)_
 
 #### Arrays
 
-This specification allows both fixed-size arrays (this section) and variable-sized arrays (next section) to represent multiple values per-instance.
+This specification allows both fixed-size arrays (this section) and [variable-sized arrays](#variable-size-arrays) to represent multiple values per-instance.
 
 Fixed-length arrays are useful for representing vector and matrix types. Here are a few examples of how common computer graphics types are represented:
 
