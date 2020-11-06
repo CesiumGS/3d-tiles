@@ -439,7 +439,7 @@ The JSON encoding is the simplest encoding, designed to be human-readable.
 
 #### Basic Types
 
-For JSON encoding, basic types include integers, floating point numbers, booleans, and strings. These are encoded in whatever JSON type is most natural. Numeric types are represented as `number`, booleans as `boolean`, and strings as `string`.
+For JSON encoding, basic types include integers, floating point numbers, booleans, and strings. These are encoded in whatever JSON type is most appropriate. Numeric types are represented as `number`, booleans as `boolean`, and strings as `string`.
 
 The following example shows a few of these cases
 
