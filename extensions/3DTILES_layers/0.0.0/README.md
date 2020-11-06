@@ -40,7 +40,7 @@ This extension provides a mechanism for tiles to have multiple contents that may
 
 This functionality is useful for pairing additional application specific content with the geometric content of a tile: an asset payload for use in game engines, for example. A tileset may choose to bundle a navigation mesh as a content layer to enable simulation capabilities. At runtime, clients can leverage layers to enhance visualization by toggling, styling or ordering the content layers.
 
-A layer may also associate application-specific metadata by conforming to a `class` defined in [3DTILES_metadata](). Metadata must be declared in conformance with the [Cesium 3D Metadata Specification](). The following diagram illustrates the relationship between these documents:
+A layer may also associate application-specific metadata by conforming to a `class` defined in [3DTILES_metadata](../../3DTILES_metadata/0.0.0/README.md). Metadata must be declared in conformance with the [Cesium 3D Metadata Specification](../../../specification/Metadata/0.0.0/README.md). The following diagram illustrates the relationship between these documents:
 
 ![3DTILES_layers Spec Map](figures/spec_map.jpg)
 
@@ -74,7 +74,7 @@ Layers are declared inside the top-level `3DTILES_layers` extension dictionary. 
 }
 ```
 
-The [3DTILES_metadata extension]() enables the declaration of metadata `class` objects, which define a list of properties a conforming instance would need to provide. A layer in 3DTILES_layers may assign to itself a class declared in 3DTILES_metadata to provide additional metadata. Layers must follow the [single instance syntax]() for assigning values to its `properties`. For example,
+The [3DTILES_metadata extension](../../3DTILES_metadata/0.0.0/README.md) enables the declaration of metadata `class` objects, which define a list of properties a conforming instance would need to provide. A layer in 3DTILES_layers may assign to itself a class declared in 3DTILES_metadata to provide additional metadata. Layers must follow the [single instance syntax](../../../specification/Metadata/0.0.0/README.md#single-instance-shorthand) for assigning values to its `properties`. For example,
 
 ```javascript
 {
