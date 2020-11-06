@@ -1,5 +1,7 @@
 # 3DTILES_layers
 
+**Version 0.0.0**, November 6, 2020
+
 ## Overview
 
 This extension to 3D Tiles enables assigning tile content to layers. 
@@ -11,6 +13,27 @@ This extension provides a mechanism for tiles to have multiple contents that may
 This functionality is useful for pairing additional application specific content with the geometric content of a tile: an asset payload for use in game engines, for example. A tileset may choose to bundle a navigation mesh as a content layer to enable simulation capabilities. At runtime, clients can leverage layers to enhance visualization by toggling, styling or ordering the content layers.
 
 A layer may also associate application-specific metadata by conforming to a `class` defined in [3DTILES_metadata](). Metadata must be declared in conformance with the [Cesium 3D Metadata Specification]().
+
+## Status
+
+Draft
+
+## Dependencies
+
+Written against the 3D Tiles 1.0 specification.
+
+## Contents
+
+- [3DTILES_layers](#3dtiles_layers)
+  - [Overview](#overview)
+  - [Status](#status)
+  - [Dependencies](#dependencies)
+  - [Contents](#contents)
+  - [Contributors](#contributors)
+  - [Schema Changes](#schema-changes)
+    - [Layer Metadata](#layer-metadata)
+    - [Layer Content](#layer-content)
+
 
 ## Contributors
 
