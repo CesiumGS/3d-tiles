@@ -2,6 +2,34 @@
 
 **Version 0.0.0**, November 6, 2020
 
+## Contributors
+
+* Sam Suhag, Cesium
+* Sean Lilley, Cesium
+* Peter Gagliardi, Cesium
+* Bao Tran, Cesium
+
+## Status
+
+Draft
+
+## Dependencies
+
+Written against the 3D Tiles 1.0 specification.
+
+## Contents
+
+- [3DTILES_layers](#3dtiles_layers)
+  - [Contributors](#contributors)
+  - [Status](#status)
+  - [Dependencies](#dependencies)
+  - [Contents](#contents)
+  - [Overview](#overview)
+  - [Schema Changes](#schema-changes)
+    - [Layer Metadata](#layer-metadata)
+    - [Layer Content](#layer-content)
+
+
 ## Overview
 
 This extension to 3D Tiles enables assigning tile content to layers. 
@@ -15,34 +43,6 @@ This functionality is useful for pairing additional application specific content
 A layer may also associate application-specific metadata by conforming to a `class` defined in [3DTILES_metadata](). Metadata must be declared in conformance with the [Cesium 3D Metadata Specification](). The following diagram illustrates the relationship between these documents:
 
 ![3DTILES_layers Spec Map](figures/spec_map.jpg)
-
-## Status
-
-Draft
-
-## Dependencies
-
-Written against the 3D Tiles 1.0 specification.
-
-## Contents
-
-- [3DTILES_layers](#3dtiles_layers)
-  - [Overview](#overview)
-  - [Status](#status)
-  - [Dependencies](#dependencies)
-  - [Contents](#contents)
-  - [Contributors](#contributors)
-  - [Schema Changes](#schema-changes)
-    - [Layer Metadata](#layer-metadata)
-    - [Layer Content](#layer-content)
-
-
-## Contributors
-
-* Sam Suhag, Cesium
-* Sean Lilley, Cesium
-* Peter Gagliardi, Cesium
-* Bao Tran, Cesium
 
 ## Schema Changes
 
