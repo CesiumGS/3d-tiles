@@ -20,11 +20,7 @@
             },
             "minItems": 1
         },
-        "extensions": {
-            "$ref": "extension.schema.json"
-        },
-        "extras" : {
-            "$ref": "extras.schema.json"
-        }
+        "extensions": {},
+        "extras" : {}
     }
 }
