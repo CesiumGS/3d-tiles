@@ -27,7 +27,7 @@ Layers are declared inside the top-level `3DTILES_layers` extension dictionary. 
   },
   "extensions": {
     "3DTILES_layers": {
-      "BUILDINGS": {
+      "buildings": {
         "name": "Buildings",
         "description": "3D Buildings Layer"
       }
@@ -46,7 +46,7 @@ Additionally, if a layer needs to associate some metadata with itself, there nee
   "extensions": {
     "3DTILES_metadata": {
       "classes": {
-        "CITY_LAYER": {
+        "cityLayer": {
           "properties": {
             "LastModified": {
               "type": "STRING",
@@ -57,10 +57,10 @@ Additionally, if a layer needs to associate some metadata with itself, there nee
       }
     },
     "3DTILES_layers": {
-      "BUILDINGS": {
+      "buildings": {
         "name": "Buildings",
         "description": "3D Buildings Layer",
-        "class": "CITY_LAYER",
+        "class": "cityLayer",
         "properties": {
           "LastModified": "20201030T030000-0400"
         }
@@ -81,7 +81,7 @@ To associate content with a layer, it must be added as an object to the `content
   },
   "extensions": {
     "3DTILES_layers": {
-      "BUILDINGS": {
+      "buildings": {
         "name": "Buildings",
         "description": "3D Buildings Layer"
       }
@@ -92,9 +92,9 @@ To associate content with a layer, it must be added as an object to the `content
       "3DTILES_layers": {
         "contents": [
           {
-            "layer": "BUILDINGS",
+            "layer": "buildings",
             "mimeType": "application/json",
-            "uri": "layers/BUILDINGS/tileset.json"
+            "uri": "layers/buildings/tileset.json"
           }
         ]
       }
