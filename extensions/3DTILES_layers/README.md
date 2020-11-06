@@ -4,7 +4,7 @@
 
 This extension to 3D Tiles enables assigning tile content to layers. 
 
-A layer is a user-defined grouping of content - for example, a tileset of a city may have a buildings layer, a roads layer and a vegetation layer. There are no dependencies between layers.
+A layer is a user-defined grouping of content - for example, a tileset of a city may have a buildings layer, a roads layer and a vegetation layer, where each layer is independent.
 
 In 3D Tiles, layers provide a mechanism for tiles to have multiple contents that may be requested independently from each other. For a dataset that may have several layers using the same tiling scheme, this extension removes the need to separate the layers into multiple `tileset.json` files.
 
