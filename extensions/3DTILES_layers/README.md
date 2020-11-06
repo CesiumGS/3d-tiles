@@ -36,7 +36,7 @@ Layers are declared inside the top-level `3DTILES_layers` extension dictionary. 
 }
 ```
 
-Additionally, if a layer needs to associate some metadata with itself, there needs to be a corresponding class declared in the `3DTILES_metadata` extension and the layer needs to conform to that class. To learn more about metadata classes, refer to the [Cesium 3D Metadata Specification](). For example,
+The 3DTILES_metadata extensions enables the declaration of metadata `class` objects, which define a list of properties a conforming instance would need to provide. A layer in 3DTILES_layers can assign to itself a class declared in 3DTILES_metadata and use that to provide additional metadata. Layers must follow the [single instance syntax]() for assigning values to the its `properties`. For example,
 
 ```javascript
 {
