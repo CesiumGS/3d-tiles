@@ -12,7 +12,7 @@ Draft
 
 ## Dependencies
 
-Written against the 3D Tiles 1.0 spec.
+Written against the 3D Tiles 1.0 specification.
 
 ## Contents
 
