@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Specification Index",
+  "type": "object",
+  "description": "Index of all the main schemas used in the specification. This file is intended mainly for documentation purposes.",
+  "properties": {
+    "classes": {
+      "type": "object",
+      "description": "A dictionary, where each key is a class ID and each value is an object defining the class.",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "class.schema.json"
+      }
+    },
+    "instanceTables": {
+      "type": "object",
+      "description": "A dictionary, where each key is a instance table ID and each value is an object defining the instance table",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "instanceTable.schema.json"
+      }
+    },
+    "extensions": {},
+    "extras": {}
+  }
+}

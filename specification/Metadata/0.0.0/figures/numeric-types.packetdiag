@@ -1,0 +1,14 @@
+{
+  colwidth = 8
+
+  0-7: "height[0]"
+  8-15: "height[1]"
+  16-23: "height[2]"
+  24-31: "height[3]"
+  32-39: "height[4]"
+  40-43: "leafCount[0]"
+  44-47: "leafCount[1]"
+  48-51: "leafCount[2]"
+  52-55: "leafCount[3]"
+  56-59: "leafCount[4]"
+}
