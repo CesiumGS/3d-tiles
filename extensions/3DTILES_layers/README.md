@@ -141,3 +141,5 @@ Layer content is associated with a tile by adding the `3DTILES_layers` extension
   }
 }
 ```
+
+> Note: By default, an implementation would request and render all contents in a tile when a tile is selected.
