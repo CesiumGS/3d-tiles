@@ -20,6 +20,14 @@
         "$ref": "instanceTable.schema.json"
       }
     },
+    "metadataTextures": {
+      "type": "object",
+      "description": "A dictionary, where each key is a metadata texture ID and each value is an object defining the metadata texture",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "metadataTexture.schema.json"
+      }
+    },
     "extensions": {},
     "extras": {}
   }
