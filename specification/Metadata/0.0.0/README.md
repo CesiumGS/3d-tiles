@@ -244,7 +244,7 @@ The metadata texture encoding serves a different purpose than the other encoding
 
 This is useful for continuous properties such as elevation, vegetation index, vector fields, and many other properties that vary with position. It also can be used for better compression of metadata values in some cases.
 
-```json
+```jsonc
 {
   "classes": {
     "vegetation": {
@@ -261,17 +261,19 @@ This is useful for continuous properties such as elevation, vegetation index, ve
       "class": "vegetation",
       "properties": {
         "vegetationIndex": {
+          "channels": "r",
           "texture": {
             "index": 0,
             "texCoord": 0
-          },
-          "channels": "r"
+          }
         }
       }
     }
   }
 }
 ```
+
+**Note**: The method of selecting a texture is implementation-defined. The above example is based on a glTF implementation where `index` selects a texture and `texCoord` selects the texture coordinates. Other implementations may do select a texture by other means.
 
 #### Comparison of Encodings
 
@@ -1154,6 +1156,8 @@ In the following example, a single-channel image is used to encode surface tempe
 }
 ```
 
+**Note**: in the above example, the `texture` object is based on a glTF implementation. See [Implementation Notes](#implementation-notes) below.
+
 #### Array Textures
 
 Fixed-size (but not variable-size) arrays can be stored as a multi-channel texture. This is useful for encoding vector-valued properties.
@@ -1193,11 +1197,15 @@ The example below demonstrates representing a `vec3` using a 3-channel image. Th
 }
 ```
 
+**Note**: in the above example, the `texture` object is based on a glTF implementation. See [Implementation Notes](#implementation-notes) below.
+
 ![vec3 metadata texture](figures/vec3-texture.jpg)
 
 #### Implementation Notes
 
 In implementations that only support PNG and JPEG images such as glTF, the available data types for textures is somewhat limited. Only data types based on `UINT8` (including normalized `UINT8` and/or fixed-length arrays) are straightforward to implement for PNG/JPEG images. Other data types such as floats or signed integers may require additional extensions of the underlying data format. Cases like these are left to the implementation to define.
+
+Furthermore, depending on the implementation, the method of specifying a texture and texture coordinates may vary. A glTF-based implementation may index into the `textures` array. A Cesium 3D Tiles-based implementation may do this differently.
 
 ## Glossary
 
