@@ -102,52 +102,52 @@
         {
           "buffer": 0,
           "byteOffset": 0,
-          "byteLength": 32
+          "byteLength": 3
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 8,
+          "byteLength": 3
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 16,
+          "byteLength": 3
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 24,
+          "byteLength": 3
         },
         {
           "buffer": 0,
           "byteOffset": 32,
-          "byteLength": 32
+          "byteLength": 3
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 40,
+          "byteLength": 3
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 48,
+          "byteLength": 3
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 56,
+          "byteLength": 3
         },
         {
           "buffer": 0,
           "byteOffset": 64,
-          "byteLength": 32
+          "byteLength": 3
         },
         {
           "buffer": 0,
-          "byteOffset": 96,
-          "byteLength": 32
-        },
-        {
-          "buffer": 0,
-          "byteOffset": 128,
-          "byteLength": 32
-        },
-        {
-          "buffer": 0,
-          "byteOffset": 160,
-          "byteLength": 32
-        },
-        {
-          "buffer": 0,
-          "byteOffset": 192,
-          "byteLength": 32
-        },
-        {
-          "buffer": 0,
-          "byteOffset": 224,
-          "byteLength": 32
-        },
-        {
-          "buffer": 0,
-          "byteOffset": 256,
-          "byteLength": 32
-        },
-        {
-          "buffer": 0,
-          "byteOffset": 288,
-          "byteLength": 32
+          "byteOffset": 72,
+          "byteLength": 3
         }
       ]
     },

@@ -21,14 +21,14 @@
       "buffers": [
         {
           "uri": "subtree_availability.bin",
-          "byteLength": 32
+          "byteLength": 3
         }
       ],
       "bufferViews": [
         {
           "buffer": 0,
           "byteOffset": 0,
-          "byteLength": 32
+          "byteLength": 3
         }
       ]
     },
