@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "Availability",
+    "type": "object",
+    "description": "An object describing the availability of nodes in a subtree.",
+    "properties": {
+      "uri": {
+        "allOf": [{"$ref": "templateUri.schema.json"}],
+        "description": "A template URI pointing to binary files containing node availability for subtrees. A node availability file exists for each subtree that exists that is not fully available or fully unavailable. The URI of each availability file is substituted with the subtree's global level, x, y, and z (`OCTREE` only). The availability bitstream is a 1D boolean array where nodes are ordered by their level in the subtree and Morton index within that level and conforms to the boolean array encoding described in the Cesium 3D Metadata specification: https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md. A node's availability is determined by a single bit, 1 meaning a node exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `X ^ (subtreeDepth + 1) - 1` where X is 4 for `QUADTREE` and 8 for `OCTREE`."
+      },
+      "subtreeFullyAvailableBufferView": {
+        "type": "integer",
+        "description": "An index to a buffer view in the 3DTILES_binary_buffers extension indicating for each subtree whether the all nodes in that subtree exist (the subtree is fully available). The bitstream is a 1D boolean array that matches the structure of `subtreeAvailability` where each bit indicates whether the subtree is fully available or not (1 and 0 respectively). If a subtree is fully available then a node availability file is not required for that subtree and each node can be treated as having an availability of 1. If the subtree doesn't exist (determined by `subtreeAvailability`) then its corresponding bit in this bitstream must be 0.",
+        "minimum" : 0
+      },
+      "subtreeFullyUnavailableBufferView": {
+        "type": "integer",
+        "description": "An index to a buffer view in the 3DTILES_binary_buffers extension indicating for each subtree whether no nodes in that subtree exist (the subtree is fully unavailable). The bitstream is a 1D boolean array that matches the structure of `subtreeAvailability` where each bit indicates whether the subtree is fully unavailable or not (1 and 0 respectively). If a subtree is fully unavailable then a node availability file is not required for that subtree and each node can be treated as having an availability of 0. If the subtree doesn't exist (determined by `subtreeAvailability`) then its corresponding bit in this bitstream must be 1.",
+        "minimum" : 0
+      },
+      "extensions": {},
+      "extras": {}
+    },
+    "required" : ["uri"]
+  }

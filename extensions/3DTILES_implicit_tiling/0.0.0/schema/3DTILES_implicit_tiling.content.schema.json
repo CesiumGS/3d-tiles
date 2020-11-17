@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "Content",
+    "type": "object",
+    "description": "An object describing the type, availability, and location of tile content.",
+    "properties": {
+      "mimeType": {
+        "type": "string",
+        "description": "The mime type of the content."
+      },
+      "uri": {
+        "allOf": [{"$ref": "templateUri.schema.json"}],
+        "description": "A template URI pointing to tile content. Content exists wherever the availability bit is 1. The URI of each content is substituted with the tile's global level, x, y, and z (OCTREE only). All content must conform to the `mimeType`."
+      },
+      "availability": {
+        "allOf": [{"$ref": "availability.schema.json"}],
+        "description": "An object describing the availability of content in the tileset. If content availability is 1 its corresponding tile availability must also be 1. If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile."
+      },
+      "extensions": {},
+      "extras": {}
+    },
+    "required" : ["mimeType", "uri", "availability"]
+  }

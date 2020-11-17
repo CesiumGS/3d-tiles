@@ -1,0 +1,224 @@
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "geometricError": 10000,
+  "extensionsUsed": [
+    "3DTILES_layers",
+    "3DTILES_metadata",
+    "3DTILES_tile_metadata",
+    "3DTILES_binary_buffers",
+    "3DTILES_implicit_tiling",
+    "3DTILES_content_gltf"
+  ],
+  "extensionsRequired": [
+    "3DTILES_binary_buffers",
+    "3DTILES_implicit_tiling",
+    "3DTILES_content_gltf"
+  ],
+  "extensions": {
+    "3DTILES_content_gltf": {
+      "extra": {
+        "draftVersion": "0.0.0"
+      },
+      "extensionsUsed": ["EXT_feature_metadata"]
+    },
+    "3DTILES_metadata": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "classes": {
+        "tile": {
+          "properties": {
+            "revisionDate": {
+              "type": "STRING"
+            },
+            "horizonOcclusionPoint": {
+              "type": "ARRAY",
+              "componentType": "FLOAT64",
+              "componentCount": 3
+            }
+          }
+        },
+        "cityLayer": {
+          "properties": {
+            "lastModified": {
+              "type": "STRING"
+            },
+            "highlightColor": {
+              "type": "STRING"
+            }
+          }
+        }
+      }
+    },
+    "3DTILES_layers": {
+      "extra": {
+        "draftVersion": "0.0.0"
+      },
+      "buildings": {
+        "name": "Buildings",
+        "description": "3D Buildings Layer",
+        "class": "cityLayer",
+        "properties": {
+          "lastModified": "20201030T030000-0400",
+          "highlightColor": "GREEN"
+        }
+      },
+      "trees": {
+        "name": "Trees",
+        "description": "3D Vegetation Layer",
+        "class": "cityLayer",
+        "properties": {
+          "lastModified": "20201030T030100-0400",
+          "highlightColor": "RED"
+        }
+      },
+      "roads": {
+        "name": "Roads",
+        "description": "Vector Road Layer",
+        "class": "cityLayer",
+        "properties": {
+          "lastModified": "20201030T030200-0400",
+          "highlightColor": "BLUE"
+        }
+      }
+    },
+    "3DTILES_tile_metadata": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      }
+    },
+    "3DTILES_binary_buffers": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "buffers": [
+        {
+          "uri": "subtree_availability.bin"
+        }
+      ],
+      "bufferViews": [
+        {
+          "buffer": 0,
+          "byteOffset": 0,
+          "byteLength": 32
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 32,
+          "byteLength": 32
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 64,
+          "byteLength": 32
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 96,
+          "byteLength": 32
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 128,
+          "byteLength": 32
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 160,
+          "byteLength": 32
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 192,
+          "byteLength": 32
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 224,
+          "byteLength": 32
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 256,
+          "byteLength": 32
+        },
+        {
+          "buffer": 0,
+          "byteOffset": 288,
+          "byteLength": 32
+        }
+      ]
+    },
+    "3DTILES_implicit_tiling": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "boundingVolume": {
+        "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
+      },
+      "refine": "REPLACE",
+      "tilingScheme": "QUADTREE",
+      "geometricError": 5000,
+      "subtreeDepth": 7,
+      "maximumLevel": 20,
+      "subtreeAvailability": {
+        "bufferView": 0
+      },
+      "tileAvailability": {
+        "uri": "availability/${level}/${x}/${y}/tile_availability.bin",
+        "subtreeFullyAvailableBufferView": 1
+      },
+      "content": {
+        "mimeType": "model/gltf+json",
+        "uri": "terrain/${level}/${x}/${y}.gltf",
+        "availability": {
+          "uri": "availability/${level}/${x}/${y}/terrain_availability.bin",
+          "subtreeFullyAvailableBufferView": 2,
+          "subtreeFullyUnavailableBufferView": 3
+        }
+      },
+      "extensions": {
+        "3DTILES_tile_metadata": {
+          "class": "tile",
+          "uri": "metadata/${level}/${x}/${y}/tile_metadata.json"  
+        },
+        "3DTILES_layers": {
+          "contents": [
+            {
+              "layer": "buildings",
+              "mimeType": "model/gltf+json",
+              "uri": "layers/buildings/${level}/${x}/${y}.gltf",
+              "availability": {
+                "uri": "availability/${level}/${x}/${y}/buildings_availability.bin",
+                "subtreeFullyAvailableBufferView": 4,
+                "subtreeFullyUnavailableBufferView": 5      
+              }
+            },
+            {
+              "layer": "trees",
+              "mimeType": "model/gltf+json",
+              "uri": "layers/trees/${level}/${x}/${y}.gltf",
+              "availability": {
+                "uri": "availability/${level}/${x}/${y}/trees_availability.bin",
+                "subtreeFullyAvailableBufferView": 6,
+                "subtreeFullyUnavailableBufferView": 7      
+              }
+            },
+            {
+              "layer": "roads",
+              "mimeType": "model/gltf+json",
+              "uri": "layers/roads/${level}/${x}/${y}.gltf",
+              "availability": {
+                "uri": "availability/${level}/${x}/${y}/roads_availability.bin",
+                "subtreeFullyAvailableBufferView": 8,
+                "subtreeFullyUnavailableBufferView": 9      
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

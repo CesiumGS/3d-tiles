@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "Layers",
+    "type": "object",
+    "description": "Content layers in an implicit tileset.",
+    "properties": {
+      "contents": {
+        "description": "An array of contents layers",
+        "type": "array",
+        "items": {
+          "$ref": "3DTILES_implicit_tiling.3DTILES_layers.contents.content.schema.json"
+        },
+        "minItems": 1
+      },  
+      "extensions": {},
+      "extras": {}
+    },
+    "required" : ["contents"]
+  }

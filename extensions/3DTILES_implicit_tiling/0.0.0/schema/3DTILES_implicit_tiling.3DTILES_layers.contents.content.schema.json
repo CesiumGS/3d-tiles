@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "Layer Content",
+    "type": "object",
+    "description": "An object describing the type, availability, and location of layer content.",
+    "properties": {
+      "layer": {
+        "type": "string",
+        "description": "The layer ID this content belongs to, in the `3DTILES_layers` `layers` dictionary."
+      },
+      "mimeType": {
+        "type": "string",
+        "description": "The mime type of the layer content."
+      },
+      "uri": {
+        "allOf": [{"$ref": "templateUri.schema.json"}],
+        "description": "A template URI pointing to layer content. Content exists wherever the availability bit is 1. The URI of each content is substituted with the tile's global level, x, y, and z (OCTREE only). All content must conform to the `mimeType`."
+      },
+      "availability": {
+        "allOf": [{"$ref": "availability.schema.json"}],
+        "description": "An object describing the availability of layer content in the tileset. If content availability is 1 its corresponding tile availability must also be 1."
+      }
+    },
+    "required": ["mimeType", "uri", "availability"]
+  }

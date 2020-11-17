@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Tile metadata",
+  "type": "object",
+  "description": "Per-tile metadata.",
+  "properties": {
+    "class": {
+      "type": "string",
+      "description": "The ID of the class."
+    },
+    "uri": {
+      "allOf": [{"$ref": "templateUri.schema.json"}],
+      "description": "A template URI pointing to a tile metadata JSON file for each subtree. The URI of each tile metadata file is substituted with the subtrees's global level, x, y, and z (OCTREE only). Tile metadata is a JSON file containing property arrays conforming to the given class and containing metadata for all available tiles in the subtree. Tile metadata is tightly packed; the index of a tile's metadata is determined by the number of 1 bits that precede the tile in the tile availability bitstream. The JSON structure is further outlined in 3DTILES_tile_metadata.external.schema.json"
+    },
+    "extensions": {},
+    "extras": {}
+  },
+  "required" : ["class", "uri"]
+}
