@@ -1,6 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "A description of how to access data values from the color channels of a texture",
+    "title": "Texture Accessor",
+    "description": "A description of how to access data values from the color channels of a texture. The method of selecting a texture is implementation-defined.",
     "type": "object",
     "properties": {
         "channels": {

@@ -2,8 +2,7 @@
     "$schema": "http://json-schema.org/draft-04/schema",
     "title": "Metadata Texture",
     "type": "object",
-    "description": "Instances whose properties are stored directly in the texture designated by a class and property values stored in texture channels. This requires a class but not a feature table.",
-    "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
+    "description": "Instances whose properties are stored directly in the texture designated by a class and property values stored in texture channels.",
     "properties": {
         "class": {
             "type": "string",

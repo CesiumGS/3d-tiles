@@ -273,8 +273,7 @@ This is useful for continuous properties such as elevation, vegetation index, ve
 }
 ```
 
-**Note**: The method of selecting a texture is implementation-defined. The above example is based on a glTF implementation where `index` selects a texture and `texCoord` selects the texture coordinates. Other implementations may do this in
-alternate ways.
+**Note**: The method of selecting a texture is implementation-defined. The above example is based on a glTF implementation where `index` selects a texture and `texCoord` selects the texture coordinates. Other implementations may do select a texture by other means.
 
 #### Comparison of Encodings
 
