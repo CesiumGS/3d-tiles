@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "3DTILES_bounding_volume_S2 extension",
+  "type": "object",
+  "properties" : {
+    "s2cell": {
+      "type": "array",
+      "description": "An array of 4 numbers that defines a volume [S2CellId, the level of the S2Cell, minimum height, maximum height]. Heights are in meters above (or below) the WGS84 ellipsoid.",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "extensions" : {},
+    "extras" : {}
+  },
+  "required": [
+    "s2cell"
+  ],
+  "additionalProperties": false
+}
