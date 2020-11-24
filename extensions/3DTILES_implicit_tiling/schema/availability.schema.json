@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Availability",
+  "type": "object",
+  "description": "An object describing the availability of nodes in a subtree.",
+  "properties": {
+    "bufferView": {
+        "description": "Index of a buffer view that indicates whether each node of the subtree is available. The bitstream is a 1D boolean array that has an element for each node. If a node is available, its bit is 1, and if it is unavailable, the bit is 0. The number of elements in the array is (N ^ (subtreeDepth + 1) - 1) / (N - 1)",
+        "type": "integer",
+        "minimum": 0
+    },
+    "constant": {
+      "type": "integer",
+      "enum": [0, 1],
+      "description": "Integer indicating whether all of the nodes are available (1) or all the nodes are unavailable (0)."
+    },
+    "extensions": {},
+    "extras": {}
+  },
+  "oneOf": [{
+    "required": ["bufferView"]
+  }, {
+    "required": ["constant"]
+  }]
+}

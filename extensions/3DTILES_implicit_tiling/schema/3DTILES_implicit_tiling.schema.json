@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "3DTILES_implicit_tiling extension",
+    "type": "object",
+    "description": "This extension enables 3D Tiles to support tilesets with implied subdivision schemes",
+    "properties": {
+      "boundingVolume": {
+        "allOf": [{"$ref": "boundingVolume.schema.json"}],
+        "description": "The bounding volume that encloses the root tile. The bounding volume is subdivided at the midpoint for each level of subdivision according to the tiling scheme."
+      },
+      "refine": {
+        "type": "string",
+        "description": "Specifies if additive or replacement refinement is used when traversing the tileset. This property applies to all tiles in the tileset.",
+        "enum" : ["ADD", "REPLACE"]
+      },
+      "tilingScheme": {
+        "type": "string",
+        "description": "A string describing the tiling scheme used within the tileset.",
+        "enum" : ["QUADTREE", "OCTREE"]
+      },
+      "geometricError": {
+        "type": "number",
+        "description": "The error, in meters, introduced if the root is rendered and its children are not. The geometric error is halved for each level of subdivision. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.",
+        "minimum" : 0
+      },
+      "subtreeDepth": {
+        "type": "integer",
+        "description": "The depth of each subtree.",
+        "minimum" : 1
+      },
+      "maximumLevel": {
+        "type": "integer",
+        "description": "The maximum level at which a tile is available.",
+        "minimum" : 0
+      },
+      "tileAvailability": {
+        "allOf": [{"$ref": "availability.schema.json"}],
+        "description": "An object describing the availability of tiles for each subtree. If a non-root tile's availability is 1 its parent tile's availability must also be 1. When the 3DTILES_tile_metadata extension is used the index of the tile's metadata is determined by the number of 1 bits that precede the tile."
+      },
+      "content": {
+        "allOf": [{"$ref": "content.schema.json"}],
+        "description": "An object describing the availability of tile content for each subtree."
+      },
+      "nextSubtreeAvailability": {
+        "allOf": [{"$ref": "content.schema.json"}],
+        "description": "An object describing the availability of tile content for each subtree."
+      },
+      "extensions": {},
+      "extras": {}
+    },
+    "required" : ["boundingVolume", "refine", "tilingScheme", "geometricError", "subtreeDepth", "maximumLevel", "tileAvailability", "content"]
+  }

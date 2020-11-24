@@ -1,0 +1,130 @@
+{
+	"buffers": [
+    {
+      // uri's are relative to this file
+      "uri": "availability.bin",
+      "byteLength": 100
+    },
+    {
+      "uri": "layers_availability.bin",
+      "byteLength": 100
+    },
+    {
+      "uri": "metadata.bin",
+      "byteLength": 100
+    }
+  ],
+  "bufferViews": [
+    // bufferView structure is flexible, this example just decides to group tile, subtree, and content availability into buffer 0, layer availability into buffer 1, and metadata into buffer 2
+    // TODO: fill in byteOffset and byteLength
+    {
+      "name": "tile availability",
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 100 // "(N ^ (treeChunkDepth + 1) - 1) / (N - 1) / bitsPerByte where N is 4 for QUADTREE and 8 for OCTREE"
+      // number of nodes in the tree chunk divided by 8, depth is 1 based
+    },
+    {
+      "name" : "vir"
+      "buffer": 0,
+      "byteOffset": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
+      "byteLength": "branchingFactor ^ (treeChunkDepth) / bitsPerByte"
+    },
+    {
+      "buffer": 0,
+      "byteOffset": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte + branchingFactor ^ (treeChunk+1) / bitsPerByte",
+      "byteLength": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+    },
+    {
+      "buffer": 1,
+      "byteOffset": 0,
+      "byteLength": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+      // number of nodes in the tree chunk divided by 8
+    },
+    {
+      "buffer": 1,
+      "byteOffset": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
+      "byteLength": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+    },
+    {
+      "buffer": 1,
+      "byteOffset": "2*(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
+      "byteLength": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+    },
+    {
+      "buffer": 2,
+      "byteOffset": 0,
+      "byteLength": "ceil((branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte)"
+      // number of nodes in the tree chunk divided by 8
+    },
+    {
+      "buffer": 2,
+      "byteOffset": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
+      "byteLength": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+    }
+  ],
+  "tileAvailability": {
+    // All these properties would normally be mutually exclusive
+    // For bufferView:
+    //   * one bit per tile in the subtree (does not include virtual leaves)
+    //   * array size is (N ^ (subtreeDepth + 1) - 1) / (N - 1)
+    "bufferView": 0,
+    "full": true,
+    "empty": true
+  },
+  "childSubtreeAvailability": {
+    // Uses same schema as tileAvailability
+    // For bufferView:
+    //   * one bit per child subtree
+    //   * array size is N ^ subtreeDepth+1
+    "bufferView": 1
+  },
+  "contentAvailability": {
+    // Uses same schema as tileAvailability
+    // For bufferView:
+    //   * one bit per tile in the subtree (does not include virtual leaves)
+    //   * array size is (N ^ (subtreeDepth + 1) - 1) / (N - 1)
+    "bufferView": 2
+  },
+  "extensions": {
+    "3DTILES_layers": {
+      // These correspond to the layers in tileset.json
+      "availability": [
+        {
+          "name": "City layer availability",
+          "bufferView": 3
+        },
+        {
+          "bufferView": 4
+        },
+        {
+          "bufferView": 5
+        }
+      ],
+      "availability": {
+        "cityLayer": {
+          "bufferView": 3
+        },
+        "treeLayer": {
+          "bufferView": 4
+        },
+        "roadLayer": {
+          "bufferView": 5
+        }
+      }
+    },
+    "3DTILES_tile_metadata": {
+      // "class" refers back to class definition in 3DTILES_metadata in tileset.json
+      "class": "tile",
+      "properties": {
+        "height": {
+          "bufferView": 6
+        },
+        "species": {
+          "bufferView": 7,
+          "offsetBufferViews": [8]
+        }
+      }
+    }
+  }
+}
