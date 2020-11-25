@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "3DTILES_layers extension for implicit tiling subtree layer availability.",
+  "type": "object",
+  "properties": {
+    "availability": {
+      "description": "An array of layer availabilities in implicit tiling",
+      "type": "array",
+      "items": {
+        "$ref": "3DTILES_layers.implicit_tiling_content_availability.schema.json"
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["availability"]
+}

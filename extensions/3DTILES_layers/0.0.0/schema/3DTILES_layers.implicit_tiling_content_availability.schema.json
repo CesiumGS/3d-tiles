@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Implicit tiling layer availability object.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The layer ID this content belongs to, in the `3DTILES_layers` `layers` dictionary."
+    },
+    "bufferView": {
+      "type": "integer",
+      "description": "Index of a buffer view that indicates whether the layer for each tile in a subtree is available. The bitstream is a 1D boolean array that has an element for each tile. If the layer for a tile is available, its bit is 1, and if it is unavailable, the bit is 0. The number of elements in the array is (N ^ (subtreeDepth + 1) - 1) / (N - 1)."
+    }
+  },
+  "required": ["name", "bufferView"]
+}
