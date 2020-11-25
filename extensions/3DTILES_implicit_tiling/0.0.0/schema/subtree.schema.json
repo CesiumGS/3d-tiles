@@ -1,18 +1,18 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "Subtree",
-    "type": "object",
-    "description": "An object describing the availability of tiles in a subtree.",
-    "properties": {
-      "availability": {
-        "description": "The availability of tiles in the subtree. If not all available or unavailable, the size of the buffer will be (N ^ (subtreeDepth + 1) - 1) / (N - 1) bits.",
-        "type": "object",
-        "minProperties": 1,
-        "additionalProperties": {
-          "$ref": "availability.schema.json"
-        }
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Subtree",
+  "type": "object",
+  "description": "An object describing the availability of tiles in a subtree.",
+  "properties": {
+    "availability": {
+      "description": "The availability of tiles in the subtree. If not all available or unavailable, the size of the buffer will be (N ^ (subtreeDepth + 1) - 1) / (N - 1) bits.",
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "availability.schema.json"
       }
-    },
-    "required": ["availability"]
-  }
+    }
+  },
+  "required": ["availability"]
+}
   
