@@ -28,25 +28,25 @@
         "description": "The depth of each subtree.",
         "minimum" : 1
       },
-      "maximumLevel": {
+      "maximumDepth": {
         "type": "integer",
         "description": "The maximum level at which a tile is available.",
         "minimum" : 0
       },
-      "tileAvailability": {
-        "allOf": [{"$ref": "availability.schema.json"}],
-        "description": "An object describing the availability of tiles for each subtree. If a non-root tile's availability is 1 its parent tile's availability must also be 1. When the 3DTILES_tile_metadata extension is used the index of the tile's metadata is determined by the number of 1 bits that precede the tile."
+      "subtree": {
+        "allOf": [{"$ref": "templateUri.schema.json"}],
+        "description": "A template URI pointing to subtree availability json files. The URI of each file is substituted with the subtree's root global level, x, y, and z (OCTREE only)."
       },
       "content": {
-        "allOf": [{"$ref": "content.schema.json"}],
-        "description": "An object describing the availability of tile content for each subtree."
+        "allOf": [{"$ref": "templateUri.schema.json"}],
+        "description": "A template URI pointing to content availability json files. The URI of each file is substituted with the subtree's root global level, x, y, and z (OCTREE only)."
       },
-      "nextSubtreeAvailability": {
-        "allOf": [{"$ref": "content.schema.json"}],
-        "description": "An object describing the availability of tile content for each subtree."
+      "childSubtree": {
+        "allOf": [{"$ref": "templateUri.schema.json"}],
+        "description": "A template URI pointing to subtree children availability json files. The URI of each file is substituted with the subtree's root global level, x, y, and z (OCTREE only)."
       },
       "extensions": {},
       "extras": {}
     },
-    "required" : ["boundingVolume", "refine", "tilingScheme", "geometricError", "subtreeDepth", "maximumLevel", "tileAvailability", "content"]
+    "required" : ["boundingVolume", "refine", "tilingScheme", "geometricError", "subtreeDepth", "maximumDepth", "subtree", "content", "childSubtree"]
   }
