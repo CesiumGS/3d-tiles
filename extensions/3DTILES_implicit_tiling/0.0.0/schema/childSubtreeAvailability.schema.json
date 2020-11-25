@@ -1,26 +1,18 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "ChildAvailability",
-    "type": "object",
-    "description": "An object describing the availability of the children of the leaves in a subtree.",
-    "properties": {
-      "bufferView": {
-          "description": "Index of a buffer view that indicates whether each child of the leaves of the subtree is available. The bitstream is a 1D boolean array that has an element for each child. If a child is available, its bit is 1, and if it is unavailable, the bit is 0. The number of elements in the array is (N ^ (subtreeDepth).",
-          "type": "integer",
-          "minimum": 0
-      },
-      "constant": {
-        "type": "integer",
-        "enum": [0, 1],
-        "description": "Integer indicating whether all of the children of the leaves are available (1) or all the nodes are unavailable (0)."
-      },
-      "extensions": {},
-      "extras": {}
-    },
-    "oneOf": [{
-      "required": ["bufferView"]
-    }, {
-      "required": ["constant"]
-    }]
-  }
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "ChildSubtreeAvailability",
+  "type": "object",
+  "description": "An object describing the availability of children of leaves of a subtree.",
+  "properties": {
+    "availability": {
+      "description": "The availability of the children of the subtree. If not all available or unavailable, the size of the buffer will be N ^(subtreeDepth) bits.",
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "availability.schema.json"
+      }
+    }
+  },
+  "required": ["availability"]
+}
   

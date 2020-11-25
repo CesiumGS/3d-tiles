@@ -2,17 +2,17 @@
   "$schema": "http://json-schema.org/draft-04/schema",
   "title": "Availability",
   "type": "object",
-  "description": "An object describing the availability of nodes in a subtree.",
+  "description": "An object describing the availability of a set of elements.",
   "properties": {
     "bufferView": {
-        "description": "Index of a buffer view that indicates whether each node of the subtree is available. The bitstream is a 1D boolean array that has an element for each node. If a node is available, its bit is 1, and if it is unavailable, the bit is 0. The number of elements in the array is (N ^ (subtreeDepth + 1) - 1) / (N - 1)",
+        "description": "Index of a buffer view that indicates whether each element is available. The bitstream is a 1D boolean array. If an element is available, its bit is 1, and if it is unavailable, the bit is 0.",
         "type": "integer",
         "minimum": 0
     },
     "constant": {
       "type": "integer",
       "enum": [0, 1],
-      "description": "Integer indicating whether all of the nodes are available (1) or all the nodes are unavailable (0)."
+      "description": "Integer indicating whether all of the elements are available (1) or all are unavailable (0)."
     },
     "extensions": {},
     "extras": {}
