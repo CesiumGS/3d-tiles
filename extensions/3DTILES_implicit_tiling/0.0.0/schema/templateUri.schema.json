@@ -1,0 +1,6 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Template URI",
+  "type": "string",
+  "description": "A URI with embedded expressions. Allowed expressions are ${level}, ${x}, ${y}, and ${z}. ${level} is substituted with the level of the node, ${x} is substituted with the x index of the node within the level, ${y} is substituted with the y index of the node within the level, and ${z} is substituted with the z index of node within the level (`OCTREE` only)."
+}
