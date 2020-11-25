@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "3DTILES_metadata extension for implicit tiling subtree metadata availability.",
+  "type": "object",
+  "properties": {
+    "class": {
+      "description": "The class referring back to a class definition in 3DTILES_metadata in tileset.json",
+      "type": "string"
+    },
+    "additionalProperties": {
+      "$ref": "3DTILES_metadata_implicit_tiling_object.schema.json"
+    }
+  }
+}
