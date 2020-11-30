@@ -37,14 +37,6 @@
         "allOf": [{"$ref": "templateUri.schema.json"}],
         "description": "A template URI pointing to subtree availability json files. The URI of each file is substituted with the subtree's root global level, x, y, and z (OCTREE only)."
       },
-      "contentAvailability": {
-        "allOf": [{"$ref": "templateUri.schema.json"}],
-        "description": "A template URI pointing to content availability json files. The URI of each file is substituted with the subtree's root global level, x, y, and z (OCTREE only)."
-      },
-      "childSubtree": {
-        "allOf": [{"$ref": "templateUri.schema.json"}],
-        "description": "A template URI pointing to subtree children availability json files. The URI of each file is substituted with the subtree's root global level, x, y, and z (OCTREE only)."
-      },
       "content": {
         "allOf": [{"$ref": "3DTILES_implicit_tiling.content.schema.json"}],
         "description": "An object describing the type and location of tile content."
@@ -52,5 +44,5 @@
       "extensions": {},
       "extras": {}
     },
-    "required" : ["boundingVolume", "refine", "tilingScheme", "geometricError", "subtreeDepth", "maximumDepth", "subtree", "content", "childSubtree"]
+    "required" : ["boundingVolume", "refine", "tilingScheme", "geometricError", "subtreeDepth", "maximumDepth", "subtrees", "content"]
   }

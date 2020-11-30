@@ -99,12 +99,6 @@
         "subtrees": {
           "uri": "subtrees/${level}/${x}/${y}/availability.json"
         },
-        "contentAvailability": {
-          "uri": "content/${level}/${x}/${y}/availability.json"
-        },
-        "childSubtree": {
-          "uri": "childSubtree/${level}/${x}/${y}/availability.json"
-        },
         "content": {
           "mimeType": "model/gltf+json",
           "uri": "terrain/${level}/${x}/${y}.gltf"
