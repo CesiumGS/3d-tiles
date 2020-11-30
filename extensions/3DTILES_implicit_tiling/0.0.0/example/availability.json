@@ -22,37 +22,37 @@
     {
       "buffer": 0,
       "byteOffset": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
-      "byteLength": "branchingFactor ^ (treeChunkDepth) / bitsPerByte"
+      "byteLength": "branchingFactor ^ (subtreeDepth) / bitsPerByte"
     },
     {
       "buffer": 0,
-      "byteOffset": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte + branchingFactor ^ (treeChunk+1) / bitsPerByte",
-      "byteLength": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+      "byteOffset": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte + branchingFactor ^ (subtree+1) / bitsPerByte",
+      "byteLength": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
     },
     {
       "buffer": 1,
       "byteOffset": 0,
-      "byteLength": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+      "byteLength": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
     },
     {
       "buffer": 1,
-      "byteOffset": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
-      "byteLength": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+      "byteOffset": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
+      "byteLength": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
     },
     {
       "buffer": 1,
-      "byteOffset": "2*(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
-      "byteLength": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+      "byteOffset": "2*(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
+      "byteLength": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
     },
     {
       "buffer": 2,
       "byteOffset": 0,
-      "byteLength": "ceil((branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte)"
+      "byteLength": "ceil((branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte)"
     },
     {
       "buffer": 2,
-      "byteOffset": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
-      "byteLength": "(branchingFactor ^ (treeChunkDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+      "byteOffset": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
+      "byteLength": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
     }
   ],
   "tileAvailability": {
@@ -77,18 +77,7 @@
         {
           "bufferView": 5
         }
-      ],
-      "availability": {
-        "cityLayer": {
-          "bufferView": 3
-        },
-        "treeLayer": {
-          "bufferView": 4
-        },
-        "roadLayer": {
-          "bufferView": 5
-        }
-      }
+      ]
     },
     "3DTILES_tile_metadata": {
       "class": "tile",
