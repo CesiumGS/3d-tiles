@@ -9,7 +9,7 @@
     },
     "bufferView": {
       "type": "integer",
-      "description": "Index of a buffer view that indicates whether the layer for each tile in a subtree is available. The bitstream is a 1D boolean array that has an element for each tile. If the layer for a tile is available, its bit is 1, and if it is unavailable, the bit is 0. The number of elements in the array is (N ^ (subtreeDepth + 1) - 1) / (N - 1)."
+      "description": "Index of a buffer view that indicates whether the layer for each tile in a subtree is available. The bitstream is a 1D boolean array that has an element for each tile. If the layer for a tile is available, its bit is 1, and if it is unavailable, the bit is 0. The number of elements in the array is (N ^ (subtreeDepth + 1) - 1) / (N - 1) where N is 4 for tiling scheme `QUADTREE` and 8 for `OCTREE`."
     }
   },
   "required": ["name", "bufferView"]
