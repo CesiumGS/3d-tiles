@@ -64,31 +64,5 @@
   "contentAvailability": {
     "constant": 0
   },
-  "extensions": {
-    "3DTILES_layers": {
-      "availability": [
-        {
-          "bufferView": 3
-        },
-        {
-          "bufferView": 4
-        },
-        {
-          "bufferView": 5
-        }
-      ]
-    },
-    "3DTILES_tile_metadata": {
-      "class": "tile",
-      "properties": {
-        "height": {
-          "bufferView": 6
-        },
-        "species": {
-          "bufferView": 7,
-          "offsetBufferViews": [8]
-        }
-      }
-    }
-  }
+  "extensions": {}
 }

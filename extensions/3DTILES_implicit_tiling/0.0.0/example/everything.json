@@ -103,27 +103,7 @@
           "mimeType": "model/gltf+json",
           "uri": "terrain/${level}/${x}/${y}.gltf"
         },
-        "extensions": {
-          "3DTILES_layers": {
-            "contents": [
-              {
-                "layer": "buildings",
-                "mimeType": "model/gltf+json",
-                "uri": "layers/buildings/${level}/${x}/${y}.gltf"
-              },
-              {
-                "layer": "trees",
-                "mimeType": "model/gltf+json",
-                "uri": "layers/trees/${level}/${x}/${y}.gltf"
-              },
-              {
-                "layer": "roads",
-                "mimeType": "model/gltf+json",
-                "uri": "layers/roads/${level}/${x}/${y}.gltf"
-              }
-            ]
-          }
-        }
+        "extensions": {}
       }
     }
   }
