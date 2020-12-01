@@ -35,7 +35,7 @@
       },
       "subtrees": {
         "allOf": [{"$ref": "templateUri.schema.json"}],
-        "description": "A template URI pointing to subtree availability json files. A subtree is a fixed-depth (defined by `subtreeDepth`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree's root global level, x, y, and z (OCTREE only)."
+        "description": "A template URI pointing to subtree availability json files. A subtree is a fixed-depth (defined by `subtreeDepth`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree's root global level, x, and y. For tiling scheme `OCTREE`, z must also be given."
       },
       "content": {
         "allOf": [{"$ref": "3DTILES_implicit_tiling.content.schema.json"}],
