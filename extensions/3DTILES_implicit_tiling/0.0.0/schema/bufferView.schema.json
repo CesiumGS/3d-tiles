@@ -25,12 +25,8 @@
           "minLength" : 1,
           "description": "The name of the `bufferView`. The string is UTF-8 encoded."
       },
-      "extensions": {
-          "$ref": "extension.schema.json"
-      },
-      "extras" : {
-          "$ref": "extras.schema.json"
-      }
+      "extensions": {},
+      "extras" : {}
   },
   "required": [ "buffer", "byteOffset", "byteLength" ]
 }
