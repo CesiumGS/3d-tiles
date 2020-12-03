@@ -33,3 +33,12 @@ The S2 Geometry library provides a method of spatially organizing a data over a 
 The following diagram illustrates the system to convert from `S2CellID` to a bounded region on the WGS84 ellipsoid:
 
 ![Math](figures/math.png)
+
+
+## Bounding Heights
+
+The elements at index 2 and 3 in the `s2cell` array specify the minimum and maximum heights for the bounding volume of the tile. The heights are specified in meters above the WGS84 ellipsoid.
+
+## Schema Changes
+
+The changes to the schema can documented in [extension.schema.json](schema/extension.schema.json).
