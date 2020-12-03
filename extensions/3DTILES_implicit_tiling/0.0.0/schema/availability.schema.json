@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Availability",
+  "type": "object",
+  "description": "An object describing the availability of a set of elements.",
+  "properties": {
+    "bufferView": {
+        "description": "Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the Cesium 3D Metadata specification: https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md. If an element is available, its bit is 1, and if it is unavailable, the bit is 0.",
+        "type": "integer",
+        "minimum": 0
+    },
+    "constant": {
+      "type": "integer",
+      "enum": [0, 1],
+      "description": "Integer indicating whether all of the elements are available (1) or all are unavailable (0)."
+    },
+    "extensions": {},
+    "extras": {}
+  },
+  "oneOf": [{
+    "required": ["bufferView"]
+  }, {
+    "required": ["constant"]
+  }]
+}

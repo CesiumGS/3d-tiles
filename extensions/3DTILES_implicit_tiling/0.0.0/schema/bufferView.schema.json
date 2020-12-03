@@ -1,0 +1,32 @@
+
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Buffer View",
+  "type": "object",
+  "description": "A view into a buffer generally representing a subset of the buffer.",
+  "properties" : {
+      "buffer": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The index of the buffer."
+      },
+      "byteOffset": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The offset into the buffer in bytes."
+      },
+      "byteLength": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "The total byte length of the buffer view."
+      },
+      "name": {
+          "type": "string",
+          "minLength" : 1,
+          "description": "The name of the `bufferView`. The string is UTF-8 encoded."
+      },
+      "extensions": {},
+      "extras" : {}
+  },
+  "required": [ "buffer", "byteOffset", "byteLength" ]
+}

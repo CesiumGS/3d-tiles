@@ -1,0 +1,6 @@
+{
+  colwidth = 8
+
+  0-19: "barcode[0]"
+  20-39: "barcode[1]"
+}

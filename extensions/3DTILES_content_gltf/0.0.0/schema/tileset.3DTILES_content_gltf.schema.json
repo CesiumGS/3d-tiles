@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "3DTILES_content_gltf extension",
+    "type": "object",
+    "description": "3D Tiles extension that allows a tileset to use glTF 2.0 and GLB models directly as tile content.",
+    "properties" : {
+        "extensionsUsed": {
+            "type": "array",
+            "description": "An array of glTF extensions used by glTF content in the tileset.",
+            "items": {
+                "type": ["string"]
+            },
+            "minItems": 1
+        },
+        "extensionsRequired": {
+            "type": "array",
+            "description": "An array of glTF extensions required by glTF content in the tileset.",
+            "items": {
+                "type": ["string"]
+            },
+            "minItems": 1
+        },
+        "extensions": {},
+        "extras" : {}
+    }
+}
