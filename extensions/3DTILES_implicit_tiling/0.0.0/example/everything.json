@@ -94,8 +94,8 @@
         "refine": "REPLACE",
         "tilingScheme": "QUADTREE",
         "geometricError": 5000,
-        "subtreeDepth": 7,
-        "maximumDepth": 21,
+        "subtreeLevels": 7,
+        "maximumLevel": 21,
         "subtrees": {
           "uri": "subtrees/${level}/${x}/${y}/availability.json"
         },

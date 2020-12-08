@@ -23,19 +23,19 @@
         "description": "The error, in meters, introduced if the root is rendered and its children are not. The geometric error is halved for each level of subdivision. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.",
         "minimum" : 0
       },
-      "subtreeDepth": {
+      "subtreeLevels": {
         "type": "integer",
-        "description": "The depth of each subtree.",
+        "description": "The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with up to 5 nodes (one root and 4 children)",
         "minimum" : 1
       },
-      "maximumDepth": {
+      "maximumLevel": {
         "type": "integer",
         "description": "The maximum level at which a tile is available.",
         "minimum" : 0
       },
       "subtrees": {
         "allOf": [{"$ref": "templateUri.schema.json"}],
-        "description": "A template URI pointing to subtree availability json files. A subtree is a fixed-depth (defined by `subtreeDepth`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree's root global level, x, and y. For tiling scheme `OCTREE`, z must also be given."
+        "description": "A template URI pointing to subtree availability json files. A subtree is a fixed-depth (defined by `subtreeLevels`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree's root global level, x, and y. For tiling scheme `OCTREE`, z must also be given."
       },
       "content": {
         "allOf": [{"$ref": "3DTILES_implicit_tiling.content.schema.json"}],
@@ -44,5 +44,5 @@
       "extensions": {},
       "extras": {}
     },
-    "required" : ["boundingVolume", "refine", "tilingScheme", "geometricError", "subtreeDepth", "maximumDepth", "subtrees", "content"]
+    "required" : ["boundingVolume", "refine", "tilingScheme", "geometricError", "subtreeLevels", "maximumLevel", "subtrees", "content"]
   }

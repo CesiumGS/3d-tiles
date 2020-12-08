@@ -1,0 +1,68 @@
+{
+	"buffers": [
+    {
+      "uri": "availability.bin",
+      "byteLength": 100
+    },
+    {
+      "uri": "layers_availability.bin",
+      "byteLength": 100
+    },
+    {
+      "uri": "metadata.bin",
+      "byteLength": 100
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 100
+    },
+    {
+      "buffer": 0,
+      "byteOffset": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
+      "byteLength": "branchingFactor ^ (subtreeDepth) / bitsPerByte"
+    },
+    {
+      "buffer": 0,
+      "byteOffset": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte + branchingFactor ^ (subtree+1) / bitsPerByte",
+      "byteLength": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+    },
+    {
+      "buffer": 1,
+      "byteOffset": 0,
+      "byteLength": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+    },
+    {
+      "buffer": 1,
+      "byteOffset": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
+      "byteLength": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+    },
+    {
+      "buffer": 1,
+      "byteOffset": "2*(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
+      "byteLength": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+    },
+    {
+      "buffer": 2,
+      "byteOffset": 0,
+      "byteLength": "ceil((branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte)"
+    },
+    {
+      "buffer": 2,
+      "byteOffset": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte",
+      "byteLength": "(branchingFactor ^ (subtreeDepth + 1) - 1) / (branchingFactor - 1) / bitsPerByte"
+    }
+  ],
+  "tileAvailability": {
+    "bufferView": 0
+  },
+  "childSubtreeAvailability": {
+    "bufferView": 1
+  },
+  "contentAvailability": {
+    "constant": 0
+  },
+  "extensions": {}
+}

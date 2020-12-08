@@ -19,17 +19,17 @@
       }
     },
     "tileAvailability": {
-      "description": "The availability of tiles in the subtree. If not all available or unavailable, the size of the buffer will be (N ^ (subtreeDepth + 1) - 1) / (N - 1) bits where N is 4 for tiling scheme `QUADTREE` and 8 for `OCTREE`.",
+      "description": "The availability of tiles in the subtree. If not all available or unavailable, the size of the buffer will be (N ^ (subtreeLevels + 1) - 1) / (N - 1) bits where N is 4 for tiling scheme `QUADTREE` and 8 for `OCTREE`.",
       "type": "object",
       "allOf": [{"$ref": "availability.schema.json"}]
     },
     "childSubtreeAvailability": {
-      "description": "The availability of the children of the subtree. If not all available or unavailable, the size of the buffer will be N ^(subtreeDepth) bits where N is 4 for tiling scheme `QUADTREE` and 8 for `OCTREE`.",
+      "description": "The availability of the children of the subtree. If not all available or unavailable, the size of the buffer will be N ^(subtreeLevels) bits where N is 4 for tiling scheme `QUADTREE` and 8 for `OCTREE`.",
       "type": "object",
       "allOf": [{"$ref": "availability.schema.json"}]
     },
     "contentAvailability": {
-      "description": "The availability of the content of the tiles of the subtree. If not all available or unavailable, the size of the buffer will be N ^(subtreeDepth) bits where N is 4 for tiling scheme `QUADTREE` and 8 for `OCTREE`.",
+      "description": "The availability of the content of the tiles of the subtree. If not all available or unavailable, the size of the buffer will be N ^(subtreeLevels) bits where N is 4 for tiling scheme `QUADTREE` and 8 for `OCTREE`.",
       "type": "object",
       "allOf": [{"$ref": "availability.schema.json"}]
     }
