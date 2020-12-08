@@ -64,14 +64,40 @@ One new feature implicit tiling enables is procedurally-generated tilesets. Sinc
 
 ## Configuration
 
-OUTLINE:
-- required options: refine, geometric error, max depth
-- subtree depth, bounding volume, tiling scheme (link to respective sections)
-- example directory structure (not required)
-  - tileset.json which uses this extension
-  - buffers/level/x/y/buffer.bin
-  - content/level/x/y/model.gltf
-  - subtrees/level/x/y/subtree.json
+The `tileset.json` of an implicit tileset is much more compact than in the core 3D Tiles specification. Instead of specifying a tree of tiles, only information about the root tile and URL patterns to locate the other files in tileset are used.
+
+Information about the root tile includes the following:
+
+| Option | Description |
+| ------ | ----------- |
+| `tilingScheme` | Either `QUADTREE` or `OCTREE`, this determines the branching factor at every level of the tree|
+| `boundingVolume` | a bounding volume (either a `box` or `region`) describing the root. This will be subdivided depending on the `tilingScheme`. See [Tiling Schemes](#tiling-schemes) for more information |
+| `refine` | Either `ADD` or `REPLACE` as in the core Cesium 3D Tiles Specification. This will be used throughout the tree |
+| `geometricError` | Geometric error of the root tile as described in the Cesium 3D Tiles Specification. This will be halved at each successive level of the tree |
+| `maximumLevel` | Maxium level of the entire tree |
+| `subtreeLevels` | How many distince levels in each subtree. See the [Subtrees](#subtrees) section for more details |
+
+An implicit tileset also includes many other tiles to store 3D models, subtree files, and binary buffers for availability information. These are configured [template URIs](#template-uris) that use the tile coordinates, i.e. `level`, `x`, `y`, and sometimes `z`. 
+
+On disk, one possible organization of files in an implicit tileset looks like this:
+
+```
+/
+|-- tileset.json
+|-- availability/
+|   |-- {level}/{x}/{y}/buffer.bin
+|-- content/
+|   |-- {level}/{x}/{y}/model.gltf
+|-- subtrees/
+|   |-- {level}/{x}/{y}/subtree.json
+```
+
+The options for configuring these other files are as follows:
+
+| Option | Description |
+| ------ | ----------- |
+| `subtrees.uri` | template URI for a subtree JSON file. see [Subtrees](#subtrees) for more info |
+| `content.uri` | template URI for the content 3D Models |
 
 ## Tiling Schemes
 
@@ -123,8 +149,7 @@ OUTLINE:
 
 ### Tile Availability
 
-Tile availability describes what tiles exist at a specific position in space. Though template URIs can represent any possible `(level, x, y)` or `(level, x, y, z)` tile (depending on the tiling scheme), a tileset will typically need only a small subset of the possible tiles. Tile availability explicitly list which tiles are present.
-This allows querying for tiles while keeping network requests to a minimum.
+Tile availability describes what tiles exist at a specific position in space. Though template URIs can represent any possible `(level, x, y)` or `(level, x, y, z)` tile (depending on the tiling scheme), a tileset will typically need only a small subset of the possible tiles. Tile availability explicitly list which tiles are present. This allows querying for tiles while keeping network requests to a minimum.
 
 Tile availability is a bit vector with one bit per node in the [subtree](#subtrees).
 
@@ -143,7 +168,6 @@ Useful formulas for the tile availability buffer:
 | `startOfLevel` | `N^level - 1` | first index at a particular level (relative to the subtree root) |
 | `mortonIndex` | `index - startOfLevel` | Convert from bit index to Morton index, relative to the root of the subtree |
 | `globalMortonIndex` | `concat(subtreeRoot.globalMortonIndex, mortonIndex)` | Get the Morton index relative to the root of the tileset |
-
 
 ### Content Availability
 
@@ -194,6 +218,19 @@ OUTLINE:
 
 ## Subtrees
 
+Since tilesets grow exponentially, storing all tile info in a single file is not always feasible. To account for this, `3DTILES_implicit_tiling` provides a standard method for dividing a tileset into manageable chunks called **subtrees**. This extension defines a subtree as a fixed-size section of the overall tileset tree. A subtree has a fixed number of levels, controlled by `subtreeLevels`. The branching factor is also fixed by the `tilingScheme` to either 4 or 8.
+
+TODO: diagram: anatomy of a subtree
+
+It is helpful to think of a subtree as a fixed-size container for part of the tileset. The container takes the form of a complete tree
+
+TODO: diagram: smaller tree within subtree
+
+The set of subtrees must exactly cover the valid tiles of the tileset. That is, every tile must appear in exactly one subtree.
+
+TODO: diagram: subtrees exactly covering the tileset. 
+
+
 OUTLINE:
 - fixed depth subtree chunk of root tree
 - json file points to buffers (or constants) with tile, child subtree, content availabilities
@@ -205,6 +242,8 @@ OUTLINE:
 ## Content
 
 Each tile can optionally contain **content** which represents a single 3D model. This is nearly identical to the [definition](https://github.com/CesiumGS/3d-tiles/tree/master/specification#reference-tile-content) from the Cesium 3D Tiles 1.0 specifiction, with one main difference. This extension adds a `mimeType` property to identify the type of the content. This is useful information when parsing tilesets, as it is more reliable than guessing the type of file by file extension.
+
+To use glTF models (`.gltf` or `.glb` files) as content, the `3DTILES_content_gltf` extension must be listed as a required extension in the tileset.
 
 ## Buffers and BufferViews
 
