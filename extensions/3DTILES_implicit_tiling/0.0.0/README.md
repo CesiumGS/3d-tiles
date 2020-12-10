@@ -1,7 +1,9 @@
+<!-- omit in toc -->
 # 3DTILES_implicit_tiling
 
 **Version 0.0.0**, December 1, 2020
 
+<!-- omit in toc -->
 ## Contributors
 
 * Sam Suhag, Cesium
@@ -9,35 +11,208 @@
 * Peter Gagliardi, Cesium
 * Erixen Cruz, Cesium
 
+<!-- omit in toc -->
 ## Status
 
 Draft
 
+<!-- omit in toc -->
 ## Dependencies
 
 Written against the 3D Tiles 1.0 specification.
 
+<!-- omit in toc -->
 ## Contents
 
-- [3DTILES_implicit_tiling](#3dtiles_implicit_tiling)
-  - [Contributors](#contributors)
-  - [Status](#status)
-  - [Dependencies](#dependencies)
-  - [Contents](#contents)
-  - [Overview](#overview)
-  - [Use Cases](#use-cases)
-  - [Configuration](#configuration)
-  - [Tiling Schemes](#tiling-schemes)
-  - [Template URIs](#template-uris)
-  - [Availability](#availability)
-    - [Tile Availability](#tile-availability)
-    - [Content Availability](#content-availability)
-    - [Subtree Availability](#subtree-availability)
-    - [Morton Order](#morton-order)
-  - [Subtrees](#subtrees)
-  - [Content](#content)
-  - [Buffers and BufferViews](#buffers-and-bufferviews)
-  - [Examples](#examples)
+- [Overview](#overview)
+- [Use Cases](#use-cases)
+- [Tiling Schemes](#tiling-schemes)
+- [Tile Coordinates](#tile-coordinates)
+- [Template URIs](#template-uris)
+- [Content](#content)
+- [Subtrees](#subtrees)
+- [Availability](#availability)
+  - [Tile Availability](#tile-availability)
+  - [Content Availability](#content-availability)
+  - [Child Subtree Availability](#child-subtree-availability)
+- [Subtree JSON Files](#subtree-json-files)
+  - [Buffers and Buffer Views](#buffers-and-buffer-views)
+  - [Morton Order](#morton-order)
+  - [Availability Encoding](#availability-encoding)
+- [Tileset JSON](#tileset-json)
+- [Glossary](#glossary)
+- [Examples](#examples)
+- [JSON Schema Reference](#json-schema-reference)
+- [Appendix A: Tree Indexing Formulae](#appendix-a-tree-indexing-formulae)
+  - [Morton Indexing](#morton-indexing)
+  - [Availability Buffers](#availability-buffers)
+- [----------- OLD DRAFT FOLLOWS ---------------](#------------old-draft-follows----------------)
+- [Overview](#overview-1)
+- [Use Cases](#use-cases-1)
+- [Configuration](#configuration)
+- [Tiling Schemes](#tiling-schemes-1)
+- [Template URIs](#template-uris-1)
+- [Availability](#availability-1)
+  - [Tile Availability](#tile-availability-1)
+  - [Content Availability](#content-availability-1)
+  - [Subtree Availability](#subtree-availability)
+  - [Morton Order](#morton-order-1)
+- [Subtrees](#subtrees-1)
+- [Content](#content-1)
+- [Buffers and BufferViews](#buffers-and-bufferviews)
+- [Examples](#examples-1)
+
+## Overview
+
+**Implicit tiling** is a alternative method for describing a Cesium 3D Tileset that provides a more succinct representation of large tilesets. It uses a pattern of tile subdivision to describe a tileset. This contrasts **explicit tiling**, where every tile is listed. The Cesium 3D Tiles 1.0 specification only supports explicit tiling, as every tile is listed in the tileset JSON file.
+
+Implicit tiling keeps the tileset JSON file small, which makes loading large tilesets faster. While explicit tiling can represent large datasets, the tileset JSON file grows linearly with the number of tiles. Implicit tiling keeps the tileset JSON file bounded in size.
+
+Implicit tiling also provides a method for accessing tiles by tile coordinates. This allows for abbreviated tree traversal algorithms.
+
+OUTLINE:
+- What diagram would be good here?
+- Define explicit tiling
+- diagram: tile coordinates vs traversal
+
+For a complete list of terminology used, see the [Glossary](#glossary).
+
+## Use Cases
+
+_This section is non-normative_
+
+## Tiling Schemes
+
+## Tile Coordinates
+
+## Template URIs
+
+## Content
+
+## Subtrees
+
+**Subtrees** are fixed-depth and fixed-branching factor sections of the tileset tree used for breaking tilesets into manageable pieces.
+
+Since tilesets grow exponentially with depth, storing information about every tile in a single file is not always feasible or desirable. Even if RAM is not a direct limitation, streaming large files over the network can make loading times slower. To account for this, subtrees partition the tileset structure into pieces of bounded size.
+
+![exact cover](figures/union-of-subtrees.jpg)
+
+Each subtree is a tree-shaped container for tiles. A subtree has a fixed number of levels defined by the `subtreeLevels` property. This describes the number of distinct levels in the tree. The branching factor is also fixed due to the tiling scheme. For quadtrees, the branching factor is `4`, while octrees have a branching factor of `8`. Taken together, a subtree has exactly enough slots to store a full quadtree or full octree with a limited depth. In practice, only a subset of slots will contain a tile, as a tileset only stores the tiles that are necessary.
+
+![subtree anatomy](figures/subtree-anatomy.jpg)
+
+OUTLINE:
+- refering to nodes is confusing. review this!
+
+## Availability
+
+**Availability** is boolean data about which tiles, contents, or subtrees exist in a tileset. Availability serves two purposes:
+
+1. It provides an efficient method for checking what files are present
+2. Including ths information prevents extraneous HTTP requests that would result in 404 errors.
+
+Availablity takes the form of a bitstream with one bit per node in consideration. A 1 indicates that a tile/content/subtree is available at this node. Meanwhile, a 0 indicates that no data is available.
+
+When every node is available or every node is unavailable, all the bits of the bitstream will be identical. That is, either all 1s or all 0s. Instead of storing a full bit stream, the `constant` property can be used instead. For example, `constant: 0` indicates that all bits are 0 and no bitstream must be stored.
+
+Availability data is scoped to a subtree. This ensures that the size of each bitstream is bounded to a reasonable size.
+
+### Tile Availability
+
+**Tile availability** is a bitstream that determines which tiles exist within a subtree. There is one bit for each subtree node. A 1 indicates that a tile is available, while a 0 indicates that a tile is unavailable.
+
+![Tile Availability](figures/tile-availability.jpg)
+
+In the diagram above, colored nodes indicated available tile, while nodes with dashed outlines are unavailable tiles.
+
+If a tile is marked as available, more information about the tile, such as its content or children can be queried. If a tile is marked as unavailable, the tile must be skipped.
+
+### Content Availability
+
+**Content availability** is a bitstream that determines which tiles have an associated content file. Like tile availability, there is one bit for each subtree node. A 1 indicates a content file exists for this tile, while a 0 indicates that no content file exists.
+
+![Content Availability](figures/content-availability.jpg)
+
+The purpose of content availability is to check if a file exists before making a network request. If content is marked as unavailable, the network request for that file must be skipped.
+
+A content availablity bit must only be set if the corresponding tile availability bit is set. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset. The content availability bitstream can be validiated by checking that the following equation holds true:
+
+```
+contentAvailability & ~tileAvailability === 0
+```
+
+where `&` is the bitwise AND operation and `~` is the bitwise NOT operation.
+
+### Child Subtree Availability
+
+**Child subtree availability** is a bitstream that determines what subtrees can be reached from this subtree. There are `N` bits for every node in the bottom-most level of the subtree, where `N` is the branching factor of the tree. A 1 means there is a child subtree available at that position in the tree. Meanwhile, a 0 means there is no subtree available.
+
+![Child Subtree Availability](figures/subtree-availability.jpg)
+
+Child subtree availability is used to determine whether further subtree files exist before making network requests. If a child subtree availability bit is 0, any network request for that subtree must be skipped.
+
+## Subtree JSON Files
+
+### Buffers and Buffer Views
+
+### Morton Order
+
+### Availability Encoding
+
+OLD ---
+
+These bit vectors are packed in binary using a format described in the [Boolean Data section](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md#boolean-data) of the Cesium 3D Metadata Specification. This bit vector is stored in a [buffer](#buffers-and-bufferviews) and referenced using a `bufferView` JSON property.
+
+However, storing a bit for every node in a tree can add up. This is especially true when every entity exists (a bit vector with all 1s) or no entity exists (all 0s). To help reduce the cost in these two cases, specifying `constant: 1` or `constant: 0` can be used in place of the bit vector to save memory.
+
+---
+
+## Tileset JSON
+
+## Glossary
+
+TODO: Need to rethink the node naming conventions to make it simpler.
+
+* **tileset** - A tileset as described in the Cesium 3D Tiles 1.0 specification
+* **tile** - A tile as described in the Cesium 3D Tiles 1.0 specification
+* **tileset JSON** - A JSON file describing a tileset, as described in the Cesium 3D Tiles 1.0 specification
+* **explicit tiling** - Describing a tileset by providing information about every tile
+* **implicit tiling** - Describing a tileset by providing information about the root tile and a pattern for subdividing the tile.
+* **leaf tile** - A tile with no children.
+* **root tile** - The topmost tile in a tileset tree.
+* **available tile** - A tile that exists in the dataset.
+* **unavailable tile** - A region of space that does not contain a tile
+* **empty tile** - A tile that exists but does not have content
+* **subtree** - a fixed-depth section of the tileset tree used to break large tilesets into managable pieces.
+* **slot** - One of the nodes of a subtree, whether or not a tile exists within.
+* **leaf slot** - A slot in the bottommost level of a subtree.
+* **child subtree** - A subtree reachable from an available tile in a leaf slot.
+* **availability** - Data specifying which tiles are available within a single subtree. This helps prevent unnecessary network requests.
+* **tile availability** - Information about which tiles exist within a single subtree.
+* **content availability** - Information about which tiles have an associated content file within a single subtree.
+* **child subtree availability** - information about what child subtrees are available 
+* **subtree file** - A JSON file storing information about a specific subtree.
+
+## Examples
+
+OUTLINE:
+- double-headed quadtree as explicit root tileset + external implicit tilesets
+- sparse, shallow octree
+- deep, sparse quadtree
+- Full quadtree (medium depth)
+
+## JSON Schema Reference
+
+OUTLINE:
+- Generate via Wetzel
+  
+## Appendix A: Tree Indexing Formulae
+
+### Morton Indexing
+
+### Availability Buffers
+
+## ----------- OLD DRAFT FOLLOWS ---------------
 
 ## Overview
 
@@ -101,6 +276,13 @@ The options for configuring these other files are as follows:
 
 ## Tiling Schemes
 
+Implicit tiling supports two types of tiling schemes with predictable patterns: quadtrees and octrees. Quadtrees take each rectangular region or box and divide it into two rows and two columns. Octrees are similar, but also split the height in half to create 8 cells
+
+TODO: Diagram of quadtree. can this be borrowed from another spec?
+TODO: Diagram of octree
+
+What changes
+
 OUTLINE:
 - Quadtree vs octree
 - bounding volumes are quartered/eighthed automatically
@@ -121,20 +303,7 @@ OUTLINE:
 
 ## Availability
 
-While tiling schemes and template URIs describe the structural patterns the tileset must follow, **availability** describes what data actually exists in the tree. Availability serves two main purposes:
 
-1. It provides an efficient method for checking for the presence of data.
-2. Including this information prevents extraneous HTTP requests that would result in 404 errors.
-
-This extension provides three types of availability data for different purposes:
-
-* [Tile availability](#tile-availability) - information about whether a given tile exists in the tileset tree.
-* [Content availability](#content-availability) - information about whether a given tile has content (since tiles can be empty)
-* [Subtree availability](#subtree-availability) - for memory considerations, tilesets are split into [subtrees](#subtrees). 
-
-All three use the same form of data storage. Avaiablity takes the form of a bit vector with one bit per entity in consideration. a 1 indicates an entity exists, while a 0 indicates that the entity does not exist. These bit vectors are packed in binary using a format described in the [Boolean Data section](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md#boolean-data) of the Cesium 3D Metadata Specification. This bit vector is stored in a [buffer](#buffers-and-bufferviews) and referenced using a `bufferView` JSON property.
-
-However, storing a bit for every node in a tree can add up. This is especially true when every entity exists (a bit vector with all 1s) or no entity exists (all 0s). To help reduce the cost in these two cases, specifying `constant: 1` or `constant: 0` can be used in place of the bit vector to save memory.
 
 OUTLINE:
 - bit vector (describe this like in Cesium 3D Metadata spec?)
@@ -184,6 +353,8 @@ Useful formulas for the tile availability buffer:
 
 TODO: be clearer about conventions. which subtree am I referring to? it's a little unclear if I'm referring to the current subtree or one of the child subtrees.
 
+- children availability used for traversal for retrieval of tile
+
 ### Morton Order
 
 | Quantity | Formula | Description |
@@ -218,26 +389,7 @@ OUTLINE:
 
 ## Subtrees
 
-Since tilesets grow exponentially, storing all tile info in a single file is not always feasible. To account for this, `3DTILES_implicit_tiling` provides a standard method for dividing a tileset into manageable chunks called **subtrees**. This extension defines a subtree as a fixed-size section of the overall tileset tree. A subtree has a fixed number of levels, controlled by `subtreeLevels`. The branching factor is also fixed by the `tilingScheme` to either 4 or 8.
 
-TODO: diagram: anatomy of a subtree
-
-It is helpful to think of a subtree as a fixed-size container for part of the tileset. The container takes the form of a complete tree
-
-TODO: diagram: smaller tree within subtree
-
-The set of subtrees must exactly cover the valid tiles of the tileset. That is, every tile must appear in exactly one subtree.
-
-TODO: diagram: subtrees exactly covering the tileset. 
-
-
-OUTLINE:
-- fixed depth subtree chunk of root tree
-- json file points to buffers (or constants) with tile, child subtree, content availabilities
-- children availability used for traversal for retrieval of tile
-- subtrees contain mutually exclusive tiles, and completely cover the entire tree
-- include formulas from `example/subtree.json`
-- diagram: how subtrees fit together to make a tree
 
 ## Content
 
