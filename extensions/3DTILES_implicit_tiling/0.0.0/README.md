@@ -709,8 +709,6 @@ interleave(0b111, 0b000, 0b111) = 0b101101101
 
 ### Availability Formulas
 
-TODO: Double check these formulas
-
 #### Tile and Content Availability Formulas
 
 Both tile and content availability are stored in a bitstream with the same structure, so these formulas apply equally well to both
@@ -722,10 +720,10 @@ Both tile and content availability are stored in a bitstream with the same struc
 | `parent.index` | `floor((child.index - 1) / N)` | Index of the parent in the bitstream | 
 | `parent.indexOf(child)` | `(child.index - 1) % N` | Index of the child within the parent's `N` children |
 | `parent.children[k].index` | `N * index + k + 1` | Find the bit of the `k-th` child of a node |
-| `index` | `N^level - 1 + mortonIndex` | Find the index of a node from `(level, mortonIndex)`
-| `level` | `floor(log2(index + 1))` | Find the level of a node relative to the subtree |
+| `index` | `(N^level - 1)/(N - 1) + mortonIndex` | Find the index of a node from `(level, mortonIndex)`
+| `level` | `ceil(log(index + 1)/log(N))` | Find the level of a node relative to the subtree |
 | `globalLevel` | `level + subtreeRoot.globalLevel` | Find the level of a node relative to the entire tileset | 
-| `startOfLevel` | `N^level - 1` | first index at a particular level (relative to the subtree root) |
+| `startOfLevel` | `(N^level - 1)/(N - 1)` | first index at a particular level (relative to the subtree root) |
 | `mortonIndex` | `index - startOfLevel` | Convert from bit index to Morton index, relative to the root of the subtree |
 | `globalMortonIndex` | `concat(subtreeRoot.globalMortonIndex, mortonIndex)` | Get the Morton index relative to the root of the tileset |
 
@@ -735,7 +733,7 @@ Both tile and content availability are stored in a bitstream with the same struc
 | -------- | ------- | ----------- |
 | `lengthBits` | `N^subtreeLevels` | Length of the buffer by subtree levels |
 | `lengthBytes` | `ceil(lengthBits / 8)` | Bytes needed to store the buffer |
-| `subtree.globalLevel` | `subtreeRoot.globalLevel + subtreeLevels` | Level of the subtrees relative to the tileset root |
-| `leaf.children[k].index` | `N * leaf.mortonIndex + k` | index of the `k-th` subtree |
-| `leaf.indexOf(subtree)` | `subtreeRoot.mortonIndex % N` | Index of the subtree within the parent leaf's `N` children |
+| `childSubtree.globalLevel` | `subtreeRoot.globalLevel + subtreeLevels` | Level of the child subtrees relative to the tileset root |
+| `leaf.children[k].index` | `N * leaf.mortonIndex + k` | index of the `k-th` child subtree |
+| `leaf.indexOf(childSubtree)` | `subtreeRoot.mortonIndex % N` | Index of the child subtree within the parent leaf's `N` children |
 | `leaf.mortonIndex` | `floor(subtreeRoot.mortonIndex / N)` | Morton index of the parent leaf |
