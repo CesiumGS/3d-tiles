@@ -202,7 +202,7 @@ Each subtree is a tree-shaped container for tiles. A subtree has a fixed number 
 1. It provides an efficient method for checking what files are present
 2. Including ths information prevents extraneous HTTP requests that would result in 404 errors.
 
-Availablity takes the form of a bitstream with one bit per node in consideration. A 1 indicates that a tile/content/subtree is available at this node. Meanwhile, a 0 indicates that no data is available.
+Availablity takes the form of a bitstream with one bit per node in consideration. A 1 indicates that a tile/content/subtree is available at this node. Meanwhile, a 0 indicates that no tile/content/subtree is available at this node.
 
 For cases where all nodes are available or all nodes are unavailable, the `constant` property should be used instead of storing a full bitstream. For example, `constant: 0` indicates that all bits are 0 and no bitstream must be stored.
 
@@ -226,7 +226,7 @@ If a tile is marked as available, more information about the tile, such as its c
 
 The purpose of content availability is to check if a file exists before making a network request. If content is marked as unavailable, the network request for that file must be skipped.
 
-A content availablity bit must only be set if the corresponding tile availability bit is set. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset. The content availability bitstream can be validiated by checking that the following equation holds true:
+A content availablity bit must only be set if the corresponding tile availability bit is set. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset. The content availability bitstream can be validated by checking that the following equation holds true:
 
 ```
 contentAvailability & ~tileAvailability === 0
@@ -291,8 +291,8 @@ In the extension object, the following information about the root tile is includ
 | `boundingVolume` | a bounding volume (either a `box` or `region`) describing the root tile |
 | `refine` | Either `ADD` or `REPLACE` as in the Cesium 3D Tiles 1.0 Specification. |
 | `geometricError` | Geometric error of the root tile as described in the Cesium 3D Tiles 1.0 Specification. |
-| `maximumLevel` | Maxium level of the entire tree |
-| `subtreeLevels` | How many distince levels in each subtree. |
+| `maximumLevel` | Maximum level of the entire tree |
+| `subtreeLevels` | How many distance levels in each subtree. |
 
 Furthermore, template URIs are used for locating subtree JSON files as well as tile contents. The key properties are as follows:
 
@@ -353,7 +353,7 @@ Below is a full example of how the tileset JSON file looks in practice:
 * **octree** - A 3D tiling scheme that divides each cuboid into 8 smaller cuboids.
 * **quadtree** - A 2D tiling scheme that divides each rectangle into 4 smaller rectangles.
 * **root tile** - The topmost tile in a tileset tree.
-* **subtree** - A fixed-depth section of the tileset tree used to break large tilesets into managable pieces.
+* **subtree** - A fixed-depth section of the tileset tree used to break large tilesets into manageable pieces.
 * **subtree file** - A JSON file storing information about a specific subtree.
 * **subtree node** - A node in a subtree, regardless of whether there is an available tile there.
 * **template URI** - A URI pattern containing tile coordinates for directly addressing tiles.
@@ -367,7 +367,11 @@ Below is a full example of how the tileset JSON file looks in practice:
 ## Examples
 
 ### Quadtree with four levels
-Consider a tileset with a quadtree tiling scheme and four levels of detail. Suppose that we want to use implicit tiling with subtrees with 2 levels. The root tileset JSON might look something this:
+Consider a tileset with a quadtree tiling scheme and four levels of detail. Suppose that we want to use implicit tiling with subtrees with 2 levels.
+
+![Quadtree example](figures/quadtree-example.jpg)
+
+The root tileset JSON might look something this:
 ```json
 {
   "asset": {
