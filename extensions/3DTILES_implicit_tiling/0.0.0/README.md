@@ -57,14 +57,13 @@ Written against the 3D Tiles 1.0 specification.
   - [Content Availability](#content-availability-1)
   - [Subtree Availability](#subtree-availability)
   - [Morton Order](#morton-order-1)
-- [Subtrees](#subtrees-1)
 - [Content](#content-1)
 - [Buffers and BufferViews](#buffers-and-bufferviews)
 - [Examples](#examples-1)
 
 ## Overview
 
-**Implicit tiling** is a alternative method for describing a Cesium 3D Tileset that provides a more succinct representation of large tilesets. It uses a pattern of tile subdivision to describe a tileset. This contrasts **explicit tiling**, where every tile is listed. The Cesium 3D Tiles 1.0 specification only supports explicit tiling, as every tile is listed in the tileset JSON file.
+>**Implicit tiling** is a alternative method for describing a Cesium 3D Tileset that provides a more succinct representation of large tilesets. It uses a pattern of tile subdivision to describe a tileset. This contrasts **explicit tiling**, where every tile is listed. The Cesium 3D Tiles 1.0 specification only supports explicit tiling, as every tile is listed in the tileset JSON file.
 
 Implicit tiling keeps the tileset JSON file small, which makes loading large tilesets faster. While explicit tiling can represent large datasets, the tileset JSON file grows linearly with the number of tiles. Implicit tiling keeps the tileset JSON file bounded in size.
 
@@ -81,9 +80,51 @@ For a complete list of terminology used, see the [Glossary](#glossary).
 
 _This section is non-normative_
 
+OLD -----
+
+Implicit tiling allows Cesium 3D Tiles to support a variety of new use cases.
+
+A key use for implicit tiling is enabling and/or accelerating tree traversal algorithms. For example, Cesium uses a [skip-LOD](https://cesium.com/blog/2017/05/05/skipping-levels-of-detail/) algorithm for faster loading times. This can be accelerated further by implicit tiling, as tiles can be directly fetched given the `level`, `x`, `y`, and sometimes `z` of a tile. This means no traversal of the `tileset.json` is needed. Raycasting algorithms and GIS algorithms can also benefit from directly addressing tiles rather than using a tree traversal.
+
+Implicit tiling also allows for better interoperability with existing GIS data formats with implicitly defined tiling schemes. Some examples are:
+
+* [CDB](https://docs.opengeospatial.org/is/15-113r5/15-113r5.html)
+* [S2](http://s2geometry.io/)
+* [WMTS](https://www.ogc.org/standards/wmts)
+* [TMS](https://wiki.osgeo.org/wiki/Tile_Map_Service_Specification)
+
+One new feature implicit tiling enables is procedurally-generated tilesets. Since implicit tiling encodes tile coordinates in URLs (such as `{level}/{x}/{y}/model.gltf`), consider the server that serves these files. Instead of serving static files, a server could extract the tile coordinates from the URL and generate tiles at runtime. This could be useful for making a large procedural terrain dataset without requiring much disk space.
+
+----
+
 ## Tiling Schemes
 
+>**Tiling schemes** are well-defined patterns for subdividing a bounding volume into a hierarchy of tiles.
+
+Implicit tiling supports two types of bounding volumes, `box` and `region`. Both are defined in the [Bounding Volumes section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes) of the Cesium 3D Tiles 1.0 Specification. `sphere` is not supported.
+
+TODO: Diagram of bounding volume.
+
+A bounding volume is recursively subdivided by splitting it at the midpoint of some or all of the dimensions. If the two horizontal dimensions are split, a quadtree is produced. If all three dimensions are split, an octree is produced.
+
+OUTLINE:
+- Define quadtree in more depth
+- Quadtree diagram
+- Define octree in more depth
+- Octree diagram
+- Define what changes as we go down the tree.
+
 ## Tile Coordinates
+
+>**Tile coordinates** are a tuple of integers that uniquely identify a tile. Tile coordinates are either `(level, x, y)` for quadtrees, and `(level, x, y, z)` for octrees.
+
+For quadtrees, the coordinates are interpreted as follows:
+
+| Coordinate | Description |
+|---|---|
+| `level` | The 0-indexed level number. Level 0 is the root of the tree, Level 1 is one level deep |
+| `x` | The 0-indexed column number within the level. Columns are numbered from west to east, with the west edge of tile 0 at -180° W longitude |
+| `y` | The 0-indexed row number within the level. Rows are numbered from north to south, with the north edge of tile 0 at 90° N latitude |
 
 ## Template URIs
 
@@ -153,19 +194,26 @@ Child subtree availability is used to determine whether further subtree files ex
 
 ## Subtree JSON Files
 
+A **subtree JSON file** describes where the availability information for a single subtree is stored.
+
+Each subtree JSON file contains the following information:
+
+* The location of a bitstream for tile availability (if not `constant`)
+* The location of a bitstream for content availability (if not `constant`)
+* The location of a bitstream for child subtree availability (if not `constant`)
+
 ### Buffers and Buffer Views
+
+OUTLINE:
+- Which spec to reference? 3DTILES_binary_buffers or core metadata?
 
 ### Morton Order
 
 ### Availability Encoding
 
-OLD ---
+Availability bitstreams are packed in binary using the format described in the [Boolean Data section](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md#boolean-data) of the Cesium 3D Metadata Specification.
 
-These bit vectors are packed in binary using a format described in the [Boolean Data section](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md#boolean-data) of the Cesium 3D Metadata Specification. This bit vector is stored in a [buffer](#buffers-and-bufferviews) and referenced using a `bufferView` JSON property.
-
-However, storing a bit for every node in a tree can add up. This is especially true when every entity exists (a bit vector with all 1s) or no entity exists (all 0s). To help reduce the cost in these two cases, specifying `constant: 1` or `constant: 0` can be used in place of the bit vector to save memory.
-
----
+Each availability bitstream must be stored as a separate `bufferView`, but multiple `bufferViews` may be stored in a single `buffer`.
 
 ## Tileset JSON
 
@@ -178,6 +226,9 @@ TODO: Need to rethink the node naming conventions to make it simpler.
 * **tileset JSON** - A JSON file describing a tileset, as described in the Cesium 3D Tiles 1.0 specification
 * **explicit tiling** - Describing a tileset by providing information about every tile
 * **implicit tiling** - Describing a tileset by providing information about the root tile and a pattern for subdividing the tile.
+* **Tiling scheme** - A well-defined method for subdividing a bounding volume into a hierarchy of tiles
+* **Quadtree** - A 2D tiling scheme that divides each rectangle into 4 smaller rectangles
+* **Octree** - A 3D tiling scheme that divides each cuboid into 8 smaller cuboids
 * **leaf tile** - A tile with no children.
 * **root tile** - The topmost tile in a tileset tree.
 * **available tile** - A tile that exists in the dataset.
@@ -192,6 +243,7 @@ TODO: Need to rethink the node naming conventions to make it simpler.
 * **content availability** - Information about which tiles have an associated content file within a single subtree.
 * **child subtree availability** - information about what child subtrees are available 
 * **subtree file** - A JSON file storing information about a specific subtree.
+
 
 ## Examples
 
@@ -224,18 +276,7 @@ OUTLINE:
 
 ## Use Cases
 
-Implicit tiling allows Cesium 3D Tiles to support a variety of new use cases.
 
-A key use for implicit tiling is enabling and/or accelerating tree traversal algorithms. For example, Cesium uses a [skip-LOD](https://cesium.com/blog/2017/05/05/skipping-levels-of-detail/) algorithm for faster loading times. This can be accelerated further by implicit tiling, as tiles can be directly fetched given the `level`, `x`, `y`, and sometimes `z` of a tile. This means no traversal of the `tileset.json` is needed. Raycasting algorithms and GIS algorithms can also benefit from directly addressing tiles rather than using a tree traversal.
-
-Implicit tiling also allows for better interoperability with existing GIS data formats with implicitly defined tiling schemes. Some examples are:
-
-* [CDB](https://docs.opengeospatial.org/is/15-113r5/15-113r5.html)
-* [S2](http://s2geometry.io/)
-* [WMTS](https://www.ogc.org/standards/wmts)
-* [TMS](https://wiki.osgeo.org/wiki/Tile_Map_Service_Specification)
-
-One new feature implicit tiling enables is procedurally-generated tilesets. Since implicit tiling encodes tile coordinates in URLs (such as `{level}/{x}/{y}/model.gltf`), consider the server that serves these files. Instead of serving static files, a server could extract the tile coordinates from the URL and generate tiles at runtime. This could be useful for making a large procedural terrain dataset without requiring much disk space.
 
 ## Configuration
 
@@ -302,8 +343,6 @@ OUTLINE:
 - diagram: how a pattern corresponds to tiles
 
 ## Availability
-
-
 
 OUTLINE:
 - bit vector (describe this like in Cesium 3D Metadata spec?)
@@ -386,10 +425,6 @@ OUTLINE:
 - better locality of reference
 - takes into account hierarchy (simple to find parent index)
 - see what can be reused from old draft
-
-## Subtrees
-
-
 
 ## Content
 
