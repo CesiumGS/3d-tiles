@@ -45,6 +45,7 @@ Written against the 3D Tiles 1.0 specification.
 - [Glossary](#glossary)
 - [Examples](#examples)
   - [Quadtree with four levels](#quadtree-with-four-levels)
+- [Octree Example](#octree-example)
 - [JSON Schema Reference](#json-schema-reference)
 - [Appendix A: Tree Indexing Formulas](#appendix-a-tree-indexing-formulas)
   - [Morton Indexing Formulas](#morton-indexing-formulas)
@@ -54,9 +55,9 @@ Written against the 3D Tiles 1.0 specification.
 
 ## Overview
 
->**Implicit tiling** is a alternative method for describing a Cesium 3D Tileset that provides a more succinct representation of large tilesets. It uses a pattern of tile subdivision to describe a tileset. This contrasts **explicit tiling**, where every tile is listed. The Cesium 3D Tiles 1.0 specification only supports explicit tiling, as every tile is listed in the tileset JSON file.
+>**Implicit tiling** is a alternative method for describing a Cesium 3D Tileset that provides a more succinct representation of large tilesets. It encodes the hierarchical structure of the tileset in binary, as oppoeed to explicit tiling, which specifies the tile hierarchy in JSON. The Cesium 3D Tiles 1.0 specification only supports explicit tiling, as every tile is listed in the tileset JSON file.
 
-Implicit tiling keeps the tileset JSON file small, which makes loading large tilesets faster. While explicit tiling can represent large datasets, the tileset JSON file grows linearly with the number of tiles. Implicit tiling keeps the tileset JSON file bounded in size.
+Implicit tiling keeps the tileset JSON file small, which makes loading large tilesets faster. While explicit tiling can be used to represent large datasets, the tileset JSON file grows linearly with the number of tiles. Implicit tiling keeps the tileset JSON file bounded in size.
 
 Implicit tiling also provides a method for accessing tiles by tile coordinates. This allows for abbreviated tree traversal algorithms.
 
@@ -70,7 +71,7 @@ _This section is non-normative_
 
 Implicit tiling allows Cesium 3D Tiles to support a variety of new use cases.
 
-A key use for implicit tiling is enabling and/or accelerating tree traversal algorithms. For example, Cesium uses a [skip-LOD](https://cesium.com/blog/2017/05/05/skipping-levels-of-detail/) algorithm for faster loading times. Accessing a tile by coordinates is faster than traversing the entire tree. Likewise, Raycasting algoriths and GIS algorithms can benefit from the abbreviated tree traversals.
+A key use for implicit tiling is enabling and/or accelerating tree traversal algorithms. For example, Cesium uses a [skip-LOD](https://cesium.com/blog/2017/05/05/skipping-levels-of-detail/) algorithm for faster loading times. Accessing a tile by coordinates is faster than traversing the entire tree. Likewise, raycasting algoriths and GIS algorithms can benefit from the abbreviated tree traversals.
 
 Implicit tiling also allows for better interoperability with existing GIS data formats with implicitly defined tiling schemes. Some examples are:
 
@@ -87,7 +88,7 @@ One new feature implicit tiling enables is procedurally-generated tilesets. Sinc
 
 Implicit tiling supports two types of bounding volumes, `box` and `region`. Both are defined in the [Bounding Volumes section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes) of the Cesium 3D Tiles 1.0 Specification. `sphere` is not supported.
 
-A tiling scheme recursively subdivides a volume by splitting it at the midpoint of some or all of the dimensions. If the two horizontal dimensions are split, a quadtree is produced. If all three dimensions are split, an octree is produced. No other tiling schemes are supported. Furthermore, the tiling scheme applies to the entire tileset, tiling schemes may not be intermixed within a single implicit tileset.
+A tiling scheme recursively subdivides a volume by splitting it at the midpoint of some or all of the dimensions. If the two horizontal dimensions are split, a quadtree is produced. If all three dimensions are split, an octree is produced. No other tiling schemes are supported. Furthermore, the tiling scheme remains constant throughout the entire tileset; tiling schemes may not be intermixed within a single implicit tileset.
 
 >A **quadtree** divides space only horizontally. It divides each bounding volume into 4 smaller bounding volumes where each horizontal dimension is halved. The vertical dimension remains the same. The resulting tree has a branching factor of 4.
 
@@ -111,7 +112,7 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 
 ### Implicit Subdivision
 
-Implicit tiling only requires defining the bounding volume, geometric error, and refine stategy at the root tile. These properties can be computed for any other tile based on the following rules:
+Implicit tiling only requires defining the tiling scheme, bounding volume, geometric error, and refine strategy at the root tile. These properties can be computed for any other tile based on the following rules:
 
 | Property | Subdivision Rule | 
 | --- | --- |
@@ -152,7 +153,7 @@ For `region` bounding volumes, the coordinates are interpreted in Cartographic s
 
 >**Template URIs** are URI patterns used to refer to specific tiles by their tile coordinates.
 
-Template URIs are configured in the tileset.json. They may be any URI pattern, but must include the variables `${level}`, `${x}`, `${x}`, and for octrees also `${z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
+Template URIs are configured in the tileset.json. They may be any URI pattern, but must include the variables `${level}`, `${x}`, `${y}`, and for octrees also `${z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
 
 Here are some examples of template URIs and files that they match:
 
@@ -182,8 +183,6 @@ Unless otherwise specified, template URIs are resolved relative to the tileset.j
 
 This extension adds the `mimeType` property to identify the type of content. This is more reliable than a file extension for determining the file type.
 
-To use glTF models (`.gltf` files) or binary glTF models (`.glb` files) as content, the `3DTILES_content_gltf` extension must be listed as a required extension in the tileset.
-
 ## Subtrees
 
 >**Subtrees** are fixed-depth and fixed-branching factor sections of the tileset tree used for breaking tilesets into manageable pieces.
@@ -196,9 +195,6 @@ Each subtree is a tree-shaped container for tiles. A subtree has a fixed number 
 
 ![subtree anatomy](figures/subtree-anatomy.jpg)
 
-OUTLINE:
-- refering to nodes is confusing. review this!
-
 ## Availability
 
 **Availability** is boolean data about which tiles, contents, or subtrees exist in a tileset. Availability serves two purposes:
@@ -208,7 +204,7 @@ OUTLINE:
 
 Availablity takes the form of a bitstream with one bit per node in consideration. A 1 indicates that a tile/content/subtree is available at this node. Meanwhile, a 0 indicates that no data is available.
 
-When every node is available or every node is unavailable, all the bits of the bitstream will be identical. That is, either all 1s or all 0s. Instead of storing a full bit stream, the `constant` property can be used instead. For example, `constant: 0` indicates that all bits are 0 and no bitstream must be stored.
+For cases where all nodes are available or all nodes are unavailable, the `constant` property should be used instead of storing a full bitstream. For example, `constant: 0` indicates that all bits are 0 and no bitstream must be stored.
 
 Availability data is scoped to a subtree. This ensures that the size of each bitstream is bounded to a reasonable size.
 
@@ -353,7 +349,7 @@ Below is a full example of how the tileset JSON file looks in practice:
 * **child subtree availability** - Information about what child subtrees are available.
 * **content availability** - Information about which tiles have an associated content file within a single subtree.
 * **explicit tiling** - Describing a tileset by providing information about every tile.
-* **implicit tiling** - Describing a tileset by providing information about the root tile and a pattern for subdividing the tile.
+* **implicit tiling** - Describing a tileset by describing the hierarchical structure in binary rather than in JSON.
 * **octree** - A 3D tiling scheme that divides each cuboid into 8 smaller cuboids.
 * **quadtree** - A 2D tiling scheme that divides each rectangle into 4 smaller rectangles.
 * **root tile** - The topmost tile in a tileset tree.
@@ -401,53 +397,272 @@ Consider a tileset with a quadtree tiling scheme and four levels of detail. Supp
         "uri": "subtrees/${level}/${x}/${y}/subtree.json"
       },
       "content": {
-        "mimeType": "model/gltf+json",
-        "uri": "terrain/${level}/${x}/${y}.gltf"
+        "mimeType": "application/octet-stream",
+        "uri": "models/${level}/${x}/${y}.b3dm"
       }
     }
   }
 }
+```
+
+The directory structure for subtrees is:
 
 ```
-The directory structure is:
-```json
 |__ tileset.json
 |__ subtrees/
   |__ 0/
     |__ subtree.json
-    |__ tileAvailability.bin
-    |__ contentAvailability.bin
-    |__ childSubtreeAvailability.bin
+    |__ availability.bin
   |__ 2/
     |__ 0/
-      |__ 0/
-        |__ subtree.json
       |__ 1/
         |__ subtree.json
-        |__ tileAvailability.bin
-        |__ contentAvailability.bin
-        |__ childSubtreeAvailability.bin
+        |__ availability.bin
       |__ 2/
         |__ subtree.json
-        |__ tileAvailability.bin
-        |__ contentAvailability.bin
-        |__ childSubtreeAvailability.bin
+        |__ availability.bin
       |__ 3/
         |__ subtree.json
     |__ 1/
       |__ 0/
         |__ subtree.json
-        |__ childSubtreeAvailability.bin
       |__ 1/
         |__ subtree.json
-        |__ childSubtreeAvailability.bin
       |__ 2/
         |__ subtree.json
-        |__ tileAvailability.bin
-        |__ contentAvailability.bin
-        |__ childSubtreeAvailability.bin
       |__ 3/
         |__ subtree.json
+    |__ 2/
+      |__ 1/
+        |__ subtree.json
+        |__ availability.bin
+      |__ 2/
+        |__ subtree.json
+        |__ availability.bin
+```
+Notice that subtrees that do not exist do not have subtree JSON files or binary buffers. Also, subtrees that are completely full do not get availability buffers since they can specify availability with a constant.
+
+`subtrees/0/0/0/subtree.json`
+```json
+{
+  "buffers": [
+    {
+      "uri": "availability.bin",
+      "byteLenth": 4
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 1
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1,
+      "byteLength": 1
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 2,
+      "byteLength": 2
+    }
+  ],
+  "tileAvailability": {
+    "bufferView": 0
+  },
+  "contentAvailability": {
+    "bufferView": 1
+  },
+  "childSubtreeAvailability": {
+    "bufferView": 2
+  },
+}
+```
+In this example, tile, content, and child subtree availability are in one availability buffer. Buffer views split the buffer into the three parts. Since there are five nodes in the subtree, tile and content availability only need five bits each, so they each get one byte. There are 16 children, however, so two bytes are needed for child subtreee availability.
+
+`subtrees/2/1/0/subtree.json`
+```json
+{
+  "tileAvailability": {
+    "constant": 1
+  },
+  "contentAvailability": {
+    "constant": 1
+  },
+  "childSubtreeAvailability": {
+    "constant": 0
+  },
+}
+```
+This subtree at the bottom of the tree is completely full. It uses constants for its availabilities instead of buffers. Because it is at the bottom of the tree, there are no child subtrees, so child subtree availability is a constant zero.
+
+## Octree Example
+
+`tileset.json`:
+
+```json
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "geometricError": 100,
+  "extensionsUsed": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensionsRequired": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensions": {
+    "3DTILES_implicit_tiling": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "boundingVolume": {
+        "box": [
+          0, 0, 0,
+          100, 0, 0,
+          0, 100, 0
+          0, 0, 100
+        ]
+      },
+      "refine": "ADD",
+      "tilingScheme": "OCTREE",
+      "geometricError": 5000,
+      "subtreeLevels": 3,
+      "maximumLevel": 8,
+      "subtrees": {
+        "uri": "subtrees/${level}/${z}/${y}/${x}/subtree.json"
+      },
+      "content": {
+        "mimeType": "application/octet-stream",
+        "uri": "models/${level}/${z}/${y}/${x}/model.pnts"
+      }
+    }
+  }
+}
+```
+
+`subtrees/0/0/0/0/subtree.json`
+
+```json
+{
+	"buffers": [
+    {
+      "uri": "availability.bin",
+      "byteLength": 74
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 10
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 10,
+      "byteLength": 64
+    }
+  ],
+  "tileAvailability": {
+    "bufferView": 0
+  },
+  "contentAvailability": {
+    "constant": 0
+  },
+  "childSubtreeAvailability": {
+    "bufferView": 1
+  }
+}
+```
+
+`subtrees/6/0/0/0/subtree.json`
+
+```json
+{
+	"buffers": [
+    {
+      "uri": "availability.bin",
+      "byteLength": 84
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 10
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 10,
+      "byteLength": 10
+    }
+    {
+      "buffer": 0,
+      "byteOffset": 10,
+      "byteLength": 64
+    }
+  ],
+  "tileAvailability": {
+    "bufferView": 0
+  },
+  "contentAvailability": {
+    "bufferView": 1
+  },
+  "childSubtreeAvailability": {
+    "bufferView": 2
+  }
+}
+```
+
+File structure:
+
+```
+|__ tileset.json
+|__ subtrees/
+  |__ 0/
+    |__ 0/
+      |__ 0/
+        |__ 0/
+            |__ subtree.json
+            |__ availability.bin
+  |__ 3/
+    |__ 0/
+      |__ 0/
+        |__ 0/
+          |__ subtree.json
+          |__ availability.bin
+  |__ 6/
+    |__ 0/
+      |__ 0/
+        |__ 0/
+        |__ subtree.json
+        |__ availability.bin
+|__ models/
+  |__ 8/
+    |__ 0/
+      |__ 0/
+        |__ 0/
+          |__ model.pnts
+        |__ 1/
+          |__ model.pnts
+      |__ 1/
+        |__ 0/
+          |__ model.pnts
+        |__ 1/
+          |__ model.pnts
+    |__ 1/
+      |__ 0/
+        |__ 0/
+          |__ model.pnts
+        |__ 1/
+          |__ model.pnts
+      |__ 1/
+        |__ 0/
+          |__ model.pnts
+        |__ 1/
+          |__ model.pnts
 ```
 
 OUTLINE:
