@@ -55,7 +55,7 @@ Written against the 3D Tiles 1.0 specification.
 
 ## Overview
 
->**Implicit tiling** is a alternative method for describing a Cesium 3D Tileset that provides a more succinct representation of large tilesets. It encodes the hierarchical structure of the tileset in binary, as oppoeed to explicit tiling, which specifies the tile hierarchy in JSON. The Cesium 3D Tiles 1.0 specification only supports explicit tiling, as every tile is listed in the tileset JSON file.
+>**Implicit tiling** is a alternative method for describing a Cesium 3D Tileset that provides a more succinct representation for large tilesets. It encodes the hierarchical structure of the tileset in binary, as opposed to explicit tiling, which specifies the tile hierarchy in JSON. The Cesium 3D Tiles 1.0 specification only supports explicit tiling, as every tile is listed in the tileset JSON file.
 
 Implicit tiling keeps the tileset JSON file small, which makes loading large tilesets faster. While explicit tiling can be used to represent large datasets, the tileset JSON file grows linearly with the number of tiles. Implicit tiling keeps the tileset JSON file bounded in size.
 
@@ -71,7 +71,7 @@ _This section is non-normative_
 
 Implicit tiling allows Cesium 3D Tiles to support a variety of new use cases.
 
-A key use for implicit tiling is enabling and/or accelerating tree traversal algorithms. For example, Cesium uses a [skip-LOD](https://cesium.com/blog/2017/05/05/skipping-levels-of-detail/) algorithm for faster loading times. Accessing a tile by coordinates is faster than traversing the entire tree. Likewise, raycasting algoriths and GIS algorithms can benefit from the abbreviated tree traversals.
+A key use for implicit tiling is enabling and/or accelerating tree traversal algorithms. For example, Cesium uses a [skip-LOD](https://cesium.com/blog/2017/05/05/skipping-levels-of-detail/) algorithm for faster loading times. Accessing a tile by coordinates is faster than traversing the entire tree. Likewise, raycasting algorithms and GIS algorithms can benefit from the abbreviated tree traversals.
 
 Implicit tiling also allows for better interoperability with existing GIS data formats with implicitly defined tiling schemes. Some examples are:
 
@@ -108,7 +108,7 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 
 | Root Region | Quadtree | Octree |
 |:---:|:--:|:--:|
-| ![Root region](figures/region.png) | ![Region Quatree](figures/region-quadtree.png) | ![Region octree](figures/region-octree.png)  |
+| ![Root region](figures/region.png) | ![Region Quadtree](figures/region-quadtree.png) | ![Region octree](figures/region-octree.png)  |
 
 ### Implicit Subdivision
 
@@ -202,7 +202,7 @@ Each subtree is a tree-shaped container for tiles. A subtree has a fixed number 
 1. It provides an efficient method for checking what files are present
 2. Including ths information prevents extraneous HTTP requests that would result in 404 errors.
 
-Availablity takes the form of a bitstream with one bit per node in consideration. A 1 indicates that a tile/content/subtree is available at this node. Meanwhile, a 0 indicates that no tile/content/subtree is available at this node.
+Availability takes the form of a bitstream with one bit per node in consideration. A 1 indicates that a tile/content/subtree is available at this node. Meanwhile, a 0 indicates that no tile/content/subtree is available at this node.
 
 For cases where all nodes are available or all nodes are unavailable, the `constant` property should be used instead of storing a full bitstream. For example, `constant: 0` indicates that all bits are 0 and no bitstream must be stored.
 
@@ -226,7 +226,7 @@ If a tile is marked as available, more information about the tile, such as its c
 
 The purpose of content availability is to check if a file exists before making a network request. If content is marked as unavailable, the network request for that file must be skipped.
 
-A content availablity bit must only be set if the corresponding tile availability bit is set. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset. The content availability bitstream can be validated by checking that the following equation holds true:
+A content availability bit must only be set if the corresponding tile availability bit is set. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset. The content availability bitstream can be validated by checking that the following equation holds true:
 
 ```
 contentAvailability & ~tileAvailability === 0
@@ -452,7 +452,7 @@ Notice that subtrees that do not exist do not have subtree JSON files or binary 
   "buffers": [
     {
       "uri": "availability.bin",
-      "byteLenth": 4
+      "byteLength": 4
     }
   ],
   "bufferViews": [
@@ -483,7 +483,7 @@ Notice that subtrees that do not exist do not have subtree JSON files or binary 
   },
 }
 ```
-In this example, tile, content, and child subtree availability are in one availability buffer. Buffer views split the buffer into the three parts. Since there are five nodes in the subtree, tile and content availability only need five bits each, so they each get one byte. There are 16 children, however, so two bytes are needed for child subtreee availability.
+In this example, tile, content, and child subtree availability are in one availability buffer. Buffer views split the buffer into the three parts. Since there are five nodes in the subtree, tile and content availability only need five bits each, so they each get one byte. There are 16 children, however, so two bytes are needed for child subtree availability.
 
 `subtrees/2/1/0/subtree.json`
 ```json
