@@ -42,6 +42,7 @@ Written against the 3D Tiles 1.0 specification.
 - [Subtree JSON Files](#subtree-json-files)
   - [Buffers and Buffer Views](#buffers-and-buffer-views)
   - [Morton Order](#morton-order)
+    - [Morton Order Example](#morton-order-example)
   - [Availability Encoding](#availability-encoding)
 - [Tileset JSON](#tileset-json)
 - [Glossary](#glossary)
@@ -269,7 +270,9 @@ Using the Morton order serves these purposes:
 - Efficient traversal: The binary representation of tile locations in the tree level allow for easy traversal of the tileset (finding parent and child nodes).
 - Locality of reference: Adjacent indices are stored close to each other in memory and are close to each other spatially.
 
-*The following section is non-normative*
+#### Morton Order Example
+
+_The following section is non-normative_
 
 The figure below shows the tile location decomposition of the tile `(level, x, y) = (3, 5, 1)`. We first convert the tile location to its Morton index, which is `19`. At Level 3 of a Quadtree, we'll use 6 bits to represent the binary value of the Morton index: `010011`.
 
@@ -277,7 +280,7 @@ The figure below shows the tile location decomposition of the tile `(level, x, y
 
 ### Availability Encoding
 
-Availability bitstreams are packed in binary using the format described in the [Boolean Data section](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md#boolean-data) of the Cesium 3D Metadata Specification.
+Availability bitstreams are packed in binary using the format described in the [Boolean Data section](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md#boolean-data) of the Cesium 3D Metadata Specification. These bitstreams are subject to alignment requirements described in the [Binary Alignment Rules section](https://github.com/CesiumGS/3d-tiles/tree/3DTILES_binary_buffers/extensions/3DTILES_binary_buffers) of the same specification.
 
 Each availability bitstream must be stored as a separate `bufferView`, but multiple `bufferViews` may be stored in a single `buffer`.
 
@@ -670,12 +673,6 @@ File structure:
         |__ 1/
           |__ model.pnts
 ```
-
-OUTLINE:
-- double-headed quadtree as explicit root tileset + external implicit tilesets
-- sparse, shallow octree
-- deep, sparse quadtree
-- Full quadtree (medium depth)
 
 ## JSON Schema Reference
 
