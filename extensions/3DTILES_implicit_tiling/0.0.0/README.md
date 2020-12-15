@@ -55,7 +55,7 @@ Written against the 3D Tiles 1.0 specification.
 
 ## Overview
 
->**Implicit tiling** is a alternative method for describing a Cesium 3D Tileset that provides a more succinct representation for large tilesets. It encodes the hierarchical structure of the tileset in binary, as opposed to explicit tiling, which specifies the tile hierarchy in JSON. The Cesium 3D Tiles 1.0 specification only supports explicit tiling, as every tile is listed in the tileset JSON file.
+>**Implicit tiling** is an alternative method for describing a Cesium 3D Tileset that provides a more succinct representation for large tilesets. It encodes the hierarchical structure of the tileset in binary, as opposed to explicit tiling, which specifies the tile hierarchy in JSON. The Cesium 3D Tiles 1.0 specification only supports explicit tiling, as every tile is listed in the tileset JSON file.
 
 Implicit tiling keeps the tileset JSON file small, which makes loading large tilesets faster. While explicit tiling can be used to represent large datasets, the tileset JSON file grows linearly with the number of tiles. Implicit tiling keeps the tileset JSON file bounded in size.
 
@@ -80,7 +80,7 @@ Implicit tiling also allows for better interoperability with existing GIS data f
 * [WMTS](https://www.ogc.org/standards/wmts)
 * [TMS](https://wiki.osgeo.org/wiki/Tile_Map_Service_Specification)
 
-One new feature implicit tiling enables is procedurally-generated tilesets. Since implicit tiling encodes tile coordinates in URLs (such as `{level}/{x}/{y}/model.gltf`), consider the server that serves these files. Instead of serving static files, a server could extract the tile coordinates from the URL and generate tiles at runtime. This could be useful for making a large procedural terrain dataset without requiring much disk space.
+One new feature implicit tiling enables is procedurally-generated tilesets. Since implicit tiling encodes tile coordinates in URLs using [Template URIs](#template-uris), consider the server that serves these files. Instead of serving static files, a server could extract the tile coordinates from the URL and generate tiles at runtime. This could be useful for making a large procedural terrain dataset without requiring much disk space.
 
 ## Tiling Schemes
 
@@ -123,7 +123,7 @@ Implicit tiling only requires defining the tiling scheme, bounding volume, geome
 
 ## Tile Coordinates
 
->**Tile coordinates** are a tuple of integers that uniquely identify a tile. Tile coordinates are either `(level, x, y)` for quadtrees, and `(level, x, y, z)` for octrees.
+>**Tile coordinates** are a tuple of integers that uniquely identify a tile. Tile coordinates are either `(level, x, y)` for quadtrees or `(level, x, y, z)` for octrees.
 
 Tile coordinates are interpreted differently depending on the type of bounding volume (`box` or `region`).
 
@@ -153,7 +153,7 @@ For `region` bounding volumes, the coordinates are interpreted in Cartographic s
 
 >**Template URIs** are URI patterns used to refer to specific tiles by their tile coordinates.
 
-Template URIs are configured in the tileset.json. They may be any URI pattern, but must include the variables `${level}`, `${x}`, `${y}`, and for octrees also `${z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
+Template URIs are configured in the tileset.json. They may be any URI pattern, but must include the variables `${level}`, `${x}`, `${y}`. Template URIs for octrees must also include `${z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
 
 Here are some examples of template URIs and files that they match:
 
@@ -240,7 +240,7 @@ where `&` is the bitwise AND operation and `~` is the bitwise NOT operation.
 
 ![Child Subtree Availability](figures/subtree-availability.jpg)
 
-Child subtree availability is used to determine whether further subtree files exist before making network requests. If a child subtree availability bit is 0, any network request for that subtree must be skipped.
+Child subtree availability is used to determine whether files for child subtrees exist before making network requests. If a child subtree availability bit is 0, any network request for that subtree must be skipped.
 
 ## Subtree JSON Files
 
@@ -269,7 +269,7 @@ Using the Morton order serves these purposes:
 
 *The following section is non-normative*
 
-The figure below shows the tile location decomposition of the tile `3/5/1` (Level: 3, X: 5, Y: 1). We first convert the tile location to its Morton index, which is `19`. At Level 3 of a Quadtree, we'll use 6 bits to represent the binary value of the Morton index: `010011`.
+The figure below shows the tile location decomposition of the tile `(level, x, y) = (3, 5, 1)`. We first convert the tile location to its Morton index, which is `19`. At Level 3 of a Quadtree, we'll use 6 bits to represent the binary value of the Morton index: `010011`.
 
 ![Morton Order](figures/morton-indexing.png)
 
@@ -332,8 +332,8 @@ Below is a full example of how the tileset JSON file looks in practice:
         "uri": "subtrees/${level}/${x}/${y}/subtree.json"
       },
       "content": {
-        "mimeType": "model/gltf+json",
-        "uri": "terrain/${level}/${x}/${y}.gltf"
+        "mimeType": "application/octet-stream",
+        "uri": "terrain/${level}/${x}/${y}.b3dm"
       }
     }
   }
@@ -341,7 +341,7 @@ Below is a full example of how the tileset JSON file looks in practice:
 ```
 ## Glossary
 
-* **availability** - Data specifying which tiles are available within a single subtree. This helps prevent unnecessary network requests.
+* **availability** - Data specifying which tiles/subtrees/contents are available within a single subtree. This helps prevent unnecessary network requests.
 * **available tile** - A tile that exists in the dataset.
 * **boolean array** - An array of boolean values.
 * **bitstream** - A boolean array stored as a sequence of bits rather than bytes.
