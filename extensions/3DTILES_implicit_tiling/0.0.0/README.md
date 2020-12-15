@@ -6,11 +6,13 @@
 <!-- omit in toc -->
 ## Contributors
 
-* Sam Suhag, Cesium
-* Sean Lilley, Cesium
 * Peter Gagliardi, Cesium
 * Erixen Cruz, Cesium
+* Sam Suhag, Cesium
+* Sean Lilley, Cesium
+* Josh Lawrence, Cesium
 * Patrick Cozzi, Cesium
+* Shehzan Mohammed, Cesium
 
 <!-- omit in toc -->
 ## Status
@@ -123,29 +125,29 @@ Implicit tiling only requires defining the tiling scheme, bounding volume, geome
 
 ## Tile Coordinates
 
->**Tile coordinates** are a tuple of integers that uniquely identify a tile. Tile coordinates are either `(level, x, y)` for quadtrees or `(level, x, y, z)` for octrees.
+>**Tile coordinates** are a tuple of integers that uniquely identify a tile. Tile coordinates are either `(level, x, y)` for quadtrees or `(level, x, y, z)` for octrees. All tile coordinates are 0-indexed.
 
-Tile coordinates are interpreted differently depending on the type of bounding volume (`box` or `region`).
+`level` is 0 for the root tile. The root tile's children are at level 1, and so on.
+
+`x`, `y`, and `z` coordinates are measured in tiles from a side of the root bounding volume at the current level along one of the coordinate axes. The type of bounding volume (`box` or `region`) determines the direction of increasing tile coordinates.
 
 For `box`, the tile coordinates are listed along the same direction as the Cartesian coordinate system of the tileset. That is:
 
-| Coordinate | Description |
+| Coordinate | Positive Direction |
 | --- | --- |
-| `level` | The 0-indexed level number. The root tile is at level 0, the root tile's children are at level 1, and so on. |
-| `x` | The 0-indexed number of tiles from the side of the root bounding box in the `+x` direction. This is measured within a single level. |
-| `y` | The 0-indexed number of tiles from the side of the root bounding box in the `+y` direction. This is measured within a single level.|
-| `z` (only for octrees) | The 0-indexed number of tiles from the side of the root bounding box in the `+z` direction. This is measured within a single level. |
+| `x` | Along the `+x` axis of the bounding box |
+| `y` | Along the `+y` axis of the bounding box |
+| `y` | Along the `+z` axis of the bounding box |
 
 ![Box coordinates](figures/box-coordinates.jpg)
 
 For `region` bounding volumes, the coordinates are interpreted in Cartographic space. That is:
 
-| Coordinate | Description |
+| Coordinate | Positive Direction |
 |---|---|
-| `level` | The 0-indexed level number. The root tile is at level 0, the root tile's children are at level 1, and so on. |
-| `x` | The 0-indexed number of tiles from the west end of the bounding region in the direction of increasing longitude. This is measured within a single level. |
-| `y` | The 0-indexed number of tiles from the north end of the bounding region in the direction of increasing latitude. This is measured within a single level. |
-| `z` | The 0-indexed number of tiles from the bottom of the bounding region in the direction of increasing height. This is measured within a single level. |
+| `x` | From west to east (increasing longitude) |
+| `y` | From south to north (increasing latitude) |
+| `z` | From bottom to top (increasing height) |
 
 ![Region Coordinates](figures/region-coordinates.jpg)
 

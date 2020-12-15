@@ -25,7 +25,7 @@
       },
       "subtreeLevels": {
         "type": "integer",
-        "description": "The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with up to 5 nodes (one root and 4 children)",
+        "description": "The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with 5 nodes (one root and 4 children)",
         "minimum" : 1
       },
       "maximumLevel": {
