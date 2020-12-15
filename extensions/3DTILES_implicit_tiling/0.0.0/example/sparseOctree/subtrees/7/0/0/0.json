@@ -1,0 +1,34 @@
+{
+  "buffers": [
+    {
+      "uri": "availability.bin",
+      "byteLength": 337050
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 37450
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 37450,
+      "byteLength": 37450
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 74900,
+      "byteLength": 262144
+    }
+  ],
+  "tileAvailability": {
+    "bufferView": 0
+  },
+  "contentAvailability": {
+    "bufferView": 1
+  },
+  "childSubtreeAvailability": {
+    "bufferView": 2
+  }
+}

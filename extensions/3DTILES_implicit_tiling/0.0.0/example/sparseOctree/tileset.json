@@ -1,0 +1,42 @@
+
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "geometricError": 10000,
+  "extensionsUsed": [
+    "3DTILES_implicit_tiling"
+  ],
+  "extensionsRequired": [
+    "3DTILES_implicit_tiling"
+  ],
+  "extensions": {
+    "3DTILES_implicit_tiling": {
+      "extras": {
+        "draftVersion": "0.0.0"
+      },
+      "boundingVolume": {
+        "region": [
+          -0.0005682966577418737,
+          0.8987233516605286,
+          0.00011646582098558159,
+          0.8990603398325034,
+          0,
+          241.6
+        ]
+      },
+      "refine": "ADD",
+      "tilingScheme": "OCTREE",
+      "geometricError": 5000,
+      "subtreeLevels": 7,
+      "maximumLevel": 14,
+      "subtrees": {
+        "uri": "subtrees/${level}/${x}/${y}/${z}.json"
+      },
+      "content": {
+        "mimeType": "application/octet-stream",
+        "uri": "models/${level}/${x}/${y}/${z}.b3dm"
+      }
+    }
+  }
+}
