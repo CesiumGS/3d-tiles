@@ -4,10 +4,10 @@
   },
   "geometricError": 10000,
   "extensionsUsed": [
-    "3DTILES_implicit_tiling",
+    "3DTILES_implicit_tiling"
   ],
   "extensionsRequired": [
-    "3DTILES_implicit_tiling",
+    "3DTILES_implicit_tiling"
   ],
   "extensions": {
     "3DTILES_implicit_tiling": {
@@ -28,13 +28,13 @@
       "tilingScheme": "QUADTREE",
       "geometricError": 5000,
       "subtreeLevels": 6,
-      "maximumLevel": 6,
+      "maximumLevel": 5,
       "subtrees": {
         "uri": "subtrees/${level}/${x}/${y}.json"
       },
       "content": {
         "mimeType": "application/octet-stream",
-        "uri": "models/${level}/${x}/${y}.b3dm"
+        "uri": "content/${level}/${x}/${y}.b3dm"
       }
     }
   }
