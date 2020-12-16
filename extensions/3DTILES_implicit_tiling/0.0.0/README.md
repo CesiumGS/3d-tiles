@@ -58,7 +58,7 @@ Written against the 3D Tiles 1.0 specification.
 
 ## Overview
 
->**Implicit tiling** is an alternative method for describing a Cesium 3D Tileset that provides a more succinct representation for large tilesets. It encodes the hierarchical structure of the tileset in binary, as opposed to explicit tiling, which specifies the tile hierarchy in JSON. The Cesium 3D Tiles 1.0 specification only supports explicit tiling, as every tile is listed in the tileset JSON file.
+**Implicit tiling** is an alternative method for describing a Cesium 3D Tileset that provides a more succinct representation for large tilesets. It encodes the hierarchical structure of the tileset in binary, as opposed to explicit tiling, which specifies the tile hierarchy in JSON. The Cesium 3D Tiles 1.0 specification only supports explicit tiling, as every tile is listed in the tileset JSON file.
 
 Implicit tiling keeps the tileset JSON file small, which makes loading large tilesets faster. While explicit tiling can be used to represent large datasets, the tileset JSON file grows linearly with the number of tiles. Implicit tiling keeps the tileset JSON file bounded in size.
 
@@ -87,19 +87,19 @@ One new feature implicit tiling enables is procedurally-generated tilesets. Sinc
 
 ## Tiling Schemes
 
->**Tiling schemes** are well-defined patterns for subdividing a bounding volume into a hierarchy of tiles.
+**Tiling schemes** are well-defined patterns for subdividing a bounding volume into a hierarchy of tiles.
 
 Implicit tiling supports two types of bounding volumes, `box` and `region`. Both are defined in the [Bounding Volumes section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes) of the Cesium 3D Tiles 1.0 Specification. `sphere` is not supported.
 
 A tiling scheme recursively subdivides a volume by splitting it at the midpoint of some or all of the dimensions. If the two horizontal dimensions are split, a quadtree is produced. If all three dimensions are split, an octree is produced. No other tiling schemes are supported. Furthermore, the tiling scheme remains constant throughout the entire tileset; tiling schemes may not be intermixed within a single implicit tileset.
 
->A **quadtree** divides space only horizontally. It divides each bounding volume into 4 smaller bounding volumes where each horizontal dimension is halved. The vertical dimension remains the same. The resulting tree has a branching factor of 4.
+A **quadtree** divides space only horizontally. It divides each bounding volume into 4 smaller bounding volumes where each horizontal dimension is halved. The vertical dimension remains the same. The resulting tree has a branching factor of 4.
 
 Horizontal dimensions are `(x, y)` when the bounding volume is a `box` and `(longitude, latitude)` when the bounding volume is a `region`.
 
 ![Quadtree](figures/quadtree.png)
 
->An **octree** divides space along all 3 dimensions. It divides each bounding volume into 8 smaller bounding volumes where each dimension is halved. The resulting tree has a branching factor of 8.
+An **octree** divides space along all 3 dimensions. It divides each bounding volume into 8 smaller bounding volumes where each dimension is halved. The resulting tree has a branching factor of 8.
 
 ![Octree](figures/octree.png)
 
@@ -126,7 +126,7 @@ Implicit tiling only requires defining the tiling scheme, bounding volume, geome
 
 ## Tile Coordinates
 
->**Tile coordinates** are a tuple of integers that uniquely identify a tile. Tile coordinates are either `(level, x, y)` for quadtrees or `(level, x, y, z)` for octrees. All tile coordinates are 0-indexed.
+**Tile coordinates** are a tuple of integers that uniquely identify a tile. Tile coordinates are either `(level, x, y)` for quadtrees or `(level, x, y, z)` for octrees. All tile coordinates are 0-indexed.
 
 `level` is 0 for the root tile. The root tile's children are at level 1, and so on.
 
@@ -154,7 +154,7 @@ For `region` bounding volumes, the coordinates are interpreted in Cartographic s
 
 ## Template URIs
 
->**Template URIs** are URI patterns used to refer to specific tiles by their tile coordinates.
+**Template URIs** are URI patterns used to refer to specific tiles by their tile coordinates.
 
 Template URIs are configured in the tileset.json. They may be any URI pattern, but must include the variables `${level}`, `${x}`, `${y}`. Template URIs for octrees must also include `${z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
 
@@ -182,13 +182,13 @@ Unless otherwise specified, template URIs are resolved relative to the tileset.j
 
 ## Content
 
->**Content** is an optional 3D model associated with a single tile, as described in the [Introduction section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#introduction) of the Cesium 3D Tiles 1.0 specification, with the addition of an explicit `mimeType`. 
+**Content** is an optional 3D model associated with a single tile, as described in the [Introduction section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#introduction) of the Cesium 3D Tiles 1.0 specification, with the addition of an explicit `mimeType`. 
 
 This extension adds the `mimeType` property to identify the type of content. This is more reliable than a file extension for determining the file type.
 
 ## Subtrees
 
->**Subtrees** are fixed-depth and fixed-branching factor sections of the tileset tree used for breaking tilesets into manageable pieces.
+**Subtrees** are fixed-depth and fixed-branching factor sections of the tileset tree used for breaking tilesets into manageable pieces.
 
 Since tilesets grow exponentially with depth, storing information about every tile in a single file is not always feasible or desirable. Even if RAM is not a direct limitation, streaming large files over the network can make loading times slower. To account for this, subtrees partition the tileset structure into pieces of bounded size.
 
@@ -262,7 +262,7 @@ OUTLINE:
 
 ### Morton Order
 
->**[Morton order](https://en.wikipedia.org/wiki/Z-order_curve)** assigns indices to nodes in the same level. The indices are used for lookup in availability buffers.
+**[Morton order](https://en.wikipedia.org/wiki/Z-order_curve)** assigns indices to nodes in the same level. The indices are used for lookup in availability buffers.
 
 Using the Morton order serves these purposes:
 
@@ -286,7 +286,7 @@ Each availability bitstream must be stored as a separate `bufferView`, but multi
 
 ## Tileset JSON
 
->Using implicit tiling, the tileset JSON file describes the root tile, tiling scheme, and template URIs for locating resources.
+Using implicit tiling, the tileset JSON file describes the root tile, tiling scheme, and template URIs for locating resources.
 
 In the extension object, the following information about the root tile is included:
 
