@@ -107,15 +107,18 @@ The following example shows the basics of how classes describe the data types, w
     "tree": {
       "properties": {
         "height": {
-          "name": "Height (m)",
+          "name": "Height",
+          "description": "Height of the tree in meters",
           "type": "FLOAT32",
         },
         "age": {
-          "name": "Age (years)",
+          "name": "Age",
+          "description": "Age of the tree in years",
           "type": "UINT16"
         },
         "leafColor": {
           "name": "Leaf Color",
+          "description": "The color of the tree's leaves.",
           "type": "STRING",
           "optional": true,
           "default": "green"
@@ -152,7 +155,8 @@ Below is an example of a well-formed instance table representing a class.
           "type": "STRING"
         },
         "height": {
-          "name": "Building Height (m)",
+          "name": "Building Height",
+          "description": "Height of the building in meters",
           "type": "FLOAT32"
         }
       }
@@ -318,7 +322,8 @@ Both classes and properties can be annotated with display names and descriptions
       "description": "Sailing ships seen in the ocean",
       "properties": {
         "length": {
-          "name": "Length (m)",
+          "name": "Length",
+          "description": "Length of the ship from bow to stern in meters",
           "type": "FLOAT64"
         },
         "name": {
@@ -332,7 +337,8 @@ Both classes and properties can be annotated with display names and descriptions
       "description": "Fish found in the ocean",
       "properties": {
         "length": {
-          "name": "Length (cm)",
+          "name": "Length",
+          "description": "Length of the fish in centimeters",
           "type": "FLOAT32"
         }
       }
@@ -723,11 +729,13 @@ Here is an example of how to define an instance table for basic integer and floa
     "tree": {
       "properties": {
         "height": {
-          "name": "Height (m)",
+          "name": "Height",
+          "description": "Height of tree in meters",
           "type": "FLOAT64"
         },
         "leafCount": {
-          "name": "Number of Leaves (estimated)",
+          "name": "Number of Leaves",
+          "description": "Estimated number of leaves on this tree",
           "type": "UINT32"
         }
       }
@@ -1076,7 +1084,8 @@ In the following example, a single-channel image is used to encode surface tempe
     "ocean": {
       "properties": {
         "temperature": {
-          "name": "Surface Temperature (°C)",
+          "name": "Surface Temperature",
+          "description": "Temperature at the surface of the ocean in (°C)",
           "type": "UINT8",
           "normalized": "true"
         }
