@@ -75,6 +75,8 @@ Guiding principles for this specification include:
 - Design a data format that allows for runtime efficiency, even for large datasets.
 - Keep class definitions separate from instantiation. This allows for greater flexibility of data formats, and allows for reuse of metadata definitions.
 
+For a complete list of vocabulary used, see the [Glossary](#glossary)
+
 ## Concepts
 
 ### Classes
@@ -179,7 +181,7 @@ A brief overview of each encoding follows to explain the concepts. The full deta
 
 An instance table is a mapping of **instance IDs** to metadata values which are stored in parallel arrays called **property arrays**. Instance IDs are simply integer indices into these arrays. The `i-th` value of every property array in an instance table together makes up the metadata for the `i-th` instance. 
 
-The instance table has two possible representations on disk: JSON and binary. The following sections compare the two encodings.
+The instance table has two possible representations: JSON and binary. The following sections compare the two encodings.
 
 #### JSON Encoding
 
@@ -378,7 +380,7 @@ For vector-valued types such as a `vec3` or `mat4` in OpenGL, use a fixed-size a
         },
         "modelMatrix": {
           "name": "Model Matrix",
-          "description": "mat4 example representing a custom matrix field",
+          "description": "Example of a 4x4 matrix type",
           "type": "ARRAY",
           "componentType": "FLOAT32",
           "componentCount": 16
@@ -1048,7 +1050,7 @@ the _bit_ offsets, rather than the usual byte offsets. Again, the offsets are co
 
 #### Binary Alignment Rules
 
-Due to the possibility of 64-bit data types, this extension requires that each `bufferView` is aligned to a multiple of 8 bytes for efficient reads. This alignment requirement is always measured from the start of the binary file. This alignment requirement only applies to the start of each bufferView used for metadata.
+Due to the possibility of 64-bit data types, each `bufferView` must be aligned to a multiple of 8 bytes for efficient reads. This alignment requirement is always measured from the start of the binary file. This alignment requirement only applies to the start of each bufferView used for metadata.
 
 To meet this alignment requirement, padding or other data must go between the `bufferView`s so that each starts on an 8-byte boundary.
 
@@ -1164,4 +1166,4 @@ Furthermore, depending on the implementation, the method of specifying a texture
 * **element** (of a property array) - a single entry of a property array. This stores the value of one property for a single instance.
 * **component** (of an element) - For elements of type `ARRAY`, the values contained within are called components. In other words, a property array contains elements which contain components. 
 * **metadata texture** - A texture that represents a property directly, no instance table needed
-* **encoding** - A method of storing metadata on disk in a format such as JSON, binary, or texture encodings.
+* **encoding** - A concrete method of storing metadata in a format such as JSON, binary, or textures.
