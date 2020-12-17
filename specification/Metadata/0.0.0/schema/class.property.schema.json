@@ -33,7 +33,7 @@
         "STRING",
         "ARRAY"
       ],
-      "description": "The type of each element of the property array. A `type` is either a basic type used for `componentType` or an `ARRAY`. If `ARRAY` is used, then `componentType` must also be specified. `ARRAY` is a fixed-length array when `componentCount` is defined, and variable-length otherwise. `BLOB` is variable-length unless `blobByteLength` is defined. `STRING` is variable-length unless `stringByteLength` is defined. In these cases, the blobs/strings must be exactly that many bytes. Variable-length arrays, `STRING`, and `BLOB` also require a corresponding `offsetBufferView`. This is used to indicate where each element starts in the buffer. See further notes about offset buffers in the description for `componentType`."
+      "description": "The type of each element of the property array. A `type` is either a basic type used for `componentType` or an `ARRAY`. If `ARRAY` is used, then `componentType` must also be specified. `ARRAY` is a fixed-length array when `componentCount` is defined, and variable-length otherwise. `BLOB` is variable-length unless `blobByteLength` is defined. `BLOB` is only allowed in binary encoding. `STRING` is variable-length unless `stringByteLength` is defined. In these cases, the blobs/strings must be exactly that many bytes. Variable-length arrays, `STRING`, and `BLOB` also require a corresponding `offsetBufferView`. This is used to indicate where each element starts in the buffer. See further notes about offset buffers in the description for `componentType`."
     },
     "componentType": {
       "enum": [
@@ -67,7 +67,7 @@
     "blobByteLength": {
       "type": "integer",
       "minimum": 1,
-      "description": "This property can only be used with a `BLOB` property or an `ARRAY` of `BLOB`. When present, all blob values for this property must be exactly this length in bytes. If the property is an `ARRAY`, then each component must have this byte length. Furthermore, no `offsetBufferView` is needed for specifying the start byte of each blob. In cases where the blob is Base64 encoded in JSON, `blobByteLength` describes the **decoded** byte length, not the Base64 string."
+      "description": "This property can only be used with a `BLOB` property or an `ARRAY` of `BLOB`. When present, all blob values for this property must be exactly this length in bytes. If the property is an `ARRAY`, then each component must have this byte length. Furthermore, no `offsetBufferView` is needed for specifying the start byte of each blob."
     },
     "normalized": {
       "type": "boolean",
@@ -92,7 +92,7 @@
     },
     "default": {
       "type": ["boolean", "number", "string", "array"],
-      "description": "A default value to use when this property is not defined or is set to `null`. If used, `optional` must be set to true. This property is only valid when using JSON encoding. The type of the value must match the property declaration (e.g. for a `STRING`, use a JSON string. For an integer or floating point value, use a JSON number). However, `BLOB` properties must be encoded in Base64 encoding since JSON does not support arbitrary binary sequences."
+      "description": "A default value to use when this property is not defined or is set to `null`. If used, `optional` must be set to true. This property is only valid when using JSON encoding. The type of the value must match the property declaration (e.g. for a `STRING`, use a JSON string. For an integer or floating point value, use a JSON number)."
     },
     "optional": {
       "type": "boolean",

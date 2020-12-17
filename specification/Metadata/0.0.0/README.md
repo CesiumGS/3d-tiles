@@ -42,7 +42,6 @@ Draft
       - [Basic Types](#basic-types-1)
       - [Bit Depth of Numeric Types](#bit-depth-of-numeric-types)
       - [Array Types](#array-types)
-      - [Blob Base64 Encoding](#blob-base64-encoding)
       - [Fixed-length Strings and Blobs](#fixed-length-strings-and-blobs)
       - [Optional and Default Values](#optional-and-default-values)
       - [Single Instance Shorthand](#single-instance-shorthand)
@@ -540,53 +539,10 @@ The following example shows the usage for both fixed and variable size arrays:
 }
 ```
 
-#### Blob Base64 Encoding
-
-A Blob (Binary Large OBject) is a sequence of arbitrary bytes used for storing user-defined information. This is a flexible format for application-specific data. Some examples where this can be useful:
-
-* A CAD design could be attached to a 3D model of a building.
-* Points in a point cloud can be tagged with a proprietary format.
-* If a property contains sensitive information, the values could be encrypted and stored as a blob.
-
-Unlike the other data types, binary blobs do not have a straightforward JSON encoding. This is because JSON uses UTF-8 encoding, not arbitrary binary data. Raw binary values are often invalid UTF-8 sequences. This spec requires that binary blobs are Base64 encoded.
-
-Base64 is easy to transmit as it only uses ASCII characters, but is not very efficient for storage. If large blobs are needed, it is highly recommended to use the binary metadata encoding instead.
-
-```json
-{
-  "classes": {
-    "basicTypes": {
-      "properties": {
-        "blobProperty": {
-          "type": "BLOB"
-        }
-      }
-    }
-  },
-  "instanceTables": {
-    "basicTypesTable": {
-      "class": "basicTypes",
-      "count": 3,
-      "properties": {
-        "blobProperty": {
-          "values": [
-            "TG9va2luZyBmb3Igc2VjcmV0cw==",
-            "WW91IGRlY29kZWQgdGhlIG1lc3NhZ2U=",
-            "QnV0IG5vbmUgY291bGQgYmUgZm91bmQ="
-          ]
-        }
-      }
-    }
-  }
-}
-```
-
 #### Fixed-length Strings and Blobs
 
 In some cases, strings have a known, fixed length. For example, an application may require dates to be entered in `YYYYMMDD` format, which will fit in exactly 8 bytes. For this,
 the specification provides a `stringByteLength` property. In the JSON encoding, this byte length refers to the length of the string when UTF-8 encoded, regardless of how it is displayed.
-
-`blobByteLength` is similar, but used for binary data. The length is measured as the _decoded_ binary length, not the length of the Base64 string.
 
 ```json
 {
@@ -597,10 +553,6 @@ the specification provides a `stringByteLength` property. In the JSON encoding, 
           "name": "Date (YYYYMMDD)",
           "type": "STRING",
           "stringByteLength": 8
-        },
-        "fixedBlobProperty": {
-          "type": "BLOB",
-          "blobByteLength": 4
         }
       }
     }
@@ -615,13 +567,6 @@ the specification provides a `stringByteLength` property. In the JSON encoding, 
             "20201002",
             "20201103",
             "20201105"
-          ]
-        },
-        "blobProperty": {
-          "values": [
-            "AAECAw==",
-            "BAUGBw==",
-            "CAkKCw=="
           ]
         }
       }

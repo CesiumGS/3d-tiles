@@ -10,7 +10,7 @@
         "oneOf": [
           {
             "type": ["boolean", "number", "string", "null"],
-            "description": "Integer and floating point types are encoded as `number`. `BOOLEAN` is encoded as `boolean`. `STRING` is encoded as `string`. `BLOB` is encoded as a `string` using Base64 encoding. Null values are only allowed when the property is declared as `optional`"
+            "description": "Integer and floating point types are encoded as `number`. `BOOLEAN` is encoded as `boolean`. `STRING` is encoded as `string`. Null values are only allowed when the property is declared as `optional`"
           },
           {
             "type": "array",
