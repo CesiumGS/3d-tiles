@@ -29,7 +29,8 @@ Written against the 3D Tiles 1.0 specification.
 
 - [Overview](#overview)
 - [Use Cases](#use-cases)
-- [Tiling Schemes](#tiling-schemes)
+- [Tileset JSON](#tileset-json)
+- [Subdivision](#subdivision)
   - [Implicit Subdivision](#implicit-subdivision)
 - [Tile Coordinates](#tile-coordinates)
 - [Template URIs](#template-uris)
@@ -44,7 +45,7 @@ Written against the 3D Tiles 1.0 specification.
   - [Morton Order](#morton-order)
     - [Morton Order Example](#morton-order-example)
   - [Availability Encoding](#availability-encoding)
-- [Tileset JSON](#tileset-json)
+- [Tileset JSON](#tileset-json-1)
 - [Glossary](#glossary)
 - [Examples](#examples)
   - [Quadtree with four levels](#quadtree-with-four-levels)
@@ -84,11 +85,33 @@ Implicit tiling also allows for better interoperability with existing GIS data f
 
 Implicit tiling enables procedurally-generated tilesets. Instead of serving static files, a server could extract the tile coordinates from [Template URIs](#template-uris) and generate tiles at runtime while using little disk space.
 
-## Tiling Schemes
+## Tileset JSON
+Like in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tileset-json), one main tileset JSON file is the entry point for defining an implicit tileset. To use implicit tiling, the `3DTILES_implicit_tiling` extension must be defined in the root `tileset.json`.
+```json
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "geometricError": 10000,
+  "extensionsUsed": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensionsRequired": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensions": {
+    "3DTILES_implicit_tiling": {
+      ...
+    }
+  }
+}
+```
 
-**Tiling schemes** are well-defined patterns for subdividing a bounding volume into a hierarchy of tiles.
+## Subdivision
 
-Implicit tiling supports two types of bounding volumes, `box` and `region`. Both are defined in the [Bounding Volumes section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes) of the Cesium 3D Tiles 1.0 Specification. `sphere` is not supported.
+A **subdivision** is a well-defined pattern for dividing a bounding volume of a tileset into a grid of tiles.
+
+Implicit tiling supports two types of bounding volumes, `box` and `region`. Both are defined in the [Bounding Volumes section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes) of the Cesium 3D Tiles 1.0 Specification. `box` is defined by an array of 12 numbers that define an oriented bounding box in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the z-axis is up, while `region` is defined by an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order [west, south, east, north, minimum height, maximum height].
 
 A tiling scheme recursively subdivides a volume by splitting it at the midpoint of some or all of the dimensions. If the two horizontal dimensions are split, a quadtree is produced. If all three dimensions are split, an octree is produced. No other tiling schemes are supported. Furthermore, the tiling scheme remains constant throughout the entire tileset; tiling schemes may not be intermixed within a single implicit tileset.
 
@@ -348,6 +371,7 @@ Below is a full example of how the tileset JSON file looks in practice:
 * **availability** - Data specifying which tiles/subtrees/contents are available within a single subtree. This helps prevent unnecessary network requests.
 * **available tile** - A tile that exists in the dataset.
 * **boolean array** - An array of boolean values.
+* **bounding volume** - The spatial extent enclosing a tile or a tile's content, as defined in the [3D Tiles specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes).
 * **bitstream** - A boolean array stored as a sequence of bits rather than bytes.
 * **child subtree** - A subtree reachable from an available tile in the bottommost row of a subtree.
 * **child subtree availability** - Information about what child subtrees are available.
