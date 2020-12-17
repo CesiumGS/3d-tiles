@@ -58,11 +58,10 @@ Written against the 3D Tiles 1.0 specification.
 
 ## Overview
 
-**Implicit tiling** is an alternative method for describing a Cesium 3D Tileset that provides a more succinct representation for large tilesets. It encodes the hierarchical structure of the tileset in binary, as opposed to explicit tiling, which specifies the tile hierarchy in JSON. The Cesium 3D Tiles 1.0 specification only supports explicit tiling, as every tile is listed in the tileset JSON file.
+**Implicit tiling** describes a Cesium 3D Tileset while enabling new data structures and algorithms for near constant time random access and dynamic tileset generation. It makes fast, efficient high resolution (meter or centimeter scale) global dataset streaming possible. The tileset is uniformly subdivided and organized for ease of read and write without the need to read the entire tileset at once. The subdivision enables random access, smaller tileset JSON files, and faster loading.
 
-Implicit tiling keeps the tileset JSON file small, which makes loading large tilesets faster. While explicit tiling can be used to represent large datasets, the tileset JSON file grows linearly with the number of tiles. Implicit tiling keeps the tileset JSON file bounded in size.
 
-Implicit tiling also provides a method for accessing tiles by tile coordinates. This allows for abbreviated tree traversal algorithms.
+Implicit tiling provides a method for accessing tiles by tile coordinates. This allows for abbreviated tree traversal algorithms.
 
 ![Explicit vs Implicit Tiling](figures/implicit-vs-explicit.jpg)
 
