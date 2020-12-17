@@ -1,7 +1,9 @@
+<!-- omit in toc -->
 # Cesium 3D Metadata Specification
 
 **Version 0.0.0** November 6, 2020
 
+<!-- omit in toc -->
 ## Contributors
 
 * Peter Gagliardi, Cesium
@@ -11,59 +13,54 @@
 * Samuel Vargas, Cesium
 * Patrick Cozzi, Cesium
 
+<!-- omit in toc -->
 ## Status
 
 Draft
 
+<!-- omit in toc -->
 ## Table of Contents
 
-- [Cesium 3D Metadata Specification](#cesium-3d-metadata-specification)
-  - [Contributors](#contributors)
-  - [Status](#status)
-  - [Table of Contents](#table-of-contents)
-  - [Abstract](#abstract)
-  - [Introduction](#introduction)
-  - [Concepts](#concepts)
-    - [Classes](#classes)
-    - [Instances](#instances)
-      - [Instance Tables](#instance-tables)
-      - [JSON Encoding](#json-encoding)
-      - [Binary Encoding](#binary-encoding)
-      - [Metadata Texture Encoding](#metadata-texture-encoding)
-      - [Comparison of Encodings](#comparison-of-encodings)
-    - [Separate Class Definition from Instantiation](#separate-class-definition-from-instantiation)
-  - [Class Definitions](#class-definitions)
-    - [Basic Types](#basic-types)
-    - [Normalized Properties](#normalized-properties)
-    - [Arrays](#arrays)
-    - [Optional and Default Properties](#optional-and-default-properties)
-  - [Storage Encodings](#storage-encodings)
-    - [JSON Encoding](#json-encoding-1)
-      - [Basic Types](#basic-types-1)
-      - [Bit Depth of Numeric Types](#bit-depth-of-numeric-types)
-      - [Array Types](#array-types)
-      - [Fixed-length Strings and Blobs](#fixed-length-strings-and-blobs)
-      - [Optional and Default Values](#optional-and-default-values)
-      - [Single Instance Shorthand](#single-instance-shorthand)
-    - [Binary Encoding](#binary-encoding-1)
-      - [Numeric Types](#numeric-types)
-      - [Strings and Blobs](#strings-and-blobs)
-      - [Fixed-length Strings and Blobs](#fixed-length-strings-and-blobs-1)
-      - [Arrays](#arrays-1)
-      - [Variable-size Arrays](#variable-size-arrays)
-      - [Boolean Data](#boolean-data)
-      - [Binary Alignment Rules](#binary-alignment-rules)
-    - [Metadata Texture Encoding](#metadata-texture-encoding-1)
-      - [Numeric Textures](#numeric-textures)
-      - [Array Textures](#array-textures)
-      - [Implementation Notes](#implementation-notes)
-  - [Glossary](#glossary)
+- [Overview](#overview)
+- [Concepts](#concepts)
+  - [Classes](#classes)
+  - [Instances](#instances)
+    - [Instance Tables](#instance-tables)
+    - [JSON Encoding](#json-encoding)
+    - [Binary Encoding](#binary-encoding)
+    - [Metadata Texture Encoding](#metadata-texture-encoding)
+    - [Comparison of Encodings](#comparison-of-encodings)
+  - [Separate Class Definition from Instantiation](#separate-class-definition-from-instantiation)
+- [Class Definitions](#class-definitions)
+  - [Basic Types](#basic-types)
+  - [Normalized Properties](#normalized-properties)
+  - [Arrays](#arrays)
+  - [Optional and Default Properties](#optional-and-default-properties)
+- [Storage Encodings](#storage-encodings)
+  - [JSON Encoding](#json-encoding-1)
+    - [Basic Types](#basic-types-1)
+    - [Bit Depth of Numeric Types](#bit-depth-of-numeric-types)
+    - [Array Types](#array-types)
+    - [Fixed-length Strings and Blobs](#fixed-length-strings-and-blobs)
+    - [Optional and Default Values](#optional-and-default-values)
+    - [Single Instance Shorthand](#single-instance-shorthand)
+  - [Binary Encoding](#binary-encoding-1)
+    - [Numeric Types](#numeric-types)
+    - [Strings and Blobs](#strings-and-blobs)
+    - [Fixed-length Strings and Blobs](#fixed-length-strings-and-blobs-1)
+    - [Arrays](#arrays-1)
+    - [Variable-size Arrays](#variable-size-arrays)
+    - [Boolean Data](#boolean-data)
+    - [Binary Alignment Rules](#binary-alignment-rules)
+  - [Metadata Texture Encoding](#metadata-texture-encoding-1)
+    - [Numeric Textures](#numeric-textures)
+    - [Array Textures](#array-textures)
+    - [Implementation Notes](#implementation-notes)
+- [Glossary](#glossary)
 
-## Abstract
+## Overview
 
 This specification provides a standard format for adding metadata to Cesium 3D Tiles as well as glTF models. It provides a method for defining metadata, as well as methods for storing this metadata in JSON, binary, or texture encodings. This metadata format is shared by several Cesium specifications. This avoids repetition and enforces a consistent data layout. Specifications that reference this document must include at least one metadata encoding as described in this document, and must make clear which encodings are supported.
-
-## Introduction
 
 ```
 features = geometry + metadata
@@ -272,7 +269,7 @@ This is useful for continuous properties such as elevation, vegetation index, ve
 }
 ```
 
-**Note**: The method of selecting a texture is implementation-defined. The above example is based on a glTF implementation where `index` selects a texture and `texCoord` selects the texture coordinates. Other implementations may do select a texture by other means.
+The method of selecting a texture is implementation-defined. The above example is based on a glTF implementation where `index` selects a texture and `texCoord` selects the texture coordinates. Other implementations may do select a texture by other means.
 
 #### Comparison of Encodings
 
@@ -309,7 +306,7 @@ This specification keeps class definition separate from instantiation. While thi
 
 A class is a collection of properties. Each class requires a unique UTF-8 string as a class ID. This allows the classes to be referenced elsewhere in the JSON. Within the class, one or more properties is defined. Each property must have an ID that is unique within the class. Like the class IDs, this is a UTF-8 string. Each property has a type associated with it. Some types have extra options; the sections below discuss such cases.
 
-Also note that both classes and properties can be annotated with display names and descriptions, as in the following example:
+Both classes and properties can be annotated with display names and descriptions, as in the following example:
 
 ```json
 {
@@ -426,13 +423,13 @@ Example:
 }
 ```
 
-**Note**: optional properties are disallowed for the binary encoding in the interest of efficient runtime performance.
+Optional properties are disallowed for the binary encoding in the interest of efficient runtime performance.
 
 ## Storage Encodings
 
 The following sections provide a full description of each of the metadata encodings.
 
-**Note**: Each instance table must use the same encoding for all properties contained within. For example, if one property in an instance table is stored using binary encoding, then all other properties in this table must do likewise. If a mix of JSON and binary metadata is desired, this can be accomplished by using multiple instance tables.
+Each instance table must use the same encoding for all properties contained within. For example, if one property in an instance table is stored using binary encoding, then all other properties in this table must do likewise. If a mix of JSON and binary metadata is desired, this can be accomplished by using multiple instance tables.
 
 ### JSON Encoding
 
@@ -1053,7 +1050,7 @@ the _bit_ offsets, rather than the usual byte offsets. Again, the offsets are co
 
 Due to the possibility of 64-bit data types, this extension requires that each `bufferView` is aligned to a multiple of 8 bytes for efficient reads. This alignment requirement is always measured from the start of the binary file. This alignment requirement only applies to the start of each bufferView used for metadata.
 
-Note that to meet this alignment requirement, padding or other data must go between the `bufferView`s so that each starts on an 8-byte boundary.
+To meet this alignment requirement, padding or other data must go between the `bufferView`s so that each starts on an 8-byte boundary.
 
 ![Binary alignment diagram](figures/binary-alignment.png)
 
@@ -1101,7 +1098,7 @@ In the following example, a single-channel image is used to encode surface tempe
 }
 ```
 
-**Note**: in the above example, the `texture` object is based on a glTF implementation. See [Implementation Notes](#implementation-notes) below.
+In the above example, the `texture` object is based on a glTF implementation. See [Implementation Notes](#implementation-notes) below.
 
 #### Array Textures
 
@@ -1142,7 +1139,7 @@ The example below demonstrates representing a `vec3` using a 3-channel image. Th
 }
 ```
 
-**Note**: in the above example, the `texture` object is based on a glTF implementation. See [Implementation Notes](#implementation-notes) below.
+In the above example, the `texture` object is based on a glTF implementation. See [Implementation Notes](#implementation-notes) below.
 
 ![vec3 metadata texture](figures/vec3-texture.jpg)
 
