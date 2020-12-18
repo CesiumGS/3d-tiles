@@ -30,7 +30,9 @@ Written against the 3D Tiles 1.0 specification.
 - [Overview](#overview)
 - [Use Cases](#use-cases)
 - [Tileset JSON](#tileset-json)
-- [Subdivision](#subdivision)
+- [Bounding volume](#bounding-volume)
+  - [Refinement](#refinement)
+- [Subdivision scheme](#subdivision-scheme)
   - [Implicit Subdivision](#implicit-subdivision)
 - [Tile Coordinates](#tile-coordinates)
 - [Template URIs](#template-uris)
@@ -59,7 +61,7 @@ Written against the 3D Tiles 1.0 specification.
 
 ## Overview
 
-**Implicit tiling** describes a Cesium 3D Tileset while enabling new data structures and algorithms for near constant time random access and dynamic tileset generation. It makes fast, efficient high resolution (meter or centimeter scale) global dataset streaming possible. The tileset is uniformly subdivided and organized for ease of read and write without the need to read the entire tileset at once. The subdivision enables random access, smaller tileset JSON files, and faster loading.
+**Implicit tiling** describes a Cesium 3D Tileset while enabling new data structures and algorithms for near constant time random access and dynamic tileset generation. It makes fast, efficient high resolution (meter or centimeter scale) global dataset streaming possible. The tileset is uniformly subdivided and organized for ease of read and write without the need to read the entire tileset at once. The subdivision, using full and sparse quad and octrees, enables random access, smaller tileset JSON files, and faster loading.
 
 
 Implicit tiling provides a method for accessing tiles by tile coordinates. This allows for abbreviated tree traversal algorithms.
@@ -92,7 +94,6 @@ Like in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specific
   "asset": {
     "version": "1.0"
   },
-  "geometricError": 10000,
   "extensionsUsed": [
     "3DTILES_implicit_tiling",
   ],
@@ -101,27 +102,95 @@ Like in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specific
   ],
   "extensions": {
     "3DTILES_implicit_tiling": {
+      "geometricError": 10000,
+      ...
+    }
+  }
+}
+```
+<img src="figures/simple-tileset-json.jpg" width="300px" />
+
+## Bounding volume
+Implicit tiling supports two types of bounding volumes, `box` and `region`. Both are defined in the [Bounding Volumes section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes) of the Cesium 3D Tiles 1.0 Specification. `box` is defined by an array of 12 numbers that define an oriented bounding box in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the z-axis is up, while `region` is defined by an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order [west, south, east, north, minimum height, maximum height].
+```json
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensionsRequired": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensions": {
+    "3DTILES_implicit_tiling": {
+      "geometricError": 10000,
+      "boundingVolume": {
+        "region": [
+          -0.0005682966577418737,
+          0.8987233516605286,
+          0.00011646582098558159,
+          0.8990603398325034,
+          0,
+          241.6
+        ]
+      },
+      ...
+    }
+  }
+}
+```
+<img src="figures/simple-tileset-bounding-volume.jpg" width="300px" />
+
+### Refinement
+**Refinement** determines the process by which a lower resolution parent tile renders when its higher resolution children are selected to be rendered, [as defined in 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification#refinement).
+```json
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensionsRequired": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensions": {
+    "3DTILES_implicit_tiling": {
+      "geometricError": 10000,
+      "boundingVolume": {
+        "region": [
+          -0.0005682966577418737,
+          0.8987233516605286,
+          0.00011646582098558159,
+          0.8990603398325034,
+          0,
+          241.6
+        ]
+      },
+      "refine": "ADD",
       ...
     }
   }
 }
 ```
 
-## Subdivision
+<img src="figures/simple-tileset-bounding-volume.jpg" width="300px" />
 
-A **subdivision** is a well-defined pattern for dividing a bounding volume of a tileset into a grid of tiles.
+## Subdivision scheme
 
-Implicit tiling supports two types of bounding volumes, `box` and `region`. Both are defined in the [Bounding Volumes section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes) of the Cesium 3D Tiles 1.0 Specification. `box` is defined by an array of 12 numbers that define an oriented bounding box in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the z-axis is up, while `region` is defined by an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order [west, south, east, north, minimum height, maximum height].
+A **subdivision scheme** is a recursive pattern for dividing a bounding volume of a tile into smaller children tiles that take up the same space.
 
-A tiling scheme recursively subdivides a volume by splitting it at the midpoint of some or all of the dimensions. If the two horizontal dimensions are split, a quadtree is produced. If all three dimensions are split, an octree is produced. No other tiling schemes are supported. Furthermore, the tiling scheme remains constant throughout the entire tileset; tiling schemes may not be intermixed within a single implicit tileset.
+A subdivision scheme recursively subdivides a volume by splitting it at the midpoint of some or all of the dimensions. If the `x` and `y` dimensions are split, a quadtree is produced. If all three dimensions are split, an octree is produced. The subdivision scheme remains constant throughout the entire tileset. They may not be intermixed within a single implicit tileset.
 
-A **quadtree** divides space only horizontally. It divides each bounding volume into 4 smaller bounding volumes where each horizontal dimension is halved. The vertical dimension remains the same. The resulting tree has a branching factor of 4.
+For a `region` bounding volume, `x`, `y`, and `z` refer to `longitude`, `latitude`, and `height` respectively.
 
-Horizontal dimensions are `(x, y)` when the bounding volume is a `box` and `(longitude, latitude)` when the bounding volume is a `region`.
+A **quadtree** divides space only on the `x` and `y` dimensions. It divides each tile into 4 smaller tiles where the `x` and `y` dimensions are halved. The quadtree `z` minimum and maximum remain unchanged. The resulting tree has 4 children per tile.
 
 ![Quadtree](figures/quadtree.png)
 
-An **octree** divides space along all 3 dimensions. It divides each bounding volume into 8 smaller bounding volumes where each dimension is halved. The resulting tree has a branching factor of 8.
+An **octree** divides space along all 3 dimensions. It divides each tile into 8 smaller tiles where each dimension is halved. The resulting tree has 8 children per tile.
 
 ![Octree](figures/octree.png)
 
@@ -134,18 +203,48 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 | Root Region | Quadtree | Octree |
 |:---:|:--:|:--:|
 | ![Root region](figures/region.png) | ![Region Quadtree](figures/region-quadtree.png) | ![Region octree](figures/region-octree.png)  |
+The `region` boxes above are curved to follow the globe's surface.
 
 ### Implicit Subdivision
 
-Implicit tiling only requires defining the tiling scheme, bounding volume, geometric error, and refine strategy at the root tile. These properties can be computed for any other tile based on the following rules:
+Implicit tiling only requires defining the subdivision scheme, bounding volume, geometric error, and refine strategy at the root tile. These properties can be computed for any other tile based on the following rules:
 
 | Property | Subdivision Rule | 
 | --- | --- |
-| `tilingScheme` | Constant for all tiles in tileset |
+| `subdivisionScheme` | Constant for all tiles in tileset |
 | `refine` | Constant for all tiles in tileset |
 | `boundingVolume` | If `tilingScheme` is `QUADTREE`, the parent tile is divided into 4 child tiles. If `tilingScheme` is `OCTREE` the child tile is divided into 8 child tiles. |
 | `geometricError` | Each child's `geometricError` is half of the parent's `geometricError` |
-
+```json
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensionsRequired": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensions": {
+    "3DTILES_implicit_tiling": {
+      "geometricError": 10000,
+      "boundingVolume": {
+        "region": [
+          -0.0005682966577418737,
+          0.8987233516605286,
+          0.00011646582098558159,
+          0.8990603398325034,
+          0,
+          241.6
+        ]
+      },
+      "refine": "ADD",
+      "subdivisionScheme": "QUADTREE"
+    }
+  }
+}
+```
 ## Tile Coordinates
 
 **Tile coordinates** are a tuple of integers that uniquely identify a tile. Tile coordinates are either `(level, x, y)` for quadtrees or `(level, x, y, z)` for octrees. All tile coordinates are 0-indexed.
@@ -164,7 +263,7 @@ For `box`, the tile coordinates are listed along the same direction as the Carte
 
 ![Box coordinates](figures/box-coordinates.jpg)
 
-For `region` bounding volumes, the coordinates are interpreted in Cartographic space. That is:
+For `region` bounding volumes, the coordinates are interpreted in Cartographic space, as desribed in [the 1.0 specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#region). That is:
 
 | Coordinate | Positive Direction |
 |---|---|
@@ -176,7 +275,7 @@ For `region` bounding volumes, the coordinates are interpreted in Cartographic s
 
 ## Template URIs
 
-**Template URIs** are URI patterns used to refer to specific tiles by their tile coordinates.
+A **Template URI** is a URI pattern used to refer to tiles by their tile coordinates.
 
 Template URIs are configured in the tileset.json. They may be any URI pattern, but must include the variables `${level}`, `${x}`, `${y}`. Template URIs for octrees must also include `${z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
 
@@ -204,25 +303,23 @@ Unless otherwise specified, template URIs are resolved relative to the tileset.j
 
 ## Content
 
-**Content** is an optional 3D model associated with a single tile, as described in the [Introduction section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#introduction) of the Cesium 3D Tiles 1.0 specification, with the addition of an explicit `mimeType`. 
-
-This extension adds the `mimeType` property to identify the type of content. This is more reliable than a file extension for determining the file type.
+**Content** is an optional 3D model associated with a single tile, as described in the [Introduction section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#introduction) of the Cesium 3D Tiles 1.0 specification, with the addition of an explicit `mimeType` to reliably identify the type of content.
 
 ## Subtrees
 
-**Subtrees** are fixed-depth and fixed-branching factor sections of the tileset tree used for breaking tilesets into manageable pieces.
+**Subtrees** are fixed-sized sections of the tileset tree used for breaking tilesets into manageable pieces.
 
 Since tilesets grow exponentially with depth, storing information about every tile in a single file is not always feasible or desirable. Even if RAM is not a direct limitation, streaming large files over the network can make loading times slower. To account for this, subtrees partition the tileset structure into pieces of bounded size.
 
 ![exact cover](figures/union-of-subtrees.jpg)
 
-Each subtree is a tree-shaped container for tiles. A subtree has a fixed number of levels defined by the `subtreeLevels` property. This describes the number of distinct levels in the tree. The branching factor is also fixed due to the tiling scheme. For quadtrees, the branching factor is `4`, while octrees have a branching factor of `8`. Taken together, a subtree has exactly enough nodes to store a full quadtree or full octree with a limited depth. However, each node may or may not contain a tile, as a tileset only stores the tiles that are necessary.
+A subtree has a fixed number of levels defined by the `subtreeLevels` property. This describes the number of distinct levels in the tree. The number of children per tile is also fixed due to the subdivision scheme. For quadtrees, there are `4` children per tile, while octrees have `8` children per tile. Taken together, a subtree has exactly enough tiles to store a full quadtree or full octree with a limited number of levels. However, each tile may or may not exist or contain content, as a tileset only stores the tiles that are necessary.
 
 ![subtree anatomy](figures/subtree-anatomy.jpg)
 
 ## Availability
 
-**Availability** is boolean data about which tiles, contents, or subtrees exist in a tileset. Availability serves two purposes:
+**Availability** is a boolean that defines whether a tile, content, or subtree exist in a tileset. Availability serves two purposes:
 
 1. It provides an efficient method for checking what files are present
 2. Including ths information prevents extraneous HTTP requests that would result in 404 errors.
@@ -239,7 +336,7 @@ Availability data is scoped to a subtree. This ensures that the size of each bit
 
 ![Tile Availability](figures/tile-availability.jpg)
 
-In the diagram above, colored nodes indicated available tile, while nodes with dashed outlines are unavailable tiles.
+In the diagram above, colored nodes indicate available tiles, while nodes with dashed outlines are unavailable tiles.
 
 If a tile is marked as available, more information about the tile, such as its content or children can be queried. If a tile is marked as unavailable, the tile must be skipped.
 
@@ -368,29 +465,20 @@ Below is a full example of how the tileset JSON file looks in practice:
 ```
 ## Glossary
 
-* **availability** - Data specifying which tiles/subtrees/contents are available within a single subtree. This helps prevent unnecessary network requests.
-* **available tile** - A tile that exists in the dataset.
-* **boolean array** - An array of boolean values.
+* **availability** - Data specifying which tiles/subtrees/contents exist within a single subtree.
 * **bounding volume** - The spatial extent enclosing a tile or a tile's content, as defined in the [3D Tiles specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes).
-* **bitstream** - A boolean array stored as a sequence of bits rather than bytes.
+* **boolean bitstream** - A boolean array stored as a sequence of bits rather than bytes.
 * **child subtree** - A subtree reachable from an available tile in the bottommost row of a subtree.
-* **child subtree availability** - Information about what child subtrees are available.
-* **content availability** - Information about which tiles have an associated content file within a single subtree.
-* **explicit tiling** - Describing a tileset by providing information about every tile.
-* **implicit tiling** - Describing a tileset by describing the hierarchical structure in binary rather than in JSON.
-* **octree** - A 3D tiling scheme that divides each cuboid into 8 smaller cuboids.
-* **quadtree** - A 2D tiling scheme that divides each rectangle into 4 smaller rectangles.
-* **root tile** - The topmost tile in a tileset tree.
-* **subtree** - A fixed-depth section of the tileset tree used to break large tilesets into manageable pieces.
+* **implicit tiling** - Describing a tileset using recursive subdivision.
+* **octree** - A 3D subdivision scheme that divides each bounding volume into 8 smaller bounding volumes along the midpoint of the `x`, `y`, and `z` axes.
+* **quadtree** - A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volume along the midpoint of the `x` and `y` axes.
+* **subtree** - A fixed-size section of the tileset tree used to break large tilesets into manageable pieces.
 * **subtree file** - A JSON file storing information about a specific subtree.
-* **subtree node** - A node in a subtree, regardless of whether there is an available tile there.
 * **template URI** - A URI pattern containing tile coordinates for directly addressing tiles.
-* **tile** - A tile as described in the Cesium 3D Tiles 1.0 specification.
-* **tile availability** - Information about which tiles exist within a single subtree.
-* **tileset** - A tileset as described in the Cesium 3D Tiles 1.0 specification.
-* **tileset JSON** - A JSON file describing a tileset, as described in the Cesium 3D Tiles 1.0 specification.
-* **tiling scheme** - A well-defined method for subdividing a bounding volume into a hierarchy of tiles.
-* **unavailable tile** - A region of space that does not contain a tile.
+* **tile** - A division of space that may contain content.
+* **tileset** - A hierarchical collection of tiles.
+* **tileset JSON** - A JSON file describing a tileset, as described in the [Cesium 3D Tiles 1.0 specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tileset-json).
+* **subdivision scheme** - A recursive pattern of dividing a parent tile into smaller children tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile.
 
 ## Examples
 

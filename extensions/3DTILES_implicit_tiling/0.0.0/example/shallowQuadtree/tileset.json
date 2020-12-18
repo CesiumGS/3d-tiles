@@ -29,9 +29,7 @@
       "geometricError": 5000,
       "subtreeLevels": 6,
       "maximumLevel": 5,
-      "subtrees": {
-        "uri": "subtrees/${level}/${x}/${y}.json"
-      },
+      "subtrees": "subtrees/${level}/${x}/${y}.json",
       "content": {
         "mimeType": "application/octet-stream",
         "uri": "content/${level}/${x}/${y}.b3dm"
