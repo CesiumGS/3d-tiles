@@ -338,17 +338,17 @@ Availability data is scoped to a subtree. This ensures that the size of each bit
 
 In the diagram above, colored nodes indicate available tiles, while nodes with dashed outlines are unavailable tiles Note that this is for illustration purposes only. Binary trees are not supported.
 
-If a tile is marked as available, more information about the tile, such as its content or children can be queried.
+If a tile is marked as available, it may have extensions attached to it as defined by the tileset author, and it may have content or children.
 
 ### Content Availability
 
-**Content availability** is a bitstream that determines which tiles have an associated content file. Like tile availability, there is one bit for each subtree node. A 1 indicates a content file exists for this tile, while a 0 indicates that no content file exists.
+**Content availability** is a bitstream, separate from tile availability, that determines which tiles have an associated content 3D model. Like tile availability, there is one bit for each tile. A 1 indicates a content file exists for this tile, while a 0 indicates that no content file exists. An available tile does not need to have content if, for example, the tileset author defines extensions that store extra information in tiles outside of content.
 
 ![Content Availability](figures/content-availability.jpg)
 
-The purpose of content availability is to check if a file exists before making a network request. If content is marked as unavailable, the network request for that file must be skipped.
+The purpose of content availability is to check if a content 3D model exists before making a network request. If content is marked as unavailable, the network request for that file must be skipped.
 
-A content availability bit must only be set if the corresponding tile availability bit is set. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset. The content availability bitstream can be validated by checking that the following equation holds true:
+A content availability bit can only be set if the corresponding tile availability bit is set. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset. The content availability bitstream can be validated by checking that the following equation holds true:
 
 ```
 contentAvailability & ~tileAvailability === 0
@@ -389,9 +389,8 @@ Using the Morton order serves these purposes:
 - Efficient traversal: The binary representation of tile locations in the tree level allow for easy traversal of the tileset (finding parent and child nodes).
 - Locality of reference: Adjacent indices are stored close to each other in memory and are close to each other spatially.
 
-#### Morton Order Example
-
 _The following section is non-normative_
+#### Morton Order Example
 
 The figure below shows the tile location decomposition of the tile `(level, x, y) = (3, 5, 1)`. We first convert the tile location to its Morton index, which is `19`. At Level 3 of a Quadtree, we'll use 6 bits to represent the binary value of the Morton index: `010011`.
 
