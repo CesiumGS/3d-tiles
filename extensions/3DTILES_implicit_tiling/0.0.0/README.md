@@ -321,7 +321,7 @@ A subtree has a fixed number of levels defined by the `subtreeLevels` property. 
 
 **Availability** is a boolean that defines whether a tile, content, or subtree exist in a tileset. Availability serves two purposes:
 
-1. It provides an efficient method for checking what files are present
+1. It provides an efficient method for checking which resources (tile, content, subtrees) are present
 2. Including ths information prevents extraneous HTTP requests that would result in 404 errors.
 
 Availability takes the form of a bitstream with one bit per node in consideration. A 1 indicates that a tile/content/subtree is available at this node. Meanwhile, a 0 indicates that no tile/content/subtree is available at this node.
@@ -332,13 +332,13 @@ Availability data is scoped to a subtree. This ensures that the size of each bit
 
 ### Tile Availability
 
-**Tile availability** is a bitstream that determines which tiles exist within a subtree. There is one bit for each subtree node. A 1 indicates that a tile is available, while a 0 indicates that a tile is unavailable.
+**Tile availability** is a bitstream that determines which tiles exist within a subtree. There is one bit for each subtree node. A 1 indicates that a tile is available, while a 0 indicates that a tile is unavailable. The bits follow [Morton Order](#morton-order).
 
 ![Tile Availability](figures/tile-availability.jpg)
 
-In the diagram above, colored nodes indicate available tiles, while nodes with dashed outlines are unavailable tiles.
+In the diagram above, colored nodes indicate available tiles, while nodes with dashed outlines are unavailable tiles Note that this is for illustration purposes only. Binary trees are not supported.
 
-If a tile is marked as available, more information about the tile, such as its content or children can be queried. If a tile is marked as unavailable, the tile must be skipped.
+If a tile is marked as available, more information about the tile, such as its content or children can be queried.
 
 ### Content Availability
 
