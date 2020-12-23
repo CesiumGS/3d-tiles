@@ -667,7 +667,7 @@ This subtree at the bottom of the tree is completely full. It uses constants for
 
 ```json
 {
-	"buffers": [
+  "buffers": [
     {
       "uri": "availability.bin",
       "byteLength": 74
@@ -701,7 +701,7 @@ This subtree at the bottom of the tree is completely full. It uses constants for
 
 ```json
 {
-	"buffers": [
+  "buffers": [
     {
       "uri": "availability.bin",
       "byteLength": 84
