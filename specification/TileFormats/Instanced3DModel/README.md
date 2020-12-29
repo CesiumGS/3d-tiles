@@ -253,8 +253,6 @@ The glTF asset to be instanced is stored after the Feature Table and Batch Table
 * When the value of `header.gltfFormat` is `0`, the glTF field is a UTF-8 string, which contains a uri of the glTF or binary glTF model content.
 * When the value of `header.gltfFormat` is `1`, the glTF field is a binary blob containing [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout).
 
-In either case, `header.gltfByteLength` contains the length of the glTF field in bytes.
-
 ### Coordinate system
 
 By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See [glTF transforms
