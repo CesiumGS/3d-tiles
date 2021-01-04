@@ -30,6 +30,7 @@ Written against the 3D Tiles 1.0 specification.
 - [Overview](#overview)
 - [Use Cases](#use-cases)
 - [Tileset JSON](#tileset-json)
+- [Geometric Error](#geometric-error)
 - [Bounding volume](#bounding-volume)
   - [Refinement](#refinement)
 - [Subdivision scheme](#subdivision-scheme)
@@ -45,7 +46,7 @@ Written against the 3D Tiles 1.0 specification.
 - [Subtree JSON Files](#subtree-json-files)
   - [Buffers and Buffer Views](#buffers-and-buffer-views)
   - [Morton Order](#morton-order)
-    - [Morton Order Example](#morton-order-example)
+  - [Morton Order Example](#morton-order-example)
   - [Availability Encoding](#availability-encoding)
 - [Tileset JSON](#tileset-json-1)
 - [Glossary](#glossary)
@@ -102,13 +103,35 @@ Like in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specific
   ],
   "extensions": {
     "3DTILES_implicit_tiling": {
-      "geometricError": 10000,
       ...
     }
   }
 }
 ```
 <img src="figures/simple-tileset-json.jpg" width="300px" />
+
+## Geometric Error
+**Geometric error** is the error, in meters, of the tile's simplified representation of its source geometry, as defined in the [3D Tiles 1.0 Specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#geometric-error). An implementation uses it to determine the level of detail to render.
+```json
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensionsRequired": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensions": {
+    "3DTILES_implicit_tiling": {
+      "geometricError": 10000,
+      ...
+    }
+  }
+}
+```
+<img src="figures/simple-tileset-geometric.jpg" width="300px" />
 
 ## Bounding volume
 Implicit tiling supports two types of bounding volumes, `box` and `region`. Both are defined in the [Bounding Volumes section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes) of the Cesium 3D Tiles 1.0 Specification. `box` is defined by an array of 12 numbers that define an oriented bounding box in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the z-axis is up, while `region` is defined by an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order [west, south, east, north, minimum height, maximum height].
@@ -141,7 +164,7 @@ Implicit tiling supports two types of bounding volumes, `box` and `region`. Both
   }
 }
 ```
-<img src="figures/simple-tileset-bounding-volume.jpg" width="300px" />
+<img src="figures/simple-tileset-bounding-volume.jpg" width="600px" />
 
 ### Refinement
 **Refinement** determines the process by which a lower resolution parent tile renders when its higher resolution children are selected to be rendered, [as defined in 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification#refinement).
@@ -176,7 +199,7 @@ Implicit tiling supports two types of bounding volumes, `box` and `region`. Both
 }
 ```
 
-<img src="figures/simple-tileset-bounding-volume.jpg" width="300px" />
+<img src="figures/simple-tileset-refine.jpg" width="600px" />
 
 ## Subdivision scheme
 
@@ -245,6 +268,8 @@ Implicit tiling only requires defining the subdivision scheme, bounding volume, 
   }
 }
 ```
+<img src="figures/simple-tileset-subdivision.jpg" width="600px" />
+
 ## Tile Coordinates
 
 **Tile coordinates** are a tuple of integers that uniquely identify a tile. Tile coordinates are either `(level, x, y)` for quadtrees or `(level, x, y, z)` for octrees. All tile coordinates are 0-indexed.
@@ -370,9 +395,9 @@ A **subtree JSON file** describes where the availability information for a singl
 
 Each subtree JSON file contains the following information:
 
-* The location of a bitstream for tile availability (if not `constant`)
-* The location of a bitstream for content availability (if not `constant`)
-* The location of a bitstream for child subtree availability (if not `constant`)
+* The URI of a bitstream for tile availability (if not `constant`)
+* The URI of a bitstream for content availability (if not `constant`)
+* The URI of a bitstream for child subtree availability (if not `constant`)
 
 ### Buffers and Buffer Views
 
@@ -392,7 +417,7 @@ Using the Morton order serves these purposes:
 Given tile coordinates `(level, x, y)`, the Morton index is found by interleaving the bits of `x` and `y` in binary, each represented by `level` bits.
 
 _The following section is non-normative_
-#### Morton Order Example
+### Morton Order Example
 
 The figure below shows the tile coordinate decomposition of the tile `(level, x, y) = (3, 5, 1)`. We first convert the tile coordinate to its Morton index. `5` represented as 3 bits is `101`. `1` represented as 3 bits is `001`. Interleaving the two, we get `010011`, which is `19`. 
 
@@ -408,25 +433,25 @@ Each availability bitstream must be stored as a separate `bufferView`, but multi
 
 ## Tileset JSON
 
-Using implicit tiling, the tileset JSON file describes the root tile, tiling scheme, and template URIs for locating resources.
+Using implicit tiling, the tileset JSON file describes the root tile, tiling scheme, and template URIs for locating files.
 
-In the extension object, the following information about the root tile is included:
+In the extension object of the tileset JSON, the following properties about the root tile are included:
 
 | Property | Description |
 | ------ | ----------- |
 | `tilingScheme` | Either `QUADTREE` or `OCTREE`|
 | `boundingVolume` | a bounding volume (either a `box` or `region`) describing the root tile |
-| `refine` | Either `ADD` or `REPLACE` as in the Cesium 3D Tiles 1.0 Specification. |
-| `geometricError` | Geometric error of the root tile as described in the Cesium 3D Tiles 1.0 Specification. |
+| `refine` | Either `ADD` or `REPLACE` as in the [Cesium 3D Tiles 1.0 Specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#refinement). |
+| `geometricError` | Geometric error of the root tile as described in the [Cesium 3D Tiles 1.0 Specification.](https://github.com/CesiumGS/3d-tiles/tree/master/specification#geometric-error) |
 | `maximumLevel` | Maximum level of the entire tree |
-| `subtreeLevels` | How many distance levels in each subtree. |
+| `subtreeLevels` | How many levels there are in each subtree |
 
-Furthermore, template URIs are used for locating subtree JSON files as well as tile contents. The key properties are as follows:
+Furthermore, template URIs are used for resolving subtree JSON files as well as tile contents. The key properties are as follows:
 
-| Option | Description |
+| Property | Description |
 | ------ | ----------- |
-| `subtrees.uri` | template URI for a subtree JSON file. see [Subtrees](#subtrees) for more info |
-| `content.uri` | template URI for the content 3D Models |
+| `subtrees` | template URI for a subtree JSON file. See [Subtrees](#subtrees) for more info |
+| `content` | template URI for the content 3D Models |
 
 Below is a full example of how the tileset JSON file looks in practice:
 
@@ -455,9 +480,7 @@ Below is a full example of how the tileset JSON file looks in practice:
       "geometricError": 5000,
       "subtreeLevels": 7,
       "maximumLevel": 21,
-      "subtrees": {
-        "uri": "subtrees/${level}/${x}/${y}/subtree.json"
-      },
+      "subtrees": "subtrees/${level}/${x}/${y}/subtree.json",
       "content": {
         "mimeType": "application/octet-stream",
         "uri": "terrain/${level}/${x}/${y}.b3dm"
@@ -476,7 +499,7 @@ Below is a full example of how the tileset JSON file looks in practice:
 * **octree** - A 3D subdivision scheme that divides each bounding volume into 8 smaller bounding volumes along the midpoint of the `x`, `y`, and `z` axes.
 * **quadtree** - A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volume along the midpoint of the `x` and `y` axes.
 * **subtree** - A fixed-size section of the tileset tree used to break large tilesets into manageable pieces.
-* **subtree file** - A JSON file storing information about a specific subtree.
+* **subtree JSON** - A JSON file storing information about a specific subtree.
 * **template URI** - A URI pattern containing tile coordinates for directly addressing tiles.
 * **tile** - A division of space that may contain content.
 * **tileset** - A hierarchical collection of tiles.
@@ -484,7 +507,7 @@ Below is a full example of how the tileset JSON file looks in practice:
 * **subdivision scheme** - A recursive pattern of dividing a parent tile into smaller children tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile.
 
 ## Examples
-
+Here are some complete examples for how to create commonly used data structures with implicit tiling.
 ### Quadtree with four levels
 Consider a tileset with a quadtree tiling scheme and four levels of detail. Suppose that we want to use implicit tiling with subtrees with 2 levels.
 
@@ -516,9 +539,7 @@ The root tileset JSON might look something this:
       "geometricError": 5000,
       "subtreeLevels": 2,
       "maximumLevel": 4,
-      "subtrees": {
-        "uri": "subtrees/${level}/${x}/${y}/subtree.json"
-      },
+      "subtrees": "subtrees/${level}/${x}/${y}/subtree.json",
       "content": {
         "mimeType": "application/octet-stream",
         "uri": "models/${level}/${x}/${y}.b3dm"
