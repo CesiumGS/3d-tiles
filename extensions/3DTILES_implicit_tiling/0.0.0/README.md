@@ -329,7 +329,40 @@ Unless otherwise specified, template URIs are resolved relative to the tileset.j
 ## Content
 
 **Content** is an optional 3D model associated with a single tile, as described in the [Introduction section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#introduction) of the Cesium 3D Tiles 1.0 specification, with the addition of an explicit `mimeType` to reliably identify the type of content.
-
+```json
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensionsRequired": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensions": {
+    "3DTILES_implicit_tiling": {
+      "geometricError": 10000,
+      "boundingVolume": {
+        "region": [
+          -0.0005682966577418737,
+          0.8987233516605286,
+          0.00011646582098558159,
+          0.8990603398325034,
+          0,
+          241.6
+        ]
+      },
+      "refine": "ADD",
+      "subdivisionScheme": "QUADTREE",
+      "content": {
+        "mimeType": "application/octet-stream",
+        "uri": "terrain/${level}/${x}/${y}.b3dm"
+      }
+    }
+  }
+}
+```
 ## Subtrees
 
 **Subtrees** are fixed-sized sections of the tileset tree used for breaking tilesets into manageable pieces.
