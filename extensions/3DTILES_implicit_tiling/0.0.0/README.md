@@ -389,10 +389,14 @@ Using the Morton order serves these purposes:
 - Efficient traversal: The binary representation of tile locations in the tree level allow for easy traversal of the tileset (finding parent and child nodes).
 - Locality of reference: Adjacent indices are stored close to each other in memory and are close to each other spatially.
 
+Given tile coordinates `(level, x, y)`, the Morton index is found by interleaving the bits of `x` and `y` in binary, each represented by `level` bits.
+
 _The following section is non-normative_
 #### Morton Order Example
 
-The figure below shows the tile location decomposition of the tile `(level, x, y) = (3, 5, 1)`. We first convert the tile location to its Morton index, which is `19`. At Level 3 of a Quadtree, we'll use 6 bits to represent the binary value of the Morton index: `010011`.
+The figure below shows the tile coordinate decomposition of the tile `(level, x, y) = (3, 5, 1)`. We first convert the tile coordinate to its Morton index. `5` represented as 3 bits is `101`. `1` represented as 3 bits is `001`. Interleaving the two, we get `010011`, which is `19`. 
+
+At Level 3 of a Quadtree, we'll use 6 bits to represent the binary value of the Morton index: `010011`.
 
 ![Morton Order](figures/morton-indexing.png)
 
