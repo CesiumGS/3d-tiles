@@ -92,10 +92,7 @@ For a complete list of vocabulary used, see the [Glossary](#glossary)
 
 A **class** describes a collection of related pieces of metadata called **properties** and their respective data types. In some ways, this is similar to describing the columns of a database table. However, this analogy is not completely applicable, as this specification allows for texture storage, not just columnar formats.
 
-A class definition describes what metadata is available. However, it does not describe how this metadata is stored. The section on [Instances](#instances) will provide more information.
-
 The following example shows the basics of how classes describe the data types, without describing where the data is stored. The following section will show how to connect these classes to the actual metadata in various storage formats.
-
 
 ```json
 {
@@ -139,8 +136,6 @@ The following example shows the basics of how classes describe the data types, w
 ```
 
 Above, we define a `building` class to describe the street address and height of various buildings in a 3D scene. Likewise, the `tree` class describes trees that have a height, age, and leaf color.
-
-For a more detailed description of how classes are defined, see the [Class Definitions](#class-definitions) section below.
 
 ### Instances
 
@@ -187,8 +182,6 @@ Below is an example of a well-formed instance table representing a class.
 }
 ```
 
-A brief overview of each encoding follows to explain the concepts. The full details can be found further below in the [Storage Encodings](#storage-encodings) section.
-
 #### Instance Tables
 
 An instance table is a mapping of **instance IDs** to metadata values which are stored in parallel arrays called **property arrays**. Instance IDs are simply integer indices into these arrays. The `i-th` value of every property array in an instance table together makes up the metadata for the `i-th` instance. 
@@ -225,8 +218,7 @@ defined above.
 
 Binary encoding is the preferred encoding in most cases since it is designed for storage and runtime efficiency. It is designed with large datasets in mind.
 
-The binary encoding is more involved than the JSON, as there are many considerations about how to pack and align the data efficiently. A detailed discussion of this can be found in the other [Binary Encoding](#binary-encoding-1) section further below
-in this document. For now, here is a small example to show how the same `building` class described above would be described with an instance table.
+Here is a small example to show how the same `building` class described above would be described with an instance table.
 
 ```json
 {
@@ -407,7 +399,7 @@ For vector-valued types such as a `vec3` or `mat4` in OpenGL, use a fixed-size a
 
 ### Optional and Default Properties
 
-Sometimes, it is desirable to mark cases where no data can be found. This can be accomplished by setting `optional: true` in the property definition. If a property has a default value, set `optional: true` and set a value for `default`. Default values are expressed as a single value in the same format as in the [JSON Encoding](#json-encoding).
+Sometimes, it is desirable to mark cases where no data can be found. This can be accomplished by setting `optional: true` in the property definition. If a property has a default value, set `optional: true` and set a value for `default`.
 
 Example:
 
