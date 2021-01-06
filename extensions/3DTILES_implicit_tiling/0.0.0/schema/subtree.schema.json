@@ -33,6 +33,13 @@
       "type": "object",
       "allOf": [{"$ref": "availability.schema.json"}]
     },
+
+    "tileMetadata": {
+      "description": "Metadata, including built-in and regular properties, on a per tile scope.",
+      "type": "object",
+      "allOf": [{"$ref": "tileMetadata.schema.json"}]
+    },
+    
     "extensions": {},
     "extras": {}
   },
