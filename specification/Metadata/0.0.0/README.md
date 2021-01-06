@@ -21,6 +21,7 @@ Draft
 <!-- omit in toc -->
 ## Table of Contents
 
+- [Introduction](#introduction)
 - [Overview](#overview)
 - [Concepts](#concepts)
   - [Classes](#classes)
@@ -57,6 +58,14 @@ Draft
     - [Array Textures](#array-textures)
     - [Implementation Notes](#implementation-notes)
 - [Glossary](#glossary)
+
+## Introduction
+
+OUTLINE:
+- key benefits:
+  - standardized semantics makes it easier to implement UIs
+  - runtime efficiency for large datasets 
+  - texel metadata is even more fine-grained than per-vertex or per-triangle
 
 ## Overview
 
@@ -1159,17 +1168,18 @@ Furthermore, depending on the implementation, the method of specifying a texture
 
 ## Glossary
 
-* **feature** - A combination of a single piece of geometry and corresponding metadata.
-* **geometry** - Any geometric entity such as a vertex, texel, or larger structures like meshes or patches of texels.
-* **metadata** - Application-specific properties associated with geometry.
-* **class** - A high-level description of one or more associated pieces of metadata (called properties).
-* **property** - A description of a single piece of metadata. This includes information such as a datatype.
-* **instance** - A concrete representation of a class consisting of a value for every property.
-* **instance table** - A mapping of instance IDs to metadata for each instance. The values are stored in parallel property arrays.
 * **buffer** - a contiguous sequence of bytes used for storing binary data. This is equivalent to the [glTF `buffer` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views).
 * **buffer view** or `bufferView` - A subsequence of a buffer that represents a single array. A buffer view is completely contained within a buffer. This is equivalent to the [glTF `bufferView` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views), though applied to a broader set of data types.
-* **property array** - A single array that stores values for one property.  
+* **class** - A high-level description of one or more associated pieces of metadata (called properties).
+* **component** (of an element) - For elements of type `ARRAY`, the values contained within are called components. In other words, a property array contains elements which contain components.
 * **element** (of a property array) - a single entry of a property array. This stores the value of one property for a single instance.
-* **component** (of an element) - For elements of type `ARRAY`, the values contained within are called components. In other words, a property array contains elements which contain components. 
-* **metadata texture** - A texture that represents a property directly, no instance table needed
 * **encoding** - A concrete method of storing metadata in a format such as JSON, binary, or textures.
+* **instance** - A concrete encoding of a class consisting of a value for every property of the class.
+* **instance table** - A table of metadata values indexed by instance IDs. The columns of the table are a set of parallel property arrays.
+* **metadata** - Additional application-specific properties in a structured format.
+* **metadata texture** - A texture that represents property values directly without need for an instance table.
+* **property** - A description of a single piece of metadata. This includes information such as a datatype.
+* **property array** - A single array that stores values for one property.
+
+
+
