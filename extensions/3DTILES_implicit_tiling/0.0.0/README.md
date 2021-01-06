@@ -236,7 +236,7 @@ Implicit tiling only requires defining the subdivision scheme, bounding volume, 
 | --- | --- |
 | `subdivisionScheme` | Constant for all tiles in tileset |
 | `refine` | Constant for all tiles in tileset |
-| `boundingVolume` | If `tilingScheme` is `QUADTREE`, the parent tile is divided into 4 child tiles. If `tilingScheme` is `OCTREE` the child tile is divided into 8 child tiles. |
+| `boundingVolume` | If `subdivisionScheme` is `QUADTREE`, the parent tile is divided into 4 child tiles. If `subdivisionScheme` is `OCTREE` the child tile is divided into 8 child tiles. |
 | `geometricError` | Each child's `geometricError` is half of the parent's `geometricError` |
 ```json
 {
@@ -472,7 +472,7 @@ In the extension object of the tileset JSON, the following properties about the 
 
 | Property | Description |
 | ------ | ----------- |
-| `tilingScheme` | Either `QUADTREE` or `OCTREE`|
+| `subdivisionScheme` | Either `QUADTREE` or `OCTREE`|
 | `boundingVolume` | a bounding volume (either a `box` or `region`) describing the root tile |
 | `refine` | Either `ADD` or `REPLACE` as in the [Cesium 3D Tiles 1.0 Specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#refinement). |
 | `geometricError` | Geometric error of the root tile as described in the [Cesium 3D Tiles 1.0 Specification.](https://github.com/CesiumGS/3d-tiles/tree/master/specification#geometric-error) |
@@ -509,7 +509,7 @@ Below is a full example of how the tileset JSON file looks in practice:
         "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
       },
       "refine": "REPLACE",
-      "tilingScheme": "QUADTREE",
+      "subdivisionScheme": "QUADTREE",
       "geometricError": 5000,
       "subtreeLevels": 7,
       "maximumLevel": 21,
@@ -568,7 +568,7 @@ The root tileset JSON might look something this:
         "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
       },
       "refine": "ADD",
-      "tilingScheme": "QUADTREE",
+      "subdivisionScheme": "QUADTREE",
       "geometricError": 5000,
       "subtreeLevels": 2,
       "maximumLevel": 4,
@@ -704,7 +704,7 @@ This subtree at the bottom of the tree is completely full. It uses constants for
         ]
       },
       "refine": "ADD",
-      "tilingScheme": "OCTREE",
+      "subdivisionScheme": "OCTREE",
       "geometricError": 5000,
       "subtreeLevels": 3,
       "maximumLevel": 8,
