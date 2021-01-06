@@ -48,7 +48,7 @@ Draft
     - [Numeric Types](#numeric-types)
     - [Strings and Blobs](#strings-and-blobs)
     - [Fixed-length Strings and Blobs](#fixed-length-strings-and-blobs-1)
-    - [Arrays](#arrays-1)
+    - [Fixed-size Arrays](#fixed-size-arrays)
     - [Variable-size Arrays](#variable-size-arrays)
     - [Boolean Data](#boolean-data)
     - [Binary Alignment Rules](#binary-alignment-rules)
@@ -70,7 +70,7 @@ Using terminology from the geospatial industry, **features** are geometric entit
 
 This specification adds a mechanism for storing metadata in existing 3D model formats such as Khronos Group's glTF or Cesium's 3D Tiles. Metadata can be applied at various granularities: per-vertex, per-texel, as well as larger structures from meshes to tilesets. This metadata can be used for analytics purposes, as well as styling in a 3D renderer.
 
-Guiding principles for this specification include:
+Guiding principles include:
 
 - Design a data format that allows for runtime efficiency, even for large datasets.
 - Keep class definitions separate from instantiation. This allows for greater flexibility of data formats, and allows for reuse of metadata definitions.
@@ -137,8 +137,7 @@ For a more detailed description of how classes are defined, see the [Class Defin
 
 A class definition is abstract, and only describes what metadata exists. Meanwhile, an **instance** is a concrete representation of the metadata for a single entity. Instance is a general concept; the concept of "feature" mentioned in the introduction is one example of an instance.
 
-This specification provides two main ways for storing instances: a columnar format (**instance tables**) and a texture-based format (**metadata textures**). Instance tables are designed for a wide variety of use cases. Instance tables can be encoded in either JSON or binary.
-Metadata textures are useful for properties that vary with position (e.g. elevation or temperature) and can benefit from image compression.
+There are two methods for storing instances: a columnar format (**instance tables**) and a texture-based format (**metadata textures**). Instance tables are designed for a wide variety of use cases. Instance tables can be encoded in either JSON or binary. Metadata textures are useful for properties that vary with position (e.g. elevation or temperature) and can benefit from image compression.
 
 Whether an instance table or a metadata texture, the data must match one-to-one with a class definition. For example, in the previous section, the `building` class defined two properties, `address` and `height`. A corresponding instance table must include data for both `address` and `height`. The instance table may not have any extraneous properties. If more are desired, they can be defined in separate instance tables.
 
@@ -279,7 +278,7 @@ The method of selecting a texture is implementation-defined. The above example i
 
 #### Comparison of Encodings
 
-This specification provides three different encodings for representing properties: JSON, binary and texture encodings. Each one is designed for different purposes, so it is important to familiarize oneself with the main differences.
+There are three different encodings for representing properties: JSON, binary and texture encodings.
 
 JSON encoding is useful for encoding data where readability matters. This works well for small amounts of data, but does not scale well to large datasets. If the metadata is expected to grow large, binary encoding would be a better choice. One situation where JSON encoding is helpful is if metadata will be edited by hand, as JSON is easier for a human to understand than editing a binary buffer.
 
@@ -768,7 +767,7 @@ Strings and binary blobs are somewhat similar when represented in binary. They b
 
 Strings and binary blobs are typically variable-length in terms of number of code points/bytes respectively. In order to store these efficiently in binary, some indirection is useful. The elements are packed tightly into a single `bufferView`. The index of this `bufferView` is referenced in the instance table's definition via the `bufferView` property.
 
-Since the length of each element is not predictable, an **offset buffer** is used instead. If there are `N` strings/blobs in the property array, then the offset buffer has `N + 1` elements. The first `N` of these point to the start byte of each string/blob, while the last one points to the byte immediately after the last string/blob. This way, the length of the `i-th` string (0-indexed) can be determined with the formula `length = offsetBuffer[i + 1] - offsetBuffer[i]`. The offset buffer is referenced by adding the index to the `offsetBufferViews` array in the JSON. For strings and blobs, this will always be the **rightmost** index in the array. More on `offsetBufferViews` can be found in the [Variable-size Arrays](#variable-size-arrays) section below.
+Since the length of each element is not predictable, an **offset buffer** is used instead. If there are `N` strings/blobs in the property array, then the offset buffer has `N + 1` elements. The first `N` of these point to the start byte of each string/blob, while the last one points to the byte immediately after the last string/blob. This way, the length of the `i-th` string (0-indexed) can be determined with the formula `length = offsetBuffer[i + 1] - offsetBuffer[i]`. The offset buffer is referenced by adding the index to the `offsetBufferViews` array in the JSON. For strings and blobs, this will always be the last element of the array. More on `offsetBufferViews` can be found in the [Variable-size Arrays](#variable-size-arrays) section below.
 
 The size of each offset can be configured with `offsetComponentType`. It defaults to `UINT32`, but it can be made as small as `UINT8` for small datasets or as large as `UINT64` for datasets with a large number of elements.
 
@@ -847,9 +846,7 @@ For binary blobs, the usage is similar. Use `blobByteLength` to describe the fix
 
 _(lengths measured in bytes)_
 
-#### Arrays
-
-This specification allows both fixed-size arrays (this section) and [variable-sized arrays](#variable-size-arrays) to represent multiple values per-instance.
+#### Fixed-size Arrays
 
 Fixed-length arrays are useful for representing vector and matrix types. Here are a few examples of how common computer graphics types are represented:
 
@@ -1170,7 +1167,7 @@ Furthermore, depending on the implementation, the method of specifying a texture
 * **instance** - A concrete representation of a class consisting of a value for every property.
 * **instance table** - A mapping of instance IDs to metadata for each instance. The values are stored in parallel property arrays.
 * **buffer** - a contiguous sequence of bytes used for storing binary data. This is equivalent to the [glTF `buffer` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views).
-* **buffer view** or `bufferView` - A subsequence of a buffer that represents a single array. A buffer view is completely contained within a buffer. This is equivalent to the [glTF `bufferView` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views), though this specification uses bufferViews for a broader set of data types.
+* **buffer view** or `bufferView` - A subsequence of a buffer that represents a single array. A buffer view is completely contained within a buffer. This is equivalent to the [glTF `bufferView` concept](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#buffers-and-buffer-views), though applied to a broader set of data types.
 * **property array** - A single array that stores values for one property.  
 * **element** (of a property array) - a single entry of a property array. This stores the value of one property for a single instance.
 * **component** (of an element) - For elements of type `ARRAY`, the values contained within are called components. In other words, a property array contains elements which contain components. 
