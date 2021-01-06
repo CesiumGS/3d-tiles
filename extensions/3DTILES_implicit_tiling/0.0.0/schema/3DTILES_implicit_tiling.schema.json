@@ -4,24 +4,10 @@
     "type": "object",
     "description": "This extension enables 3D Tiles to support tilesets with implied subdivision schemes",
     "properties": {
-      "boundingVolume": {
-        "allOf": [{"$ref": "boundingVolume.schema.json"}],
-        "description": "The bounding volume that encloses the root tile. The bounding volume is subdivided at the midpoint for each level of subdivision according to the tiling scheme."
-      },
-      "refine": {
+      "subdivisionScheme": {
         "type": "string",
-        "description": "Specifies if additive or replacement refinement is used when traversing the tileset. This property applies to all tiles in the tileset.",
-        "enum" : ["ADD", "REPLACE"]
-      },
-      "tilingScheme": {
-        "type": "string",
-        "description": "A string describing the tiling scheme used within the tileset.",
+        "description": "A string describing the subdivision scheme used within the tileset.",
         "enum" : ["QUADTREE", "OCTREE"]
-      },
-      "geometricError": {
-        "type": "number",
-        "description": "The error, in meters, introduced if the root is rendered and its children are not. The geometric error is halved for each level of subdivision. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.",
-        "minimum" : 0
       },
       "subtreeLevels": {
         "type": "integer",
@@ -44,5 +30,5 @@
       "extensions": {},
       "extras": {}
     },
-    "required" : ["boundingVolume", "refine", "tilingScheme", "geometricError", "subtreeLevels", "maximumLevel", "subtrees", "content"]
+    "required" : ["subtreeLevels", "maximumLevel", "subtrees", "content"]
   }
