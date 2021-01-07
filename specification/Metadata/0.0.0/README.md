@@ -60,6 +60,7 @@ Draft
     - [Array Textures](#array-textures)
     - [Implementation Notes](#implementation-notes)
 - [Glossary](#glossary)
+- [Appendix A: Comparison with Batch Tables](#appendix-a-comparison-with-batch-tables)
 
 ## Introduction
 
@@ -1257,5 +1258,24 @@ Furthermore, depending on the implementation, the method of specifying a texture
 * **property** - A description of a single piece of metadata. This includes information such as a datatype.
 * **property array** - A single array that stores values for one property.
 
+## Appendix A: Comparison with Batch Tables
 
+Cesium 3D Tiles 1.0 defines a concept of [batch tables](https://github.com/CesiumGS/3d-tiles/blob/master/specification/TileFormats/BatchTable/README.md) for adding application-specific properties to 3D Tiles content files. Batch tables were the precursor to instance tables.
 
+Batch tables and instance tables share the following in common:
+
+* Both support integers, floats, and vector types
+* Property values are accessed by an integer ID
+
+Key differences:
+
+* instance tables add several new data types: `UINT64`, `INT64`, `FLOAT16`, `BOOLEAN`, `STRING` and `ARRAY`
+* Numeric types now name the bits explicitly, i.e. `INT8` `INT16`, `INT32` rather than `BYTE`, `SHORT`, `INT`
+* The `ARRAY` type of instance tables allows for larger vectors than `VEC4`
+* The terminology is different:
+
+| Batch Table Terminology | Instance Table Terminology |
+|-------------------------|----------------------------|
+| feature                 | instance                   |
+| property                | property                   |
+| batch ID                | instance ID                |
