@@ -22,9 +22,11 @@ Draft
 ## Table of Contents
 
 - [Introduction](#introduction)
+  - [Metadata at Many Granularities](#metadata-at-many-granularities)
 - [Overview](#overview)
 - [Concepts](#concepts)
-  - [Classes](#classes)
+  - [Data Types](#data-types)
+  - [Classes and Properties](#classes-and-properties)
   - [Instances](#instances)
     - [Instance Tables](#instance-tables)
     - [JSON Encoding](#json-encoding)
@@ -67,6 +69,61 @@ OUTLINE:
   - runtime efficiency for large datasets 
   - texel metadata is even more fine-grained than per-vertex or per-triangle
 
+### Metadata at Many Granularities
+
+_This section is non-normative._
+
+In the 3D Tiles ecosystem, metadata is useful at several different granularities.
+
+Consider a Cesium 3D Tileset of a city. It is useful to annotate the data with metadata that can be displayed in a UI or used for computations at runtime.
+
+At the coarsest granularity, metadata can be assigned to a tileset. This may include information such as:
+
+* The author(s) that produced the tileset
+* The year the tileset was produced
+* A paragraph describing what the tileset represents
+
+DIAGRAM: Adding metadata to a tileset
+
+This metadata could be used to give a preview of the tileset before rendering it. For example, an application may have a UI for selecting a tileset. The metadata could be shown in a preview window to help the user find the desired data.
+
+DIAGRAM: UI for selecting tilesets
+
+Going deeper, metadata can be stored for each tile. Examples include:
+
+* The total number of buildings in each tile
+* The height of the tallest building within a tile
+
+DIAGRAM: Adding metadata to each tile
+
+Storing this information per-tile could be used for avoiding calculations at runtime. For example, computing the total number of buildings in the city becomes a simple lookup of metadata from the root tile.
+
+DIAGRAM: compute the # of buildings in a city
+
+Next, zoom in on the 3D model of a single tile. For example, a model of a city might be a triangle mesh of buildings, trees and cars.
+
+* Each primitive can be labeled as a building, tree, or car.
+* The vertices of a tree can be further classified as the trunk of the tree or the leaves.
+* Each building may have a height and total floor area
+
+DIAGRAM: Metadata scoped to features
+
+At runtime, a user could click a specific building. The application could then display relevant metadata in the UI.
+
+DIAGRAM: Metadata 
+
+Finally, zoom in even further at the wall of a building. Suppose the building is modeled as a simple box with a texture. Metadata can be stored at each texel, such as:
+
+* The material of that part of the wall such as concrete, glass or steel.
+* whether the wall is in good condition or damaged at that point.
+* Surface temperature of the wall at that point
+
+DIAGRAM: metadata textures
+
+This metadata can be used by the rendering engine for fine-tuned styling. It could also be used in a UI so when a user clicks a point, metadata about that point could be displayed on the screen.
+
+3D Tiles Metadata is designed to support these various levels of granularity
+
 ## Overview
 
 This specification provides a standard format for adding metadata to Cesium 3D Tiles as well as glTF models. It provides a method for defining metadata, as well as methods for storing this metadata in JSON, binary, or texture encodings. This metadata format is shared by several Cesium specifications. This avoids repetition and enforces a consistent data layout. Specifications that reference this document must include at least one metadata encoding as described in this document, and must make clear which encodings are supported.
@@ -82,35 +139,58 @@ This specification adds a mechanism for storing metadata in existing 3D model fo
 Guiding principles include:
 
 - Design a data format that allows for runtime efficiency, even for large datasets.
-- Keep class definitions separate from instantiation. This allows for greater flexibility of data formats, and allows for reuse of metadata definitions.
+- Keep class definitions separate from instantiation. This allows for greater flexibility of data formats, and allows for reuse of metadata definitions.s
 
 For a complete list of vocabulary used, see the [Glossary](#glossary)
 
 ## Concepts
 
-### Classes
+### Data Types
 
-A **class** describes a collection of related pieces of metadata called **properties** and their respective data types. In some ways, this is similar to describing the columns of a database table. However, this analogy is not completely applicable, as this specification allows for texture storage, not just columnar formats.
+**Primitive types** are data types that cannot be divided further. These include:
 
-The following example shows the basics of how classes describe the data types, without describing where the data is stored. The following section will show how to connect these classes to the actual metadata in various storage formats.
+* Boolean values (`BOOLEAN`)
+* Signed integers (`INT8`, `INT16`, `INT32`, `INT64`)
+* Unsigned integers (`INT8`, `INT16`, `INT32`, `INT64`)
+* Floating point numbers (`FLOAT16`, `FLOAT32`, `FLOAT64`)
+* Strings (`STRING`)
+
+Even though a string is a sequence of characters, it is considered to be a single indivisible value when storing metadata.
+
+**Array types** (`ARRAY`) are sequences of a single primitive type. The values are stored contiguously. Arrays can be fixed length or variable length.
+
+DIAGRAM: array types
+
+### Classes and Properties
+
+A **property** is the basic unit for defining metadata. A property consists of an identifier and a data type. Properties may also have a human-readable name and description.
+
+A **class** is a collection of related properties. A class may also have a human-readable name and description. The identifiers for properties must be unique within a class.
+
+DIAGRAM: example classes
 
 ```json
 {
   "classes": {
     "building": {
       "name": "Building",
+      "description": "Buildings in the town",
       "properties": {
-        "address": {
-          "name": "Street Address",
-          "type": "STRING"
-        },
         "height": {
-          "name": "Building Height (m)",
+          "name": "Building Height",
+          "description": "Height of the building in meters",
           "type": "FLOAT32"
+        },
+        "windows": {
+          "name": "Number of Windows",
+          "description": "How many windows this building has",
+          "type": "UINT16"
         }
       }
     },
     "tree": {
+      "name": "Tree",
+      "description": "Trees in the town",
       "properties": {
         "height": {
           "name": "Height",
@@ -120,7 +200,7 @@ The following example shows the basics of how classes describe the data types, w
         "age": {
           "name": "Age",
           "description": "Age of the tree in years",
-          "type": "UINT16"
+          "type": "UINT8"
         },
         "leafColor": {
           "name": "Leaf Color",
@@ -141,9 +221,13 @@ Above, we define a `building` class to describe the street address and height of
 
 A class definition is abstract, and only describes what metadata exists. Meanwhile, an **instance** is a concrete representation of the metadata for a single entity. Instance is a general concept; the concept of "feature" mentioned in the introduction is one example of an instance.
 
-There are two methods for storing instances: a columnar format (**instance tables**) and a texture-based format (**metadata textures**). Instance tables are designed for a wide variety of use cases. Instance tables can be encoded in either JSON or binary. Metadata textures are useful for properties that vary with position (e.g. elevation or temperature) and can benefit from image compression.
+Instances are stored in two formats: a columnar format (**instance tables**) and a texture-based format (**metadata textures**). Instance tables are for general purpose metadata storage. Metadata textures are for storing fine-grained data in image textures.
 
-Whether an instance table or a metadata texture, the data must match one-to-one with a class definition. For example, in the previous section, the `building` class defined two properties, `address` and `height`. A corresponding instance table must include data for both `address` and `height`. The instance table may not have any extraneous properties. If more are desired, they can be defined in separate instance tables.
+DIAGRAM: Instance table and metadata texture
+
+Whether an instance table or a metadata texture, the structure of the data must match one-to-one with a class definition.
+
+data must match one-to-one with a class definition. For example, in the previous section, the `building` class defined two properties, `address` and `height`. A corresponding instance table must include data for both `address` and `height`. The instance table may not have any extraneous properties. If more are desired, they can be defined in separate instance tables.
 
 Below is an example of a well-formed instance table representing a class.
 
