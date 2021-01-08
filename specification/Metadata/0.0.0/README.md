@@ -29,8 +29,9 @@ Draft
   - [Classes and Properties](#classes-and-properties)
   - [Instances](#instances)
     - [Instance Tables](#instance-tables)
-    - [JSON Encoding](#json-encoding)
+  - [Encodings](#encodings)
     - [Binary Encoding](#binary-encoding)
+    - [JSON Encoding](#json-encoding)
     - [Metadata Texture Encoding](#metadata-texture-encoding)
     - [Comparison of Encodings](#comparison-of-encodings)
   - [Separate Class Definition from Instantiation](#separate-class-definition-from-instantiation)
@@ -269,39 +270,29 @@ Below is an example of a well-formed instance table representing a class.
 
 #### Instance Tables
 
-An instance table is a mapping of **instance IDs** to metadata values which are stored in parallel arrays called **property arrays**. Instance IDs are simply integer indices into these arrays. The `i-th` value of every property array in an instance table together makes up the metadata for the `i-th` instance. 
+An **instance table** is a tabular format for storing metadata values for a single class. Each column represents one of the properties of the class. Each row represents a single instance of the class.
 
-The instance table has two possible representations: JSON and binary. The following sections compare the two encodings.
+The rows of an instance table are addressed by an integer index called **instance IDs**. Instance IDs are always numbered `0, 1, ..., N - 1` where `N` is the number of rows in the table.
 
-#### JSON Encoding
+DIAGRAM: Anatomy of an instance table
 
-JSON Encoding is designed for readability and convenience for small datasets. Data values are directly encoded in JSON wherever possible.
+The metadata values are stored in parallel arrays called **property arrays**, one per column. Each property array stores values for a single property. the `i-th` value of each property array is the value of that property for the instance with an instance ID of `i`.
 
-The following table shows a possible JSON encoding for the `building` class
-defined above.
+DIAGRAM: Property arrays
 
-```json
-{
-  "instanceTables": {
-    "buildingTable": {
-      "class": "building",
-      "count": 2,
-      "properties": {
-        "address": {
-          "values": ["123 Somewhere St.", "456 Elsewhere St."]
-        },
-        "height": {
-          "values": [13.0, 20.0]
-        }
-      }
-    }
-  }
-}
-```
+### Encodings
 
 #### Binary Encoding
 
-Binary encoding is the preferred encoding in most cases since it is designed for storage and runtime efficiency. It is designed with large datasets in mind.
+TODO: This section depends on buffers/buffer views
+
+Binary encoding packs metadata values efficiently in buffers. This encoding is designed for runtime efficiency of large datasets.
+
+Using this encoding, the values of each property array are packed into a single buffer view.
+
+DIAGRAM: data packed in buffer view. 
+
+TODO: Skip the example, use a diagram instead?
 
 Here is a small example to show how the same `building` class described above would be described with an instance table.
 
@@ -325,9 +316,40 @@ Here is a small example to show how the same `building` class described above wo
 }
 ```
 
+#### JSON Encoding
+
+When adding metadata to high level concepts, there are relatively few instances. For example, Metadata describing an entire tileset would have a single instance. Metadata describing large groups of tiles requires a small number of instances. In these small cases, the benefits of the binary encoding are minimal. However, it is still desirable to use an encoding that is easy for an application to consume.
+
+JSON Encoding is an alternative to binary encoding. Each property array is encoded directly in JSON for ease of access.
+
+```json
+{
+  "instanceTables": {
+    "buildingTable": {
+      "class": "building",
+      "count": 2,
+      "properties": {
+        "height": {
+          "values": [13.0, 20.0]
+        },
+        "windows": {
+          "values": [12, 20]
+        }
+      }
+    }
+  }
+}
+```
+
 #### Metadata Texture Encoding
 
-The metadata texture encoding serves a different purpose than the other encodings. Instead of associating metadata with an instance, this encoding associates metadata with each individual texel in a texture. In this situation, values are indexed by texture coordinates rather than instance ID. This allows, among other things, interpolation of metadata values (at least for numeric types).
+Metadata textures store metadata at every texel of a texture. This allows for describing detail even finer than triangles of a mesh.
+
+DIAGRAM: texture metadata
+
+Metadata textures represent a class property in one or more texture channels of an image. A value for the property is stored at every texel. The metadata values are accessed using texture coordinates, rather than instance IDs.
+
+TODO: this information sounds non-normative
 
 This is useful for continuous properties such as elevation, vegetation index, vector fields, and many other properties that vary with position. It also can be used for better compression of metadata values in some cases.
 
@@ -364,11 +386,11 @@ The method of selecting a texture is implementation-defined. The above example i
 
 #### Comparison of Encodings
 
-There are three different encodings for representing properties: JSON, binary and texture encodings.
+_This section is non-normative_
+
+Binary encoding is the most general-purpose encoding. It is designed to be runtime efficient, and scalable to large quantities of metadata. Since a property array stores elements of a single type, this allows storage optimizations such as storing boolean properties as a tightly packed bit stream, or data type aware compression.
 
 JSON encoding is useful for encoding data where readability matters. This works well for small amounts of data, but does not scale well to large datasets. If the metadata is expected to grow large, binary encoding would be a better choice. One situation where JSON encoding is helpful is if metadata will be edited by hand, as JSON is easier for a human to understand than editing a binary buffer.
-
-Binary encoding is designed for storage efficiency, and is designed for use with large datasets. Data is packed in parallel arrays, one per property. This allows for storage optimizations based on data type, such as storing boolean properties as a tightly packed bit vector. This encoding is more involved than the JSON encoding, but it is much preferred in most cases where performance is an important consideration.
 
 These first two encodings are designed for discrete properties indexed by instance ID. In contrast, metadata textures are used when instances are identified by spatial position (i.e. texture coordinates within a texture). Heightmaps and vector fields are two examples. This type of per-texel metadata has many uses, but is also somewhat limited by the image formats used to store data.
 
