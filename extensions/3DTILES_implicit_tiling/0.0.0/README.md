@@ -30,9 +30,6 @@ Written against the 3D Tiles 1.0 specification.
 - [Overview](#overview)
 - [Use Cases](#use-cases)
 - [Tileset JSON](#tileset-json)
-- [Geometric Error](#geometric-error)
-- [Bounding volume](#bounding-volume)
-  - [Refinement](#refinement)
 - [Subdivision scheme](#subdivision-scheme)
   - [Implicit Subdivision](#implicit-subdivision)
 - [Tile Coordinates](#tile-coordinates)
@@ -89,7 +86,7 @@ Implicit tiling also allows for better interoperability with existing GIS data f
 Implicit tiling enables procedurally-generated tilesets. Instead of serving static files, a server could extract the tile coordinates from [Template URIs](#template-uris) and generate tiles at runtime while using little disk space.
 
 ## Tileset JSON
-Like in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tileset-json), one main tileset JSON file is the entry point for defining an implicit tileset. To use implicit tiling, the `3DTILES_implicit_tiling` extension must be defined in the root `tileset.json`.
+Like in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tileset-json), one main tileset JSON file is the entry point for defining an implicit tileset. To use implicit tiling, the `3DTILES_implicit_tiling` extension must be defined in the root tile of the `tileset.json`.
 ```json
 {
   "asset": {
@@ -101,105 +98,26 @@ Like in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specific
   "extensionsRequired": [
     "3DTILES_implicit_tiling",
   ],
-  "extensions": {
-    "3DTILES_implicit_tiling": {
-      ...
-    }
+  "root": {
+    "boundingVolume": {
+      "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
+    },
+    "refine": "REPLACE",
+    "geometricError": 5000,
+    "extensions": {
+      "3DTILES_implicit_tiling": {
+        ...
+      }
   }
 }
 ```
-<img src="figures/simple-tileset-json.jpg" width="300px" />
+The `boundingVolume` must be either a `box`, an array of 12 numbers that define an oriented bounding box in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the z-axis is up, or a `region`, an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order [west, south, east, north, minimum height, maximum height], as defined in the [bounding volume section of the 3D Tiles 1.0 specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes).
 
-## Geometric Error
 **Geometric error** is the error, in meters, of the tile's simplified representation of its source geometry, as defined in the [3D Tiles 1.0 Specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#geometric-error). An implementation uses it to determine the level of detail to render.
-```json
-{
-  "asset": {
-    "version": "1.0"
-  },
-  "extensionsUsed": [
-    "3DTILES_implicit_tiling",
-  ],
-  "extensionsRequired": [
-    "3DTILES_implicit_tiling",
-  ],
-  "extensions": {
-    "3DTILES_implicit_tiling": {
-      "geometricError": 10000,
-      ...
-    }
-  }
-}
-```
-<img src="figures/simple-tileset-geometric.jpg" width="300px" />
 
-## Bounding volume
-Implicit tiling supports two types of bounding volumes, `box` and `region`. Both are defined in the [Bounding Volumes section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes) of the Cesium 3D Tiles 1.0 Specification. `box` is defined by an array of 12 numbers that define an oriented bounding box in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the z-axis is up, while `region` is defined by an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order [west, south, east, north, minimum height, maximum height].
-```json
-{
-  "asset": {
-    "version": "1.0"
-  },
-  "extensionsUsed": [
-    "3DTILES_implicit_tiling",
-  ],
-  "extensionsRequired": [
-    "3DTILES_implicit_tiling",
-  ],
-  "extensions": {
-    "3DTILES_implicit_tiling": {
-      "geometricError": 10000,
-      "boundingVolume": {
-        "region": [
-          -0.0005682966577418737,
-          0.8987233516605286,
-          0.00011646582098558159,
-          0.8990603398325034,
-          0,
-          241.6
-        ]
-      },
-      ...
-    }
-  }
-}
-```
-<img src="figures/simple-tileset-bounding-volume.jpg" width="600px" />
-
-### Refinement
 **Refinement** determines the process by which a lower resolution parent tile renders when its higher resolution children are selected to be rendered, [as defined in 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification#refinement).
-```json
-{
-  "asset": {
-    "version": "1.0"
-  },
-  "extensionsUsed": [
-    "3DTILES_implicit_tiling",
-  ],
-  "extensionsRequired": [
-    "3DTILES_implicit_tiling",
-  ],
-  "extensions": {
-    "3DTILES_implicit_tiling": {
-      "geometricError": 10000,
-      "boundingVolume": {
-        "region": [
-          -0.0005682966577418737,
-          0.8987233516605286,
-          0.00011646582098558159,
-          0.8990603398325034,
-          0,
-          241.6
-        ]
-      },
-      "refine": "ADD",
-      ...
-    }
-  }
-}
-```
 
-<img src="figures/simple-tileset-refine.jpg" width="600px" />
+<img src="figures/simple-tileset-json.jpg" width="300px" />
 
 ## Subdivision scheme
 
@@ -249,26 +167,22 @@ Implicit tiling only requires defining the subdivision scheme, bounding volume, 
   "extensionsRequired": [
     "3DTILES_implicit_tiling",
   ],
-  "extensions": {
-    "3DTILES_implicit_tiling": {
-      "geometricError": 10000,
-      "boundingVolume": {
-        "region": [
-          -0.0005682966577418737,
-          0.8987233516605286,
-          0.00011646582098558159,
-          0.8990603398325034,
-          0,
-          241.6
-        ]
-      },
-      "refine": "ADD",
-      "subdivisionScheme": "QUADTREE"
+  "root": {
+    "boundingVolume": {
+      "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
+    },
+    "refine": "REPLACE",
+    "geometricError": 5000,
+    "extensions": {
+      "3DTILES_implicit_tiling": {
+        "subdivisionScheme": "QUADTREE"
+        ...
+      }
     }
   }
 }
 ```
-<img src="figures/simple-tileset-subdivision.jpg" width="600px" />
+<img src="figures/simple-tileset-subdivision.jpg" width="300px" />
 
 ## Tile Coordinates
 
@@ -302,20 +216,20 @@ For `region` bounding volumes, the coordinates are interpreted in Cartographic s
 
 A **Template URI** is a URI pattern used to refer to tiles by their tile coordinates.
 
-Template URIs are configured in the tileset.json. They may be any URI pattern, but must include the variables `${level}`, `${x}`, `${y}`. Template URIs for octrees must also include `${z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
+Template URIs are configured in the tileset.json. They may be any URI pattern, but must include the variables `{level}`, `{x}`, `{y}`. Template URIs for octrees must also include `${z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
 
 Here are some examples of template URIs and files that they match:
 
 ```
 == Quadtree Example ==
-Pattern: "content/${level}/${x}/${y}/tile.b3dm"
+Pattern: "content/{level}/{x}/{y}/tile.b3dm"
 Valid filenames: 
 - content/0/0/0/tile.b3dm
 - content/1/1/0/tile.b3dm
 - content/3/2/2/tile.b3dm
 
 == Octree Example ==
-Pattern: "content/${level}/${z}/${y}/${x}.pnts"
+Pattern: "content/{level}/{z}/{y}/{x}.pnts"
 Valid filenames:
 - content/0/0/0/0.pnts
 - content/1/1/1/1.pnts
@@ -340,24 +254,20 @@ Unless otherwise specified, template URIs are resolved relative to the tileset.j
   "extensionsRequired": [
     "3DTILES_implicit_tiling",
   ],
-  "extensions": {
-    "3DTILES_implicit_tiling": {
-      "geometricError": 10000,
-      "boundingVolume": {
-        "region": [
-          -0.0005682966577418737,
-          0.8987233516605286,
-          0.00011646582098558159,
-          0.8990603398325034,
-          0,
-          241.6
-        ]
-      },
-      "refine": "ADD",
-      "subdivisionScheme": "QUADTREE",
-      "content": {
-        "mimeType": "application/octet-stream",
-        "uri": "terrain/${level}/${x}/${y}.b3dm"
+  "root": {
+    "boundingVolume": {
+      "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
+    },
+    "refine": "REPLACE",
+    "geometricError": 5000,
+    "extensions": {
+      "3DTILES_implicit_tiling": {
+        "subdivisionScheme": "QUADTREE",
+        "content": {
+          "mimeType": "application/octet-stream",
+          "uri": "terrain/${level}/${x}/${y}.b3dm"
+        }
+        ...
       }
     }
   }
@@ -513,10 +423,39 @@ Below is a full example of how the tileset JSON file looks in practice:
       "geometricError": 5000,
       "subtreeLevels": 7,
       "maximumLevel": 21,
-      "subtrees": "subtrees/${level}/${x}/${y}/subtree.json",
+      "subtrees": "subtrees/{level}/{x}/{y}/subtree.json",
       "content": {
         "mimeType": "application/octet-stream",
-        "uri": "terrain/${level}/${x}/${y}.b3dm"
+        "uri": "terrain/{level}/{x}/{y}.b3dm"
+      }
+    }
+  }
+}
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": [
+    "3DTILES_implicit_tiling",
+  ],
+  "extensionsRequired": [
+    "3DTILES_implicit_tiling",
+  ],
+  "root": {
+    "boundingVolume": {
+      "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
+    },
+    "refine": "REPLACE",
+    "geometricError": 5000,
+    "extensions": {
+      "3DTILES_implicit_tiling": {
+        "subdivisionScheme": "QUADTREE",
+        "content": {
+          "mimeType": "application/octet-stream",
+          "uri": "terrain/${level}/${x}/${y}.b3dm"
+        }
+        "subtreeLevels": 7,
+        "maximumLevel": 21,
       }
     }
   }
