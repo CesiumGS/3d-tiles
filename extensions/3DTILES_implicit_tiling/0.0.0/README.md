@@ -428,36 +428,6 @@ Below is a full example of how the tileset JSON file looks in practice:
     }
   }
 }
-{
-  "asset": {
-    "version": "1.0"
-  },
-  "geometricError": 10000,
-  "extensionsUsed": [
-    "3DTILES_implicit_tiling",
-  ],
-  "extensionsRequired": [
-    "3DTILES_implicit_tiling",
-  ],
-  "root": {
-    "boundingVolume": {
-      "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
-    },
-    "refine": "REPLACE",
-    "geometricError": 5000,
-    "extensions": {
-      "3DTILES_implicit_tiling": {
-        "subdivisionScheme": "QUADTREE",
-        "content": {
-          "mimeType": "application/octet-stream",
-          "uri": "terrain/{level}/{x}/{y}.b3dm"
-        },
-        "subtreeLevels": 7,
-        "maximumLevel": 21,
-      }
-    }
-  }
-}
 ```
 ## Glossary
 
@@ -653,7 +623,7 @@ This subtree at the bottom of the tree is completely full. It uses constants for
       },
       "content": {
         "mimeType": "application/octet-stream",
-        "uri": "models/{level}/{z}/{y}/{x}/model.pnts"
+        "uri": "models/{level}/{z}/{y}/{x}.pnts"
       }
     }
   }
@@ -760,26 +730,18 @@ File structure:
   |__ 8/
     |__ 0/
       |__ 0/
-        |__ 0/
-          |__ model.pnts
-        |__ 1/
-          |__ model.pnts
+        |__ 0.pnts
+        |__ 1.pnts
       |__ 1/
-        |__ 0/
-          |__ model.pnts
-        |__ 1/
-          |__ model.pnts
+        |__ 0.pnts
+        |__ 1.pnts
     |__ 1/
       |__ 0/
-        |__ 0/
-          |__ model.pnts
-        |__ 1/
-          |__ model.pnts
+        |__ 0.pnts
+        |__ 1.pnts
       |__ 1/
-        |__ 0/
-          |__ model.pnts
-        |__ 1/
-          |__ model.pnts
+        |__ 0.pnts
+        |__ 1.pnts
 ```
 
 ## JSON Schema Reference
