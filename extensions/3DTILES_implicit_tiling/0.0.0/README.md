@@ -453,7 +453,7 @@ Below is a full example of how the tileset JSON file looks in practice:
         "content": {
           "mimeType": "application/octet-stream",
           "uri": "terrain/${level}/${x}/${y}.b3dm"
-        }
+        },
         "subtreeLevels": 7,
         "maximumLevel": 21,
       }
