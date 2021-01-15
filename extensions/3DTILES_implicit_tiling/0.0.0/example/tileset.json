@@ -21,11 +21,11 @@
         "subtreeLevels": 7,
         "maximumLevel": 20,
         "subtrees": {
-          "uri": "subtrees/${level}/${x}/${y}/subtree.json"
+          "uri": "subtrees/{level}/{x}/{y}/subtree.json"
         },
         "content": {
           "mimeType": "model/gltf+json",
-          "uri": "content/${level}/${x}/${y}.gltf"
+          "uri": "content/{level}/{x}/{y}.gltf"
         }
       }
     }

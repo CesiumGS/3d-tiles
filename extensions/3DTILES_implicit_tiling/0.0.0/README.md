@@ -216,7 +216,7 @@ For `region` bounding volumes, the coordinates are interpreted in Cartographic s
 
 A **Template URI** is a URI pattern used to refer to tiles by their tile coordinates.
 
-Template URIs are configured in the tileset.json. They may be any URI pattern, but must include the variables `{level}`, `{x}`, `{y}`. Template URIs for octrees must also include `${z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
+Template URIs are configured in the tileset.json. They may be any URI pattern, but must include the variables `{level}`, `{x}`, `{y}`. Template URIs for octrees must also include `{z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
 
 Here are some examples of template URIs and files that they match:
 
@@ -265,7 +265,7 @@ Unless otherwise specified, template URIs are resolved relative to the tileset.j
         "subdivisionScheme": "QUADTREE",
         "content": {
           "mimeType": "application/octet-stream",
-          "uri": "terrain/${level}/${x}/${y}.b3dm"
+          "uri": "terrain/{level}/{x}/{y}.b3dm"
         }
         ...
       }
@@ -452,7 +452,7 @@ Below is a full example of how the tileset JSON file looks in practice:
         "subdivisionScheme": "QUADTREE",
         "content": {
           "mimeType": "application/octet-stream",
-          "uri": "terrain/${level}/${x}/${y}.b3dm"
+          "uri": "terrain/{level}/{x}/{y}.b3dm"
         },
         "subtreeLevels": 7,
         "maximumLevel": 21,
@@ -511,10 +511,10 @@ The root tileset JSON might look something this:
       "geometricError": 5000,
       "subtreeLevels": 2,
       "maximumLevel": 4,
-      "subtrees": "subtrees/${level}/${x}/${y}/subtree.json",
+      "subtrees": "subtrees/{level}/{x}/{y}/subtree.json",
       "content": {
         "mimeType": "application/octet-stream",
-        "uri": "models/${level}/${x}/${y}.b3dm"
+        "uri": "models/{level}/{x}/{y}.b3dm"
       }
     }
   }
@@ -648,11 +648,11 @@ This subtree at the bottom of the tree is completely full. It uses constants for
       "subtreeLevels": 3,
       "maximumLevel": 8,
       "subtrees": {
-        "uri": "subtrees/${level}/${z}/${y}/${x}/subtree.json"
+        "uri": "subtrees/{level}/{z}/{y}/{x}/subtree.json"
       },
       "content": {
         "mimeType": "application/octet-stream",
-        "uri": "models/${level}/${z}/${y}/${x}/model.pnts"
+        "uri": "models/{level}/{z}/{y}/{x}/model.pnts"
       }
     }
   }
