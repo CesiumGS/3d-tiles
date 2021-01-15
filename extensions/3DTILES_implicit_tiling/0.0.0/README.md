@@ -326,7 +326,7 @@ where `&` is the bitwise AND operation and `~` is the bitwise NOT operation.
 
 ### Child Subtree Availability
 
-**Child subtree availability** is a bitstream that determines what subtrees can be reached from this subtree. There are `N` bits for every node in the bottom-most level of the subtree, where `N` is the branching factor of the tree. A 1 means there is a child subtree available at that position in the tree. Meanwhile, a 0 means there is no subtree available.
+**Child subtree availability** is a bitstream that determines what subtrees can be reached from this subtree. There are `N` bits for every node in the bottom-most level of the subtree, where `N` is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. A 1 means there is a child subtree available at that position in the tree. Meanwhile, a 0 means there is no subtree available.
 
 ![Child Subtree Availability](figures/subtree-availability.jpg)
 
