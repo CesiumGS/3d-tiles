@@ -86,7 +86,9 @@ Implicit tiling also allows for better interoperability with existing GIS data f
 Implicit tiling enables procedurally-generated tilesets. Instead of serving static files, a server could extract the tile coordinates from [Template URIs](#template-uris) and generate tiles at runtime while using little disk space.
 
 ## Tileset JSON
-Like in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tileset-json), one main tileset JSON file is the entry point for defining an implicit tileset. To use implicit tiling, the `3DTILES_implicit_tiling` extension must be defined in the root tile of the `tileset.json`.
+
+Like in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tileset-json), one main tileset JSON file is the entry point for defining an implicit tileset. To use implicit tiling, the `3DTILES_implicit_tiling` extension must be defined in the root tile of the tileset JSON file.
+
 ```json
 {
   "asset": {
@@ -154,7 +156,7 @@ Implicit tiling only requires defining the subdivision scheme, bounding volume, 
 | --- | --- |
 | `subdivisionScheme` | Constant for all tiles in tileset |
 | `refine` | Constant for all tiles in tileset |
-| `boundingVolume` | If `subdivisionScheme` is `QUADTREE`, the parent tile is divided into 4 child tiles. If `subdivisionScheme` is `OCTREE` the child tile is divided into 8 child tiles. |
+| `boundingVolume` | If `subdivisionScheme` is `QUADTREE`, the parent tile is divided into 4 child tiles. If `subdivisionScheme` is `OCTREE`, the parent tile is divided into 8 child tiles. |
 | `geometricError` | Each child's `geometricError` is half of the parent's `geometricError` |
 ```json
 {
@@ -198,11 +200,11 @@ For `box`, the tile coordinates are listed along the same direction as the Carte
 | --- | --- |
 | `x` | Along the `+x` axis of the bounding box |
 | `y` | Along the `+y` axis of the bounding box |
-| `y` | Along the `+z` axis of the bounding box |
+| `z` | Along the `+z` axis of the bounding box |
 
 ![Box coordinates](figures/box-coordinates.jpg)
 
-For `region` bounding volumes, the coordinates are interpreted in Cartographic space, as desribed in [the 1.0 specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#region). That is:
+For `region` bounding volumes, the coordinates are interpreted in geographic coordinates as described in [the 1.0 specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#region). That is:
 
 | Coordinate | Positive Direction |
 |---|---|
@@ -216,7 +218,7 @@ For `region` bounding volumes, the coordinates are interpreted in Cartographic s
 
 A **Template URI** is a URI pattern used to refer to tiles by their tile coordinates.
 
-Template URIs are configured in the tileset.json. They may be any URI pattern, but must include the variables `{level}`, `{x}`, `{y}`. Template URIs for octrees must also include `{z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
+Template URIs are configured in the tileset JSON file. They may be any URI pattern, but must include the variables `{level}`, `{x}`, `{y}`. Template URIs for octrees must also include `{z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
 
 Here are some examples of template URIs and files that they match:
 
@@ -236,7 +238,7 @@ Valid filenames:
 - content/3/2/1/0.pnts
 ```
 
-Unless otherwise specified, template URIs are resolved relative to the tileset.json file.
+Unless otherwise specified, template URIs are resolved relative to the tileset JSON file.
 
 ![Template URI](figures/template-uri.jpg)
 
@@ -281,16 +283,13 @@ Since tilesets grow exponentially with depth, storing information about every ti
 
 ![exact cover](figures/union-of-subtrees.jpg)
 
-A subtree has a fixed number of levels defined by the `subtreeLevels` property. This describes the number of distinct levels in the tree. The number of children per tile is also fixed due to the subdivision scheme. For quadtrees, there are `4` children per tile, while octrees have `8` children per tile. Taken together, a subtree has exactly enough tiles to store a full quadtree or full octree with a limited number of levels. However, each tile may or may not exist or contain content, as a tileset only stores the tiles that are necessary.
+A subtree has a fixed number of levels defined by the `subtreeLevels` property. This describes the number of distinct levels in the subtree. The number of children per tile is also fixed due to the subdivision scheme. For quadtrees, there are `4` children per tile, while octrees have `8` children per tile. Taken together, a subtree has exactly enough tiles to store a full quadtree or full octree with a limited number of levels. However, each tile may or may not exist or contain content, as a tileset only stores the tiles that are necessary.
 
 ![subtree anatomy](figures/subtree-anatomy.jpg)
 
 ## Availability
 
-**Availability** is a boolean that defines whether a tile, content, or subtree exist in a tileset. Availability serves two purposes:
-
-1. It provides an efficient method for checking which resources (tile, content, subtrees) are present
-2. Including ths information prevents extraneous HTTP requests that would result in 404 errors.
+**Availability** is a boolean that defines whether a tile, content, or subtree exist in a tileset. Availability provides an efficient method for checking which resources (tile, content, subtrees) are present. Including this information prevents extraneous HTTP requests that would result in 404 errors.
 
 Availability takes the form of a bitstream with one bit per node in consideration. A 1 indicates that a tile/content/subtree is available at this node. Meanwhile, a 0 indicates that no tile/content/subtree is available at this node.
 
@@ -326,7 +325,7 @@ where `&` is the bitwise AND operation and `~` is the bitwise NOT operation.
 
 ### Child Subtree Availability
 
-**Child subtree availability** is a bitstream that determines what subtrees can be reached from this subtree. There are `N` bits for every node in the bottom-most level of the subtree, where `N` is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. A 1 means there is a child subtree available at that position in the tree. Meanwhile, a 0 means there is no subtree available.
+**Child subtree availability** is a bitstream that determines which subtrees can be reached from this subtree. There are `N` bits for every node in the bottom-most level of the subtree, where `N` is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. A 1 means there is a child subtree available at that position in the tree. Meanwhile, a 0 means there is no subtree available.
 
 ![Child Subtree Availability](figures/subtree-availability.jpg)
 
@@ -383,18 +382,18 @@ In the extension object of the tileset JSON, the following properties about the 
 | Property | Description |
 | ------ | ----------- |
 | `subdivisionScheme` | Either `QUADTREE` or `OCTREE`|
-| `boundingVolume` | a bounding volume (either a `box` or `region`) describing the root tile |
+| `boundingVolume` | A bounding volume (either a `box` or `region`) describing the root tile |
 | `refine` | Either `ADD` or `REPLACE` as in the [Cesium 3D Tiles 1.0 Specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#refinement). |
 | `geometricError` | Geometric error of the root tile as described in the [Cesium 3D Tiles 1.0 Specification.](https://github.com/CesiumGS/3d-tiles/tree/master/specification#geometric-error) |
-| `maximumLevel` | Maximum level of the entire tree |
+| `maximumLevel` | Level of the deepest available tile in the tree. |
 | `subtreeLevels` | How many levels there are in each subtree |
 
 Furthermore, template URIs are used for resolving subtree JSON files as well as tile contents. The key properties are as follows:
 
 | Property | Description |
 | ------ | ----------- |
-| `subtrees` | template URI for a subtree JSON file. See [Subtrees](#subtrees) for more info |
-| `content` | template URI for the content 3D Models |
+| `subtrees` | Template URI for a subtree JSON file. See [Subtrees](#subtrees) for more info |
+| `content` | Template URI for the content 3D Models |
 
 Below is a full example of how the tileset JSON file looks in practice:
 
@@ -794,8 +793,8 @@ OUTLINE:
 | -------- | ------- | ----------- |
 | `N` | 4 or 8 | N is 4 for quadtrees, 8 for octrees |
 | `bits` | `log2(N)` | Quadtree address are a multiple of 2 bits, Octrees use a multiple of 3 bits | 
-| `mortonIndex` | `interleave(z, y, x)` or `interleave(y, x)` | The morton index is computed by interleaving bits. see below. |
-| `length(mortonIndex)` | `level * bits` | length of morton index in bits
+| `mortonIndex` | `interleave(z, y, x)` or `interleave(y, x)` | The morton index is computed by interleaving bits. See below. |
+| `length(mortonIndex)` | `level * bits` | Length of morton index in bits
 | `parent.mortonIndex` | `child.mortonIndex >> bits` | The parent morton index is a prefix of the child |
 | `child[k].mortonIndex` | `(parent.mortonIndex << bits) + k` | Morton index of a node's `k-th` child in Morton order |
 | `parent.indexOf(child)` | `child.mortonIndex % N` or `child.mortonIndex & (N - 1)` | Index of the child within the parent's `N` children |
@@ -829,7 +828,7 @@ Both tile and content availability are stored in a bitstream with the same struc
 | `index` | `(N^level - 1)/(N - 1) + mortonIndex` | Find the index of a node from `(level, mortonIndex)`
 | `level` | `ceil(log(index + 1)/log(N))` | Find the level of a node relative to the subtree |
 | `globalLevel` | `level + subtreeRoot.globalLevel` | Find the level of a node relative to the entire tileset | 
-| `startOfLevel` | `(N^level - 1)/(N - 1)` | first index at a particular level (relative to the subtree root) |
+| `startOfLevel` | `(N^level - 1)/(N - 1)` | First index at a particular level (relative to the subtree root) |
 | `mortonIndex` | `index - startOfLevel` | Convert from bit index to Morton index, relative to the root of the subtree |
 | `globalMortonIndex` | `concat(subtreeRoot.globalMortonIndex, mortonIndex)` | Get the Morton index relative to the root of the tileset |
 
@@ -840,6 +839,6 @@ Both tile and content availability are stored in a bitstream with the same struc
 | `lengthBits` | `N^subtreeLevels` | Length of the buffer by subtree levels |
 | `lengthBytes` | `ceil(lengthBits / 8)` | Bytes needed to store the buffer |
 | `childSubtree.globalLevel` | `subtreeRoot.globalLevel + subtreeLevels` | Level of the child subtrees relative to the tileset root |
-| `leaf.children[k].index` | `N * leaf.mortonIndex + k` | index of the `k-th` child subtree |
+| `leaf.children[k].index` | `N * leaf.mortonIndex + k` | Index of the `k-th` child subtree |
 | `leaf.indexOf(childSubtree)` | `subtreeRoot.mortonIndex % N` | Index of the child subtree within the parent leaf's `N` children |
 | `leaf.mortonIndex` | `floor(subtreeRoot.mortonIndex / N)` | Morton index of the parent leaf |
