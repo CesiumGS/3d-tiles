@@ -94,6 +94,7 @@ Like in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specific
   "asset": {
     "version": "1.0"
   },
+  "geometricError": 10000,
   "extensionsUsed": [
     "3DTILES_implicit_tiling",
   ],
@@ -110,6 +111,7 @@ Like in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specific
       "3DTILES_implicit_tiling": {
         ...
       }
+    }
   }
 }
 ```
@@ -163,6 +165,7 @@ Implicit tiling only requires defining the subdivision scheme, bounding volume, 
   "asset": {
     "version": "1.0"
   },
+  "geometricError": 10000,
   "extensionsUsed": [
     "3DTILES_implicit_tiling",
   ],
@@ -250,6 +253,7 @@ Unless otherwise specified, template URIs are resolved relative to the tileset J
   "asset": {
     "version": "1.0"
   },
+  "geometricError": 10000,
   "extensionsUsed": [
     "3DTILES_implicit_tiling",
   ],
@@ -315,13 +319,7 @@ If a tile is marked as available, it may have extensions attached to it as defin
 
 The purpose of content availability is to check if a content 3D model exists before making a network request. If content is marked as unavailable, the network request for that file must be skipped.
 
-A content availability bit can only be set if the corresponding tile availability bit is set. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset. The content availability bitstream can be validated by checking that the following equation holds true:
-
-```
-contentAvailability & ~tileAvailability === 0
-```
-
-where `&` is the bitwise AND operation and `~` is the bitwise NOT operation.
+A content availability bit can only be set if the corresponding tile availability bit is set. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset.
 
 ### Child Subtree Availability
 
@@ -371,7 +369,7 @@ At Level 3 of a Quadtree, we'll use 6 bits to represent the binary value of the 
 
 Availability bitstreams are packed in binary using the format described in the [Boolean Data section](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md#boolean-data) of the Cesium 3D Metadata Specification. These bitstreams are subject to alignment requirements described in the [Binary Alignment Rules section](https://github.com/CesiumGS/3d-tiles/tree/3DTILES_binary_buffers/extensions/3DTILES_binary_buffers) of the same specification.
 
-Each availability bitstream must be stored as a separate `bufferView`, but multiple `bufferViews` may be stored in a single `buffer`.
+Each availability bitstream must be stored as a separate `bufferView`, but multiple `bufferViews` may refer to a single `buffer`.
 
 ## Tileset JSON
 
@@ -434,6 +432,7 @@ Below is a full example of how the tileset JSON file looks in practice:
   "asset": {
     "version": "1.0"
   },
+  "geometricError": 10000,
   "extensionsUsed": [
     "3DTILES_implicit_tiling",
   ],
@@ -557,7 +556,8 @@ The directory structure for subtrees is:
 ```
 Notice that subtrees that do not exist do not have subtree JSON files or binary buffers. Also, subtrees that are completely full do not get availability buffers since they can specify availability with a constant.
 
-`subtrees/0/0/0/subtree.json`
+`subtrees/0/0/0/subtree.json`:
+
 ```json
 {
   "buffers": [
@@ -596,7 +596,8 @@ Notice that subtrees that do not exist do not have subtree JSON files or binary 
 ```
 In this example, tile, content, and child subtree availability are in one availability buffer. Buffer views split the buffer into the three parts. Since there are five nodes in the subtree, tile and content availability only need five bits each, so they each get one byte. There are 16 children, however, so two bytes are needed for child subtree availability.
 
-`subtrees/2/1/0/subtree.json`
+`subtrees/2/1/0/subtree.json`:
+
 ```json
 {
   "tileAvailability": {
@@ -610,6 +611,7 @@ In this example, tile, content, and child subtree availability are in one availa
   },
 }
 ```
+
 This subtree at the bottom of the tree is completely full. It uses constants for its availabilities instead of buffers. Because it is at the bottom of the tree, there are no child subtrees, so child subtree availability is a constant zero.
 
 ## Octree Example
@@ -621,7 +623,7 @@ This subtree at the bottom of the tree is completely full. It uses constants for
   "asset": {
     "version": "1.0"
   },
-  "geometricError": 100,
+  "geometricError": 10000,
   "extensionsUsed": [
     "3DTILES_implicit_tiling",
   ],
