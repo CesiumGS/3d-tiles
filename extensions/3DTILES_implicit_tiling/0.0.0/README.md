@@ -273,7 +273,6 @@ Unless otherwise specified, template URIs are resolved relative to the tileset J
           "mimeType": "application/octet-stream",
           "uri": "terrain/{level}/{x}/{y}.b3dm"
         }
-        ...
       }
     }
   }
@@ -419,7 +418,7 @@ Below is a full example of how the tileset JSON file looks in practice:
       "subdivisionScheme": "QUADTREE",
       "geometricError": 5000,
       "subtreeLevels": 7,
-      "maximumLevel": 21,
+      "maximumLevel": 20,
       "subtrees": "subtrees/{level}/{x}/{y}/subtree.json",
       "content": {
         "mimeType": "application/octet-stream",
@@ -478,7 +477,7 @@ The root tileset JSON might look something this:
       "subdivisionScheme": "QUADTREE",
       "geometricError": 5000,
       "subtreeLevels": 2,
-      "maximumLevel": 4,
+      "maximumLevel": 3,
       "subtrees": "subtrees/{level}/{x}/{y}/subtree.json",
       "content": {
         "mimeType": "application/octet-stream",
