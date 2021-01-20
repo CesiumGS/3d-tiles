@@ -41,10 +41,12 @@ Written against the 3D Tiles 1.0 specification.
   - [Content Availability](#content-availability)
   - [Child Subtree Availability](#child-subtree-availability)
 - [Subtree JSON Files](#subtree-json-files)
+- [Subtree Binary Files](#subtree-binary-files)
   - [Buffers and Buffer Views](#buffers-and-buffer-views)
   - [Morton Order](#morton-order)
   - [Morton Order Example](#morton-order-example)
   - [Availability Encoding](#availability-encoding)
+  - [Binary Subtree Files (`.subtree` files)](#binary-subtree-files-subtree-files)
 - [Tileset JSON](#tileset-json-1)
 - [Glossary](#glossary)
 - [Examples](#examples)
@@ -343,22 +345,29 @@ Each subtree JSON file contains the following information:
 * The URI of a bitstream for content availability (if not `constant`)
 * The URI of a bitstream for child subtree availability (if not `constant`)
 
+## Subtree Binary Files
+
+A **subtree binary file** is a binary file that stores a single subtree and binary data associated with it.
+
 ### Buffers and Buffer Views
 
-A **buffer** is an array of binary data used for storing data as an external resource. A buffer has a `uri` to point to where the data is located, and a `byteLength` to describe the size of the data.
+A **buffer** is an array of binary data used for storing data. For subtree binary files, one buffer can be stored within the binary file. In all other cases, the binary file is assumed to be an external resource specified by the `uri` property. Each buffer has a `byteLength` describing the size of the data, including any padding (for subtree binary files)
 
-A **buffer view** is a contiguous subarray of a buffer. A buffer view's `buffer` property is an integer index to identify the buffer. A buffer view also has a `byteOffset` and `byteLength` to describe the position and length of the subarray, respectively.
-
-There may be multiple buffer views within a single buffer.
+A **buffer view** is a contiguous subarray of a buffer. A buffer view's `buffer` property is an integer index to identify the buffer. A buffer must have a `byteOffset` to describe the position within the buffer. A buffer also must have a `byteLength` length of the subarray, not including padding. There may be multiple buffer views within a single buffer.
 
 For efficient memory access, the `byteOffset` of a buffer view must be aligned to a multiple of 8 bytes.
 
-```json
+```jsonc
 {
   "buffers": [
     {
-      "name": "Availability",
+      "name": "Internal Buffer",
       "byteLength": 80
+    },
+    {
+      "name": "External Buffer",
+      "uri": "external.bin",
+      "byteLength": 64
     }
   ],
   "bufferViews" [
@@ -376,8 +385,8 @@ For efficient memory access, the `byteOffset` of a buffer view must be aligned t
     },
     {
       "name": "Subtree Availability",
-      "buffer": 0,
-      "byteOffset": 16,
+      "buffer": 1,
+      "byteOffset": 0,
       "byteLength": 64
     }
   ]
@@ -412,6 +421,31 @@ At Level 3 of a Quadtree, we'll use 6 bits to represent the binary value of the 
 Availability bitstreams are packed in binary using the format described in the [Boolean Data section](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md#boolean-data) of the Cesium 3D Metadata Specification. These bitstreams are subject to alignment requirements described in the [Binary Alignment Rules section](https://github.com/CesiumGS/3d-tiles/tree/3DTILES_binary_buffers/extensions/3DTILES_binary_buffers) of the same specification.
 
 Each availability bitstream must be stored as a separate `bufferView`, but multiple `bufferViews` may refer to a single `buffer`.
+
+### Binary Subtree Files (`.subtree` files)
+
+To reduce the number of network requests, a binary encoding of the subtree files is provided. It consists of a 24-byte header and a variable length payload: 
+
+![Subtree Binary Format](figures/binary-subtree.jpg)
+
+Header fields:
+
+| Bytes | Field | Type     | Description |
+|-------|-------|----------|-------------|
+| 0-3   | Magic | `uint32_t` | A magic number identifying this as a subtree file. This is always `0x54425553` which is the ASCII string stored as a little-endian `uint32_t` |
+| 4-7   | Version | `uint32_t` | The version number. Always `1` for this version of the specification. |
+| 8-15  | JSON byte length | `uint64_t` | The length of the subtree JSON file, including any padding. |
+| 16-23 | Binary byte length | `uint64_t` | The length of the the buffer (or 0 if no buffer exists), including any padding. |
+
+The variable length payload consists of two chunks:
+
+1. A required JSON chunk containing the contents of the subtree JSON file.
+2. An optional binary chunk containing a single buffer.
+
+Each chunk must be padded so it ends on an 8-byte boundary:
+
+* The JSON chunk must be padded at the end with spaces (`' '` = 0x20 in ASCII)
+* If it exists, the binary chunk must be padded at the end with NUL bytes (`\x00` = 0x00 in ASCII)
 
 ## Tileset JSON
 
