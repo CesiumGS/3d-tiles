@@ -346,8 +346,44 @@ Each subtree JSON file contains the following information:
 
 ### Buffers and Buffer Views
 
-OUTLINE:
-- Which spec to reference? 3DTILES_binary_buffers or core metadata?
+A **buffer** is an array of binary data used for storing data as an external resource. A buffer has a `uri` to point to where the data is located, and a `byteLength` to describe the size of the data.
+
+A **buffer view** is a contiguous subarray of a buffer. A buffer view's `buffer` property is an integer index to identify the buffer. A buffer view also has a `byteOffset` and `byteLength` to describe the position and length of the subarray, respectively.
+
+There may be multiple buffer views within a single buffer.
+
+For efficient memory access, the `byteOffset` of a buffer view must be aligned to a multiple of 8 bytes.
+
+```json
+{
+  "buffers": [
+    {
+      "name": "Availability",
+      "byteLength": 80
+    }
+  ],
+  "bufferViews" [
+    {
+      "name": "Tile Availability",
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 3
+    },
+    {
+      "name": "Content Availability",
+      "buffer": 0,
+      "byteOffset": 8,
+      "byteLength": 3
+    },
+    {
+      "name": "Subtree Availability",
+      "buffer": 0,
+      "byteOffset": 16,
+      "byteLength": 64
+    }
+  ]
+}
+```
 
 ### Morton Order
 
