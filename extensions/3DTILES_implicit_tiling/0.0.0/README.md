@@ -61,7 +61,6 @@ Written against the 3D Tiles 1.0 specification.
 
 **Implicit tiling** describes a Cesium 3D Tileset while enabling new data structures and algorithms for near constant time random access and dynamic tileset generation. It makes fast, efficient high resolution (meter or centimeter scale) global dataset streaming possible. The tileset is uniformly subdivided and organized for ease of read and write without the need to read the entire tileset at once. The subdivision, using full and sparse quad and octrees, enables random access, smaller tileset JSON files, and faster loading.
 
-
 Implicit tiling provides a method for accessing tiles by tile coordinates. This allows for abbreviated tree traversal algorithms.
 
 ![Explicit vs Implicit Tiling](figures/implicit-vs-explicit.jpg)
@@ -87,7 +86,7 @@ Implicit tiling enables procedurally-generated tilesets. Instead of serving stat
 
 ## Tileset JSON
 
-Like in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tileset-json), one main tileset JSON file is the entry point for defining an implicit tileset. To use implicit tiling, the `3DTILES_implicit_tiling` extension must be defined in the root tile of the tileset JSON file.
+As in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tileset-json), one tileset JSON file is the entry point for defining an implicit tileset. To use implicit tiling, the `3DTILES_implicit_tiling` extension must be defined in one of the tiles of the tileset JSON file. This tile is treated as the root of an implicit tileset, even if it is not the root of the tileset JSON. The implicit root tile must not define any explicit `children`.
 
 ```json
 {
@@ -193,7 +192,7 @@ Implicit tiling only requires defining the subdivision scheme, bounding volume, 
 
 **Tile coordinates** are a tuple of integers that uniquely identify a tile. Tile coordinates are either `(level, x, y)` for quadtrees or `(level, x, y, z)` for octrees. All tile coordinates are 0-indexed.
 
-`level` is 0 for the root tile. The root tile's children are at level 1, and so on.
+`level` is 0 for the root of the implicit tileset, i.e. the tile with the `3DTILES_implicit_tiling` extension. This tile's children are at level 1, and so on.
 
 `x`, `y`, and `z` coordinates are measured in tiles from a side of the root bounding volume at the current level along one of the coordinate axes. The type of bounding volume (`box` or `region`) determines the direction of increasing tile coordinates.
 
@@ -397,8 +396,10 @@ Using the Morton order serves these purposes:
 
 Given tile coordinates `(level, x, y)`, the Morton index is found by interleaving the bits of `x` and `y` in binary, each represented by `level` bits.
 
-_The following section is non-normative_
+
 ### Morton Order Example
+
+_The following section is non-normative_
 
 The figure below shows the tile coordinate decomposition of the tile `(level, x, y) = (3, 5, 1)`. We first convert the tile coordinate to its Morton index. `5` represented as 3 bits is `101`. `1` represented as 3 bits is `001`. Interleaving the two, we get `010011`, which is `19`. 
 
@@ -496,6 +497,7 @@ Consider a tileset with a quadtree tiling scheme and four levels of detail. Supp
 ![Quadtree example](figures/quadtree-example.jpg)
 
 The root tileset JSON might look something this:
+
 ```json
 {
   "asset": {
