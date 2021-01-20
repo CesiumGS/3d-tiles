@@ -310,6 +310,8 @@ In the diagram above, colored nodes indicate available tiles, while nodes with d
 
 If a tile is marked as available, it may have extensions attached to it as defined by the tileset author, and it may have content or children.
 
+`tileAvailability.constant: 0` is disallowed, as subtrees must have at least one available tile.
+
 ### Content Availability
 
 **Content availability** is a bitstream, separate from tile availability, that determines which tiles have an associated content 3D model. Like tile availability, there is one bit for each tile. A 1 indicates a content file exists for this tile, while a 0 indicates that no content file exists. An available tile does not need to have content if, for example, the tileset author defines extensions that store extra information in tiles outside of content.
@@ -320,9 +322,13 @@ The purpose of content availability is to check if a content 3D model exists bef
 
 A content availability bit can only be set if the corresponding tile availability bit is set. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset.
 
+When a subtree has at least one tile with content, content availability is required. If no tile in the subtree has content, then content availability is disallowed.
+
 ### Child Subtree Availability
 
-**Child subtree availability** is a bitstream that determines which subtrees can be reached from this subtree. There are `N` bits for every node in the bottom-most level of the subtree, where `N` is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. A 1 means there is a child subtree available at that position in the tree. Meanwhile, a 0 means there is no subtree available.
+**Child subtree availability** is a bitstream that determines which subtrees can be reached from the deepest level of this subtree.
+
+The child subtree availability bitstream has slightly different structure than tile or content availability. There is one bit for each node in the level of the tree immediately below the subtree. That is, if the deepest subtree is level `L`, then there is one bit for every node at level `L + 1`. Since each node at level `L` has `N` children (4 for `QUADTREE` or 8 for `OCTREE`), there are `N * (L + 1)` bits in the child subtree availability bitstream. A 1 bit means there is a child subtree available at that position in the tree. A 0 bit means there is no subtree available at that position.
 
 ![Child Subtree Availability](figures/subtree-availability.jpg)
 
@@ -446,7 +452,9 @@ Below is a full example of how the tileset JSON file looks in practice:
 
 ## Examples
 Here are some complete examples for how to create commonly used data structures with implicit tiling.
+
 ### Quadtree with four levels
+
 Consider a tileset with a quadtree tiling scheme and four levels of detail. Suppose that we want to use implicit tiling with subtrees with 2 levels.
 
 ![Quadtree example](figures/quadtree-example.jpg)
