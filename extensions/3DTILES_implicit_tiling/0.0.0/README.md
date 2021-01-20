@@ -247,7 +247,8 @@ Unless otherwise specified, template URIs are resolved relative to the tileset J
 
 ## Content
 
-**Content** is an optional 3D model associated with a single tile, as described in the [Introduction section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#introduction) of the Cesium 3D Tiles 1.0 specification, with the addition of an explicit `mimeType` to reliably identify the type of content.
+**Content** is an optional 3D model associated with a single tile, as described in the [Introduction section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#introduction) of the Cesium 3D Tiles 1.0 specification.
+
 ```json
 {
   "asset": {
@@ -270,7 +271,6 @@ Unless otherwise specified, template URIs are resolved relative to the tileset J
       "3DTILES_implicit_tiling": {
         "subdivisionScheme": "QUADTREE",
         "content": {
-          "mimeType": "application/octet-stream",
           "uri": "terrain/{level}/{x}/{y}.b3dm"
         }
       }
@@ -421,7 +421,6 @@ Below is a full example of how the tileset JSON file looks in practice:
       "maximumLevel": 20,
       "subtrees": "subtrees/{level}/{x}/{y}/subtree.json",
       "content": {
-        "mimeType": "application/octet-stream",
         "uri": "terrain/{level}/{x}/{y}.b3dm"
       }
     }
@@ -480,7 +479,6 @@ The root tileset JSON might look something this:
       "maximumLevel": 3,
       "subtrees": "subtrees/{level}/{x}/{y}/subtree.json",
       "content": {
-        "mimeType": "application/octet-stream",
         "uri": "models/{level}/{x}/{y}.b3dm"
       }
     }
@@ -621,7 +619,6 @@ This subtree at the bottom of the tree is completely full. It uses constants for
         "uri": "subtrees/{level}/{z}/{y}/{x}/subtree.json"
       },
       "content": {
-        "mimeType": "application/octet-stream",
         "uri": "models/{level}/{z}/{y}/{x}.pnts"
       }
     }
