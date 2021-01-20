@@ -16,7 +16,7 @@
       },
       "maximumLevel": {
         "type": "integer",
-        "description": "The maximum depth of the tree.",
+        "description": "The level of the deepest available tile. Levels are numbered from 0 starting at the tile with the `3DTILES_implicit_tiling` extension. This tile's children are at level 1, the children's children are at level 2, and so on.",
         "minimum" : 0
       },
       "subtrees": {
@@ -30,5 +30,5 @@
       "extensions": {},
       "extras": {}
     },
-    "required" : ["subtreeLevels", "maximumLevel", "subtrees", "content"]
+    "required" : ["subtreeLevels", "maximumLevel", "subtrees"]
   }
