@@ -45,7 +45,7 @@ Written against the 3D Tiles 1.0 specification.
   - [Morton Order](#morton-order)
   - [Morton Order Example](#morton-order-example)
   - [Availability Encoding](#availability-encoding)
-  - [Binary Subtree Files](#binary-subtree-files)
+  - [Subtree Files](#subtree-files-1)
   - [External Buffers](#external-buffers)
 - [Tileset JSON](#tileset-json-1)
 - [Glossary](#glossary)
@@ -421,9 +421,9 @@ Availability bitstreams are packed in binary using the format described in the [
 
 Each availability bitstream must be stored as a separate `bufferView`, but multiple `bufferViews` may refer to a single `buffer`.
 
-### Binary Subtree Files
+### Subtree Files
 
-Subtrees are stored in binary files. It consists of a 24-byte header and a variable length payload: 
+Subtrees are stored in little-endian binary files. A subtree file consists of a 24-byte header and a variable length payload: 
 
 ![Subtree Binary Format](figures/binary-subtree.jpg)
 
