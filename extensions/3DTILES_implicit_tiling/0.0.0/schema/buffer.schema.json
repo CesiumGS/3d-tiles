@@ -6,7 +6,7 @@
   "properties" : {
       "uri": {
           "type": "string",
-          "description": "The uri of the buffer. Relative paths are relative to the file containing the buffer JSON. In a binary subtree file, if `uri` is omitted, the buffer is assumed to refer to the binary chunk. Only one buffer may be stored in a binary subtree file.",
+          "description": "The uri of the buffer. Relative paths are relative to the file containing the buffer JSON. If `uri` is omitted, the buffer is assumed to refer to the binary chunk of the subtree file. Only one buffer may be stored in the subtree file",
           "format": "uriref"
       },
       "byteLength": {

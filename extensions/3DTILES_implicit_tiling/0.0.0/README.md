@@ -40,13 +40,13 @@ Written against the 3D Tiles 1.0 specification.
   - [Tile Availability](#tile-availability)
   - [Content Availability](#content-availability)
   - [Child Subtree Availability](#child-subtree-availability)
-- [Subtree JSON Files](#subtree-json-files)
-- [Subtree Binary Files](#subtree-binary-files)
+- [Subtree Files](#subtree-files)
   - [Buffers and Buffer Views](#buffers-and-buffer-views)
   - [Morton Order](#morton-order)
   - [Morton Order Example](#morton-order-example)
   - [Availability Encoding](#availability-encoding)
-  - [Binary Subtree Files (`.subtree` files)](#binary-subtree-files-subtree-files)
+  - [Binary Subtree Files](#binary-subtree-files)
+  - [External Buffers](#external-buffers)
 - [Tileset JSON](#tileset-json-1)
 - [Glossary](#glossary)
 - [Examples](#examples)
@@ -335,19 +335,18 @@ The child subtree availability bitstream has slightly different structure than t
 
 Child subtree availability is used to determine whether files for child subtrees exist before making network requests. If a child subtree availability bit is 0, any network request for that subtree must be skipped.
 
-## Subtree JSON Files
+## Subtree Files
 
-A **subtree JSON file** describes where the availability information for a single subtree is stored.
+A **subtree file** is a binary file that contains availability information for a single subtree. It includes two main portions:
 
-Each subtree JSON file contains the following information:
+* The **subtree JSON** which describes how the availability data is stored.
+* A binary array for storing availability bitstreams as needed.
 
-* The URI of a bitstream for tile availability (if not `constant`)
-* The URI of a bitstream for content availability (if not `constant`)
-* The URI of a bitstream for child subtree availability (if not `constant`)
+The subtree JSON describes where the availability information for a single subtree is stored. It includes:
 
-## Subtree Binary Files
-
-A **subtree binary file** is a binary file that stores a single subtree and binary data associated with it.
+* a bitstream for tile availability
+* a bitstream for content availability (if at least one tile has content)
+* A bitstream for child subtree availability
 
 ### Buffers and Buffer Views
 
@@ -422,9 +421,9 @@ Availability bitstreams are packed in binary using the format described in the [
 
 Each availability bitstream must be stored as a separate `bufferView`, but multiple `bufferViews` may refer to a single `buffer`.
 
-### Binary Subtree Files (`.subtree` files)
+### Binary Subtree Files
 
-To reduce the number of network requests, a binary encoding of the subtree files is provided. It consists of a 24-byte header and a variable length payload: 
+Subtrees are stored in binary files. It consists of a 24-byte header and a variable length payload: 
 
 ![Subtree Binary Format](figures/binary-subtree.jpg)
 
@@ -434,18 +433,34 @@ Header fields:
 |-------|-------|----------|-------------|
 | 0-3   | Magic | `uint32_t` | A magic number identifying this as a subtree file. This is always `0x54425553` which is the ASCII string stored as a little-endian `uint32_t` |
 | 4-7   | Version | `uint32_t` | The version number. Always `1` for this version of the specification. |
-| 8-15  | JSON byte length | `uint64_t` | The length of the subtree JSON file, including any padding. |
-| 16-23 | Binary byte length | `uint64_t` | The length of the the buffer (or 0 if no buffer exists), including any padding. |
+| 8-15  | JSON byte length | `uint64_t` | The length of the subtree JSON, including any padding. |
+| 16-23 | Binary byte length | `uint64_t` | The length of the buffer (or 0 if the buffer does not exist) including any padding. |
 
 The variable length payload consists of two chunks:
 
-1. A required JSON chunk containing the contents of the subtree JSON file.
+1. A required JSON chunk containing the contents of the subtree JSON.
 2. An optional binary chunk containing a single buffer.
 
 Each chunk must be padded so it ends on an 8-byte boundary:
 
 * The JSON chunk must be padded at the end with spaces (`' '` = 0x20 in ASCII)
 * If it exists, the binary chunk must be padded at the end with NUL bytes (`\x00` = 0x00 in ASCII)
+
+### External Buffers
+
+To support more than one buffer, the subtree files support external buffers. In the subtree JSON, each buffer object has a `uri` field to indicate where the external buffer can be found.
+
+```json
+{
+  "buffers": [
+    {
+      "name": "External Buffer Example",
+      "uri": "external.bin",
+      "byteLength": 1000
+    }
+  ]
+}
+```
 
 ## Tileset JSON
 
@@ -462,11 +477,11 @@ In the extension object of the tileset JSON, the following properties about the 
 | `maximumLevel` | Level of the deepest available tile in the tree. |
 | `subtreeLevels` | How many levels there are in each subtree |
 
-Furthermore, template URIs are used for resolving subtree JSON files as well as tile contents. The key properties are as follows:
+Furthermore, template URIs are used for resolving subtree files as well as tile contents. The key properties are as follows:
 
 | Property | Description |
 | ------ | ----------- |
-| `subtrees` | Template URI for a subtree JSON file. See [Subtrees](#subtrees) for more info |
+| `subtrees` | Template URI for a subtree file. See [Subtrees](#subtrees) |
 | `content` | Template URI for the content 3D Models |
 
 Below is a full example of how the tileset JSON file looks in practice:
@@ -514,7 +529,7 @@ Below is a full example of how the tileset JSON file looks in practice:
 * **octree** - A 3D subdivision scheme that divides each bounding volume into 8 smaller bounding volumes along the midpoint of the `x`, `y`, and `z` axes.
 * **quadtree** - A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volume along the midpoint of the `x` and `y` axes.
 * **subtree** - A fixed-size section of the tileset tree used to break large tilesets into manageable pieces.
-* **subtree JSON** - A JSON file storing information about a specific subtree.
+* **subtree file** - A binary file storing information about a specific subtree.
 * **template URI** - A URI pattern containing tile coordinates for directly addressing tiles.
 * **tile** - A division of space that may contain content.
 * **tileset** - A hierarchical collection of tiles.
@@ -601,7 +616,8 @@ The directory structure for subtrees is:
         |__ subtree.json
         |__ availability.bin
 ```
-Notice that subtrees that do not exist do not have subtree JSON files or binary buffers. Also, subtrees that are completely full do not get availability buffers since they can specify availability with a constant.
+
+Notice that subtrees that do not exist do not have subtree files or binary buffers. Also, subtrees that are completely full do not get availability buffers since they can specify availability with a constant.
 
 `subtrees/0/0/0/subtree.json`:
 
