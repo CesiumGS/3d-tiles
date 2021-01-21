@@ -431,7 +431,7 @@ Header fields:
 
 | Bytes | Field | Type     | Description |
 |-------|-------|----------|-------------|
-| 0-3   | Magic | `uint32_t` | A magic number identifying this as a subtree file. This is always `0x54425553` which is the ASCII string stored as a little-endian `uint32_t` |
+| 0-3   | Magic | `uint32_t` | A magic number identifying this as a subtree file. This is always `0x74627573` which when stored in little-endian is the ASCII string `subt` |
 | 4-7   | Version | `uint32_t` | The version number. Always `1` for this version of the specification. |
 | 8-15  | JSON byte length | `uint64_t` | The length of the subtree JSON, including any padding. |
 | 16-23 | Binary byte length | `uint64_t` | The length of the buffer (or 0 if the buffer does not exist) including any padding. |
