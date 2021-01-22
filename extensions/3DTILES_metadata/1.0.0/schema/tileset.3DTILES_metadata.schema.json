@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft-04/schema",
+  "title": "3DTILES_metadata 3D Tiles extension",
+  "type": "object",
+  "description": "3D Tiles extension that defines metadata for a tileset.",
+  "properties": {
+    "classes": {
+      "type": "object",
+      "description": "A dictionary, where each key is a class ID and each value is an object defining the class.",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "class.schema.json"
+      }
+    },
+    "groups": {
+      "type": "object",
+      "description": "A dictionary, where each key is a group ID and each value is an object defining the group.",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "group.schema.json"
+      }
+    },
+    "tileset": {
+      "description": "An object containing metadata about a tileset.",
+      "$ref": "tileset.schema.json"
+    },
+    "extensions": {},
+    "extras": {}
+  }
+}

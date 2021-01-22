@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Class property",
+  "type": "object",
+  "description": "A class property.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The name of the property, e.g. for display purposes. The string is UTF-8 encoded."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The description of the property. The string is UTF-8 encoded."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "BOOLEAN",
+        "INT8",
+        "UINT8",
+        "INT16",
+        "UINT16",
+        "INT32",
+        "UINT32",
+        "INT64",
+        "UINT64",
+        "FLOAT32",
+        "FLOAT64",
+        "STRING",
+        "ARRAY"
+      ],
+      "description": "The property type. A `type` is either a basic type used for `componentType` or an `ARRAY`. If `ARRAY` is used, then `componentType` must also be specified. `ARRAY` is a fixed-length array when `componentCount` is defined, and variable-length otherwise."
+    },
+    "componentType": {
+      "enum": [
+        "BOOLEAN",
+        "INT8",
+        "UINT8",
+        "INT16",
+        "UINT16",
+        "INT32",
+        "UINT32",
+        "INT64",
+        "UINT64",
+        "FLOAT32",
+        "FLOAT64",
+        "STRING"
+      ],
+      "description": "When `type` is `ARRAY` this indicates the type of each component of the array."
+    },
+    "componentCount": {
+      "type": "integer",
+      "minimum": 2,
+      "description": "The number of components per element for `ARRAY` elements."
+    },
+    "normalized": {
+      "type": "boolean",
+      "description": "Specifies whether integer values are normalized. This applies both when `type` is an integer type, or when `type` is `ARRAY` with a `componentType` that is an integer type. For unsigned integer types, values are normalized between [0, 1]. For signed integer types, values are normalized between [-1, 1]. For all other types, this property is ignored.",
+      "default": false
+    },
+    "max": {
+      "type": "array",
+      "description": "Maximum allowed values for property values. Only applicable for fixed-size numeric element types (integer, floats and `ARRAY`s thereof). Both `min` and `max` arrays have the same length. When `type` is `ARRAY` the length is determined by `componentCount`; otherwise the length is 1. `normalized` property has no effect on array values: they always correspond to the integer values.",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 1
+    },
+    "min": {
+      "type": "array",
+      "description": "Minimum allowed values for property values. Only applicable for fixed-size numeric element types (integer, floats and `ARRAY`s thereof). Both `min` and `max` arrays have the same length. When `type` is `ARRAY` the length is determined by `componentCount`; otherwise the length is 1. `normalized` property has no effect on array values: they always correspond to the integer values.",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 1
+    },
+    "default": {
+      "type": [
+        "boolean",
+        "number",
+        "string",
+        "array"
+      ],
+      "description": "A default value to use when the property value is not defined. If used, `optional` must be set to true. The type of the value must match the property type (e.g. for a `STRING`, use a JSON string. For an integer or floating point number, use a JSON number. For an `ARRAY` use a JSON array containing values matching the `componentType`)."
+    },
+    "optional": {
+      "type": "boolean",
+      "description": "If true, this property is optional.",
+      "default": false
+    },
+    "extensions": {},
+    "extras": {}
+  },
+  "dependencies": {
+    "componentCount": [
+      "componentType"
+    ],
+    "default": [
+      "optional"
+    ]
+  },
+  "required": [
+    "type"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Subtree property",
+  "type": "object",
+  "description": "An object describing where property values are stored.",
+  "properties": {
+    "bufferView": {
+      "type": "integer",
+      "description": "The index of the `bufferView` containing property values. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.",
+      "minimum": 0
+    },
+    "offsetComponentType": {
+      "type": "string",
+      "default": "UINT32",
+      "enum": [
+        "UINT8",
+        "UINT16",
+        "UINT32",
+        "UINT64"
+      ],
+      "description": "The component type of values in `arrayOffsetBufferView` and `stringOffsetBufferView`."
+    },
+    "arrayOffsetBufferView": {
+      "type": "integer",
+      "description": "The index of the `bufferView` containing offsets for variable-length arrays. The number of offsets is equal to the number of available tiles plus one. The offsets represent the start position of each array, with the last offset representing the position after the last array. The array length is computed using the difference between the current offset and the subsequent offset. If `componentType` is `STRING` the offsets index into the string offsets array (see `stringOffsetBufferView`), otherwise they index into the property array directly (see `bufferView`). The byte length of these offsets is determined by `offsetComponentType`. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes in the same manner as the main `bufferView`",
+      "minimum": 0
+    },
+    "stringOffsetBufferView": {
+      "type": "integer",
+      "description": "The index of the `bufferView` containing offsets for strings. The number of offsets is equal to the number of string components plus one. The offsets represent the byte offset of each string in the main `bufferView`, with the last offset representing the byte offset after the last string. The string byte length is computed using the difference between the current offset and the subsequent offset. The byte length of these offsets is determined by `offsetComponentType`. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes in the same manner as the main `bufferView`.",
+      "minimum": 0
+    },
+    "extensions": {},
+    "extras": {}
+  },
+  "required": [
+    "bufferView"
+  ]
+}
