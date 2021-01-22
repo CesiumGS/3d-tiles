@@ -407,7 +407,7 @@ Given tile coordinates `(level, x, y)`, the Morton index is found by interleavin
 
 ### Morton Order Example
 
-_The following section is non-normative_
+_This section is non-normative_
 
 The figure below shows the tile coordinate decomposition of the tile `(level, x, y) = (3, 5, 1)`. We first convert the tile coordinate to its Morton index. `5` represented as 3 bits is `101`. `1` represented as 3 bits is `001`. Interleaving the two, we get `010011`, which is `19`. 
 
@@ -498,23 +498,21 @@ Below is a full example of how the tileset JSON file looks in practice:
   "extensionsRequired": [
     "3DTILES_implicit_tiling",
   ],
-  "extensions": {
-    "3DTILES_implicit_tiling": {
-      "extras": {
-        "draftVersion": "0.0.0"
-      },
-      "boundingVolume": {
-        "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
-      },
-      "refine": "REPLACE",
-      "subdivisionScheme": "QUADTREE",
-      "geometricError": 5000,
-      "subtreeLevels": 7,
-      "maximumLevel": 20,
-      "subtrees": "subtrees/{level}/{x}/{y}/subtree.json",
-      "content": {
-        "uri": "terrain/{level}/{x}/{y}.b3dm"
-      }
+  "root": {
+    "boundingVolume": {
+      "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
+    },
+    "geometricError": 5000,
+    "refine": "REPLACE",
+    "extensions": {
+      "3DTILES_implicit_tiling": {
+        "subdivisionScheme": "QUADTREE",
+        "subtreeLevels": 7,
+        "maximumLevel": 20,
+        "subtrees": "subtrees/{level}/{x}/{y}.subtree.json",
+        "content": {
+          "uri": "terrain/{level}/{x}/{y}.b3dm"
+        }
     }
   }
 }
@@ -559,22 +557,21 @@ The root tileset JSON might look something this:
   "extensionsRequired": [
     "3DTILES_implicit_tiling",
   ],
-  "extensions": {
-    "3DTILES_implicit_tiling": {
-      "extras": {
-        "draftVersion": "0.0.0"
-      },
-      "boundingVolume": {
-        "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
-      },
-      "refine": "ADD",
-      "subdivisionScheme": "QUADTREE",
-      "geometricError": 5000,
-      "subtreeLevels": 2,
-      "maximumLevel": 3,
-      "subtrees": "subtrees/{level}/{x}/{y}/subtree.json",
-      "content": {
-        "uri": "models/{level}/{x}/{y}.b3dm"
+  "root": {
+    "boundingVolume": {
+      "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
+    },
+    "refine": "ADD",
+    "geometricError": 5000,
+    "extensions": {
+      "3DTILES_implicit_tiling": {
+        "subdivisionScheme": "QUADTREE",
+        "subtreeLevels": 2,
+        "maximumLevel": 3,
+        "subtrees": "subtrees/{level}/{x}/{y}/subtree.json",
+        "content": {
+          "uri": "models/{level}/{x}/{y}.b3dm"
+        }
       }
     }
   }
@@ -693,31 +690,31 @@ This subtree at the bottom of the tree is completely full. It uses constants for
   "extensionsRequired": [
     "3DTILES_implicit_tiling",
   ],
-  "extensions": {
-    "3DTILES_implicit_tiling": {
-      "extras": {
-        "draftVersion": "0.0.0"
-      },
-      "boundingVolume": {
-        "box": [
-          0, 0, 0,
-          100, 0, 0,
-          0, 100, 0
-          0, 0, 100
-        ]
-      },
-      "refine": "ADD",
-      "subdivisionScheme": "OCTREE",
-      "geometricError": 5000,
-      "subtreeLevels": 3,
-      "maximumLevel": 8,
-      "subtrees": {
-        "uri": "subtrees/{level}/{z}/{y}/{x}/subtree.json"
-      },
-      "content": {
-        "uri": "models/{level}/{z}/{y}/{x}.pnts"
+  "root": {
+    "boundingVolume": {
+      "box": [
+        0, 0, 0,
+        100, 0, 0,
+        0, 100, 0
+        0, 0, 100
+      ]
+    },
+    "refine": "ADD",
+    "geometricError": 5000,
+    "extensions": {
+      "3DTILES_implicit_tiling": {
+        "subdivisionScheme": "OCTREE",
+        "subtreeLevels": 3,
+        "maximumLevel": 8,
+        "subtrees": {
+          "uri": "subtrees/{level}/{z}/{y}/{x}/subtree.json"
+        },
+        "content": {
+          "uri": "models/{level}/{z}/{y}/{x}.pnts"
+        }
       }
     }
+  }
   }
 }
 ```
