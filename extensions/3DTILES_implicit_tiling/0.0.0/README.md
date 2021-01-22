@@ -235,7 +235,7 @@ Valid filenames:
 - content/3/2/2/tile.b3dm
 
 == Octree Example ==
-Pattern: "content/{level}/{z}/{y}/{x}.pnts"
+Pattern: "content/{level}/{x}/{y}/{z}.pnts"
 Valid filenames:
 - content/0/0/0/0.pnts
 - content/1/1/1/1.pnts
@@ -584,34 +584,21 @@ The directory structure for subtrees is:
 |__ tileset.json
 |__ subtrees/
   |__ 0/
-    |__ subtree.json
-    |__ availability.bin
+    |__ 0/
+      |__0.subtree
   |__ 2/
     |__ 0/
-      |__ 1/
-        |__ subtree.json
-        |__ availability.bin
-      |__ 2/
-        |__ subtree.json
-        |__ availability.bin
-      |__ 3/
-        |__ subtree.json
+      |__ 1.subtree
+      |__ 2.subtree
+      |__ 3.subtree
     |__ 1/
-      |__ 0/
-        |__ subtree.json
-      |__ 1/
-        |__ subtree.json
-      |__ 2/
-        |__ subtree.json
-      |__ 3/
-        |__ subtree.json
+      |__ 0.subtree
+      |__ 1.subtree
+      |__ 2.subtree
+      |__ 3.subtree
     |__ 2/
-      |__ 1/
-        |__ subtree.json
-        |__ availability.bin
-      |__ 2/
-        |__ subtree.json
-        |__ availability.bin
+      |__ 1.subtree
+      |__ 2.subtree
 ```
 
 Notice that subtrees that do not exist do not have subtree files or binary buffers. Also, subtrees that are completely full do not get availability buffers since they can specify availability with a constant.
@@ -622,7 +609,6 @@ Subtree JSON chunk in `subtrees/0/0/0.subtree`:
 {
   "buffers": [
     {
-      "uri": "availability.bin",
       "byteLength": 4
     }
   ],
@@ -707,10 +693,10 @@ This subtree at the bottom of the tree is completely full. It uses constants for
         "subtreeLevels": 3,
         "maximumLevel": 8,
         "subtrees": {
-          "uri": "subtrees/{level}/{z}/{y}/{x}.subtree"
+          "uri": "subtrees/{level}/{x}/{y}/{z}.subtree"
         },
         "content": {
-          "uri": "models/{level}/{z}/{y}/{x}.pnts"
+          "uri": "models/{level}/{x}/{y}/{z}.pnts"
         }
       }
     }
@@ -725,7 +711,6 @@ Subtree JSON chunk in `subtrees/0/0/0/0.subtree`:
 {
   "buffers": [
     {
-      "uri": "availability.bin",
       "byteLength": 74
     }
   ],
@@ -759,7 +744,6 @@ Subtree JSON chunk in `subtrees/6/0/0/0.subtree`:
 {
   "buffers": [
     {
-      "uri": "availability.bin",
       "byteLength": 84
     }
   ],
@@ -800,21 +784,15 @@ File structure:
   |__ 0/
     |__ 0/
       |__ 0/
-        |__ 0/
-            |__ subtree.json
-            |__ availability.bin
+        |__ 0.subtree
   |__ 3/
     |__ 0/
       |__ 0/
-        |__ 0/
-          |__ subtree.json
-          |__ availability.bin
+        |__ 0.subtree
   |__ 6/
     |__ 0/
       |__ 0/
-        |__ 0/
-        |__ subtree.json
-        |__ availability.bin
+        |__ 0.subtree
 |__ models/
   |__ 8/
     |__ 0/

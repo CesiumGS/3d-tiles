@@ -1,12 +1,7 @@
 {
   "buffers": [
     {
-      "uri": "tile_availability.bin",
-      "byteLength": 2731
-    },
-    {
-      "uri": "child_subtree_availability.bin",
-      "byteLength": 512
+      "byteLength": 3243
     }
   ],
   "bufferViews": [
@@ -16,8 +11,8 @@
       "byteLength": 2731
     },
     {
-      "buffer": 1,
-      "byteOffset": 0,
+      "buffer": 0,
+      "byteOffset": 2731,
       "byteLength": 512
     }
   ],
