@@ -311,7 +311,7 @@ In the diagram above, colored nodes indicate available tiles, while nodes with d
 
 If a tile is marked as available, it may have extensions attached to it as defined by the tileset author, and it may have content or children.
 
-`tileAvailability.constant: 0` is disallowed, as subtrees must have at least one available tile.
+If a non-root tile's availability is 1, its parent tile's availability must also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees must have at least one available tile.
 
 ### Content Availability
 
@@ -321,7 +321,9 @@ If a tile is marked as available, it may have extensions attached to it as defin
 
 The purpose of content availability is to check if a content 3D model exists before making a network request. If content is marked as unavailable, the network request for that file must be skipped.
 
-A content availability bit can only be set if the corresponding tile availability bit is set. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset.
+If content availability is 1 its corresponding tile availability must also be 1. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset. 
+
+If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile.
 
 When a subtree has at least one tile with content, content availability is required. If no tile in the subtree has content, then content availability is disallowed.
 
@@ -334,6 +336,8 @@ The child subtree availability bitstream has slightly different structure than t
 ![Child Subtree Availability](figures/subtree-availability.jpg)
 
 Child subtree availability is used to determine whether files for child subtrees exist before making network requests. If a child subtree availability bit is 0, any network request for that subtree must be skipped.
+
+If availability is 0 for all child subtrees, then the tileset does not subdivide further.
 
 ## Subtree Files
 

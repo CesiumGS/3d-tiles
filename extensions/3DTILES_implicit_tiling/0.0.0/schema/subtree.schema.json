@@ -24,7 +24,7 @@
       "allOf": [{"$ref": "availability.schema.json"}]
     },
     "childSubtreeAvailability": {
-      "description": "The availability of children subtrees. The availability bitstream is a 1D boolean array where subtrees are ordered left to right. A child subtree's availability is determined by a single bit, 1 meaning a subtree exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `N^subtreeLevels` where N is 4 for tiling scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a bufferView or as a constant value that applies to all subtrees. If availability is 0 for all subtrees then the tileset does not subdivide further.",
+      "description": "The availability of children subtrees. The availability bitstream is a 1D boolean array where subtrees are ordered by their Morton index in the level of the tree immediately below the bottom row of the subtree. A child subtree's availability is determined by a single bit, 1 meaning a subtree exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `N^subtreeLevels` where N is 4 for tiling scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a bufferView or as a constant value that applies to all subtrees. If availability is 0 for all child subtrees, then the tileset does not subdivide further.",
       "type": "object",
       "allOf": [{"$ref": "availability.schema.json"}]
     },
