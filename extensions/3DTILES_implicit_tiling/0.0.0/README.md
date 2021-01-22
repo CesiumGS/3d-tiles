@@ -339,8 +339,8 @@ Child subtree availability is used to determine whether files for child subtrees
 
 A **subtree file** is a binary file that contains availability information for a single subtree. It includes two main portions:
 
-* The **subtree JSON** which describes how the availability data is stored.
-* A binary array for storing availability bitstreams as needed.
+* The **subtree JSON** chunk which describes how the availability data is stored.
+* A binary chunk for storing availability bitstreams as needed.
 
 The subtree JSON describes where the availability information for a single subtree is stored. It includes:
 
@@ -509,7 +509,7 @@ Below is a full example of how the tileset JSON file looks in practice:
         "subdivisionScheme": "QUADTREE",
         "subtreeLevels": 7,
         "maximumLevel": 20,
-        "subtrees": "subtrees/{level}/{x}/{y}.subtree.json",
+        "subtrees": "subtrees/{level}/{x}/{y}.subtree",
         "content": {
           "uri": "terrain/{level}/{x}/{y}.b3dm"
         }
@@ -568,7 +568,7 @@ The root tileset JSON might look something this:
         "subdivisionScheme": "QUADTREE",
         "subtreeLevels": 2,
         "maximumLevel": 3,
-        "subtrees": "subtrees/{level}/{x}/{y}/subtree.json",
+        "subtrees": "subtrees/{level}/{x}/{y}.subtree",
         "content": {
           "uri": "models/{level}/{x}/{y}.b3dm"
         }
@@ -616,7 +616,7 @@ The directory structure for subtrees is:
 
 Notice that subtrees that do not exist do not have subtree files or binary buffers. Also, subtrees that are completely full do not get availability buffers since they can specify availability with a constant.
 
-`subtrees/0/0/0/subtree.json`:
+Subtree JSON chunk in `subtrees/0/0/0.subtree`:
 
 ```json
 {
@@ -656,7 +656,7 @@ Notice that subtrees that do not exist do not have subtree files or binary buffe
 ```
 In this example, tile, content, and child subtree availability are in one availability buffer. Buffer views split the buffer into the three parts. Since there are five nodes in the subtree, tile and content availability only need five bits each, so they each get one byte. There are 16 children, however, so two bytes are needed for child subtree availability.
 
-`subtrees/2/1/0/subtree.json`:
+Subtree JSON chunk in `subtrees/2/1/0.subtree`:
 
 ```json
 {
@@ -707,7 +707,7 @@ This subtree at the bottom of the tree is completely full. It uses constants for
         "subtreeLevels": 3,
         "maximumLevel": 8,
         "subtrees": {
-          "uri": "subtrees/{level}/{z}/{y}/{x}/subtree.json"
+          "uri": "subtrees/{level}/{z}/{y}/{x}.subtree"
         },
         "content": {
           "uri": "models/{level}/{z}/{y}/{x}.pnts"
@@ -719,7 +719,7 @@ This subtree at the bottom of the tree is completely full. It uses constants for
 }
 ```
 
-`subtrees/0/0/0/0/subtree.json`
+Subtree JSON chunk in `subtrees/0/0/0/0.subtree`:
 
 ```json
 {
@@ -753,7 +753,7 @@ This subtree at the bottom of the tree is completely full. It uses constants for
 }
 ```
 
-`subtrees/6/0/0/0/subtree.json`
+Subtree JSON chunk in `subtrees/6/0/0/0.subtree`:
 
 ```json
 {

@@ -21,7 +21,7 @@
         "subtreeLevels": 7,
         "maximumLevel": 20,
         "subtrees": {
-          "uri": "subtrees/{level}/{x}/{y}/subtree.json"
+          "uri": "subtrees/{level}/{x}/{y}.subtree"
         },
         "content": {
           "uri": "content/{level}/{x}/{y}.gltf"
