@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "3DTILES_multiple_contents extension for 3DTILES_implicit_tiling subtree",
+  "type": "object",
+  "description": "The availability of the content in the implicit tile `3DTILES_multiple_contents` extension.",
+  "properties": {
+    "contentAvailability": {
+      "type": "array",
+      "description": "An array of content availability objects with a one-to-one mapping to the `content` array in the implicit tile `3DTILES_multiple_contents` extension.",
+      "items": {
+        "$ref": "availability.schema.json"
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["content"]
+}
