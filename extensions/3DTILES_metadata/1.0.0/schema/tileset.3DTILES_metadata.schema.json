@@ -12,6 +12,10 @@
         "$ref": "class.schema.json"
       }
     },
+    "statistics": {
+      "description": "An object containing statistics about the metadata.",
+      "$ref": "statistics.schema.json"
+    },
     "groups": {
       "type": "object",
       "description": "A dictionary, where each key is a group ID and each value is an object defining the group.",

@@ -17,3 +17,4 @@ Metadata classes are declared and assigned based on the [Cesium 3D Metadata Spec
       * [TODO] Added semantic
     * Added `groups` to the top-level `3DTILES_metadata` extension object. Groups contain metadata about a group of contents. Individual contents may be assigned to groups with the `3DTILES_metadata` content extension object.
     * Added tile metadata. A tile may specify its class and property values with the `3DTILES_metadata` tile extension object. When the `3DTILES_implicit_tiling` extension is used property values are stored in subtree buffer views.
+    * Added `statistics` to the top-level `3DTILES_metadata` extension object. Statistics provide usage information about classes and property values.
