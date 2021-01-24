@@ -6,7 +6,7 @@
   "properties": {
     "bufferView": {
       "type": "integer",
-      "description": "The index of the `bufferView` containing property values. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.",
+      "description": "The index of the `bufferView` containing property values. When the property values are enums the values are stored as the enum's `valueType`, otherwise values are stored as the `componentType` for `ARRAY` properties and `type` for all other properties. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.",
       "minimum": 0
     },
     "offsetComponentType": {

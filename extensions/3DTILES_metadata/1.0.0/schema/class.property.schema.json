@@ -29,9 +29,14 @@
         "FLOAT32",
         "FLOAT64",
         "STRING",
+        "ENUM",
         "ARRAY"
       ],
-      "description": "The property type. A `type` is either a basic type used for `componentType` or an `ARRAY`. If `ARRAY` is used, then `componentType` must also be specified. `ARRAY` is a fixed-length array when `componentCount` is defined, and variable-length otherwise."
+      "description": "The property type. A `type` is either a basic type used for `componentType` or an `ARRAY`. If `ENUM` is used, then `enumType` must also be specified. If `ARRAY` is used, then `componentType` must also be specified. `ARRAY` is a fixed-length array when `componentCount` is defined, and variable-length otherwise."
+    },
+    "enumType": {
+      "type": "string",
+      "description": "The enum ID as declared in the `enums` object. This value must be specified when `type` or `componentType` is `ENUM`."
     },
     "componentType": {
       "enum": [
@@ -46,9 +51,10 @@
         "UINT64",
         "FLOAT32",
         "FLOAT64",
-        "STRING"
+        "STRING",
+        "ENUM"
       ],
-      "description": "When `type` is `ARRAY` this indicates the type of each component of the array."
+      "description": "When `type` is `ARRAY` this indicates the type of each component of the array. If `ENUM` is used, then `enumType` must also be specified."
     },
     "componentCount": {
       "type": "integer",
@@ -83,7 +89,7 @@
         "string",
         "array"
       ],
-      "description": "A default value to use when the property value is not defined. If used, `optional` must be set to true. The type of the value must match the property type (e.g. for a `STRING`, use a JSON string. For an integer or floating point number, use a JSON number. For an `ARRAY` use a JSON array containing values matching the `componentType`)."
+      "description": "A default value to use when the property value is not defined. If used, `optional` must be set to true. The type of the value must match the property type(e.g. for a `STRING`, use a JSON string. For an integer or floating point number, use a JSON number. For an `ENUM` use the enum `name`. For an `ARRAY` use a JSON array containing values matching the `componentType`)."
     },
     "optional": {
       "type": "boolean",

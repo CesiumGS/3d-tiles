@@ -18,7 +18,7 @@
     },
     "properties": {
       "type": "object",
-      "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property declaration (e.g. for a `STRING`, use a JSON string. For an integer or floating point number, use a JSON number. For an `ARRAY` use a JSON array containing values matching the `componentType`). Optional properties may be excluded from this dictionary.",
+      "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property declaration(e.g. for a `STRING`, use a JSON string. For an integer or floating point number, use a JSON number. For an `ENUM` use the enum `name`. For an `ARRAY` use a JSON array containing values matching the `componentType`). Optional properties may be excluded from this dictionary.",
       "minProperties": 1,
       "additionalProperties": {
         "type": [
