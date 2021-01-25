@@ -6,7 +6,7 @@
   "properties": {
     "max": {
       "type": "array",
-      "description": "Maximum values for property values in the tileset. This is different than the maximum allowable values specified in the property definition. Only applicable for fixed-size numeric element types (integer, floats and `ARRAY`s thereof). Both `min` and `max` arrays have the same length. When `type` is `ARRAY` the length is determined by `componentCount`; otherwise the length is 1. `normalized` property has no effect on array values: they always correspond to the integer values.",
+      "description": "Maximum values for property values in the tileset. Only applicable for fixed-size numeric element types (integer, floats and `ARRAY`s thereof). Both `min` and `max` arrays have the same length. When `type` is `ARRAY` the length is determined by `componentCount`; otherwise the length is 1. `normalized` property has no effect on array values: they always correspond to the integer values.",
       "items": {
         "type": "number"
       },
@@ -14,7 +14,7 @@
     },
     "min": {
       "type": "array",
-      "description": "Minimum values for property values in the tileset. This is different than the minimum allowable values specified in the property definition. Only applicable for fixed-size numeric element types (integer, floats and `ARRAY`s thereof). Both `min` and `max` arrays have the same length. When `type` is `ARRAY` the length is determined by `componentCount`; otherwise the length is 1. `normalized` property has no effect on array values: they always correspond to the integer values.",
+      "description": "Minimum values for property values in the tileset. Only applicable for fixed-size numeric element types (integer, floats and `ARRAY`s thereof). Both `min` and `max` arrays have the same length. When `type` is `ARRAY` the length is determined by `componentCount`; otherwise the length is 1. `normalized` property has no effect on array values: they always correspond to the integer values.",
       "items": {
         "type": "number"
       },

@@ -36,7 +36,7 @@
     },
     "enumType": {
       "type": "string",
-      "description": "The enum ID as declared in the `enums` object. This value must be specified when `type` or `componentType` is `ENUM`."
+      "description": "An enum ID as declared in the `enums` dictionary. This value must be specified when `type` or `componentType` is `ENUM`."
     },
     "componentType": {
       "enum": [
@@ -89,7 +89,7 @@
         "string",
         "array"
       ],
-      "description": "A default value to use when the property value is not defined. If used, `optional` must be set to true. The type of the value must match the property type(e.g. for a `STRING`, use a JSON string. For an integer or floating point number, use a JSON number. For an `ENUM` use the enum `name`. For an `ARRAY` use a JSON array containing values matching the `componentType`)."
+      "description": "A default value to use when the property value is not defined. If used, `optional` must be set to true. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For an integer or floating point number use a JSON number. For `ENUM` use the enum `name`. For `ARRAY` use a JSON array containing values matching the `componentType`."
     },
     "optional": {
       "type": "boolean",
