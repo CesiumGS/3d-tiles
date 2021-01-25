@@ -20,6 +20,14 @@
       },
       "minItems": 1
     },
+    "occurrences": {
+      "type": "object",
+      "description": "A dictionary, where each key corresponds to an enum `name` and each value is the number of occurrences of that enum. Only applicable when `type` or `componentType` is `ENUM`.",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "integer"
+      }
+    },
     "additionalProperties": {
       "description": "Additional application-specific statistics."
     },
