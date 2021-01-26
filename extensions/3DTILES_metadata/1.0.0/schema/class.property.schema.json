@@ -96,6 +96,10 @@
       "description": "If true, this property is optional.",
       "default": false
     },
+    "semantic": {
+      "type": "string",
+      "description": "An identifier that describes how this property should be interpreted"
+    },
     "extensions": {},
     "extras": {}
   },
