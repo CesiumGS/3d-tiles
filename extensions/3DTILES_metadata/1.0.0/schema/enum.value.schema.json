@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Enum value",
+  "type": "object",
+  "description": "The enum value.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the enum value. The string is UTF-8 encoded."
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the enum value. The string is UTF-8 encoded."
+    },
+    "value": {
+      "type": "integer",
+      "description": "The integer enum value."
+    },
+    "extensions": {},
+    "extras": {}
+  },
+  "required": [
+    "name",
+    "value"
+  ]
+}
