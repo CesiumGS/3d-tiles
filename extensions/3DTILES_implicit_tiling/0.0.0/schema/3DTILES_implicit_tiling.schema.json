@@ -4,38 +4,24 @@
     "type": "object",
     "description": "This extension enables 3D Tiles to support tilesets with implied subdivision schemes",
     "properties": {
-      "boundingVolume": {
-        "allOf": [{"$ref": "boundingVolume.schema.json"}],
-        "description": "The bounding volume that encloses the root tile. The bounding volume is subdivided at the midpoint for each level of subdivision according to the tiling scheme."
-      },
-      "refine": {
+      "subdivisionScheme": {
         "type": "string",
-        "description": "Specifies if additive or replacement refinement is used when traversing the tileset. This property applies to all tiles in the tileset.",
-        "enum" : ["ADD", "REPLACE"]
-      },
-      "tilingScheme": {
-        "type": "string",
-        "description": "A string describing the tiling scheme used within the tileset.",
+        "description": "A string describing the subdivision scheme used within the tileset.",
         "enum" : ["QUADTREE", "OCTREE"]
       },
-      "geometricError": {
-        "type": "number",
-        "description": "The error, in meters, introduced if the root is rendered and its children are not. The geometric error is halved for each level of subdivision. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.",
-        "minimum" : 0
-      },
-      "subtreeDepth": {
+      "subtreeLevels": {
         "type": "integer",
-        "description": "The depth of each subtree.",
+        "description": "The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with 5 nodes (one root and 4 children)",
         "minimum" : 1
       },
-      "maximumDepth": {
+      "maximumLevel": {
         "type": "integer",
-        "description": "The maximum depth of the tree.",
+        "description": "The level of the deepest available tile. Levels are numbered from 0 starting at the tile with the `3DTILES_implicit_tiling` extension. This tile's children are at level 1, the children's children are at level 2, and so on.",
         "minimum" : 0
       },
       "subtrees": {
         "allOf": [{"$ref": "templateUri.schema.json"}],
-        "description": "A template URI pointing to subtree JSON files. A subtree is a fixed-depth (defined by `subtreeDepth`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree root's global level, x, and y. For tiling scheme `OCTREE`, z may also be given."
+        "description": "A template URI pointing to subtree files. A subtree is a fixed-depth (defined by `subtreeLevels`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree root's global level, x, and y. For tiling scheme `OCTREE`, z must also be given."
       },
       "content": {
         "allOf": [{"$ref": "3DTILES_implicit_tiling.content.schema.json"}],
@@ -44,5 +30,5 @@
       "extensions": {},
       "extras": {}
     },
-    "required" : ["boundingVolume", "refine", "tilingScheme", "geometricError", "subtreeDepth", "maximumDepth", "subtrees", "content"]
+    "required" : ["subtreeLevels", "maximumLevel", "subtrees"]
   }

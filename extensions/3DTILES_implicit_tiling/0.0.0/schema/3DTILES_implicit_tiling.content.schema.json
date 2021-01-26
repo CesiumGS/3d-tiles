@@ -4,16 +4,12 @@
   "type": "object",
   "description": "An object describing the type and location of tile content.",
   "properties": {
-    "mimeType": {
-      "type": "string",
-      "description": "The mime type of the content."
-    },
     "uri": {
       "allOf": [{"$ref": "templateUri.schema.json"}],
-      "description": "A template URI pointing to tile content. Content exists wherever the availability bit is 1. The URI of each content is substituted with the tile's global level, x, and y. For tiling scheme `OCTREE`, z may also be given. All content must conform to the `mimeType`."
+      "description": "A template URI pointing to tile content. Content exists wherever the availability bit is 1. The URI of each content is substituted with the tile's global level, x, and y. For tiling scheme `OCTREE`, z may also be given."
     },
     "extensions": {},
     "extras": {}
   },
-  "required" : ["mimeType", "uri"]
+  "required" : ["uri"]
 }

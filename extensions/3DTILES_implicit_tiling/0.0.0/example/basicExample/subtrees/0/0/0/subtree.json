@@ -1,0 +1,28 @@
+{
+  "buffers": [
+    {
+      "byteLength": 3243
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 2731
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 2731,
+      "byteLength": 512
+    }
+  ],
+  "tileAvailability": {
+    "bufferView": 0
+  },
+  "childSubtreeAvailability": {
+    "bufferView": 1
+  },
+  "contentAvailability": {
+    "constant": 0
+  }
+}
