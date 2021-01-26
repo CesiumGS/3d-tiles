@@ -22,10 +22,10 @@
     },
     "occurrences": {
       "type": "object",
-      "description": "A dictionary, where each key corresponds to an enum `name` and each value is the number of occurrences of that enum. Only applicable when `type` or `componentType` is `ENUM`.",
+      "description": "A dictionary, where each key corresponds to an enum `name` and each value is an array containing the number of occurrences of that enum. Only applicable when `type` or `componentType` is `ENUM`. When `type` is `ARRAY` the length is determined by `componentCount`; otherwise the length is 1.",
       "minProperties": 1,
       "additionalProperties": {
-        "type": "integer"
+        "type": "array"
       }
     },
     "additionalProperties": {
