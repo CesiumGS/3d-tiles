@@ -1,179 +1,60 @@
-# 3DTILES_layers
+<!-- omit in toc -->
+# 3DTILES_multiple_contents
 
-**Version 0.0.0**, November 6, 2020
+**Version 0.0.0**, [TODO: date]
 
+<!-- omit in toc -->
 ## Contributors
 
-* Sam Suhag, Cesium
 * Sean Lilley, Cesium
-* Peter Gagliardi, Cesium
-* Bao Tran, Cesium
+* Sam Suhag, Cesium
 
+<!-- omit in toc -->
 ## Status
 
 Draft
 
+<!-- omit in toc -->
 ## Dependencies
 
 Written against the 3D Tiles 1.0 specification.
 
+<!-- omit in toc -->
 ## Contents
 
-- [3DTILES_layers](#3dtiles_layers)
-  - [Contributors](#contributors)
-  - [Status](#status)
-  - [Dependencies](#dependencies)
-  - [Contents](#contents)
-  - [Overview](#overview)
-  - [Schema Changes](#schema-changes)
-    - [Layer Metadata](#layer-metadata)
-    - [Layer Content](#layer-content)
+- [Overview](#overview)
+- [Concepts](#concepts)
+  - [Metadata](#metadata)
+  - [Implicit Tiling](#implicit-tiling)
+- [Schema Updates](#schema-updates)
 
 
 ## Overview
 
-This extension to 3D Tiles enables assigning tile content to layers. 
+This extension adds support for multiple contents per tile.
 
-A layer is a user-defined grouping of content - for example, a tileset of a city may have a buildings layer, a roads layer and a vegetation layer, where each layer is independent.
+This is useful for datasets that have multiple content layers. Normally layering is achieved by combining contents into a [Composite](../../../specification/TileFormats/Composite/README.md) content, or by placing contents into sibling tiles, or by creating separate tilesets. With this extension content layers can exist cleanly in the same tileset, while allowing contents to be requested independently from each other.
 
-This extension provides a mechanism for tiles to have multiple contents that may be requested independently from each other. For a dataset that may have several layers using the same subdivision scheme, this extension removes the need to separate the layers into multiple `tileset.json` files.
+## Concepts
 
-This functionality is useful for pairing additional application specific content with the geometric content of a tile: an asset payload for use in game engines, for example. A tileset may choose to bundle a navigation mesh as a content layer to enable simulation capabilities. At runtime, clients can leverage layers to enhance visualization by toggling, styling or ordering the content layers.
+A `tile` may be extended with the `3DTILES_multiple_contents` extension.
 
-A layer may also associate application-specific metadata by conforming to a `class` defined in [3DTILES_metadata](../../3DTILES_metadata/0.0.0/README.md). Metadata must be declared in conformance with the [Cesium 3D Metadata Specification](../../../specification/Metadata/0.0.0/README.md). The following diagram illustrates the relationship between these documents:
-
-![3DTILES_layers Spec Map](figures/spec_map.jpg)
-
-## Schema Changes
-
-### Layer Metadata
-
-Layers are declared inside the top-level `3DTILES_layers` extension dictionary. Each layer is an object with its key being the layer's ID. The layer may declare a `name` and a `description`. 
-
-```javascript
+```jsonc
 {
-  "asset": {
-    "version": "1.0"
-  },
-  "extensions": {
-    "3DTILES_layers": {
-      "buildings": {
-        "name": "Buildings",
-        "description": "3D Buildings Layer"
-      },
-      "trees": {
-        "name": "Trees",
-        "description": "3D Vegetation Layer"
-      },
-      "roads": {
-        "name": "Roads",
-        "description": "Vector Road Layer"
-      }
-    }
-  }
-}
-```
-
-The [3DTILES_metadata extension](../../3DTILES_metadata/0.0.0/README.md) enables the declaration of metadata `class` objects, which define a list of properties a conforming instance would need to provide. A layer in 3DTILES_layers may assign to itself a class declared in 3DTILES_metadata to provide additional metadata. Layers must follow the [single instance syntax](../../../specification/Metadata/0.0.0/README.md#single-instance-shorthand) for assigning values to its `properties`. For example,
-
-```javascript
-{
-  "asset": {
-    "version": "1.0"
-  },
-  "extensions": {
-    "3DTILES_metadata": {
-      "classes": {
-        "cityLayer": {
-          "properties": {
-            "lastModified": {
-              "type": "STRING",
-              "optional": false
-            },
-            "highlightColor": {
-              "type": "STRING",
-              "optional": false
-            }
-          }
-        }
-      }
-    },
-    "3DTILES_layers": {
-      "buildings": {
-        "name": "Buildings",
-        "description": "3D Buildings Layer",
-        "class": "cityLayer",
-        "properties": {
-          "lastModified": "20201030T030000-0400",
-          "highlightColor": "GREEN"
-        }
-      },
-      "trees": {
-        "name": "Trees",
-        "description": "3D Vegetation Layer",
-        "class": "cityLayer",
-        "properties": {
-          "lastModified": "20201030T030100-0400",
-          "highlightColor": "RED"
-        }
-      },
-      "roads": {
-        "name": "Roads",
-        "description": "Vector Road Layer",
-        "class": "cityLayer",
-        "properties": {
-          "lastModified": "20201030T030200-0400",
-          "highlightColor": "BLUE"
-        }
-      }
-    }
-  }
-}
-```
-
-### Layer Content
-
-Layer content is associated with a tile by adding the `3DTILES_layers` extension to the [tile JSON](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tile-json). The extension declares a `contents` array, which must contain one or more layer objects. Each layer object provides `uri` and a `mimeType` for its contents. The content here might be tile content, like a `b3dm` or a `glTF` file, or it may point to an external `tileset.json`. To associate this layer object with [metadata](#layer-metadata), the `layer` property may be set to the ID of a layer declared in the top-level extension. For example,
-
-```javascript
-{
-  "asset": {
-    "version": "1.0"
-  },
-  "extensions": {
-    "3DTILES_layers": {
-      "buildings": {
-        "name": "Buildings",
-        "description": "3D Buildings Layer"
-      },
-      "trees": {
-        "name": "Buildings",
-        "description": "3D Vegetation Layer"
-      },
-      "roads": {
-        "name": "Roads",
-        "description": "Vector Road Layer"
-      }
-    }
-  },
   "root": {
+    "refine": "ADD",
+    "geometricError": 0.0,
+    "boundingVolume": {
+      "region": [-1.707, 0.543, -1.706, 0.544, 203.895, 253.113]
+    },
     "extensions": {
-      "3DTILES_layers": {
-        "contents": [
+      "3DTILES_multiple_contents": {
+        "content": [
           {
-            "layer": "buildings",
-            "mimeType": "application/json",
-            "uri": "layers/buildings/tileset.json"
+            "uri": "buildings.b3dm"
           },
           {
-            "layer": "trees",
-            "mimeType": "application/json",
-            "uri": "layers/trees/tileset.json"
-          },
-          {
-            "layer": "roads",
-            "mimeType": "application/json",
-            "uri": "layers/roads/tileset.json"
+            "uri": "trees.i3dm"
           }
         ]
       }
@@ -182,4 +63,175 @@ Layer content is associated with a tile by adding the `3DTILES_layers` extension
 }
 ```
 
-> Note: By default, an implementation would request and render all contents in a tile when a tile is selected.
+When this extension is used the tile's `content` property must be omitted.
+
+### Metadata
+
+This extension may be paired with the [3DTILES_metadata](../../3DTILES_metadata/README.md) extension to assign metadata to each content layer.
+
+```jsonc
+{
+  "extensions": {
+    "3DTILES_metadata": {
+      "classes": {
+        "layer": {
+          "properties": {
+            "color": {
+              "type": "ARRAY",
+              "componentType": "UINT8",
+              "componentCount": 3
+            },
+            "order": {
+              "type": "INT32"
+            }
+          }
+        }
+      },
+      "groups": {
+        "buildings": {
+          "class": "layer",
+          "properties": {
+            "color": [128, 128, 128],
+            "order": 0
+          }
+        },
+        "trees": {
+          "class": "layer",
+          "properties": {
+            "color": [10, 240, 30],
+            "order": 1
+          }
+        }
+      }
+    }
+  },
+  "root": {
+    "refine": "ADD",
+    "geometricError": 32768.0,
+    "boundingVolume": {
+      "region": [-1.707, 0.543, -1.706, 0.544, -10.3, 253.113]
+    },
+    "extensions": {
+      "3DTILES_multiple_contents": {
+        "content": [
+          {
+            "uri": "buildings.b3dm"
+            "extensions": {
+              "3DTILES_metadata": {
+                "group": "buildings"
+              }
+            }
+          },
+          {
+            "uri": "trees.i3dm"
+            "extensions": {
+              "3DTILES_metadata": {
+                "group": "trees"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+### Implicit Tiling
+
+When using the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling) extension `contentAvailability` is provided for each element in the content array. The subtree's top-level `contentAvailability` must be omitted.
+
+Example tileset JSON:
+
+```jsonc
+{
+  "root": {
+    "refine": "ADD",
+    "geometricError": 16384.0,
+    "boundingVolume": {
+      "region": [-1.707, 0.543, -1.706, 0.544, 203.895, 253.113]
+    },
+    "extensions": {
+      "3DTILES_multiple_contents": {
+        "content": [
+          {
+            "uri": "buildings/{level}/{x}/{y}.b3dm",
+          },
+          {
+            "uri": "trees/{level}/{x}/{y}.i3dm",
+          }
+        ]    
+      },
+      "3DTILES_implicit_tiling": {
+        "subdivisionScheme": "QUADTREE",
+        "subtreeLevels": 10,
+        "maximumLevel": 16,
+        "subtrees": {
+          "uri": "subtrees/{level}/{x}/{y}.subtree"
+        }
+      }
+    }
+  }
+}
+```
+
+Example subtree JSON:
+
+```jsonc
+{
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 0,
+      "byteOffset": 0
+    },
+    {
+      "buffer": 0,
+      "byteLength": 0,
+      "byteOffset": 0
+    },
+    {
+      "buffer": 0,
+      "byteLength": 0,
+      "byteOffset": 0
+    },
+    {
+      "buffer": 0,
+      "byteLength": 0,
+      "byteOffset": 0
+    },
+    {
+      "buffer": 0,
+      "byteLength": 0,
+      "byteOffset": 0
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 0
+    }
+  ],
+  "tileAvailability": {
+    "bufferView": 0
+  },
+  "childSubtreeAvailability": {
+    "bufferView": 1
+  },
+  "extensions": {
+    "3DTILES_multiple_contents": {
+      "contentAvailability": [
+        {
+          "bufferView": 2
+        },
+        {
+          "bufferView": 3
+        }
+      ]
+    }
+  }
+}
+```
+
+## Schema Updates
+
+The full JSON schema can be found [here](schema).
