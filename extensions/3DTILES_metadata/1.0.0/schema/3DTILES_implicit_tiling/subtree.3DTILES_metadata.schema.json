@@ -6,7 +6,7 @@
   "properties": {
     "class": {
       "type": "string",
-      "description": "The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary."
+      "description": "The class that metadata conforms to. The value must be a class ID declared in the `classes` dictionary."
     },
     "properties": {
       "type": "object",
