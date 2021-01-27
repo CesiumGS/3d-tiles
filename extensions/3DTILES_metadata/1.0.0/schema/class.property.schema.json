@@ -98,6 +98,7 @@
     },
     "semantic": {
       "type": "string",
+      "minLength": 1,
       "description": "An identifier that describes how this property should be interpreted"
     },
     "extensions": {},
