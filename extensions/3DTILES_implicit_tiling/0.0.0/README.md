@@ -468,7 +468,7 @@ To support more than one buffer, the subtree files support external buffers. In 
 
 ## Tileset JSON
 
-Using implicit tiling, the tileset JSON file describes the root tile, tiling scheme, and template URIs for locating files.
+Using implicit tiling, the tileset JSON file describes the root tile, subdivision scheme, and template URIs for locating files.
 
 In the extension object of the tileset JSON, the following properties about the root tile are included:
 
@@ -543,7 +543,7 @@ Here are some complete examples for how to create commonly used data structures 
 
 ### Quadtree with four levels
 
-Consider a tileset with a quadtree tiling scheme and four levels of detail. Suppose that we want to use implicit tiling with subtrees with 2 levels.
+Consider a tileset with a quadtree subdivision scheme and four levels of detail. Suppose that we want to use implicit tiling with subtrees with 2 levels.
 
 ![Quadtree example](figures/quadtree-example.jpg)
 
