@@ -4,6 +4,16 @@
   "type": "object",
   "description": "An object defining the values of an enum.",
   "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The name of the enum, e.g. for display purposes. The string is UTF-8 encoded."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The description of the enum. The string is UTF-8 encoded."
+    },
     "valueType": {
       "type": "string",
       "enum": [
