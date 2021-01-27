@@ -1,24 +1,24 @@
 {
   "buffers": [
     {
-      "byteLength": 854
+      "byteLength": 0
     }
   ],
   "bufferViews": [
     {
       "buffer": 0,
       "byteOffset": 0,
-      "byteLength": 171
+      "byteLength": 0
     },
     {
       "buffer": 0,
-      "byteOffset": 171,
-      "byteLength": 171
+      "byteOffset": 0,
+      "byteLength": 0
     },
     {
       "buffer": 0,
-      "byteOffset": 342,
-      "byteLength": 512
+      "byteOffset": 0,
+      "byteLength": 0
     }
   ],
   "tileAvailability": {

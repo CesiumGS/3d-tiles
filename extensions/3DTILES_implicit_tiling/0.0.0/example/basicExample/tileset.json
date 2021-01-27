@@ -15,6 +15,9 @@
     },
     "refine": "REPLACE",
     "geometricError": 5000,
+    "content": {
+      "uri": "content/{level}/{x}/{y}.b3dm"
+    },
     "extensions": {
       "3DTILES_implicit_tiling": {
         "subdivisionScheme": "QUADTREE",
@@ -22,12 +25,8 @@
         "maximumLevel": 20,
         "subtrees": {
           "uri": "subtrees/{level}/{x}/{y}.subtree"
-        },
-        "content": {
-          "uri": "content/{level}/{x}/{y}.gltf"
         }
       }
     }
-  },
-  "extensions": {}
+  }
 }

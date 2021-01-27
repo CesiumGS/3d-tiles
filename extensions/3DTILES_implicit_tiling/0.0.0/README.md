@@ -268,12 +268,12 @@ Unless otherwise specified, template URIs are resolved relative to the tileset J
     },
     "refine": "REPLACE",
     "geometricError": 5000,
+    "content": {
+      "uri": "terrain/{level}/{x}/{y}.b3dm"
+    },
     "extensions": {
       "3DTILES_implicit_tiling": {
-        "subdivisionScheme": "QUADTREE",
-        "content": {
-          "uri": "terrain/{level}/{x}/{y}.b3dm"
-        }
+        "subdivisionScheme": "QUADTREE"
       }
     }
   }
@@ -508,15 +508,18 @@ Below is a full example of how the tileset JSON file looks in practice:
     },
     "geometricError": 5000,
     "refine": "REPLACE",
+    "content": {
+      "uri": "terrain/{level}/{x}/{y}.b3dm"
+    },
     "extensions": {
       "3DTILES_implicit_tiling": {
         "subdivisionScheme": "QUADTREE",
         "subtreeLevels": 7,
         "maximumLevel": 20,
-        "subtrees": "subtrees/{level}/{x}/{y}.subtree",
-        "content": {
-          "uri": "terrain/{level}/{x}/{y}.b3dm"
+        "subtrees": {
+          "uri": "subtrees/{level}/{x}/{y}.subtree"
         }
+      }
     }
   }
 }
@@ -567,14 +570,16 @@ The root tileset JSON might look something this:
     },
     "refine": "ADD",
     "geometricError": 5000,
+    "content": {
+      "uri": "models/{level}/{x}/{y}.b3dm"
+    },
     "extensions": {
       "3DTILES_implicit_tiling": {
         "subdivisionScheme": "QUADTREE",
         "subtreeLevels": 2,
         "maximumLevel": 3,
-        "subtrees": "subtrees/{level}/{x}/{y}.subtree",
-        "content": {
-          "uri": "models/{level}/{x}/{y}.b3dm"
+        "subtrees": {
+          "uri": "subtrees/{level}/{x}/{y}.subtree"
         }
       }
     }
@@ -691,6 +696,9 @@ This subtree at the bottom of the tree is completely full. It uses constants for
     },
     "refine": "ADD",
     "geometricError": 5000,
+    "content": {
+      "uri": "models/{level}/{x}/{y}/{z}.pnts"
+    },
     "extensions": {
       "3DTILES_implicit_tiling": {
         "subdivisionScheme": "OCTREE",
@@ -698,13 +706,9 @@ This subtree at the bottom of the tree is completely full. It uses constants for
         "maximumLevel": 8,
         "subtrees": {
           "uri": "subtrees/{level}/{x}/{y}/{z}.subtree"
-        },
-        "content": {
-          "uri": "models/{level}/{x}/{y}/{z}.pnts"
         }
       }
     }
-  }
   }
 }
 ```

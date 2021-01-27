@@ -10,28 +10,23 @@
     "3DTILES_implicit_tiling"
   ],
   "root": {
-    "geometricError": 5000,
-    "refine": "ADD",
     "boundingVolume": {
-      "region": [
-        -0.0005682966577418737,
-        0.8987233516605286,
-        0.00011646582098558159,
-        0.8990603398325034,
-        0,
-        241.6
-      ]
-    }
-  },
-  "extensions": {
-    "3DTILES_implicit_tiling": {
-      "tilingScheme": "QUADTREE",
-      "subtreeLevels": 6,
-      "maximumLevel": 5,
-      "subtrees": "subtrees/{level}/{x}/{y}.subtree",
-      "content": {
-        "uri": "content/{level}/{x}/{y}.b3dm"
+      "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
+    },
+    "refine": "ADD",
+    "geometricError": 5000,
+    "content": {
+      "uri": "content/{level}/{x}/{y}.b3dm"
+    },
+    "extensions": {
+      "3DTILES_implicit_tiling": {
+        "subdivisionScheme": "QUADTREE",
+        "subtreeLevels": 6,
+        "maximumLevel": 5,
+        "subtrees": {
+          "uri": "subtrees/{level}/{x}/{y}.subtree"
+        }
       }
-    }
+    }  
   }
 }

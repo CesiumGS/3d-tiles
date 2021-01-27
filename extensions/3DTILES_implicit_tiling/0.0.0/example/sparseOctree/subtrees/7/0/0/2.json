@@ -1,11 +1,33 @@
 {
+  "buffers": [
+    {
+      "byteLength": 0
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 0
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 0
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 0
+    }
+  ],
   "tileAvailability": {
-    "constant": 1
+    "bufferView": 0
   },
   "contentAvailability": {
-    "constant": 0
+    "bufferView": 1
   },
   "childSubtreeAvailability": {
-    "constant": 0
+    "bufferView": 2
   }
 }
