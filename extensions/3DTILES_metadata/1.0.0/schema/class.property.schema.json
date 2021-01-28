@@ -99,7 +99,7 @@
     "semantic": {
       "type": "string",
       "minLength": 1,
-      "description": "An identifier that describes how this property should be interpreted"
+      "description": "An identifier that describes how this property should be interpreted. A semantic can only be used by one property in a class."
     },
     "extensions": {},
     "extras": {}
