@@ -16,6 +16,7 @@
     },
     "valueType": {
       "type": "string",
+      "default": "INT32",
       "enum": [
         "INT8",
         "UINT8",
@@ -40,7 +41,6 @@
     "extras": {}
   },
   "required": [
-    "valueType",
     "values"
   ]
 }
