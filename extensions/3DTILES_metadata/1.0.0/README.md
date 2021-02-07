@@ -31,6 +31,7 @@ This extension is optional, meaning it should be placed in the tileset JSON top-
 
 - [Overview](#overview)
 - [Concepts](#concepts)
+  - [Schemas](#schemas)
   - [Classes](#classes)
   - [Tileset Metadata](#tileset-metadata)
   - [Tile Metadata](#tile-metadata)
@@ -50,7 +51,7 @@ This extension provides a formal mechanism for attaching application-specific me
 * Feature metadata: metadata about features. See the companion glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/pull/3).
 
 
-At the top-level this extension defines a set of **classes**. A class contains a set of **properties**, which may be numeric, string, enum, or array types.
+At the top-level this extension defines a **schema**. A schema defines a set of **classes** and **enums**. A class contains a set of **properties**, which may be numeric, string, enum, or array types.
 
 **Entities** (such as tiles, features, etc.) conform to classes and contain **property values**. Depending on the context, property values may be stored in JSON or binary.
 
@@ -67,6 +68,11 @@ There are many use cases for metadata including
 * Selectively loading content based on properties
 
 ## Concepts
+
+### Schemas
+
+A schema defines a set of classes and enums used in a tileset. A schema may be embedded in the extension object or referenced externally.
+
 ### Classes
 
 Classes serve as the templates for entities - they provide a list of properties and the type information for those properties. For example, a tileset containing buildings and trees might define classes for each type:
@@ -75,28 +81,30 @@ Classes serve as the templates for entities - they provide a list of properties 
 {
   "extensions": {
     "3DTILES_metadata": {
-      "classes": {
-        "building": {
-          "properties": {
-            "height": {
-              "type": "FLOAT32"
-            },
-            "owners": {
-              "type": "ARRAY",
-              "componentType": "STRING"
-            },
-            "buildingType": {
-              "type": "STRING"
+      "schema": {
+        "classes": {
+          "building": {
+            "properties": {
+              "height": {
+                "type": "FLOAT32"
+              },
+              "owners": {
+                "type": "ARRAY",
+                "componentType": "STRING"
+              },
+              "buildingType": {
+                "type": "STRING"
+              }
             }
-          }
-        },
-        "tree": {
-          "properties": {
-            "height": {
-              "type": "FLOAT32"
-            },
-            "species": {
-              "type": "STRING",
+          },
+          "tree": {
+            "properties": {
+              "height": {
+                "type": "FLOAT32"
+              },
+              "species": {
+                "type": "STRING",
+              }
             }
           }
         }
@@ -118,19 +126,21 @@ The tileset metadata object may specify a `name` and `description`. The tileset 
 {
   "extensions": {
     "3DTILES_metadata": {
-      "classes": {
-        "city": {
-          "properties": {
-            "dateFounded": {
-              "type": "STRING"
-            },
-            "population": {
-              "type": "UINT32"
-            },
-            "country": {
-              "type": "STRING",
-              "optional": true,
-              "default": "United States"
+      "schema": {
+        "classes": {
+          "city": {
+            "properties": {
+              "dateFounded": {
+                "type": "STRING"
+              },
+              "population": {
+                "type": "UINT32"
+              },
+              "country": {
+                "type": "STRING",
+                "optional": true,
+                "default": "United States"
+              }
             }
           }
         }
@@ -157,20 +167,22 @@ Metadata may be assigned to individual tiles. Tile metadata is often spatial in 
 {
   "extensions": {
     "3DTILES_metadata": {
-      "classes": {
-        "tile": {
-          "properties": {
-            "horizonOcclusionPoint": {
-              "type": "ARRAY",
-              "componentType": "FLOAT64",
-              "componentCount": 3,
-              "semantic": "HORIZON_OCCLUSION_POINT"
-            },
-            "boundingSphere": {
-              "type": "ARRAY",
-              "componentType": "FLOAT64",
-              "componentCount": 4,
-              "semantic": "BOUNDING_SPHERE"
+      "schema": {
+        "classes": {
+          "tile": {
+            "properties": {
+              "horizonOcclusionPoint": {
+                "type": "ARRAY",
+                "componentType": "FLOAT64",
+                "componentCount": 3,
+                "semantic": "HORIZON_OCCLUSION_POINT"
+              },
+              "boundingSphere": {
+                "type": "ARRAY",
+                "componentType": "FLOAT64",
+                "componentCount": 4,
+                "semantic": "BOUNDING_SPHERE"
+              }
             }
           }
         }
@@ -260,16 +272,18 @@ Metadata may be assigned to groups. Groups represent collections of contents, or
 {
   "extensions": {
     "3DTILES_metadata": {
-      "classes": {
-        "layer": {
-          "properties": {
-            "color": {
-              "type": "ARRAY",
-              "componentType": "UINT8",
-              "componentCount": 3
-            },
-            "order": {
-              "type": "INT32"
+      "schema": {
+        "classes": {
+          "layer": {
+            "properties": {
+              "color": {
+                "type": "ARRAY",
+                "componentType": "UINT8",
+                "componentCount": 3
+              },
+              "order": {
+                "type": "INT32"
+              }
             }
           }
         }
@@ -354,42 +368,44 @@ Tileset authors may define their own additional semantics, like `mean` in the ex
 {
   "extensions": {
     "3DTILES_metadata": {
-      "enums": {
-        "buildingType": {
-          "valueType": "UINT16",
-          "values": [
-            {
-              "name": "Residential",
-              "value": 0
-            },
-            {
-              "name": "Commercial",
-              "value": 1
-            },
-            {
-              "name": "Hospital",
-              "value": 2
-            },
-            {
-              "name": "Other",
-              "value": 3
-            }
-          ]
-        }
-      },
-      "classes": {
-        "building": {
-          "properties": {
-            "height": {
-              "type": "FLOAT32"
-            },
-            "owners": {
-              "type": "ARRAY",
-              "componentType": "STRING"
-            },
-            "buildingType": {
-              "type": "ENUM",
-              "enumType": "buildingType"
+      "schema": {
+        "enums": {
+          "buildingType": {
+            "valueType": "UINT16",
+            "values": [
+              {
+                "name": "Residential",
+                "value": 0
+              },
+              {
+                "name": "Commercial",
+                "value": 1
+              },
+              {
+                "name": "Hospital",
+                "value": 2
+              },
+              {
+                "name": "Other",
+                "value": 3
+              }
+            ]
+          }
+        },
+        "classes": {
+          "building": {
+            "properties": {
+              "height": {
+                "type": "FLOAT32"
+              },
+              "owners": {
+                "type": "ARRAY",
+                "componentType": "STRING"
+              },
+              "buildingType": {
+                "type": "ENUM",
+                "enumType": "buildingType"
+              }
             }
           }
         }
@@ -517,20 +533,22 @@ Tileset authors may define their own additional semantics. By convention they ar
 {
   "extensions": {
     "3DTILES_metadata": {
-      "classes": {
-        "building": {
-          "properties": {
-            "name": {
-              "type": "STRING",
-              "semantic": "NAME"
-            },
-            "id": {
-              "type": "STRING",
-              "semantic": "ID"
-            },
-            "height": {
-              "type": "FLOAT32",
-              "semantic": "_HEIGHT"
+      "schema": {
+        "classes": {
+          "building": {
+            "properties": {
+              "name": {
+                "type": "STRING",
+                "semantic": "NAME"
+              },
+              "id": {
+                "type": "STRING",
+                "semantic": "ID"
+              },
+              "height": {
+                "type": "FLOAT32",
+                "semantic": "_HEIGHT"
+              }
             }
           }
         }

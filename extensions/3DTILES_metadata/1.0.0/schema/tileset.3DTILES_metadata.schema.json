@@ -4,21 +4,14 @@
   "type": "object",
   "description": "3D Tiles extension that defines metadata for a tileset.",
   "properties": {
-    "classes": {
-      "type": "object",
-      "description": "A dictionary, where each key is a class ID and each value is an object defining the class.",
-      "minProperties": 1,
-      "additionalProperties": {
-        "$ref": "class.schema.json"
-      }
+    "schema": {
+      "allOf": [ { "$ref": "schema.schema.json" } ],
+      "description": "An object defining classes and enums."
     },
-    "enums": {
-      "type": "object",
-      "description": "A dictionary, where each key is an enum ID and each value is an object defining the values for the enum.",
-      "minProperties": 1,
-      "additionalProperties": {
-        "$ref": "enum.schema.json"
-      }
+    "schemaUri": {
+      "type": "string",
+      "description": "A uri to an external schema file.",
+      "format": "uriref"
     },
     "statistics": {
       "allOf": [ { "$ref": "statistics.schema.json" } ],
@@ -38,5 +31,11 @@
     },
     "extensions": {},
     "extras": {}
+  },
+  "not": {
+    "required": [
+      "schema",
+      "schemaUri"
+    ]
   }
 }
