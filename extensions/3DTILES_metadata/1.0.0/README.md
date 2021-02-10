@@ -558,6 +558,14 @@ Tileset authors may define their own additional semantics. By convention they ar
 }
 ```
 
+## Compatibility Notes
+
+This extension does not contain information about [Batch Table](../../../specification/TileFormats/BatchTable) properties used in the Batched 3D Model, Instanced 3D Model, and Point Cloud formats.
+
+Similarly, the top-level [`properties`](../../../specification/schema/properties.schema.json] object in tileset JSON is limited to describing Batch Table properties and does not describe properties in this extension.
+
+In general, this extension alongside [EXT_feature_metadata](https://github.com/CesiumGS/glTF/pull/3) can be considered a replacement of Batch Table metadata.
+
 ## Schema Updates
 
 The full JSON schema can be found [here](schema).
