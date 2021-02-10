@@ -15,6 +15,7 @@ This extension provides a formal mechanism for attaching application-specific me
       * Added enum support. Added `ENUM` to `type` and `componentType` and added `enumType` property.
     * Changes to `3DTILES_metadata` extension object
       * Added `schema` which contains `classes` and `enums`
+      * Added `schemaUri` which refers to an external schema JSON file
       * Added `groups` which contain metadata about groups of content. Contents are assigned to groups with the `3DTILES_metadata` content extension.
       * Added `statistics` which provide aggregate information about select properties within a tileset.
     * Added tile metadata. A tile may specify its class and property values with the `3DTILES_metadata` tile extension object.
