@@ -52,7 +52,12 @@ tileset JSON.
 - [Glossary](#glossary)
 - [Examples](#examples)
 - [JSON Schema Reference](#json-schema-reference)
-- [Appendix A: Morton Order](#appendix-a-morton-order)
+- [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
+  - [Definitions](#definitions)
+  - [Availability Lengths](#availability-lengths)
+  - [Converting Between Tile Coordinates and Morton Index](#converting-between-tile-coordinates-and-morton-index)
+  - [Finding Adjacent Nodes](#finding-adjacent-nodes)
+  - [Global and Local Tile Coordinates](#global-and-local-tile-coordinates)
   - [Morton Order Example](#morton-order-example)
   - [Morton Indexing Formulas](#morton-indexing-formulas)
 - [Appendix B: Availability Formulas](#appendix-b-availability-formulas)
@@ -255,22 +260,24 @@ Each subtree contains tile availability, content availability, and child subtree
 * **Content availability** indicates which tiles have associated content resources
 * **Child subtree availability** indicates what subtrees are reachable from this subtree
 
-Each type of availability is represented as a separate bitstream. Each bitstream is a 1D array where each element represents a node in the quadtree or octree. Given tile coordinates relative to the root of the subtree, `(localLevel, localX, localY, localZ)`, the 1D array index can be computed with the following formulas. These formulas are based on the [Morton Z-order curve](https://en.wikipedia.org/wiki/Z-order_curve).
+Each type of availability is represented as a separate bitstream. Each bitstream is a 1D array where each element represents a node in the quadtree or octree. A 1 bit indicates that the tile/content/child subtree is available, while a 0 bit indicates that the tile/content/child subtree is unavailable. Alternatively, if all the bits in a bitstream are the same, a single constant value can be used instead.
 
+To form the 1D bitstream, the tiles are ordered with the following rules:
 
-```
-octreeIndex(localLevel, localX, localY, localZ) = 
-    (8^localLevel - 1)/(8 - 1) + morton3D(localX, localY, localZ)
+* Within each level of the subtree, the tiles are ordered using the [Morton Z-order curve](https://en.wikipedia.org/wiki/Z-order_curve).
+* The bits for each level are concatenated into a single bitstream
 
-quadtreeIndex(localLevel, localX, localY) =
-    (4^localLevel - 1)/(4 - 1) + morton2D(localX, localY)
-```
+![Availability Ordering](figures/availability-ordering.jpg)
 
-For more information on indexing, see [Appendix A: Morton Order](#appendix-a-morton-order).
+In the diagram above, colored cells represent 1 bits, grey cells represent 0 bits.
 
-TODO: Diagrams
+Storing tiles in Morton order provides these benefits:
 
-A 1 bit indicates that a tile/content/child subtree is available, while a 0 bit indicates that a tile/content/child subtree is unavailable. Alternatively, if all the bits in a bitstream are the same, a single constant value can be used instead.
+- Efficient indexing - The Morton index for a tile is computed in constant time by interleaving bits.
+- Efficient traversal - The Morton index for a parent or child tile are computed in constant time by removing or adding bits, respectively.
+- Locality of reference - Consecutive tiles are near to each other in 3D space.
+
+For more detailed information about working with Morton indices and availability bitstreams, see [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
 
 ### Tile Availability
 
@@ -301,12 +308,7 @@ TODO: Better diagram
 
 Child subtree availability determines which subtrees are reachable from the deepest level of this subtree. This links subtrees together to form a tree.
 
-Unlike tile and content availability bitstreams, child subtree availability represents a single level of tiles. This is the level of tiles immediately below the deepest level of the subtree. The 1D array index can be computed as follows, where `(localX, localY, localZ)` are relative to the current subtree root.
-
-```
-octreeIndex(localX, localY, localZ) = morton3D(localX, localY, localZ)
-quadtreeIndex(localX, localY) = morton2D(localX, localY)
-```
+Unlike tile and content availability, which store bits for every level in the subtree, child subtree availability only stores bits for a single level of nodes. These nodes are one level deeper than the deepest level of the subtree, and represent the root nodes of adjacent subtrees. This is used to determine which other subtrees are reachable before making network requests. 
 
 TODO: better diagram
 ![Child Subtree Availability](figures/subtree-availability.jpg)
@@ -314,6 +316,7 @@ TODO: better diagram
 If availability is 0 for all child subtrees, then the tileset does not subdivide further.
 
 ## Subtree Files
+
 A **subtree file** is a binary file that contains availability information for a single subtree. It includes two main portions:
 
 * The **subtree JSON** chunk which describes how the availability data is stored.
@@ -422,19 +425,33 @@ Examples can be found in the [examples folder](./examples/).
 OUTLINE:
 - Generate via Wetzel
 
-## Appendix A: Morton Order
+## Appendix A: Availability Indexing
 
-TODO: rewrite
+### Definitions
 
-**[Morton order](https://en.wikipedia.org/wiki/Z-order_curve)** assigns indices to nodes in the same level. The indices are used for lookup in availability buffers.
+In the sections below, the following variables are used to generalize between
+quadtrees and octrees.
 
-Using the Morton order serves these purposes:
+| Variable | Value | Description |
+|----------|-------|-------------|
+| `branchingFactor` | 4 or 8 | Number of children per node. 4 for quadtrees and 8 for octrees |  
+| `bitsPerLevel` | 2 or 3 | Bits per level in Morton index. 2 for quadtrees and 3 for octrees |
 
-- Efficient tile location decomposition: The Morton order allows efficient encoding and decoding of locations of a tile in the level to its location in the availability buffers.
-- Efficient traversal: The binary representation of tile locations in the tree level allow for easy traversal of the tileset (finding parent and child nodes).
-- Locality of reference: Adjacent indices are stored close to each other in memory and are close to each other spatially.
+### Availability Lengths
 
-Given tile coordinates `(level, x, y)`, the Morton index is found by interleaving the bits of `x` and `y` in binary, each represented by `level` bits.
+TODO
+
+### Converting Between Tile Coordinates and Morton Index
+
+TODO
+
+### Finding Adjacent Nodes
+
+TODO
+
+### Global and Local Tile Coordinates
+
+TODO
 
 ### Morton Order Example
 
