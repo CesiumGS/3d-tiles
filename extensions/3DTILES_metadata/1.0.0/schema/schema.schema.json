@@ -7,12 +7,17 @@
     "name": {
       "type": "string",
       "minLength": 1,
-      "description": "The name of the schema. The string is UTF-8 encoded."
+      "description": "The name of the schema."
     },
     "description": {
       "type": "string",
       "minLength": 1,
-      "description": "The description of the schema. The string is UTF-8 encoded."
+      "description": "The description of the schema."
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Application-specific version of the schema."
     },
     "classes": {
       "type": "object",

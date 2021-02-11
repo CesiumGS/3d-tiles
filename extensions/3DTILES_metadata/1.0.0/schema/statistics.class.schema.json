@@ -11,7 +11,7 @@
     },
     "properties": {
       "type": "object",
-      "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object containing statistics about the property.",
+      "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object containing statistics about property values.",
       "minProperties": 1,
       "additionalProperties": {
         "$ref": "statistics.class.property.schema.json"

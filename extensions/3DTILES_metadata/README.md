@@ -1,6 +1,6 @@
 # 3DTILES_metadata
 
-This extension provides a formal mechanism for attaching application-specific metadata to various components of 3D Tiles.
+3D Tiles extension that assigns metadata to various components of 3D Tiles to enable styling and analysis.
 
 ## Changelog
 
