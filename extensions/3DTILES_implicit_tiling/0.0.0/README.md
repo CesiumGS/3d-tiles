@@ -25,6 +25,13 @@ Draft
 Written against the 3D Tiles 1.0 specification.
 
 <!-- omit in toc -->
+## Optional vs. Required
+
+This extension is required, meaning that it must be listed in
+both the `extensionsUsed` and `extensionsRequired` arrays of the
+tileset JSON.
+
+<!-- omit in toc -->
 ## Contents
 
 - [Overview](#overview)
