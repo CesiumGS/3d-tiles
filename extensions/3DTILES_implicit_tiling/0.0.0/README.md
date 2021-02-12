@@ -345,35 +345,34 @@ A **buffer view** is a contiguous subset of a buffer. A buffer view's `buffer` p
 
 For efficient memory access, the `byteOffset` of a buffer view must be aligned to a multiple of 8 bytes.
 
-TODO: Determine byte length
 ```json
 {
   "buffers": [
     {
       "name": "Internal Buffer",
-      "byteLength": 4
+      "byteLength": 32
     },
     {
       "name": "External Buffer",
       "uri": "external.bin",
-      "byteLength": 8
+      "byteLength": 32
     }
   ],
   "bufferViews": [
     {
       "buffer": 0,
       "byteOffset": 0,
-      "byteLength": 1
+      "byteLength": 11
     },
     {
       "buffer": 0,
-      "byteOffset": 1,
-      "byteLength": 1
+      "byteOffset": 16,
+      "byteLength": 11
     },
     {
-      "buffer": 0,
+      "buffer": 1,
       "byteOffset": 2,
-      "byteLength": 2
+      "byteLength": 32
     }
   ],
   "tileAvailability": {
