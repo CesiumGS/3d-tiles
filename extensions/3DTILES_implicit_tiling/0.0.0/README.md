@@ -53,16 +53,11 @@ tileset JSON.
 - [Examples](#examples)
 - [JSON Schema Reference](#json-schema-reference)
 - [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
-  - [Definitions](#definitions)
-  - [Availability Lengths](#availability-lengths)
-  - [Converting Between Tile Coordinates and Morton Index](#converting-between-tile-coordinates-and-morton-index)
-  - [Finding Adjacent Nodes](#finding-adjacent-nodes)
+  - [Converting from Tile Coordinates to Morton Index](#converting-from-tile-coordinates-to-morton-index)
+  - [Availability Bitstream Lengths](#availability-bitstream-lengths)
+  - [Accessing Availability Bits](#accessing-availability-bits)
   - [Global and Local Tile Coordinates](#global-and-local-tile-coordinates)
-  - [Morton Order Example](#morton-order-example)
-  - [Morton Indexing Formulas](#morton-indexing-formulas)
-- [Appendix B: Availability Formulas](#appendix-b-availability-formulas)
-  - [Tile and Content Availability Formulas](#tile-and-content-availability-formulas)
-  - [Child Subtree Availability Formulas](#child-subtree-availability-formulas)
+  - [Finding Parent and Child Nodes](#finding-parent-and-child-nodes)
 
 ## Overview
 
@@ -167,7 +162,6 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 |:---:|:--:|:--:|
 | ![Root box](figures/box.png) | ![Box Quadtree](figures/box-quadtree.png) | ![Box octree](figures/box-octree.png)  |
 
-TODO: make new region diagrams with more exaggerated curved bounding boxes
 | Root Region | Quadtree | Octree |
 |:---:|:--:|:--:|
 | ![Root region](figures/region.png) | ![Region Quadtree](figures/region-quadtree.png) | ![Region octree](figures/region-octree.png)  |
@@ -276,6 +270,7 @@ Storing tiles in Morton order provides these benefits:
 - Efficient indexing - The Morton index for a tile is computed in constant time by interleaving bits.
 - Efficient traversal - The Morton index for a parent or child tile are computed in constant time by removing or adding bits, respectively.
 - Locality of reference - Consecutive tiles are near to each other in 3D space.
+- Better Compression - Locality of reference leads to better compression of availability bitstreams.
 
 For more detailed information about working with Morton indices and availability bitstreams, see [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
 
@@ -427,99 +422,116 @@ OUTLINE:
 
 ## Appendix A: Availability Indexing
 
-### Definitions
+### Converting from Tile Coordinates to Morton Index
 
-In the sections below, the following variables are used to generalize between
-quadtrees and octrees.
+A [Morton index](https://en.wikipedia.org/wiki/Z-order_curve) is computed by interleaving the bits of the `(x, y)` or `(x, y, z)` coordinates of a tile. Specifically:
 
-| Variable | Value | Description |
-|----------|-------|-------------|
-| `branchingFactor` | 4 or 8 | Number of children per node. 4 for quadtrees and 8 for octrees |  
-| `bitsPerLevel` | 2 or 3 | Bits per level in Morton index. 2 for quadtrees and 3 for octrees |
+```
+quadtreeMortonIndex = interleaveBits(y, x)
+octreeMortonIndex = interleaveBits(z, y, x)
+```
 
-### Availability Lengths
+For example:
 
-TODO
+```
+// Quadtree
+interleaveBits(0b11, 0b00) = 0b1010
+interleaveBits(0b1010, 0b0011) = 0b10001101
+interleaveBits(0b0110, 0b0101) = 0b00111001
 
-### Converting Between Tile Coordinates and Morton Index
-
-TODO
-
-### Finding Adjacent Nodes
-
-TODO
-
-### Global and Local Tile Coordinates
-
-TODO
-
-### Morton Order Example
-
-_This section is non-normative_
-
-The figure below shows the tile coordinate decomposition of the tile `(level, x, y) = (3, 5, 1)`. We first convert the tile coordinate to its Morton index. `5` represented as 3 bits is `101`. `1` represented as 3 bits is `001`. Interleaving the two, we get `010011`, which is `19`. 
-
-At Level 3 of a Quadtree, we'll use 6 bits to represent the binary value of the Morton index: `010011`.
+// Octree
+interleaveBits(0b001, 0b010, 0b100) = 0b001010100
+interleaveBits(0b111, 0b000, 0b111) = 0b101101101
+```
 
 ![Morton Order](figures/morton-indexing.png)
 
-### Morton Indexing Formulas
+### Availability Bitstream Lengths
 
-| Quantity | Formula | Description |
-| -------- | ------- | ----------- |
-| `N` | 4 or 8 | N is 4 for quadtrees, 8 for octrees |
-| `bits` | `log2(N)` | Quadtree address are a multiple of 2 bits, Octrees use a multiple of 3 bits | 
-| `mortonIndex` | `interleave(z, y, x)` or `interleave(y, x)` | The morton index is computed by interleaving bits. See below. |
-| `length(mortonIndex)` | `level * bits` | Length of morton index in bits
-| `parent.mortonIndex` | `child.mortonIndex >> bits` | The parent morton index is a prefix of the child |
-| `child[k].mortonIndex` | `(parent.mortonIndex << bits) + k` | Morton index of a node's `k-th` child in Morton order |
-| `parent.indexOf(child)` | `child.mortonIndex % N` or `child.mortonIndex & (N - 1)` | Index of the child within the parent's `N` children |
+| Availability Type | Length (bits) | Description |
+|-------------------|---------------|-------------|
+| Tile availability | `(N^subtreeLevels - 1)/(N - 1)` | Total number of nodes in the subtree |
+| Content availability | `(N^subtreeLevels - 1)/(N - 1)` | Since there is at most 1 content per tile, this is the same length as tile availability |
+| Child subtree availability | `N^subtreeLevels` | Number of nodes one level deeper than the deepest level of the subtree |
 
-TODO: Figure if this is correct
-// I think these are equivalent?
-localX = globalX % (2^localLevel)
-localX = globalX & ((1 << localLevel) - 1);
+Where `N` is 4 for quadtrees and 8 for octrees.
 
-The `interleave(a, b, c, ...)` function mentioned above interleaves the bits of the input streams into a single bit stream. It does this by taking a bit from each bit stream from left to light and concatenating them into a single bitstream. This is repeated until all bits have been used.
-
-Below are some examples:
+These lengths are in number of bits in a bitstream. To compute the length of the bitstream in bytes, the following formula is used:
 
 ```
-interleave(0b11, 0b00) = 0b1010
-interleave(0b1010, 0b0011) = 0b10001101
-interleave(0b0110, 0b0101) = 0b00111001
-
-interleave(0b001, 0b010, 0b100) = 0b001010100
-interleave(0b111, 0b000, 0b111) = 0b101101101
+lengthBytes = Math.ceil(lengthBits / 8)
 ```
 
-## Appendix B: Availability Formulas
+### Accessing Availability Bits
 
-### Tile and Content Availability Formulas
+For tile availability and content availability, the Morton index only determines the ordering within a single level of the subtree. Since the availability bitstream stores bits for every level of the subtree, a level offset must be computed.
 
-Both tile and content availability are stored in a bitstream with the same structure, so these formulas apply equally well to both
-
-| Quantity | Formula | Description |
-| -------- | ------- | ----------- |
-| `lengthBits` | `(N^subtreeLevels - 1)/(N - 1)` | Length of buffer is determined by subtree levels |
-| `lengthBytes` | `ceil(lengthBits / 8)` | Bytes needed to store the buffer | 
-| `parent.index` | `floor((child.index - 1) / N)` | Index of the parent in the bitstream | 
-| `parent.indexOf(child)` | `(child.index - 1) % N` | Index of the child within the parent's `N` children |
-| `parent.children[k].index` | `N * index + k + 1` | Find the bit of the `k-th` child of a node |
-| `index` | `(N^level - 1)/(N - 1) + mortonIndex` | Find the index of a node from `(level, mortonIndex)`
-| `level` | `ceil(log(index + 1)/log(N))` | Find the level of a node relative to the subtree |
-| `globalLevel` | `level + subtreeRoot.globalLevel` | Find the level of a node relative to the entire tileset | 
-| `startOfLevel` | `(N^level - 1)/(N - 1)` | First index at a particular level (relative to the subtree root) |
-| `mortonIndex` | `index - startOfLevel` | Convert from bit index to Morton index, relative to the root of the subtree |
-| `globalMortonIndex` | `concat(subtreeRoot.globalMortonIndex, mortonIndex)` | Get the Morton index relative to the root of the tileset |  
-
-### Child Subtree Availability Formulas
+Given the `(level, mortonIndex)` of a tile relative to the subtree root, the index of the corresponding bit can be computed with the following formulas:
 
 | Quantity | Formula | Description |
 | -------- | ------- | ----------- |
-| `lengthBits` | `N^subtreeLevels` | Length of the buffer by subtree levels |
-| `lengthBytes` | `ceil(lengthBits / 8)` | Bytes needed to store the buffer |
-| `childSubtree.globalLevel` | `subtreeRoot.globalLevel + subtreeLevels` | Level of the child subtrees relative to the tileset root |
-| `leaf.children[k].index` | `N * leaf.mortonIndex + k` | Index of the `k-th` child subtree |
-| `leaf.indexOf(childSubtree)` | `subtreeRoot.mortonIndex % N` | Index of the child subtree within the parent leaf's `N` children |
-| `leaf.mortonIndex` | `floor(subtreeRoot.mortonIndex / N)` | Morton index of the parent leaf |
+| `levelOffset` | `(N^level - 1) / (N - 1)` | This is the number of nodes at levels `1, 2, ... (level - 1)` |
+| `tileAvailabilityIndex` | `levelOffset + mortonIndex` |
+
+Where `N` is 4 for quadtrees and 8 for octrees.
+
+Since child subtree availability stores bits for a single level, no levelOffset is needed, i.e. `childSubtreeAvailabilityIndex = mortonIndex`, where the `mortonIndex` is the Morton
+index of the desired child subtree relative to the root of the current subtree.
+
+
+### Global and Local Tile Coordinates
+
+When working with tile coordinates, it is important to consider which tile the coordinates are relative to. There are two main types used in implicit tiling:
+
+* **global coordinates** - coordinates relative to the implicit root tile.
+* **local coordinates** - coordinates relative to the root of a specific subtree.
+
+Global coordinates are used for locating any tile in the entire implicit tileset. For example, template URIs use global coordinates to locate content files and subtrees. Meanwhile, local coordinates are used for locating data within a single subtree file.
+
+In binary, a tile's global Morton index is the complete path from the implicit root tile to the tile. This is the concatenation of the path from the implicit root tile to the subtree root tile, followed by the path from the subtree root tile to the tile. This can be expressed with the following equation:
+
+```
+tile.globalMortonIndex = concatBits(subtreeRoot.globalMortonIndex, tile.localMortonIndex)
+```
+
+![Global and local morton indices](figures/global-to-local-morton.jpg)
+
+Similarly, the global level of a tile is the length of the path from the implicit root tile to the tile. This is the sum of the subtree root tile's global level and the tile's local level relative to the subtree root tile:
+
+```
+tile.globalLevel = subtreeRoot.globalLevel + tile.localLevel
+```
+
+![Global and local levels](figures/global-to-local-levels.jpg)
+
+`(x, y, z)` coordinates follow the same pattern a Morton indices. The only difference is that the concatenation of bits happens component-wise. That is:
+
+```
+tile.globalX = concatBits(subtreeRoot.globalX, tile.localX)
+tile.globalY = concatBits(subtreeRoot.globalY, tile.localY)
+
+// Octrees only
+tile.globalZ = concatBits(subtreeRoot.globalZ, tile.localZ)
+```
+
+![Global to local XY coordinates](figures/global-to-local-xy.jpg)
+
+### Finding Parent and Child Nodes
+
+Computing the coordinates of a parent or child tile can also be computed by bitwise operations on the Morton index. The following formulas apply for both local and global coordinates.
+
+```
+childTile.level = parentTile.level + 1
+childTile.mortonIndex = concatBits(parentTile.mortonIndex, childIndex)
+childTile.x = concatBits(parentTile.x, childX)
+childTile.y = concatBits(parentTile.y, childY)
+
+// Octrees only
+childTile.z = concatBits(parentTile.z, childZ)
+```
+
+Where:
+* `childIndex` is an integer in the range `[0, N)` that is the index of the child tile relative to the parent.
+* `childX`, `childY`, and `childZ` are single bits that represent which half of the parent's bounding volume the child is in in each direction.
+
+![Parent and child coordinates](figures/parent-and-child-coordinates.jpg)
