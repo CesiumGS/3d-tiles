@@ -64,7 +64,7 @@ tileset JSON.
     - [tile.3DTILES_implicit_tiling.subtree.extensions](#tile3dtiles_implicit_tilingsubtreeextensions)
     - [tile.3DTILES_implicit_tiling.subtree.extras](#tile3dtiles_implicit_tilingsubtreeextras)
   - [Template URI](#template-uri)
-- [Subtree JSON Chunk Schema Reference](#subtree-json-chunk-schema-reference)
+- [Subtree JSON Schema Reference](#subtree-json-schema-reference)
   - [Availability](#availability-1)
     - [availability.bufferView](#availabilitybufferview)
     - [availability.availableCount](#availabilityavailablecount)
@@ -101,9 +101,10 @@ tileset JSON.
 
 ## Overview
 
-TODO: Rewrite this
+**Implicit tiling** is a new representation of a Cesium 3D Tileset that allows for fast random access of tiles and enables new traversal algorithms. 
 
-**Implicit tiling** describes a Cesium 3D Tileset while enabling new data structures and algorithms for near constant time random access and dynamic tileset generation. It makes fast, efficient high resolution (meter or centimeter scale) global dataset streaming possible. The tileset is uniformly subdivided and organized for ease of read and write without the need to read the entire tileset at once. The subdivision, using full and sparse quad and octrees, enables random access, smaller tileset JSON files, and faster loading.
+Implicit tilesets are uniformly subdivided into a quadtree or octree. This regular pattern allows the tileset to be expressed in a more compact representation which keeps the
+tileset JSON small. Furthermore, implicit tilesets are split into fixed-size portions to keep each file to a bounded size.
 
 Implicit tiling provides a method for accessing tiles by tile coordinates. This allows for abbreviated tree traversal algorithms.
 
@@ -115,11 +116,11 @@ For a complete list of terminology used, see the [Glossary](#glossary).
 
 _This section is non-normative_
 
-TODO: add a note about spatial queries.
-
 Implicit tiling allows Cesium 3D Tiles to support a variety of new use cases.
 
 A key use for implicit tiling is enabling and/or accelerating tree traversal algorithms. Accessing a tile by coordinates is faster than traversing the entire tree. Likewise, raycasting algorithms and GIS algorithms can benefit from the abbreviated tree traversals. Tiles can be loaded immediately instead of going from top to bottom of a tree.
+
+Accessing tiles by coordinates also helps accelerate spatial queries. For example, the highest resolution tile that contains a given point can be quickly located by computing the coordinates of the tile directly. 
 
 Implicit tiling also allows for better interoperability with existing GIS data formats with implicitly defined tiling schemes. Some examples are:
 
@@ -284,7 +285,7 @@ In order to support sparse datasets, additional information is needed to indicat
 
 After partitioning a tileset into subtrees, the result is a tree of subtrees.
 
-![Subtrees partitioning a tileset](figures/union-of-subtrees.jpg)
+![Tree of subtrees](figures/subtree-tree.jpg)
 
 ### Availability
 
@@ -323,7 +324,6 @@ Tile availability has the following restrictions:
 * If a non-root tile's availability is 1, its parent tile's availability must also be 1. 
 * A subtree must have at least one available tile. 
 
-TODO: Better diagram
 ![Tile Availability](figures/tile-availability.jpg)
 
 ### Content Availability
@@ -336,7 +336,6 @@ Content availability has the following restrictions:
 * If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile.
 * When a subtree has at least one tile with content, content availability is required. If no tile in the subtree has content, then content availability is disallowed.
 
-TODO: Better diagram
 ![Content Availability](figures/content-availability.jpg)
 
 ### Child Subtree Availability
@@ -345,8 +344,7 @@ Child subtree availability determines which subtrees are reachable from the deep
 
 Unlike tile and content availability, which store bits for every level in the subtree, child subtree availability only stores bits for a single level of nodes. These nodes are one level deeper than the deepest level of the subtree, and represent the root nodes of adjacent subtrees. This is used to determine which other subtrees are reachable before making network requests. 
 
-TODO: better diagram
-![Child Subtree Availability](figures/subtree-availability.jpg)
+![Child Subtree Availability](figures/child-subtree-availability.jpg)
 
 If availability is 0 for all child subtrees, then the tileset does not subdivide further.
 
@@ -568,7 +566,7 @@ A template URI pointing to subtree files. A subtree is a fixed-depth (defined by
 
 A URI with embedded expressions. Allowed expressions are `{level}`, `{x}` and `{y}`. `{level}` is substituted with the level of the node, `{x}` is substituted with the x index of the node within the level, and `{y}` is substituted with the y index of the node within the level. For subdivision scheme `OCTREE`, `{z}` may also be given, and it is substituted with the z index of the node within the level
 
-## Subtree JSON Chunk Schema Reference
+## Subtree JSON Schema Reference
 
 * [`Subtree`](#reference-subtree) (root object)
   * [`Availability`](#reference-availability)
@@ -869,7 +867,7 @@ Given the `(level, mortonIndex)` of a tile relative to the subtree root, the ind
 | Quantity | Formula | Description |
 | -------- | ------- | ----------- |
 | `levelOffset` | `(N^level - 1) / (N - 1)` | This is the number of nodes at levels `1, 2, ... (level - 1)` |
-| `tileAvailabilityIndex` | `levelOffset + mortonIndex` |
+| `tileAvailabilityIndex` | `levelOffset + mortonIndex` | The index into the buffer view is the offset for the tile's level plus the morton index for the tile |
 
 Where `N` is 4 for quadtrees and 8 for octrees.
 
@@ -892,7 +890,7 @@ In binary, a tile's global Morton index is the complete path from the implicit r
 tile.globalMortonIndex = concatBits(subtreeRoot.globalMortonIndex, tile.localMortonIndex)
 ```
 
-![Global and local morton indices](figures/global-to-local-morton.jpg)
+<img src="figures/global-to-local-morton.jpg" width="500" />
 
 Similarly, the global level of a tile is the length of the path from the implicit root tile to the tile. This is the sum of the subtree root tile's global level and the tile's local level relative to the subtree root tile:
 
@@ -900,7 +898,7 @@ Similarly, the global level of a tile is the length of the path from the implici
 tile.globalLevel = subtreeRoot.globalLevel + tile.localLevel
 ```
 
-![Global and local levels](figures/global-to-local-levels.jpg)
+<img src="figures/global-to-local-levels.jpg" width="500" />
 
 `(x, y, z)` coordinates follow the same pattern a Morton indices. The only difference is that the concatenation of bits happens component-wise. That is:
 
