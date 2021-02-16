@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema",
   "title": "Buffer View",
   "type": "object",
-  "description": "A view into a buffer generally representing a subset of the buffer.",
+  "description": "A contiguous subset of a buffer",
   "properties": {
     "buffer": {
       "type": "integer",
@@ -22,7 +22,7 @@
     "name": {
       "type": "string",
       "minLength": 1,
-      "description": "The name of the `bufferView`. The string is UTF-8 encoded."
+      "description": "The name of the `bufferView`."
     },
     "extensions": {},
     "extras": {}
