@@ -77,7 +77,7 @@ tileset JSON small. Furthermore, implicit tilesets are split into fixed-size por
 
 The diagram below illustrates how tiles can be accessed directly by tile coordinates.
 
-<img src="figures/implicit-vs-explicit.jpg" width="500"/>
+<img src="figures/implicit-vs-explicit.jpg" width="600"/>
 
 For a complete list of terminology used, see the [Glossary](#glossary).
 
@@ -357,7 +357,7 @@ For efficient memory access, the `byteOffset` of a buffer view must be aligned t
   "buffers": [
     {
       "name": "Internal Buffer",
-      "byteLength": 32
+      "byteLength": 16
     },
     {
       "name": "External Buffer",
@@ -372,24 +372,19 @@ For efficient memory access, the `byteOffset` of a buffer view must be aligned t
       "byteLength": 11
     },
     {
-      "buffer": 0,
-      "byteOffset": 16,
-      "byteLength": 11
-    },
-    {
       "buffer": 1,
       "byteOffset": 0,
       "byteLength": 32
     }
   ],
   "tileAvailability": {
-    "bufferView": 0
+    "constant": 1,
   },
   "contentAvailability": {
-    "bufferView": 1
+    "bufferView": 0
   },
   "childSubtreeAvailability": {
-    "bufferView": 2
+    "bufferView": 1
   }
 }
 ```
