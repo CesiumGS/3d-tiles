@@ -72,8 +72,7 @@ tileset JSON.
 
 **Implicit tiling** is a new representation of a Cesium 3D Tileset that allows for fast random access of tiles and enables new traversal algorithms. 
 
-Implicit tilesets are uniformly subdivided into a quadtree or octree. This regular pattern allows the tileset to be expressed in a more compact representation which keeps the
-tileset JSON small. Furthermore, implicit tilesets are split into fixed-size portions to keep each file to a bounded size.
+Implicit tilesets are uniformly subdivided into a quadtree or octree. This regular pattern allows the tileset to be expressed in a more compact representation which keeps the tileset JSON small. Furthermore, implicit tilesets are split into fixed-size portions to keep each file to a bounded size.
 
 The diagram below illustrates how tiles can be accessed directly by tile coordinates.
 

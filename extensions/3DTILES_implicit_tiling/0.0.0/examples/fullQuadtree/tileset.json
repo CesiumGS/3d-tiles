@@ -13,7 +13,7 @@
     "boundingVolume": {
       "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
     },
-    "refine": "REPLACE",
+    "refine": "ADD",
     "geometricError": 5000,
     "content": {
       "uri": "content/{level}/{x}/{y}.b3dm"
@@ -21,12 +21,12 @@
     "extensions": {
       "3DTILES_implicit_tiling": {
         "subdivisionScheme": "QUADTREE",
-        "subtreeLevels": 2,
-        "maximumLevel": 1,
+        "subtreeLevels": 3,
+        "maximumLevel": 2,
         "subtrees": {
           "uri": "subtrees/{level}/{x}/{y}.subtree"
         }
       }
-    }
+    }  
   }
 }
