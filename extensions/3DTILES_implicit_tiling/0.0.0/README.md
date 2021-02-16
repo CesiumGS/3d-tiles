@@ -1,7 +1,7 @@
 <!-- omit in toc -->
 # 3DTILES_implicit_tiling
 
-**Version 0.0.0**, TODO: Date
+**Version 0.0.0**, February 19, 2021
 
 <!-- omit in toc -->
 ## Contributors
@@ -10,6 +10,7 @@
 * Erixen Cruz, Cesium
 * Sam Suhag, Cesium
 * Sean Lilley, Cesium
+* Ian Lilley, Cesium
 * Josh Lawrence, Cesium
 * Patrick Cozzi, Cesium
 * Shehzan Mohammed, Cesium
@@ -36,9 +37,9 @@ tileset JSON.
 
 - [Overview](#overview)
 - [Use Cases](#use-cases)
-- [Tileset JSON](#tileset-json)
+- [Tile Extension](#tile-extension)
 - [Subdivision scheme](#subdivision-scheme)
-  - [Implicit Subdivision](#implicit-subdivision)
+  - [Subdivision Rules](#subdivision-rules)
 - [Tile Coordinates](#tile-coordinates)
 - [Template URIs](#template-uris)
 - [Subtrees](#subtrees)
@@ -46,7 +47,7 @@ tileset JSON.
   - [Tile Availability](#tile-availability)
   - [Content Availability](#content-availability)
   - [Child Subtree Availability](#child-subtree-availability)
-- [Subtree Files](#subtree-files)
+- [Subtree File Format](#subtree-file-format)
   - [Buffers and Buffer Views](#buffers-and-buffer-views)
   - [Availability Packing](#availability-packing)
 - [Glossary](#glossary)
@@ -106,7 +107,7 @@ tileset JSON.
 Implicit tilesets are uniformly subdivided into a quadtree or octree. This regular pattern allows the tileset to be expressed in a more compact representation which keeps the
 tileset JSON small. Furthermore, implicit tilesets are split into fixed-size portions to keep each file to a bounded size.
 
-Implicit tiling provides a method for accessing tiles by tile coordinates. This allows for abbreviated tree traversal algorithms.
+The diagram below illustrates how tiles can be accessed directly by tile coordinates.
 
 ![Explicit vs Implicit Tiling](figures/implicit-vs-explicit.jpg)
 
@@ -115,8 +116,6 @@ For a complete list of terminology used, see the [Glossary](#glossary).
 ## Use Cases
 
 _This section is non-normative_
-
-Implicit tiling allows Cesium 3D Tiles to support a variety of new use cases.
 
 A key use for implicit tiling is enabling and/or accelerating tree traversal algorithms. Accessing a tile by coordinates is faster than traversing the entire tree. Likewise, raycasting algorithms and GIS algorithms can benefit from the abbreviated tree traversals. Tiles can be loaded immediately instead of going from top to bottom of a tree.
 
@@ -131,7 +130,7 @@ Implicit tiling also allows for better interoperability with existing GIS data f
 
 Implicit tiling enables procedurally-generated tilesets. Instead of serving static files, a server could extract the tile coordinates from [Template URIs](#template-uris) and generate tiles at runtime while using little disk space.
 
-## Tileset JSON
+## Tile Extension
 
 The `3DTILES_implicit_tiling` extension may be defined on any tile in the tileset JSON file. Such a tile is called an **implicit root tile**, to distinguish it from the root node of the tileset JSON. The implicit root tile must not define the `children` property.
 
@@ -206,9 +205,8 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 | Root Region | Quadtree | Octree |
 |:---:|:--:|:--:|
 | ![Root region](figures/region.png) | ![Region Quadtree](figures/region-quadtree.png) | ![Region octree](figures/region-octree.png)  |
-The `region` boxes above are curved to follow the globe's surface.
 
-### Implicit Subdivision
+### Subdivision Rules
 
 Implicit tiling only requires defining the subdivision scheme, refine strategy, bounding volume, and geometric error at the implicit root tile. These properties are computed automatically for any descendant tile based on the following rules:
 
@@ -295,7 +293,7 @@ Each subtree contains tile availability, content availability, and child subtree
 * **Content availability** indicates which tiles have associated content resources
 * **Child subtree availability** indicates what subtrees are reachable from this subtree
 
-Each type of availability is represented as a separate bitstream. Each bitstream is a 1D array where each element represents a node in the quadtree or octree. A 1 bit indicates that the tile/content/child subtree is available, while a 0 bit indicates that the tile/content/child subtree is unavailable. Alternatively, if all the bits in a bitstream are the same, a single constant value can be used instead.
+Each type of availability is represented as a separate bitstream. Each bitstream is a 1D array where each element represents a node in the quadtree or octree. A 1 bit indicates that the element is available, while a 0 bit indicates that the element is unavailable. Alternatively, if all the bits in a bitstream are the same, a single constant value can be used instead.
 
 To form the 1D bitstream, the tiles are ordered with the following rules:
 
@@ -348,7 +346,7 @@ Unlike tile and content availability, which store bits for every level in the su
 
 If availability is 0 for all child subtrees, then the tileset does not subdivide further.
 
-## Subtree Files
+## Subtree File Format
 
 A **subtree file** is a binary file that contains availability information for a single subtree. It includes two main portions:
 
@@ -370,8 +368,8 @@ Header fields:
 
 Each chunk must be padded so it ends on an 8-byte boundary:
 
-* The JSON chunk must be padded at the end with spaces (`' '` = 0x20 in ASCII)
-* If it exists, the binary chunk must be padded at the end with NUL bytes (`\x00` = 0x00 in ASCII)
+* The JSON chunk must be padded at the end with spaces (ASCII `' '` = 0x20)
+* If it exists, the binary chunk must be padded at the end with NUL bytes (`\x00` = 0x00)
 
 The subtree JSON describes where the availability information for a single subtree is stored. Availability bitstreams are stored in buffers and accessed through buffer views.
 
@@ -409,7 +407,7 @@ For efficient memory access, the `byteOffset` of a buffer view must be aligned t
     },
     {
       "buffer": 1,
-      "byteOffset": 2,
+      "byteOffset": 0,
       "byteLength": 32
     }
   ],
@@ -437,10 +435,10 @@ Availability bitstreams are packed in binary using the format described in the [
 * **child subtree** - A subtree reachable from an available tile in the bottommost row of a subtree.
 * **content** - A content such as Batched 3D Model or Point Cloud as defined in the [3D Tiles specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#introduction)
 * **implicit tiling** - Describing a tileset using recursive subdivision.
-* **implicit root tile** - A tile with the `3DTILES_implicit_tiling` extension, which denotes the root of an implicit ti
+* **implicit root tile** - A tile with the `3DTILES_implicit_tiling` extension, which denotes the root of an implicit tileset
 * **octree** - A 3D subdivision scheme that divides each bounding volume into 8 smaller bounding volumes along the midpoint of the `x`, `y`, and `z` axes.
 * **quadtree** - A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volume along the midpoint of the `x` and `y` axes.
-* **subtree** - A fixed-size section of the tileset tree used to break large tilesets into manageable pieces.
+* **subtree** - A fixed-size section of the tree that contains availability information.
 * **subtree file** - A binary file storing information about a specific subtree.
 * **subdivision scheme** - A recursive pattern of dividing a parent tile into smaller children tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile.
 * **template URI** - A URI pattern containing tile coordinates for directly addressing tiles.
@@ -847,7 +845,7 @@ interleaveBits(0b111, 0b000, 0b111) = 0b101101101
 | Availability Type | Length (bits) | Description |
 |-------------------|---------------|-------------|
 | Tile availability | `(N^subtreeLevels - 1)/(N - 1)` | Total number of nodes in the subtree |
-| Content availability | `(N^subtreeLevels - 1)/(N - 1)` | Since there is at most 1 content per tile, this is the same length as tile availability |
+| Content availability | `(N^subtreeLevels - 1)/(N - 1)` | Since there is at most one content per tile, this is the same length as tile availability |
 | Child subtree availability | `N^subtreeLevels` | Number of nodes one level deeper than the deepest level of the subtree |
 
 Where `N` is 4 for quadtrees and 8 for octrees.
@@ -855,7 +853,7 @@ Where `N` is 4 for quadtrees and 8 for octrees.
 These lengths are in number of bits in a bitstream. To compute the length of the bitstream in bytes, the following formula is used:
 
 ```
-lengthBytes = Math.ceil(lengthBits / 8)
+lengthBytes = ceil(lengthBits / 8)
 ```
 
 ### Accessing Availability Bits
