@@ -77,7 +77,7 @@ tileset JSON small. Furthermore, implicit tilesets are split into fixed-size por
 
 The diagram below illustrates how tiles can be accessed directly by tile coordinates.
 
-![Explicit vs Implicit Tiling](figures/implicit-vs-explicit.jpg)
+<img src="figures/implicit-vs-explicit.jpg" width="500"/>
 
 For a complete list of terminology used, see the [Glossary](#glossary).
 
