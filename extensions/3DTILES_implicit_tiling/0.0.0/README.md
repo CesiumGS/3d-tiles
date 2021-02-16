@@ -575,7 +575,6 @@ A URI with embedded expressions. Allowed expressions are `{level}`, `{x}` and `{
   * [`Buffer View`](#reference-bufferview)
 
 
-
 ---------------------------------------
 <a name="reference-availability"></a>
 ### Availability
@@ -587,7 +586,7 @@ An object describing the availability of a set of elements.
 |   |Type|Description|Required|
 |---|---|---|---|
 |**bufferView**|`integer`|Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata/0.0.0/README.md). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.|No|
-|**availableCount**|`integer`|A number indicating how many 1 bits exist in the availability bitstream. `availableCount` is only allowed when `bufferView` is used.|No|
+|**availableCount**|`integer`|A number indicating how many 1 bits exist in the availability bitstream.|No|
 |**constant**|`integer`|Integer indicating whether all of the elements are available (1) or all are unavailable (0).|No|
 |**extensions**|`any`||No|
 |**extras**|`any`||No|
@@ -604,7 +603,7 @@ Index of a buffer view that indicates whether each element is available. The bit
 
 #### availability.availableCount
 
-A number indicating how many 1 bits exist in the availability bitstream. `availableCount` is only allowed when `bufferView` is used.
+A number indicating how many 1 bits exist in the availability bitstream.
 
 * **Type**: `integer`
 * **Required**: No
@@ -637,15 +636,15 @@ Integer indicating whether all of the elements are available (1) or all are unav
 <a name="reference-buffer"></a>
 ### Buffer
 
-A buffer that points to a uri containing binary data.
+A buffer is a binary blob. It is either the binary chunk of the subtree file, or an external buffer referenced by a URI
 
 **`Buffer` Properties**
 
 |   |Type|Description|Required|
 |---|---|---|---|
-|**uri**|`string`|The uri of the buffer. Relative paths are relative to the file containing the buffer JSON. If `uri` is omitted, the buffer is assumed to refer to the binary chunk of the subtree file.|No|
+|**uri**|`string`|The URI of the buffer. Relative paths are relative to the file containing the buffer JSON. If `uri` is omitted, the buffer is assumed to refer to the binary chunk of the subtree file.|No|
 |**byteLength**|`integer`|The length of the buffer in bytes.| &#10003; Yes|
-|**name**|`string`|The name of the buffer. The string is UTF-8 encoded.|No|
+|**name**|`string`|The name of the buffer.|No|
 |**extensions**|`any`||No|
 |**extras**|`any`||No|
 
@@ -653,7 +652,7 @@ Additional properties are allowed.
 
 #### buffer.uri
 
-The uri of the buffer. Relative paths are relative to the file containing the buffer JSON. If `uri` is omitted, the buffer is assumed to refer to the binary chunk of the subtree file.
+The URI of the buffer. Relative paths are relative to the file containing the buffer JSON. If `uri` is omitted, the buffer is assumed to refer to the binary chunk of the subtree file.
 
 * **Type**: `string`
 * **Required**: No
@@ -669,7 +668,7 @@ The length of the buffer in bytes.
 
 #### buffer.name
 
-The name of the buffer. The string is UTF-8 encoded.
+The name of the buffer.
 
 * **Type**: `string`
 * **Required**: No
@@ -692,7 +691,7 @@ The name of the buffer. The string is UTF-8 encoded.
 <a name="reference-bufferview"></a>
 ### Buffer View
 
-A view into a buffer generally representing a subset of the buffer.
+A contiguous subset of a buffer
 
 **`Buffer View` Properties**
 
@@ -701,7 +700,7 @@ A view into a buffer generally representing a subset of the buffer.
 |**buffer**|`integer`|The index of the buffer.| &#10003; Yes|
 |**byteOffset**|`integer`|The offset into the buffer in bytes.| &#10003; Yes|
 |**byteLength**|`integer`|The total byte length of the buffer view.| &#10003; Yes|
-|**name**|`string`|The name of the `bufferView`. The string is UTF-8 encoded.|No|
+|**name**|`string`|The name of the `bufferView`.|No|
 |**extensions**|`any`||No|
 |**extras**|`any`||No|
 
@@ -733,7 +732,7 @@ The total byte length of the buffer view.
 
 #### bufferView.name
 
-The name of the `bufferView`. The string is UTF-8 encoded.
+The name of the `bufferView`.
 
 * **Type**: `string`
 * **Required**: No
@@ -766,7 +765,7 @@ An object describing the availability of tiles and content in a subtree, as well
 |**bufferViews**|`bufferView` `[]`|An array of bufferViews.|No|
 |**tileAvailability**|`availability`|The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a bufferView or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability must also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees must have at least one tile.| &#10003; Yes|
 |**childSubtreeAvailability**|`availability`|The availability of children subtrees. The availability bitstream is a 1D boolean array where subtrees are ordered by their Morton index in the level of the tree immediately below the bottom row of the subtree. A child subtree's availability is determined by a single bit, 1 meaning a subtree exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `N^subtreeLevels` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a bufferView or as a constant value that applies to all child subtrees. If availability is 0 for all child subtrees, then the tileset does not subdivide further.| &#10003; Yes|
-|**contentAvailability**|`availability`|The availability of the content of the tiles of the subtree. The structure of the content availability bitstream matches the tile availability bitstream. Content availability is determined by a single bit, 1 meaning content exists at that spatial index, and 0 meaning it does not. If content availability is 1 its corresponding tile availability must also be 1. If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile. If `tile.content` is defined, then `contentAvailability` is required. Otherwise, `contentAvailability is disallowed.|No|
+|**contentAvailability**|`availability`|The availability of the content of the tiles of the subtree. The structure of the content availability bitstream matches the tile availability bitstream. Content availability is determined by a single bit, 1 meaning content exists at that spatial index, and 0 meaning it does not. If content availability is 1 its corresponding tile availability must also be 1. If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile. If `tile.content` is defined, then `contentAvailability` is required. Otherwise, `contentAvailability` is disallowed.|No|
 |**extensions**|`any`||No|
 |**extras**|`any`||No|
 
@@ -802,7 +801,7 @@ The availability of children subtrees. The availability bitstream is a 1D boolea
 
 #### Subtree.contentAvailability
 
-The availability of the content of the tiles of the subtree. The structure of the content availability bitstream matches the tile availability bitstream. Content availability is determined by a single bit, 1 meaning content exists at that spatial index, and 0 meaning it does not. If content availability is 1 its corresponding tile availability must also be 1. If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile. If `tile.content` is defined, then `contentAvailability` is required. Otherwise, `contentAvailability is disallowed.
+The availability of the content of the tiles of the subtree. The structure of the content availability bitstream matches the tile availability bitstream. Content availability is determined by a single bit, 1 meaning content exists at that spatial index, and 0 meaning it does not. If content availability is 1 its corresponding tile availability must also be 1. If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile. If `tile.content` is defined, then `contentAvailability` is required. Otherwise, `contentAvailability` is disallowed.
 
 * **Type**: `availability`
 * **Required**: No
