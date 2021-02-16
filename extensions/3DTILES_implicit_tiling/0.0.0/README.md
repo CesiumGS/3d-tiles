@@ -98,7 +98,7 @@ tileset JSON.
   - [Availability Bitstream Lengths](#availability-bitstream-lengths)
   - [Accessing Availability Bits](#accessing-availability-bits)
   - [Global and Local Tile Coordinates](#global-and-local-tile-coordinates)
-  - [Finding Parent and Child Nodes](#finding-parent-and-child-nodes)
+  - [Finding Parent and Child Tiles](#finding-parent-and-child-tiles)
 
 ## Overview
 
@@ -132,7 +132,7 @@ Implicit tiling enables procedurally-generated tilesets. Instead of serving stat
 
 ## Tile Extension
 
-The `3DTILES_implicit_tiling` extension may be defined on any tile in the tileset JSON file. Such a tile is called an **implicit root tile**, to distinguish it from the root node of the tileset JSON. The implicit root tile must not define the `children` property.
+The `3DTILES_implicit_tiling` extension may be defined on any tile in the tileset JSON. Such a tile is called an **implicit root tile**, to distinguish it from the root tile of the tileset JSON. The implicit root tile must omit the `children` property.
 
 ```json
 {
@@ -169,7 +169,7 @@ The `3DTILES_implicit_tiling` extension may be defined on any tile in the tilese
 }
 ```
 
-In the extension object of the tileset JSON, the following properties about the root tile are included:
+In the extension object of the tile, the following properties about the implicit root tile are included:
 
 | Property | Description |
 | ------ | ----------- |
@@ -184,7 +184,7 @@ In the extension object of the tileset JSON, the following properties about the 
 
 A **subdivision scheme** is a recursive pattern for dividing a bounding volume of a tile into smaller children tiles that take up the same space.
 
-A subdivision scheme recursively subdivides a volume by splitting it at the midpoint of some or all of the dimensions. If the `x` and `y` dimensions are split, a quadtree is produced. If all three dimensions are split, an octree is produced. The subdivision scheme remains constant throughout the entire tileset.
+A subdivision scheme recursively subdivides a volume by splitting it at the midpoint of some or all of the dimensions. If the `x` and `y` dimensions are split, a quadtree is produced. If all three dimensions are split, an octree is produced. The subdivision scheme remains constant for the tile and all its descendants.
 
 For a `region` bounding volume, `x`, `y`, and `z` refer to `longitude`, `latitude`, and `height` respectively.
 
@@ -205,6 +205,9 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 | Root Region | Quadtree | Octree |
 |:---:|:--:|:--:|
 | ![Root region](figures/region.png) | ![Region Quadtree](figures/region-quadtree.png) | ![Region octree](figures/region-octree.png)  |
+
+Sphere bounding volumes are disallowed, as these cannot be
+divided into a quadtree or octree.
 
 ### Subdivision Rules
 
@@ -910,7 +913,7 @@ tile.globalZ = concatBits(subtreeRoot.globalZ, tile.localZ)
 
 ![Global to local XY coordinates](figures/global-to-local-xy.jpg)
 
-### Finding Parent and Child Nodes
+### Finding Parent and Child Tiles
 
 Computing the coordinates of a parent or child tile can also be computed by bitwise operations on the Morton index. The following formulas apply for both local and global coordinates.
 
