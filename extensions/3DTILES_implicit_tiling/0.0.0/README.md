@@ -449,7 +449,7 @@ This extension allows a tile to be implicitly subdivided. Tile and content avail
 Additional properties are allowed.
 
 <!-- omit in toc -->
-#### 3DTILES_implicit_tiling tile extension.subdivisionScheme
+#### subdivisionScheme
 
 A string describing the subdivision scheme used within the tileset.
 
@@ -460,7 +460,7 @@ A string describing the subdivision scheme used within the tileset.
    * `"OCTREE"`
 
 <!-- omit in toc -->
-#### 3DTILES_implicit_tiling tile extension.subtreeLevels
+#### subtreeLevels
 
 The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with 5 nodes (one root and 4 children)
 
@@ -469,7 +469,7 @@ The number of distinct levels in each subtree. For example, a quadtree with `sub
 * **Minimum**: ` >= 1`
 
 <!-- omit in toc -->
-#### 3DTILES_implicit_tiling tile extension.maximumLevel
+#### maximumLevel
 
 The level of the deepest available tile. Levels are numbered from 0 starting at the tile with the `3DTILES_implicit_tiling` extension. This tile's children are at level 1, the children's children are at level 2, and so on.
 
@@ -478,7 +478,7 @@ The level of the deepest available tile. Levels are numbered from 0 starting at 
 * **Minimum**: ` >= 0`
 
 <!-- omit in toc -->
-#### 3DTILES_implicit_tiling tile extension.subtrees
+#### subtrees
 
 An object describing the location of subtree files.
 
@@ -486,13 +486,13 @@ An object describing the location of subtree files.
 * **Required**:  &#10003; Yes
 
 <!-- omit in toc -->
-#### 3DTILES_implicit_tiling tile extension.extensions
+#### extensions
 
 * **Type**: `any`
 * **Required**: No
 
 <!-- omit in toc -->
-#### 3DTILES_implicit_tiling tile extension.extras
+#### extras
 
 * **Type**: `any`
 * **Required**: No
