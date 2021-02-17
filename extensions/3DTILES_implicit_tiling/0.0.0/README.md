@@ -53,20 +53,8 @@ tileset JSON.
 - [Glossary](#glossary)
 - [Examples](#examples)
 - [Extension JSON Schema Reference](#extension-json-schema-reference)
-  - [3DTILES_implicit_tiling tile extension](#3dtiles_implicit_tiling-tile-extension)
-  - [Subtree](#subtree)
-  - [Template URI](#template-uri)
 - [Subtree JSON Schema Reference](#subtree-json-schema-reference)
-  - [Subtree](#subtree-1)
-  - [Availability](#availability-1)
-  - [Buffer](#buffer)
-  - [Buffer View](#buffer-view)
 - [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
-  - [Converting from Tile Coordinates to Morton Index](#converting-from-tile-coordinates-to-morton-index)
-  - [Availability Bitstream Lengths](#availability-bitstream-lengths)
-  - [Accessing Availability Bits](#accessing-availability-bits)
-  - [Global and Local Tile Coordinates](#global-and-local-tile-coordinates)
-  - [Finding Parent and Child Tiles](#finding-parent-and-child-tiles)
 
 ## Overview
 
@@ -429,6 +417,7 @@ Examples can be found in the [examples folder](./examples/).
 <!-- BEGIN WETZEL: EXTENSION -->
 ---------------------------------------
 <a name="reference-3dtiles_implicit_tiling-tile-extension"></a>
+<!-- omit in toc -->
 ### 3DTILES_implicit_tiling tile extension
 
 This extension allows a tile to be implicitly subdivided. Tile and content availability is stored in subtrees which are referenced externally.
@@ -500,6 +489,7 @@ An object describing the location of subtree files.
 
 ---------------------------------------
 <a name="reference-tile-3dtiles_implicit_tiling-subtree"></a>
+<!-- omit in toc -->
 ### Subtree
 
 An object describing the location of subtree files.
@@ -539,6 +529,7 @@ A template URI pointing to subtree files. A subtree is a fixed-depth (defined by
 
 ---------------------------------------
 <a name="reference-tile-3dtiles_implicit_tiling-templateuri"></a>
+<!-- omit in toc -->
 ### Template URI
 
 A URI with embedded expressions. Allowed expressions are `{level}`, `{x}` and `{y}`. `{level}` is substituted with the level of the node, `{x}` is substituted with the x index of the node within the level, and `{y}` is substituted with the y index of the node within the level. For subdivision scheme `OCTREE`, `{z}` may also be given, and it is substituted with the z index of the node within the level
@@ -558,6 +549,7 @@ A URI with embedded expressions. Allowed expressions are `{level}`, `{x}` and `{
 
 ---------------------------------------
 <a name="reference-subtree"></a>
+<!-- omit in toc -->
 ### Subtree
 
 An object describing the availability of tiles and content in a subtree, as well as availability of children subtrees.
@@ -631,6 +623,7 @@ The availability of the content of the tiles of the subtree. The structure of th
 
 ---------------------------------------
 <a name="reference-availability"></a>
+<!-- omit in toc -->
 ### Availability
 
 An object describing the availability of a set of elements.
@@ -693,6 +686,7 @@ Integer indicating whether all of the elements are available (1) or all are unav
 
 ---------------------------------------
 <a name="reference-buffer"></a>
+<!-- omit in toc -->
 ### Buffer
 
 A buffer is a binary blob. It is either the binary chunk of the subtree file, or an external buffer referenced by a URI
@@ -753,6 +747,7 @@ The name of the buffer.
 
 ---------------------------------------
 <a name="reference-bufferview"></a>
+<!-- omit in toc -->
 ### Buffer View
 
 A contiguous subset of a buffer
@@ -823,6 +818,7 @@ The name of the `bufferView`.
 
 ## Appendix A: Availability Indexing
 
+<!-- omit in toc -->
 ### Converting from Tile Coordinates to Morton Index
 
 A [Morton index](https://en.wikipedia.org/wiki/Z-order_curve) is computed by interleaving the bits of the `(x, y)` or `(x, y, z)` coordinates of a tile. Specifically:
@@ -847,6 +843,7 @@ interleaveBits(0b111, 0b000, 0b111) = 0b101101101
 
 ![Morton Order](figures/morton-indexing.png)
 
+<!-- omit in toc -->
 ### Availability Bitstream Lengths
 
 | Availability Type | Length (bits) | Description |
@@ -863,6 +860,7 @@ These lengths are in number of bits in a bitstream. To compute the length of the
 lengthBytes = ceil(lengthBits / 8)
 ```
 
+<!-- omit in toc -->
 ### Accessing Availability Bits
 
 For tile availability and content availability, the Morton index only determines the ordering within a single level of the subtree. Since the availability bitstream stores bits for every level of the subtree, a level offset must be computed.
@@ -879,7 +877,7 @@ Where `N` is 4 for quadtrees and 8 for octrees.
 Since child subtree availability stores bits for a single level, no levelOffset is needed, i.e. `childSubtreeAvailabilityIndex = mortonIndex`, where the `mortonIndex` is the Morton
 index of the desired child subtree relative to the root of the current subtree.
 
-
+<!-- omit in toc -->
 ### Global and Local Tile Coordinates
 
 When working with tile coordinates, it is important to consider which tile the coordinates are relative to. There are two main types used in implicit tiling:
@@ -917,6 +915,7 @@ tile.globalZ = concatBits(subtreeRoot.globalZ, tile.localZ)
 
 ![Global to local XY coordinates](figures/global-to-local-xy.jpg)
 
+<!-- omit in toc -->
 ### Finding Parent and Child Tiles
 
 Computing the coordinates of a parent or child tile can also be computed by bitwise operations on the Morton index. The following formulas apply for both local and global coordinates.
