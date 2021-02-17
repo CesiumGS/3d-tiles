@@ -23,6 +23,11 @@ Written against the 3D Tiles 1.0 specification.
 Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/README.md). See [Implicit Tiling](#implicit-tiling)
 
 <!-- omit in toc -->
+## Optional vs. Required
+
+This extension is required, meaning it must be placed in both the `extensionsUsed` and `extensionsRequired` lists in the tileset JSON.
+
+<!-- omit in toc -->
 ## Contents
 
 - [Overview](#overview)
