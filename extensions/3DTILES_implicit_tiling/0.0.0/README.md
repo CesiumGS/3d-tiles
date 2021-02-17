@@ -87,8 +87,6 @@ Implicit tiling also allows for better interoperability with existing GIS data f
 * [WMTS](https://www.ogc.org/standards/wmts)
 * [TMS](https://wiki.osgeo.org/wiki/Tile_Map_Service_Specification)
 
-Implicit tiling enables procedurally-generated tilesets. Instead of serving static files, a server could extract the tile coordinates from [Template URIs](#template-uris) and generate tiles at runtime while using little disk space.
-
 ## Tile Extension
 
 The `3DTILES_implicit_tiling` extension may be defined on any tile in the tileset JSON. Such a tile is called an **implicit root tile**, to distinguish it from the root tile of the tileset JSON. The implicit root tile must omit the `children` property.
@@ -323,10 +321,10 @@ Header fields:
 
 | Bytes | Field | Type     | Description |
 |-------|-------|----------|-------------|
-| 0-3   | Magic | `uint32_t` | A magic number identifying this as a subtree file. This is always `0x74627573` which when stored in little-endian is the ASCII string `subt` |
-| 4-7   | Version | `uint32_t` | The version number. Always `1` for this version of the specification. |
-| 8-15  | JSON byte length | `uint64_t` | The length of the subtree JSON, including any padding. |
-| 16-23 | Binary byte length | `uint64_t` | The length of the buffer (or 0 if the buffer does not exist) including any padding. |
+| 0-3   | Magic | `UINT32` | A magic number identifying this as a subtree file. This is always `0x74627573` which when stored in little-endian is the ASCII string `subt` |
+| 4-7   | Version | `UINT32` | The version number. Always `1` for this version of the specification. |
+| 8-15  | JSON byte length | `UINT64` | The length of the subtree JSON, including any padding. |
+| 16-23 | Binary byte length | `UINT64` | The length of the buffer (or 0 if the buffer does not exist) including any padding. |
 
 Each chunk must be padded so it ends on an 8-byte boundary:
 
@@ -391,13 +389,13 @@ Availability bitstreams are packed in binary using the format described in the [
 * **bounding volume** - The spatial extent enclosing a tile or a tile's content, as defined in the [3D Tiles specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes).
 * **child subtree** - A subtree reachable from an available tile in the bottommost row of a subtree.
 * **content** - A content such as Batched 3D Model or Point Cloud as defined in the [3D Tiles specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#introduction)
-* **implicit tiling** - Describing a tileset using recursive subdivision.
-* **implicit root tile** - A tile with the `3DTILES_implicit_tiling` extension, which denotes the root of an implicit tileset
+* **implicit tiling** - A description of a tileset using recursive subdivision.
+* **implicit root tile** - A tile with the `3DTILES_implicit_tiling` extension, which denotes the root of an implicit tileset.
 * **octree** - A 3D subdivision scheme that divides each bounding volume into 8 smaller bounding volumes along the midpoint of the `x`, `y`, and `z` axes.
 * **quadtree** - A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volume along the midpoint of the `x` and `y` axes.
 * **subtree** - A fixed-size section of the tree that contains availability information.
 * **subtree file** - A binary file storing information about a specific subtree.
-* **subdivision scheme** - A recursive pattern of dividing a parent tile into smaller children tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile.
+* **subdivision scheme** - A recursive pattern of dividing a parent tile into smaller children. tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile.
 * **template URI** - A URI pattern containing tile coordinates for directly addressing tiles.
 * **tile** - A division of space that may contain content.
 * **tileset** - A hierarchical collection of tiles.
