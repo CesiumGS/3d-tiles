@@ -20,7 +20,7 @@ Draft
 
 Written against the 3D Tiles 1.0 specification.
 
-Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/README.md). See [Implicit Tiling](#implicit-tiling)
+Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/README.md). See [Implicit Tiling](#implicit-tiling).
 
 <!-- omit in toc -->
 ## Optional vs. Required
@@ -34,7 +34,6 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 - [Concepts](#concepts)
   - [Metadata Groups](#metadata-groups)
   - [Implicit Tiling](#implicit-tiling)
-    - [Metadata Groups in Implicit Tiling](#metadata-groups-in-implicit-tiling)
 - [Extension Schema Reference](#extension-schema-reference)
 - [`3DTILES_implicit_tiling` Subtree JSON Reference](#3dtiles_implicit_tiling-subtree-json-reference)
 
@@ -57,7 +56,7 @@ In both cases, groups of contents can be used for selectively showing content or
 
 Besides styling, groups can also be used to filter out unused content resources to reduce bandwidth usage.
 
-Multiple contents is also compatible with the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling/README.md) extension.
+Multiple contents is also compatible with the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling/README.md) extension. See the [Implicit Tiling](#implicit-tiling) section for more details.
 
 ## Concepts
 
@@ -256,6 +255,7 @@ Example subtree JSON:
 }
 ```
 
+<!-- omit in toc -->
 #### Metadata Groups in Implicit Tiling
 
 If both the [`3DTILES_implicit_tiling`](../../3DTILES_implicit_tiling/README.md) and [`3DTILES_metadata`](../../3DTILES_metadata/README.md) extensions are used, each content template URI can be assigned to a metadata group.
