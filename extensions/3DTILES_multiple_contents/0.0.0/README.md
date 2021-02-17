@@ -19,21 +19,39 @@ Draft
 
 Written against the 3D Tiles 1.0 specification.
 
+Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/README.md). See [Implicit Tiling](#implicit-tiling)
+
 <!-- omit in toc -->
 ## Contents
 
 - [Overview](#overview)
 - [Concepts](#concepts)
-  - [Metadata](#metadata)
+  - [Metadata Groups](#metadata-groups)
   - [Implicit Tiling](#implicit-tiling)
-- [Schema Updates](#schema-updates)
+    - [Metadata Groups in Implicit Tiling](#metadata-groups-in-implicit-tiling)
+- [Extension Schema Reference](#extension-schema-reference)
+- [`3DTILES_implicit_tiling` Subtree JSON Reference](#3dtiles_implicit_tiling-subtree-json-reference)
 
 
 ## Overview
 
 This extension adds support for multiple contents per tile.
 
-This is useful for datasets that have multiple content layers. Normally layering is achieved by combining contents into a [Composite](../../../specification/TileFormats/Composite/README.md) content, or by placing contents into sibling tiles, or by creating separate tilesets. With this extension content layers can exist cleanly in the same tileset, while allowing contents to be requested independently from each other.
+Contents can be organized into **groups**. For example, each tile could store two different representations of the same data using two contents: a point cloud and a triangle mesh, each representing the same terrain:
+
+<img src="figures/positional-groups.jpg" width="500" />
+
+When this extension is combined with [`3DTILES_metadata`](../../3DTILES_metadata/README.md), arbitrary groups of contents are supported. Each group can also have metadata associated with it.
+
+<img src="figures/metadata-groups.jpg" width="500" />
+
+In both cases, groups of contents can be used for selectively showing content or applying custom styling:
+
+![Filtering Groups](figures/filtering-groups.jpg)
+
+Besides styling, groups can also be used to filter out unused content resources to reduce bandwidth usage.
+
+Multiple contents is also compatible with the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling/README.md) extension.
 
 ## Concepts
 
@@ -65,7 +83,7 @@ A `tile` may be extended with the `3DTILES_multiple_contents` extension.
 
 When this extension is used the tile's `content` property must be omitted.
 
-### Metadata
+### Metadata Groups
 
 This extension may be paired with the [3DTILES_metadata](../../3DTILES_metadata/README.md) extension to assign metadata to each content layer.
 
@@ -115,7 +133,7 @@ This extension may be paired with the [3DTILES_metadata](../../3DTILES_metadata/
       "3DTILES_multiple_contents": {
         "content": [
           {
-            "uri": "buildings.b3dm"
+            "uri": "buildings.b3dm",
             "extensions": {
               "3DTILES_metadata": {
                 "group": "buildings"
@@ -123,7 +141,7 @@ This extension may be paired with the [3DTILES_metadata](../../3DTILES_metadata/
             }
           },
           {
-            "uri": "trees.i3dm"
+            "uri": "trees.i3dm",
             "extensions": {
               "3DTILES_metadata": {
                 "group": "trees"
@@ -139,7 +157,7 @@ This extension may be paired with the [3DTILES_metadata](../../3DTILES_metadata/
 
 ### Implicit Tiling
 
-When using the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling) extension `contentAvailability` is provided for each element in the content array. The subtree's top-level `contentAvailability` must be omitted.
+When using the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling/README.md) extension `contentAvailability` is provided for each element in the content array. The subtree's top-level `contentAvailability` must be omitted.
 
 Example tileset JSON:
 
@@ -232,6 +250,140 @@ Example subtree JSON:
 }
 ```
 
-## Schema Updates
+#### Metadata Groups in Implicit Tiling
 
-The full JSON schema can be found [here](schema).
+If both the [`3DTILES_implicit_tiling`](../../3DTILES_implicit_tiling/README.md) and [`3DTILES_metadata`](../../3DTILES_metadata/README.md) extensions are used, each content template URI can be assigned to a metadata group.
+
+Example tileset JSON:
+
+```jsonc
+{
+  "extensions": {
+    "3DTILES_metadata": {
+      "classes": {
+        "layer": {
+          "properties": {
+            "color": {
+              "type": "ARRAY",
+              "componentType": "UINT8",
+              "componentCount": 3
+            },
+            "order": {
+              "type": "INT32"
+            }
+          }
+        }
+      },
+      "groups": {
+        "buildings": {
+          "class": "layer",
+          "properties": {
+            "color": [128, 128, 128],
+            "order": 0
+          }
+        },
+        "trees": {
+          "class": "layer",
+          "properties": {
+            "color": [10, 240, 30],
+            "order": 1
+          }
+        }
+      }
+    }
+  },
+  "root": {
+    "refine": "ADD",
+    "geometricError": 16384.0,
+    "boundingVolume": {
+      "region": [-1.707, 0.543, -1.706, 0.544, 203.895, 253.113]
+    },
+    "extensions": {
+      "3DTILES_multiple_contents": {
+        "content": [
+          {
+            "uri": "buildings/{level}/{x}/{y}.b3dm",
+            "extensions": {
+              "3DTILES_metadata": {
+                "group": "buildings"
+              }
+            }
+          },
+          {
+            "uri": "trees/{level}/{x}/{y}.i3dm",
+            "extensions": {
+              "3DTILES_metadata": {
+                "group": "trees"
+              }
+            }
+          }
+        ]    
+      },
+      "3DTILES_implicit_tiling": {
+        "subdivisionScheme": "QUADTREE",
+        "subtreeLevels": 10,
+        "maximumLevel": 16,
+        "subtrees": {
+          "uri": "subtrees/{level}/{x}/{y}.subtree"
+        }
+      }
+    }
+  }
+}
+```
+
+## Extension Schema Reference
+
+* [`3DTILES_multiple_contents tile extension`](#reference-3dtiles_multiple_contents-tile-extension) (root object)
+
+
+---------------------------------------
+<a name="reference-3dtiles_multiple_contents-tile-extension"></a>
+<!-- omit in toc -->
+#### 3DTILES_multiple_contents tile extension
+
+Extends a tile to have multiple contents. When this extension is used the tile's `content` property must be omitted.
+
+**`3DTILES_multiple_contents tile extension` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**content**|`array[1-*]`|An array of contents.| &#10003; Yes|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+##### 3DTILES_multiple_contents tile extension.content
+
+An array of contents.
+
+* **Type**: `array[1-*]`
+* **Required**:  &#10003; Yes
+
+
+## `3DTILES_implicit_tiling` Subtree JSON Reference
+
+* [`3DTILES_multiple_contents extension for 3DTILES_implicit_tiling subtree`](#reference-3dtiles_multiple_contents-extension-for-3dtiles_implicit_tiling-subtree) (root object)
+
+---------------------------------------
+<a name="reference-3dtiles_multiple_contents-extension-for-3dtiles_implicit_tiling-subtree"></a>
+<!-- omit in toc -->
+### 3DTILES_multiple_contents extension for 3DTILES_implicit_tiling subtree
+
+Content availability for the `3DTILES_multiple_contents` extension.
+
+**`3DTILES_multiple_contents extension for 3DTILES_implicit_tiling subtree` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**contentAvailability**|`array[1-*]`|An array of content availability objects with a one-to-one mapping to the `content` array in the tile's `3DTILES_multiple_contents` extension object.| &#10003; Yes|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### 3DTILES_multiple_contents extension for 3DTILES_implicit_tiling subtree.contentAvailability
+
+An array of content availability objects with a one-to-one mapping to the `content` array in the tile's `3DTILES_multiple_contents` extension object.
+
+* **Type**: `array[1-*]`
+* **Required**:  &#10003; Yes
