@@ -378,6 +378,8 @@ For efficient memory access, the `byteOffset` of a buffer view must be aligned t
 }
 ```
 
+In the example above, every tile in the subtree exists, but not every tile has content. `tileAvailability.constant` is set to `1` to indicate that all tiles exist without needing an explicit bitstream. Since only some tiles have content, `contentAvailability.bufferView` indicates where the bitstream is stored. Some child subtrees exist so `childSubtreeAvailability.bufferView` refers to another bitstream. This second bitstream is stored in an external binary file.
+
 ### Availability Packing
 
 Availability bitstreams are packed in binary using the format described in the [Boolean Data section](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md#boolean-data) of the Cesium 3D Metadata Specification.
