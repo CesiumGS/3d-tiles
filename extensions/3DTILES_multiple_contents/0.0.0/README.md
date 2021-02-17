@@ -7,6 +7,7 @@
 ## Contributors
 
 * Sean Lilley, Cesium
+* Peter Gagliardi, Cesium
 * Sam Suhag, Cesium
 
 <!-- omit in toc -->
