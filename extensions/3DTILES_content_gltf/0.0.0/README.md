@@ -43,7 +43,49 @@ This extension is required, meaning it should be placed in the tileset JSON top-
 
 The full JSON schema can be found in [tileset.3DTILES_content_gltf.schema.json](schema/tileset.3DTILES_content_gltf.schema.json).
 
-TODO: Example
+```json
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "extensionsUsed": ["3DTILES_content_gltf"],
+  "extensionsRequired": ["3DTILES_content_gltf"],
+  "extensions": {
+    "3DTILES_content_gltf": {
+      "extensionsUsed": ["EXT_mesh_gpu_instancing"],
+      "extensionsRequired": ["EXT_mesh_gpu_instancing"]
+    }
+  },
+  "geometricError": 240,
+  "root": {
+    "boundingVolume": {
+      "region": [
+        -1.3197209591796106,
+        0.6988424218,
+        -1.3196390408203893,
+        0.6989055782,
+        0,
+        88
+      ]
+    },
+    "geometricError": 70,
+    "refine": "ADD",
+    "content": {
+      "uri": "model.gltf",
+      "boundingVolume": {
+        "region": [
+          -1.3197004795898053,
+          0.6988582109,
+          -1.3196595204101946,
+          0.6988897891,
+          0,
+          88
+        ]
+      }
+    }
+  }
+}
+```
 
 ## Examples
 
