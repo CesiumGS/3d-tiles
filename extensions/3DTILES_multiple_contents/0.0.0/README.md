@@ -44,9 +44,9 @@ This extension adds support for multiple contents per tile. Examples of contents
 
 <img src="figures/overview.jpg" width="500" />
 
-Multiple contents allows for more flexible tileset structure. For example, each tile could store two different representations of the same data using two contents: a point cloud and a triangle mesh, each representing the same terrain. An application could selectively request only the point cloud contents.
+Multiple contents allows for more flexible tileset structures. For example, each tile could store two different representations of the same data using two contents: a point cloud and a triangle mesh, each representing the same surface. An application could selectively request only the point cloud contents.
 
-When this extension is combined with [`3DTILES_metadata`](../../3DTILES_metadata/README.md), arbitrary groups of contents are supported. Each group can also have metadata associated with it.
+When this extension is combined with [`3DTILES_metadata`](../../3DTILES_metadata/README.md), contents can be organized into groups. Each group can have metadata associated with it.
 
 <img src="figures/metadata-groups.jpg" width="500" />
 
@@ -90,22 +90,24 @@ When this extension is used the tile's `content` property must be omitted.
 
 ### Metadata Groups
 
-This extension may be paired with the [3DTILES_metadata](../../3DTILES_metadata/README.md) extension to assign metadata to each content layer.
+This extension may be paired with the [3DTILES_metadata](../../3DTILES_metadata/README.md) extension to assign metadata to each content.
 
 ```jsonc
 {
   "extensions": {
     "3DTILES_metadata": {
-      "classes": {
-        "layer": {
-          "properties": {
-            "color": {
-              "type": "ARRAY",
-              "componentType": "UINT8",
-              "componentCount": 3
-            },
-            "order": {
-              "type": "INT32"
+      "schema": {
+        "classes": {
+          "layer": {
+            "properties": {
+              "color": {
+                "type": "ARRAY",
+                "componentType": "UINT8",
+                "componentCount": 3
+              },
+              "order": {
+                "type": "INT32"
+              }
             }
           }
         }
@@ -266,16 +268,18 @@ Example tileset JSON:
 {
   "extensions": {
     "3DTILES_metadata": {
-      "classes": {
-        "layer": {
-          "properties": {
-            "color": {
-              "type": "ARRAY",
-              "componentType": "UINT8",
-              "componentCount": 3
-            },
-            "order": {
-              "type": "INT32"
+      "schema": {
+        "classes": {
+          "layer": {
+            "properties": {
+              "color": {
+                "type": "ARRAY",
+                "componentType": "UINT8",
+                "componentCount": 3
+              },
+              "order": {
+                "type": "INT32"
+              }
             }
           }
         }
