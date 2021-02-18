@@ -42,9 +42,9 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 This extension adds support for multiple contents per tile. Examples of contents are Batched 3D Models, Point Clouds, or other [Tile Formats](../../../specification/README.md#tile-format-specifications).
 
-Multiple contents allows for more flexible tileset structure. For example, each tile could store two different representations of the same data using two contents: a point cloud and a triangle mesh, each representing the same terrain. An application could selectively request only the point cloud contents.
+<img src="figures/overview.jpg" width="500" />
 
-<img src="figures/positional-groups.jpg" width="500" />
+Multiple contents allows for more flexible tileset structure. For example, each tile could store two different representations of the same data using two contents: a point cloud and a triangle mesh, each representing the same terrain. An application could selectively request only the point cloud contents.
 
 When this extension is combined with [`3DTILES_metadata`](../../3DTILES_metadata/README.md), arbitrary groups of contents are supported. Each group can also have metadata associated with it.
 
