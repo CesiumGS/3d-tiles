@@ -6,6 +6,7 @@
 
 * Sean Lilley, Cesium
 * Peter Gagliardi, Cesium
+* Patrick Cozzi, Cesium
 
 ## Status
 
