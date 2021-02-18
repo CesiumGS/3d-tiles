@@ -10,7 +10,7 @@
       "minimum": 0
     },
     "availableCount": {
-      "description": "A number indicating how many 1 bits exist in the availability bitstream. `availableCount` is only allowed when `bufferView` is used.",
+      "description": "A number indicating how many 1 bits exist in the availability bitstream.",
       "type": "integer",
       "minimum": 0
     },

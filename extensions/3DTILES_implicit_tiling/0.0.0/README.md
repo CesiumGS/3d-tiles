@@ -1,7 +1,7 @@
 <!-- omit in toc -->
 # 3DTILES_implicit_tiling
 
-**Version 0.0.0**, December 1, 2020
+**Version 0.0.0**, February 19, 2021
 
 <!-- omit in toc -->
 ## Contributors
@@ -10,6 +10,7 @@
 * Erixen Cruz, Cesium
 * Sam Suhag, Cesium
 * Sean Lilley, Cesium
+* Ian Lilley, Cesium
 * Josh Lawrence, Cesium
 * Patrick Cozzi, Cesium
 * Shehzan Mohammed, Cesium
@@ -25,47 +26,49 @@ Draft
 Written against the 3D Tiles 1.0 specification.
 
 <!-- omit in toc -->
+## Optional vs. Required
+
+This extension is required, meaning that it must be listed in
+both the `extensionsUsed` and `extensionsRequired` arrays of the
+tileset JSON.
+
+<!-- omit in toc -->
 ## Contents
 
 - [Overview](#overview)
 - [Use Cases](#use-cases)
-- [Tileset JSON](#tileset-json)
+- [Tile Extension](#tile-extension)
 - [Subdivision scheme](#subdivision-scheme)
-  - [Implicit Subdivision](#implicit-subdivision)
+  - [Subdivision Rules](#subdivision-rules)
 - [Tile Coordinates](#tile-coordinates)
 - [Template URIs](#template-uris)
-- [Content](#content)
 - [Subtrees](#subtrees)
-- [Availability](#availability)
+  - [Availability](#availability)
   - [Tile Availability](#tile-availability)
   - [Content Availability](#content-availability)
   - [Child Subtree Availability](#child-subtree-availability)
-- [Subtree Files](#subtree-files)
+- [Subtree File Format](#subtree-file-format)
   - [Buffers and Buffer Views](#buffers-and-buffer-views)
-  - [Morton Order](#morton-order)
-  - [Morton Order Example](#morton-order-example)
-  - [Availability Encoding](#availability-encoding)
-  - [Subtree Files](#subtree-files-1)
-  - [External Buffers](#external-buffers)
-- [Tileset JSON](#tileset-json-1)
+  - [Availability Packing](#availability-packing)
 - [Glossary](#glossary)
 - [Examples](#examples)
-  - [Quadtree with four levels](#quadtree-with-four-levels)
-- [Octree Example](#octree-example)
-- [JSON Schema Reference](#json-schema-reference)
-- [Appendix A: Tree Indexing Formulas](#appendix-a-tree-indexing-formulas)
-  - [Morton Indexing Formulas](#morton-indexing-formulas)
-  - [Availability Formulas](#availability-formulas)
-    - [Tile and Content Availability Formulas](#tile-and-content-availability-formulas)
-    - [Child Subtree Availability Formulas](#child-subtree-availability-formulas)
+- [Extension JSON Schema Reference](#extension-json-schema-reference)
+- [Subtree JSON Schema Reference](#subtree-json-schema-reference)
+- [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
 
 ## Overview
 
-**Implicit tiling** describes a Cesium 3D Tileset while enabling new data structures and algorithms for near constant time random access and dynamic tileset generation. It makes fast, efficient high resolution (meter or centimeter scale) global dataset streaming possible. The tileset is uniformly subdivided and organized for ease of read and write without the need to read the entire tileset at once. The subdivision, using full and sparse quad and octrees, enables random access, smaller tileset JSON files, and faster loading.
+**Implicit tiling** is a new representation of a Cesium 3D Tileset that allows for fast random access of tiles and enables new traversal algorithms.
 
-Implicit tiling provides a method for accessing tiles by tile coordinates. This allows for abbreviated tree traversal algorithms.
+Implicit tilesets are uniformly subdivided into a quadtree or octree. This regular pattern allows the tileset to be expressed in a more compact representation which keeps the tileset JSON small.
 
-![Explicit vs Implicit Tiling](figures/implicit-vs-explicit.jpg)
+The `3DTILES_implicit_tiling` extension can be added to any tile in the tileset. This extension defines how the tile is subdivided and where to locate content resources for the implicit tileset.
+
+In order to support sparse datasets, **availability** data determines which tiles exist. To support massive datasets, availability is partitioned into fixed-size **subtrees**. Subtrees are stored in a compact binary file format.
+
+Implicit tiling allows directly accessing tiles by their **tile coordinates**: `(level, x, y)` for quadtrees or `(level, x, y, z)` for octrees. This avoids traversing the full path to the tile.
+
+<img src="figures/implicit-vs-explicit.jpg" width="600"/>
 
 For a complete list of terminology used, see the [Glossary](#glossary).
 
@@ -73,9 +76,9 @@ For a complete list of terminology used, see the [Glossary](#glossary).
 
 _This section is non-normative_
 
-Implicit tiling allows Cesium 3D Tiles to support a variety of new use cases.
-
 A key use for implicit tiling is enabling and/or accelerating tree traversal algorithms. Accessing a tile by coordinates is faster than traversing the entire tree. Likewise, raycasting algorithms and GIS algorithms can benefit from the abbreviated tree traversals. Tiles can be loaded immediately instead of going from top to bottom of a tree.
+
+Accessing tiles by coordinates also helps accelerate spatial queries. For example, the highest resolution tile that contains a given point can be quickly located by computing the coordinates of the tile directly. 
 
 Implicit tiling also allows for better interoperability with existing GIS data formats with implicitly defined tiling schemes. Some examples are:
 
@@ -84,11 +87,9 @@ Implicit tiling also allows for better interoperability with existing GIS data f
 * [WMTS](https://www.ogc.org/standards/wmts)
 * [TMS](https://wiki.osgeo.org/wiki/Tile_Map_Service_Specification)
 
-Implicit tiling enables procedurally-generated tilesets. Instead of serving static files, a server could extract the tile coordinates from [Template URIs](#template-uris) and generate tiles at runtime while using little disk space.
+## Tile Extension
 
-## Tileset JSON
-
-As in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tileset-json), one tileset JSON file is the entry point for defining an implicit tileset. To use implicit tiling, the `3DTILES_implicit_tiling` extension must be defined in one of the tiles of the tileset JSON file. This tile is treated as the root of an implicit tileset, even if it is not the root of the tileset JSON. The implicit root tile must not define any explicit `children`.
+The `3DTILES_implicit_tiling` extension may be defined on any tile in the tileset JSON. Such a tile is called an **implicit root tile**, to distinguish it from the root tile of the tileset JSON. The implicit root tile must omit the `children` property.
 
 ```json
 {
@@ -108,27 +109,39 @@ As in [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specificat
     },
     "refine": "REPLACE",
     "geometricError": 5000,
+    "content": {
+      "uri": "content/{level}/{x}/{y}.b3dm"
+    },
     "extensions": {
       "3DTILES_implicit_tiling": {
-        ...
+        "subdivisionScheme": "QUADTREE",
+        "subtreeLevels": 7,
+        "maximumLevel": 20,
+        "subtrees": {
+          "uri": "subtrees/{level}/{x}/{y}.subtree"
+        }
       }
     }
   }
 }
 ```
-The `boundingVolume` must be either a `box`, an array of 12 numbers that define an oriented bounding box in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the z-axis is up, or a `region`, an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order [west, south, east, north, minimum height, maximum height], as defined in the [bounding volume section of the 3D Tiles 1.0 specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes).
 
-**Geometric error** is the error, in meters, of the tile's simplified representation of its source geometry, as defined in the [3D Tiles 1.0 Specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#geometric-error). An implementation uses it to determine the level of detail to render.
+In the extension object of the tile, the following properties about the implicit root tile are included:
 
-**Refinement** determines the process by which a lower resolution parent tile renders when its higher resolution children are selected to be rendered, [as defined in 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification#refinement).
+| Property | Description |
+| ------ | ----------- |
+| `subdivisionScheme` | Either `QUADTREE` or `OCTREE` |
+| `subtreeLevels` | How many levels there are in each subtree |
+| `maximumLevel` | Level of the deepest available tile in the tree. |
+| `subtrees` | Template URI for subtree files. See [Subtrees](#subtrees) |
 
-<img src="figures/simple-tileset-json.jpg" width="300px" />
+[Template URIs](#template-uris) are used for locating subtree files as well as tile contents. For content, the template URI is specified in the tile's `content.uri` property.
 
 ## Subdivision scheme
 
 A **subdivision scheme** is a recursive pattern for dividing a bounding volume of a tile into smaller children tiles that take up the same space.
 
-A subdivision scheme recursively subdivides a volume by splitting it at the midpoint of some or all of the dimensions. If the `x` and `y` dimensions are split, a quadtree is produced. If all three dimensions are split, an octree is produced. The subdivision scheme remains constant throughout the entire tileset. They may not be intermixed within a single implicit tileset.
+A subdivision scheme recursively subdivides a volume by splitting it at the midpoint of some or all of the dimensions. If the `x` and `y` dimensions are split, a quadtree is produced. If all three dimensions are split, an octree is produced. The subdivision scheme remains constant for the tile and all its descendants.
 
 For a `region` bounding volume, `x`, `y`, and `z` refer to `longitude`, `latitude`, and `height` respectively.
 
@@ -149,56 +162,30 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 | Root Region | Quadtree | Octree |
 |:---:|:--:|:--:|
 | ![Root region](figures/region.png) | ![Region Quadtree](figures/region-quadtree.png) | ![Region octree](figures/region-octree.png)  |
-The `region` boxes above are curved to follow the globe's surface.
 
-### Implicit Subdivision
+Sphere bounding volumes are disallowed, as these cannot be
+divided into a quadtree or octree.
 
-Implicit tiling only requires defining the subdivision scheme, bounding volume, geometric error, and refine strategy at the root tile. These properties can be computed for any other tile based on the following rules:
+### Subdivision Rules
+
+Implicit tiling only requires defining the subdivision scheme, refine strategy, bounding volume, and geometric error at the implicit root tile. These properties are computed automatically for any descendant tile based on the following rules:
 
 | Property | Subdivision Rule | 
 | --- | --- |
-| `subdivisionScheme` | Constant for all tiles in tileset |
-| `refine` | Constant for all tiles in tileset |
-| `boundingVolume` | If `subdivisionScheme` is `QUADTREE`, the parent tile is divided into 4 child tiles. If `subdivisionScheme` is `OCTREE`, the parent tile is divided into 8 child tiles. |
-| `geometricError` | Each child's `geometricError` is half of the parent's `geometricError` |
-```json
-{
-  "asset": {
-    "version": "1.0"
-  },
-  "geometricError": 10000,
-  "extensionsUsed": [
-    "3DTILES_implicit_tiling",
-  ],
-  "extensionsRequired": [
-    "3DTILES_implicit_tiling",
-  ],
-  "root": {
-    "boundingVolume": {
-      "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
-    },
-    "refine": "REPLACE",
-    "geometricError": 5000,
-    "extensions": {
-      "3DTILES_implicit_tiling": {
-        "subdivisionScheme": "QUADTREE"
-        ...
-      }
-    }
-  }
-}
-```
-<img src="figures/simple-tileset-subdivision.jpg" width="300px" />
+| `subdivisionScheme` | Constant for all descendant tiles |
+| `refine` | Constant for all descendant tiles |
+| `boundingVolume` | If `subdivisionScheme` is `QUADTREE`, each parent tile is divided into four child tiles. If `subdivisionScheme` is `OCTREE`, each parent tile is divided into eight child tiles. |
+| `geometricError` | Each child's `geometricError` is half of its parent's `geometricError` |
 
 ## Tile Coordinates
 
 **Tile coordinates** are a tuple of integers that uniquely identify a tile. Tile coordinates are either `(level, x, y)` for quadtrees or `(level, x, y, z)` for octrees. All tile coordinates are 0-indexed.
 
-`level` is 0 for the root of the implicit tileset, i.e. the tile with the `3DTILES_implicit_tiling` extension. This tile's children are at level 1, and so on.
+`level` is 0 for the implicit root tile. This tile's children are at level 1, and so on.
 
-`x`, `y`, and `z` coordinates are measured in tiles from a side of the root bounding volume at the current level along one of the coordinate axes. The type of bounding volume (`box` or `region`) determines the direction of increasing tile coordinates.
+`x`, `y`, and `z` coordinates define the location of the tile within the level.
 
-For `box`, the tile coordinates are listed along the same direction as the Cartesian coordinate system of the tileset. That is:
+For `box` bounding volumes:
 
 | Coordinate | Positive Direction |
 | --- | --- |
@@ -208,7 +195,7 @@ For `box`, the tile coordinates are listed along the same direction as the Carte
 
 ![Box coordinates](figures/box-coordinates.jpg)
 
-For `region` bounding volumes, the coordinates are interpreted in geographic coordinates as described in [the 1.0 specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#region). That is:
+For `region` bounding volumes:
 
 | Coordinate | Positive Direction |
 |---|---|
@@ -222,212 +209,111 @@ For `region` bounding volumes, the coordinates are interpreted in geographic coo
 
 A **Template URI** is a URI pattern used to refer to tiles by their tile coordinates.
 
-Template URIs are configured in the tileset JSON file. They may be any URI pattern, but must include the variables `{level}`, `{x}`, `{y}`. Template URIs for octrees must also include `{z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
+Template URIs must include the variables `{level}`, `{x}`, `{y}`. Template URIs for octrees must also include `{z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
 
 Here are some examples of template URIs and files that they match:
 
 ```
 == Quadtree Example ==
-Pattern: "content/{level}/{x}/{y}/tile.b3dm"
+Pattern: "content/{level}/{x}/{y}.pnts"
 Valid filenames: 
-- content/0/0/0/tile.b3dm
-- content/1/1/0/tile.b3dm
-- content/3/2/2/tile.b3dm
+- content/0/0/0.pnts
+- content/1/1/0.pnts
+- content/3/2/2.pnts
 
 == Octree Example ==
-Pattern: "content/{level}/{x}/{y}/{z}.pnts"
+Pattern: "content/{level}/{x}/{y}/{z}.b3dm"
 Valid filenames:
-- content/0/0/0/0.pnts
-- content/1/1/1/1.pnts
-- content/3/2/1/0.pnts
+- content/0/0/0/0.b3dm
+- content/1/1/1/1.b3dm
+- content/3/2/1/0.b3dm
 ```
 
 Unless otherwise specified, template URIs are resolved relative to the tileset JSON file.
 
 ![Template URI](figures/template-uri.jpg)
 
-## Content
-
-**Content** is an optional 3D model associated with a single tile, as described in the [Introduction section](https://github.com/CesiumGS/3d-tiles/tree/master/specification#introduction) of the Cesium 3D Tiles 1.0 specification.
-
-```json
-{
-  "asset": {
-    "version": "1.0"
-  },
-  "geometricError": 10000,
-  "extensionsUsed": [
-    "3DTILES_implicit_tiling",
-  ],
-  "extensionsRequired": [
-    "3DTILES_implicit_tiling",
-  ],
-  "root": {
-    "boundingVolume": {
-      "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
-    },
-    "refine": "REPLACE",
-    "geometricError": 5000,
-    "content": {
-      "uri": "terrain/{level}/{x}/{y}.b3dm"
-    },
-    "extensions": {
-      "3DTILES_implicit_tiling": {
-        "subdivisionScheme": "QUADTREE"
-      }
-    }
-  }
-}
-```
 ## Subtrees
 
-**Subtrees** are fixed-sized sections of the tileset tree used for breaking tilesets into manageable pieces.
+In order to support sparse datasets, additional information is needed to indicate which tiles or contents exist. This is called **availability**.
 
-Since tilesets grow exponentially with depth, storing information about every tile in a single file is not always feasible or desirable. Even if RAM is not a direct limitation, streaming large files over the network can make loading times slower. To account for this, subtrees partition the tileset structure into pieces of bounded size.
-
-![exact cover](figures/union-of-subtrees.jpg)
-
-A subtree has a fixed number of levels defined by the `subtreeLevels` property. This describes the number of distinct levels in the subtree. The number of children per tile is also fixed due to the subdivision scheme. For quadtrees, there are `4` children per tile, while octrees have `8` children per tile. Taken together, a subtree has exactly enough tiles to store a full quadtree or full octree with a limited number of levels. However, each tile may or may not exist or contain content, as a tileset only stores the tiles that are necessary.
+**Subtrees** are fixed size sections of the tileset tree used for storing availability. The tileset is partitioned into subtrees to bound the size of each availability object for optimal network transfer and caching. The `subtreeLevels` property defines the number of levels in each subtree. The subdivision scheme determines the number of children per tile.
 
 ![subtree anatomy](figures/subtree-anatomy.jpg)
 
-## Availability
+After partitioning a tileset into subtrees, the result is a tree of subtrees.
 
-**Availability** is a boolean that defines whether a tile, content, or subtree exist in a tileset. Availability provides an efficient method for checking which resources (tile, content, subtrees) are present. Including this information prevents extraneous HTTP requests that would result in 404 errors.
+![Tree of subtrees](figures/subtree-tree.jpg)
 
-Availability takes the form of a bitstream with one bit per node in consideration. A 1 indicates that a tile/content/subtree is available at this node. Meanwhile, a 0 indicates that no tile/content/subtree is available at this node.
+### Availability
 
-For cases where all nodes are available or all nodes are unavailable, the `constant` property should be used instead of storing a full bitstream. For example, `constant: 0` indicates that all bits are 0 and no bitstream must be stored.
+Each subtree contains tile availability, content availability, and child subtree availability.
 
-Availability data is scoped to a subtree. This ensures that the size of each bitstream is bounded to a reasonable size.
+* **Tile availability** indicates which tiles exist within the subtree
+* **Content availability** indicates which tiles have associated content resources
+* **Child subtree availability** indicates what subtrees are reachable from this subtree
+
+Each type of availability is represented as a separate bitstream. Each bitstream is a 1D array where each element represents a node in the quadtree or octree. A 1 bit indicates that the element is available, while a 0 bit indicates that the element is unavailable. Alternatively, if all the bits in a bitstream are the same, a single constant value can be used instead.
+
+To form the 1D bitstream, the tiles are ordered with the following rules:
+
+* Within each level of the subtree, the tiles are ordered using the [Morton Z-order curve](https://en.wikipedia.org/wiki/Z-order_curve).
+* The bits for each level are concatenated into a single bitstream
+
+![Availability Ordering](figures/availability-ordering.jpg)
+
+In the diagram above, colored cells represent 1 bits, grey cells represent 0 bits.
+
+Storing tiles in Morton order provides these benefits:
+
+- Efficient indexing - The Morton index for a tile is computed in constant time by interleaving bits.
+- Efficient traversal - The Morton index for a parent or child tile are computed in constant time by removing or adding bits, respectively.
+- Locality of reference - Consecutive tiles are near to each other in 3D space.
+- Better Compression - Locality of reference leads to better compression of availability bitstreams.
+
+For more detailed information about working with Morton indices and availability bitstreams, see [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
 
 ### Tile Availability
 
-**Tile availability** is a bitstream that determines which tiles exist within a subtree. There is one bit for each subtree node. A 1 indicates that a tile is available, while a 0 indicates that a tile is unavailable. The bits follow [Morton Order](#morton-order).
+Tile availability determines which tiles exist in a subtree.
+
+Tile availability has the following restrictions:
+
+* If a non-root tile's availability is 1, its parent tile's availability must also be 1. 
+* A subtree must have at least one available tile. 
 
 ![Tile Availability](figures/tile-availability.jpg)
 
-In the diagram above, colored nodes indicate available tiles, while nodes with dashed outlines are unavailable tiles Note that this is for illustration purposes only. Binary trees are not supported.
-
-If a tile is marked as available, it may have extensions attached to it as defined by the tileset author, and it may have content or children.
-
-If a non-root tile's availability is 1, its parent tile's availability must also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees must have at least one available tile.
-
 ### Content Availability
 
-**Content availability** is a bitstream, separate from tile availability, that determines which tiles have an associated content 3D model. Like tile availability, there is one bit for each tile. A 1 indicates a content file exists for this tile, while a 0 indicates that no content file exists. An available tile does not need to have content if, for example, the tileset author defines extensions that store extra information in tiles outside of content.
+Content availability determines which tiles have a content resource. The content resource is located using the `content.uri` template URI.
+
+Content availability has the following restrictions:
+
+* If content availability is 1 its corresponding tile availability must also be 1. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset. 
+* If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile.
+* When a subtree has at least one tile with content, content availability is required. If no tile in the subtree has content, then content availability is disallowed.
 
 ![Content Availability](figures/content-availability.jpg)
 
-The purpose of content availability is to check if a content 3D model exists before making a network request. If content is marked as unavailable, the network request for that file must be skipped.
-
-If content availability is 1 its corresponding tile availability must also be 1. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset. 
-
-If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile.
-
-When a subtree has at least one tile with content, content availability is required. If no tile in the subtree has content, then content availability is disallowed.
-
 ### Child Subtree Availability
 
-**Child subtree availability** is a bitstream that determines which subtrees can be reached from the deepest level of this subtree.
+Child subtree availability determines which subtrees are reachable from the deepest level of this subtree. This links subtrees together to form a tree.
 
-The child subtree availability bitstream has slightly different structure than tile or content availability. There is one bit for each node in the level of the tree immediately below the subtree. That is, if the deepest subtree is level `L`, then there is one bit for every node at level `L + 1`. Since each node at level `L` has `N` children (4 for `QUADTREE` or 8 for `OCTREE`), there are `N * (L + 1)` bits in the child subtree availability bitstream. A 1 bit means there is a child subtree available at that position in the tree. A 0 bit means there is no subtree available at that position.
+Unlike tile and content availability, which store bits for every level in the subtree, child subtree availability only stores bits for a single level of nodes. These nodes are one level deeper than the deepest level of the subtree, and represent the root nodes of adjacent subtrees. This is used to determine which other subtrees are reachable before making network requests. 
 
-![Child Subtree Availability](figures/subtree-availability.jpg)
-
-Child subtree availability is used to determine whether files for child subtrees exist before making network requests. If a child subtree availability bit is 0, any network request for that subtree must be skipped.
+![Child Subtree Availability](figures/child-subtree-availability.jpg)
 
 If availability is 0 for all child subtrees, then the tileset does not subdivide further.
 
-## Subtree Files
+## Subtree File Format
 
 A **subtree file** is a binary file that contains availability information for a single subtree. It includes two main portions:
 
 * The **subtree JSON** chunk which describes how the availability data is stored.
 * A binary chunk for storing availability bitstreams as needed.
 
-The subtree JSON describes where the availability information for a single subtree is stored. It includes:
-
-* a bitstream for tile availability
-* a bitstream for content availability (if at least one tile has content)
-* A bitstream for child subtree availability
-
-### Buffers and Buffer Views
-
-A **buffer** is an array of binary data used for storing data. For subtree binary files, one buffer can be stored within the binary file. In all other cases, the binary file is assumed to be an external resource specified by the `uri` property. Each buffer has a `byteLength` describing the size of the data, including any padding (for subtree binary files)
-
-A **buffer view** is a contiguous subarray of a buffer. A buffer view's `buffer` property is an integer index to identify the buffer. A buffer must have a `byteOffset` to describe the position within the buffer. A buffer also must have a `byteLength` length of the subarray, not including padding. There may be multiple buffer views within a single buffer.
-
-For efficient memory access, the `byteOffset` of a buffer view must be aligned to a multiple of 8 bytes.
-
-```jsonc
-{
-  "buffers": [
-    {
-      "name": "Internal Buffer",
-      "byteLength": 80
-    },
-    {
-      "name": "External Buffer",
-      "uri": "external.bin",
-      "byteLength": 64
-    }
-  ],
-  "bufferViews" [
-    {
-      "name": "Tile Availability",
-      "buffer": 0,
-      "byteOffset": 0,
-      "byteLength": 3
-    },
-    {
-      "name": "Content Availability",
-      "buffer": 0,
-      "byteOffset": 8,
-      "byteLength": 3
-    },
-    {
-      "name": "Subtree Availability",
-      "buffer": 1,
-      "byteOffset": 0,
-      "byteLength": 64
-    }
-  ]
-}
-```
-
-### Morton Order
-
-**[Morton order](https://en.wikipedia.org/wiki/Z-order_curve)** assigns indices to nodes in the same level. The indices are used for lookup in availability buffers.
-
-Using the Morton order serves these purposes:
-
-- Efficient tile location decomposition: The Morton order allows efficient encoding and decoding of locations of a tile in the level to its location in the availability buffers.
-- Efficient traversal: The binary representation of tile locations in the tree level allow for easy traversal of the tileset (finding parent and child nodes).
-- Locality of reference: Adjacent indices are stored close to each other in memory and are close to each other spatially.
-
-Given tile coordinates `(level, x, y)`, the Morton index is found by interleaving the bits of `x` and `y` in binary, each represented by `level` bits.
-
-
-### Morton Order Example
-
-_This section is non-normative_
-
-The figure below shows the tile coordinate decomposition of the tile `(level, x, y) = (3, 5, 1)`. We first convert the tile coordinate to its Morton index. `5` represented as 3 bits is `101`. `1` represented as 3 bits is `001`. Interleaving the two, we get `010011`, which is `19`. 
-
-At Level 3 of a Quadtree, we'll use 6 bits to represent the binary value of the Morton index: `010011`.
-
-![Morton Order](figures/morton-indexing.png)
-
-### Availability Encoding
-
-Availability bitstreams are packed in binary using the format described in the [Boolean Data section](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md#boolean-data) of the Cesium 3D Metadata Specification. These bitstreams are subject to alignment requirements described in the [Binary Alignment Rules section](https://github.com/CesiumGS/3d-tiles/tree/3DTILES_binary_buffers/extensions/3DTILES_binary_buffers) of the same specification.
-
-Each availability bitstream must be stored as a separate `bufferView`, but multiple `bufferViews` may refer to a single `buffer`.
-
-### Subtree Files
-
-Subtrees are stored in little-endian binary files. A subtree file consists of a 24-byte header and a variable length payload: 
+Subtrees are stored in little-endian. A subtree file consists of a 24-byte header and a variable length payload: 
 
 ![Subtree Binary Format](figures/binary-subtree.jpg)
 
@@ -435,449 +321,617 @@ Header fields:
 
 | Bytes | Field | Type     | Description |
 |-------|-------|----------|-------------|
-| 0-3   | Magic | `uint32_t` | A magic number identifying this as a subtree file. This is always `0x74627573` which when stored in little-endian is the ASCII string `subt` |
-| 4-7   | Version | `uint32_t` | The version number. Always `1` for this version of the specification. |
-| 8-15  | JSON byte length | `uint64_t` | The length of the subtree JSON, including any padding. |
-| 16-23 | Binary byte length | `uint64_t` | The length of the buffer (or 0 if the buffer does not exist) including any padding. |
-
-The variable length payload consists of two chunks:
-
-1. A required JSON chunk containing the contents of the subtree JSON.
-2. An optional binary chunk containing a single buffer.
+| 0-3   | Magic | `UINT32` | A magic number identifying this as a subtree file. This is always `0x74627573` which when stored in little-endian is the ASCII string `subt` |
+| 4-7   | Version | `UINT32` | The version number. Always `1` for this version of the specification. |
+| 8-15  | JSON byte length | `UINT64` | The length of the subtree JSON, including any padding. |
+| 16-23 | Binary byte length | `UINT64` | The length of the buffer (or 0 if the buffer does not exist) including any padding. |
 
 Each chunk must be padded so it ends on an 8-byte boundary:
 
-* The JSON chunk must be padded at the end with spaces (`' '` = 0x20 in ASCII)
-* If it exists, the binary chunk must be padded at the end with NUL bytes (`\x00` = 0x00 in ASCII)
+* The JSON chunk must be padded at the end with spaces (ASCII `' '` = 0x20)
+* If it exists, the binary chunk must be padded at the end with NUL bytes (`\x00` = 0x00)
 
-### External Buffers
+The subtree JSON describes where the availability information for a single subtree is stored. Availability bitstreams are stored in buffers and accessed through buffer views.
 
-To support more than one buffer, the subtree files support external buffers. In the subtree JSON, each buffer object has a `uri` field to indicate where the external buffer can be found.
+### Buffers and Buffer Views
+
+A **buffer** is a binary blob. A single buffer can be stored within the binary chunk of a subtree file. In all other cases, the binary file is assumed to be an external resource specified by the `uri` property. Each buffer has a `byteLength` describing the size of the data, including any padding (for subtree binary files)
+
+A **buffer view** is a contiguous subset of a buffer. A buffer view's `buffer` property is an integer index to identify the buffer. A buffer view has a `byteOffset` and a `byteLength` to describe the range of bytes within the buffer. The `byteLength` does not include any padding. There may be multiple buffer views referencing a single buffer.
+
+For efficient memory access, the `byteOffset` of a buffer view must be aligned to a multiple of 8 bytes.
 
 ```json
 {
   "buffers": [
     {
-      "name": "External Buffer Example",
+      "name": "Internal Buffer",
+      "byteLength": 16
+    },
+    {
+      "name": "External Buffer",
       "uri": "external.bin",
-      "byteLength": 1000
+      "byteLength": 32
     }
-  ]
-}
-```
-
-## Tileset JSON
-
-Using implicit tiling, the tileset JSON file describes the root tile, subdivision scheme, and template URIs for locating files.
-
-In the extension object of the tileset JSON, the following properties about the root tile are included:
-
-| Property | Description |
-| ------ | ----------- |
-| `subdivisionScheme` | Either `QUADTREE` or `OCTREE`|
-| `boundingVolume` | A bounding volume (either a `box` or `region`) describing the root tile |
-| `refine` | Either `ADD` or `REPLACE` as in the [Cesium 3D Tiles 1.0 Specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#refinement). |
-| `geometricError` | Geometric error of the root tile as described in the [Cesium 3D Tiles 1.0 Specification.](https://github.com/CesiumGS/3d-tiles/tree/master/specification#geometric-error) |
-| `maximumLevel` | Level of the deepest available tile in the tree. |
-| `subtreeLevels` | How many levels there are in each subtree |
-
-Furthermore, template URIs are used for resolving subtree files as well as tile contents. The key properties are as follows:
-
-| Property | Description |
-| ------ | ----------- |
-| `subtrees` | Template URI for a subtree file. See [Subtrees](#subtrees) |
-| `content` | Template URI for the content 3D Models |
-
-Below is a full example of how the tileset JSON file looks in practice:
-
-```json
-{
-  "asset": {
-    "version": "1.0"
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 11
+    },
+    {
+      "buffer": 1,
+      "byteOffset": 0,
+      "byteLength": 32
+    }
+  ],
+  "tileAvailability": {
+    "constant": 1,
   },
-  "geometricError": 10000,
-  "extensionsUsed": [
-    "3DTILES_implicit_tiling",
-  ],
-  "extensionsRequired": [
-    "3DTILES_implicit_tiling",
-  ],
-  "root": {
-    "boundingVolume": {
-      "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
-    },
-    "geometricError": 5000,
-    "refine": "REPLACE",
-    "content": {
-      "uri": "terrain/{level}/{x}/{y}.b3dm"
-    },
-    "extensions": {
-      "3DTILES_implicit_tiling": {
-        "subdivisionScheme": "QUADTREE",
-        "subtreeLevels": 7,
-        "maximumLevel": 20,
-        "subtrees": {
-          "uri": "subtrees/{level}/{x}/{y}.subtree"
-        }
-      }
-    }
+  "contentAvailability": {
+    "bufferView": 0
+  },
+  "childSubtreeAvailability": {
+    "bufferView": 1
   }
 }
 ```
+
+In the example above, every tile in the subtree exists, but not every tile has content. `tileAvailability.constant` is set to `1` to indicate that all tiles exist without needing an explicit bitstream. Since only some tiles have content, `contentAvailability.bufferView` indicates where the bitstream is stored. Some child subtrees exist so `childSubtreeAvailability.bufferView` refers to another bitstream. This second bitstream is stored in an external binary file.
+
+### Availability Packing
+
+Availability bitstreams are packed in binary using the format described in the [Boolean Data section](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/0.0.0/README.md#boolean-data) of the Cesium 3D Metadata Specification.
+
 ## Glossary
 
-* **availability** - Data specifying which tiles/subtrees/contents exist within a single subtree.
+* **availability** - Data specifying which tiles/contents/child subtrees exist within a single subtree.
+* **bitstream** - A boolean array stored as a sequence of bits rather than bytes.
 * **bounding volume** - The spatial extent enclosing a tile or a tile's content, as defined in the [3D Tiles specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#bounding-volumes).
-* **boolean bitstream** - A boolean array stored as a sequence of bits rather than bytes.
 * **child subtree** - A subtree reachable from an available tile in the bottommost row of a subtree.
-* **implicit tiling** - Describing a tileset using recursive subdivision.
+* **content** - A content such as Batched 3D Model or Point Cloud as defined in the [3D Tiles specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#introduction)
+* **implicit tiling** - A description of a tileset using recursive subdivision.
+* **implicit root tile** - A tile with the `3DTILES_implicit_tiling` extension, which denotes the root of an implicit tileset.
 * **octree** - A 3D subdivision scheme that divides each bounding volume into 8 smaller bounding volumes along the midpoint of the `x`, `y`, and `z` axes.
 * **quadtree** - A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volume along the midpoint of the `x` and `y` axes.
-* **subtree** - A fixed-size section of the tileset tree used to break large tilesets into manageable pieces.
+* **subtree** - A fixed-size section of the tree that contains availability information.
 * **subtree file** - A binary file storing information about a specific subtree.
+* **subdivision scheme** - A recursive pattern of dividing a parent tile into smaller children. tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile.
 * **template URI** - A URI pattern containing tile coordinates for directly addressing tiles.
 * **tile** - A division of space that may contain content.
 * **tileset** - A hierarchical collection of tiles.
-* **tileset JSON** - A JSON file describing a tileset, as described in the [Cesium 3D Tiles 1.0 specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tileset-json).
-* **subdivision scheme** - A recursive pattern of dividing a parent tile into smaller children tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile.
+* **tileset JSON** - A JSON file describing a tileset, as defined in the [Cesium 3D Tiles 1.0 specification](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tileset-json).
 
 ## Examples
-Here are some complete examples for how to create commonly used data structures with implicit tiling.
 
-### Quadtree with four levels
+Examples can be found in the [examples folder](./examples/).
 
-Consider a tileset with a quadtree subdivision scheme and four levels of detail. Suppose that we want to use implicit tiling with subtrees with 2 levels.
+## Extension JSON Schema Reference
 
-![Quadtree example](figures/quadtree-example.jpg)
+* [`3DTILES_implicit_tiling tile extension`](#reference-3dtiles_implicit_tiling-tile-extension) (root object)
+  * [`Subtree`](#reference-tile-3dtiles_implicit_tiling-subtree)
+  * [`Template URI`](#reference-tile-3dtiles_implicit_tiling-templateuri)
 
-The root tileset JSON might look something this:
 
-```json
-{
-  "asset": {
-    "version": "1.0"
-  },
-  "geometricError": 10000,
-  "extensionsUsed": [
-    "3DTILES_implicit_tiling",
-  ],
-  "extensionsRequired": [
-    "3DTILES_implicit_tiling",
-  ],
-  "root": {
-    "boundingVolume": {
-      "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
-    },
-    "refine": "ADD",
-    "geometricError": 5000,
-    "content": {
-      "uri": "models/{level}/{x}/{y}.b3dm"
-    },
-    "extensions": {
-      "3DTILES_implicit_tiling": {
-        "subdivisionScheme": "QUADTREE",
-        "subtreeLevels": 2,
-        "maximumLevel": 3,
-        "subtrees": {
-          "uri": "subtrees/{level}/{x}/{y}.subtree"
-        }
-      }
-    }
-  }
-}
+<!-- BEGIN WETZEL: EXTENSION -->
+---------------------------------------
+<a name="reference-3dtiles_implicit_tiling-tile-extension"></a>
+<!-- omit in toc -->
+### 3DTILES_implicit_tiling tile extension
+
+This extension allows a tile to be implicitly subdivided. Tile and content availability is stored in subtrees which are referenced externally.
+
+**`3DTILES_implicit_tiling tile extension` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**subdivisionScheme**|`string`|A string describing the subdivision scheme used within the tileset.| &#10003; Yes|
+|**subtreeLevels**|`integer`|The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with 5 nodes (one root and 4 children)| &#10003; Yes|
+|**maximumLevel**|`integer`|The level of the deepest available tile. Levels are numbered from 0 starting at the tile with the `3DTILES_implicit_tiling` extension. This tile's children are at level 1, the children's children are at level 2, and so on.| &#10003; Yes|
+|**subtrees**|`tile.3DTILES_implicit_tiling.subtree`|An object describing the location of subtree files.| &#10003; Yes|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### subdivisionScheme
+
+A string describing the subdivision scheme used within the tileset.
+
+* **Type**: `string`
+* **Required**:  &#10003; Yes
+* **Allowed values**:
+   * `"QUADTREE"`
+   * `"OCTREE"`
+
+<!-- omit in toc -->
+#### subtreeLevels
+
+The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with 5 nodes (one root and 4 children)
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: ` >= 1`
+
+<!-- omit in toc -->
+#### maximumLevel
+
+The level of the deepest available tile. Levels are numbered from 0 starting at the tile with the `3DTILES_implicit_tiling` extension. This tile's children are at level 1, the children's children are at level 2, and so on.
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: ` >= 0`
+
+<!-- omit in toc -->
+#### subtrees
+
+An object describing the location of subtree files.
+
+* **Type**: `tile.3DTILES_implicit_tiling.subtree`
+* **Required**:  &#10003; Yes
+
+<!-- omit in toc -->
+#### extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### extras
+
+* **Type**: `any`
+* **Required**: No
+
+
+
+
+---------------------------------------
+<a name="reference-tile-3dtiles_implicit_tiling-subtree"></a>
+<!-- omit in toc -->
+### Subtree
+
+An object describing the location of subtree files.
+
+**`Subtree` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**uri**|`tile.3DTILES_implicit_tiling.templateUri`|A template URI pointing to subtree files. A subtree is a fixed-depth (defined by `subtreeLevels`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree root's global level, x, and y. For subdivision scheme `OCTREE`, z must also be given. Relative paths are relative to the tileset JSON.| &#10003; Yes|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### tile.3DTILES_implicit_tiling.subtree.uri
+
+A template URI pointing to subtree files. A subtree is a fixed-depth (defined by `subtreeLevels`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree root's global level, x, and y. For subdivision scheme `OCTREE`, z must also be given. Relative paths are relative to the tileset JSON.
+
+* **Type**: `tile.3DTILES_implicit_tiling.templateUri`
+* **Required**:  &#10003; Yes
+
+<!-- omit in toc -->
+#### tile.3DTILES_implicit_tiling.subtree.extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### tile.3DTILES_implicit_tiling.subtree.extras
+
+* **Type**: `any`
+* **Required**: No
+
+
+
+
+---------------------------------------
+<a name="reference-tile-3dtiles_implicit_tiling-templateuri"></a>
+<!-- omit in toc -->
+### Template URI
+
+A URI with embedded expressions. Allowed expressions are `{level}`, `{x}` and `{y}`. `{level}` is substituted with the level of the node, `{x}` is substituted with the x index of the node within the level, and `{y}` is substituted with the y index of the node within the level. For subdivision scheme `OCTREE`, `{z}` may also be given, and it is substituted with the z index of the node within the level
+
+<!-- END WETZEL: EXTENSION -->
+
+## Subtree JSON Schema Reference
+
+<!-- Though this is generated by wetzel, minor tweaks were made manually -->
+
+* [`Subtree`](#reference-subtree) (root object)
+  * [`Availability`](#reference-availability)
+  * [`Buffer`](#reference-buffer)
+  * [`Buffer View`](#reference-bufferview)
+
+<!-- BEGIN WETZEL: SUBTREE -->
+
+---------------------------------------
+<a name="reference-subtree"></a>
+<!-- omit in toc -->
+### Subtree
+
+An object describing the availability of tiles and content in a subtree, as well as availability of children subtrees.
+
+**`Subtree` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**buffers**|`buffer` `[]`|An array of buffers.|No|
+|**bufferViews**|`bufferView` `[]`|An array of bufferViews.|No|
+|**tileAvailability**|`availability`|The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a bufferView or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability must also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees must have at least one tile.| &#10003; Yes|
+|**childSubtreeAvailability**|`availability`|The availability of children subtrees. The availability bitstream is a 1D boolean array where subtrees are ordered by their Morton index in the level of the tree immediately below the bottom row of the subtree. A child subtree's availability is determined by a single bit, 1 meaning a subtree exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `N^subtreeLevels` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a bufferView or as a constant value that applies to all child subtrees. If availability is 0 for all child subtrees, then the tileset does not subdivide further.| &#10003; Yes|
+|**contentAvailability**|`availability`|The availability of the content of the tiles of the subtree. The structure of the content availability bitstream matches the tile availability bitstream. Content availability is determined by a single bit, 1 meaning content exists at that spatial index, and 0 meaning it does not. If content availability is 1 its corresponding tile availability must also be 1. If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile. If `tile.content` is defined, then `contentAvailability` is required. Otherwise, `contentAvailability` is disallowed.|No|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### Subtree.buffers
+
+An array of buffers.
+
+* **Type**: `buffer` `[]`
+* **Required**: No
+
+<!-- omit in toc -->
+#### Subtree.bufferViews
+
+An array of bufferViews.
+
+* **Type**: `bufferView` `[]`
+* **Required**: No
+
+<!-- omit in toc -->
+#### Subtree.tileAvailability
+
+The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a bufferView or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability must also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees must have at least one tile.
+
+* **Type**: `availability`
+* **Required**:  &#10003; Yes
+
+<!-- omit in toc -->
+#### Subtree.childSubtreeAvailability
+
+The availability of children subtrees. The availability bitstream is a 1D boolean array where subtrees are ordered by their Morton index in the level of the tree immediately below the bottom row of the subtree. A child subtree's availability is determined by a single bit, 1 meaning a subtree exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `N^subtreeLevels` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a bufferView or as a constant value that applies to all child subtrees. If availability is 0 for all child subtrees, then the tileset does not subdivide further.
+
+* **Type**: `availability`
+* **Required**:  &#10003; Yes
+
+<!-- omit in toc -->
+#### Subtree.contentAvailability
+
+The availability of the content of the tiles of the subtree. The structure of the content availability bitstream matches the tile availability bitstream. Content availability is determined by a single bit, 1 meaning content exists at that spatial index, and 0 meaning it does not. If content availability is 1 its corresponding tile availability must also be 1. If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile. If `tile.content` is defined, then `contentAvailability` is required. Otherwise, `contentAvailability` is disallowed.
+
+* **Type**: `availability`
+* **Required**: No
+
+<!-- omit in toc -->
+#### Subtree.extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### Subtree.extras
+
+* **Type**: `any`
+* **Required**: No
+
+
+---------------------------------------
+<a name="reference-availability"></a>
+<!-- omit in toc -->
+### Availability
+
+An object describing the availability of a set of elements.
+
+**`Availability` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**bufferView**|`integer`|Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata/0.0.0/README.md). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.|No|
+|**availableCount**|`integer`|A number indicating how many 1 bits exist in the availability bitstream.|No|
+|**constant**|`integer`|Integer indicating whether all of the elements are available (1) or all are unavailable (0).|No|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### availability.bufferView
+
+Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata/0.0.0/README.md). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.
+
+* **Type**: `integer`
+* **Required**: No
+* **Minimum**: ` >= 0`
+
+<!-- omit in toc -->
+#### availability.availableCount
+
+A number indicating how many 1 bits exist in the availability bitstream.
+
+* **Type**: `integer`
+* **Required**: No
+* **Minimum**: ` >= 0`
+
+<!-- omit in toc -->
+#### availability.constant
+
+Integer indicating whether all of the elements are available (1) or all are unavailable (0).
+
+* **Type**: `integer`
+* **Required**: No
+* **Allowed values**:
+   * `0`
+   * `1`
+
+<!-- omit in toc -->
+#### availability.extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### availability.extras
+
+* **Type**: `any`
+* **Required**: No
+
+
+
+
+---------------------------------------
+<a name="reference-buffer"></a>
+<!-- omit in toc -->
+### Buffer
+
+A buffer is a binary blob. It is either the binary chunk of the subtree file, or an external buffer referenced by a URI
+
+**`Buffer` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**uri**|`string`|The URI of the buffer. Relative paths are relative to the file containing the buffer JSON. If `uri` is omitted, the buffer is assumed to refer to the binary chunk of the subtree file.|No|
+|**byteLength**|`integer`|The length of the buffer in bytes.| &#10003; Yes|
+|**name**|`string`|The name of the buffer.|No|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### buffer.uri
+
+The URI of the buffer. Relative paths are relative to the file containing the buffer JSON. If `uri` is omitted, the buffer is assumed to refer to the binary chunk of the subtree file.
+
+* **Type**: `string`
+* **Required**: No
+* **Format**: uriref
+
+<!-- omit in toc -->
+#### buffer.byteLength
+
+The length of the buffer in bytes.
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: ` >= 1`
+
+<!-- omit in toc -->
+#### buffer.name
+
+The name of the buffer.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### buffer.extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### buffer.extras
+
+* **Type**: `any`
+* **Required**: No
+
+
+
+
+---------------------------------------
+<a name="reference-bufferview"></a>
+<!-- omit in toc -->
+### Buffer View
+
+A contiguous subset of a buffer
+
+**`Buffer View` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**buffer**|`integer`|The index of the buffer.| &#10003; Yes|
+|**byteOffset**|`integer`|The offset into the buffer in bytes.| &#10003; Yes|
+|**byteLength**|`integer`|The total byte length of the buffer view.| &#10003; Yes|
+|**name**|`string`|The name of the `bufferView`.|No|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### bufferView.buffer
+
+The index of the buffer.
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: ` >= 0`
+
+<!-- omit in toc -->
+#### bufferView.byteOffset
+
+The offset into the buffer in bytes.
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: ` >= 0`
+
+<!-- omit in toc -->
+#### bufferView.byteLength
+
+The total byte length of the buffer view.
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: ` >= 1`
+
+<!-- omit in toc -->
+#### bufferView.name
+
+The name of the `bufferView`.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### bufferView.extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### bufferView.extras
+
+* **Type**: `any`
+* **Required**: No
+
+
+<!-- END WETZEL: SUBTREE -->
+
+## Appendix A: Availability Indexing
+
+<!-- omit in toc -->
+### Converting from Tile Coordinates to Morton Index
+
+A [Morton index](https://en.wikipedia.org/wiki/Z-order_curve) is computed by interleaving the bits of the `(x, y)` or `(x, y, z)` coordinates of a tile. Specifically:
+
+```
+quadtreeMortonIndex = interleaveBits(y, x)
+octreeMortonIndex = interleaveBits(z, y, x)
 ```
 
-The directory structure for subtrees is:
+For example:
 
 ```
-|__ tileset.json
-|__ subtrees/
-  |__ 0/
-    |__ 0/
-      |__0.subtree
-  |__ 2/
-    |__ 0/
-      |__ 1.subtree
-      |__ 2.subtree
-      |__ 3.subtree
-    |__ 1/
-      |__ 0.subtree
-      |__ 1.subtree
-      |__ 2.subtree
-      |__ 3.subtree
-    |__ 2/
-      |__ 1.subtree
-      |__ 2.subtree
+// Quadtree
+interleaveBits(0b11, 0b00) = 0b1010
+interleaveBits(0b1010, 0b0011) = 0b10001101
+interleaveBits(0b0110, 0b0101) = 0b00111001
+
+// Octree
+interleaveBits(0b001, 0b010, 0b100) = 0b001010100
+interleaveBits(0b111, 0b000, 0b111) = 0b101101101
 ```
 
-Notice that subtrees that do not exist do not have subtree files or binary buffers. Also, subtrees that are completely full do not get availability buffers since they can specify availability with a constant.
+![Morton Order](figures/morton-indexing.png)
 
-Subtree JSON chunk in `subtrees/0/0/0.subtree`:
+<!-- omit in toc -->
+### Availability Bitstream Lengths
 
-```json
-{
-  "buffers": [
-    {
-      "byteLength": 4
-    }
-  ],
-  "bufferViews": [
-    {
-      "buffer": 0,
-      "byteOffset": 0,
-      "byteLength": 1
-    },
-    {
-      "buffer": 0,
-      "byteOffset": 1,
-      "byteLength": 1
-    },
-    {
-      "buffer": 0,
-      "byteOffset": 2,
-      "byteLength": 2
-    }
-  ],
-  "tileAvailability": {
-    "bufferView": 0
-  },
-  "contentAvailability": {
-    "bufferView": 1
-  },
-  "childSubtreeAvailability": {
-    "bufferView": 2
-  },
-}
-```
-In this example, tile, content, and child subtree availability are in one availability buffer. Buffer views split the buffer into the three parts. Since there are five nodes in the subtree, tile and content availability only need five bits each, so they each get one byte. There are 16 children, however, so two bytes are needed for child subtree availability.
+| Availability Type | Length (bits) | Description |
+|-------------------|---------------|-------------|
+| Tile availability | `(N^subtreeLevels - 1)/(N - 1)` | Total number of nodes in the subtree |
+| Content availability | `(N^subtreeLevels - 1)/(N - 1)` | Since there is at most one content per tile, this is the same length as tile availability |
+| Child subtree availability | `N^subtreeLevels` | Number of nodes one level deeper than the deepest level of the subtree |
 
-Subtree JSON chunk in `subtrees/2/1/0.subtree`:
+Where `N` is 4 for quadtrees and 8 for octrees.
 
-```json
-{
-  "tileAvailability": {
-    "constant": 1
-  },
-  "contentAvailability": {
-    "constant": 1
-  },
-  "childSubtreeAvailability": {
-    "constant": 0
-  },
-}
-```
-
-This subtree at the bottom of the tree is completely full. It uses constants for its availabilities instead of buffers. Because it is at the bottom of the tree, there are no child subtrees, so child subtree availability is a constant zero.
-
-## Octree Example
-
-`tileset.json`:
-
-```json
-{
-  "asset": {
-    "version": "1.0"
-  },
-  "geometricError": 10000,
-  "extensionsUsed": [
-    "3DTILES_implicit_tiling",
-  ],
-  "extensionsRequired": [
-    "3DTILES_implicit_tiling",
-  ],
-  "root": {
-    "boundingVolume": {
-      "box": [
-        0, 0, 0,
-        100, 0, 0,
-        0, 100, 0
-        0, 0, 100
-      ]
-    },
-    "refine": "ADD",
-    "geometricError": 5000,
-    "content": {
-      "uri": "models/{level}/{x}/{y}/{z}.pnts"
-    },
-    "extensions": {
-      "3DTILES_implicit_tiling": {
-        "subdivisionScheme": "OCTREE",
-        "subtreeLevels": 3,
-        "maximumLevel": 8,
-        "subtrees": {
-          "uri": "subtrees/{level}/{x}/{y}/{z}.subtree"
-        }
-      }
-    }
-  }
-}
-```
-
-Subtree JSON chunk in `subtrees/0/0/0/0.subtree`:
-
-```json
-{
-  "buffers": [
-    {
-      "byteLength": 74
-    }
-  ],
-  "bufferViews": [
-    {
-      "buffer": 0,
-      "byteOffset": 0,
-      "byteLength": 10
-    },
-    {
-      "buffer": 0,
-      "byteOffset": 10,
-      "byteLength": 64
-    }
-  ],
-  "tileAvailability": {
-    "bufferView": 0
-  },
-  "contentAvailability": {
-    "constant": 0
-  },
-  "childSubtreeAvailability": {
-    "bufferView": 1
-  }
-}
-```
-
-Subtree JSON chunk in `subtrees/6/0/0/0.subtree`:
-
-```json
-{
-  "buffers": [
-    {
-      "byteLength": 84
-    }
-  ],
-  "bufferViews": [
-    {
-      "buffer": 0,
-      "byteOffset": 0,
-      "byteLength": 10
-    },
-    {
-      "buffer": 0,
-      "byteOffset": 10,
-      "byteLength": 10
-    },
-    {
-      "buffer": 0,
-      "byteOffset": 10,
-      "byteLength": 64
-    }
-  ],
-  "tileAvailability": {
-    "bufferView": 0
-  },
-  "contentAvailability": {
-    "bufferView": 1
-  },
-  "childSubtreeAvailability": {
-    "bufferView": 2
-  }
-}
-```
-
-File structure:
+These lengths are in number of bits in a bitstream. To compute the length of the bitstream in bytes, the following formula is used:
 
 ```
-|__ tileset.json
-|__ subtrees/
-  |__ 0/
-    |__ 0/
-      |__ 0/
-        |__ 0.subtree
-  |__ 3/
-    |__ 0/
-      |__ 0/
-        |__ 0.subtree
-  |__ 6/
-    |__ 0/
-      |__ 0/
-        |__ 0.subtree
-|__ models/
-  |__ 8/
-    |__ 0/
-      |__ 0/
-        |__ 0.pnts
-        |__ 1.pnts
-      |__ 1/
-        |__ 0.pnts
-        |__ 1.pnts
-    |__ 1/
-      |__ 0/
-        |__ 0.pnts
-        |__ 1.pnts
-      |__ 1/
-        |__ 0.pnts
-        |__ 1.pnts
+lengthBytes = ceil(lengthBits / 8)
 ```
 
-## JSON Schema Reference
+<!-- omit in toc -->
+### Accessing Availability Bits
 
-OUTLINE:
-- Generate via Wetzel
-  
-## Appendix A: Tree Indexing Formulas
+For tile availability and content availability, the Morton index only determines the ordering within a single level of the subtree. Since the availability bitstream stores bits for every level of the subtree, a level offset must be computed.
 
-### Morton Indexing Formulas
+Given the `(level, mortonIndex)` of a tile relative to the subtree root, the index of the corresponding bit can be computed with the following formulas:
 
 | Quantity | Formula | Description |
 | -------- | ------- | ----------- |
-| `N` | 4 or 8 | N is 4 for quadtrees, 8 for octrees |
-| `bits` | `log2(N)` | Quadtree address are a multiple of 2 bits, Octrees use a multiple of 3 bits | 
-| `mortonIndex` | `interleave(z, y, x)` or `interleave(y, x)` | The morton index is computed by interleaving bits. See below. |
-| `length(mortonIndex)` | `level * bits` | Length of morton index in bits
-| `parent.mortonIndex` | `child.mortonIndex >> bits` | The parent morton index is a prefix of the child |
-| `child[k].mortonIndex` | `(parent.mortonIndex << bits) + k` | Morton index of a node's `k-th` child in Morton order |
-| `parent.indexOf(child)` | `child.mortonIndex % N` or `child.mortonIndex & (N - 1)` | Index of the child within the parent's `N` children |
+| `levelOffset` | `(N^level - 1) / (N - 1)` | This is the number of nodes at levels `1, 2, ... (level - 1)` |
+| `tileAvailabilityIndex` | `levelOffset + mortonIndex` | The index into the buffer view is the offset for the tile's level plus the morton index for the tile |
 
-The `interleave(a, b, c, ...)` function mentioned above interleaves the bits of the input streams into a single bit stream. It does this by taking a bit from each bit stream from left to light and concatenating them into a single bitstream. This is repeated until all bits have been used.
+Where `N` is 4 for quadtrees and 8 for octrees.
 
-Below are some examples:
+Since child subtree availability stores bits for a single level, no levelOffset is needed, i.e. `childSubtreeAvailabilityIndex = mortonIndex`, where the `mortonIndex` is the Morton
+index of the desired child subtree relative to the root of the current subtree.
+
+<!-- omit in toc -->
+### Global and Local Tile Coordinates
+
+When working with tile coordinates, it is important to consider which tile the coordinates are relative to. There are two main types used in implicit tiling:
+
+* **global coordinates** - coordinates relative to the implicit root tile.
+* **local coordinates** - coordinates relative to the root of a specific subtree.
+
+Global coordinates are used for locating any tile in the entire implicit tileset. For example, template URIs use global coordinates to locate content files and subtrees. Meanwhile, local coordinates are used for locating data within a single subtree file.
+
+In binary, a tile's global Morton index is the complete path from the implicit root tile to the tile. This is the concatenation of the path from the implicit root tile to the subtree root tile, followed by the path from the subtree root tile to the tile. This can be expressed with the following equation:
 
 ```
-interleave(0b11, 0b00) = 0b1010
-interleave(0b1010, 0b0011) = 0b10001101
-interleave(0b0110, 0b0101) = 0b00111001
-
-interleave(0b001, 0b010, 0b100) = 0b001010100
-interleave(0b111, 0b000, 0b111) = 0b101101101
+tile.globalMortonIndex = concatBits(subtreeRoot.globalMortonIndex, tile.localMortonIndex)
 ```
 
-### Availability Formulas
+<img src="figures/global-to-local-morton.jpg" width="500" />
 
-#### Tile and Content Availability Formulas
+Similarly, the global level of a tile is the length of the path from the implicit root tile to the tile. This is the sum of the subtree root tile's global level and the tile's local level relative to the subtree root tile:
 
-Both tile and content availability are stored in a bitstream with the same structure, so these formulas apply equally well to both
+```
+tile.globalLevel = subtreeRoot.globalLevel + tile.localLevel
+```
 
-| Quantity | Formula | Description |
-| -------- | ------- | ----------- |
-| `lengthBits` | `(N^subtreeLevels - 1)/(N - 1)` | Length of buffer is determined by subtree levels |
-| `lengthBytes` | `ceil(lengthBits / 8)` | Bytes needed to store the buffer | 
-| `parent.index` | `floor((child.index - 1) / N)` | Index of the parent in the bitstream | 
-| `parent.indexOf(child)` | `(child.index - 1) % N` | Index of the child within the parent's `N` children |
-| `parent.children[k].index` | `N * index + k + 1` | Find the bit of the `k-th` child of a node |
-| `index` | `(N^level - 1)/(N - 1) + mortonIndex` | Find the index of a node from `(level, mortonIndex)`
-| `level` | `ceil(log(index + 1)/log(N))` | Find the level of a node relative to the subtree |
-| `globalLevel` | `level + subtreeRoot.globalLevel` | Find the level of a node relative to the entire tileset | 
-| `startOfLevel` | `(N^level - 1)/(N - 1)` | First index at a particular level (relative to the subtree root) |
-| `mortonIndex` | `index - startOfLevel` | Convert from bit index to Morton index, relative to the root of the subtree |
-| `globalMortonIndex` | `concat(subtreeRoot.globalMortonIndex, mortonIndex)` | Get the Morton index relative to the root of the tileset |
+<img src="figures/global-to-local-levels.jpg" width="500" />
 
-#### Child Subtree Availability Formulas
+`(x, y, z)` coordinates follow the same pattern a Morton indices. The only difference is that the concatenation of bits happens component-wise. That is:
 
-| Quantity | Formula | Description |
-| -------- | ------- | ----------- |
-| `lengthBits` | `N^subtreeLevels` | Length of the buffer by subtree levels |
-| `lengthBytes` | `ceil(lengthBits / 8)` | Bytes needed to store the buffer |
-| `childSubtree.globalLevel` | `subtreeRoot.globalLevel + subtreeLevels` | Level of the child subtrees relative to the tileset root |
-| `leaf.children[k].index` | `N * leaf.mortonIndex + k` | Index of the `k-th` child subtree |
-| `leaf.indexOf(childSubtree)` | `subtreeRoot.mortonIndex % N` | Index of the child subtree within the parent leaf's `N` children |
-| `leaf.mortonIndex` | `floor(subtreeRoot.mortonIndex / N)` | Morton index of the parent leaf |
+```
+tile.globalX = concatBits(subtreeRoot.globalX, tile.localX)
+tile.globalY = concatBits(subtreeRoot.globalY, tile.localY)
+
+// Octrees only
+tile.globalZ = concatBits(subtreeRoot.globalZ, tile.localZ)
+```
+
+![Global to local XY coordinates](figures/global-to-local-xy.jpg)
+
+<!-- omit in toc -->
+### Finding Parent and Child Tiles
+
+Computing the coordinates of a parent or child tile can also be computed by bitwise operations on the Morton index. The following formulas apply for both local and global coordinates.
+
+```
+childTile.level = parentTile.level + 1
+childTile.mortonIndex = concatBits(parentTile.mortonIndex, childIndex)
+childTile.x = concatBits(parentTile.x, childX)
+childTile.y = concatBits(parentTile.y, childY)
+
+// Octrees only
+childTile.z = concatBits(parentTile.z, childZ)
+```
+
+Where:
+* `childIndex` is an integer in the range `[0, N)` that is the index of the child tile relative to the parent.
+* `childX`, `childY`, and `childZ` are single bits that represent which half of the parent's bounding volume the child is in in each direction.
+
+![Parent and child coordinates](figures/parent-and-child-coordinates.jpg)
