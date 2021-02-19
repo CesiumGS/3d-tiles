@@ -47,6 +47,8 @@ This extension is required, meaning it should be placed in the tileset JSON top-
 * `extensionsUsed`: an array of glTF extensions used by glTF content in the tileset.
 * `extensionsRequired`: an array of glTF extensions required by glTF content in the tileset.
 
+Declaring glTF extensions in the tileset JSON allows the runtime engine to determine compatibility before loading content.
+
 The full JSON schema can be found in [tileset.3DTILES_content_gltf.schema.json](schema/tileset.3DTILES_content_gltf.schema.json).
 
 ```json
@@ -74,20 +76,10 @@ The full JSON schema can be found in [tileset.3DTILES_content_gltf.schema.json](
         88
       ]
     },
-    "geometricError": 70,
+    "geometricError": 0,
     "refine": "ADD",
     "content": {
-      "uri": "model.gltf",
-      "boundingVolume": {
-        "region": [
-          -1.3197004795898053,
-          0.6988582109,
-          -1.3196595204101946,
-          0.6988897891,
-          0,
-          88
-        ]
-      }
+      "uri": "trees.gltf"
     }
   }
 }
