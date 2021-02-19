@@ -204,36 +204,31 @@ Example subtree JSON:
 
 ```jsonc
 {
+  "buffers": [
+    {
+      "byteLength": 262160
+    }
+  ],
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 0,
+      "byteLength": 43691,
       "byteOffset": 0
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 131072,
+      "byteOffset": 43696
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 43691,
+      "byteOffset": 174768
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
-    },
-    {
-      "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
-    }
-  ],
-  "buffers": [
-    {
-      "byteLength": 0
+      "byteLength": 43691,
+      "byteOffset": 218464
     }
   ],
   "tileAvailability": {
