@@ -1,27 +1,34 @@
+<!-- omit in toc -->
 # 3DTILES_content_gltf
 
 **Version 0.0.0**, November 6, 2020
 
+<!-- omit in toc -->
 ## Contributors
 
 * Sean Lilley, Cesium
 * Peter Gagliardi, Cesium
 * Patrick Cozzi, Cesium
 
+<!-- omit in toc -->
 ## Status
 
 Draft
 
+<!-- omit in toc -->
 ## Dependencies
 
 Written against the 3D Tiles 1.0 specification.
 
+<!-- omit in toc -->
 ## Contents
 
-  - [Overview](#overview)
-  - [Optional vs. Required](#optional-vs-required)
-  - [Schema Updates](#schema-updates)
-  - [Examples](#examples)
+- [Overview](#overview)
+- [Optional vs. Required](#optional-vs-required)
+- [Extension JSON](#extension-json)
+- [Examples](#examples)
+- [JSON Schema Reference](#json-schema-reference)
+- [Appendix A: Comparison with Existing Tile Formats](#appendix-a-comparison-with-existing-tile-formats)
 
 ## Overview
 
@@ -147,6 +154,7 @@ An array of glTF extensions required by glTF content in the tileset.
 
 In Cesium 3D Tiles 1.0, tile formats such as Batched 3D Model and Instanced 3D Model are glTF files with additional header information and metadata. This section covers the differences between these formats and the new glTF approach to tile content.
 
+<!-- omit in toc -->
 ### Batched 3D Model (b3dm)
 
 [`b3dm`](../../../specification/TileFormats/Batched3DModel/README.md) is a wrapper around a binary glTF. It includes additional information in its header, Feature Table and Batch Table. `b3dm` content can be represented in glTF directly with the following changes: 
@@ -154,6 +162,7 @@ In Cesium 3D Tiles 1.0, tile formats such as Batched 3D Model and Instanced 3D M
 * `RTC_CENTER` can instead be stored in a glTF node translation.
 * Batch Tables and Batch IDs can be represented using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/pull/3).
 
+<!-- omit in toc -->
 ### Instanced 3D Model (i3dm)
 
 [`i3dm`](../../../specification/TileFormats/Instanced3DModel) instances a glTF model (embedded or external) and provides per-instance transforms and feature IDs.
@@ -163,6 +172,7 @@ In Cesium 3D Tiles 1.0, tile formats such as Batched 3D Model and Instanced 3D M
 * Batch Table and Batch IDs can be represented using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/pull/1). Per-instance and multi-instance metadata are supported.
 * `EAST_NORTH_UP` is not directly supported, but can be represented using per-instance rotations.
 
+<!-- omit in toc -->
 ### Point Cloud (pnts)
 
 glTF natively supports point clouds with the primitive mode `0` (`POINT`). Concepts in the [`pnts`](../../../specification/TileFormats/PointCloud) format map well to glTF.
@@ -173,6 +183,7 @@ glTF natively supports point clouds with the primitive mode `0` (`POINT`). Conce
 * Batch Table and Batch IDs can be represented using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/pull/1). The extension supports both per-point metadata and multi-point metadata in the same glTF.
 * `CONSTANT_RGBA` is not directly supported in glTF, but can be represented by using per-point colors or runtime styling using `EXT_feature_metadata`.
 
+<!-- omit in toc -->
 ### Composite (cmpt)
 
 All inner contents may be combined into the same glTF as separate nodes, meshes, or primitives, at the tileset author's discretion. [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/pull/3) supports multiple feature tables. Alternatively, [`3DTILES_multiple_contents`](../../3DTILES_multiple_contents/) can be used to store multiple glTF models in a single tile.
