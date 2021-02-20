@@ -69,7 +69,7 @@ An **entity** is a specific instantiation of class containing **property values*
 
 A schema describes what properties are available. However, it does not describe how property values are stored. This allows the schema to be defined separately from the data itself. This has several benefits:
 
-* A single definition can be shared across multiple assets. This is useful when one has many assets with the same type of metadata.
+* A single schema can be shared across multiple assets. This is useful when one has many assets with the same type of metadata.
 * It allows greater flexibility for storing metadata. A property such as "elevation" may be stored per-vertex or per-texel depending on the use case, while conforming to the same property definition.
 
 Property values are formatted in specific ways depending on the use case. This specification defines two formats for storing large collections of property values:
@@ -79,7 +79,10 @@ Property values are formatted in specific ways depending on the use case. This s
 
 The table format is suitable for general purpose metadata storage. This is similar in concept to a database table where entities are rows and properties are columns. The raster format is for storing fine-grained metadata in images. In this format entities are pixels and properties are channels. This format is especially useful when texture mapping high frequency data, like material properties, to less detailed 3D surfaces. The raster format can also take advantage of image compression techniques.
 
-TODO: one table diagram and one raster diagram
+Table Format|Raster Format
+--|--
+|<img src="figures/table-format.png"  alt="Table Format" width="1000px">|<img src="figures/raster-format.png" alt="Raster Format" width="400px"> |
+
 
 Each format may have any number of **encodings**. This specification defines two encodings for the table format: a **binary encoding** and a **JSON encoding**. A specification that references Cesium 3D Metadata must state which format and encoding it uses and is free to define its own formats and encodings. For example, while this specification does not define any raster encodings, the [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/pull/3) glTF extension may use any image formats supported by glTF for storing per-texel metadata, including PNG and JPEG.
 
@@ -309,7 +312,7 @@ Property vales are encoded in binary according to their type, in little-endian f
 
 ##### Numbers
 
-Numeric types (integers and floating point numbers) are encoded as follows:
+Numeric types are encoded as follows:
 
 Name|Description
 --|--
@@ -350,7 +353,7 @@ The size of each offset can be configured with an offset type, which can be a `U
 
 The following example shows how UTF-8 strings are encoded in binary:
 
-![String property example](figures/unicode-strings.jpg)
+![String property example](figures/unicode-strings.png)
 
 ##### Enums
 
@@ -364,7 +367,7 @@ Variable-length arrays are arrays where the number of components can vary from e
 
 This example shows how to encode a variable-length array of integers.
 
-![Variable-length array](figures/array-of-ints.jpg)
+<img src="figures/array-of-ints.png"  alt="Variable-length array" width="640px">
 
 ```jsonc
 {
@@ -395,7 +398,7 @@ This example shows how to encode a variable-length array of integers.
 
 This example shows how to encode a variable-length array of strings.
 
-![Variable-length array of string](figures/array-of-string.jpg)
+![Variable-length array of string](figures/array-of-strings.png)
 
 ```jsonc
 {
