@@ -4,7 +4,7 @@ This specification defines a standard metadata format for 3D data. It define a s
 
 For actual use, refer to the implementations of this specification including:
 
-* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles to enable styling and analysis
+* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
 * [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/pull/3) - glTF extension that assigns metadata to features in a model on a per-vertex or per-texel basis
 
 See the [Cesium Metadata Semantic Reference](Semantics/README.md) for built-in semantics for 3D Tiles and glTF.
