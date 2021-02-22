@@ -416,19 +416,16 @@ Statistics provide aggregate information about select properties within a tilese
 
 Name|Description|Type
 --|--|--
-`min`|Minimum value|Numeric types or fixed-size arrays of numeric types
-`max`|Maximum value|Numeric types or fixed-size arrays of numeric types
-`mean`|The arithmetic mean of the values|Numeric types or fixed-size arrays of numeric types
-`median`|The median value|Numeric types or fixed-size arrays of numeric types
-`mode`|The most frequent value|Numeric types or fixed-size arrays of numeric types
-`stddev`|The standard deviation of the values|Numeric types or fixed-size arrays of numeric types
-`variance`|The variance of the values|Numeric types or fixed-size arrays of numeric types
-`sum`|The sum of the values|Numeric types or fixed-size arrays of numeric types
-`occurrences`|Number of enum occurrences|Enums or arrays of enums
+`min`|Minimum value|Numeric types or fixed-length arrays of numeric types
+`max`|Maximum value|...
+`mean`|The arithmetic mean of the values|...
+`median`|The median value|...
+`standardDeviation`|The standard deviation of the values|...
+`variance`|The variance of the values|...
+`sum`|The sum of the values|...
+`occurrences`|Number of enum occurrences|Enums or fixed-length arrays of enums
 
-TODO: find a new user-defined statistic
-
-Tileset authors may define their own additional semantics, like `median` in the example below.
+Tileset authors may define their own additional semantics, like `mode` in the example below.
 
 ```jsonc
 {
@@ -482,15 +479,15 @@ Tileset authors may define their own additional semantics, like `median` in the 
             "count": 100000,
             "properties": {
               "height": {
-                "min": [3.9],
-                "max": [341.7],
-                "mode": [5.6]
+                "min": 3.9,
+                "max": 341.7,
+                "mode": 5.0
               },
               "buildingType": {
                 "occurrences": {
-                  "Residential": [50000],
-                  "Commercial": [40950],
-                  "Hospital": [50]
+                  "Residential": 50000,
+                  "Commercial": 40950,
+                  "Hospital": 50
                 }
               }
             }

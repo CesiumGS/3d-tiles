@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft-04/schema",
-  "title": "Class statistics",
+  "title": "Class Statistics",
   "type": "object",
-  "description": "Statistics about a class.",
+  "description": "Statistics about entities that conform to the class.",
   "properties": {
     "count": {
       "type": "integer",
-      "description": "The number of entities conforming to this class.",
+      "description": "The number of entities that conform to the class.",
       "minimum": 0
     },
     "properties": {

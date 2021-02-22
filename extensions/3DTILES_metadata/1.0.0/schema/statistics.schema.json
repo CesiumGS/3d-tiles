@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft-04/schema",
   "title": "Statistics",
   "type": "object",
-  "description": "Statistics about metadata in the tileset.",
+  "description": "Statistics about entities.",
   "properties": {
     "classes": {
       "type": "object",

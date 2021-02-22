@@ -13,6 +13,7 @@
       * Removed `stringByteLength` property
       * Added optional `semantic` property
       * Added enum support. Added `ENUM` to `type` and `componentType` and added `enumType` property.
+      * `min` and `max` are now numbers instead of single-element arrays for non-`ARRAY` properties
     * Changes to `3DTILES_metadata` extension object
       * Added `schema` which contains `classes` and `enums`
       * Added `schemaUri` which refers to an external schema JSON file
