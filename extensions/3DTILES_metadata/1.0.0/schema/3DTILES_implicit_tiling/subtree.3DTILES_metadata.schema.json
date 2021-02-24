@@ -6,11 +6,11 @@
   "properties": {
     "class": {
       "type": "string",
-      "description": "The class that metadata conforms to. The value must be a class ID declared in the `classes` dictionary."
+      "description": "The class that tile metadata conforms to. The value must be a class ID declared in the `classes` dictionary."
     },
     "properties": {
       "type": "object",
-      "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property array values are stored. Optional properties may be excluded from this dictionary.",
+      "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Optional properties may be excluded from this dictionary.",
       "minProperties": 1,
       "additionalProperties": {
         "$ref": "subtree.property.schema.json"
