@@ -22,13 +22,12 @@ Draft
 
 Written against the 3D Tiles 1.0 specification.
 
-Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/README.md). See [Implicit Tile Metadata](#implicit-tile-metadata).
-
+Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/0.0.0). See [Implicit Tile Metadata](#implicit-tile-metadata).
 
 <!-- omit in toc -->
 ## Optional vs. Required
 
-This extension is optional, meaning it should be placed in tileset JSON `extensionsUsed` list, but not in the `extensionsRequired` list.
+This extension is optional, meaning it should be placed in the tileset JSON `extensionsUsed` list, but not in the `extensionsRequired` list.
 
 <!-- omit in toc -->
 ## Contents
@@ -45,60 +44,58 @@ This extension is optional, meaning it should be placed in tileset JSON `extensi
   - [Feature Metadata](#feature-metadata)
   - [Statistics](#statistics)
   - [Semantics](#semantics)
+  - [Styling](#styling)
 - [JSON Schema Reference](#json-schema-reference)
 
 ## Overview
 
-TODO: add diagram showing how all the types of metadata might interact within a tileset with labels
-TODO: interaction with declarative styling
+This extension defines a standard mechanism for adding metadata to 3D Tiles. This includes:
 
-This extension provides a standard mechanism for adding metadata to 3D Tiles. This includes:
-
-* Tileset metadata - metadata about the tileset as a whole
-* Tile metadata - metadata about individual tiles
-* Group metadata - metadata about groups of content
+* Tileset metadata - metadata about the tileset as a whole.
+* Tile metadata - metadata about individual tiles.
+* Group metadata - metadata about groups of content.
 * Feature metadata - metadata about features. See the companion glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
+
+<img src="figures/metadata-granularity.png"  alt="Metadata Granularity" width="600">
 
 A tileset defines a **schema**. A schema has a set of **classes** and **enums**. A class contains a set of **properties**, which may be numeric, boolean, string, enum, or array types.
 
 **Entities** (such as tiles, features, etc.) conform to classes and contain **property values**. Depending on the context, property values may be stored in JSON or binary.
 
-**Statistics** provide aggregate information about the metadata. For example, statistics may include the min/max values of a numeric property for mapping property values to gradients in the [declarative styling language](../../../specification/Styling/README.md) or the number of enum occurrences for creating histograms.
+**Statistics** provide aggregate information about the metadata. For example, statistics may include the min/max values of a numeric property for mapping property values to color ramps with the [declarative styling language](../../../specification/Styling) or the number of enum occurrences for creating histograms.
 
-By default properties do not have any inherent meaning. A **semantic** may be provided to give a property meaning. The full list of built-in semantics can be found in the [Cesium Metadata Semantics Reference](../../../specification/Metadata/Semantics/README.md). Tileset authors may define their own additional semantics separately.
+By default properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes how the property should be interpreted. The full list of built-in semantics can be found in the [Cesium Metadata Semantic Reference](../../../specification/Metadata/Semantics). Tileset authors may define their own application or domain-specific semantics separately.
 
-This extension references the [Cesium 3D Metadata Specification](../../../specification/Metadata/README.md), which describes the metadata format in full detail.
+This extension implements the [Cesium 3D Metadata Specification](../../../specification/Metadata/1.0.0), which describes the metadata format in full detail.
 
 ## Use Cases
 
 _This section is non-normative_
 
-This extension enables use cases including:
+This extension is designed with several new use cases in mind.
 
-* Picking features and querying their properties
-* Styling, including generating complex styles that synthesize tileset, tile, content, and feature metadata together
-* Optimizing traversal algorithms with tile metadata
-* Grouping content into layers and providing per-layer visibility and color controls 
-* Selectively loading content based on properties
+* An application can know what metadata is present before requesting content, e.g. for populating a UI
+* Tileset authors can assign semantics to metadata to link metadata to their own data dictionary
+* Metadata schemas can be shared by contents within a tileset and across different tilesets
+* An application can style tilesets using metadata stored at per-tileset, per-tile, per-group, and per-feature granularity
+* A runtime engine can optimize traversal algorithms by using per-tile metadata
+* An application can create a layering system by adding show/hide or color styles to groups, as well as selectively loading groups on demand
 
 ## Compatibility Notes
 
-This extension provides similar capabilities to, but is independent of, the [Batch Table](../../../specification/TileFormats/BatchTable) used in the Batched 3D Model, Instanced 3D Model, and Point Cloud formats. Similarly, this extension is independent of the [`properties`](../../../specification/schema/properties.schema.json) object in tileset JSON.
+This extension is independent of the [Batch Table](../../../specification/TileFormats/BatchTable) used in the Batched 3D Model, Instanced 3D Model, and Point Cloud formats. Similarly, this extension is independent of the [`properties`](../../../specification/schema/properties.schema.json) object in tileset JSON.
 
-glTF models contain in Batched 3D Model or Instanced 3D Model content 
-The `EXT_feature_metadata` extension must not be used by glTF models contained in Batched 3D Model or Instanced 3D Model content.
-
-> In general, `3DTILES_metadata` (along with `EXT_feature_metadata`) is considered a successor to the Batch Table and using both methods in the same tileset should be avoided.
+glTF models contained in Batched 3D Model or Instanced 3D Model content must not use the [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) extension.
 
 ## Concepts
 
 ### Schemas
 
-A schema defines a set of classes and enums used in a tileset. Classes serve as templates for entities - they provide a list of properties and the type information for those properties. Enums define the allowable values for enum properties. Schemas are defined in full detail in the [Cesium 3D Metadata Specification](../../../specification/Metadata/README.md#schemas).
+A schema defines a set of classes and enums used in a tileset. Classes serve as templates for entities - they provide a list of properties and the type information for those properties. Enums define the allowable values for enum properties. Schemas are defined in full detail in the [Cesium 3D Metadata Specification](../../../specification/Metadata/1.0.0#schemas).
 
 A schema may be embedded in the extension directly or referenced externally with the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same external schema to avoid duplication.
 
-This example shows a schema with a `building` class and `buildingType` enum. Later examples show how different types of entities conform to classes and supply property values.
+This example shows a schema with a `building` class and `buildingType` enum. Later examples show how entities declare their class and supply property values.
 
 ```jsonc
 {
@@ -153,6 +150,9 @@ Metadata may be assigned to the tileset as a whole using the `tileset` object.
 
 The `tileset` object may specify a `class` and contain property values. The `tileset` object may also specify a `name` and `description`.
 
+Note that the optional property `country` is omitted in tileset metadata object.
+
+
 ```jsonc
 {
   "extensions": {
@@ -192,9 +192,7 @@ The `tileset` object may specify a `class` and contain property values. The `til
 
 ### Tile Metadata
 
-Metadata may be assigned to individual tiles. Tile metadata often contains spatial information to optimize traversal algorithms.
-
-TODO: fix numbers in example
+Metadata may be assigned to individual tiles. Tile metadata often contains spatial information to optimize traversal algorithms. The example below uses the built-in semantic `HORIZON_OCCLUSION_POINT`.`
 
 ```jsonc
 {
@@ -208,7 +206,7 @@ TODO: fix numbers in example
                 "type": "ARRAY",
                 "componentType": "FLOAT64",
                 "componentCount": 4,
-                "semantic": "BOUNDING_SPHERE",
+                "semantic": "HORIZON_OCCLUSION_POINT",
               },
               "countries": {
                 "description": "The countries that overlap this tile",
@@ -223,18 +221,18 @@ TODO: fix numbers in example
   },
   "root": {
     "refine": "ADD",
-    "geometricError": 0.0,
+    "geometricError": 19266.834945,
     "boundingVolume": {
-      "region": [-1.707, 0.543, -1.706, 0.544, 203.895, 253.113]
+      "region": [-2.356194490192345, 0.0, -1.5707963267948966, 0.7853981633974483, -2119.1943359375, 5615.173828125]
     },
     "content": {
-      "uri": "buildings.b3dm"
+      "uri": "terrain.b3dm"
     },
     "extensions": {
       "3DTILES_metadata": {
         "class": "tile",
         "properties": {
-          "boundingSphere": [6005000.0, 0.0, 0.0, 5000.0],
+          "boundingSphere": [-0.4142135640377178, -1.0000000040187549, 0.44683832670325535],
           "countries": ["United States", "Canada", "Mexico"]
         }
       }
@@ -245,7 +243,9 @@ TODO: fix numbers in example
 
 #### Implicit Tile Metadata
 
-When using the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling) extension tile metadata is stored in binary in each subtree. Here is an example subtree JSON:
+When using the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling) tile metadata is stored in binary in each subtree. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
+
+Below is an example subtree JSON:
 
 ```jsonc
 {
@@ -272,23 +272,23 @@ When using the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling) extensio
     },
     {
       "buffer": 0,
-      "byteLength": 65536,
+      "byteLength": 49152,
       "byteOffset": 3424
     },
     {
       "buffer": 0,
       "byteLength": 24576,
-      "byteOffset": 68960
+      "byteOffset": 50528
     },
     {
       "buffer": 0,
       "byteLength": 8196,
-      "byteOffset": 93536
+      "byteOffset": 75104
     },
     {
       "buffer": 0,
       "byteLength": 16388,
-      "byteOffset": 101736
+      "byteOffset": 83304
     }
   ],
   "tileAvailability": {
@@ -304,7 +304,7 @@ When using the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling) extensio
     "3DTILES_metadata": {
       "class": "tile",
       "properties": {
-        "boundingSphere": {
+        "horizonOcclusionPoint": {
           "bufferView": 3
         },
         "countries": {
@@ -321,6 +321,8 @@ When using the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling) extensio
 ### Group Metadata
 
 Metadata may be assigned to groups. Groups represent collections of contents. Contents are assigned to groups with the `3DTILES_metadata` content extension.
+
+Group metadata is often paired with [`3DTILES_multiple_contents`](../../3DTILES_multiple_contents/0.0.0) so that a tile can have multiple contents, each assigned to a different group. That extension also shows an example combining `3DTILES_metadata`, `3DTILES_multiple_contents`, and `3DTILES_implicit_tiling`.
 
 ```jsonc
 {
@@ -402,9 +404,11 @@ Metadata may be assigned to groups. Groups represent collections of contents. Co
 
 ### Feature Metadata
 
-TODO: add brief summary of what a feature is
+A feature is an entity such as a building in a city. Features are the finest level of granularity within the tileset.
 
-Metadata may be assigned to features using the glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
+Metadata may be assigned to features using the glTF extension [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
+
+Feature metadata classes may be included in the `3DTILES_metadata` schema. This allows an application to know what classes are used by features before requesting content.
 
 ### Statistics
 
@@ -414,13 +418,13 @@ Statistics provide aggregate information about select properties within a tilese
 
 Name|Description|Type
 --|--|--
-`min`|Minimum value|Numeric types or fixed-length arrays of numeric types
-`max`|Maximum value|...
-`mean`|The arithmetic mean of the values|...
-`median`|The median value|...
-`standardDeviation`|The standard deviation of the values|...
-`variance`|The variance of the values|...
-`sum`|The sum of the values|...
+`min`|The minimum property value|Numeric types or fixed-length arrays of numeric types
+`max`|The maximum property value|...
+`mean`|The arithmetic mean of the property values|...
+`median`|The median of the property values|...
+`standardDeviation`|The standard deviation of the property values|...
+`variance`|The variance of the property values|...
+`sum`|The sum of the property values|...
 `occurrences`|Number of enum occurrences|Enums or fixed-length arrays of enums
 
 Tileset authors may define their own additional semantics, like `mode` in the example below.
@@ -430,6 +434,23 @@ Tileset authors may define their own additional semantics, like `mode` in the ex
   "extensions": {
     "3DTILES_metadata": {
       "schema": {
+        "classes": {
+          "building": {
+            "properties": {
+              "height": {
+                "type": "FLOAT32"
+              },
+              "owners": {
+                "type": "ARRAY",
+                "componentType": "STRING"
+              },
+              "buildingType": {
+                "type": "ENUM",
+                "enumType": "buildingType"
+              }
+            }
+          }
+        },
         "enums": {
           "buildingType": {
             "valueType": "UINT16",
@@ -451,23 +472,6 @@ Tileset authors may define their own additional semantics, like `mode` in the ex
                 "value": 3
               }
             ]
-          }
-        },
-        "classes": {
-          "building": {
-            "properties": {
-              "height": {
-                "type": "FLOAT32"
-              },
-              "owners": {
-                "type": "ARRAY",
-                "componentType": "STRING"
-              },
-              "buildingType": {
-                "type": "ENUM",
-                "enumType": "buildingType"
-              }
-            }
           }
         }
       },
@@ -499,13 +503,11 @@ Tileset authors may define their own additional semantics, like `mode` in the ex
 
 ### Semantics
 
-TODO: finish this section, remove stuff that got moved
+By default properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes how the property should be interpreted. The full list of built-in semantics can be found in the [Cesium Metadata Semantic Reference](../../../specification/Metadata/Semantics).
 
-By default properties are application-specific and do not have any inherent meaning. A **semantic** may be provided to describe how properties should be interpreted. 
+Tileset authors may define their own application or domain-specific semantics separately.
 
-A semantic is defined by a name, a description, and a property definition. `3DTILES_metadata` provides the following built-in semantics:
-
-Tileset authors may define their own additional semantics. By convention they are preceded by an underscore but that is not required. For example:
+The example below uses two built-in semantics, `NAME` and `ID`, and one custom semantic (`_HEIGHT`).
 
 ```jsonc
 {
@@ -535,6 +537,10 @@ Tileset authors may define their own additional semantics. By convention they ar
   }
 }
 ```
+
+### Styling
+
+TODO - requires more experimentation in CesiumJS
 
 ## JSON Schema Reference
 
@@ -1550,7 +1556,7 @@ An array of binary property values.
 
 |   |Type|Description|Required|
 |---|---|---|---|
-|**bufferView**|`integer`|The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitfield. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is a numeric type values are stored as the provided `type`. When `type` is `ENUM` values are stored as the enum's `valueType`. When `type` is `ARRAY` elements are packed tightly together and the data type is based on the `componentType` following the same rules as above. Note that `arrayOffsetBufferView` is required for variable-size arrays and `stringOffsetBufferView` is required for strings (for variable-length arrays of strings, both are required). The buffer view `byteOffset` must be aligned to a multiple of 8 bytes.| &#10003; Yes|
+|**bufferView**|`integer`|The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitfield. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is a numeric type values are stored as the provided `type`. When `type` is `ENUM` values are stored as the enum's `valueType`. When `type` is `ARRAY` elements are packed tightly together and the data type is based on the `componentType` following the same rules as above. `arrayOffsetBufferView` is required for variable-size arrays and `stringOffsetBufferView` is required for strings (for variable-length arrays of strings, both are required). The buffer view `byteOffset` must be aligned to a multiple of 8 bytes.| &#10003; Yes|
 |**offsetType**|`string`|The type of values in `arrayOffsetBufferView` and `stringOffsetBufferView`.|No, default: `"UINT32"`|
 |**arrayOffsetBufferView**|`integer`|The index of the buffer view containing offsets for variable-length arrays. The number of offsets is equal to the number of available tiles plus one. The offsets represent the start positions of each array, with the last offset representing the position after the last array. The array length is computed using the difference between the current offset and the subsequent offset. If `componentType` is `STRING` the offsets index into the string offsets array (stored in `stringOffsetBufferView`), otherwise they index into the property array (stored in `bufferView`). The data type of these offsets is determined by `offsetType`. The buffer view `byteOffset` must be aligned to a multiple of 8 bytes in the same manner as the main `bufferView`|No|
 |**stringOffsetBufferView**|`integer`|The index of the buffer view containing offsets for strings. The number of offsets is equal to the number of string components plus one. The offsets represent the byte offsets of each string in the main `bufferView`, with the last offset representing the byte offset after the last string. The string byte length is computed using the difference between the current offset and the subsequent offset. The data type of these offsets is determined by `offsetType`. The buffer view `byteOffset` must be aligned to a multiple of 8 bytes in the same manner as the main `bufferView`.|No|
@@ -1562,7 +1568,7 @@ Additional properties are allowed.
 <!-- omit in toc -->
 #### subtree.property.bufferView
 
-The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitfield. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is a numeric type values are stored as the provided `type`. When `type` is `ENUM` values are stored as the enum's `valueType`. When `type` is `ARRAY` elements are packed tightly together and the data type is based on the `componentType` following the same rules as above. Note that `arrayOffsetBufferView` is required for variable-size arrays and `stringOffsetBufferView` is required for strings (for variable-length arrays of strings, both are required). The buffer view `byteOffset` must be aligned to a multiple of 8 bytes.
+The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitfield. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is a numeric type values are stored as the provided `type`. When `type` is `ENUM` values are stored as the enum's `valueType`. When `type` is `ARRAY` elements are packed tightly together and the data type is based on the `componentType` following the same rules as above. `arrayOffsetBufferView` is required for variable-size arrays and `stringOffsetBufferView` is required for strings (for variable-length arrays of strings, both are required). The buffer view `byteOffset` must be aligned to a multiple of 8 bytes.
 
 * **Type**: `integer`
 * **Required**: &#10003; Yes

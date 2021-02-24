@@ -59,8 +59,8 @@ This specification defines a set of core concepts to be used by multiple 3D form
 
 For usage see:
 
-* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
-* [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) - glTF extension that assigns metadata to features in a model on a per-vertex or per-texel basis
+* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata/1.0.0) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
+* [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) - glTF extension that assigns metadata to features in a model on a per-vertex, per-texel, or per-instance basis
 
 
 This specification does not assign semantic meaning to metadata; instead separate specifications must define semantics for their particular application or domain. One example is the [Cesium Metadata Semantic Reference](../Semantics/README.md) which defines built-in semantics for 3D Tiles and glTF.

@@ -4,5 +4,5 @@ This extension allows a tileset to use [glTF](https://github.com/KhronosGroup/gl
 
 ## Changelog
 
-* [**Version 0.0.0**](0.0.0/README.md) November 6, 2020
+* [**Version 0.0.0**](0.0.0) November 6, 2020
     * Initial draft

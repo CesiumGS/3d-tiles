@@ -149,7 +149,7 @@ In Cesium 3D Tiles 1.0, tile formats such as Batched 3D Model and Instanced 3D M
 <!-- omit in toc -->
 ### Batched 3D Model (b3dm)
 
-[`b3dm`](../../../specification/TileFormats/Batched3DModel/README.md) is a wrapper around a binary glTF. It includes additional information in its header, Feature Table and Batch Table. `b3dm` content can be represented in glTF directly with the following changes: 
+[`b3dm`](../../../specification/TileFormats/Batched3DModel) is a wrapper around a binary glTF. It includes additional information in its header, Feature Table and Batch Table. `b3dm` content can be represented in glTF directly with the following changes: 
 
 * `RTC_CENTER` can instead be stored in a glTF node translation.
 * Batch Tables and Batch IDs can be represented using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).

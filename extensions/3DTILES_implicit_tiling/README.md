@@ -4,5 +4,5 @@ This extension enables 3D Tiles to support tilesets with implied subdivision sch
 
 ## Changelog
 
-* [**Version 0.0.0**](0.0.0/README.md) [TODO: date]
+* [**Version 0.0.0**](0.0.0) February 19, 2021
     * Initial draft

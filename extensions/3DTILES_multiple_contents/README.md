@@ -4,5 +4,5 @@ This extension adds support for multiple contents per tile.
 
 ## Changelog
 
-* [**Version 0.0.0**](0.0.0/README.md) [TODO: Date]
+* [**Version 0.0.0**](0.0.0) [TODO: Date]
     * Initial draft
