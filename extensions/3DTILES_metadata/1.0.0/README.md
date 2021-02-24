@@ -247,8 +247,6 @@ TODO: fix numbers in example
 
 When using the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling) extension tile metadata is stored in binary in each subtree. Here is an example subtree JSON:
 
-TODO: update numbers in example
-
 ```jsonc
 {
   "buffers": [
@@ -259,38 +257,38 @@ TODO: update numbers in example
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 0,
+      "byteLength": 688,
       "byteOffset": 0
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 688,
+      "byteOffset": 688
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 2048,
+      "byteOffset": 1376
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 65536,
+      "byteOffset": 3424
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 24576,
+      "byteOffset": 68960
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 8196,
+      "byteOffset": 93536
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 16388,
+      "byteOffset": 101736
     }
   ],
   "tileAvailability": {
