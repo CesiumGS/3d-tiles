@@ -1,10 +1,10 @@
 # Cesium 3D Metadata Specification
 
-This specification defines a standard metadata format for 3D data. It define a set of core concepts to be used by multiple 3D formats, in particular 3D Tiles and glTF.
+The Cesium 3D Metadata Specification defines a standard metadata format for 3D data.
 
-For actual use, refer to the implementations of this specification including:
+For usage see:
 
-* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata/1.0.0) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
+* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
 * [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) - glTF extension that assigns metadata to features in a model on a per-vertex, per-texel, or per-instance basis
 
 See the [Cesium Metadata Semantic Reference](Semantics) for built-in semantics for 3D Tiles and glTF.
