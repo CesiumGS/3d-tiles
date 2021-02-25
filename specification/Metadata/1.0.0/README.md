@@ -1,7 +1,7 @@
 <!-- omit in toc -->
 # Cesium 3D Metadata Specification
 
-**Version 1.0.0** [TODO: date]
+**Version 1.0.0**, February 25, 2021
 
 <!-- omit in toc -->
 ## Contributors

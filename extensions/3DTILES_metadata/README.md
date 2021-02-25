@@ -6,7 +6,7 @@
 
 * [**Version 0.0.0**](0.0.0) November 6, 2020
     * Initial draft
-* [**Version 1.0.0**](1.0.0) [TODO: Date]
+* [**Version 1.0.0**](1.0.0) February 25, 2021
     * Changes to properties
       * Removed `FLOAT16` type
       * Removed `BLOB` type and `blobByteLength` property

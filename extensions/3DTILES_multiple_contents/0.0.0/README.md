@@ -1,7 +1,7 @@
 <!-- omit in toc -->
 # 3DTILES_multiple_contents
 
-**Version 0.0.0**, [TODO: date]
+**Version 0.0.0**, February 25, 2021
 
 <!-- omit in toc -->
 ## Contributors
@@ -9,6 +9,7 @@
 * Sean Lilley, Cesium
 * Peter Gagliardi, Cesium
 * Sam Suhag, Cesium
+* Patrick Cozzi, Cesium
 
 <!-- omit in toc -->
 ## Status

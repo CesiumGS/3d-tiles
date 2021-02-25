@@ -13,7 +13,7 @@ See the [Cesium Metadata Semantic Reference](Semantics) for built-in semantics f
 
 * [**Version 0.0.0**](0.0.0) November 6, 2020
     * Initial draft
-* [**Version 1.0.0**](1.0.0) [TODO: date]
+* [**Version 1.0.0**](1.0.0) February 25, 2021
     * The specification has been revised to focus on the core concepts of schemas (including classes, enums, and properties) and formats for encoding metadata. It is now language independent. The JSON schema has been removed.
     * Added schemas which contain classes and enums
     * Added enum support

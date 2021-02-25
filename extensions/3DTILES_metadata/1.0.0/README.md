@@ -1,7 +1,7 @@
 <!-- omit in toc -->
 # 3DTILES_metadata Extension
 
-**Version 1.0.0**, [TODO: Date]
+**Version 1.0.0**, February 25, 2021
 
 <!-- omit in toc -->
 ## Contributors
