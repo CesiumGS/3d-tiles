@@ -29,7 +29,7 @@ For full usage see:
 <!-- omit in toc -->
 ### **HORIZON_OCCLUSION_POINT**
 
-The horizon occlusion point expressed in the ellipsoid-scaled fixed frame. If this point is below the horizon, the entire entity is below the horizon. See https://cesium.com/blog/2013/04/25/horizon-culling/ for more information. This semantic is often used with tile metadata.
+The horizon occlusion point expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire entity is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information. This semantic is often used with tile metadata.
 
 * Type: `ARRAY`
 * Component type: `FLOAT32` or `FLOAT64`
