@@ -28,9 +28,7 @@ Written against the 3D Tiles 1.0 specification.
 <!-- omit in toc -->
 ## Optional vs. Required
 
-This extension is required, meaning that it must be listed in
-both the `extensionsUsed` and `extensionsRequired` arrays of the
-tileset JSON.
+This extension is required, meaning it must be placed in both the `extensionsUsed` and `extensionsRequired` lists in the tileset JSON.
 
 <!-- omit in toc -->
 ## Contents
@@ -133,7 +131,7 @@ In the extension object of the tile, the following properties about the implicit
 | `subdivisionScheme` | Either `QUADTREE` or `OCTREE` |
 | `subtreeLevels` | How many levels there are in each subtree |
 | `maximumLevel` | Level of the deepest available tile in the tree. |
-| `subtrees` | Template URI for subtree files. See [Subtrees](#subtrees) |
+| `subtrees` | Template URI for subtree files. See [Subtrees](#subtrees). |
 
 [Template URIs](#template-uris) are used for locating subtree files as well as tile contents. For content, the template URI is specified in the tile's `content.uri` property.
 
@@ -271,7 +269,7 @@ Storing tiles in Morton order provides these benefits:
 - Locality of reference - Consecutive tiles are near to each other in 3D space.
 - Better Compression - Locality of reference leads to better compression of availability bitstreams.
 
-For more detailed information about working with Morton indices and availability bitstreams, see [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
+For more detailed information about working with Morton indices and availability bitstreams, see [Appendix A: Availability Indexing](#appendix-a-availability-indexing).
 
 ### Tile Availability
 

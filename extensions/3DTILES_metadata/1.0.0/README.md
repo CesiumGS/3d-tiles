@@ -243,7 +243,7 @@ Metadata may be assigned to individual tiles. Tile metadata often contains spati
 
 #### Implicit Tile Metadata
 
-When using the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling) tile metadata is stored in subtree buffers. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. See [Implicit Tiling Availability](../../3DTILES_implicit_tiling/0.0.0#availability) for details about tile ordering. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
+When using the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/0.0.0) tile metadata is stored in subtree buffers. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. See [Implicit Tiling Availability](../../3DTILES_implicit_tiling/0.0.0#availability) for details about tile ordering. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
 
 Below is an example subtree JSON:
 

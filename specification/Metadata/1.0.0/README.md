@@ -35,13 +35,13 @@ Draft
   - [Table Format](#table-format)
     - [Binary Encoding](#binary-encoding)
       - [Numbers](#numbers)
-      - [Boolean](#boolean)
+      - [Booleans](#booleans)
       - [Strings](#strings)
       - [Enums](#enums-1)
       - [Arrays](#arrays-1)
     - [JSON Encoding](#json-encoding)
       - [Numbers](#numbers-1)
-      - [Booleans](#booleans)
+      - [Booleans](#booleans-1)
       - [Strings](#strings-1)
       - [Enums](#enums-2)
       - [Arrays](#arrays-2)
@@ -334,7 +334,7 @@ UINT64 | 64-bit unsigned integer
 FLOAT32 | 32-bit IEEE floating point
 FLOAT64 | 64-bit IEEE floating point
 
-##### Boolean
+##### Booleans
 
 A boolean value is encoded as a single bit, either 0 (`false`) or 1 (`true`). Multiple boolean values are packed into a bitstream.
 

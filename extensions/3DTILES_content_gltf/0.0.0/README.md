@@ -21,10 +21,14 @@ Draft
 Written against the 3D Tiles 1.0 specification.
 
 <!-- omit in toc -->
+## Optional vs. Required
+
+This extension is required, meaning it must be placed in both the `extensionsUsed` and `extensionsRequired` lists in the tileset JSON.
+
+<!-- omit in toc -->
 ## Contents
 
 - [Overview](#overview)
-- [Optional vs. Required](#optional-vs-required)
 - [Extension JSON](#extension-json)
 - [Examples](#examples)
 - [JSON Schema Reference](#json-schema-reference)
@@ -35,10 +39,6 @@ Written against the 3D Tiles 1.0 specification.
 This extension allows a tileset to use [glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) models directly as tile content. Both `glTF` JSON and `GLB` binary formats are supported.
 
 Using glTF as a tile format simplifies content pipelines from creation to runtime. This allows greater compatibility with existing tools (e.g. 3D modeling software, validators, optimizers) that create or process glTF models. Runtime engines that currently support glTF can more easily support 3D Tiles.
-
-## Optional vs. Required
-
-This extension is required, meaning it should be placed in the tileset JSON top-level `extensionsRequired` and `extensionsUsed` lists.
 
 ## Extension JSON
 
