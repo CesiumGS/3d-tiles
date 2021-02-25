@@ -3,7 +3,7 @@
 This document defines semantics that may be used in the following specifications:
 
 * [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles to enable styling and analysis
-* [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/pull/3) - glTF extension that assigns metadata to features in a model on a per-vertex or per-texel basis
+* [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) - glTF extension that assigns metadata to features in a model on a per-vertex or per-texel basis
 
 <!-- omit in toc -->
 ### **HORIZON_OCCLUSION_POINT**

@@ -57,7 +57,7 @@ This extension provides a standard mechanism for adding metadata to 3D Tiles. Th
 * Tileset metadata - metadata about the tileset as a whole
 * Tile metadata - metadata about individual tiles
 * Group metadata - metadata about groups of content
-* Feature metadata - metadata about features. See the companion glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/pull/3).
+* Feature metadata - metadata about features. See the companion glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
 
 A tileset defines a **schema**. A schema has a set of **classes** and **enums**. A class contains a set of **properties**, which may be numeric, boolean, string, enum, or array types.
 
@@ -404,7 +404,7 @@ Metadata may be assigned to groups. Groups represent collections of contents. Co
 
 TODO: add brief summary of what a feature is
 
-Metadata may be assigned to features using the glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/pull/3).
+Metadata may be assigned to features using the glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
 
 ### Statistics
 
