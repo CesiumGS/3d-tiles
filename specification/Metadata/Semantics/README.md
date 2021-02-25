@@ -8,7 +8,7 @@ This document defines semantics that may be used in the following specifications
 <!-- omit in toc -->
 ### **HORIZON_OCCLUSION_POINT**
 
-The horizon occlusion point of a tile. If this point is below the horizon, the entire tile is assumed to be below the horizon as well.
+The horizon occlusion point of a tile expressed in the ellipsoid-scaled fixed frame. If this point is below the horizon, the entire tile is below the horizon. See https://cesium.com/blog/2013/04/25/horizon-culling/ for more information.
 
 * Type: `ARRAY`
 * Component type: `FLOAT32` or `FLOAT64`

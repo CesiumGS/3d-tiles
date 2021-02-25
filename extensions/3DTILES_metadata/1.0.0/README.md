@@ -79,7 +79,7 @@ This extension is designed with several new use cases in mind.
 * Metadata schemas can be shared by contents within a tileset and across different tilesets
 * An application can style tilesets using metadata stored at per-tileset, per-tile, per-group, and per-feature granularity
 * A runtime engine can optimize traversal algorithms by using per-tile metadata
-* An application can create a layering system by adding show/hide or color styles to groups, as well as selectively loading groups on demand
+* An application can create a layering system by adding show/hide or color styles for groups, as well as selectively loading groups on demand
 
 ## Compatibility Notes
 
@@ -192,7 +192,7 @@ Note that the optional property `country` is omitted in tileset metadata object.
 
 ### Tile Metadata
 
-Metadata may be assigned to individual tiles. Tile metadata often contains spatial information to optimize traversal algorithms. The example below uses the built-in semantic `HORIZON_OCCLUSION_POINT`.`
+Metadata may be assigned to individual tiles. Tile metadata often contains spatial information to optimize traversal algorithms. The example below uses the built-in semantic `HORIZON_OCCLUSION_POINT` from the [Cesium Metadata Semantic Reference](../../../specification/Metadata/Semantics).
 
 ```jsonc
 {
@@ -209,7 +209,7 @@ Metadata may be assigned to individual tiles. Tile metadata often contains spati
                 "semantic": "HORIZON_OCCLUSION_POINT",
               },
               "countries": {
-                "description": "The countries that overlap this tile",
+                "description": "The countries that this tile overlaps",
                 "type": "ARRAY",
                 "componentType": "STRING"
               }
@@ -232,7 +232,7 @@ Metadata may be assigned to individual tiles. Tile metadata often contains spati
       "3DTILES_metadata": {
         "class": "tile",
         "properties": {
-          "boundingSphere": [-0.4142135640377178, -1.0000000040187549, 0.44683832670325535],
+          "horizonOcclusionPoint": [-0.4142135640377178, -1.0000000040187549, 0.44683832670325535],
           "countries": ["United States", "Canada", "Mexico"]
         }
       }
@@ -243,7 +243,7 @@ Metadata may be assigned to individual tiles. Tile metadata often contains spati
 
 #### Implicit Tile Metadata
 
-When using the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling) tile metadata is stored in binary in each subtree. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
+When using the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling) tile metadata is stored in subtree buffers. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
 
 Below is an example subtree JSON:
 
@@ -322,7 +322,7 @@ Below is an example subtree JSON:
 
 Metadata may be assigned to groups. Groups represent collections of contents. Contents are assigned to groups with the `3DTILES_metadata` content extension.
 
-Group metadata is often paired with [`3DTILES_multiple_contents`](../../3DTILES_multiple_contents/0.0.0) so that a tile can have multiple contents, each assigned to a different group. That extension also shows an example combining `3DTILES_metadata`, `3DTILES_multiple_contents`, and `3DTILES_implicit_tiling`.
+Group metadata is often paired with [`3DTILES_multiple_contents`](../../3DTILES_multiple_contents/0.0.0) so that a tile can have multiple contents, each assigned to a different group.
 
 ```jsonc
 {
@@ -404,17 +404,20 @@ Group metadata is often paired with [`3DTILES_multiple_contents`](../../3DTILES_
 
 ### Feature Metadata
 
-A feature is an entity such as a building in a city. Features are the finest level of granularity within the tileset.
+A feature is an entity in the content, such as a building in a city. Features are the finest level of granularity within the tileset.
 
 Metadata may be assigned to features using the glTF extension [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
 
-Feature metadata classes may be included in the `3DTILES_metadata` schema. This allows an application to know what classes are used by features before requesting content.
+Feature metadata classes may be included in the `3DTILES_metadata` schema. This lets an application know what classes are used before requesting content.
 
 ### Statistics
 
-Statistics provide aggregate information about select properties within a tileset.
+Statistics provide aggregate information about entities in a tileset. Statistics are provided on a per-class basis.
 
-3D Tiles has the following built-in statistics:
+* `count` is the number of entities that conform to the class
+* `properties` contains statistics about property values
+
+Properties have the following built-in statistics:
 
 Name|Description|Type
 --|--|--
@@ -507,7 +510,7 @@ By default properties do not have any inherent meaning. A property may be assign
 
 Tileset authors may define their own application or domain-specific semantics separately.
 
-The example below uses two built-in semantics, `NAME` and `ID`, and one custom semantic (`_HEIGHT`).
+The example below uses two built-in semantics, `NAME` and `ID`, and one custom semantic, `_HEIGHT`.
 
 ```jsonc
 {
