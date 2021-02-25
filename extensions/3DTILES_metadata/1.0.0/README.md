@@ -85,7 +85,7 @@ This extension is designed with several new use cases in mind.
 
 This extension is independent of the [Batch Table](../../../specification/TileFormats/BatchTable) used in the Batched 3D Model, Instanced 3D Model, and Point Cloud formats. Similarly, this extension is independent of the [`properties`](../../../specification/schema/properties.schema.json) object in tileset JSON.
 
-glTF models contained in Batched 3D Model or Instanced 3D Model content must not use the [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) extension.
+glTF models contained in Batched 3D Model or Instanced 3D Model content must not use the [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) extension. Instead use glTF content directly with [`3DTILES_content_gltf`](../../3DTILES_content_gltf/0.0.0).
 
 ## Concepts
 
