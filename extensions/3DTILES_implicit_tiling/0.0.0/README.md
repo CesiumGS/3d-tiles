@@ -380,7 +380,7 @@ In the example above, every tile in the subtree exists, but not every tile has c
 
 ### Availability Packing
 
-Availability bitstreams are packed in binary using the format described in the [Booleans](../../../specification/Metadata/1.0.0#booleans) of the Cesium 3D Metadata Specification.
+Availability bitstreams are packed in binary using the format described in the [Booleans](../../../specification/Metadata/1.0.0#booleans) section of the Cesium 3D Metadata Specification.
 
 ## Glossary
 
