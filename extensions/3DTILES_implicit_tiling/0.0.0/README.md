@@ -28,9 +28,7 @@ Written against the 3D Tiles 1.0 specification.
 <!-- omit in toc -->
 ## Optional vs. Required
 
-This extension is required, meaning that it must be listed in
-both the `extensionsUsed` and `extensionsRequired` arrays of the
-tileset JSON.
+This extension is required, meaning it must be placed in both the `extensionsUsed` and `extensionsRequired` lists in the tileset JSON.
 
 <!-- omit in toc -->
 ## Contents
@@ -133,7 +131,7 @@ In the extension object of the tile, the following properties about the implicit
 | `subdivisionScheme` | Either `QUADTREE` or `OCTREE` |
 | `subtreeLevels` | How many levels there are in each subtree |
 | `maximumLevel` | Level of the deepest available tile in the tree. |
-| `subtrees` | Template URI for subtree files. See [Subtrees](#subtrees) |
+| `subtrees` | Template URI for subtree files. See [Subtrees](#subtrees). |
 
 [Template URIs](#template-uris) are used for locating subtree files as well as tile contents. For content, the template URI is specified in the tile's `content.uri` property.
 
@@ -271,7 +269,7 @@ Storing tiles in Morton order provides these benefits:
 - Locality of reference - Consecutive tiles are near to each other in 3D space.
 - Better Compression - Locality of reference leads to better compression of availability bitstreams.
 
-For more detailed information about working with Morton indices and availability bitstreams, see [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
+For more detailed information about working with Morton indices and availability bitstreams, see [Appendix A: Availability Indexing](#appendix-a-availability-indexing).
 
 ### Tile Availability
 
@@ -382,7 +380,7 @@ In the example above, every tile in the subtree exists, but not every tile has c
 
 ### Availability Packing
 
-Availability bitstreams are packed in binary using the format described in the [Booleans](../../../specification/Metadata/1.0.0/README.md#booleans) of the Cesium 3D Metadata Specification.
+Availability bitstreams are packed in binary using the format described in the [Booleans](../../../specification/Metadata/1.0.0#booleans) section of the Cesium 3D Metadata Specification.
 
 ## Glossary
 
@@ -632,7 +630,7 @@ An object describing the availability of a set of elements.
 
 |   |Type|Description|Required|
 |---|---|---|---|
-|**bufferView**|`integer`|Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata/0.0.0/README.md). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.|No|
+|**bufferView**|`integer`|Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata/1.0.0). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.|No|
 |**availableCount**|`integer`|A number indicating how many 1 bits exist in the availability bitstream.|No|
 |**constant**|`integer`|Integer indicating whether all of the elements are available (1) or all are unavailable (0).|No|
 |**extensions**|`any`||No|
@@ -643,7 +641,7 @@ Additional properties are allowed.
 <!-- omit in toc -->
 #### availability.bufferView
 
-Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata/0.0.0/README.md). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.
+Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata/1.0.0). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.
 
 * **Type**: `integer`
 * **Required**: No

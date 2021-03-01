@@ -1,7 +1,7 @@
 <!-- omit in toc -->
 # 3DTILES_metadata Extension
 
-**Version 1.0.0**, [TODO: Date]
+**Version 1.0.0**, February 25, 2021
 
 <!-- omit in toc -->
 ## Contributors
@@ -22,13 +22,12 @@ Draft
 
 Written against the 3D Tiles 1.0 specification.
 
-Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/README.md). See [Implicit Tile Metadata](#implicit-tile-metadata).
-
+Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/0.0.0). See [Implicit Tile Metadata](#implicit-tile-metadata).
 
 <!-- omit in toc -->
 ## Optional vs. Required
 
-This extension is optional, meaning it should be placed in tileset JSON `extensionsUsed` list, but not in the `extensionsRequired` list.
+This extension is optional, meaning it should be placed in the tileset JSON `extensionsUsed` list, but not in the `extensionsRequired` list.
 
 <!-- omit in toc -->
 ## Contents
@@ -45,60 +44,58 @@ This extension is optional, meaning it should be placed in tileset JSON `extensi
   - [Feature Metadata](#feature-metadata)
   - [Statistics](#statistics)
   - [Semantics](#semantics)
-- [JSON Schema](#json-schema)
+  - [Styling](#styling)
+- [JSON Schema Reference](#json-schema-reference)
 
 ## Overview
 
-TODO: add diagram showing how all the types of metadata might interact within a tileset with labels
-TODO: interaction with declarative styling
+This extension defines a standard mechanism for adding metadata to 3D Tiles. This includes:
 
-This extension provides a standard mechanism for adding metadata to 3D Tiles. This includes:
+* Tileset metadata - metadata about the tileset as a whole.
+* Tile metadata - metadata about individual tiles.
+* Group metadata - metadata about groups of content.
+* Feature metadata - metadata about features. See the companion glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
 
-* Tileset metadata - metadata about the tileset as a whole
-* Tile metadata - metadata about individual tiles
-* Group metadata - metadata about groups of content
-* Feature metadata - metadata about features. See the companion glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/pull/3).
+<img src="figures/metadata-granularity.png"  alt="Metadata Granularity" width="600">
 
 A tileset defines a **schema**. A schema has a set of **classes** and **enums**. A class contains a set of **properties**, which may be numeric, boolean, string, enum, or array types.
 
 **Entities** (such as tiles, features, etc.) conform to classes and contain **property values**. Depending on the context, property values may be stored in JSON or binary.
 
-**Statistics** provide aggregate information about the metadata. For example, statistics may include the min/max values of a numeric property for mapping property values to gradients in the [declarative styling language](../../../specification/Styling/README.md) or the number of enum occurrences for creating histograms.
+**Statistics** provide aggregate information about the metadata. For example, statistics may include the min/max values of a numeric property for mapping property values to color ramps with the [declarative styling language](../../../specification/Styling) or the number of enum occurrences for creating histograms.
 
-By default properties do not have any inherent meaning. A **semantic** may be provided to give a property meaning. The full list of built-in semantics can be found in the [Cesium Metadata Semantics Reference](../../../specification/Metadata/Semantics/README.md). Tileset authors may define their own additional semantics separately.
+By default, properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes how the property should be interpreted. The full list of built-in semantics can be found in the [Cesium Metadata Semantic Reference](../../../specification/Metadata/Semantics). Tileset authors may define their own application- or domain-specific semantics separately.
 
-This extension references the [Cesium 3D Metadata Specification](../../../specification/Metadata/README.md), which describes the metadata format in full detail.
+This extension implements the [Cesium 3D Metadata Specification](../../../specification/Metadata/1.0.0), which describes the metadata format in full detail.
 
 ## Use Cases
 
 _This section is non-normative_
 
-This extension enables use cases including:
+This extension is designed with several new use cases in mind.
 
-* Picking features and querying their properties
-* Styling, including generating complex styles that synthesize tileset, tile, content, and feature metadata together
-* Optimizing traversal algorithms with tile metadata
-* Grouping content into layers and providing per-layer visibility and color controls 
-* Selectively loading content based on properties
+* An application can style tilesets using metadata stored at per-tileset, per-tile, per-group, and per-feature granularity
+* An application can see what metadata is available before requesting content, e.g. for populating a UI
+* Tileset authors can extend metadata with their own semantic data model
+* Metadata schemas can be shared within a tileset and across different tilesets
+* A runtime engine can optimize traversal algorithms by using per-tile metadata
+* An application can create a layering system by adding show/hide or color styles for groups, as well as selectively loading groups on demand
 
 ## Compatibility Notes
 
-This extension provides similar capabilities to, but is independent of, the [Batch Table](../../../specification/TileFormats/BatchTable) used in the Batched 3D Model, Instanced 3D Model, and Point Cloud formats. Similarly, this extension is independent of the [`properties`](../../../specification/schema/properties.schema.json) object in tileset JSON.
+This extension is independent of the [Batch Table](../../../specification/TileFormats/BatchTable) used in the Batched 3D Model, Instanced 3D Model, and Point Cloud formats. Similarly, this extension is independent of the [`properties`](../../../specification/schema/properties.schema.json) object in tileset JSON.
 
-glTF models contain in Batched 3D Model or Instanced 3D Model content 
-The `EXT_feature_metadata` extension must not be used by glTF models contained in Batched 3D Model or Instanced 3D Model content.
-
-> In general, `3DTILES_metadata` (along with `EXT_feature_metadata`) is considered a successor to the Batch Table and using both methods in the same tileset should be avoided.
+glTF models in Batched 3D Model or Instanced 3D Model content must not use the [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) extension. Instead use glTF content directly with [`3DTILES_content_gltf`](../../3DTILES_content_gltf/0.0.0).
 
 ## Concepts
 
 ### Schemas
 
-A schema defines a set of classes and enums used in a tileset. Classes serve as templates for entities - they provide a list of properties and the type information for those properties. Enums define the allowable values for enum properties. Schemas are defined in full detail in the [Cesium 3D Metadata Specification](../../../specification/Metadata/README.md#schemas).
+A schema defines a set of classes and enums used in a tileset. Classes serve as templates for entities - they provide a list of properties and the type information for those properties. Enums define the allowable values for enum properties. Schemas are defined in full detail in the [Cesium 3D Metadata Specification](../../../specification/Metadata/1.0.0#schemas).
 
 A schema may be embedded in the extension directly or referenced externally with the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same external schema to avoid duplication.
 
-This example shows a schema with a `building` class and `buildingType` enum. Later examples show how different types of entities conform to classes and supply property values.
+This example shows a schema with a `building` class and `buildingType` enum. Later examples show how entities declare their class and supply property values.
 
 ```jsonc
 {
@@ -153,6 +150,9 @@ Metadata may be assigned to the tileset as a whole using the `tileset` object.
 
 The `tileset` object may specify a `class` and contain property values. The `tileset` object may also specify a `name` and `description`.
 
+Note that the optional property `country` is omitted in the example below.
+
+
 ```jsonc
 {
   "extensions": {
@@ -192,9 +192,7 @@ The `tileset` object may specify a `class` and contain property values. The `til
 
 ### Tile Metadata
 
-Metadata may be assigned to individual tiles. Tile metadata often contains spatial information to optimize traversal algorithms.
-
-TODO: fix numbers in example
+Metadata may be assigned to individual tiles. Tile metadata often contains spatial information to optimize traversal algorithms. The example below uses the built-in semantic `HORIZON_OCCLUSION_POINT` from the [Cesium Metadata Semantic Reference](../../../specification/Metadata/Semantics).
 
 ```jsonc
 {
@@ -204,14 +202,14 @@ TODO: fix numbers in example
         "classes": {
           "tile": {
             "properties": {
-              "boundingSphere": {
+              "horizonOcclusionPoint": {
                 "type": "ARRAY",
                 "componentType": "FLOAT64",
                 "componentCount": 4,
-                "semantic": "BOUNDING_SPHERE",
+                "semantic": "HORIZON_OCCLUSION_POINT",
               },
               "countries": {
-                "description": "The countries that overlap this tile",
+                "description": "The countries that this tile overlaps",
                 "type": "ARRAY",
                 "componentType": "STRING"
               }
@@ -223,18 +221,18 @@ TODO: fix numbers in example
   },
   "root": {
     "refine": "ADD",
-    "geometricError": 0.0,
+    "geometricError": 19266.834945,
     "boundingVolume": {
-      "region": [-1.707, 0.543, -1.706, 0.544, 203.895, 253.113]
+      "region": [-2.356194490192345, 0.0, -1.5707963267948966, 0.7853981633974483, -2119.1943359375, 5615.173828125]
     },
     "content": {
-      "uri": "buildings.b3dm"
+      "uri": "terrain.b3dm"
     },
     "extensions": {
       "3DTILES_metadata": {
         "class": "tile",
         "properties": {
-          "boundingSphere": [6005000.0, 0.0, 0.0, 5000.0],
+          "horizonOcclusionPoint": [-0.4142135640377178, -1.0000000040187549, 0.44683832670325535],
           "countries": ["United States", "Canada", "Mexico"]
         }
       }
@@ -245,52 +243,52 @@ TODO: fix numbers in example
 
 #### Implicit Tile Metadata
 
-When using the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling) extension tile metadata is stored in binary in each subtree. Here is an example subtree JSON:
+When using the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/0.0.0) tile metadata is stored in subtree buffers. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. See [Implicit Tiling Availability](../../3DTILES_implicit_tiling/0.0.0#availability) for details about tile ordering. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
 
-TODO: update numbers in example
+Below is an example subtree JSON:
 
 ```jsonc
 {
   "buffers": [
     {
-      "byteLength": 0
+      "byteLength": 99692
     }
   ],
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 0,
+      "byteLength": 688,
       "byteOffset": 0
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 688,
+      "byteOffset": 688
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 2048,
+      "byteOffset": 1376
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 49152,
+      "byteOffset": 3424
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 24576,
+      "byteOffset": 50528
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 8196,
+      "byteOffset": 75104
     },
     {
       "buffer": 0,
-      "byteLength": 0,
-      "byteOffset": 0
+      "byteLength": 16388,
+      "byteOffset": 83304
     }
   ],
   "tileAvailability": {
@@ -306,7 +304,7 @@ TODO: update numbers in example
     "3DTILES_metadata": {
       "class": "tile",
       "properties": {
-        "boundingSphere": {
+        "horizonOcclusionPoint": {
           "bufferView": 3
         },
         "countries": {
@@ -323,6 +321,8 @@ TODO: update numbers in example
 ### Group Metadata
 
 Metadata may be assigned to groups. Groups represent collections of contents. Contents are assigned to groups with the `3DTILES_metadata` content extension.
+
+Group metadata can be paired with [`3DTILES_multiple_contents`](../../3DTILES_multiple_contents/0.0.0) to assign multiple contents in a tile to different groups.
 
 ```jsonc
 {
@@ -404,25 +404,30 @@ Metadata may be assigned to groups. Groups represent collections of contents. Co
 
 ### Feature Metadata
 
-TODO: add brief summary of what a feature is
+A feature is an entity that has both geometry and metadata, such as a 3D building in a city. Features are the finest level of granularity within the tileset.
 
-Metadata may be assigned to features using the glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/pull/3).
+Metadata may be assigned to features using the glTF extension [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
+
+Feature metadata classes may be included in the `3DTILES_metadata` schema. This lets an application know what classes exist before requesting content.
 
 ### Statistics
 
-Statistics provide aggregate information about select properties within a tileset.
+Statistics provide aggregate information about entities in a tileset. Statistics are provided on a per-class basis.
 
-3D Tiles has the following built-in statistics:
+* `count` is the number of entities that conform to the class
+* `properties` contains statistics about property values
+
+Properties have the following built-in statistics:
 
 Name|Description|Type
 --|--|--
-`min`|Minimum value|Numeric types or fixed-length arrays of numeric types
-`max`|Maximum value|...
-`mean`|The arithmetic mean of the values|...
-`median`|The median value|...
-`standardDeviation`|The standard deviation of the values|...
-`variance`|The variance of the values|...
-`sum`|The sum of the values|...
+`min`|The minimum property value|Numeric types or fixed-length arrays of numeric types
+`max`|The maximum property value|...
+`mean`|The arithmetic mean of the property values|...
+`median`|The median of the property values|...
+`standardDeviation`|The standard deviation of the property values|...
+`variance`|The variance of the property values|...
+`sum`|The sum of the property values|...
 `occurrences`|Number of enum occurrences|Enums or fixed-length arrays of enums
 
 Tileset authors may define their own additional semantics, like `mode` in the example below.
@@ -432,6 +437,23 @@ Tileset authors may define their own additional semantics, like `mode` in the ex
   "extensions": {
     "3DTILES_metadata": {
       "schema": {
+        "classes": {
+          "building": {
+            "properties": {
+              "height": {
+                "type": "FLOAT32"
+              },
+              "owners": {
+                "type": "ARRAY",
+                "componentType": "STRING"
+              },
+              "buildingType": {
+                "type": "ENUM",
+                "enumType": "buildingType"
+              }
+            }
+          }
+        },
         "enums": {
           "buildingType": {
             "valueType": "UINT16",
@@ -453,23 +475,6 @@ Tileset authors may define their own additional semantics, like `mode` in the ex
                 "value": 3
               }
             ]
-          }
-        },
-        "classes": {
-          "building": {
-            "properties": {
-              "height": {
-                "type": "FLOAT32"
-              },
-              "owners": {
-                "type": "ARRAY",
-                "componentType": "STRING"
-              },
-              "buildingType": {
-                "type": "ENUM",
-                "enumType": "buildingType"
-              }
-            }
           }
         }
       },
@@ -501,13 +506,11 @@ Tileset authors may define their own additional semantics, like `mode` in the ex
 
 ### Semantics
 
-TODO: finish this section, remove stuff that got moved
+By default properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes how the property should be interpreted. The full list of built-in semantics can be found in the [Cesium Metadata Semantic Reference](../../../specification/Metadata/Semantics).
 
-By default properties are application-specific and do not have any inherent meaning. A **semantic** may be provided to describe how properties should be interpreted. 
+Tileset authors may define their own application- or domain-specific semantics separately.
 
-A semantic is defined by a name, a description, and a property definition. `3DTILES_metadata` provides the following built-in semantics:
-
-Tileset authors may define their own additional semantics. By convention they are preceded by an underscore but that is not required. For example:
+The example below uses two built-in semantics, `NAME` and `ID`, and one custom semantic, `_HEIGHT`.
 
 ```jsonc
 {
@@ -538,59 +541,64 @@ Tileset authors may define their own additional semantics. By convention they ar
 }
 ```
 
-## JSON Schema
+### Styling
 
-<!-- tileset -->
+TODO - requires more experimentation in CesiumJS
 
-> WETZEL_WARNING: Only JSON Schema 3 or 4 is supported. Treating as Schema 3.
+TODO - use semantics in styling language
+
+## JSON Schema Reference
+
+* [Tileset extension](#tileset-extension)
+* [Tile extension](#tile-extension)
+* [Content extension](#content-extension)
+* [`3DTILES_implicit_tiling` subtree extension](#3dtiles_implicit_tiling-subtree-extension)
 
 <!-- omit in toc -->
-## Objects
-* [`3DTILES_metadata 3D Tiles extension`](#reference-3dtiles_metadata-3d-tiles-extension) (root object)
-* [`Group`](#reference-group)
+## Tileset Extension
+* [`Tileset extension`](#reference-3dtiles_metadata-3d-tiles-extension) (root object)
 * [`Schema `](#reference-schema)
    * [`Class`](#reference-class)
-      * [`property`](#reference-class-property)
+      * [`Class Property`](#reference-class-property)
    * [`Enum`](#reference-enum)
-      * [`value`](#reference-enum-value)
-* [`Statistic Values`](#reference-statistics-class-property-values)
+      * [`Enum Value`](#reference-enum-value)
+* [`Tileset Metadata`](#reference-tileset)
+* [`Group Metadata`](#reference-group)
 * [`Statistics`](#reference-statistics)
    * [`Class Statistics`](#reference-statistics-class)
       * [`Property Statistics`](#reference-statistics-class-property)
-* [`Tileset Metadata`](#reference-tileset)
-
 
 ---------------------------------------
 <a name="reference-3dtiles_metadata-3d-tiles-extension"></a>
 <!-- omit in toc -->
-### 3DTILES_metadata 3D Tiles extension
+## Tileset extension
 
 3D Tiles extension that defines metadata for a tileset.
 
-**`3DTILES_metadata 3D Tiles extension` Properties**
+**`Tileset extension` Properties**
 
 |   |Type|Description|Required|
 |---|---|---|---|
-|**schema**|`any`|An object defining classes and enums.|No|
+|**schema**|`schema`|An object defining classes and enums.|No|
 |**schemaUri**|`string`|A uri to an external schema file.|No|
-|**statistics**|`any`|An object containing statistics about the metadata.|No|
+|**statistics**|`statistics`|An object containing statistics about entities.|No|
 |**groups**|`object`|A dictionary, where each key is a group ID and each value is an object defining the group.|No|
-|**tileset**|`any`|An object containing metadata about a tileset.|No|
+|**tileset**|`tileset`|An object containing metadata about the tileset.|No|
 |**extensions**|`any`||No|
 |**extras**|`any`||No|
 
 Additional properties are allowed.
 
 <!-- omit in toc -->
-#### 3DTILES_metadata 3D Tiles extension.schema
+#### Tileset extension.schema
 
 An object defining classes and enums.
 
-* **Type**: `any`
+* **Type**: `schema`
 * **Required**: No
 
 <!-- omit in toc -->
-#### 3DTILES_metadata 3D Tiles extension.schemaUri
+#### Tileset extension.schemaUri
 
 A uri to an external schema file.
 
@@ -599,15 +607,15 @@ A uri to an external schema file.
 * **Format**: uriref
 
 <!-- omit in toc -->
-#### 3DTILES_metadata 3D Tiles extension.statistics
+#### Tileset extension.statistics
 
-An object containing statistics about the metadata.
+An object containing statistics about entities.
 
-* **Type**: `any`
+* **Type**: `statistics`
 * **Required**: No
 
 <!-- omit in toc -->
-#### 3DTILES_metadata 3D Tiles extension.groups
+#### Tileset extension.groups
 
 A dictionary, where each key is a group ID and each value is an object defining the group.
 
@@ -616,632 +624,24 @@ A dictionary, where each key is a group ID and each value is an object defining 
 * **Type of each property**: `group`
 
 <!-- omit in toc -->
-#### 3DTILES_metadata 3D Tiles extension.tileset
+#### Tileset extension.tileset
 
-An object containing metadata about a tileset.
+An object containing metadata about the tileset.
+
+* **Type**: `tileset`
+* **Required**: No
+
+<!-- omit in toc -->
+#### Tileset extension.extensions
 
 * **Type**: `any`
 * **Required**: No
 
 <!-- omit in toc -->
-#### 3DTILES_metadata 3D Tiles extension.extensions
+#### Tileset extension.extras
 
 * **Type**: `any`
 * **Required**: No
-
-<!-- omit in toc -->
-#### 3DTILES_metadata 3D Tiles extension.extras
-
-* **Type**: `any`
-* **Required**: No
-
-
-
-
----------------------------------------
-<a name="reference-class"></a>
-<!-- omit in toc -->
-### Class
-
-A class containing a set of properties.
-
-**`Class` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**name**|`string`|The name of the class, e.g. for display purposes.|No|
-|**description**|`string`|The description of the class.|No|
-|**properties**|`object`|A dictionary, where each key is a property ID and each value is an object defining the property.|No|
-|**extensions**|`any`||No|
-|**extras**|`any`||No|
-
-Additional properties are allowed.
-
-<!-- omit in toc -->
-#### class.name
-
-The name of the class, e.g. for display purposes.
-
-* **Type**: `string`
-* **Required**: No
-* **Minimum Length**`: >= 1`
-
-<!-- omit in toc -->
-#### class.description
-
-The description of the class.
-
-* **Type**: `string`
-* **Required**: No
-* **Minimum Length**`: >= 1`
-
-<!-- omit in toc -->
-#### class.properties
-
-A dictionary, where each key is a property ID and each value is an object defining the property.
-
-* **Type**: `object`
-* **Required**: No
-* **Type of each property**: `class.property`
-
-<!-- omit in toc -->
-#### class.extensions
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### class.extras
-
-* **Type**: `any`
-* **Required**: No
-
-
-
-
----------------------------------------
-<a name="reference-class-property"></a>
-<!-- omit in toc -->
-### Class property
-
-A class property.
-
-**`Class property` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**name**|`string`|The name of the property, e.g. for display purposes.|No|
-|**description**|`string`|The description of the property.|No|
-|**type**|`string`|The property type. If `ENUM` is used, then `enumType` must also be specified. If `ARRAY` is used, then `componentType` must also be specified. `ARRAY` is a fixed-length array when `componentCount` is defined, and variable-length otherwise.|No|
-|**enumType**|`string`|An enum ID as declared in the `enums` dictionary. This value must be specified when `type` or `componentType` is `ENUM`.|No|
-|**componentType**|`any`|When `type` is `ARRAY` this indicates the type of each component of the array. If `ENUM` is used, then `enumType` must also be specified.|No|
-|**componentCount**|`integer`|The number of components per element for `ARRAY` elements.|No|
-|**normalized**|`boolean`|Specifies whether integer values are normalized. This applies both when `type` is an integer type, or when `type` is `ARRAY` with a `componentType` that is an integer type. For unsigned integer types, values are normalized between [0.0, 1.0]. For signed integer types, values are normalized between [-1.0, 1.0]. For all other types, this property is ignored.|No, default: `false`|
-|**max**|`number,array`|Maximum allowed values for property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. `normalized` property has no effect on these values: they always correspond to the integer values.|No|
-|**min**|`number,array`|Minimum allowed values for property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. `normalized` property has no effect on these values: they always correspond to the integer values.|No|
-|**default**|`boolean,number,string,array`|A default value to use when the property value is not defined. If used, `optional` must be set to true. The type of the default value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For an integer or floating point number use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`.|No|
-|**optional**|`boolean`|If true, this property is optional.|No, default: `false`|
-|**semantic**|`string`|An identifier that describes how this property should be interpreted. The semantic cannot be used by other properties in the class.|No|
-|**extensions**|`any`||No|
-|**extras**|`any`||No|
-
-Additional properties are allowed.
-
-<!-- omit in toc -->
-#### class.property.name
-
-The name of the property, e.g. for display purposes.
-
-* **Type**: `string`
-* **Required**: No
-* **Minimum Length**`: >= 1`
-
-<!-- omit in toc -->
-#### class.property.description
-
-The description of the property.
-
-* **Type**: `string`
-* **Required**: No
-* **Minimum Length**`: >= 1`
-
-<!-- omit in toc -->
-#### class.property.type
-
-The property type. If `ENUM` is used, then `enumType` must also be specified. If `ARRAY` is used, then `componentType` must also be specified. `ARRAY` is a fixed-length array when `componentCount` is defined, and variable-length otherwise.
-
-* **Type**: `string`
-* **Required**: No
-* **Allowed values**:
-   * `"INT8"`
-   * `"UINT8"`
-   * `"INT16"`
-   * `"UINT16"`
-   * `"INT32"`
-   * `"UINT32"`
-   * `"INT64"`
-   * `"UINT64"`
-   * `"FLOAT32"`
-   * `"FLOAT64"`
-   * `"BOOLEAN"`
-   * `"STRING"`
-   * `"ENUM"`
-   * `"ARRAY"`
-
-<!-- omit in toc -->
-#### class.property.enumType
-
-An enum ID as declared in the `enums` dictionary. This value must be specified when `type` or `componentType` is `ENUM`.
-
-* **Type**: `string`
-* **Required**: No
-
-<!-- omit in toc -->
-#### class.property.componentType
-
-When `type` is `ARRAY` this indicates the type of each component of the array. If `ENUM` is used, then `enumType` must also be specified.
-
-* **Type**: `any`
-* **Required**: No
-* **Allowed values**:
-   * `INT8`
-   * `UINT8`
-   * `INT16`
-   * `UINT16`
-   * `INT32`
-   * `UINT32`
-   * `INT64`
-   * `UINT64`
-   * `FLOAT32`
-   * `FLOAT64`
-   * `BOOLEAN`
-   * `STRING`
-   * `ENUM`
-
-<!-- omit in toc -->
-#### class.property.componentCount
-
-The number of components per element for `ARRAY` elements.
-
-* **Type**: `integer`
-* **Required**: No
-* **Minimum**: ` >= 2`
-
-<!-- omit in toc -->
-#### class.property.normalized
-
-Specifies whether integer values are normalized. This applies both when `type` is an integer type, or when `type` is `ARRAY` with a `componentType` that is an integer type. For unsigned integer types, values are normalized between [0.0, 1.0]. For signed integer types, values are normalized between [-1.0, 1.0]. For all other types, this property is ignored.
-
-* **Type**: `boolean`
-* **Required**: No, default: `false`
-
-<!-- omit in toc -->
-#### class.property.max
-
-Maximum allowed values for property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. `normalized` property has no effect on these values: they always correspond to the integer values.
-
-* **Type**: `number,array`
-* **Required**: No
-
-<!-- omit in toc -->
-#### class.property.min
-
-Minimum allowed values for property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. `normalized` property has no effect on these values: they always correspond to the integer values.
-
-* **Type**: `number,array`
-* **Required**: No
-
-<!-- omit in toc -->
-#### class.property.default
-
-A default value to use when the property value is not defined. If used, `optional` must be set to true. The type of the default value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For an integer or floating point number use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`.
-
-* **Type**: `boolean,number,string,array`
-* **Required**: No
-
-<!-- omit in toc -->
-#### class.property.optional
-
-If true, this property is optional.
-
-* **Type**: `boolean`
-* **Required**: No, default: `false`
-
-<!-- omit in toc -->
-#### class.property.semantic
-
-An identifier that describes how this property should be interpreted. The semantic cannot be used by other properties in the class.
-
-* **Type**: `string`
-* **Required**: No
-* **Minimum Length**`: >= 1`
-
-<!-- omit in toc -->
-#### class.property.extensions
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### class.property.extras
-
-* **Type**: `any`
-* **Required**: No
-
-
-
-
----------------------------------------
-<a name="reference-statistics-class"></a>
-<!-- omit in toc -->
-### Class Statistics
-
-Statistics about entities that conform to the class.
-
-**`Class Statistics` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**count**|`integer`|The number of entities that conform to the class.|No|
-|**properties**|`object`|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object containing statistics about property values.|No|
-|**extensions**|`any`||No|
-|**extras**|`any`||No|
-
-Additional properties are allowed.
-
-<!-- omit in toc -->
-#### statistics.class.count
-
-The number of entities that conform to the class.
-
-* **Type**: `integer`
-* **Required**: No
-* **Minimum**: ` >= 0`
-
-<!-- omit in toc -->
-#### statistics.class.properties
-
-A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object containing statistics about property values.
-
-* **Type**: `object`
-* **Required**: No
-* **Type of each property**: `statistics.class.property`
-
-<!-- omit in toc -->
-#### statistics.class.extensions
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### statistics.class.extras
-
-* **Type**: `any`
-* **Required**: No
-
-
-
-
----------------------------------------
-<a name="reference-enum"></a>
-<!-- omit in toc -->
-### Enum
-
-An object defining the values of an enum.
-
-**`Enum` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**name**|`string`|The name of the enum, e.g. for display purposes.|No|
-|**description**|`string`|The description of the enum.|No|
-|**valueType**|`string`|The type of the integer enum value.|No, default: `"UINT16"`|
-|**values**|`enum.value` `[1-*]`|An array of enum values. Duplicate names or integer values are not allowed.|No|
-|**extensions**|`any`||No|
-|**extras**|`any`||No|
-
-Additional properties are allowed.
-
-<!-- omit in toc -->
-#### enum.name
-
-The name of the enum, e.g. for display purposes.
-
-* **Type**: `string`
-* **Required**: No
-* **Minimum Length**`: >= 1`
-
-<!-- omit in toc -->
-#### enum.description
-
-The description of the enum.
-
-* **Type**: `string`
-* **Required**: No
-* **Minimum Length**`: >= 1`
-
-<!-- omit in toc -->
-#### enum.valueType
-
-The type of the integer enum value.
-
-* **Type**: `string`
-* **Required**: No, default: `"UINT16"`
-* **Allowed values**:
-   * `"INT8"`
-   * `"UINT8"`
-   * `"INT16"`
-   * `"UINT16"`
-   * `"INT32"`
-   * `"UINT32"`
-   * `"INT64"`
-   * `"UINT64"`
-
-<!-- omit in toc -->
-#### enum.values
-
-An array of enum values. Duplicate names or integer values are not allowed.
-
-* **Type**: `enum.value` `[1-*]`
-* **Required**: No
-
-<!-- omit in toc -->
-#### enum.extensions
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### enum.extras
-
-* **Type**: `any`
-* **Required**: No
-
-
-
-
----------------------------------------
-<a name="reference-enum-value"></a>
-<!-- omit in toc -->
-### Enum value
-
-The enum value.
-
-**`Enum value` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**name**|`string`|The name of the enum value.|No|
-|**description**|`string`|The description of the enum value.|No|
-|**value**|`integer`|The integer enum value.|No|
-|**extensions**|`any`||No|
-|**extras**|`any`||No|
-
-Additional properties are allowed.
-
-<!-- omit in toc -->
-#### enum.value.name
-
-The name of the enum value.
-
-* **Type**: `string`
-* **Required**: No
-* **Minimum Length**`: >= 1`
-
-<!-- omit in toc -->
-#### enum.value.description
-
-The description of the enum value.
-
-* **Type**: `string`
-* **Required**: No
-* **Minimum Length**`: >= 1`
-
-<!-- omit in toc -->
-#### enum.value.value
-
-The integer enum value.
-
-* **Type**: `integer`
-* **Required**: No
-
-<!-- omit in toc -->
-#### enum.value.extensions
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### enum.value.extras
-
-* **Type**: `any`
-* **Required**: No
-
-
-
-
----------------------------------------
-<a name="reference-group"></a>
-<!-- omit in toc -->
-### Group
-
-An object containing metadata about a group.
-
-**`Group` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**name**|`string`|The name of the group, e.g. for display purposes.|No|
-|**description**|`string`|The description of the group.|No|
-|**class**|`string`|The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary.|No|
-|**properties**|`object`|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For an integer or floating point number use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.|No|
-|**extensions**|`any`||No|
-|**extras**|`any`||No|
-
-Additional properties are allowed.
-
-<!-- omit in toc -->
-#### group.name
-
-The name of the group, e.g. for display purposes.
-
-* **Type**: `string`
-* **Required**: No
-* **Minimum Length**`: >= 1`
-
-<!-- omit in toc -->
-#### group.description
-
-The description of the group.
-
-* **Type**: `string`
-* **Required**: No
-* **Minimum Length**`: >= 1`
-
-<!-- omit in toc -->
-#### group.class
-
-The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary.
-
-* **Type**: `string`
-* **Required**: No
-
-<!-- omit in toc -->
-#### group.properties
-
-A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For an integer or floating point number use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.
-
-* **Type**: `object`
-* **Required**: No
-* **Type of each property**: `boolean,number,string,array`
-
-<!-- omit in toc -->
-#### group.extensions
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### group.extras
-
-* **Type**: `any`
-* **Required**: No
-
-
-
-
----------------------------------------
-<a name="reference-statistics-class-property"></a>
-<!-- omit in toc -->
-### Property Statistics
-
-Statistics about property values.
-
-**`Property Statistics` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**min**|`any`|The minimum property value.|No|
-|**max**|`any`|The maximum property value.|No|
-|**mean**|`any`|The arithmetic mean of the property values.|No|
-|**median**|`any`|The median of the property values.|No|
-|**standardDeviation**|`any`|The standard deviation of the property values.|No|
-|**variance**|`any`|The variance of the property values.|No|
-|**sum**|`any`|The sum of the property values.|No|
-|**occurrences**|`object`|A dictionary, where each key corresponds to an enum `name` and each value is the number of occurrences of that enum. Only applicable when `type` or `componentType` is `ENUM`. For fixed-length arrays, this is an array with `componentCount` number of elements.|No|
-|**additionalProperties**|`any`|Additional application-specific statistics.|No|
-|**extensions**|`any`||No|
-|**extras**|`any`||No|
-
-Additional properties are allowed.
-
-<!-- omit in toc -->
-#### statistics.class.property.min
-
-The minimum property value.
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### statistics.class.property.max
-
-The maximum property value.
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### statistics.class.property.mean
-
-The arithmetic mean of the property values.
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### statistics.class.property.median
-
-The median of the property values.
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### statistics.class.property.standardDeviation
-
-The standard deviation of the property values.
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### statistics.class.property.variance
-
-The variance of the property values.
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### statistics.class.property.sum
-
-The sum of the property values.
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### statistics.class.property.occurrences
-
-A dictionary, where each key corresponds to an enum `name` and each value is the number of occurrences of that enum. Only applicable when `type` or `componentType` is `ENUM`. For fixed-length arrays, this is an array with `componentCount` number of elements.
-
-* **Type**: `object`
-* **Required**: No
-* **Type of each property**: `number,array`
-
-<!-- omit in toc -->
-#### statistics.class.property.additionalProperties
-
-Additional application-specific statistics.
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### statistics.class.property.extensions
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### statistics.class.property.extras
-
-* **Type**: `any`
-* **Required**: No
-
-
-
 
 ---------------------------------------
 <a name="reference-schema"></a>
@@ -1321,17 +721,498 @@ A dictionary, where each key is an enum ID and each value is an object defining 
 * **Type**: `any`
 * **Required**: No
 
+---------------------------------------
+<a name="reference-class"></a>
+<!-- omit in toc -->
+### Class
 
+A class containing a set of properties.
 
+**`Class` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**name**|`string`|The name of the class, e.g. for display purposes.|No|
+|**description**|`string`|The description of the class.|No|
+|**properties**|`object`|A dictionary, where each key is a property ID and each value is an object defining the property.|No|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### class.name
+
+The name of the class, e.g. for display purposes.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### class.description
+
+The description of the class.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### class.properties
+
+A dictionary, where each key is a property ID and each value is an object defining the property.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: `class.property`
+
+<!-- omit in toc -->
+#### class.extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### class.extras
+
+* **Type**: `any`
+* **Required**: No
 
 ---------------------------------------
-<a name="reference-statistics-class-property-values"></a>
+<a name="reference-class-property"></a>
 <!-- omit in toc -->
-### Statistic Values
+### Class property
 
-The statistic values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. `normalized` property has no effect on these values: they always correspond to the integer values.
+A class property.
 
+**`Class property` Properties**
 
+|   |Type|Description|Required|
+|---|---|---|---|
+|**name**|`string`|The name of the property, e.g. for display purposes.|No|
+|**description**|`string`|The description of the property.|No|
+|**type**|`string`|The property type. If `ENUM` is used, then `enumType` must also be specified. If `ARRAY` is used, then `componentType` must also be specified. `ARRAY` is a fixed-length array when `componentCount` is defined, and variable-length otherwise.| &#10003; Yes|
+|**enumType**|`string`|An enum ID as declared in the `enums` dictionary. This value must be specified when `type` or `componentType` is `ENUM`.|No|
+|**componentType**|`any`|When `type` is `ARRAY` this indicates the type of each component of the array. If `ENUM` is used, then `enumType` must also be specified.|No|
+|**componentCount**|`integer`|The number of components per element for `ARRAY` elements.|No|
+|**normalized**|`boolean`|Specifies whether integer values are normalized. This applies both when `type` is an integer type, or when `type` is `ARRAY` with a `componentType` that is an integer type. For unsigned integer types, values are normalized between `[0.0, 1.0]`. For signed integer types, values are normalized between [-1.0, 1.0]. For all other types, this property is ignored.|No, default: `false`|
+|**max**|`number,array`|Maximum allowed values for property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. `normalized` property has no effect on these values: they always correspond to the integer values.|No|
+|**min**|`number,array`|Minimum allowed values for property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. `normalized` property has no effect on these values: they always correspond to the integer values.|No|
+|**default**|`boolean,number,string,array`|A default value to use when the property value is not defined. If used, `optional` must be set to true. The type of the default value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`.|No|
+|**optional**|`boolean`|If true, this property is optional.|No, default: `false`|
+|**semantic**|`string`|An identifier that describes how this property should be interpreted. The semantic cannot be used by other properties in the class.|No|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### class.property.name
+
+The name of the property, e.g. for display purposes.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### class.property.description
+
+The description of the property.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### class.property.type
+
+The property type. If `ENUM` is used, then `enumType` must also be specified. If `ARRAY` is used, then `componentType` must also be specified. `ARRAY` is a fixed-length array when `componentCount` is defined, and variable-length otherwise.
+
+* **Type**: `string`
+* **Required**:  &#10003; Yes
+* **Allowed values**:
+   * `"INT8"`
+   * `"UINT8"`
+   * `"INT16"`
+   * `"UINT16"`
+   * `"INT32"`
+   * `"UINT32"`
+   * `"INT64"`
+   * `"UINT64"`
+   * `"FLOAT32"`
+   * `"FLOAT64"`
+   * `"BOOLEAN"`
+   * `"STRING"`
+   * `"ENUM"`
+   * `"ARRAY"`
+
+<!-- omit in toc -->
+#### class.property.enumType
+
+An enum ID as declared in the `enums` dictionary. This value must be specified when `type` or `componentType` is `ENUM`.
+
+* **Type**: `string`
+* **Required**: No
+
+<!-- omit in toc -->
+#### class.property.componentType
+
+When `type` is `ARRAY` this indicates the type of each component of the array. If `ENUM` is used, then `enumType` must also be specified.
+
+* **Type**: `any`
+* **Required**: No
+* **Allowed values**:
+   * `INT8`
+   * `UINT8`
+   * `INT16`
+   * `UINT16`
+   * `INT32`
+   * `UINT32`
+   * `INT64`
+   * `UINT64`
+   * `FLOAT32`
+   * `FLOAT64`
+   * `BOOLEAN`
+   * `STRING`
+   * `ENUM`
+
+<!-- omit in toc -->
+#### class.property.componentCount
+
+The number of components per element for `ARRAY` elements.
+
+* **Type**: `integer`
+* **Required**: No
+* **Minimum**: ` >= 2`
+
+<!-- omit in toc -->
+#### class.property.normalized
+
+Specifies whether integer values are normalized. This applies both when `type` is an integer type, or when `type` is `ARRAY` with a `componentType` that is an integer type. For unsigned integer types, values are normalized between `[0.0, 1.0]`. For signed integer types, values are normalized between [-1.0, 1.0]. For all other types, this property is ignored.
+
+* **Type**: `boolean`
+* **Required**: No, default: `false`
+
+<!-- omit in toc -->
+#### class.property.max
+
+Maximum allowed values for property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. `normalized` property has no effect on these values: they always correspond to the integer values.
+
+* **Type**: `number,array`
+* **Required**: No
+
+<!-- omit in toc -->
+#### class.property.min
+
+Minimum allowed values for property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. `normalized` property has no effect on these values: they always correspond to the integer values.
+
+* **Type**: `number,array`
+* **Required**: No
+
+<!-- omit in toc -->
+#### class.property.default
+
+A default value to use when the property value is not defined. If used, `optional` must be set to true. The type of the default value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`.
+
+* **Type**: `boolean,number,string,array`
+* **Required**: No
+
+<!-- omit in toc -->
+#### class.property.optional
+
+If true, this property is optional.
+
+* **Type**: `boolean`
+* **Required**: No, default: `false`
+
+<!-- omit in toc -->
+#### class.property.semantic
+
+An identifier that describes how this property should be interpreted. The semantic cannot be used by other properties in the class.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### class.property.extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### class.property.extras
+
+* **Type**: `any`
+* **Required**: No
+
+---------------------------------------
+<a name="reference-enum"></a>
+<!-- omit in toc -->
+### Enum
+
+An object defining the values of an enum.
+
+**`Enum` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**name**|`string`|The name of the enum, e.g. for display purposes.|No|
+|**description**|`string`|The description of the enum.|No|
+|**valueType**|`string`|The type of the integer enum value.|No, default: `"UINT16"`|
+|**values**|`enum.value` `[1-*]`|An array of enum values. Duplicate names or integer values are not allowed.| &#10003; Yes|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### enum.name
+
+The name of the enum, e.g. for display purposes.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### enum.description
+
+The description of the enum.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### enum.valueType
+
+The type of the integer enum value.
+
+* **Type**: `string`
+* **Required**: No, default: `"UINT16"`
+* **Allowed values**:
+   * `"INT8"`
+   * `"UINT8"`
+   * `"INT16"`
+   * `"UINT16"`
+   * `"INT32"`
+   * `"UINT32"`
+   * `"INT64"`
+   * `"UINT64"`
+
+<!-- omit in toc -->
+#### enum.values
+
+An array of enum values. Duplicate names or integer values are not allowed.
+
+* **Type**: `enum.value` `[1-*]`
+* **Required**: &#10003; Yes
+
+<!-- omit in toc -->
+#### enum.extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### enum.extras
+
+* **Type**: `any`
+* **Required**: No
+
+---------------------------------------
+<a name="reference-enum-value"></a>
+<!-- omit in toc -->
+### Enum value
+
+An enum value.
+
+**`Enum value` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**name**|`string`|The name of the enum value.| &#10003; Yes|
+|**description**|`string`|The description of the enum value.|No|
+|**value**|`integer`|The integer enum value.| &#10003; Yes|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### enum.value.name
+
+The name of the enum value.
+
+* **Type**: `string`
+* **Required**: &#10003; Yes
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### enum.value.description
+
+The description of the enum value.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### enum.value.value
+
+The integer enum value.
+
+* **Type**: `integer`
+* **Required**: &#10003; Yes
+
+<!-- omit in toc -->
+#### enum.value.extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### enum.value.extras
+
+* **Type**: `any`
+* **Required**: No
+
+---------------------------------------
+<a name="reference-tileset"></a>
+<!-- omit in toc -->
+### Tileset Metadata
+
+An object containing metadata about the tileset.
+
+**`Tileset Metadata` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**name**|`string`|The name of the tileset, e.g. for display purposes.|No|
+|**description**|`string`|The description of the tileset.|No|
+|**class**|`string`|The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary.|No|
+|**properties**|`object`|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.|No|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### tileset.name
+
+The name of the tileset, e.g. for display purposes.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### tileset.description
+
+The description of the tileset.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### tileset.class
+
+The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary.
+
+* **Type**: `string`
+* **Required**: No
+
+<!-- omit in toc -->
+#### tileset.properties
+
+A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: `boolean,number,string,array`
+
+<!-- omit in toc -->
+#### tileset.extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### tileset.extras
+
+* **Type**: `any`
+* **Required**: No
+
+---------------------------------------
+<a name="reference-group"></a>
+<!-- omit in toc -->
+### Group Metadata
+
+An object containing metadata about a group.
+
+**`Group Metadata` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**name**|`string`|The name of the group, e.g. for display purposes.|No|
+|**description**|`string`|The description of the group.|No|
+|**class**|`string`|The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary.|No|
+|**properties**|`object`|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.|No|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
+
+<!-- omit in toc -->
+#### group.name
+
+The name of the group, e.g. for display purposes.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### group.description
+
+The description of the group.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: >= 1`
+
+<!-- omit in toc -->
+#### group.class
+
+The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary.
+
+* **Type**: `string`
+* **Required**: No
+
+<!-- omit in toc -->
+#### group.properties
+
+A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: `boolean,number,string,array`
+
+<!-- omit in toc -->
+#### group.extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### group.extras
+
+* **Type**: `any`
+* **Required**: No
 
 ---------------------------------------
 <a name="reference-statistics"></a>
@@ -1371,105 +1252,179 @@ A dictionary, where each key is a class ID declared in the `classes` dictionary 
 * **Type**: `any`
 * **Required**: No
 
-
-
-
 ---------------------------------------
-<a name="reference-tileset"></a>
+<a name="reference-statistics-class"></a>
 <!-- omit in toc -->
-### Tileset Metadata
+### Class Statistics
 
-An object containing metadata about a tileset.
+Statistics about entities that conform to the class.
 
-**`Tileset Metadata` Properties**
+**`Class Statistics` Properties**
 
 |   |Type|Description|Required|
 |---|---|---|---|
-|**name**|`string`|The name of the tileset, e.g. for display purposes.|No|
-|**description**|`string`|The description of the tileset.|No|
-|**class**|`string`|The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary.|No|
-|**properties**|`object`|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For an integer or floating point number use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.|No|
+|**count**|`integer`|The number of entities that conform to the class.|No|
+|**properties**|`object`|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object containing statistics about property values.|No|
 |**extensions**|`any`||No|
 |**extras**|`any`||No|
 
 Additional properties are allowed.
 
 <!-- omit in toc -->
-#### tileset.name
+#### statistics.class.count
 
-The name of the tileset, e.g. for display purposes.
+The number of entities that conform to the class.
 
-* **Type**: `string`
+* **Type**: `integer`
 * **Required**: No
-* **Minimum Length**`: >= 1`
+* **Minimum**: ` >= 0`
 
 <!-- omit in toc -->
-#### tileset.description
+#### statistics.class.properties
 
-The description of the tileset.
-
-* **Type**: `string`
-* **Required**: No
-* **Minimum Length**`: >= 1`
-
-<!-- omit in toc -->
-#### tileset.class
-
-The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary.
-
-* **Type**: `string`
-* **Required**: No
-
-<!-- omit in toc -->
-#### tileset.properties
-
-A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For an integer or floating point number use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.
+A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object containing statistics about property values.
 
 * **Type**: `object`
 * **Required**: No
-* **Type of each property**: `boolean,number,string,array`
+* **Type of each property**: `statistics.class.property`
 
 <!-- omit in toc -->
-#### tileset.extensions
+#### statistics.class.extensions
 
 * **Type**: `any`
 * **Required**: No
 
 <!-- omit in toc -->
-#### tileset.extras
+#### statistics.class.extras
 
 * **Type**: `any`
 * **Required**: No
 
+---------------------------------------
+<a name="reference-statistics-class-property"></a>
+<!-- omit in toc -->
+### Property Statistics
 
-<!-- tile -->
-> WETZEL_WARNING: Only JSON Schema 3 or 4 is supported. Treating as Schema 3.
+Statistics about property values.
+
+**`Property Statistics` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**min**|`number,array`|The minimum property value. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.|No|
+|**max**|`number,array`|The maximum property value. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.|No|
+|**mean**|`number,array`|The arithmetic mean of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.|No|
+|**median**|`number,array`|The median of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.|No|
+|**standardDeviation**|`number,array`|The standard deviation of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.|No|
+|**variance**|`number,array`|The variance of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.|No|
+|**sum**|`number,array`|The sum of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.|No|
+|**occurrences**|`object`|A dictionary, where each key corresponds to an enum `name` and each value is the number of occurrences of that enum. Only applicable when `type` or `componentType` is `ENUM`. For fixed-length arrays, this is an array with `componentCount` number of elements.|No|
+|**extensions**|`any`||No|
+|**extras**|`any`||No|
+
+Additional properties are allowed.
 
 <!-- omit in toc -->
-## Objects
-* [`3DTILES_metadata tile extension`](#reference-3dtiles_metadata-tile-extension) (root object)
+#### statistics.class.property.min
 
+The minimum property value. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.
+
+* **Type**: `number,array`
+* **Required**: No
+
+<!-- omit in toc -->
+#### statistics.class.property.max
+
+The maximum property value. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.
+
+* **Type**: `number,array`
+* **Required**: No
+
+<!-- omit in toc -->
+#### statistics.class.property.mean
+
+The arithmetic mean of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.
+
+* **Type**: `number,array`
+* **Required**: No
+
+<!-- omit in toc -->
+#### statistics.class.property.median
+
+The median of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.
+
+* **Type**: `number,array`
+* **Required**: No
+
+<!-- omit in toc -->
+#### statistics.class.property.standardDeviation
+
+The standard deviation of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.
+
+* **Type**: `number,array`
+* **Required**: No
+
+<!-- omit in toc -->
+#### statistics.class.property.variance
+
+The variance of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.
+
+* **Type**: `number,array`
+* **Required**: No
+
+<!-- omit in toc -->
+#### statistics.class.property.sum
+
+The sum of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values.
+
+* **Type**: `number,array`
+* **Required**: No
+
+<!-- omit in toc -->
+#### statistics.class.property.occurrences
+
+A dictionary, where each key corresponds to an enum `name` and each value is the number of occurrences of that enum. Only applicable when `type` or `componentType` is `ENUM`. For fixed-length arrays, this is an array with `componentCount` number of elements.
+
+* **Type**: `object`
+* **Required**: No
+* **Type of each property**: `number,array`
+
+<!-- omit in toc -->
+#### statistics.class.property.extensions
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+#### statistics.class.property.extras
+
+* **Type**: `any`
+* **Required**: No
+
+<!-- omit in toc -->
+## Tile extension
+* [`Tile extension`](#reference-3dtiles_metadata-tile-extension) (root object)
 
 ---------------------------------------
 <a name="reference-3dtiles_metadata-tile-extension"></a>
 <!-- omit in toc -->
-### 3DTILES_metadata tile extension
+### Tile extension
 
-An object containing metadata about a tile. This extension shall not be added to tiles using the `3DTILES_implicit_tiling` extension since tile metadata is provided separately in the subtrees.
+An object containing metadata about a tile. This extension must not be added to tiles using the `3DTILES_implicit_tiling` extension since tile metadata is provided separately in the subtrees.
 
-**`3DTILES_metadata tile extension` Properties**
+**`Tile extension` Properties**
 
 |   |Type|Description|Required|
 |---|---|---|---|
 |**class**|`string`|The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary.|No|
-|**properties**|`object`|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For an integer or floating point number use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.|No|
+|**properties**|`object`|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.|No|
 |**extensions**|`any`||No|
 |**extras**|`any`||No|
 
 Additional properties are allowed.
 
 <!-- omit in toc -->
-#### 3DTILES_metadata tile extension.class
+#### Tile extension.class
 
 The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary.
 
@@ -1477,44 +1432,39 @@ The class this metadata object conforms to. The value must be a class ID declare
 * **Required**: No
 
 <!-- omit in toc -->
-#### 3DTILES_metadata tile extension.properties
+#### Tile extension.properties
 
-A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For an integer or floating point number use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.
+A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.
 
 * **Type**: `object`
 * **Required**: No
 * **Type of each property**: `boolean,number,string,array`
 
 <!-- omit in toc -->
-#### 3DTILES_metadata tile extension.extensions
+#### Tile extension.extensions
 
 * **Type**: `any`
 * **Required**: No
 
 <!-- omit in toc -->
-#### 3DTILES_metadata tile extension.extras
+#### Tile extension.extras
 
 * **Type**: `any`
 * **Required**: No
 
-
-<!-- content -->
-
-> WETZEL_WARNING: Only JSON Schema 3 or 4 is supported. Treating as Schema 3.
-
 <!-- omit in toc -->
-## Objects
-* [`3DTILES_metadata content extension`](#reference-3dtiles_metadata-content-extension) (root object)
+## Content Extension
+* [`Content extension`](#reference-3dtiles_metadata-content-extension) (root object)
 
 
 ---------------------------------------
 <a name="reference-3dtiles_metadata-content-extension"></a>
 <!-- omit in toc -->
-### 3DTILES_metadata content extension
+### Content extension
 
 An object containing metadata about a content.
 
-**`3DTILES_metadata content extension` Properties**
+**`Content extension` Properties**
 
 |   |Type|Description|Required|
 |---|---|---|---|
@@ -1525,7 +1475,7 @@ An object containing metadata about a content.
 Additional properties are allowed.
 
 <!-- omit in toc -->
-#### 3DTILES_metadata content extension.group
+#### Content extension.group
 
 The group this content belongs to. The value must be a group ID declared in the `groups` dictionary.
 
@@ -1533,71 +1483,66 @@ The group this content belongs to. The value must be a group ID declared in the 
 * **Required**: No
 
 <!-- omit in toc -->
-#### 3DTILES_metadata content extension.extensions
+#### Content extension.extensions
 
 * **Type**: `any`
 * **Required**: No
 
 <!-- omit in toc -->
-#### 3DTILES_metadata content extension.extras
+#### Content extension.extras
 
 * **Type**: `any`
 * **Required**: No
 
-
-<!-- subtree -->
-
-> WETZEL_WARNING: Only JSON Schema 3 or 4 is supported. Treating as Schema 3.
-
 <!-- omit in toc -->
-## Objects
-* [`3DTILES_metadata extension for 3DTILES_implicit_tiling subtree`](#reference-3dtiles_metadata-extension-for-3dtiles_implicit_tiling-subtree) (root object)
-* [`Subtree property values`](#reference-subtree-property)
+## `3DTILES_implicit_tiling` subtree extension
+* [`3DTILES_implicit_tiling` subtree extension](#reference-3dtiles_metadata-extension-for-3dtiles_implicit_tiling-subtree) (root object)
+* [`Subtree property`](#reference-subtree-property)
 
 
 ---------------------------------------
 <a name="reference-3dtiles_metadata-extension-for-3dtiles_implicit_tiling-subtree"></a>
 <!-- omit in toc -->
-### 3DTILES_metadata extension for 3DTILES_implicit_tiling subtree
+### `3DTILES_implicit_tiling` subtree extension
 
 An object assigning tile metadata to implicit tiles in the subtree. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
 
-**`3DTILES_metadata extension for 3DTILES_implicit_tiling subtree` Properties**
+**`3DTILES_implicit_tiling subtree extension` Properties**
 
 |   |Type|Description|Required|
 |---|---|---|---|
-|**class**|`string`|The class that metadata conforms to. The value must be a class ID declared in the `classes` dictionary.|No|
-|**properties**|`object`|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property array values are stored. Optional properties may be excluded from this dictionary.|No|
+|**class**|`string`|The class that tile metadata conforms to. The value must be a class ID declared in the `classes` dictionary.|No|
+|**properties**|`object`|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Optional properties may be excluded from this dictionary.|No|
 |**extensions**|`any`||No|
 |**extras**|`any`||No|
 
 Additional properties are allowed.
 
 <!-- omit in toc -->
-#### 3DTILES_metadata extension for 3DTILES_implicit_tiling subtree.class
+#### 3DTILES_implicit_tiling subtree.class
 
-The class that metadata conforms to. The value must be a class ID declared in the `classes` dictionary.
+The class that tile metadata conforms to. The value must be a class ID declared in the `classes` dictionary.
 
 * **Type**: `string`
 * **Required**: No
 
 <!-- omit in toc -->
-#### 3DTILES_metadata extension for 3DTILES_implicit_tiling subtree.properties
+#### 3DTILES_implicit_tiling subtree.properties
 
-A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property array values are stored. Optional properties may be excluded from this dictionary.
+A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Optional properties may be excluded from this dictionary.
 
 * **Type**: `object`
 * **Required**: No
 * **Type of each property**: `subtree.property`
 
 <!-- omit in toc -->
-#### 3DTILES_metadata extension for 3DTILES_implicit_tiling subtree.extensions
+#### 3DTILES_implicit_tiling subtree.extensions
 
 * **Type**: `any`
 * **Required**: No
 
 <!-- omit in toc -->
-#### 3DTILES_metadata extension for 3DTILES_implicit_tiling subtree.extras
+#### 3DTILES_implicit_tiling subtree.extras
 
 * **Type**: `any`
 * **Required**: No
@@ -1608,15 +1553,15 @@ A dictionary, where each key corresponds to a property ID in the class' `propert
 ---------------------------------------
 <a name="reference-subtree-property"></a>
 <!-- omit in toc -->
-### Subtree property values
+### Subtree property
 
 An array of binary property values.
 
-**`Subtree property values` Properties**
+**`Subtree property` Properties**
 
 |   |Type|Description|Required|
 |---|---|---|---|
-|**bufferView**|`integer`|The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitfield. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is a numeric type values are stored as the provided `type`. When `type` is `ENUM` values are stored as the enum's `valueType`. When `type` is `ARRAY` elements are packed tightly together and the data type is based on the `componentType` following the same rules as above. Note that `arrayOffsetBufferView` is required for variable-size arrays and `stringOffsetBufferView` is required for strings (for variable-length arrays of strings, both are required). The buffer view `byteOffset` must be aligned to a multiple of 8 bytes.|No|
+|**bufferView**|`integer`|The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitfield. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is a numeric type values are stored as the provided `type`. When `type` is `ENUM` values are stored as the enum's `valueType`. When `type` is `ARRAY` elements are packed tightly together and the data type is based on the `componentType` following the same rules as above. `arrayOffsetBufferView` is required for variable-size arrays and `stringOffsetBufferView` is required for strings (for variable-length arrays of strings, both are required). The buffer view `byteOffset` must be aligned to a multiple of 8 bytes.| &#10003; Yes|
 |**offsetType**|`string`|The type of values in `arrayOffsetBufferView` and `stringOffsetBufferView`.|No, default: `"UINT32"`|
 |**arrayOffsetBufferView**|`integer`|The index of the buffer view containing offsets for variable-length arrays. The number of offsets is equal to the number of available tiles plus one. The offsets represent the start positions of each array, with the last offset representing the position after the last array. The array length is computed using the difference between the current offset and the subsequent offset. If `componentType` is `STRING` the offsets index into the string offsets array (stored in `stringOffsetBufferView`), otherwise they index into the property array (stored in `bufferView`). The data type of these offsets is determined by `offsetType`. The buffer view `byteOffset` must be aligned to a multiple of 8 bytes in the same manner as the main `bufferView`|No|
 |**stringOffsetBufferView**|`integer`|The index of the buffer view containing offsets for strings. The number of offsets is equal to the number of string components plus one. The offsets represent the byte offsets of each string in the main `bufferView`, with the last offset representing the byte offset after the last string. The string byte length is computed using the difference between the current offset and the subsequent offset. The data type of these offsets is determined by `offsetType`. The buffer view `byteOffset` must be aligned to a multiple of 8 bytes in the same manner as the main `bufferView`.|No|
@@ -1628,10 +1573,10 @@ Additional properties are allowed.
 <!-- omit in toc -->
 #### subtree.property.bufferView
 
-The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitfield. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is a numeric type values are stored as the provided `type`. When `type` is `ENUM` values are stored as the enum's `valueType`. When `type` is `ARRAY` elements are packed tightly together and the data type is based on the `componentType` following the same rules as above. Note that `arrayOffsetBufferView` is required for variable-size arrays and `stringOffsetBufferView` is required for strings (for variable-length arrays of strings, both are required). The buffer view `byteOffset` must be aligned to a multiple of 8 bytes.
+The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitfield. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is a numeric type values are stored as the provided `type`. When `type` is `ENUM` values are stored as the enum's `valueType`. When `type` is `ARRAY` elements are packed tightly together and the data type is based on the `componentType` following the same rules as above. `arrayOffsetBufferView` is required for variable-size arrays and `stringOffsetBufferView` is required for strings (for variable-length arrays of strings, both are required). The buffer view `byteOffset` must be aligned to a multiple of 8 bytes.
 
 * **Type**: `integer`
-* **Required**: No
+* **Required**: &#10003; Yes
 * **Minimum**: ` >= 0`
 
 <!-- omit in toc -->
@@ -1676,8 +1621,3 @@ The index of the buffer view containing offsets for strings. The number of offse
 
 * **Type**: `any`
 * **Required**: No
-
-
-
-
-

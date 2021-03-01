@@ -15,7 +15,7 @@
     },
     "statistics": {
       "allOf": [ { "$ref": "statistics.schema.json" } ],
-      "description": "An object containing statistics about the metadata."
+      "description": "An object containing statistics about entities."
     },
     "groups": {
       "type": "object",
@@ -27,7 +27,7 @@
     },
     "tileset": {
       "allOf": [ { "$ref": "tileset.schema.json" } ],
-      "description": "An object containing metadata about a tileset."
+      "description": "An object containing metadata about the tileset."
     },
     "extensions": {},
     "extras": {}

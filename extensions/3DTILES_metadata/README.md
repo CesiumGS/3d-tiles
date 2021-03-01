@@ -1,12 +1,12 @@
 # 3DTILES_metadata
 
-3D Tiles extension that assigns metadata to various components of 3D Tiles to enable styling and analysis.
+3D Tiles extension that assigns metadata to various components of 3D Tiles.
 
 ## Changelog
 
-* [**Version 0.0.0**](0.0.0/README.md) November 6, 2020
+* [**Version 0.0.0**](0.0.0) November 6, 2020
     * Initial draft
-* [**Version 1.0.0**](1.0.0/README.md) [TODO: Date]
+* [**Version 1.0.0**](1.0.0) February 25, 2021
     * Changes to properties
       * Removed `FLOAT16` type
       * Removed `BLOB` type and `blobByteLength` property

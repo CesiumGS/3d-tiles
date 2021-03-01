@@ -1,7 +1,7 @@
 <!-- omit in toc -->
 # Cesium 3D Metadata Specification
 
-**Version 1.0.0** [TODO: date]
+**Version 1.0.0**, February 25, 2021
 
 <!-- omit in toc -->
 ## Contributors
@@ -35,13 +35,13 @@ Draft
   - [Table Format](#table-format)
     - [Binary Encoding](#binary-encoding)
       - [Numbers](#numbers)
-      - [Boolean](#boolean)
+      - [Booleans](#booleans)
       - [Strings](#strings)
       - [Enums](#enums-1)
       - [Arrays](#arrays-1)
     - [JSON Encoding](#json-encoding)
       - [Numbers](#numbers-1)
-      - [Booleans](#booleans)
+      - [Booleans](#booleans-1)
       - [Strings](#strings-1)
       - [Enums](#enums-2)
       - [Arrays](#arrays-2)
@@ -59,11 +59,11 @@ This specification defines a set of core concepts to be used by multiple 3D form
 
 For usage see:
 
-* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
-* [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/pull/3) - glTF extension that assigns metadata to features in a model on a per-vertex or per-texel basis
+* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata/1.0.0) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
+* [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) - glTF extension that assigns metadata to features in a model on a per-vertex, per-texel, or per-instance basis
 
 
-This specification does not assign semantic meaning to metadata; instead separate specifications must define semantics for their particular application or domain. One example is the [Cesium Metadata Semantic Reference](../Semantics/README.md) which defines built-in semantics for 3D Tiles and glTF.
+This specification does not assign semantic meaning to metadata; instead separate specifications must define semantics for their particular application or domain. One example is the [Cesium Metadata Semantic Reference](../Semantics) which defines built-in semantics for 3D Tiles and glTF.
 
 ## Concepts
 
@@ -91,7 +91,7 @@ Table Format|Raster Format
 |<img src="figures/table-format.png"  alt="Table Format" width="1000px">|<img src="figures/raster-format.png" alt="Raster Format" width="400px"> |
 
 
-Each format may have any number of **encodings**. Two encodings are defined for the table format: a **binary encoding** and a **JSON encoding**. A specification that references Cesium 3D Metadata must state which format and encoding it uses and is free to define its own formats and encodings. For example, while this specification does not define any raster encodings, the [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/pull/3) glTF extension may use any image formats supported by glTF for storing per-texel metadata, including PNG and JPEG.
+Each format may have any number of **encodings**. Two encodings are defined for the table format: a **binary encoding** and a **JSON encoding**. A specification that references Cesium 3D Metadata must state which format and encoding it uses and is free to define its own formats and encodings. For example, while this specification does not define any raster encodings, the [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) glTF extension may use any image formats supported by glTF for storing per-texel metadata, including PNG and JPEG.
 
 ## Schemas
 
@@ -334,7 +334,7 @@ UINT64 | 64-bit unsigned integer
 FLOAT32 | 32-bit IEEE floating point
 FLOAT64 | 64-bit IEEE floating point
 
-##### Boolean
+##### Booleans
 
 A boolean value is encoded as a single bit, either 0 (`false`) or 1 (`true`). Multiple boolean values are packed into a bitstream.
 
