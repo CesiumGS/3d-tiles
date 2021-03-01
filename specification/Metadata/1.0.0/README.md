@@ -9,8 +9,8 @@
 * Peter Gagliardi, Cesium
 * Sean Lilley, Cesium
 * Sam Suhag, Cesium
-* Patrick Cozzi, Cesium
 * Bao Tran, Cesium
+* Patrick Cozzi, Cesium
 
 <!-- omit in toc -->
 ## Status
