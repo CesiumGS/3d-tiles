@@ -5,7 +5,7 @@
   "properties" : {
     "token": {
       "type": "string",
-      "description": "A hexadecimal representation of the S2CellId. Tokens must be lower-case (except X), must not contain whitespace, must have trailing zeros stripped. The 0 S2CellId must be represented as 'X'."
+      "description": "A hexadecimal representation of the S2CellId. The 0 S2CellId must be represented as 'X'. Tokens must be lower-case (except X), must not contain whitespace and must have trailing zeros stripped."
     },
     "minimumHeight": {
       "type": "number",
