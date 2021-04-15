@@ -4,13 +4,26 @@
   "type": "object",
   "properties" : {
     "s2cell": {
-      "type": "array",
-      "description": "An array of 4 numbers that defines a volume [S2CellId, the level of the S2Cell, minimum height, maximum height]. Heights are in meters above (or below) the WGS84 ellipsoid.",
-      "items": {
-        "type": "number"
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "A hexadecimal representation of the S2CellId. Tokens must be lower-case (except X), must not contain whitespace, must have trailing zeros stripped. The 0 S2CellId must be represented as 'X'."
+        },
+        "minimumHeight": {
+          "type": "number",
+          "description": "The minimum height of the tile, specified in meters about the WGS84 ellipsoid."
+        },
+        "maximumHeight": {
+          "type": "number",
+          "description": "The maximum height of the tile, specified in meters about the WGS84 ellipsoid."
+        }
       },
-      "minItems": 4,
-      "maxItems": 4
+      "required": [
+        "token",
+        "minimumHeight",
+        "maximumHeight"
+      ]
     },
     "extensions" : {},
     "extras" : {}
