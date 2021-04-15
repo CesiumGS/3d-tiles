@@ -2,6 +2,9 @@
 
 ## Contributors
 
+- Sam Suhag, Cesium
+- Sean Lilley, Cesium
+- Peter Gagliardi, Cesium
 
 ## Status
 
@@ -11,6 +14,24 @@ Draft
 
 Written against 3D Tiles 1.0. It may be used in conjunction with [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0).
 
+## Optional vs. Required
+
+This extension is required, meaning it must be placed in both the `extensionsUsed` and `extensionsRequired` lists in the tileset JSON.
+
+## Contents
+
+- [3DTILES_bounding_volume_S2](#3dtiles_bounding_volume_s2)
+  - [Contributors](#contributors)
+  - [Status](#status)
+  - [Dependencies](#dependencies)
+  - [Optional vs. Required](#optional-vs-required)
+  - [Contents](#contents)
+  - [Overview](#overview)
+  - [Coordinate System](#coordinate-system)
+  - [Cell Token](#cell-token)
+  - [Heights](#heights)
+  - [Subdivision](#subdivision)
+  - [Schema Changes](#schema-changes)
 
 ## Overview
 
@@ -24,7 +45,7 @@ This extension to 3D Tiles enables using S2 cells as a `boundingVolume`, and use
 
 ## Coordinate System
 
-The S2 library does not mandate the usage of geocentric or geodetic coordinates, however, for this extension, we use WGS84 geodetic coordinates for mapping the points between the Earth and the S2 sphere.
+The S2 library does not mandate the usage of geocentric or geodetic coordinates.This extension uses WGS84 geodetic coordinates for mapping the points between the Earth and the S2 sphere.
 
 ## Cell Token
 
@@ -46,4 +67,4 @@ When used with `3DTILES_implicit_tiling`, a `QUADTREE` subdivision scheme will f
 
 ## Schema Changes
 
-The changes to the schema can documented in [extension.schema.json](schema/extension.schema.json).
+The changes to the schema are documented in [extension.schema.json](schema/extension.schema.json).
