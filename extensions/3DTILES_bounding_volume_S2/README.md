@@ -34,6 +34,10 @@ Cells in S2 are repesented using 64-bit `S2CellId`s. To ensure these numbers are
 
 The S2 cell itself is used to specify an area on the surface of the ellipsoid. To create a bounding volume, the `minumumHeight` and `maximumHeight` properties are used. These heights must be specified in meters above the WGS84 ellipsoid.
 
+| Parent Cell  |  Children Cells |
+|---|---|
+| ![Math](figures/parent.png)  | ![Math](figures/children.png)  |
+
 ## Subdivision
 
  The S2Geometry library uses the Hilbert surface filling curve to map a 2D array into a 1D array. The curve increases in granularity with each successive level of detail. Each tile subdivides into a 4 smaller tiles. When the `quadtree` tiling scheme is used, the bounding volume subdivides into these 4 tiles retaining the same bounding heights. When the `octree` tiling scheme is used, the bounding volume of the tile subdivides into these 4 tiles, with an additional split at the midpoint of the bounding heights, yielding 8 children tiles.
