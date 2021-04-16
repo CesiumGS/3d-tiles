@@ -51,7 +51,8 @@ The S2 library does not mandate the usage of geocentric or geodetic coordinates.
 
 This extension uses tokens, or hexadecimal string representations of `S2CellId` for two reasons:
  1. Precision: Using a token will require a client to convert it to the correct data type: `uint64`
- 2. Readability: Since token length is proportional to level of detail, it is more intuitive to get the level of detail from the token.
+ 2. Conciseness: Tokens provide a more concise representation of `S2CellId`s
+
 More details on computing an `S2CellToken` can be found in the [S2 reference implementation](https://github.com/google/s2-geometry-library-java/blob/c28f287b996c0cedc5516a0426fbd49f6c9611ec/src/com/google/common/geometry/S2CellId.java#L468).
 
 ## Heights
@@ -78,9 +79,11 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2` with `3D
   "geometricError": 10000,
   "extensionsUsed": [
     "3DTILES_implicit_tiling",
+    "3DTILES_bounding_volume_S2"
   ],
   "extensionsRequired": [
     "3DTILES_implicit_tiling",
+    "3DTILES_bounding_volume_S2"
   ],
   "root": {
     "boundingVolume": {
@@ -114,4 +117,4 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2` with `3D
 
 ## Schema Changes
 
-The changes to the schema are documented in [extension schema](schema/boundingVolume.3DTILES_bounding_volume_S2.schema.json).
+The changes to the schema are documented in the [extension schema](schema/boundingVolume.3DTILES_bounding_volume_S2.schema.json).
