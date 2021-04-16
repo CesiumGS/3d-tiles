@@ -49,12 +49,14 @@ The S2 library does not mandate the usage of geocentric or geodetic coordinates.
 
 ## Cell Token
 
-Cells in S2 are repesented using 64-bit `S2CellId`s. To ensure these numbers are not interpreted as 32-bit integers, in this extension, they are required to be encoded in their hexadecimal string representation, the `S2CellToken`. More details on computing an `S2CellToken` can be found in the [S2 reference implementation](https://github.com/google/s2-geometry-library-java/blob/c28f287b996c0cedc5516a0426fbd49f6c9611ec/src/com/google/common/geometry/S2CellId.java#L468).
+This extension uses tokens, or hexadecimal string representations of `S2CellId` for two reasons:
+ 1. Precision: Using a token will require a client to convert it to the correct data type: `uint64`
+ 2. Readability: Since token length is proportional to level of detail, it is more intuitive to get the level of detail from the token.
+More details on computing an `S2CellToken` can be found in the [S2 reference implementation](https://github.com/google/s2-geometry-library-java/blob/c28f287b996c0cedc5516a0426fbd49f6c9611ec/src/com/google/common/geometry/S2CellId.java#L468).
 
 ## Heights
 
 The S2 cell itself is used to specify an area on the surface of the ellipsoid. To create a bounding volume, the `minumumHeight` and `maximumHeight` properties must be specified. These heights must be specified in meters above the WGS84 ellipsoid.
-
 
 ## Subdivision
 
