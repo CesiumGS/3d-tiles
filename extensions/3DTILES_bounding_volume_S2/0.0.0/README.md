@@ -68,4 +68,4 @@ When used with `3DTILES_implicit_tiling`, a `QUADTREE` subdivision scheme will f
 
 ## Schema Changes
 
-The changes to the schema are documented in [extension.schema.json](schema/extension.schema.json).
+The changes to the schema are documented in [extension schema](schema/boundingVolume.3DTILES_bounding_volume_S2.schema.json).
