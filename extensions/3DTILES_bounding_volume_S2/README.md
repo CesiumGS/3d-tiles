@@ -1,4 +1,4 @@
-# 3DTILES_content_gltf
+# 3DTILES_bounding_volume_S2
 
 This extension allows a tileset to use [S2 Cells](http://s2geometry.io/devguide/s2cell_hierarchy) as `boundingVolume`s.
 
