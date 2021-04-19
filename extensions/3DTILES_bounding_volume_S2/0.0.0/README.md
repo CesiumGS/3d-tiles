@@ -114,6 +114,119 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2` with `3D
 }
 ```
 
+The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 faces of S2, to represent a tileset with global coverage:
+
+```json
+{
+  "asset": {
+    "version": "1.0"
+  },
+  "geometricError": 10000,
+  "extensionsUsed": [
+    "3DTILES_implicit_tiling",
+    "3DTILES_bounding_volume_S2"
+  ],
+  "extensionsRequired": [
+    "3DTILES_implicit_tiling",
+    "3DTILES_bounding_volume_S2"
+  ],
+  "root": {
+    "boundingVolume": {
+      "region": [
+        -3.141592653589793,
+        -1.5707963267948966,
+        -3.141592653589793,
+        -1.5707963267948966,
+        0,
+        250000
+      ]
+    },
+    "refine": "REPLACE",
+    "geometricError": 10000,
+    "children": [
+      {
+        "boundingVolume": {
+          "extensions": {
+            "3DTILES_bounding_volume_S2": {
+              "token": "X",
+              "minimumHeight": 0,
+              "maximumHeight": 25000
+            }
+          }
+        },
+        "refine": "REPLACE",
+        "geometricError": 5000,
+      },
+      {
+        "boundingVolume": {
+          "extensions": {
+            "3DTILES_bounding_volume_S2": {
+              "token": "1",
+              "minimumHeight": 0,
+              "maximumHeight": 25000
+            }
+          }
+        },
+        "refine": "REPLACE",
+        "geometricError": 5000,
+      },
+      {
+        "boundingVolume": {
+          "extensions": {
+            "3DTILES_bounding_volume_S2": {
+              "token": "2",
+              "minimumHeight": 0,
+              "maximumHeight": 25000
+            }
+          }
+        },
+        "refine": "REPLACE",
+        "geometricError": 5000,
+      },
+      {
+        "boundingVolume": {
+          "extensions": {
+            "3DTILES_bounding_volume_S2": {
+              "token": "3",
+              "minimumHeight": 0,
+              "maximumHeight": 25000
+            }
+          }
+        },
+        "refine": "REPLACE",
+        "geometricError": 5000,
+      },
+      {
+        "boundingVolume": {
+          "extensions": {
+            "3DTILES_bounding_volume_S2": {
+              "token": "4",
+              "minimumHeight": 0,
+              "maximumHeight": 25000
+            }
+          }
+        },
+        "refine": "REPLACE",
+        "geometricError": 5000,
+      },
+      {
+        "boundingVolume": {
+          "extensions": {
+            "3DTILES_bounding_volume_S2": {
+              "token": "5",
+              "minimumHeight": 0,
+              "maximumHeight": 25000
+            }
+          }
+        },
+        "refine": "REPLACE",
+        "geometricError": 5000,
+      }
+    ]
+  }
+}
+```
+
 
 ## Schema Changes
 
