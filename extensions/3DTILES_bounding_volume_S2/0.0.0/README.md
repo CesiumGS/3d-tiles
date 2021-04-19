@@ -116,6 +116,8 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2` with `3D
 
 The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 faces of S2, to represent a tileset with global coverage:
 
+![Global Coverage](figures/global.png)
+
 ```json
 {
   "asset": {
