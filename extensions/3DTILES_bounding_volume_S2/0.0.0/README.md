@@ -150,33 +150,7 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
         "boundingVolume": {
           "extensions": {
             "3DTILES_bounding_volume_S2": {
-              "token": "X",
-              "minimumHeight": 0,
-              "maximumHeight": 25000
-            }
-          }
-        },
-        "refine": "REPLACE",
-        "geometricError": 5000,
-      },
-      {
-        "boundingVolume": {
-          "extensions": {
-            "3DTILES_bounding_volume_S2": {
               "token": "1",
-              "minimumHeight": 0,
-              "maximumHeight": 25000
-            }
-          }
-        },
-        "refine": "REPLACE",
-        "geometricError": 5000,
-      },
-      {
-        "boundingVolume": {
-          "extensions": {
-            "3DTILES_bounding_volume_S2": {
-              "token": "2",
               "minimumHeight": 0,
               "maximumHeight": 25000
             }
@@ -202,7 +176,7 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
         "boundingVolume": {
           "extensions": {
             "3DTILES_bounding_volume_S2": {
-              "token": "4",
+              "token": "5",
               "minimumHeight": 0,
               "maximumHeight": 25000
             }
@@ -215,7 +189,33 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
         "boundingVolume": {
           "extensions": {
             "3DTILES_bounding_volume_S2": {
-              "token": "5",
+              "token": "7",
+              "minimumHeight": 0,
+              "maximumHeight": 25000
+            }
+          }
+        },
+        "refine": "REPLACE",
+        "geometricError": 5000,
+      },
+      {
+        "boundingVolume": {
+          "extensions": {
+            "3DTILES_bounding_volume_S2": {
+              "token": "9",
+              "minimumHeight": 0,
+              "maximumHeight": 25000
+            }
+          }
+        },
+        "refine": "REPLACE",
+        "geometricError": 5000,
+      },
+      {
+        "boundingVolume": {
+          "extensions": {
+            "3DTILES_bounding_volume_S2": {
+              "token": "b",
               "minimumHeight": 0,
               "maximumHeight": 25000
             }
