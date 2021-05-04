@@ -270,6 +270,7 @@ An explicit file extension is optional. Valid implementations may ignore it and 
     * [`BinaryBodyReference`](#reference-binarybodyreference)
     * [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3)
     * [`GlobalPropertyScalar`](#reference-globalpropertyscalar)
+    * [`GlobalPropertyBoolean`](#reference-globalpropertyboolean)
     * [`Property`](#reference-property)
 
 
