@@ -81,7 +81,7 @@ The bounding volume of the content of  tile, expressed as a [sphere (as defined 
 * Component count: `4`
 
 <!-- omit in toc -->
-### **TILE_TILE_HORIZON_OCCLUSION_POINT**
+### **TILE_HORIZON_OCCLUSION_POINT**
 
 The horizon occlusion point of the tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire entity is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information. This semantic is often used with tile metadata.
 
