@@ -27,6 +27,42 @@ For full usage see:
 * [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) - glTF extension that assigns metadata to features in a model on a per-vertex, per-texel, or per-instance basis
 
 <!-- omit in toc -->
+### **TILE_BOUNDING_BOX**
+
+The bounding volume of the tile, expressed as a box (as defined by 3D Tiles 1.0). This property may be used to describe a tighter bounding volume for a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md).
+
+* Type: `ARRAY`
+* Component type: `FLOAT64`
+* Component count: `12`
+
+<!-- omit in toc -->
+### **TILE_BOUNDING_REGION**
+
+The bounding volume of the tile, expressed as a region (as defined by 3D Tiles 1.0). This property may be used to describe a tighter bounding volume for a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md).
+
+* Type: `ARRAY`
+* Component type: `FLOAT64`
+* Component count: `6`
+
+<!-- omit in toc -->
+### **CONTENT_BOUNDING_BOX**
+
+The bounding volume of the content of a tile, expressed as a box (as defined by 3D Tiles 1.0). This property may be used to describe a tighter bounding volume for the content of a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md). The content bounding volume must be completely contained within the bounding volume of a tile.
+
+* Type: `ARRAY`
+* Component type: `FLOAT64`
+* Component count: `12`
+
+<!-- omit in toc -->
+### **CONTENT_BOUNDING_REGION**
+
+The bounding volume of the content of a tile, expressed as a region (as defined by 3D Tiles 1.0). This property may be used to describe a tighter bounding volume for the content of a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md). The content bounding volume must be completely contained within the bounding volume of a tile.
+
+* Type: `ARRAY`
+* Component type: `FLOAT64`
+* Component count: `6`
+
+<!-- omit in toc -->
 ### **HORIZON_OCCLUSION_POINT**
 
 The horizon occlusion point expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire entity is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information. This semantic is often used with tile metadata.
