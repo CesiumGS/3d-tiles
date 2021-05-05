@@ -29,38 +29,57 @@ For full usage see:
 <!-- omit in toc -->
 ### **TILE_BOUNDING_BOX**
 
-The bounding volume of the tile, expressed as a box (as defined by 3D Tiles 1.0). This property may be used to describe a tighter bounding volume for a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md).
+The bounding volume of the tile, expressed as a [box (as defined by 3D Tiles 1.0)](https://github.com/CesiumGS/3d-tiles/tree/master/specification#box). This property may be used to describe a tighter bounding volume for a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md).
 
 * Type: `ARRAY`
-* Component type: `FLOAT64`
+* Component type: `FLOAT32` or `FLOAT64`
 * Component count: `12`
 
 <!-- omit in toc -->
 ### **TILE_BOUNDING_REGION**
 
-The bounding volume of the tile, expressed as a region (as defined by 3D Tiles 1.0). This property may be used to describe a tighter bounding volume for a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md).
+The bounding volume of the tile, expressed as a [region (as defined by 3D Tiles 1.0)](https://github.com/CesiumGS/3d-tiles/tree/master/specification#region). This property may be used to describe a tighter bounding volume for a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md).
 
 * Type: `ARRAY`
-* Component type: `FLOAT64`
+* Component type: `FLOAT32` or `FLOAT64`
 * Component count: `6`
+
+<!-- omit in toc -->
+### **TILE_BOUNDING_SPHERE**
+
+The bounding volume of the tile, expressed as a [sphere (as defined by 3D Tiles 1.0)](https://github.com/CesiumGS/3d-tiles/tree/master/specification#sphere). This property may be used to describe a tighter bounding volume for a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md).
+
+* Type: `ARRAY`
+* Component type: `FLOAT32` or `FLOAT64`
+* Component count: `4`
 
 <!-- omit in toc -->
 ### **CONTENT_BOUNDING_BOX**
 
-The bounding volume of the content of a tile, expressed as a box (as defined by 3D Tiles 1.0). This property may be used to describe a tighter bounding volume for the content of a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md). The content bounding volume must be completely contained within the bounding volume of a tile.
+The bounding volume of the content of a tile, expressed as a [box (as defined by 3D Tiles 1.0)](https://github.com/CesiumGS/3d-tiles/tree/master/specification#box). This property may be used to describe a tighter bounding volume for the content of a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md). The content bounding volume must be completely contained within the bounding volume of a tile.
 
 * Type: `ARRAY`
-* Component type: `FLOAT64`
+* Component type: `FLOAT32` or `FLOAT64`
 * Component count: `12`
 
 <!-- omit in toc -->
 ### **CONTENT_BOUNDING_REGION**
 
-The bounding volume of the content of a tile, expressed as a region (as defined by 3D Tiles 1.0). This property may be used to describe a tighter bounding volume for the content of a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md). The content bounding volume must be completely contained within the bounding volume of a tile.
+The bounding volume of the content of a tile, expressed as a [region (as defined by 3D Tiles 1.0)](https://github.com/CesiumGS/3d-tiles/tree/master/specification#region). This property may be used to describe a tighter bounding volume for the content of a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md). The content bounding volume must be completely contained within the bounding volume of a tile.
 
 * Type: `ARRAY`
-* Component type: `FLOAT64`
+* Component type: `FLOAT32` or `FLOAT64`
 * Component count: `6`
+
+<!-- omit in toc -->
+### **CONTENT_BOUNDING_SPHERE**
+
+The bounding volume of the content of  tile, expressed as a [sphere (as defined by 3D Tiles 1.0)](https://github.com/CesiumGS/3d-tiles/tree/master/specification#sphere). This property may be used to describe a tighter bounding volume for a tile than is implicitly calculated by [3DTILES_implicit_tiling](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0/README.md). The content bounding volume must be completely contained within the bounding volume of a tile.
+
+* Type: `ARRAY`
+* Component type: `FLOAT32` or `FLOAT64`
+* Component count: `4`
+
 
 <!-- omit in toc -->
 ### **HORIZON_OCCLUSION_POINT**
