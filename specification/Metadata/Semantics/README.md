@@ -53,6 +53,8 @@ The bounding volume of the tile, expressed as a [sphere (as defined by 3D Tiles 
 * Component type: `FLOAT32` or `FLOAT64`
 * Component count: `4`
 
+*Note: Only one type of tile bounding volume may be specified at a time.*
+
 <!-- omit in toc -->
 ### **CONTENT_BOUNDING_BOX**
 
@@ -80,6 +82,8 @@ The bounding volume of the content of  tile, expressed as a [sphere (as defined 
 * Component type: `FLOAT32` or `FLOAT64`
 * Component count: `4`
 
+*Note: Only one type of content bounding volume may be specified at a time.*
+
 <!-- omit in toc -->
 ### **TILE_HORIZON_OCCLUSION_POINT**
 
@@ -102,6 +106,8 @@ The minimum height of the tile above (or below) the WGS84 ellipsoid. When a tile
 The maximum height of the tile above (or below) the WGS84 ellipsoid. When a tile bounding volume is explicitly defined for a tile, this property will be be ignored.
 
 * Type: `FLOAT32` or `FLOAT64`
+
+> **Implementation Note**: If `TILE_BOUNDING_REGION` is specified along with a `TILE_MAXIMIUM_HEIGHT` or `TILE_MINIMUM_HEIGHT`, the heights will be ignored.
 
 <!-- omit in toc -->
 ### **NAME**
