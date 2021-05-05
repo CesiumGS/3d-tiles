@@ -81,25 +81,25 @@ The bounding volume of the content of  tile, expressed as a [sphere (as defined 
 * Component count: `4`
 
 <!-- omit in toc -->
-### **HORIZON_OCCLUSION_POINT**
+### **TILE_HORIZON_OCCLUSION_POINT**
 
-The horizon occlusion point expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire entity is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information. This semantic is often used with tile metadata.
+The horizon occlusion point of the tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire entity is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information. This semantic is often used with tile metadata.
 
 * Type: `ARRAY`
 * Component type: `FLOAT32` or `FLOAT64`
 * Component count: `3`
 
 <!-- omit in toc -->
-### **MINIMUM_HEIGHT**
+### **TILE_MINIMUM_HEIGHT**
 
-The minimum height relative to some ellipsoid.
+The minimum height of the tile above (or below) the WGS84 ellipsoid. When a tile bounding volume is explicitly defined for a tile, this property will be be ignored.
 
 * Type: `FLOAT32` or `FLOAT64`
 
 <!-- omit in toc -->
-### **MAXIMUM_HEIGHT**
+### **TILE_MAXIMUM_HEIGHT**
 
-The maximum height relative to some ellipsoid.
+The maximum height of the tile above (or below) the WGS84 ellipsoid. When a tile bounding volume is explicitly defined for a tile, this property will be be ignored.
 
 * Type: `FLOAT32` or `FLOAT64`
 
