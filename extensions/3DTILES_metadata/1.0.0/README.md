@@ -192,7 +192,7 @@ Note that the optional property `country` is omitted in the example below.
 
 ### Tile Metadata
 
-Metadata may be assigned to individual tiles. Tile metadata often contains spatial information to optimize traversal algorithms. The example below uses the built-in semantic `HORIZON_OCCLUSION_POINT` from the [Cesium Metadata Semantic Reference](../../../specification/Metadata/Semantics).
+Metadata may be assigned to individual tiles. Tile metadata often contains spatial information to optimize traversal algorithms. The example below uses the built-in semantic `TILE_HORIZON_OCCLUSION_POINT` from the [Cesium Metadata Semantic Reference](../../../specification/Metadata/Semantics).
 
 ```jsonc
 {
@@ -206,7 +206,7 @@ Metadata may be assigned to individual tiles. Tile metadata often contains spati
                 "type": "ARRAY",
                 "componentType": "FLOAT64",
                 "componentCount": 4,
-                "semantic": "HORIZON_OCCLUSION_POINT",
+                "semantic": "TILE_HORIZON_OCCLUSION_POINT",
               },
               "countries": {
                 "description": "The countries that this tile overlaps",

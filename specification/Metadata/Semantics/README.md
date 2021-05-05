@@ -2,7 +2,7 @@
 
 This document defines a general set of semantics for 3D Tiles and glTF. Tileset authors may define their own application- or domain-specific semantics separately.
 
-Semantics describe how properties should be interpreted. For example, an application that sees the `HORIZON_OCCLUSION_POINT` semantic would use the property for horizon occlusion culling as defined below.
+Semantics describe how properties should be interpreted. For example, an application that sees the `TILE_HORIZON_OCCLUSION_POINT` semantic would use the property for horizon occlusion culling as defined below.
 
 ```jsonc
 {
@@ -11,7 +11,7 @@ Semantics describe how properties should be interpreted. For example, an applica
       "type": "ARRAY",
       "componentType": "FLOAT64",
       "componentCount": 4,
-      "semantic": "HORIZON_OCCLUSION_POINT",
+      "semantic": "TILE_HORIZON_OCCLUSION_POINT",
     },
     "name": {
       "type": "STRING",
@@ -81,7 +81,7 @@ The bounding volume of the content of  tile, expressed as a [sphere (as defined 
 * Component count: `4`
 
 <!-- omit in toc -->
-### **TILE_HORIZON_OCCLUSION_POINT**
+### **TILE_TILE_HORIZON_OCCLUSION_POINT**
 
 The horizon occlusion point of the tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire entity is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information. This semantic is often used with tile metadata.
 
