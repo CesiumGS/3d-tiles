@@ -104,15 +104,6 @@ The maximum height of the tile above (or below) the WGS84 ellipsoid. When a tile
 * Type: `FLOAT32` or `FLOAT64`
 
 <!-- omit in toc -->
-### **BOUNDING_SPHERE**
-
-A bounding sphere as `[x, y, z, radius]`.
-
-* Type: `ARRAY`
-* Component type: `FLOAT32` or `FLOAT64`
-* Component count: `4`
-
-<!-- omit in toc -->
 ### **NAME**
 
 The name of the entity. Names do not have to be unique.
