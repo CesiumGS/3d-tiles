@@ -80,7 +80,6 @@ The bounding volume of the content of  tile, expressed as a [sphere (as defined 
 * Component type: `FLOAT32` or `FLOAT64`
 * Component count: `4`
 
-
 <!-- omit in toc -->
 ### **HORIZON_OCCLUSION_POINT**
 
