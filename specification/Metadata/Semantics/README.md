@@ -110,6 +110,22 @@ The maximum height of the tile above (or below) the WGS84 ellipsoid. When a tile
 > **Implementation Note**: If `TILE_BOUNDING_REGION` is specified along with a `TILE_MAXIMIUM_HEIGHT` or `TILE_MINIMUM_HEIGHT`, the heights will be ignored.
 
 <!-- omit in toc -->
+### **CONTENT_MINIMUM_HEIGHT**
+
+The minimum height of the content of a tile above (or below) the WGS84 ellipsoid. When a content bounding volume is explicitly defined for a tile, this property will be be ignored.
+
+* Type: `FLOAT32` or `FLOAT64`
+
+<!-- omit in toc -->
+### **CONTENT_MAXIMUM_HEIGHT**
+
+The maximum height of the content of a tile above (or below) the WGS84 ellipsoid. When a content bounding volume is explicitly defined for a tile, this property will be be ignored.
+
+* Type: `FLOAT32` or `FLOAT64`
+
+> **Implementation Note**: If `CONTENT_BOUNDING_REGION` is specified along with a `CONTENT_MAXIMIUM_HEIGHT` or `CONTENT_MINIMUM_HEIGHT`, the heights will be ignored.
+
+<!-- omit in toc -->
 ### **NAME**
 
 The name of the entity. Names do not have to be unique.
