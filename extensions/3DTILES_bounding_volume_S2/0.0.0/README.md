@@ -45,8 +45,8 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 In S2, each face of the unit cube can be subdivided into 30 levels using a quadtree structure, in which each "cell" or tile on the grid subdivides into 4 equal cells or tiles at the subsequent level. This extension to 3D Tiles enables using these cells as the basis for bounding volumes for tiles.
 
-| S2 Curve on Cube Face  |  S2 Curve on WGS84 Ellipsoid |
-|---|---|
+| S2 Curve on Earth cube |  S2 Curve on WGS84 llipsoid |
+|:-:|:-:|
 | ![Math](figures/plane.png)  | ![Math](figures/ellipsoid.png)  |
 
 The S2 library uses a modified Hilbert curve to provide a one dimensional ordering of cells on the S2 Earth cube. This provides each cell, from level 1 to level 30, with a unique 64-bit identifier. Therefore, we can uniquely identify millimeter scale areas on Earth with their S2 cell IDs.
