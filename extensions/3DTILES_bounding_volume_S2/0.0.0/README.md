@@ -1,31 +1,37 @@
 # 3DTILES_bounding_volume_S2
 
+<!-- omit in toc -->
 ## Contributors
 
 - Sam Suhag, Cesium
 - Sean Lilley, Cesium
 - Peter Gagliardi, Cesium
 
+<!-- omit in toc -->
+## Status
+
+Draft
+
+<!-- omit in toc -->
 ## Dependencies
 
 Written against 3D Tiles 1.0.
 
+<!-- omit in toc -->
 ## Optional vs. Required
 
 This extension is required, meaning it must be placed in both the `extensionsUsed` and `extensionsRequired` lists in the tileset JSON.
 
+<!-- omit in toc -->
 ## Contents
 
 - [3DTILES_bounding_volume_S2](#3dtiles_bounding_volume_s2)
-  - [Contributors](#contributors)
-  - [Dependencies](#dependencies)
-  - [Optional vs. Required](#optional-vs-required)
-  - [Contents](#contents)
   - [Overview](#overview)
   - [Coordinate System](#coordinate-system)
   - [Cell Token](#cell-token)
-  - [Heights](#heights)
+  - [Bounding Heights](#bounding-heights)
   - [Subdivision](#subdivision)
+  - [Property Reference](#property-reference)
   - [Schema Changes](#schema-changes)
 
 ## Overview
@@ -52,7 +58,7 @@ This extension uses tokens, or hexadecimal string representations of S2 cell ide
 
 More details on computing an `S2CellToken` can be found in the [S2 reference implementation](https://github.com/google/s2-geometry-library-java/blob/c28f287b996c0cedc5516a0426fbd49f6c9611ec/src/com/google/common/geometry/S2CellId.java#L468).
 
-## Heights
+## Bounding Heights
 
 The S2 cell itself is used to specify an area on the surface of the ellipsoid. To create a bounding volume, the `minimumHeight` and `maximumHeight` properties must be specified. These heights must be specified in meters above the WGS84 ellipsoid.
 
@@ -226,6 +232,41 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
 }
 ```
 
+## Property Reference
+
+**`3DTILES_bounding_volume_S2 extension` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**token**|`string`|A hexadecimal representation of the S2 cell identifier. Tokens must be lower-case (except X), must not contain whitespace and must have trailing zeros stripped.| &#10003; Yes|
+|**minimumHeight**|`number`|The minimum height of the tile, specified in meters above (or below) the WGS84 ellipsoid.| &#10003; Yes|
+|**maximumHeight**|`number`|The maximum height of the tile, specified in meters above (or below) the WGS84 ellipsoid.| &#10003; Yes|
+
+Additional properties are not allowed.
+
+<!-- omit in toc -->
+#### token ✅
+
+A hexadecimal representation of the S2CellId. The 0 S2CellId must be represented as 'X'. Tokens must be lower-case (except X), must not contain whitespace and must have trailing zeros stripped.
+
+* **Type**: `string`
+* **Required**:  &#10003; Yes
+
+<!-- omit in toc -->
+#### minimumHeight ✅
+
+The minimum height of the tile, specified in meters above (or below) the WGS84 ellipsoid.
+
+* **Type**: `number`
+* **Required**:  &#10003; Yes
+
+<!-- omit in toc -->
+#### maximumHeight ✅
+
+The maximum height of the tile, specified in meters above (or below) the WGS84 ellipsoid.
+
+* **Type**: `number`
+* **Required**:  &#10003; Yes
 
 ## Schema Changes
 
