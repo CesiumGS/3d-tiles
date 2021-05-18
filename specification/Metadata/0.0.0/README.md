@@ -1,6 +1,6 @@
 # Cesium 3D Metadata Specification
 
-**Version 0.0.0** November 6, 2020
+**Version 0.0.0**, November 6, 2020
 
 ## Contributors
 

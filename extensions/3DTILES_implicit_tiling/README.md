@@ -1,8 +1,8 @@
 # 3DTILES_implicit_tiling
 
-This extension enables 3D Tiles to support tilesets with implied subdivision schemes.
+Implicit tiling is a new representation of a Cesium 3D Tileset that allows for fast random access of tiles and enables new traversal algorithms.
 
 ## Changelog
 
-* [**Version 0.0.0**](0.0.0/README.md) [TODO: date]
+* [**Version 0.0.0**](0.0.0) February 19, 2021
     * Initial draft

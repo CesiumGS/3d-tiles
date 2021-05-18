@@ -31,7 +31,7 @@ Written against the 3D Tiles 1.0 specification.
 
 ## Overview
 
-This extension to 3D Tiles enables the declaration of metadata classes and the assignment of metadata to the tileset. Metadata classes are declared and assigned based on the [Cesium 3D Metadata Specification](../../../specification/Metadata/0.0.0/README.md). Metadata may also be assigned to layers using [3DTILES_layers](../../3DTILES_layers/README.md). The following diagrams illustrates how these extensions are connected:
+This extension to 3D Tiles enables the declaration of metadata classes and the assignment of metadata to the tileset. Metadata classes are declared and assigned based on the [Cesium 3D Metadata Specification](../../../specification/Metadata/0.0.0). Metadata may also be assigned to layers using [3DTILES_layers](../../3DTILES_layers/0.0.0). The following diagrams illustrates how these extensions are connected:
 
 ![3DTILES_metadata Spec Map](figures/spec_map.jpg)
 
@@ -71,11 +71,11 @@ Classes serve as the templates for the metadata objects - they provide a list of
 }
 ```
 
-This extension uses the classes in compliance with the [Cesium 3D Metadata Specification](../../../specification/Metadata/0.0.0/README.md#classes).
+This extension uses the classes in compliance with the [Cesium 3D Metadata Specification](../../../specification/Metadata/0.0.0#classes).
 
 #### Properties
 
-Each class provides a list of properties. A property has a `type` and, for the array types, it may include a `componentType` and a `componentCount`. Additionally, a property may be designated as `optional`, and if so, a `default` value for the property may be provided to apply to all instances of the class that do not set a value for the property. To learn more about properties, refer to the [Cesium 3D Metadata Specification](../../../specification/Metadata/0.0.0/README.md#classes).
+Each class provides a list of properties. A property has a `type` and, for the array types, it may include a `componentType` and a `componentCount`. Additionally, a property may be designated as `optional`, and if so, a `default` value for the property may be provided to apply to all instances of the class that do not set a value for the property. To learn more about properties, refer to the [Cesium 3D Metadata Specification](../../../specification/Metadata/0.0.0#classes).
 
 ```jsonc
 {
@@ -118,7 +118,7 @@ Each class provides a list of properties. A property has a `type` and, for the a
 
 Metadata may be assigned to the tileset as a whole with the `tileset` object.
 
-The tileset metadata object may specify a `name` and `description`. The tileset metadata object may also specify a `class` and assign values to the `properties` defined by the selected class. The tileset object is an instance of the class and uses the [single instance shorthand syntax](../../../specification/Metadata/0.0.0/README.md#single-intance-shorthand) to assign values to its properties.
+The tileset metadata object may specify a `name` and `description`. The tileset metadata object may also specify a `class` and assign values to the `properties` defined by the selected class. The tileset object is an instance of the class and uses the [single instance shorthand syntax](../../../specification/Metadata/0.0.0#single-intance-shorthand) to assign values to its properties.
 
 ```json
 {

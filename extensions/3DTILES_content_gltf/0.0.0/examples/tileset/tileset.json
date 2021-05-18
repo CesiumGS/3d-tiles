@@ -4,13 +4,6 @@
   },
   "extensionsUsed": ["3DTILES_content_gltf"],
   "extensionsRequired": ["3DTILES_content_gltf"],
-  "extensions": {
-    "3DTILES_content_gltf": {
-      "extras": {
-        "draftVersion": "0.0.0"
-      }
-    }
-  },
   "geometricError": 240,
   "root": {
     "boundingVolume": {
