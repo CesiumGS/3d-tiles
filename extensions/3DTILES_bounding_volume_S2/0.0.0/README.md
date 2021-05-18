@@ -38,15 +38,17 @@ In S2, each face of the unit cube can be subdivided into 30 levels using a quadt
 |---|---|
 | ![Math](figures/plane.png)  | ![Math](figures/ellipsoid.png)  |
 
+The S2 library uses a modified Hilbert curve to provide a one dimensional ordering of cells on the S2 Earth cube. This provides each cell, from level 1 to level 30, with a unique 64-bit identifier. Therefore, we can uniquely identify millimeter scale areas on Earth with their S2 cell IDs.
+
 ## Coordinate System
 
 The S2 library does not mandate the usage of geocentric or geodetic coordinates. This extension uses WGS84 geodetic coordinates for mapping the points between the Earth and the S2 sphere.
 
 ## Cell Token
 
-This extension uses tokens, or hexadecimal string representations of `S2CellId` for two reasons:
+This extension uses tokens, or hexadecimal string representations of S2 cell identifier for two reasons:
  1. Precision: Using a token will require a client to convert it to the correct data type: `uint64`
- 2. Conciseness: Tokens provide a more concise representation of `S2CellId`s
+ 2. Conciseness: Tokens provide a more concise representation of identifiers
 
 More details on computing an `S2CellToken` can be found in the [S2 reference implementation](https://github.com/google/s2-geometry-library-java/blob/c28f287b996c0cedc5516a0426fbd49f6c9611ec/src/com/google/common/geometry/S2CellId.java#L468).
 
