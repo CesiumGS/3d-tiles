@@ -32,6 +32,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
   - [Bounding Heights](#bounding-heights)
   - [Subdivision](#subdivision)
   - [Property Reference](#property-reference)
+      - [extensions](#extensions)
   - [Schema Changes](#schema-changes)
 
 ## Overview
@@ -241,6 +242,8 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
 |**token**|`string`|A hexadecimal representation of the S2 cell identifier. Tokens must be lower-case (except X), must not contain whitespace and must have trailing zeros stripped.| &#10003; Yes|
 |**minimumHeight**|`number`|The minimum height of the tile, specified in meters above (or below) the WGS84 ellipsoid.| &#10003; Yes|
 |**maximumHeight**|`number`|The maximum height of the tile, specified in meters above (or below) the WGS84 ellipsoid.| &#10003; Yes|
+|**extensions**|`object`|Dictionary object with extension-specific objects.| No|
+|**extras**|`any`|Application-specific data.| No|
 
 Additional properties are not allowed.
 
@@ -267,6 +270,22 @@ The maximum height of the tile, specified in meters above (or below) the WGS84 e
 
 * **Type**: `number`
 * **Required**:  &#10003; Yes
+
+#### extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: `object`
+* **Required**: No
+
+<!-- omit in toc -->
+#### extras
+
+Application-specific data.
+
+* **Type**: `any`
+* **Required**: No
+
 
 ## Schema Changes
 
