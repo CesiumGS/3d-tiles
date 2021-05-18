@@ -6,13 +6,9 @@
 - Sean Lilley, Cesium
 - Peter Gagliardi, Cesium
 
-## Status
-
-Draft
-
 ## Dependencies
 
-Written against 3D Tiles 1.0. It may be used in conjunction with [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0).
+Written against 3D Tiles 1.0.
 
 ## Optional vs. Required
 
@@ -22,7 +18,6 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 - [3DTILES_bounding_volume_S2](#3dtiles_bounding_volume_s2)
   - [Contributors](#contributors)
-  - [Status](#status)
   - [Dependencies](#dependencies)
   - [Optional vs. Required](#optional-vs-required)
   - [Contents](#contents)
@@ -35,9 +30,9 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 ## Overview
 
-[S2](http://s2geometry.io/) is a spherical geometry library that represents all data on a 3D sphere, unlike traditional libraries that use 2D planar projections. This makes it possible to represent the globe with no seams or singularities, with low distortion everywhere on Earth. The S2 library involves projecting the 6 faces of a cube on a unit sphere, creating 6 root "cells" that subdivide evenly into 4 tiles, into a quadtree structure.
+[S2](http://s2geometry.io/) is a spherical geometry library that maps the 6 faces of a unit cube onto the unit sphere. Typically, traditional GIS libraries use planar projections to map data between a 2D plane and a 3D ellipsoid (representing the Earth). Since a sphere is a closer approximation of the shape of the ellipsoid, S2 makes it possible to represent the globe with no seams or singularities, with low distortion everywhere on Earth.
 
-This extension to 3D Tiles enables using S2 cells as a `boundingVolume`, and uses `3DTILES_implict_tiling` to enforce subdivision.
+In S2, each face of the unit cube can be subdivided into 30 levels using a quadtree structure, in which each "cell" or tile on the grid subdivides into 4 equal cells or tiles at the subsequent level. This extension to 3D Tiles enables using these cells as the basis for bounding volumes for tiles.
 
 | S2 Curve on Cube Face  |  S2 Curve on WGS84 Ellipsoid |
 |---|---|
@@ -45,7 +40,7 @@ This extension to 3D Tiles enables using S2 cells as a `boundingVolume`, and use
 
 ## Coordinate System
 
-The S2 library does not mandate the usage of geocentric or geodetic coordinates.This extension uses WGS84 geodetic coordinates for mapping the points between the Earth and the S2 sphere.
+The S2 library does not mandate the usage of geocentric or geodetic coordinates. This extension uses WGS84 geodetic coordinates for mapping the points between the Earth and the S2 sphere.
 
 ## Cell Token
 
@@ -57,7 +52,7 @@ More details on computing an `S2CellToken` can be found in the [S2 reference imp
 
 ## Heights
 
-The S2 cell itself is used to specify an area on the surface of the ellipsoid. To create a bounding volume, the `minumumHeight` and `maximumHeight` properties must be specified. These heights must be specified in meters above the WGS84 ellipsoid.
+The S2 cell itself is used to specify an area on the surface of the ellipsoid. To create a bounding volume, the `minimumHeight` and `maximumHeight` properties must be specified. These heights must be specified in meters above the WGS84 ellipsoid.
 
 ## Subdivision
 
@@ -65,11 +60,11 @@ The S2 library defines a [cell hierarchy](http://s2geometry.io/devguide/s2cell_h
 
 When used with `3DTILES_implicit_tiling`, a `QUADTREE` subdivision scheme will follow the rules for subdivision as defined by S2. When an `OCTREE` subdivision scheme is used, the split in the vertical dimension occurs at the midpoint of the `minimumHeight` and `maximumHeight` of the parent tile. The `availability` bitstreams are ordered by the Morton index of the tile, as specified by `3DTILES_implicit_tiling`, not by the Hilbert index used by S2. Additionally, the `maximumLevel` property cannot be greater than `30 - {Level of root S2CellId}` because S2 cell hierarchy only extends to level 30.
 
-| Cell  | Quadtree Subdivsion | Octree Subdivsion |
+| Cell  | Quadtree Subdivision | Octree Subdivision |
 |---|---|---|
 | ![Parent Cell](figures/parent.png)  | ![Quadtree Cells](figures/quadtree.png)  | ![Octree Cells](figures/octree.png)  |
 
-The following example illustrates usage of `3DTILES_bounding_volume_S2` with `3DITLES_implicit_tiling`:
+The following example illustrates usage of `3DTILES_bounding_volume_S2` with `3DTILES_implicit_tiling`:
 
 ```json
 {
@@ -137,8 +132,8 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
       "region": [
         -3.141592653589793,
         -1.5707963267948966,
-        -3.141592653589793,
-        -1.5707963267948966,
+        3.141592653589793,
+        1.5707963267948966,
         0,
         250000
       ]
