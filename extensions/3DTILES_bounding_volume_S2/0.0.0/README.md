@@ -93,9 +93,9 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2` with `3D
     "boundingVolume": {
       "extensions": {
         "3DTILES_bounding_volume_S2": {
-          "token": "2ef59",
+          "token": "04",
           "minimumHeight": 0,
-          "maximumHeight": 25000
+          "maximumHeight": 500000
         }
       }
     },
