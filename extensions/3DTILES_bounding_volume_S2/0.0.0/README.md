@@ -28,8 +28,9 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 - [3DTILES_bounding_volume_S2](#3dtiles_bounding_volume_s2)
   - [Overview](#overview)
   - [Coordinate System](#coordinate-system)
-  - [Cell Token](#cell-token)
-  - [Bounding Heights](#bounding-heights)
+  - [Bounding Volume](#bounding-volume)
+    - [Cell Token](#cell-token)
+    - [Bounding Heights](#bounding-heights)
   - [Subdivision](#subdivision)
   - [Property Reference](#property-reference)
   - [Schema Changes](#schema-changes)
@@ -55,7 +56,15 @@ The S2 library uses a modified Hilbert curve to provide a one dimensional orderi
 
 The S2 library does not mandate the usage of geocentric or geodetic coordinates. This extension uses WGS84 geodetic coordinates for mapping the points between the Earth and the S2 sphere.
 
-## Cell Token
+## Bounding Volume
+
+This extension enables using S2 cells and a set of bounding heights to describe a bounding volume in 3D Tiles. The `token` represents an S2 cell. The cell describes 4 vertices on the surface of the WGS84 ellipsoid for the area, and the `minimumHeight` and `maximumHeight` describe the vertical limits with respect to the WGS84 ellipsoid.
+
+![Volume](figure/../figures/volume.jpg)
+
+<center>S2 cell (<tt>"89c6c7"</tt>) covering the Philadelphia Center City area, with minimum height set to <tt>0</tt> m and maximum height set to <tt>1000</tt> m.</center>
+
+### Cell Token
 
 This extension uses tokens, or hexadecimal string representations of S2 cell identifier for two reasons:
  1. Precision: Using a token will require a client to convert it to the correct data type: `uint64`
@@ -63,7 +72,7 @@ This extension uses tokens, or hexadecimal string representations of S2 cell ide
 
 More details on computing an `S2CellToken` can be found in the [S2 reference implementation](https://github.com/google/s2-geometry-library-java/blob/c28f287b996c0cedc5516a0426fbd49f6c9611ec/src/com/google/common/geometry/S2CellId.java#L468).
 
-## Bounding Heights
+### Bounding Heights
 
 The S2 cell itself is used to specify an area on the surface of the ellipsoid. To create a bounding volume, the `minimumHeight` and `maximumHeight` properties must be specified. These heights must be specified in meters above the WGS84 ellipsoid.
 
