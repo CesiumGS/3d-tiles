@@ -46,7 +46,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 In S2, each face of the unit cube can be subdivided into 30 levels using a quadtree structure, in which each "cell" or tile on the grid subdivides into 4 equal cells or tiles at the subsequent level. This extension to 3D Tiles enables using these cells as the basis for bounding volumes for tiles.
 
-| S2 Curve on Earth cube |  S2 Curve on WGS84 llipsoid |
+| S2 Curve on Earth cube |  S2 Curve on WGS84 ellipsoid |
 |:-:|:-:|
 | ![Math](figures/plane.png)  | ![Math](figures/ellipsoid.png)  |
 
