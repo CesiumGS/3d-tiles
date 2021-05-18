@@ -38,7 +38,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 [S2](http://s2geometry.io/) is a spherical geometry library that maps the 6 faces of a unit cube onto the unit sphere. Typically, traditional GIS libraries use planar projections to map data between a 2D plane and a 3D ellipsoid (representing the Earth). Since a sphere is a closer approximation of the shape of the ellipsoid, S2 makes it possible to represent the globe with no seams or singularities, with low distortion everywhere on Earth.
 
-|||
+|Level 0|Level 1|
 |---|---|
 | ![Plane - Level 0](figures/plane_root.png)  | ![Plane - Level 1](figures/plane_children.png)  |
 | ![Ellipsoid - Level 0](figures/ellipsoid_root.png)  | ![Ellipsoid - Level 1](figures/ellipsoid_children.png)  |
