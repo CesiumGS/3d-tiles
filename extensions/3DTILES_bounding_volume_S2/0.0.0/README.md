@@ -32,7 +32,6 @@ This extension is required, meaning it must be placed in both the `extensionsUse
   - [Bounding Heights](#bounding-heights)
   - [Subdivision](#subdivision)
   - [Property Reference](#property-reference)
-      - [extensions](#extensions)
   - [Schema Changes](#schema-changes)
 
 ## Overview
@@ -271,6 +270,7 @@ The maximum height of the tile, specified in meters above (or below) the WGS84 e
 * **Type**: `number`
 * **Required**:  &#10003; Yes
 
+<!-- omit in toc -->
 #### extensions
 
 Dictionary object with extension-specific objects.
