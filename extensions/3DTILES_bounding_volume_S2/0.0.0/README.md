@@ -252,7 +252,7 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
 
 |   |Type|Description|Required|
 |---|---|---|---|
-|**token**|`string`|A hexadecimal representation of the S2 cell identifier. Tokens must be lower-case (except X), must not contain whitespace and must have trailing zeros stripped.| &#10003; Yes|
+|**token**|`string`|A hexadecimal representation of the S2 cell identifier. Tokens must be lower-case, must not contain whitespace and must have trailing zeros stripped.| &#10003; Yes|
 |**minimumHeight**|`number`|The minimum height of the tile, specified in meters above (or below) the WGS84 ellipsoid.| &#10003; Yes|
 |**maximumHeight**|`number`|The maximum height of the tile, specified in meters above (or below) the WGS84 ellipsoid.| &#10003; Yes|
 |**extensions**|`object`|Dictionary object with extension-specific objects.| No|
@@ -263,7 +263,7 @@ Additional properties are not allowed.
 <!-- omit in toc -->
 #### token ✅
 
-A hexadecimal representation of the S2CellId. The 0 S2CellId must be represented as 'X'. Tokens must be lower-case (except X), must not contain whitespace and must have trailing zeros stripped.
+A hexadecimal representation of the S2CellId. Tokens must be lower-case, must not contain whitespace and must have trailing zeros stripped.
 
 * **Type**: `string`
 * **Required**:  &#10003; Yes
