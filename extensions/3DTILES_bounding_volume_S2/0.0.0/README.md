@@ -41,8 +41,8 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 |Level 0|Level 1|
 |:-:|:-:|
-| ![Plane - Level 0](figures/plane_root.png) S2 cell (`"1"`) on the Earth cube| ![Plane - Level 1](figures/plane_children.png) Children of S2 cell (`"1"`) on the Earth cube |
-| ![Ellipsoid - Level 0](figures/ellipsoid_root.png)  S2 cell (`"1"`) on the WGS84 ellipsoid| ![Ellipsoid - Level 1](figures/ellipsoid_children.png) Children of S2 cell (`"1"`) on the WGS84 ellipsoid|
+| ![Plane - Level 0](figures/plane_parent.png) S2 cell (`"1"`) on the Earth cube| ![Plane - Level 1](figures/plane_children.png) Children of S2 cell (`"1"`) on the Earth cube |
+| ![Ellipsoid - Level 0](figures/ellipsoid_parent.png)  S2 cell (`"1"`) on the WGS84 ellipsoid| ![Ellipsoid - Level 1](figures/ellipsoid_children.png) Children of S2 cell (`"1"`) on the WGS84 ellipsoid|
 
 In S2, each face of the unit cube can be subdivided into 30 levels using a quadtree structure, in which each "cell" or tile on the grid subdivides into 4 equal cells or tiles at the subsequent level. This extension to 3D Tiles enables using these cells as the basis for bounding volumes for tiles.
 
@@ -133,7 +133,7 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2` with `3D
 
 The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 faces of S2, to represent a tileset with global coverage:
 
-![Global Coverage](figures/global.png)
+![Global Coverage](figures/globe.png)
 
 ```json
 {
@@ -169,7 +169,7 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
             "3DTILES_bounding_volume_S2": {
               "token": "1",
               "minimumHeight": 0,
-              "maximumHeight": 25000
+              "maximumHeight": 1000000
             }
           }
         },
@@ -182,7 +182,7 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
             "3DTILES_bounding_volume_S2": {
               "token": "3",
               "minimumHeight": 0,
-              "maximumHeight": 25000
+              "maximumHeight": 1000000
             }
           }
         },
@@ -195,7 +195,7 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
             "3DTILES_bounding_volume_S2": {
               "token": "5",
               "minimumHeight": 0,
-              "maximumHeight": 25000
+              "maximumHeight": 1000000
             }
           }
         },
@@ -208,7 +208,7 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
             "3DTILES_bounding_volume_S2": {
               "token": "7",
               "minimumHeight": 0,
-              "maximumHeight": 25000
+              "maximumHeight": 1000000
             }
           }
         },
@@ -221,7 +221,7 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
             "3DTILES_bounding_volume_S2": {
               "token": "9",
               "minimumHeight": 0,
-              "maximumHeight": 25000
+              "maximumHeight": 1000000
             }
           }
         },
@@ -234,7 +234,7 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
             "3DTILES_bounding_volume_S2": {
               "token": "b",
               "minimumHeight": 0,
-              "maximumHeight": 25000
+              "maximumHeight": 1000000
             }
           }
         },
