@@ -33,7 +33,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
     - [Bounding Heights](#bounding-heights)
   - [Subdivision](#subdivision)
   - [Property Reference](#property-reference)
-  - [Schema Changes](#schema-changes)
+  - [JSON Schema](#json-schema)
 
 ## Overview
 
@@ -301,6 +301,6 @@ Application-specific data.
 * **Required**: No
 
 
-## Schema Changes
+## JSON Schema
 
-The changes to the schema are documented in the [extension schema](schema/boundingVolume.3DTILES_bounding_volume_S2.schema.json).
+The JSON schema for this extension can be found [here](schema/boundingVolume.3DTILES_bounding_volume_S2.schema.json).
