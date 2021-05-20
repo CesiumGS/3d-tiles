@@ -67,8 +67,8 @@ This extension enables using S2 cells and a set of bounding heights to describe 
 ### Cell Token
 
 This extension uses tokens, or hexadecimal string representations of S2 cell identifier for two reasons:
- 1. Precision: Using a token will require a client to convert it to the correct data type: `uint64`
- 2. Conciseness: Tokens provide a more concise representation of identifiers
+ 1. Precision: Using a token will require a client to convert it to the correct data type: `uint64`.
+ 2. Conciseness: Tokens provide a more concise representation of identifiers. For example, the root (level 0) cell with cell ID `3458764513820540928` has the token `3`.
 
 More details on computing an `S2CellToken` can be found in the [S2 reference implementation](https://github.com/google/s2-geometry-library-java/blob/c28f287b996c0cedc5516a0426fbd49f6c9611ec/src/com/google/common/geometry/S2CellId.java#L468).
 
