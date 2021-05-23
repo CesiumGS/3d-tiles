@@ -79,6 +79,18 @@ This extension enables using S2 cells and a set of bounding heights to describe 
   S2 cell (<tt>"89c6c7"</tt>) covering the Philadelphia Center City area, with minimum height set to <tt>0</tt> m and maximum height set to <tt>1000</tt> m.
 </p>
 
+```json
+"boundingVolume": {
+  "extensions": {
+    "3DTILES_bounding_volume_S2": {
+      "token": "89c6c7",
+      "minimumHeight": 0,
+      "maximumHeight": 1000
+    }
+  }
+}
+```
+
 ### Cell Token
 
 This extension uses tokens, or hexadecimal string representations of S2 cell identifier for two reasons:
