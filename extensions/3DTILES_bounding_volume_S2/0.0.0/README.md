@@ -71,7 +71,7 @@ This extension to 3D Tiles enables using these cells as the basis for bounding v
 
 ## Bounding Volume
 
-This extension enables using S2 cells and a set of bounding heights to describe a bounding volume in 3D Tiles. The `token` represents an S2 cell. The cell describes 4 vertices on the surface of the WGS84 ellipsoid for the area, and the `minimumHeight` and `maximumHeight` describe the vertical bounds with respect to the WGS84 ellipsoid.
+This extension enables using S2 cells and a set of bounding heights to describe a bounding volume in 3D Tiles. The `token` represents an S2 cell. The cell describes 4 vertices on the surface of the WGS84 ellipsoid for the area, and the `minimumHeight` and `maximumHeight` describe the vertical bounds with respect to the WGS84 ellipsoid. The [tile `transform` property](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tile-transforms) will be ignored when this extension is used for describing a tile's bounding volume.
 
 ![Volume](figure/../figures/volume.jpg)
 
