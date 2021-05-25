@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "3DTILES_layers extension on a tile",
+  "type": "object",
+  "properties": {
+    "contents": {
+      "description": "An array of contents in the tile",
+      "type": "array",
+      "items": {
+        "$ref": "tile.3DTILES_layers.contents.content.schema.json"
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["contents"]
+}

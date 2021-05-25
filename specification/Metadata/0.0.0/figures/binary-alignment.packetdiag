@@ -1,0 +1,7 @@
+{
+  colwidth = 8
+
+  0-26: "Previous\nbufferView"[color=lightgray]
+  27-31: "Padding"[color=darkgray]
+  32-63: "bufferView"
+}
