@@ -28,21 +28,24 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 - [3DTILES_bounding_volume_S2](#3dtiles_bounding_volume_s2)
   - [Overview](#overview)
   - [Hierarchy](#hierarchy)
-  - [Coordinate System](#coordinate-system)
+  - [Cell IDs](#cell-ids)
+  - [Tokens](#tokens)
   - [Bounding Volume](#bounding-volume)
-    - [Cell Token](#cell-token)
-    - [Bounding Heights](#bounding-heights)
-    - [Subdivision](#subdivision)
+  - [Implicit Subdivision](#implicit-subdivision)
   - [Property Reference](#property-reference)
   - [JSON Schema](#json-schema)
 
 ## Overview
 
-[S2](http://s2geometry.io/) is geometry library that defines a framework for decomposing the unit sphere into a hierarchy of cells. A cell is a quadrilateral bounded by four geodesics. Typically, traditional GIS libraries use planar projections to map data between a 2D plane and a 3D ellipsoid (representing the Earth). Since a sphere is a closer approximation of the shape of the ellipsoid, S2 makes it possible to represent the Earth with no seams or singularities, with low distortion everywhere on globe.
+S2 is a geometry library that defines a framework for decomposing the unit sphere into a hierarchy of cells. A cell is a quadrilateral bounded by four geodesics. The S2 cell hierarchy has 6 root cells, that are obtained by projecting the six faces of a cube onto the unit sphere.
+
+Typically, traditional GIS libraries rely on projecting map data from an ellipsoid onto a plane. For example, the Mercator projection is a cylindrical projection, where the ellipsoid is mapped onto a cylinder that is then unrolled as a plane. This method leads to increasingly large distortion in areas as you move further away from the equator. Since a sphere is a closer approximation of the shape of the ellipsoid, S2 makes it possible to represent the Earth with no seams or singularities, with low distortion everywhere on globe.
+
+This extension to 3D Tiles enables using S2 cells as bounding volumes. Due to the properties of S2 described above, this extension is well suited for tilesets that span the whole globe.
 
 ## Hierarchy
 
-The "cell hierarchy" of S2 is rooted in the 6 faces of a cube, which are projected onto the unit sphere. The following diagram illustrates how the S2 Earth cube maps the Earth:
+The cell hierarchy of S2 is rooted in the 6 faces of a cube, which are projected onto the unit sphere. The following diagram illustrates how the S2 Earth cube maps the Earth:
 
 ![S2 Earth Cube](http://s2geometry.io/devguide/img/s2cell_global.jpg)
 
@@ -50,28 +53,64 @@ The "cell hierarchy" of S2 is rooted in the 6 faces of a cube, which are project
 Source: http://s2geometry.io/devguide/s2cell_hierarchy
 </p>
 
-In S2, each face of the unit cube can be subdivided into 30 levels using a quadtree structure, in which each "cell" or tile on the grid subdivides into 4 equal cells or tiles at the subsequent level.
+In S2, each face of the unit cube can be subdivided into 30 levels using a quadtree structure, in which each cell on the grid subdivides into 4 equal cells at the subsequent level.
 
 |Level 0|Level 1|
 |:-:|:-:|
 | ![Plane - Level 0](figures/plane_parent.png) S2 cell (`"1"`) on the Earth cube| ![Plane - Level 1](figures/plane_children.png) Children of S2 cell (`"1"`) on the Earth cube |
 | ![Ellipsoid - Level 0](figures/ellipsoid_parent.png)  S2 cell (`"1"`) on the WGS84 ellipsoid| ![Ellipsoid - Level 1](figures/ellipsoid_children.png) Children of S2 cell (`"1"`) on the WGS84 ellipsoid|
 
-The S2 library uses a modified Hilbert curve to provide a one dimensional ordering of cells on the S2 Earth cube. This provides each cell, from level 1 to level 30, with a unique 64-bit identifier. Using S2, we can uniquely identify centimeter scale areas on Earth with their S2 cell IDs.
+The S2 library uses a modified Hilbert curve to provide a one dimensional ordering of cells on the S2 Earth cube. This provides each cell, from level 1 to level 30, with a unique 64-bit identifier. Using S2 cell IDs, centimeter scale areas be uniquely identified.
 
 | S2 Curve on Earth cube |  S2 Curve on WGS84 ellipsoid |
 |:-:|:-:|
 | ![Math](figures/plane.png)  | ![Math](figures/ellipsoid.png)  |
 
-This extension to 3D Tiles enables using these cells as the basis for bounding volumes for tiles.
+Since actual geographic datasets use geodetic coordinates, this extension uses WGS84 geodetic coordinates.
 
-## Coordinate System
+## Cell IDs
 
-[S2 works well with both geodetic and geocentric coordinates](https://s2geometry.io/about/overview#geocentric-vs-geodetic-coordinates). Since actual geographic datasets use geodetic coordinates, this extension uses WGS84 geodetic coordinates.
+The 64-bit S2 cell ID is constructed as follows:
+
+1. Use 3 bits to encode the index of the root cell it belongs to. Valid values are in the range `[0-5]`.
+2. For a cell at level `k`, for each of the `k` "child" values, add 2 bits to the right, indicating the selection of one of 4 children during subdivision.
+3. Set the bit following the last child to `1`.
+4. Set the remaining bits to `0`.
+
+For example:
+
+```
+0011000000000...000   Root cell 2
+0010110000000...000   2nd child of root cell 2
+0010111100000...000   3rd child of 2nd child of root cell 2
+0010111001000...000   1st child of 3rd child of 2nd child of root cell 2
+```
+
+In their decimal forms, the cell IDs above are represented as follows:
+
+```
+3458764513820540928   Root cell 2
+3170534137668829184   2nd child of root cell 2
+3386706919782612992   3rd child of 2nd child of root cell 2
+3368692521273131008   1st child of 3rd child of 2nd child of root cell 2
+```
+
+## Tokens
+
+To provide a more concise representation of the cell ID, as well as to provide a better indication of the level of the cell, we can use the hexadecimal form of the cell ID and remove any trailing zeros to obtain the cell's token.
+
+For the cell IDs in the example above, the tokens are:
+
+```
+3     Root cell 2
+2c    2nd child of root cell 2
+2f    3rd child of 2nd child of root cell 2
+2ec   1st child of 3rd child of 2nd child of root cell 2
+```
 
 ## Bounding Volume
 
-This extension enables using S2 cells and a set of bounding heights to describe a bounding volume in 3D Tiles. The `token` represents an S2 cell. The cell describes 4 vertices on the surface of the WGS84 ellipsoid for the area, and the `minimumHeight` and `maximumHeight` describe the vertical bounds with respect to the WGS84 ellipsoid. The [tile `transform` property](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tile-transforms) will be ignored when this extension is used for describing a tile's bounding volume.
+An S2 cell describes 4 positions on the surface of the WGS84 ellipsoid. The `minimumHeight` and `maximumHeight`, provided in meters, describe the minimum and maximum heights above (or below) each corner position of the cell respectively. A tile's [`transform`](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tile-transforms) property will be ignored when this extension is used for describing a tile's `boundingVolume`.
 
 ![Volume](figure/../figures/volume.jpg)
 
@@ -91,25 +130,11 @@ This extension enables using S2 cells and a set of bounding heights to describe 
 }
 ```
 
-### Cell Token
+## Implicit Subdivision
 
-This extension uses tokens, or hexadecimal string representations of S2 cell identifier for two reasons:
- 1. Precision: Using a token will require a client to convert it to the correct data type: `uint64`.
- 2. Conciseness: Tokens provide a more concise representation of identifiers. For example, the root (level 0) cell with cell ID `3458764513820540928` has the token `3`.
+When used with [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0), a `QUADTREE` subdivision scheme will follow the rules for subdivision as defined by the S2 cell hierarchy. When an `OCTREE` subdivision scheme is used, the split in the vertical dimension occurs at the midpoint of the `minimumHeight` and `maximumHeight` of the parent tile.
 
-More details on computing an `S2CellToken` can be found in the [S2 reference implementation](https://github.com/google/s2-geometry-library-java/blob/c28f287b996c0cedc5516a0426fbd49f6c9611ec/src/com/google/common/geometry/S2CellId.java#L468).
-
-### Bounding Heights
-
-The S2 cell itself is used to specify an area on the surface of the ellipsoid. To create a bounding volume, the `minimumHeight` and `maximumHeight` properties must be specified. These heights must be specified in meters above the WGS84 ellipsoid.
-
-### Subdivision
-
-The S2 library defines a [cell hierarchy](http://s2geometry.io/devguide/s2cell_hierarchy), that follows uniform subdivision using a quadtree structure, where each cell subdivides into 4 smaller cells that combine to occupy the same area as the parent.
-
-When used with [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0), a `QUADTREE` subdivision scheme will follow the rules for subdivision as defined by S2. When an `OCTREE` subdivision scheme is used, the split in the vertical dimension occurs at the midpoint of the `minimumHeight` and `maximumHeight` of the parent tile.
-
-The `availability` bitstreams are ordered by the Morton index of the tile, as specified by `3DTILES_implicit_tiling`, not by the Hilbert index used by S2. Additionally, the `maximumLevel` property cannot be greater than `30 - {Level of root S2CellId}` because S2 cell hierarchy only extends to level 30.
+> **Implementation Note**: The `availability` bitstreams are ordered by the Morton index of the tile, as specified by `3DTILES_implicit_tiling`, not by the Hilbert index used by S2. Additionally, the `maximumLevel` property cannot be greater than `30 - {Level of root S2CellId}` because S2 cell hierarchy only extends to level 30.
 
 | Cell  | Quadtree Subdivision | Octree Subdivision |
 |---|---|---|
