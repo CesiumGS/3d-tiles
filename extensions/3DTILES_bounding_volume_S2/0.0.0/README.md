@@ -136,7 +136,74 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2`:
 
 ```json
 {
-  
+  "asset": {
+    "version": "1.0"
+  },
+  "geometricError": 1000000,
+  "extensionsUsed": [
+    "3DTILES_bounding_volume_S2"
+  ],
+  "extensionsRequired": [
+    "3DTILES_bounding_volume_S2"
+  ],
+  "root": {
+    "boundingVolume": {
+      "extensions": {
+        "3DTILES_bounding_volume_S2": {
+          "token": "3",
+          "minimumHeight": 0,
+          "maximumHeight": 1000000
+        }
+      }
+    },
+    "refine": "REPLACE",
+    "geometricError": 50000,
+    "children": [
+      {
+        "boundingVolume": {
+          "extensions": {
+            "3DTILES_bounding_volume_S2": {
+              "token": "2c",
+              "minimumHeight": 0,
+              "maximumHeight": 500000
+            }
+          }
+        },
+        "refine": "REPLACE",
+        "geometricError": 500000,
+        "children": [
+          {
+            "boundingVolume": {
+              "extensions": {
+                "3DTILES_bounding_volume_S2": {
+                  "token": "2f",
+                  "minimumHeight": 0,
+                  "maximumHeight": 250000
+                }
+              }
+            },
+            "refine": "REPLACE",
+            "geometricError": 250000,
+            "children": [
+              {
+                "boundingVolume": {
+                  "extensions": {
+                    "3DTILES_bounding_volume_S2": {
+                      "token": "2ec",
+                      "minimumHeight": 0,
+                      "maximumHeight": 125000
+                    }
+                  }
+                },
+                "refine": "REPLACE",
+                "geometricError": 125000
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
