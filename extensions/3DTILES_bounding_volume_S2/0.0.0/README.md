@@ -1,3 +1,4 @@
+<!-- omit in toc -->
 # 3DTILES_bounding_volume_S2
 
 <!-- omit in toc -->
@@ -25,15 +26,16 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 <!-- omit in toc -->
 ## Contents
 
-- [3DTILES_bounding_volume_S2](#3dtiles_bounding_volume_s2)
-  - [Overview](#overview)
-  - [Hierarchy](#hierarchy)
-  - [Cell IDs](#cell-ids)
-  - [Tokens](#tokens)
-  - [Bounding Volume](#bounding-volume)
-  - [Implicit Subdivision](#implicit-subdivision)
-  - [Property Reference](#property-reference)
-  - [JSON Schema](#json-schema)
+- [Overview](#overview)
+- [Hierarchy](#hierarchy)
+- [Cell IDs](#cell-ids)
+- [Tokens](#tokens)
+- [Bounding Volume](#bounding-volume)
+- [Implicit Subdivision](#implicit-subdivision)
+  - [Availability](#availability)
+- [Property Reference](#property-reference)
+- [JSON Schema](#json-schema)
+- [Implementation Examples](#implementation-examples)
 
 ## Overview
 
@@ -65,8 +67,6 @@ The S2 library uses a modified Hilbert curve to provide a one dimensional orderi
 | S2 Curve on Earth cube |  S2 Curve on WGS84 ellipsoid |
 |:-:|:-:|
 | ![Math](figures/plane.png)  | ![Math](figures/ellipsoid.png)  |
-
-Since actual geographic datasets use geodetic coordinates, this extension uses WGS84 geodetic coordinates.
 
 ## Cell IDs
 
@@ -110,7 +110,9 @@ For the cell IDs in the example above, the tokens are:
 
 ## Bounding Volume
 
-An S2 cell describes 4 positions on the surface of the WGS84 ellipsoid. The `minimumHeight` and `maximumHeight`, provided in meters, describe the minimum and maximum heights above (or below) each corner position of the cell respectively. A tile's [`transform`](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tile-transforms) property will be ignored when this extension is used for describing a tile's `boundingVolume`.
+An S2 cell describes 4 positions on the surface of the WGS84 ellipsoid. The `minimumHeight` and `maximumHeight`, provided in meters, describe the minimum and maximum heights above (or below) each corner position of the cell respectively. A tile's [`transform`](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tile-transforms) property will be ignored when this extension is used for describing a tile's `boundingVolume`. Tiles using this extension must maintain [spatial coherence](../../../specification/README.md#bounding-volume-spatial-coherence).
+
+> **Implementation Note**: When mapping the sphere to the cube, S2 provides three projection methods: linear, quadtratic and tangential. This extension assumes an implementation uses the quadtratic projection, since it is reasonably accurate and efficient.
 
 ![Volume](figure/../figures/volume.jpg)
 
@@ -130,6 +132,14 @@ An S2 cell describes 4 positions on the surface of the WGS84 ellipsoid. The `min
 }
 ```
 
+The following example illustrates usage of `3DTILES_bounding_volume_S2`:
+
+```json
+{
+  
+}
+```
+
 ## Implicit Subdivision
 
 When used with [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0), a `QUADTREE` subdivision scheme will follow the rules for subdivision as defined by the S2 cell hierarchy. When an `OCTREE` subdivision scheme is used, the split in the vertical dimension occurs at the midpoint of the `minimumHeight` and `maximumHeight` of the parent tile.
@@ -140,7 +150,7 @@ When used with [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/3d-tiles/
 
 ### Availability
 
-While S2 uses the Hilbert curve for indexing, when using this extension with `3DTILES_implicit_tiling`, the availability bitstreams must be indexed in Morton order. The following diagram illustrates 
+When using this extension with `3DTILES_implicit_tiling`, the availability bitstreams must be indexed in Morton order, as illustrated by the following diagram:
 
 ![Availability](figures/availability.jpg)
 
@@ -362,3 +372,11 @@ Application-specific data.
 ## JSON Schema
 
 The JSON schema for this extension can be found [here](schema/boundingVolume.3DTILES_bounding_volume_S2.schema.json).
+
+## Implementation Examples
+
+_This section is non-normative_
+
+- [S2Geometry Reference C++ Implementation](https://github.com/google/s2geometry/tree/master/src/s2)
+- [S2Geometry Reference Java Implementation](https://github.com/google/s2-geometry-library-java/tree/master/src/com/google/common/geometry)
+- [S2Cell.js in CesiumJS](https://github.com/CesiumGS/cesium/blob/master/Source/Core/S2Cell.js)
