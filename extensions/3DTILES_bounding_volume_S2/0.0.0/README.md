@@ -134,11 +134,15 @@ An S2 cell describes 4 positions on the surface of the WGS84 ellipsoid. The `min
 
 When used with [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0), a `QUADTREE` subdivision scheme will follow the rules for subdivision as defined by the S2 cell hierarchy. When an `OCTREE` subdivision scheme is used, the split in the vertical dimension occurs at the midpoint of the `minimumHeight` and `maximumHeight` of the parent tile.
 
-> **Implementation Note**: The `availability` bitstreams are ordered by the Morton index of the tile, as specified by `3DTILES_implicit_tiling`, not by the Hilbert index used by S2. Additionally, the `maximumLevel` property cannot be greater than `30 - {Level of root S2CellId}` because S2 cell hierarchy only extends to level 30.
-
 | Cell  | Quadtree Subdivision | Octree Subdivision |
 |---|---|---|
 | ![Parent Cell](figures/parent.png)  | ![Quadtree Cells](figures/quadtree.png)  | ![Octree Cells](figures/octree.png)  |
+
+### Availability
+
+While S2 uses the Hilbert curve for indexing, when using this extension with `3DTILES_implicit_tiling`, the availability bitstreams must be indexed in Morton order. The following diagram illustrates 
+
+![Availability](figures/availability.jpg)
 
 The following example illustrates usage of `3DTILES_bounding_volume_S2` with `3DTILES_implicit_tiling`:
 
