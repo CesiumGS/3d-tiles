@@ -150,7 +150,7 @@ This section covers the differences between existing tile formats and the new gl
 [Batched 3D Model](../../../specification/TileFormats/Batched3DModel) is a wrapper around a binary glTF that includes includes additional information in its Feature Table and Batch Table. Batched 3D Model content can converted to a glTF content with the following changes: 
 
 * `RTC_CENTER` can instead be stored in a glTF node translation.
-* Batch Tables and Batch IDs can be represented using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
+* Batch Tables and Batch IDs can be represented using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
 
 <!-- omit in toc -->
 ### Instanced 3D Model (i3dm)
@@ -159,7 +159,7 @@ This section covers the differences between existing tile formats and the new gl
 
 * [`EXT_mesh_gpu_instancing`](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/EXT_mesh_gpu_instancing) may be used to instance glTF nodes. The extension supports per-instance translations, rotations, and scales. 
 * `RTC_CENTER` can instead be stored in a glTF node translation.
-* Batch Table and Batch IDs can be represented using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/blob/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0). Per-instance and multi-instance metadata is supported.
+* Batch Table and Batch IDs can be represented using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/blob/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0). Per-instance and multi-instance metadata is supported.
 * `EAST_NORTH_UP` is not directly supported, but can be represented using per-instance rotations.
 
 <!-- omit in toc -->
@@ -170,10 +170,10 @@ This section covers the differences between existing tile formats and the new gl
 * Feature table properties like `POSITION`, `COLOR`, and `NORMAL` may be stored as glTF attributes.
 * [`EXT_meshopt_compression`](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/EXT_meshopt_compression) and [`KHR_mesh_quantization`](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_mesh_quantization) may be used for point cloud compression. [`3DTILES_draco_point_compression`](https://github.com/CesiumGS/3d-tiles/tree/master/extensions/3DTILES_draco_point_compression) is not directly supported in glTF because [`KHR_draco_mesh_compression`](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_draco_mesh_compression) only supports triangle meshes.
 * `RTC_CENTER` can instead be stored in a glTF node translation.
-* Batch Table and Batch IDs can be represented using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0). The extension supports both per-point metadata and multi-point metadata in the same glTF.
-* `CONSTANT_RGBA` is not directly supported in glTF, but can be represented by using per-point colors or runtime styling using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/blob/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
+* Batch Table and Batch IDs can be represented using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0). The extension supports both per-point metadata and multi-point metadata in the same glTF.
+* `CONSTANT_RGBA` is not directly supported in glTF, but can be represented by using per-point colors or runtime styling using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/blob/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
 
 <!-- omit in toc -->
 ### Composite (cmpt)
 
-All inner contents of a [Composite](../../../specification/TileFormats/Composite) may be combined into the same glTF as separate nodes, meshes, or primitives, at the tileset author's discretion. [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/master/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) can store metadata for each inner content. Alternatively, [`3DTILES_multiple_contents`](../../3DTILES_multiple_contents/0.0.0) can be used to store multiple glTF contents in a single tile.
+All inner contents of a [Composite](../../../specification/TileFormats/Composite) may be combined into the same glTF as separate nodes, meshes, or primitives, at the tileset author's discretion. [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) can store metadata for each inner content. Alternatively, [`3DTILES_multiple_contents`](../../3DTILES_multiple_contents/0.0.0) can be used to store multiple glTF contents in a single tile.
