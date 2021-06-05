@@ -16,7 +16,7 @@
                     "minimum" : 0
                 },
                 "componentType" : {
-                    "type" : "number",
+                    "type" : "string",
                     "description": "The datatype of components in the property. This is defined only if the semantic allows for overriding the implicit component type. These cases are specified in each tile format.",
                     "enum" : ["BYTE", "UNSIGNED_BYTE", "SHORT", "UNSIGNED_SHORT", "INT", "UNSIGNED_INT", "FLOAT", "DOUBLE"]
                 }
