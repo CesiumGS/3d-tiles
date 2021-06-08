@@ -47,15 +47,7 @@ This extension to 3D Tiles enables using S2 cells as bounding volumes. Due to th
 
 ## Hierarchy
 
-The cell hierarchy of S2 is rooted in the 6 faces of a cube, which are projected onto the unit sphere. The following diagram illustrates how the S2 Earth cube maps the Earth:
-
-![S2 Earth Cube](http://s2geometry.io/devguide/img/s2cell_global.jpg)
-
-<p align="center">
-Source: http://s2geometry.io/devguide/s2cell_hierarchy
-</p>
-
-In S2, each face of the unit cube can be subdivided into 30 levels using a quadtree structure, in which each cell on the grid subdivides into 4 equal cells at the subsequent level.
+The cell hierarchy of S2 is rooted in the 6 faces of a cube, which are projected onto the unit sphere. In S2, each face of the unit cube can be subdivided into 30 levels using a quadtree structure, in which each cell on the grid subdivides into 4 equal cells at the subsequent level.
 
 |Level 0|Level 1|
 |:-:|:-:|
@@ -110,7 +102,7 @@ For the cell IDs in the example above, the tokens are:
 
 ## Bounding Volume
 
-An S2 cell describes 4 positions on the surface of the WGS84 ellipsoid. The `minimumHeight` and `maximumHeight`, provided in meters, describe the minimum and maximum heights above (or below) each corner position of the cell respectively. A tile's [`transform`](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tile-transforms) property will be ignored when this extension is used for describing a tile's `boundingVolume`. Tiles using this extension must maintain [spatial coherence](../../../specification/README.md#bounding-volume-spatial-coherence).
+An S2 cell describes 4 positions on the surface of the WGS84 ellipsoid. The `minimumHeight` and `maximumHeight`, provided in meters, describe the minimum and maximum heights above (or below) each corner position of the cell respectively. A tile's [`transform`](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tile-transforms) property will be ignored when this extension is used for describing a tile's `boundingVolume`. Tiles using this extension must maintain [spatial coherence](../../../specification/README.md#bounding-volume-spatial-coherence). This extension may be applied to the [`tile.boundingVolume`](../../specification/../../specification/schema/tile.schema.json) or the [`content.boundingVolume`](../../specification/../../specification/schema/tile.schema.json) objects.
 
 > **Implementation Note**: When mapping the sphere to the cube, S2 provides three projection methods: linear, quadtratic and tangential. This extension assumes an implementation uses the quadtratic projection, since it is reasonably accurate and efficient.
 
