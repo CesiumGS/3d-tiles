@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft-04/schema",
+  "title": "Tileset",
+  "type": "object",
+  "description": "An object containing metadata about a 3D Tiles tileset.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the tileset."
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the tileset."
+    },
+    "class": {
+      "type": "string",
+      "description": "The class this metadata object conforms to. The value should be a valid class declared in the `classes` dictionary."
+    },
+    "properties": {
+      "type": "object",
+      "description": "The dictionary of properties, based on the class, using the single instance shorthand",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": ["boolean", "number", "string", "null", "array"]
+      }
+    },
+    "extensions": {},
+    "extras": {}
+  }
+}
