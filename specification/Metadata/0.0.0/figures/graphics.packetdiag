@@ -1,0 +1,14 @@
+{
+  colwidth = 8
+
+  0-11: "normal[0]" [color="lightgreen"]
+  12-23: "normal[1]" [color="skyblue"]
+  24-31: "cellId[0]" [color="lightgreen"]
+  32-39: "cellId[1]" [color="skyblue"]
+  40-55: "transform[0]" [color="lightgreen"]
+  56-71: "transform[1]" [color="skyblue"]
+  72-95: "parameters[0]" [color="lightgreen"]
+  96-119: "parameters[1]" [color="skyblue"]
+  120-135: "doubleTimes[0]" [color="lightgreen"]
+  136-151: "doubleTimes[1]" [color="skyblue"]
+}
