@@ -9,6 +9,7 @@
             "$ref" : "asset.schema.json"
         },
         "properties" : {
+            "type": "object",
             "description": "A dictionary object of metadata about per-feature properties.",
             "properties" : {},
             "additionalProperties" : {
