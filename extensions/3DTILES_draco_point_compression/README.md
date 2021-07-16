@@ -142,7 +142,7 @@ case `POINT_CLOUD_SEQUENTIAL_ENCODING` should not be applied.
 _This section is non-normative._
 
 * [Draco Open Source Library](https://github.com/google/draco)
-* [Cesium Draco Decoder Implementation](https://github.com/CesiumGS/cesium/blob/master/Source/Workers/decodeDraco.js)
+* [Cesium Draco Decoder Implementation](https://github.com/CesiumGS/cesium/blob/main/Source/Workers/decodeDraco.js)
 
 ## Property reference
 

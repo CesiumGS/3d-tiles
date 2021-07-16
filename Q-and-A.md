@@ -41,7 +41,7 @@ The general case runtime editing of geometry on a building, vector data, etc., a
 
 #### Will 3D Tiles include terrain?
 
-Yes, a [quantized-mesh](https://github.com/CesiumGS/quantized-mesh/blob/master/README.md)-like tile would fit well with 3D Tiles and allow engines to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to the tileset JSON).
+Yes, a [quantized-mesh](https://github.com/CesiumGS/quantized-mesh/blob/main/README.md)-like tile would fit well with 3D Tiles and allow engines to use the same streaming code (we say _quantized-mesh-like_ because some of the metadata, e.g., for bounding volumes and horizon culling, may be organized differently or moved to the tileset JSON).
 
 However, since quantized-mesh already streams terrain well, we are not focused on this in the short-term.
 

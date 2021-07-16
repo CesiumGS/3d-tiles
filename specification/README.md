@@ -291,7 +291,7 @@ The following example has a building in a `b3dm` tile and a point cloud inside t
 }
 ```
 
-For more on request volumes, see the [sample tileset](https://github.com/CesiumGS/3d-tiles-samples/tree/master/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
+For more on request volumes, see the [sample tileset](https://github.com/CesiumGS/3d-tiles-samples/tree/main/tilesets/TilesetWithRequestVolume) and [demo video](https://www.youtube.com/watch?v=PgX756Yzjf4).
 
 #### Transforms
 
@@ -395,7 +395,7 @@ Therefore, the full computed transforms for the above example are:
 
 _This section is non-normative_
 
-The following JavaScript code shows how to compute this using Cesium's [Matrix4](https://github.com/CesiumGS/cesium/blob/master/Source/Core/Matrix4.js) and [Matrix3](https://github.com/CesiumGS/cesium/blob/master/Source/Core/Matrix3.js) types.
+The following JavaScript code shows how to compute this using Cesium's [Matrix4](https://github.com/CesiumGS/cesium/blob/main/Source/Core/Matrix4.js) and [Matrix3](https://github.com/CesiumGS/cesium/blob/main/Source/Core/Matrix3.js) types.
 
 ```javascript
 function computeTransforms(tileset) {

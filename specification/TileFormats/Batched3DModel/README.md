@@ -151,7 +151,7 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 _This section is non-normative_
 
 Code for reading the header can be found in
-[`Batched3DModelTileContent.js`](https://github.com/CesiumGS/cesium/blob/master/Source/Scene/Batched3DModel3DTileContent.js)
+[`Batched3DModelTileContent.js`](https://github.com/CesiumGS/cesium/blob/main/Source/Scene/Batched3DModel3DTileContent.js)
 in the CesiumJS implementation of 3D Tiles.
 
 
