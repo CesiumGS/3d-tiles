@@ -1,6 +1,6 @@
 # 3D Tiles Next
 
-**3D Tiles Next** is a set of capabilities for the future of 3D Tiles. Currently, they take the form of extensions to the [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/master/specification) specification. In the future, these extensions may be incorporated into 3D Tiles 2.0.
+**3D Tiles Next** is a set of capabilities for the future of 3D Tiles. Currently, they take the form of extensions to the [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/main/specification) specification. In the future, these extensions may be incorporated into 3D Tiles 2.0.
 
 The 3D Tiles Next extensions add capabilities to 3D Tiles on a number of fronts:
 
