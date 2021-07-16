@@ -19162,7 +19162,7 @@
          x="54.617188"
          y="871.35199"
          style="font-size:8.75px;fill:#0000ff"
-         id="tspan15519-4-8-9">https://github.com/CesiumGS/3d-tiles/blob/master/specification/TileFormats/Instanced3DModel/README.md#quantized-positions</tspan><tspan
+         id="tspan15519-4-8-9">https://github.com/CesiumGS/3d-tiles/blob/main/specification/TileFormats/Instanced3DModel/README.md#quantized-positions</tspan><tspan
          sodipodi:role="line"
          x="54.617188"
          y="882.28949"
@@ -19408,7 +19408,7 @@
          x="52.931641"
          y="1005.4946"
          style="font-size:8.75px;fill:#0000ff"
-         id="tspan15519-4-8-9-7">https://github.com/CesiumGS/3d-tiles/blob/master/specification/TileFormats/PointCloud/README.md#oct-encoded-normal-vectors</tspan><tspan
+         id="tspan15519-4-8-9-7">https://github.com/CesiumGS/3d-tiles/blob/main/specification/TileFormats/PointCloud/README.md#oct-encoded-normal-vectors</tspan><tspan
          sodipodi:role="line"
          x="52.931641"
          y="1016.4321"
@@ -19577,7 +19577,7 @@
          id="tspan8324-3-1-8-1"
          x="51.790096"
          y="624.08447"
-         style="font-size:10px;fill:#0000ff;fill-opacity:1">https://github.com/CesiumGS/3d-tiles/tree/master/specification#transforms</tspan></text>
+         style="font-size:10px;fill:#0000ff;fill-opacity:1">https://github.com/CesiumGS/3d-tiles/tree/main/specification#transforms</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"

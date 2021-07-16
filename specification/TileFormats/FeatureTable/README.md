@@ -71,7 +71,7 @@ var positionArray = new Float32Array(featureTableBinary.buffer, byteOffset, feat
 var position = positionArray.subarray(featureId * 3, featureId * 3 + 3); // Using subarray creates a view into the array, and not a new array.
 ```
 
-Code for reading the Feature Table can be found in [`Cesium3DTileFeatureTable.js`](https://github.com/CesiumGS/cesium/blob/master/Source/Scene/Cesium3DTileFeatureTable.js) in the CesiumJS implementation of 3D Tiles.
+Code for reading the Feature Table can be found in [`Cesium3DTileFeatureTable.js`](https://github.com/CesiumGS/cesium/blob/main/Source/Scene/Cesium3DTileFeatureTable.js) in the CesiumJS implementation of 3D Tiles.
 
 
 ## Property reference

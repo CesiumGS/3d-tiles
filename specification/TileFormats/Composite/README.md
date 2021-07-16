@@ -69,5 +69,5 @@ _This section is non-normative_
 
 * [Python `packcmpt` tool in gltf2glb toolset](https://github.com/Geopipe/gltf2glb) contains code for combining one or more _Batched 3D Model_ or _Instanced 3D Model_ tiles into a single Composite tile file.
 * Code for reading the header can be found in
-[`Composite3DTileContent.js`](https://github.com/CesiumGS/cesium/blob/master/Source/Scene/Composite3DTileContent.js)
+[`Composite3DTileContent.js`](https://github.com/CesiumGS/cesium/blob/main/Source/Scene/Composite3DTileContent.js)
 in the CesiumJS implementation of 3D Tiles.

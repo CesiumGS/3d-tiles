@@ -132,7 +132,7 @@ A box transformed into a rotated basis
 If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientation may be stored as oct-encoded normals in `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P`.
 These define `up` and `right` using the oct-encoding described in [*A Survey of Efficient Representations of Independent Unit Vectors*](http://jcgt.org/published/0003/02/01/). Oct-encoded values are stored in unsigned, unnormalized range (`[0, 65535]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
 
-> An implementation for encoding and decoding these unit vectors can be found in CesiumJS's [AttributeCompression](https://github.com/CesiumGS/cesium/blob/master/Source/Core/AttributeCompression.js)
+> An implementation for encoding and decoding these unit vectors can be found in CesiumJS's [AttributeCompression](https://github.com/CesiumGS/cesium/blob/main/Source/Core/AttributeCompression.js)
 module.
 
 #### Default orientation
