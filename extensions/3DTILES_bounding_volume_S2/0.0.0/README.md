@@ -207,6 +207,26 @@ When used with [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/3d-tiles/
 |---|---|---|
 | ![Parent Cell](figures/parent.png)  | ![Quadtree Cells](figures/quadtree.png)  | ![Octree Cells](figures/octree.png)  |
 
+To ensure continuity of the Hilbert curve, the faces of the cube are rotated as shown in the diagram below. This must be carefully considered when interpreting the tile coordinates in implicit tiling, since the traversal order in the odd-numbered faces is the mirror of the order in even numbered faces.
+
+```
+                  ^---->  <----^
+                  | 4  |    5  |
+                  |    |       |
+                  x    V  ----->
+
+          ^---->  <----^
+          | 2  |    3  |
+          |    |       |
+          x    V  ----->
+
+  ^---->  <----^
+  | 0  |    1  |
+  |    |       |
+  x    v  ----->
+```
+
+
 ### Availability
 
 When using this extension with `3DTILES_implicit_tiling`, the availability bitstreams must be indexed in Morton order, as illustrated by the following diagram:
