@@ -16,7 +16,7 @@ Draft
 <!-- omit in toc -->
 ## Dependencies
 
-Written against 3D Tiles 1.0.
+Written against 3D Tiles 1.0. Optionally. this extension may be used with [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling/0.0.0/README.md). 
 
 <!-- omit in toc -->
 ## Optional vs. Required
@@ -41,7 +41,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 S2 is a geometry library that defines a framework for decomposing the unit sphere into a hierarchy of cells. A cell is a quadrilateral bounded by four geodesics. The S2 cell hierarchy has 6 root cells, that are obtained by projecting the six faces of a cube onto the unit sphere.
 
-Typically, traditional GIS libraries rely on projecting map data from an ellipsoid onto a plane. For example, the Mercator projection is a cylindrical projection, where the ellipsoid is mapped onto a cylinder that is then unrolled as a plane. This method leads to increasingly large distortion in areas as you move further away from the equator. Since a sphere is a closer approximation of the shape of the ellipsoid, S2 makes it possible to represent the Earth with no seams or singularities, with low distortion everywhere on globe.
+Typically, traditional GIS libraries rely on projecting map data from an ellipsoid onto a plane. For example, the Mercator projection is a cylindrical projection, where the ellipsoid is mapped onto a cylinder that is then unrolled as a plane. This method leads to increasingly large distortion in areas as you move further away from the equator. S2 makes it possible to split the Earth into tiles that have no singularities, have relatively low distortion and are nearly equal in size.
 
 This extension to 3D Tiles enables using S2 cells as bounding volumes. Due to the properties of S2 described above, this extension is well suited for tilesets that span the whole globe.
 
@@ -104,7 +104,7 @@ For the cell IDs in the example above, the tokens are:
 
 An S2 cell describes 4 positions on the surface of the WGS84 ellipsoid. The `minimumHeight` and `maximumHeight`, provided in meters, describe the minimum and maximum heights above (or below) each corner position of the cell respectively. A tile's [`transform`](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tile-transforms) property will be ignored when this extension is used for describing a tile's `boundingVolume`. Tiles using this extension must maintain [spatial coherence](../../../specification/README.md#bounding-volume-spatial-coherence). This extension may be applied to the [`tile.boundingVolume`](../../specification/../../specification/schema/tile.schema.json) or the [`content.boundingVolume`](../../specification/../../specification/schema/tile.schema.json) objects.
 
-> **Implementation Note**: When mapping the sphere to the cube, S2 provides three projection methods: linear, quadtratic and tangential. This extension assumes an implementation uses the quadtratic projection, since it is reasonably accurate and efficient.
+> **Implementation Note**: When mapping the sphere to the cube, S2 provides three projection methods: linear, quadratic and tangential. This extension assumes an implementation uses the quadratic projection, since it is reasonably accurate and efficient.
 
 ![Volume](figure/../figures/volume.jpg)
 
