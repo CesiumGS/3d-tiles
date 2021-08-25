@@ -12,7 +12,7 @@
                         "type" : "string"
                     },
                     "length" : {
-                        "type" : "number",
+                        "type" : "integer",
                         "minimum" : 0
                     },
                     "instances" : {
@@ -26,7 +26,7 @@
             }
         },
         "instancesLength" : {
-            "type" : "number",
+            "type" : "integer",
             "minimum" : 0
         },
         "classIds" : {
@@ -73,7 +73,7 @@
         "integerArray" : {
             "type" : "array",
             "items" : {
-                "type" : "number",
+                "type" : "integer",
                 "minimum" : 0
             }
         },

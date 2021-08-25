@@ -10,7 +10,7 @@
             "description": "Defines the properties stored in the compressed data. Each property is associated with a unique ID. This ID is used to identify the property within the compressed data. No two properties in the Feature Table and Batch Table may use the same ID.",
             "minProperties": 1,
             "additionalProperties": {
-                "type": "number",
+                "type": "integer",
                 "minimum": 0
             }
         }
