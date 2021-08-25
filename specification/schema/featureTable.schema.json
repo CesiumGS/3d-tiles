@@ -11,7 +11,7 @@
             "description" : "An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
             "properties" : {
                 "byteOffset" : {
-                    "type" : "number",
+                    "type" : "integer",
                     "description": "The offset into the buffer in bytes.",
                     "minimum" : 0
                 },
@@ -57,7 +57,7 @@
                 "type" : "object",
                 "properties" : {
                     "byteOffset" : {
-                        "type" : "number",
+                        "type" : "integer",
                         "description": "The offset into the buffer in bytes.",
                         "minimum" : 0
                     }
@@ -82,7 +82,7 @@
                 "type" : "object",
                 "properties" : {
                     "byteOffset" : {
-                        "type" : "number",
+                        "type" : "integer",
                         "description": "The offset into the buffer in bytes.",
                         "minimum" : 0
                     }
@@ -104,7 +104,7 @@
                 "type" : "object",
                 "properties" : {
                     "byteOffset" : {
-                        "type" : "number",
+                        "type" : "integer",
                         "description": "The offset into the buffer in bytes.",
                         "minimum" : 0
                     }
