@@ -10,17 +10,17 @@
             "description": "Defines the properties stored in the compressed data. Each property is associated with a unique ID. This ID is used to identify the property within the compressed data. No two properties in the Feature Table and Batch Table may use the same ID.",
             "minProperties": 1,
             "additionalProperties": {
-                "type": "number",
+                "type": "integer",
                 "minimum": 0
             }
         },
         "byteOffset": {
-            "type": "number",
+            "type": "integer",
             "description": "A zero-based offset relative to the start of the Feature Table binary at which the compressed data starts.",
             "minimum": 0
         },
         "byteLength": {
-            "type": "number",
+            "type": "integer",
             "description": "The length, in bytes, of the compressed data.",
             "minimum": 0
         }
