@@ -1,8 +1,6 @@
 <!-- omit in toc -->
 # 3DTILES_multiple_contents
 
-**Version 0.0.0**, February 25, 2021
-
 <!-- omit in toc -->
 ## Contributors
 
@@ -21,7 +19,7 @@ Draft
 
 Written against the 3D Tiles 1.0 specification.
 
-Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/0.0.0). See [Implicit Tiling](#implicit-tiling).
+Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling). See [Implicit Tiling](#implicit-tiling).
 
 <!-- omit in toc -->
 ## Optional vs. Required
@@ -47,7 +45,7 @@ This extension adds support for multiple contents per tile. Examples of contents
 
 Multiple contents allows for more flexible tileset structures. For example, each tile could store two different representations of the same data using two contents: a point cloud and a triangle mesh, each representing the same surface. An application could selectively request only the point cloud contents.
 
-When this extension is combined with [`3DTILES_metadata`](../../3DTILES_metadata/1.0.0), contents can be organized into groups. Each group can have metadata associated with it.
+When this extension is combined with [`3DTILES_metadata`](../../3DTILES_metadata), contents can be organized into groups. Each group can have metadata associated with it.
 
 <img src="figures/metadata-groups.jpg" width="500" />
 
@@ -57,7 +55,7 @@ In both cases, groups of contents can be used for selectively showing content or
 
 Besides styling, groups can also be used to filter out unused content resources to reduce bandwidth usage.
 
-Multiple contents is also compatible with the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling/0.0.0) extension. See the [Implicit Tiling](#implicit-tiling) section for more details.
+Multiple contents is also compatible with the [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling) extension. See the [Implicit Tiling](#implicit-tiling) section for more details.
 
 ## Concepts
 
@@ -91,7 +89,7 @@ When this extension is used the tile's `content` property must be omitted.
 
 ### Metadata Groups
 
-This extension may be paired with the [`3DTILES_metadata` extension](../../3DTILES_metadata/1.0.0) to assign metadata to each content.
+This extension may be paired with the [`3DTILES_metadata` extension](../../3DTILES_metadata) to assign metadata to each content.
 
 ```jsonc
 {
@@ -165,7 +163,7 @@ This extension may be paired with the [`3DTILES_metadata` extension](../../3DTIL
 
 ### Implicit Tiling
 
-When using the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/0.0.0) `contentAvailability` is provided for each element in the content array. The subtree's top-level `contentAvailability` must be omitted.
+When using the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling) `contentAvailability` is provided for each element in the content array. The subtree's top-level `contentAvailability` must be omitted.
 
 Example tileset JSON:
 
@@ -256,7 +254,7 @@ Example subtree JSON:
 <!-- omit in toc -->
 #### Metadata Groups in Implicit Tiling
 
-If both the [`3DTILES_implicit_tiling`](../../3DTILES_implicit_tiling/0.0.0) and [`3DTILES_metadata`](../../3DTILES_metadata/1.0.0) extensions are used, each content template URI can be assigned to a metadata group.
+If both the [`3DTILES_implicit_tiling`](../../3DTILES_implicit_tiling) and [`3DTILES_metadata`](../../3DTILES_metadata) extensions are used, each content template URI can be assigned to a metadata group.
 
 Example tileset JSON:
 

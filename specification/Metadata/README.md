@@ -1,8 +1,6 @@
 <!-- omit in toc -->
 # Cesium 3D Metadata Specification
 
-**Version 1.0.0**, February 25, 2021
-
 <!-- omit in toc -->
 ## Contributors
 
@@ -50,6 +48,7 @@ Draft
     - [Enums](#enums-3)
     - [Arrays](#arrays-3)
     - [Implementation Notes](#implementation-notes)
+- [Revision History](#revision-history)
 
 ## Overview
 
@@ -59,8 +58,8 @@ This specification defines a set of core concepts to be used by multiple 3D form
 
 For usage see:
 
-* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata/1.0.0) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
-* [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) - glTF extension that assigns metadata to features in a model on a per-vertex, per-texel, or per-instance basis
+* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
+* [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) - glTF extension that assigns metadata to features in a model on a per-vertex, per-texel, or per-instance basis
 
 
 This specification does not assign semantic meaning to metadata; instead separate specifications must define semantics for their particular application or domain. One example is the [Cesium Metadata Semantic Reference](../Semantics) which defines built-in semantics for 3D Tiles and glTF.
@@ -91,7 +90,7 @@ Table Format|Raster Format
 |<img src="figures/table-format.png"  alt="Table Format" width="1000px">|<img src="figures/raster-format.png" alt="Raster Format" width="400px"> |
 
 
-Each format may have any number of **encodings**. Two encodings are defined for the table format: a **binary encoding** and a **JSON encoding**. A specification that references Cesium 3D Metadata must state which format and encoding it uses and is free to define its own formats and encodings. For example, while this specification does not define any raster encodings, the [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) glTF extension may use any image formats supported by glTF for storing per-texel metadata, including PNG and JPEG.
+Each format may have any number of **encodings**. Two encodings are defined for the table format: a **binary encoding** and a **JSON encoding**. A specification that references Cesium 3D Metadata must state which format and encoding it uses and is free to define its own formats and encodings. For example, while this specification does not define any raster encodings, the [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) glTF extension may use any image formats supported by glTF for storing per-texel metadata, including PNG and JPEG.
 
 ## Schemas
 
@@ -686,3 +685,15 @@ The example below demonstrates encoding vector properties using a 3-channel imag
 #### Implementation Notes
 
 The data type and bit depth of the image should be compatible with the property type. In the examples above, the ocean surface temperature should be encoded in an 8-bit per-channel image. Likewise, a floating point property should use a floating point-compatible image format like TIFF or KTX2. Aside from these guidelines, implementations have a large degree of freedom in determining how raster data is encoded.
+
+## Revision History
+
+* **Version 0.0.0** November 6, 2020
+  * Initial draft
+* **Version 1.0.0** February 25, 2021
+  * The specification has been revised to focus on the core concepts of schemas (including classes, enums, and properties) and formats for encoding metadata. It is now language independent. The JSON schema has been removed.
+  * Added schemas which contain classes and enums
+  * Added enum support
+  * Added ability to assign a semantic identifiers to properties
+  * Removed blob support
+  * Removed special handling for fixed-length strings

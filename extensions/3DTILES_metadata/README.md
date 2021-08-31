@@ -1,8 +1,6 @@
 <!-- omit in toc -->
 # 3DTILES_metadata Extension
 
-**Version 1.0.0**, February 25, 2021
-
 <!-- omit in toc -->
 ## Contributors
 
@@ -22,7 +20,7 @@ Draft
 
 Written against the 3D Tiles 1.0 specification.
 
-Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/0.0.0). See [Implicit Tile Metadata](#implicit-tile-metadata).
+Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling). See [Implicit Tile Metadata](#implicit-tile-metadata).
 
 <!-- omit in toc -->
 ## Optional vs. Required
@@ -46,6 +44,7 @@ This extension is optional, meaning it should be placed in the tileset JSON `ext
   - [Semantics](#semantics)
   - [Styling](#styling)
 - [JSON Schema Reference](#json-schema-reference)
+- [Revision History](#revision-history)
 
 ## Overview
 
@@ -54,7 +53,7 @@ This extension defines a standard mechanism for adding metadata to 3D Tiles. Thi
 * Tileset metadata - metadata about the tileset as a whole.
 * Tile metadata - metadata about individual tiles.
 * Group metadata - metadata about groups of content.
-* Feature metadata - metadata about features. See the companion glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
+* Feature metadata - metadata about features. See the companion glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata).
 
 <img src="figures/metadata-granularity.png"  alt="Metadata Granularity" width="600">
 
@@ -66,7 +65,7 @@ A tileset defines a **schema**. A schema has a set of **classes** and **enums**.
 
 By default, properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes how the property should be interpreted. The full list of built-in semantics can be found in the [Cesium Metadata Semantic Reference](../../../specification/Metadata/Semantics). Tileset authors may define their own application- or domain-specific semantics separately.
 
-This extension implements the [Cesium 3D Metadata Specification](../../../specification/Metadata/1.0.0), which describes the metadata format in full detail.
+This extension implements the [Cesium 3D Metadata Specification](../../../specification/Metadata), which describes the metadata format in full detail.
 
 ## Use Cases
 
@@ -85,13 +84,13 @@ This extension is designed with several new use cases in mind.
 
 This extension is independent of the [Batch Table](../../../specification/TileFormats/BatchTable) used in the Batched 3D Model, Instanced 3D Model, and Point Cloud formats. Similarly, this extension is independent of the [`properties`](../../../specification/schema/properties.schema.json) object in tileset JSON.
 
-glTF models in Batched 3D Model or Instanced 3D Model content must not use the [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0) extension. Instead use glTF content directly with [`3DTILES_content_gltf`](../../3DTILES_content_gltf/0.0.0).
+glTF models in Batched 3D Model or Instanced 3D Model content must not use the [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) extension. Instead use glTF content directly with [`3DTILES_content_gltf`](../../3DTILES_content_gltf).
 
 ## Concepts
 
 ### Schemas
 
-A schema defines a set of classes and enums used in a tileset. Classes serve as templates for entities - they provide a list of properties and the type information for those properties. Enums define the allowable values for enum properties. Schemas are defined in full detail in the [Cesium 3D Metadata Specification](../../../specification/Metadata/1.0.0#schemas).
+A schema defines a set of classes and enums used in a tileset. Classes serve as templates for entities - they provide a list of properties and the type information for those properties. Enums define the allowable values for enum properties. Schemas are defined in full detail in the [Cesium 3D Metadata Specification](../../../specification/Metadata#schemas).
 
 A schema may be embedded in the extension directly or referenced externally with the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same external schema to avoid duplication.
 
@@ -243,7 +242,7 @@ Metadata may be assigned to individual tiles. Tile metadata often contains spati
 
 #### Implicit Tile Metadata
 
-When using the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling/0.0.0) tile metadata is stored in subtree buffers. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. See [Implicit Tiling Availability](../../3DTILES_implicit_tiling/0.0.0#availability) for details about tile ordering. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
+When using the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling) tile metadata is stored in subtree buffers. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. See [Implicit Tiling Availability](../../3DTILES_implicit_tiling#availability) for details about tile ordering. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
 
 Below is an example subtree JSON:
 
@@ -322,7 +321,7 @@ Below is an example subtree JSON:
 
 Metadata may be assigned to groups. Groups represent collections of contents. Contents are assigned to groups with the `3DTILES_metadata` content extension.
 
-Group metadata can be paired with [`3DTILES_multiple_contents`](../../3DTILES_multiple_contents/0.0.0) to assign multiple contents in a tile to different groups.
+Group metadata can be paired with [`3DTILES_multiple_contents`](../../3DTILES_multiple_contents) to assign multiple contents in a tile to different groups.
 
 ```jsonc
 {
@@ -406,7 +405,7 @@ Group metadata can be paired with [`3DTILES_multiple_contents`](../../3DTILES_mu
 
 A feature is an entity that has both geometry and metadata, such as a 3D building in a city. Features are the finest level of granularity within the tileset.
 
-Metadata may be assigned to features using the glTF extension [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0).
+Metadata may be assigned to features using the glTF extension [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata).
 
 Feature metadata classes may be included in the `3DTILES_metadata` schema. This lets an application know what classes exist before requesting content.
 
@@ -1621,3 +1620,23 @@ The index of the buffer view containing offsets for strings. The number of offse
 
 * **Type**: `any`
 * **Required**: No
+
+## Revision History
+
+* **Version 0.0.0** November 6, 2020
+  * Initial draft
+* **Version 1.0.0** February 25, 2021
+  * Changes to properties
+    * Removed `FLOAT16` type
+    * Removed `BLOB` type and `blobByteLength` property
+    * Removed `stringByteLength` property
+    * Added optional `semantic` property
+    * Added enum support. Added `ENUM` to `type` and `componentType` and added `enumType` property.
+    * `min` and `max` are now numbers instead of single-element arrays for non-`ARRAY` properties
+  * Changes to `3DTILES_metadata` extension object
+    * Added `schema` which contains `classes` and `enumas`
+    * Added `schemaUri` which refers to an external schema JSON file
+    * Added `groups` which contain metadata about groups of content. Contents are assigned to groups with the `3DTILES_metadata` content extension.
+    * Added `statistics` which provide aggregate information about select properties within a tileset.
+  * Added tile metadata. A tile may specify its class and property values with the `3DTILES_metadata` tile extension object.
+  * Added support for tile metadata in the `3DTILES_implicit_tiling` extension. Tile metadata may be provided for each subtree in binary.

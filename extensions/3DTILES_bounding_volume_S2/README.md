@@ -16,7 +16,7 @@ Draft
 <!-- omit in toc -->
 ## Dependencies
 
-Written against 3D Tiles 1.0. Optionally. this extension may be used with [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling/0.0.0/README.md). 
+Written against 3D Tiles 1.0. Optionally. this extension may be used with [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling). 
 
 <!-- omit in toc -->
 ## Optional vs. Required
@@ -201,7 +201,7 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2`:
 
 ## Implicit Subdivision
 
-When used with [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_implicit_tiling/0.0.0), a `QUADTREE` subdivision scheme will follow the rules for subdivision as defined by the S2 cell hierarchy. When an `OCTREE` subdivision scheme is used, the split in the vertical dimension occurs at the midpoint of the `minimumHeight` and `maximumHeight` of the parent tile.
+When used with [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_implicit_tiling), a `QUADTREE` subdivision scheme will follow the rules for subdivision as defined by the S2 cell hierarchy. When an `OCTREE` subdivision scheme is used, the split in the vertical dimension occurs at the midpoint of the `minimumHeight` and `maximumHeight` of the parent tile.
 
 | Cell  | Quadtree Subdivision | Octree Subdivision |
 |---|---|---|

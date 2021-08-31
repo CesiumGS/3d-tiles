@@ -1,8 +1,6 @@
 <!-- omit in toc -->
 # 3DTILES_implicit_tiling
 
-**Version 0.0.0**, February 19, 2021
-
 <!-- omit in toc -->
 ## Contributors
 
@@ -380,7 +378,7 @@ In the example above, every tile in the subtree exists, but not every tile has c
 
 ### Availability Packing
 
-Availability bitstreams are packed in binary using the format described in the [Booleans](../../../specification/Metadata/1.0.0#booleans) section of the Cesium 3D Metadata Specification.
+Availability bitstreams are packed in binary using the format described in the [Booleans](../../../specification/Metadata#booleans) section of the Cesium 3D Metadata Specification.
 
 ## Glossary
 
@@ -630,7 +628,7 @@ An object describing the availability of a set of elements.
 
 |   |Type|Description|Required|
 |---|---|---|---|
-|**bufferView**|`integer`|Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata/1.0.0). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.|No|
+|**bufferView**|`integer`|Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.|No|
 |**availableCount**|`integer`|A number indicating how many 1 bits exist in the availability bitstream.|No|
 |**constant**|`integer`|Integer indicating whether all of the elements are available (1) or all are unavailable (0).|No|
 |**extensions**|`any`||No|
@@ -641,7 +639,7 @@ Additional properties are allowed.
 <!-- omit in toc -->
 #### availability.bufferView
 
-Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata/1.0.0). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.
+Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.
 
 * **Type**: `integer`
 * **Required**: No
