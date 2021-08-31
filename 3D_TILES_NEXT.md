@@ -66,7 +66,7 @@ This extension adds 3D Tiles Metadata to glTF models. This can be used both in t
 * **Feature ID textures** - Textures allow very fine-grained metadata storage. Texels are grouped into features, each feature has metadata. This is essentially the texture equivalent of per-feature metadata. 
 * **Feature Textures** - Each texel stores a value of a metadata property.
 
-See the [Examples section](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata/1.0.0#examples) of the `EXT_feature_metadata` specification for several examples of how feature metadata can be used.
+See the [Examples section](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata#examples) of the `EXT_feature_metadata` specification for several examples of how feature metadata can be used.
 
 ### [`3DTILES_bounding_volume_S2`](https://github.com/CesiumGS/3d-tiles/tree/3DTILES_bounding_volume_S2/extensions/3DTILES_bounding_volume_S2) (3D Tiles 1.0 extension)
 
