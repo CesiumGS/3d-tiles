@@ -50,9 +50,9 @@
             "description": "An object defining a global boolean property value for all features.",
             "type" : "boolean"
         },
-        "globalPropertyScalar" : {
-            "title": "GlobalPropertyScalar",
-            "description": "An object defining a global numeric property value for all features.",
+        "globalPropertyInteger" : {
+            "title": "GlobalPropertyInteger",
+            "description": "An object defining a global integer property value for all features.",
             "oneOf" : [{
                 "type" : "object",
                 "properties" : {
@@ -64,12 +64,23 @@
                 },
                 "required" : ["byteOffset"]
             }, {
-                "type" : "array",
-                "items" : {
-                    "type" : "number"
+                "type" : "integer",
+                "minimum" : 0
+            }]
+        },
+        "globalPropertyNumber" : {
+            "title": "GlobalPropertyNumber",
+            "description": "An object defining a global numeric property value for all features.",
+            "oneOf" : [{
+                "type" : "object",
+                "properties" : {
+                    "byteOffset" : {
+                        "type" : "integer",
+                        "description": "The offset into the buffer in bytes.",
+                        "minimum" : 0
+                    }
                 },
-                "minItems" : 1,
-                "maxItems" : 1
+                "required" : ["byteOffset"]
             }, {
                 "type" : "number",
                 "minimum" : 0
