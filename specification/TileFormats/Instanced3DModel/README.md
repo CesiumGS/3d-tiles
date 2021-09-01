@@ -269,7 +269,7 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 * [`Instanced 3D Model Feature Table`](#reference-instanced-3d-model-feature-table)
     * [`BinaryBodyReference`](#reference-binarybodyreference)
     * [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3)
-    * [`GlobalPropertyScalar`](#reference-globalpropertyscalar)
+    * [`GlobalPropertyInteger`](#reference-globalpropertyinteger)
     * [`Property`](#reference-property)
 
 
@@ -294,7 +294,7 @@ A set of Instanced 3D Model semantics that contains values defining the position
 |**SCALE**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
 |**SCALE_NON_UNIFORM**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
 |**BATCH_ID**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
-|**INSTANCES_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).| :white_check_mark: Yes|
+|**INSTANCES_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining a integer property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).| :white_check_mark: Yes|
 |**RTC_CENTER**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
 |**QUANTIZED_VOLUME_OFFSET**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
 |**QUANTIZED_VOLUME_SCALE**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).|No|
@@ -383,7 +383,7 @@ A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the re
 
 #### Instanced3DModelFeatureTable.INSTANCES_LENGTH :white_check_mark:
 
-A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
+A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining a integer property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).
 
 * **Type**: `object`, `number` `[1]`, `number`
 * **Required**: Yes
@@ -447,10 +447,10 @@ An object defining a global 3-component numeric property value for all features.
 * **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 
 ---------------------------------------
-<a name="reference-globalpropertyscalar"></a>
-### GlobalPropertyScalar
+<a name="reference-globalpropertyinteger"></a>
+### GlobalPropertyInteger
 
-An object defining a global numeric property value for all features.
+An object defining a global integer property value for all features.
 
 * **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 

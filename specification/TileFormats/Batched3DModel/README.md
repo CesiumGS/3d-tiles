@@ -160,7 +160,7 @@ in the CesiumJS implementation of 3D Tiles.
 * [`Batched 3D Model Feature Table`](#reference-batched-3d-model-feature-table)
     * [`BinaryBodyReference`](#reference-binarybodyreference)
     * [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3)
-    * [`GlobalPropertyScalar`](#reference-globalpropertyscalar)
+    * [`GlobalPropertyInteger`](#reference-globalpropertyinteger)
     * [`Property`](#reference-property)
 
 
@@ -176,7 +176,7 @@ A set of Batched 3D Model semantics that contain additional information about fe
 |---|----|-----------|--------|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
-|**BATCH_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).| :white_check_mark: Yes|
+|**BATCH_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining a integer property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).| :white_check_mark: Yes|
 |**RTC_CENTER**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).|No|
 
 Additional properties are allowed.
@@ -199,7 +199,7 @@ Application-specific data.
 
 #### Batched3DModelFeatureTable.BATCH_LENGTH :white_check_mark:
 
-A [`GlobalPropertyScalar`](#reference-globalpropertyscalar) object defining a numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).
+A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining a integer property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).
 
 * **Type**: `object`, `number` `[1]`, `number`
 * **Required**: Yes
@@ -249,10 +249,10 @@ An object defining a global 3-component numeric property value for all features.
 
 
 ---------------------------------------
-<a name="reference-globalpropertyscalar"></a>
-### GlobalPropertyScalar
+<a name="reference-globalpropertyinteger"></a>
+### GlobalPropertyInteger
 
-An object defining a global numeric property value for all features.
+An object defining a global integer property value for all features.
 
 * **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
 
