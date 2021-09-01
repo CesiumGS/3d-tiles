@@ -375,12 +375,12 @@ A set of Point Cloud semantics that contains values defining the position and ap
 |**NORMAL**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
 |**NORMAL_OCT16P**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
 |**BATCH_ID**|`object`|A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-|**POINTS_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining a integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).| :white_check_mark: Yes|
+|**POINTS_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining an integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).| :white_check_mark: Yes|
 |**RTC_CENTER**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
 |**QUANTIZED_VOLUME_OFFSET**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
 |**QUANTIZED_VOLUME_SCALE**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
 |**CONSTANT_RGBA**|`object`, `number` `[4]`|A [`GlobalPropertyCartesian4`](#reference-globalpropertycartesian4) object defining a 4-component numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
-|**BATCH_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining a integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
+|**BATCH_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining an integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).|No|
 
 Additional properties are allowed.
 
@@ -458,7 +458,7 @@ A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the re
 
 #### PointCloudFeatureTable.POINTS_LENGTH :white_check_mark:
 
-A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining a integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining an integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
 
 * **Type**: `object`, `number` `[1]`, `number`
 * **Required**: Yes
@@ -493,7 +493,7 @@ A [`GlobalPropertyCartesian4`](#reference-globalpropertycartesian4) object defin
 
 #### PointCloudFeatureTable.BATCH_LENGTH
 
-A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining a integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
+A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining an integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
 
 * **Type**: `object`, `number` `[1]`, `number`
 * **Required**: No

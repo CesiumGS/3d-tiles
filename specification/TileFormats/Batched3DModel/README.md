@@ -176,7 +176,7 @@ A set of Batched 3D Model semantics that contain additional information about fe
 |---|----|-----------|--------|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
-|**BATCH_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining a integer property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).| :white_check_mark: Yes|
+|**BATCH_LENGTH**|`object`, `number` `[1]`, `number`|A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining an integer property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).| :white_check_mark: Yes|
 |**RTC_CENTER**|`object`, `number` `[3]`|A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).|No|
 
 Additional properties are allowed.
@@ -199,7 +199,7 @@ Application-specific data.
 
 #### Batched3DModelFeatureTable.BATCH_LENGTH :white_check_mark:
 
-A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining a integer property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).
+A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining an integer property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).
 
 * **Type**: `object`, `number` `[1]`, `number`
 * **Required**: Yes
