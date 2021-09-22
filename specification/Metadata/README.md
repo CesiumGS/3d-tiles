@@ -56,7 +56,7 @@ Draft
 
 ## Overview
 
-The Cesium 3D Metadata Specification defines a standard format for structured metadata in 3D content. Complementary to general-purpose standards like XMP, this specification allows metadata — represented as entities and properties — to be closely associated with parts of 3D content, with data representations appropriate for large, distributed datasets. For the most detailed use cases, properties allow vertex- and texel-level associations; higher-level property associations are also supported.
+The Cesium 3D Metadata Specification defines a standard format for structured metadata in 3D content. Metadata — represented as entities and properties — may be closely associated with parts of 3D content, with data representations appropriate for large, distributed datasets. For the most detailed use cases, properties allow vertex- and texel-level associations; higher-level property associations are also supported.
 
 Many domains benefit from structured metadata — typical examples include historical details of buildings in a city, names of components in a CAD model, descriptions of regions on textured surfaces, and classification codes for point clouds.
 
@@ -100,11 +100,11 @@ The example below defines a "species" enum with three possible tree species, as 
 
 ### Classes
 
-Classes represent categories of similar entities, and are defined by a collection of one or more properties shared by the entities of a class. Each class has a unique ID within the schema, and each property has a unique ID within the class, allowing stable external references to both.
+Classes represent categories of similar entities, and are defined by a collection of one or more properties shared by the entities of a class. Each class has a unique ID within the schema, and each property has a unique ID within the class, to be used for references within the schema and externally.
 
 ### Properties
 
-Properties describe the type and structure of values that may be associated with entities of a class. Except when a property is required, it may not be present on all entities of a class. Entities must not contain values other than those defined by the properties of their class.
+Properties describe the type and structure of values that may be associated with entities of a class. Entities may omit values for a property, unless the property is required. Entities must not contain values other than those defined by the properties of their class.
 
 > **Example:** The following example shows the basics of how classes describe the types of metadata. A `building` class describes the heights of various buildings in a dataset. Likewise, the `tree` class describes trees that have a height, species, and leaf color.
 >
@@ -130,7 +130,9 @@ IDs (`id`) uniquely identify a property within a class, and must contain only al
 
 Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid UTF-8 strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a [semantic](#semantics).
 
-> **Example:** A common example of a ID / Name pair would be `localTemperature` and `"Local Temperature"`. Because IDs are restricted to alphanumeric characters and underscores, use of helpful property names is essential for clarity in many languages.
+> **Example:** A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to alphanumeric characters and underscores, use of helpful property names is essential for clarity in many languages.
+
+> **Example:** 
 
 #### Description
 
@@ -138,7 +140,7 @@ Descriptions (`description`) provide a human-readable explanation of a property,
 
 #### Semantic
 
-Property IDs, names, and descriptions do not imply semantic meaning within the data format. To provide such a meaning, properties may be assigned a semantic (`semantic`). A semantic is an identifier describing how the property's content should be interpreted, according to an external or application-specific semantic specification.
+Property IDs, names, and descriptions do not imply semantic meaning within the data format. To provide such a meaning, properties may be assigned a semantic (`semantic`). A semantic is an identifier, containing only uppercase alphanumeric and underscore characters, indicating how the property's content should be interpreted. Semantic identifiers should be defined according to an external or application-specific semantic specification.
 
 > **Example:** Common semantic definitions might include temperature in degrees Celsius, time in milliseconds, or mean squared error (MSE).
 
@@ -159,7 +161,7 @@ A property's type (`type`) describes the structure of the value given for each e
 
 The `ARRAY` type is used to define a fixed- or variable-length array of components. For fixed-length arrays, a component count denotes the number of components in each array, and must be ≥2. Variable-length arrays do not define a component count, and arrays may have any length, including zero.
 
-The `VECN` and `MATN` types represent specific subsets of the fixed-length `ARRAY` type, where `VECN` is a vector with `N` numeric components and `MATN` is an `N x N` matrix with `N²` numeric components. Where applicable, authoring implementations should choose these more specific types to improve data portability, particularly for mathematical types. Schema representations may choose to make component counts for `VECN` and `MATN` types implicit, rather than storing a `componentCount` descriptor for `VECN` and `MATN` types.
+The `VECN` and `MATN` types represent specific subsets of the fixed-length `ARRAY` type, where `VECN` is a vector with `N` numeric components and `MATN` is an `N x N` matrix with `N²` numeric components in column-major order. Where applicable, authoring implementations should choose these more specific types. Schema representations may choose to make component counts for `VECN` and `MATN` types implicit, rather than storing a `componentCount` descriptor for `VECN` and `MATN` types.
 
 > **Example:** This example defines a `car` class with three array-like properties. The `passengers` property is a variable-length array, because `componentCount` is undefined.
 >
@@ -189,6 +191,8 @@ Properties may be comprised of one component (`SINGLE`) or many components (`ARR
 | STRING  | A sequence of characters                                                  |
 | ENUM    | An enumerated type                                                        |
 
+Floating-point properties (`FLOAT32` and `FLOAT64`) must not include values `NaN`, `+Infinity`, or `-Infinity`.
+
 [Enum properties](#enums) are denoted by `ENUM`. An enum property must additionally provide the ID of the specific enum it uses, referred to as its enum type (`enumType`).
 
 #### Normalized Values
@@ -214,7 +218,9 @@ Properties may optionally specify a No Data value (`noData`, or "sentinel value"
 
 Individual components in an array cannot be marked as optional; only the array property itself can be marked as optional.
 
-For array types, `noData` is an array-typed value indicating that the entire array represents a missing value. For example, `[-1, -1, -1]` might be used as a `noData` value for a `VEC3` property. When an array-typed property is required or includes a `noData` value, this has no effect on the interpretation of individual array elements. When variable-length arrays are required, an empty array is still valid.
+For `ARRAY`, `VECN`, and `MATN` types, `noData` is an array-typed value indicating that the entire array represents a missing value. For example, `[-1, -1, -1]` might be used as a `noData` value for a `VEC3` property. When an array-typed property is required or includes a `noData` value, this has no effect on the interpretation of individual array elements. When variable-length arrays are required, an empty array is still valid.
+
+For `ENUM` component types, a `noData` value should contain the name of the enum value as a string, rather than its integer value.
 
 > **Example:** In the example below, a "tree" class is defined with `noData` indicating a specific enum value to be interpreted as missing data.
 >
@@ -229,9 +235,9 @@ For array types, `noData` is an array-typed value indicating that the entire arr
 A schema provides the pattern for creating entities. This section covers the various formats and encodings for storing entity metadata. Additional formats and encoding may be defined outside of this specification.
 
 * **Table format** - property values are stored in parallel 1D arrays
-* **Raster format** - property values are stored in channels of a 2D grid of pixels
+* **Raster format** - property values are stored in channels of pixel-based formats (usually images)
 
-The table format is suitable for general purpose metadata storage. This is similar in concept to a database table where entities are rows and properties are columns. The raster format is for storing fine-grained metadata in images. Entities correspond to pixels and properties correspond to channels. This format is especially useful when texture mapping high frequency data, like material properties, to less detailed 3D surfaces. The raster format can also take advantage of image compression techniques.
+The table format is suitable for general purpose metadata storage. This is similar in concept to a database table where entities are rows and properties are columns. The raster format is for storing fine-grained metadata in pixel-based formats such as images and video. Entities correspond to pixels and properties correspond to channels. This format is especially useful when texture mapping high frequency data, like material properties, to less detailed 3D surfaces. The raster format can also take advantage of image compression techniques.
 
 Both formats are designed for storing metadata for a large number of entities.
 
