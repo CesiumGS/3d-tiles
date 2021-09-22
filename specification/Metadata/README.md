@@ -274,8 +274,8 @@ Numeric types are encoded as follows:
 | UINT32  | 32-bit unsigned integer                |
 | INT64   | 64-bit two's complement signed integer |
 | UINT64  | 64-bit unsigned integer                |
-| FLOAT32 | 32-bit IEEE floating point             |
-| FLOAT64 | 64-bit IEEE floating point             |
+| FLOAT32 | 32-bit IEEE floating point number      |
+| FLOAT64 | 64-bit IEEE floating point number      |
 
 ##### Booleans
 
