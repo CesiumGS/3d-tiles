@@ -65,7 +65,7 @@ The specification defines core concepts to be used by multiple 3D formats, and i
 * [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
 * [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) - glTF extension that assigns metadata to features in a model on a per-vertex, per-texel, or per-instance basis
 
-The specification does not enumerate or define the semantic meanings of metadata, and assumes that  separate specifications will define semantics for their particular application or domain. One example is the [Cesium Metadata Semantic Reference](../Semantics) which defines built-in semantics for 3D Tiles and glTF. Identifiers for externally-defined semantics can be stored within the Cesium 3D Metadata Specification.
+The specification does not enumerate or define the semantic meanings of metadata, and assumes that separate specifications will define semantics for their particular application or domain. One example is the [Cesium Metadata Semantic Reference](../Semantics) which defines built-in semantics for 3D Tiles and glTF. Identifiers for externally-defined semantics can be stored within the Cesium 3D Metadata Specification.
 
 ## Concepts
 
@@ -77,7 +77,7 @@ This specification defines metadata schemas and methods for encoding metadata.
 
 >  **Implementation note:** Entities may be defined at various levels of abstraction. Within a large dataset, individual vertices or texels may represent entities with granular metadata properties. The entire dataset may itself be an entity of another class, with its own associated properties.
 
-"Metadata," as used throughout this specification, refers to any association of 3D content with entities and properties, such that entities represent meaningful units within an overall structure. Other common definitions of metadata, particularly in relation to filesystems or networking as opposed to 3D content, remain outside the scope of the document.
+**Metadata**, as used throughout this specification, refers to any association of 3D content with entities and properties, such that entities represent meaningful units within an overall structure. Other common definitions of metadata, particularly in relation to filesystems or networking as opposed to 3D content, remain outside the scope of the document.
 
 Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines two such representations, a **Table Format** and a **Raster format**.
 
@@ -87,7 +87,7 @@ A schema defines the organization and types of metadata used in 3D content, repr
 
 ### Enums
 
-An enum consists of a set of named values, represented as string:integer pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See [Property Types](#property-types) for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
+An enum consists of a set of named values, represented as `string: integer` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See [Property Types](#property-types) for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
 
 The example below defines a "species" enum with three possible tree species, as well as an "Unknown" value.
 
@@ -204,7 +204,7 @@ Normalized properties (`normalized`) provide a compact alternative to larger flo
 
 Properties representing numeric values, fixed-length numeric arrays, and vectors may specify a minimum (`minimum`) and maximum (`maximum`). Minimum and maximum values may represent bounds of the valid range for a property, or the exact minimum and maximum values found in the dataset.
 
-> **Example:** A property storing GPS coordinates might define a range of `[-180, 180]` degrees for longitude values and `[-90, 90]` degrees for latitude values. If the dataset happens to contain only GPS coordinates in a small region, more specific ranges may be given instead.
+> **Example:** A property storing GPS coordinates might define a range of `[-180, 180]` degrees for longitude values and `[-90, 90]` degrees for latitude values. If the dataset contains GPS coordinates only in a small region, more specific ranges may be given instead.
 
 #### Required Properties and No Data Values
 
@@ -347,7 +347,7 @@ This example shows how to encode a variable-length array of strings.
 - class `"weather"`
 - properties
   - `"forecastHistory"`
-    - buffer: `[R, a, i, n, ...]`
+    - buffer: `['R', 'a', 'i', 'n', ...]`
     - arrayOffsetBuffer: `[0, 2, 3]`
     - stringOffsetBuffer: `[0, 8, 19, 28]`
 
