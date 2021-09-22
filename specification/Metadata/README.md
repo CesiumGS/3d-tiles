@@ -71,21 +71,23 @@ The specification does not enumerate or define the semantic meanings of metadata
 
 This specification defines metadata schemas and methods for encoding metadata.
 
-A **schema** contains a set of **classes** and **enums**. A class represents a category of similar entities, defined as a set of **properties**, with each property describing values of a particular type. An enum defines a set of named values representing a value type, and may be referenced by class properties. Class definitions within a schema do not describe how property values are stored, allowing storage to be defined independently and flexibly. Schemas can be shared across multiple assets, or even multiple file formats.
+**Schemas** contain a set of **classes** and **enums**. Class represents a category of similar entities, defined as a set of **properties**. Each property describes values of a particular type. Enums defines a set of named values representing a single value type, and may be referenced by class properties. Schema definitions do not describe how entities or properties are stored, and may be represented in a file format in various ways. Schemas can be reused across multiple assets or even file formats.
 
-An **entity** is a specific instantiation of class, populated with **property values**. There is a one-to-one mapping between property values in the entity and properties defined in the class. An entity must not have extraneous property values. Properties of a class may be required, in which case all entities instantiating the class are required to include them. Entities may be defined at any level of abstraction. A large, petabyte-scale dataset may itself be an entity with associated properties. Within that dataset, individual vertices or texels may also represent entities of another class, with granular metadata properties attached.
+**Entities** are instantiations of class, populated with **property values** conforming to the class definition. Every property value of an entity must be defined by its class, and an entity must not have extraneous property values. Properties of a class may be required, in which case all entities instantiating the class are required to include them.
 
-"Metadata," as used throughout this specification, refers to any association of 3D content with entities and properties, such that entities represent meaningful units within an overall structure. Other common definitions of metadata, particularly in relation to filesystems and networking as opposed to 3D content, remain outside the scope of the document.
+>  **Implementation note:** Entities may be defined at various levels of abstraction. Within a large dataset, individual vertices or texels may represent entities with granular metadata properties. The entire dataset may itself be an entity of another class, with its own associated properties.
+
+"Metadata," as used throughout this specification, refers to any association of 3D content with entities and properties, such that entities represent meaningful units within an overall structure. Other common definitions of metadata, particularly in relation to filesystems or networking as opposed to 3D content, remain outside the scope of the document.
 
 Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines two such representations, a **Table Format** and a **Raster format**.
 
 ## Schemas
 
-A schema is a collection of classes and enums that describe the types of metadata available in a dataset. An application may use this information to populate a UI, or to assign specific behavior to entities.
+A schema defines the organization and types of metadata used in 3D content, represented as a set of classes and enums. Class definitions are referenced by entities whose metadata conforms to the class definition, providing a consistent and machine-readable structure for all entities in a dataset.
 
 ### Enums
 
-An enum consists of a set of named values, represented as string:integer pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See [Property Types](#property-types). Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
+An enum consists of a set of named values, represented as string:integer pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See [Property Types](#property-types) for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
 
 The example below defines a "species" enum with three possible tree species, as well as an "Unknown" value.
 
@@ -98,32 +100,27 @@ The example below defines a "species" enum with three possible tree species, as 
 
 ### Classes
 
-A class represents a category of similar entities, and is defined by a collection of one or more properties shared by the entities of a class. Each class has a unique ID within the schema, and each property has a unique ID within the class, allowing stable external references to both.
+Classes represent categories of similar entities, and are defined by a collection of one or more properties shared by the entities of a class. Each class has a unique ID within the schema, and each property has a unique ID within the class, allowing stable external references to both.
 
 ### Properties
 
-Properties describe the type and structure of their values, and may be required or optional for entities of a class.
+Properties describe the type and structure of values that may be associated with entities of a class. Except when a property is required, it may not be present on all entities of a class. Entities must not contain values other than those defined by the properties of their class.
 
-The following example shows the basics of how classes describe the types of metadata. A `building` class describes the heights of various buildings in a dataset. Likewise, the `tree` class describes trees that have a height, species, and leaf color.
-
-- `schema`
-  - `classes`
-    - `building`
-    - `tree`
-
-**building**
-
-| property | componentType | required | noData |
-|:---------|:--------------|:---------|:-------|
-| height   | "FLOAT32"     | ✓        |        |
-
-**tree**
-
-| property  | componentType | required | noData    |
-|:----------|:--------------|:---------|:----------|
-| height    | "FLOAT32"     | ✓        |           |
-| species   | "STRING"      |          | "Unknown" |
-| leafColor | "STRING"      | ✓        |           |
+> **Example:** The following example shows the basics of how classes describe the types of metadata. A `building` class describes the heights of various buildings in a dataset. Likewise, the `tree` class describes trees that have a height, species, and leaf color.
+>
+> **building**
+>
+> | property | componentType | required | noData |
+> |:---------|:--------------|:---------|:-------|
+> | height   | "FLOAT32"     | ✓        |        |
+>
+> **tree**
+>
+> | property  | componentType | required | noData    |
+> |:----------|:--------------|:---------|:----------|
+> | height    | "FLOAT32"     | ✓        |           |
+> | species   | "STRING"      |          | "Unknown" |
+> | leafColor | "STRING"      | ✓        |           |
 
 #### ID
 
@@ -164,15 +161,13 @@ The `ARRAY` type is used to define a fixed- or variable-length array of componen
 
 The `VECN` and `MATN` types represent specific subsets of the fixed-length `ARRAY` type, where `VECN` is a vector with `N` numeric components and `MATN` is an `N x N` matrix with `N²` numeric components. Where applicable, authoring implementations should choose these more specific types to improve data portability, particularly for mathematical types. Schema representations may choose to make component counts for `VECN` and `MATN` types implicit, rather than storing a `componentCount` descriptor for `VECN` and `MATN` types.
 
-The example schema below defines a `car` class with three array-like properties:
-
-| property         | description                |  type   | componentType | componentCount |
-|:-----------------|:---------------------------|:-------:|:-------------:|---------------:|
-| forwardDirection | "Forward direction vector" | "VEC3"  |   "FLOAT64"   |              3 |
-| passengers       | "Passenger names"          | "ARRAY" |   "STRING"    |                |
-| modelMatrix      | "4x4 model matrix"         | "MAT4"  |   "FLOAT32"   |             16 |
-
-The `passengers` property is a variable-length array, because `componentCount` is undefined.
+> **Example:** This example defines a `car` class with three array-like properties. The `passengers` property is a variable-length array, because `componentCount` is undefined.
+>
+> | property         | description                |  type   | componentType | componentCount |
+> |:-----------------|:---------------------------|:-------:|:-------------:|---------------:|
+> | forwardDirection | "Forward direction vector" | "VEC3"  |   "FLOAT64"   |              3 |
+> | passengers       | "Passenger names"          | "ARRAY" |   "STRING"    |                |
+> | modelMatrix      | "4x4 model matrix"         | "MAT4"  |   "FLOAT32"   |             16 |
 
 #### Component Type
 
@@ -221,15 +216,13 @@ Individual components in an array cannot be marked as optional; only the array p
 
 For array types, `noData` is an array-typed value indicating that the entire array represents a missing value. For example, `[-1, -1, -1]` might be used as a `noData` value for a `VEC3` property. When an array-typed property is required or includes a `noData` value, this has no effect on the interpretation of individual array elements. When variable-length arrays are required, an empty array is still valid.
 
-In the example below, a "tree" class is defined with `noData` indicating a specific enum value to be interpreted as missing data.
-
-**tree**
-
-| property  | componentType | required | noData    |
-|:----------|:--------------|:---------|:----------|
-| height    | "FLOAT32"     | ✓        |           |
-| species   | "ENUM"        |          | "Unknown" |
-| leafColor | "STRING"      | ✓        |           |
+> **Example:** In the example below, a "tree" class is defined with `noData` indicating a specific enum value to be interpreted as missing data.
+>
+> | property  | componentType | required | noData    |
+> |:----------|:--------------|:---------|:----------|
+> | height    | "FLOAT32"     | ✓        |           |
+> | species   | "ENUM"        |          | "Unknown" |
+> | leafColor | "STRING"      | ✓        |           |
 
 ## Storage Formats
 
