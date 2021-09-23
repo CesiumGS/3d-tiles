@@ -21,6 +21,7 @@ Draft
 - [Overview](#overview)
 - [Concepts](#concepts)
 - [Schemas](#schemas)
+  - [Version](#version)
   - [Enums](#enums)
   - [Classes](#classes)
   - [Properties](#properties)
@@ -85,6 +86,10 @@ Property values are stored with flexible representations to allow compact transm
 
 A schema defines the organization and types of metadata used in 3D content, represented as a set of classes and enums. Class definitions are referenced by entities whose metadata conforms to the class definition, providing a consistent and machine-readable structure for all entities in a dataset.
 
+### Version
+
+Schema version (`version`) is an application-specific identifier for a given schema revision.
+
 ### Enums
 
 An enum consists of a set of named values, represented as `string: integer` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See [Property Types](#property-types) for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
@@ -132,7 +137,7 @@ Names (`name`) provide a human-readable label for a property, and must be unique
 
 > **Example:** A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to alphanumeric characters and underscores, use of helpful property names is essential for clarity in many languages.
 
-> **Example:** 
+> **Example:**
 
 #### Description
 
