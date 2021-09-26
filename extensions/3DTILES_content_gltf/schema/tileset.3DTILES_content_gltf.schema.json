@@ -8,7 +8,7 @@
             "type": "array",
             "description": "An array of glTF extensions used by glTF content in the tileset.",
             "items": {
-                "type": ["string"]
+                "type": "string"
             },
             "minItems": 1
         },
@@ -16,7 +16,7 @@
             "type": "array",
             "description": "An array of glTF extensions required by glTF content in the tileset.",
             "items": {
-                "type": ["string"]
+                "type": "string"
             },
             "minItems": 1
         },
