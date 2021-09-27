@@ -88,7 +88,9 @@ A schema defines the organization and types of metadata used in 3D content, repr
 
 ### Version
 
-Schema version (`version`) is an application-specific identifier for a given schema revision.
+Schema version (`version`) is an application-specific identifier for a given schema revision. Version must be a string, and should be syntactically compatible with [SemVer](https://semver.org/).
+
+> **Example:** Valid semantic versions include strings like `0.1.2`, `1.2.3`, and `1.2.3-alpha`.
 
 ### Enums
 
@@ -145,9 +147,9 @@ Descriptions (`description`) provide a human-readable explanation of a property,
 
 #### Semantic
 
-Property IDs, names, and descriptions do not imply semantic meaning within the data format. To provide such a meaning, properties may be assigned a semantic (`semantic`). A semantic is an identifier, containing only uppercase alphanumeric and underscore characters, indicating how the property's content should be interpreted. Semantic identifiers should be defined according to an external or application-specific semantic specification.
+Property IDs, names, and descriptions do not impute meaning. To provide such a meaning, properties may be assigned a semantic identifier string (`semantic`), indicating how the property's content should be interpreted. Semantic identifiers may be defined by the [Cesium Metadata Semantic Reference](./Semantics/) or by external semantic references, and may be application-specific. Identifiers should be uppercase, with underscores as word separators.
 
-> **Example:** Common semantic definitions might include temperature in degrees Celsius, time in milliseconds, or mean squared error (MSE).
+> **Example:** Common semantic definitions might include temperature in degrees Celsius (e.g. `TEMPERATURE_DEGREES_CELSIUS`), time in milliseconds (e.g. `TIME_MILLIS`), or mean squared error (e.g. `MSE`). These examples are only illustrative.
 
 #### Type
 
