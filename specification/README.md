@@ -122,7 +122,7 @@ Explicit file extensions are optional. Valid implementations may ignore it and i
 
 ## URIs
 
-3D Tiles uses URIs to reference tile content. These URIs may point to [relative external references (RFC3986)](https://tools.ietf.org/html/rfc3986#section-4.2) or be data URIs that embed resources in the JSON. Embedded resources use [the "data" URI scheme (RFC2397)](https://tools.ietf.org/html/rfc2397).
+3D Tiles uses URIs to reference tile content. These URIs may point to [relative external references (RFC3986)](https://tools.ietf.org/html/rfc3986#section-4.2) or be data URIs that embed resources in the JSON. Embedded resources use [the "data" URL scheme (RFC2397)](https://tools.ietf.org/html/rfc2397).
 
 When the URI is relative, its base is always relative to the referring tileset JSON file.
 
