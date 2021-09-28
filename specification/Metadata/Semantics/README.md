@@ -137,6 +137,13 @@ The horizon occlusion point of the content of a tile expressed in an ellipsoid-s
 > **Implementation Note**: Just as tile bounding volumes provide spatial coherence for traversal while content bounding volumes enable finer grained culling, the computation of `TILE_HORIZON_OCCLUSION_POINT` should account for all content in a tile and its descendants whereas `CONTENT_HORIZON_OCCLUSION_POINT` should only account for content in a tile. When the two values are equivalent only `TILE_HORIZON_OCCLUSION_POINT` should be specified.
 
 <!-- omit in toc -->
+### **TILE_GEOMETRIC_ERROR**
+
+The geometric error of the tile that overrides the geometric error implicitly calculated by [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling). This property is equivalent to `tile.geometricError`.
+
+* Type: `FLOAT32` or `FLOAT64`
+
+<!-- omit in toc -->
 ### **NAME**
 
 The name of the entity. Names do not have to be unique.
