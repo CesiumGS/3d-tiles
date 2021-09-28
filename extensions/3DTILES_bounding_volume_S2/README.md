@@ -16,7 +16,7 @@ Draft
 <!-- omit in toc -->
 ## Dependencies
 
-Written against 3D Tiles 1.0. Optionally. this extension may be used with [3DTILES_implicit_tiling](../../3DTILES_implicit_tiling). 
+Written against 3D Tiles 1.0. Optionally, this extension may be used with [3DTILES_implicit_tiling](../3DTILES_implicit_tiling). 
 
 <!-- omit in toc -->
 ## Optional vs. Required
@@ -102,7 +102,7 @@ For the cell IDs in the example above, the tokens are:
 
 ## Bounding Volume
 
-An S2 cell describes 4 positions on the surface of the WGS84 ellipsoid. The `minimumHeight` and `maximumHeight`, provided in meters, describe the minimum and maximum heights above (or below) each corner position of the cell respectively. A tile's [`transform`](https://github.com/CesiumGS/3d-tiles/tree/master/specification#tile-transforms) property will be ignored when this extension is used for describing a tile's `boundingVolume`. Tiles using this extension must maintain [spatial coherence](../../../specification/README.md#bounding-volume-spatial-coherence). This extension may be applied to the [`tile.boundingVolume`](../../specification/../../specification/schema/tile.schema.json) or the [`content.boundingVolume`](../../specification/../../specification/schema/tile.schema.json) objects.
+An S2 cell describes 4 positions on the surface of the WGS84 ellipsoid. The `minimumHeight` and `maximumHeight`, provided in meters, describe the minimum and maximum heights above (or below) each corner position of the cell respectively. A tile's [`transform`](../../specification#tile-transforms) property will be ignored when this extension is used for describing a tile's `boundingVolume`. Tiles using this extension must maintain [spatial coherence](../../specification/README.md#bounding-volume-spatial-coherence). This extension may be applied to the [`tile.boundingVolume`](../../specification/schema/tile.schema.json) or the [`content.boundingVolume`](../../specification/schema/content.schema.json) objects.
 
 > **Implementation Note**: When mapping the sphere to the cube, S2 provides three projection methods: linear, quadratic and tangential. This extension assumes an implementation uses the quadratic projection, since it is reasonably accurate and efficient.
 
@@ -201,7 +201,7 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2`:
 
 ## Implicit Subdivision
 
-When used with [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_implicit_tiling), a `QUADTREE` subdivision scheme will follow the rules for subdivision as defined by the S2 cell hierarchy. When an `OCTREE` subdivision scheme is used, the split in the vertical dimension occurs at the midpoint of the `minimumHeight` and `maximumHeight` of the parent tile.
+When used with [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling), a `QUADTREE` subdivision scheme will follow the rules for subdivision as defined by the S2 cell hierarchy. When an `OCTREE` subdivision scheme is used, the split in the vertical dimension occurs at the midpoint of the `minimumHeight` and `maximumHeight` of the parent tile.
 
 | Cell  | Quadtree Subdivision | Octree Subdivision |
 |---|---|---|

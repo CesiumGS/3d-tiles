@@ -378,15 +378,15 @@ In the example above, every tile in the subtree exists, but not every tile has c
 
 ### Availability Packing
 
-Availability bitstreams are packed in binary using the format described in the [Booleans](../../../specification/Metadata#booleans) section of the Cesium 3D Metadata Specification.
+Availability bitstreams are packed in binary using the format described in the [Booleans](../../specification/Metadata#booleans) section of the Cesium 3D Metadata Specification.
 
 ## Glossary
 
 * **availability** - Data specifying which tiles/contents/child subtrees exist within a single subtree.
 * **bitstream** - A boolean array stored as a sequence of bits rather than bytes.
-* **bounding volume** - The spatial extent enclosing a tile or a tile's content, as defined in the [3D Tiles specification](https://github.com/CesiumGS/3d-tiles/tree/main/specification#bounding-volumes).
+* **bounding volume** - The spatial extent enclosing a tile or a tile's content, as defined in the [3D Tiles specification](../../specification#bounding-volumes).
 * **child subtree** - A subtree reachable from an available tile in the bottommost row of a subtree.
-* **content** - A content such as Batched 3D Model or Point Cloud as defined in the [3D Tiles specification](https://github.com/CesiumGS/3d-tiles/tree/main/specification#introduction)
+* **content** - A content such as Batched 3D Model or Point Cloud as defined in the [3D Tiles specification](../../specification#introduction)
 * **implicit tiling** - A description of a tileset using recursive subdivision.
 * **implicit root tile** - A tile with the `3DTILES_implicit_tiling` extension, which denotes the root of an implicit tileset.
 * **octree** - A 3D subdivision scheme that divides each bounding volume into 8 smaller bounding volumes along the midpoint of the `x`, `y`, and `z` axes.
@@ -397,7 +397,7 @@ Availability bitstreams are packed in binary using the format described in the [
 * **template URI** - A URI pattern containing tile coordinates for directly addressing tiles.
 * **tile** - A division of space that may contain content.
 * **tileset** - A hierarchical collection of tiles.
-* **tileset JSON** - A JSON file describing a tileset, as defined in the [Cesium 3D Tiles 1.0 specification](https://github.com/CesiumGS/3d-tiles/tree/main/specification#tileset-json).
+* **tileset JSON** - A JSON file describing a tileset, as defined in the [3D Tiles specification](../../specification#tileset-json).
 
 ## Examples
 
@@ -628,7 +628,7 @@ An object describing the availability of a set of elements.
 
 |   |Type|Description|Required|
 |---|---|---|---|
-|**bufferView**|`integer`|Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.|No|
+|**bufferView**|`integer`|Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../specification/Metadata). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.|No|
 |**availableCount**|`integer`|A number indicating how many 1 bits exist in the availability bitstream.|No|
 |**constant**|`integer`|Integer indicating whether all of the elements are available (1) or all are unavailable (0).|No|
 |**extensions**|`any`||No|
@@ -639,7 +639,7 @@ Additional properties are allowed.
 <!-- omit in toc -->
 #### availability.bufferView
 
-Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../../specification/Metadata). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.
+Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../specification/Metadata). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.
 
 * **Type**: `integer`
 * **Required**: No

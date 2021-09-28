@@ -1,6 +1,6 @@
 # 3D Tiles Next
 
-**3D Tiles Next** is a set of capabilities for the future of 3D Tiles. Currently, they take the form of extensions to the [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/main/specification) specification. In the future, these extensions may be incorporated into 3D Tiles 2.0.
+**3D Tiles Next** is a set of capabilities for the future of 3D Tiles. Currently, they take the form of extensions to the [3D Tiles 1.0](./specification) specification. In the future, these extensions may be incorporated into 3D Tiles 2.0.
 
 The 3D Tiles Next extensions add capabilities to 3D Tiles on a number of fronts:
 
@@ -26,11 +26,11 @@ The 3D Tiles Next extensions add capabilities to 3D Tiles on a number of fronts:
 
 ## Specifications
 
-### [`3DTILES_content_gltf`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_content_gltf) (3D Tiles 1.0 extension)
+### [`3DTILES_content_gltf`](./extensions/3DTILES_content_gltf) (3D Tiles 1.0 extension)
 
 This extension simply allows glTF models (`.gltf` `.glb`) directly in `tile.content`. This allows for easier integration with software that may produce glTF files, but not 3D Tiles 1.0 formats (such as B3DM).
 
-### [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_implicit_tiling) (3D Tiles 1.0 extension)
+### [`3DTILES_implicit_tiling`](./extensions/3DTILES_implicit_tiling) (3D Tiles 1.0 extension)
 
 This extension introduces a more compact representation of quadtree and octree tilesets. It defines subtree files, which are binary files that represent which tiles and contents exist for a fixed-sized portion of the tree. This is more compact than explicitly listing bounding volumes for every tile.
 
@@ -38,13 +38,13 @@ Subtree files are designed to facilitate fast tree traversals, as each tile can 
 
 ### Metadata
 
-#### [Cesium 3D Metadata Specification](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/specification/Metadata)
+#### [Cesium 3D Metadata Specification](./specification/Metadata)
 
 This specification defines a standard metadata format for 3D data. This format is shared by two other extensions, `3DTILES_metadata` in 3D Tiles and `EXT_feature_metadata` in glTF.
 
 3D Tiles Metadata defines key concepts such as schemas, property types, and storage formats.
 
-#### [`3DTILES_metadata`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_metadata) (3D Tiles 1.0 extension)
+#### [`3DTILES_metadata`](./extensions/3DTILES_metadata) (3D Tiles 1.0 extension)
 
 This extension defines several granularities of metadata:
 
@@ -68,6 +68,6 @@ This extension adds 3D Tiles Metadata to glTF models. This can be used both in t
 
 See the [Examples section](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata#examples) of the `EXT_feature_metadata` specification for several examples of how feature metadata can be used.
 
-### [`3DTILES_bounding_volume_S2`](https://github.com/CesiumGS/3d-tiles/tree/3DTILES_bounding_volume_S2/extensions/3DTILES_bounding_volume_S2) (3D Tiles 1.0 extension)
+### [`3DTILES_bounding_volume_S2`](./extensions/3DTILES_bounding_volume_S2) (3D Tiles 1.0 extension)
 
 This extension enables usage of S2 cells as bounding volumes for tiles. S2 cells can create tiles of roughly equal area all over the globe, with minimal distortion at the poles, and may be combined with 3DTILES_implicit_tiling to efficiently represent global scale tilesets.
