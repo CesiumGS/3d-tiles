@@ -66,7 +66,7 @@ This specification does not assign semantic meaning to metadata; instead separat
 
 ## Concepts
 
-This specification provides a method for defining metadFata schemas as well as methods for encoding metadata.
+This specification provides a method for defining metadata schemas as well as methods for encoding metadata.
 
 A **schema** contains a set of **classes** and **enums**. A class contains a set of **properties**, which may be numeric, boolean, string, enum, or array types.
 
