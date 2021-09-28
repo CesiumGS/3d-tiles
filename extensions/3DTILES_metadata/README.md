@@ -20,7 +20,7 @@ Draft
 
 Written against the 3D Tiles 1.0 specification.
 
-Adds new functionality to the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling). See [Implicit Tile Metadata](#implicit-tile-metadata).
+Adds new functionality to the [`3DTILES_implicit_tiling` extension](../3DTILES_implicit_tiling). See [Implicit Tile Metadata](#implicit-tile-metadata).
 
 <!-- omit in toc -->
 ## Optional vs. Required
@@ -61,11 +61,11 @@ A tileset defines a **schema**. A schema has a set of **classes** and **enums**.
 
 **Entities** (such as tiles, features, etc.) conform to classes and contain **property values**. Depending on the context, property values may be stored in JSON or binary.
 
-**Statistics** provide aggregate information about the metadata. For example, statistics may include the min/max values of a numeric property for mapping property values to color ramps with the [declarative styling language](../../../specification/Styling) or the number of enum occurrences for creating histograms.
+**Statistics** provide aggregate information about the metadata. For example, statistics may include the min/max values of a numeric property for mapping property values to color ramps with the [declarative styling language](../../specification/Styling) or the number of enum occurrences for creating histograms.
 
-By default, properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes how the property should be interpreted. The full list of built-in semantics can be found in the [Cesium Metadata Semantic Reference](../../../specification/Metadata/Semantics). Tileset authors may define their own application- or domain-specific semantics separately.
+By default, properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes how the property should be interpreted. The full list of built-in semantics can be found in the [Cesium Metadata Semantic Reference](../../specification/Metadata/Semantics). Tileset authors may define their own application- or domain-specific semantics separately.
 
-This extension implements the [Cesium 3D Metadata Specification](../../../specification/Metadata), which describes the metadata format in full detail.
+This extension implements the [Cesium 3D Metadata Specification](../../specification/Metadata), which describes the metadata format in full detail.
 
 ## Use Cases
 
@@ -82,15 +82,15 @@ This extension is designed with several new use cases in mind.
 
 ## Compatibility Notes
 
-This extension is independent of the [Batch Table](../../../specification/TileFormats/BatchTable) used in the Batched 3D Model, Instanced 3D Model, and Point Cloud formats. Similarly, this extension is independent of the [`properties`](../../../specification/schema/properties.schema.json) object in tileset JSON.
+This extension is independent of the [Batch Table](../../specification/TileFormats/BatchTable) used in the Batched 3D Model, Instanced 3D Model, and Point Cloud formats. Similarly, this extension is independent of the [`properties`](../../specification/schema/properties.schema.json) object in tileset JSON.
 
-glTF models in Batched 3D Model or Instanced 3D Model content must not use the [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) extension. Instead use glTF content directly with [`3DTILES_content_gltf`](../../3DTILES_content_gltf).
+glTF models in Batched 3D Model or Instanced 3D Model content must not use the [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) extension. Instead use glTF content directly with [`3DTILES_content_gltf`](../3DTILES_content_gltf).
 
 ## Concepts
 
 ### Schemas
 
-A schema defines a set of classes and enums used in a tileset. Classes serve as templates for entities - they provide a list of properties and the type information for those properties. Enums define the allowable values for enum properties. Schemas are defined in full detail in the [Cesium 3D Metadata Specification](../../../specification/Metadata#schemas).
+A schema defines a set of classes and enums used in a tileset. Classes serve as templates for entities - they provide a list of properties and the type information for those properties. Enums define the allowable values for enum properties. Schemas are defined in full detail in the [Cesium 3D Metadata Specification](../../specification/Metadata#schemas).
 
 A schema may be embedded in the extension directly or referenced externally with the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same external schema to avoid duplication.
 
@@ -191,7 +191,7 @@ Note that the optional property `country` is omitted in the example below.
 
 ### Tile Metadata
 
-Metadata may be assigned to individual tiles. Tile metadata often contains spatial information to optimize traversal algorithms. The example below uses the built-in semantic `TILE_HORIZON_OCCLUSION_POINT` from the [Cesium Metadata Semantic Reference](../../../specification/Metadata/Semantics).
+Metadata may be assigned to individual tiles. Tile metadata often contains spatial information to optimize traversal algorithms. The example below uses the built-in semantic `TILE_HORIZON_OCCLUSION_POINT` from the [Cesium Metadata Semantic Reference](../../specification/Metadata/Semantics).
 
 ```jsonc
 {
@@ -242,7 +242,7 @@ Metadata may be assigned to individual tiles. Tile metadata often contains spati
 
 #### Implicit Tile Metadata
 
-When using the [`3DTILES_implicit_tiling` extension](../../3DTILES_implicit_tiling) tile metadata is stored in subtree buffers. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. See [Implicit Tiling Availability](../../3DTILES_implicit_tiling#availability) for details about tile ordering. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
+When using the [`3DTILES_implicit_tiling` extension](../3DTILES_implicit_tiling) tile metadata is stored in subtree buffers. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. See [Implicit Tiling Availability](../3DTILES_implicit_tiling#availability) for details about tile ordering. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
 
 Below is an example subtree JSON:
 
@@ -321,7 +321,7 @@ Below is an example subtree JSON:
 
 Metadata may be assigned to groups. Groups represent collections of contents. Contents are assigned to groups with the `3DTILES_metadata` content extension.
 
-Group metadata can be paired with [`3DTILES_multiple_contents`](../../3DTILES_multiple_contents) to assign multiple contents in a tile to different groups.
+Group metadata can be paired with [`3DTILES_multiple_contents`](../3DTILES_multiple_contents) to assign multiple contents in a tile to different groups.
 
 ```jsonc
 {
@@ -505,7 +505,7 @@ Tileset authors may define their own additional semantics, like `mode` in the ex
 
 ### Semantics
 
-By default properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes how the property should be interpreted. The full list of built-in semantics can be found in the [Cesium Metadata Semantic Reference](../../../specification/Metadata/Semantics).
+By default properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes how the property should be interpreted. The full list of built-in semantics can be found in the [Cesium Metadata Semantic Reference](../../specification/Metadata/Semantics).
 
 Tileset authors may define their own application- or domain-specific semantics separately.
 

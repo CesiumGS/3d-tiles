@@ -58,15 +58,15 @@ This specification defines a set of core concepts to be used by multiple 3D form
 
 For usage see:
 
-* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
+* [`3DTILES_metadata`](../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
 * [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) - glTF extension that assigns metadata to features in a model on a per-vertex, per-texel, or per-instance basis
 
 
-This specification does not assign semantic meaning to metadata; instead separate specifications must define semantics for their particular application or domain. One example is the [Cesium Metadata Semantic Reference](../Semantics) which defines built-in semantics for 3D Tiles and glTF.
+This specification does not assign semantic meaning to metadata; instead separate specifications must define semantics for their particular application or domain. One example is the [Cesium Metadata Semantic Reference](./Semantics) which defines built-in semantics for 3D Tiles and glTF.
 
 ## Concepts
 
-This specification provides a method for defining metadata schemas as well as methods for encoding metadata.
+This specification provides a method for defining metadFata schemas as well as methods for encoding metadata.
 
 A **schema** contains a set of **classes** and **enums**. A class contains a set of **properties**, which may be numeric, boolean, string, enum, or array types.
 
