@@ -85,59 +85,6 @@ The following is an example of using the `3DTILES_content_gltf` extension to dir
 
 A simple example can be found [here](examples/tileset).
 
-## JSON Schema Reference
-
-<!-- omit in toc -->
-* [`3DTILES_content_gltf extension`](#reference-3dtiles_content_gltf-extension) (root object)
-
-
----------------------------------------
-<a name="reference-3dtiles_content_gltf-extension"></a>
-<!-- omit in toc -->
-### 3DTILES_content_gltf extension
-
-3D Tiles extension that allows a tileset to use glTF models directly as tile content.
-
-**`3DTILES_content_gltf extension` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**extensionsUsed**|`string` `[1-*]`|An array of glTF extensions used by glTF content in the tileset.|No|
-|**extensionsRequired**|`string` `[1-*]`|An array of glTF extensions required by glTF content in the tileset.|No|
-|**extensions**|`any`||No|
-|**extras**|`any`||No|
-
-Additional properties are allowed.
-
-<!-- omit in toc -->
-#### 3DTILES_content_gltf extension.extensionsUsed
-
-An array of glTF extensions used by glTF content in the tileset.
-
-* **Type**: `string` `[1-*]`
-* **Required**: No
-
-<!-- omit in toc -->
-#### 3DTILES_content_gltf extension.extensionsRequired
-
-An array of glTF extensions required by glTF content in the tileset.
-
-* **Type**: `string` `[1-*]`
-* **Required**: No
-
-<!-- omit in toc -->
-#### 3DTILES_content_gltf extension.extensions
-
-* **Type**: `any`
-* **Required**: No
-
-<!-- omit in toc -->
-#### 3DTILES_content_gltf extension.extras
-
-* **Type**: `any`
-* **Required**: No
-
-
 ## Appendix: Comparison with Existing Tile Formats
 
 This section covers the differences between existing tile formats and the new glTF approach to tile content.
