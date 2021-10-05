@@ -95,7 +95,7 @@ Schema version (`version`) is an application-specific identifier for a given sch
 
 ### Enums
 
-An enum consists of a set of named values, represented as `string: integer` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See [Property Types](#type) for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
+An enum consists of a set of named values, represented as `string: integer` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the [Type](#type) section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
 
 The example below defines a "species" enum with three possible tree species, as well as an "Unknown" value.
 
