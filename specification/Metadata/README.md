@@ -64,7 +64,7 @@ Many domains benefit from structured metadata — typical examples include histo
 
 The specification defines core concepts to be used by multiple 3D formats, and is language and format agnostic. This document defines concepts with purpose and terminology, but does not impose a particular schema or serialization format for implementation. For use of the format outside of abstract conceptual definitions, see:
 
-* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
+* [`3DTILES_metadata`](../../extensions/3DTILES_metadata/) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
 * [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) - glTF extension that assigns metadata to features in a model on a per-vertex, per-texel, or per-instance basis
 
 The specification does not enumerate or define the semantic meanings of metadata, and assumes that separate specifications will define semantics for their particular application or domain. One example is the [Cesium Metadata Semantic Reference](./Semantics/) which defines built-in semantics for 3D Tiles and glTF. Identifiers for externally-defined semantics can be stored within the Cesium 3D Metadata Specification.
@@ -95,7 +95,7 @@ Schema version (`version`) is an application-specific identifier for a given sch
 
 ### Enums
 
-An enum consists of a set of named values, represented as `string: integer` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See [Property Types](#property-types) for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
+An enum consists of a set of named values, represented as `string: integer` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See [Property Types](#type) for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
 
 The example below defines a "species" enum with three possible tree species, as well as an "Unknown" value.
 
@@ -136,7 +136,7 @@ IDs (`id`) uniquely identify a property within a class, and must contain only al
 
 #### Name
 
-Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid UTF-8 strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a [semantic](#semantics).
+Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid UTF-8 strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a [semantic](#semantic).
 
 > **Example:** A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to alphanumeric characters and underscores, use of helpful property names is essential for clarity in many languages.
 
@@ -144,7 +144,7 @@ Names (`name`) provide a human-readable label for a property, and must be unique
 
 #### Description
 
-Descriptions (`description`) provide a human-readable explanation of a property, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. To provide a machine-readable semantic meaning, a property must also define a [semantic](#semantics).
+Descriptions (`description`) provide a human-readable explanation of a property, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. To provide a machine-readable semantic meaning, a property must also define a [semantic](#semantic).
 
 #### Semantic
 
