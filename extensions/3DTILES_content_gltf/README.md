@@ -40,7 +40,7 @@ Using glTF as a tile format simplifies content pipelines from creation to runtim
 
 ## Extension JSON
 
-With this extension, the tile content may be a glTF asset. Runtime engines must be able to determine compatibility before loading the content. If the glTF asset uses or requires certain glTF extensions, then these extensions must be listed on the `3DTILES_content_gltf` object. This is a property of the top-level tileset `extensions` object with the following properties:
+With this extension, the tile content may be a glTF asset. Runtime engines must be able to determine compatibility before loading the content. If the glTF asset uses or requires certain glTF extensions, then these extensions must also be listed in the `3DTILES_content_gltf` object. This is a property of the top-level tileset `extensions` object with the following properties:
 
 * `extensionsUsed`: an array of glTF extensions used by glTF content in the tileset.
 * `extensionsRequired`: an array of glTF extensions required by glTF content in the tileset.
