@@ -7,6 +7,7 @@
 * Peter Gagliardi, Cesium
 * Sean Lilley, Cesium
 * Sam Suhag, Cesium
+* Don McCurdy, Independent
 * Bao Tran, Cesium
 * Patrick Cozzi, Cesium
 
@@ -21,14 +22,19 @@ Draft
 - [Overview](#overview)
 - [Concepts](#concepts)
 - [Schemas](#schemas)
-  - [Classes and Properties](#classes-and-properties)
-  - [Property Types](#property-types)
-  - [Arrays](#arrays)
+  - [Version](#version)
   - [Enums](#enums)
-  - [Normalized Properties](#normalized-properties)
-  - [Minimum and Maximum Values](#minimum-and-maximum-values)
-  - [Optional Properties and Default Values](#optional-properties-and-default-values)
-  - [Semantics](#semantics)
+  - [Classes](#classes)
+  - [Properties](#properties)
+    - [ID](#id)
+    - [Name](#name)
+    - [Description](#description)
+    - [Semantic](#semantic)
+    - [Type](#type)
+    - [Component Type](#component-type)
+    - [Normalized Values](#normalized-values)
+    - [Minimum and Maximum Values](#minimum-and-maximum-values)
+    - [Required Properties and No Data Values](#required-properties-and-no-data-values)
 - [Storage Formats](#storage-formats)
   - [Table Format](#table-format)
     - [Binary Encoding](#binary-encoding)
@@ -36,54 +42,212 @@ Draft
       - [Booleans](#booleans)
       - [Strings](#strings)
       - [Enums](#enums-1)
-      - [Arrays](#arrays-1)
+      - [Arrays](#arrays)
     - [JSON Encoding](#json-encoding)
       - [Numbers](#numbers-1)
       - [Booleans](#booleans-1)
       - [Strings](#strings-1)
       - [Enums](#enums-2)
-      - [Arrays](#arrays-2)
+      - [Arrays](#arrays-1)
   - [Raster Format](#raster-format)
     - [Numbers](#numbers-2)
     - [Enums](#enums-3)
-    - [Arrays](#arrays-3)
+    - [Arrays](#arrays-2)
     - [Implementation Notes](#implementation-notes)
 - [Revision History](#revision-history)
 
 ## Overview
 
-The Cesium 3D Metadata Specification defines a standard metadata format for 3D data. This spans a myriad of domains, such as heights of buildings in a city, names of different structures in a CAD model, material properties for textured surfaces, and classification codes for point clouds.
+The Cesium 3D Metadata Specification defines a standard format for structured metadata in 3D content. Metadata — represented as entities and properties — may be closely associated with parts of 3D content, with data representations appropriate for large, distributed datasets. For the most detailed use cases, properties allow vertex- and texel-level associations; higher-level property associations are also supported.
 
-This specification defines a set of core concepts to be used by multiple 3D formats. It is language and format independent. This document occasionally uses JSON examples for illustrating concepts but does not define a JSON schema.
+Many domains benefit from structured metadata — typical examples include historical details of buildings in a city, names of components in a CAD model, descriptions of regions on textured surfaces, and classification codes for point clouds.
 
-For usage see:
+The specification defines core concepts to be used by multiple 3D formats, and is language and format agnostic. This document defines concepts with purpose and terminology, but does not impose a particular schema or serialization format for implementation. For use of the format outside of abstract conceptual definitions, see:
 
-* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
+* [`3DTILES_metadata`](../../extensions/3DTILES_metadata/) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
 * [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) - glTF extension that assigns metadata to features in a model on a per-vertex, per-texel, or per-instance basis
 
-
-This specification does not assign semantic meaning to metadata; instead separate specifications must define semantics for their particular application or domain. One example is the [Cesium Metadata Semantic Reference](../Semantics) which defines built-in semantics for 3D Tiles and glTF.
+The specification does not enumerate or define the semantic meanings of metadata, and assumes that separate specifications will define semantics for their particular application or domain. One example is the [Cesium Metadata Semantic Reference](./Semantics/) which defines built-in semantics for 3D Tiles and glTF. Identifiers for externally-defined semantics can be stored within the Cesium 3D Metadata Specification.
 
 ## Concepts
 
-This specification provides a method for defining metadata schemas as well as methods for encoding metadata.
+This specification defines metadata schemas and methods for encoding metadata.
 
-A **schema** contains a set of **classes** and **enums**. A class contains a set of **properties**, which may be numeric, boolean, string, enum, or array types.
+**Schemas** contain a set of **classes** and **enums**. Class represents a category of similar entities, defined as a set of **properties**. Each property describes values of a particular type. Enums defines a set of named values representing a single value type, and may be referenced by class properties. Schema definitions do not describe how entities or properties are stored, and may be represented in a file format in various ways. Schemas can be reused across multiple assets or even file formats.
 
-An **entity** is a specific instantiation of class containing **property values**. There is a one-to-one mapping between property values in the entity and properties defined in the class. An entity must not have extraneous property values.
+**Entities** are instantiations of class, populated with **property values** conforming to the class definition. Every property value of an entity must be defined by its class, and an entity must not have extraneous property values. Properties of a class may be required, in which case all entities instantiating the class are required to include them.
 
-A schema describes what properties are available. However, it does not describe how property values are stored. This allows the schema to be defined separately from the data itself. This has several benefits:
+>  **Implementation note:** Entities may be defined at various levels of abstraction. Within a large dataset, individual vertices or texels may represent entities with granular metadata properties. Vertices and texels may be organized into higher-order groups (such as meshes, scene graphs, or tilesets) having their own associated properties.
 
-* An application can know what metadata is present before requesting content.
-* A single schema can be shared across multiple assets. This is useful when one has many assets with the same types of metadata.
-* It allows greater flexibility for storing metadata. A property such as "elevation" may be stored per-vertex or per-texel depending on the use case, while conforming to the same property definition.
+**Metadata**, as used throughout this specification, refers to any association of 3D content with entities and properties, such that entities represent meaningful units within an overall structure. Other common definitions of metadata, particularly in relation to filesystems or networking as opposed to 3D content, remain outside the scope of the document.
 
-Property values are formatted in specific ways depending on the use case. Two formats are defined for storing large collections of property values:
+Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines two such representations, a **Table Format** and a **Raster format**.
+
+## Schemas
+
+A schema defines the organization and types of metadata used in 3D content, represented as a set of classes and enums. Class definitions are referenced by entities whose metadata conforms to the class definition, providing a consistent and machine-readable structure for all entities in a dataset.
+
+### Version
+
+Schema version (`version`) is an application-specific identifier for a given schema revision. Version must be a string, and should be syntactically compatible with [SemVer](https://semver.org/).
+
+> **Example:** Valid semantic versions include strings like `0.1.2`, `1.2.3`, and `1.2.3-alpha`.
+
+### Enums
+
+An enum consists of a set of named values, represented as `string: integer` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the [Type](#type) section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
+
+The example below defines a "species" enum with three possible tree species, as well as an "Unknown" value.
+
+| name      | value |
+|-----------|------:|
+| "Oak"     |     0 |
+| "Pine"    |     1 |
+| "Maple"   |     2 |
+| "Unknown" |    -1 |
+
+### Classes
+
+Classes represent categories of similar entities, and are defined by a collection of one or more properties shared by the entities of a class. Each class has a unique ID within the schema, and each property has a unique ID within the class, to be used for references within the schema and externally.
+
+### Properties
+
+Properties describe the type and structure of values that may be associated with entities of a class. Entities may omit values for a property, unless the property is required. Entities must not contain values other than those defined by the properties of their class.
+
+> **Example:** The following example shows the basics of how classes describe the types of metadata. A `building` class describes the heights of various buildings in a dataset. Likewise, the `tree` class describes trees that have a height, species, and leaf color.
+>
+> **building**
+>
+> | property | componentType | required | noData |
+> |:---------|:--------------|:---------|:-------|
+> | height   | "FLOAT32"     | ✓        |        |
+>
+> **tree**
+>
+> | property  | componentType | required | noData    |
+> |:----------|:--------------|:---------|:----------|
+> | height    | "FLOAT32"     | ✓        |           |
+> | species   | "STRING"      |          | "Unknown" |
+> | leafColor | "STRING"      | ✓        |           |
+
+#### ID
+
+IDs (`id`) uniquely identify a property within a class, and must contain only alphanumeric characters and underscores. IDs should be human-readable (wherever possible) and camel-case. When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a property *name*.
+
+#### Name
+
+Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid UTF-8 strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a [semantic](#semantic).
+
+> **Example:** A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to alphanumeric characters and underscores, use of helpful property names is essential for clarity in many languages.
+
+> **Example:**
+
+#### Description
+
+Descriptions (`description`) provide a human-readable explanation of a property, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. To provide a machine-readable semantic meaning, a property must also define a [semantic](#semantic).
+
+#### Semantic
+
+Property IDs, names, and descriptions do not impute meaning. To provide such a meaning, properties may be assigned a semantic identifier string (`semantic`), indicating how the property's content should be interpreted. Semantic identifiers may be defined by the [Cesium Metadata Semantic Reference](./Semantics/) or by external semantic references, and may be application-specific. Identifiers should be uppercase, with underscores as word separators.
+
+> **Example:** Common semantic definitions might include temperature in degrees Celsius (e.g. `TEMPERATURE_DEGREES_CELSIUS`), time in milliseconds (e.g. `TIME_MILLIS`), or mean squared error (e.g. `MSE`). These examples are only illustrative.
+
+#### Type
+
+A property's type (`type`) describes the structure of the value given for each entity. Most commonly a single value, a property may also represent a fixed- or variable-length array, or vector and matrix types:
+
+| name   | type                                                    |
+|--------|---------------------------------------------------------|
+| SINGLE | Single-component value or scalar                        |
+| ARRAY  | Fixed- or variable-length array of arbitrary components |
+| VEC2   | Fixed-length vector with two (2) numeric components     |
+| VEC3   | Fixed-length vector with three (3) numeric components   |
+| VEC4   | Fixed-length vector with four (4) numeric components    |
+| MAT2   | 2x2 matrix                                              |
+| MAT3   | 3x3 matrix                                              |
+| MAT4   | 4x4 matrix                                              |
+
+The `ARRAY` type is used to define a fixed- or variable-length array of components. For fixed-length arrays, a component count denotes the number of components in each array, and must be ≥2. Variable-length arrays do not define a component count, and arrays may have any length, including zero.
+
+The `VECN` and `MATN` types represent specific subsets of the fixed-length `ARRAY` type, where `VECN` is a vector with `N` numeric components and `MATN` is an `N x N` matrix with `N²` numeric components in column-major order. Where applicable, authoring implementations should choose these more specific types. Schema representations may choose to make component counts for `VECN` and `MATN` types implicit, rather than storing a `componentCount` descriptor for `VECN` and `MATN` types.
+
+> **Example:** This example defines a `car` class with three array-like properties. The `passengers` property is a variable-length array, because `componentCount` is undefined.
+>
+> | property         | description                |  type   | componentType | componentCount |
+> |:-----------------|:---------------------------|:-------:|:-------------:|---------------:|
+> | forwardDirection | "Forward direction vector" | "VEC3"  |   "FLOAT64"   |              3 |
+> | passengers       | "Passenger names"          | "ARRAY" |   "STRING"    |                |
+> | modelMatrix      | "4x4 model matrix"         | "MAT4"  |   "FLOAT32"   |             16 |
+
+#### Component Type
+
+Properties may be comprised of one component (`SINGLE`) or many components (`ARRAY`, `VECN`, `MATN`), depending on the property `type`. Each component is an instance of the property's component type (`componentType`), with the following component types supported:
+
+| name    | componentType                                                             |
+|---------|---------------------------------------------------------------------------|
+| INT8    | Signed integer in the range `[-128, 127]`                                 |
+| UINT8   | Unsigned integer in the range `[0, 255]`                                  |
+| INT16   | Signed integer in the range `[-32768, 32767]`                             |
+| UINT16  | Unsigned integer in the range `[0, 65535]`                                |
+| INT32   | Signed integer in the range `[-2147483648, 2147483647]`                   |
+| UINT32  | Unsigned integer in the range `[0, 4294967295]`                           |
+| INT64   | Signed integer in the range `[-9223372036854775808, 9223372036854775807]` |
+| UINT64  | Unsigned integer in the range `[0, 18446744073709551615]`                 |
+| FLOAT32 | A number that can be represented as 32-bit IEEE floating point            |
+| FLOAT64 | A number that can be represented as 64-bit IEEE floating point            |
+| BOOLEAN | True or false                                                             |
+| STRING  | A sequence of characters                                                  |
+| ENUM    | An enumerated type                                                        |
+
+Floating-point properties (`FLOAT32` and `FLOAT64`) must not include values `NaN`, `+Infinity`, or `-Infinity`.
+
+[Enum properties](#enums) are denoted by `ENUM`. An enum property must additionally provide the ID of the specific enum it uses, referred to as its enum type (`enumType`).
+
+#### Normalized Values
+
+Normalized properties (`normalized`) provide a compact alternative to larger floating-point types. Normalized values are stored as integers, but when accessed are transformed to floating-point form according to the following rules:
+
+* Unsigned integer values (`UINT8`, `UINT16`, `UINT32`, `UINT64`) must be rescaled to the range `[0.0, 1.0]` (inclusive)
+* Signed integer values (`INT8`, `INT16`, `INT32`, `INT64`) must be rescaled to the range `[-1.0, 1.0]` (inclusive)
+
+> **Implementation Note:** Depending on the implementation and the chosen integer type, there may be some loss of precision in the normalized values. For example, if the implementation uses 32-bit floating point variables to represent the normalized value, there are only 23 bits in the mantissa. In this case, if the value to normalize is 32- or 64-bit, a number of lower bits will be truncated when normalized. Therefore, it is recommended that implementations use the highest precision floats available for representing the result.
+
+#### Minimum and Maximum Values
+
+Properties representing numeric values, fixed-length numeric arrays, and vectors may specify a minimum (`minimum`) and maximum (`maximum`). Minimum and maximum values may represent bounds of the valid range for a property, or the exact minimum and maximum values found in the dataset.
+
+> **Example:** A property storing GPS coordinates might define a range of `[-180, 180]` degrees for longitude values and `[-90, 90]` degrees for latitude values. If the dataset contains GPS coordinates only in a small region, more specific ranges may be given instead.
+
+#### Required Properties and No Data Values
+
+When associated property values must exist for all entities of a class, a property is considered required (`required`).
+
+Properties may optionally specify a No Data value (`noData`, or "sentinel value") to be used when property values do not exist. This value must match the property definition, e.g. if `type` is `UINT8` the `noData` value must be an unsigned integer in the range `[0, 255]`. If the property is normalized, the `noData` value is given in its original integer form, not the normalized form.
+
+Individual components in an array cannot be marked as optional; only the array property itself can be marked as optional.
+
+For `ARRAY`, `VECN`, and `MATN` types, `noData` is an array-typed value indicating that the entire array represents a missing value. For example, `[-1, -1, -1]` might be used as a `noData` value for a `VEC3` property. When an array-typed property is required or includes a `noData` value, this has no effect on the interpretation of individual array elements. When variable-length arrays are required, an empty array is still valid.
+
+For `ENUM` component types, a `noData` value should contain the name of the enum value as a string, rather than its integer value.
+
+> **Example:** In the example below, a "tree" class is defined with `noData` indicating a specific enum value to be interpreted as missing data.
+>
+> | property  | componentType | required | noData    |
+> |:----------|:--------------|:---------|:----------|
+> | height    | "FLOAT32"     | ✓        |           |
+> | species   | "ENUM"        |          | "Unknown" |
+> | leafColor | "STRING"      | ✓        |           |
+
+## Storage Formats
+
+A schema provides the pattern for creating entities. This section covers the various formats and encodings for storing entity metadata. Additional formats and encoding may be defined outside of this specification.
 
 * **Table format** - property values are stored in parallel 1D arrays
-* **Raster format** - property values are stored in channels of a 2D grid of pixels
+* **Raster format** - property values are stored in channels of pixel-based formats (usually images)
 
-The table format is suitable for general purpose metadata storage. This is similar in concept to a database table where entities are rows and properties are columns. The raster format is for storing fine-grained metadata in images. Entities correspond to pixels and properties correspond to channels. This format is especially useful when texture mapping high frequency data, like material properties, to less detailed 3D surfaces. The raster format can also take advantage of image compression techniques.
+The table format is suitable for general purpose metadata storage. This is similar in concept to a database table where entities are rows and properties are columns. The raster format is for storing fine-grained metadata in pixel-based formats such as images and video. Entities correspond to pixels and properties correspond to channels. This format is especially useful when texture mapping high frequency data, like material properties, to less detailed 3D surfaces. The raster format can also take advantage of image compression techniques.
+
+Both formats are designed for storing metadata for a large number of entities.
 
 Table Format|Raster Format
 --|--
@@ -91,212 +255,6 @@ Table Format|Raster Format
 
 
 Each format may have any number of **encodings**. Two encodings are defined for the table format: a **binary encoding** and a **JSON encoding**. A specification that references Cesium 3D Metadata must state which format and encoding it uses and is free to define its own formats and encodings. For example, while this specification does not define any raster encodings, the [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) glTF extension may use any image formats supported by glTF for storing per-texel metadata, including PNG and JPEG.
-
-## Schemas
-
-A schema is a collection of classes and enums that describe the types of metadata available in a dataset. An application may use this information to populate a UI or assign specific behavior to entities.
-
-### Classes and Properties
-
-A class is a collection of one or more properties. Each property declares a type, which may be a numeric, boolean, string, enum, or array type.
-
-Each class has a unique ID within the schema and each property has a unique ID within the class. This allows the class and properties to be referenced externally. 
-
-The following example shows the basics of how classes describe the types of metadata. A `building` class describes the heights of various buildings in a dataset. Likewise, the `tree` class describes trees that have a height, species, and leaf color.
-
-
-```jsonc
-{
-  "schema": {
-    "classes": {
-      "building": {
-        "properties": {
-          "height": {
-            "type": "FLOAT32"
-          }
-        }
-      },
-      "tree": {
-        "properties": {
-          "height": {
-            "type": "FLOAT32"
-          },
-          "species": {
-            "type": "STRING",
-          },
-          "leafColor": {
-            "type": "STRING",
-            "optional": true,
-            "default": "green"
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-### Property Types
-
-The following property types are supported:
-
-Name|Type
---|--
-INT8 | Signed integer in the range `[-128, 127]`
-UINT8 | Unsigned integer in the range `[0, 255]`
-INT16 | Signed integer in the range `[-32768, 32767]`
-UINT16 | Unsigned integer in the range `[0, 65535]`
-INT32 | Signed integer in the range `[-2147483648, 2147483647]`
-UINT32 | Unsigned integer in the range `[0, 4294967295]`
-INT64 | Signed integer in the range `[-9223372036854775808, 9223372036854775807]`
-UINT64 | Unsigned integer in the range `[0, 18446744073709551615]`
-FLOAT32 | A number that can be represented as 32-bit IEEE floating point
-FLOAT64 | A number that can be represented as 64-bit IEEE floating point
-BOOLEAN | True or false
-STRING | A sequence of characters
-ENUM | An enumerated type
-ARRAY | An array of components
-
-### Arrays
-
-The `ARRAY` type is used to define fixed- or variable-length arrays. Each element in the array is called a **component**.
-
-An array property must declare a component type, which is the type of each component in the array. A component type may be any type from the table above with the exception of `ARRAY`; arrays of arrays are not supported.
-
-A component count denotes the number of components for fixed-length arrays. It must be a value greater than one. If a component count is not specified the array is considered to be a variable-length array. Variable-length arrays may be any length, including zero-length.
-
-Arrays can be used to represent vector and matrix properties as shown in the example below.
-
-```jsonc
-{
-  "schema": {
-    "classes": {
-      "car": {
-        "properties": {
-          "forwardDirection": {
-            "description": "A forward direction vector",
-            "type": "ARRAY",
-            "componentType": "FLOAT64",
-            "componentCount": 3
-          },
-          "passengers": {
-            "name": "Passenger Names",
-            "description": "There are a variable number of passengers because componentCount is undefined.",
-            "type": "ARRAY",
-            "componentType": "STRING",
-          },
-          "modelMatrix": {
-            "description": "A 4x4 model matrix",
-            "type": "ARRAY",
-            "componentType": "FLOAT32",
-            "componentCount": 16
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-### Enums
-
-Enum properties are denoted by the `ENUM` type. An enum property must provide the ID of the specific enum it uses.
-
-Enums are defined in the schema alongside classes. An enum consists of a set of named integer values. Integer values may be positive or negative. Additionally, an enum may specify a value type that limits the range of possible enum values, allowing for efficient binary encoding.
-
-The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See [Property Types](#property-types).
-
-Duplicate names or integer values within the same enum are not allowed.
-
-In the example below each tree can be classified as one of four tree species.
-
-```jsonc
-{
-  "schema": {
-    "enums": {
-      "species": {
-        "valueType": "INT8",
-        "values": [
-          {
-            "name": "Oak",
-            "value": 0
-          },
-          {
-            "name": "Pine",
-            "value": 1
-          },
-          {
-            "name": "Maple",
-            "value": 2
-          },
-          {
-            "name": "Unknown",
-            "value": -1
-          }
-        ]
-      }
-    },
-    "classes": {
-      "tree": {
-        "properties": {
-          "height": {
-            "type": "FLOAT32"
-          },
-          "species": {
-            "type": "ENUM",
-            "enumType": "species"
-          },
-          "leafColor": {
-            "type": "STRING",
-            "optional": true,
-            "default": "green"
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-### Normalized Properties
-
-In many applications, it is helpful to transform values to a normalized range, usually `[0.0, 1.0]` or `[-1.0, 1.0]` depending on the use case.
-
-An integer property may be marked as normalized. Property values are stored in their original integer form, but when accessed are transformed to normalized form. 
-
-The following normalization rules are applied when the property is normalized:
-
-* For unsigned integer types (`UINT8`, `UINT16`, `UINT32`, `UINT64`), the values will be rescaled to the range `[0.0, 1.0]` (inclusive).
-* For signed integer types (`INT8`, `INT16`, `INT32`, `INT64`), values will be rescaled to the range `[-1.0, 1.0]` (inclusive).
-
-> **Implementation Note:** Depending on the implementation and the chosen integer type, there may be some loss of precision in the normalized values. For example, if the implementation uses 32-bit floating point variables to represent the normalized value, there are only 23 bits in the mantissa. In this case, if the value to normalize is 32- or 64-bit, a number of lower bits will be truncated when normalized. Therefore, it is recommended that implementations use the highest precision floats available for representing the result.
-
-### Minimum and Maximum Values
-
-Numeric properties may specify a minimum and maximum allowed value. For example a property storing GPS coordinates would define a range of `[-180, 180]` degrees for longitude values and `[-90, 90]` degrees for latitude values.
-
-### Optional Properties and Default Values
-
-Properties can be marked as optional. Optional properties do not need to have associated property values.
-
-A property may specify a default value to be used when property values do not exist. The default value must match the property definition, e.g. if `type` is `UINT8` the default value must be an unsigned integer in the range `[0, 255]`. If the property is normalized, the default value is provided in its original integer form, not the normalized form.
-
-Individual components in an array cannot be marked as optional; only the array property itself can be marked as optional.
-
-### Semantics
-
-As mentioned earlier, a property does not have inherent meaning. However it may be assigned a semantic, an identifier that describes how this property should be interpreted in an external semantic specification.
-
-## Storage Formats
-
-A schema provides the pattern for creating entities. This section covers the various formats and encodings for storing entity metadata. Additional formats and encoding may be defined outside of this specification.
-
-The two formats are defined:
-
-* Table format - property values are stored in parallel 1D arrays
-* Raster format - property values are stored in channels of a 2D grid of pixels
-
-Both formats are designed for storing metadata for a large number of entities.
 
 ### Table Format
 
@@ -320,18 +278,18 @@ Property vales are encoded in binary according to their type, in little-endian f
 
 Numeric types are encoded as follows:
 
-Name|Description
---|--
-INT8 | 8-bit two's complement signed integer
-UINT8 | 8-bit unsigned integer
-INT16 | 16-bit two's complement signed integer
-UINT16 | 16-bit unsigned integer
-INT32 | 32-bit two's complement signed integer
-UINT32 | 32-bit unsigned integer
-INT64 | 64-bit two's complement signed integer
-UINT64 | 64-bit unsigned integer
-FLOAT32 | 32-bit IEEE floating point
-FLOAT64 | 64-bit IEEE floating point
+| Name    | Description                            |
+|---------|----------------------------------------|
+| INT8    | 8-bit two's complement signed integer  |
+| UINT8   | 8-bit unsigned integer                 |
+| INT16   | 16-bit two's complement signed integer |
+| UINT16  | 16-bit unsigned integer                |
+| INT32   | 32-bit two's complement signed integer |
+| UINT32  | 32-bit unsigned integer                |
+| INT64   | 64-bit two's complement signed integer |
+| UINT64  | 64-bit unsigned integer                |
+| FLOAT32 | 32-bit IEEE floating point number      |
+| FLOAT64 | 64-bit IEEE floating point number      |
 
 ##### Booleans
 
@@ -372,64 +330,40 @@ This example shows how to encode a variable-length array of integers.
 
 <img src="figures/array-of-ints.png"  alt="Variable-length array" width="640px">
 
-```jsonc
-{
-  "schema": {
-    "classes": {
-      "arrayExample": {
-        "properties": {
-          "arrayProperty": {
-            "type": "ARRAY",
-            "componentType": "UINT8"
-          }
-        }
-      }
-    }
-  },
-  "entityTable": {
-    "count": 5,
-    "class": "arrayExample",
-    "properties": {
-      "arrayProperty": {
-        "buffer": {...},
-        "arrayOffsetBuffer": {...}
-      }
-    }
-  }
-}
-```
+**schema → classes → arrayExample**
+
+| property        | type    | componentType |
+|-----------------|---------|---------------|
+| "arrayProperty" | "ARRAY" | "UINT8"       |
+
+**table**
+
+- count: `5`
+- class: `"arrayExample"`
+- properties
+  - `"arrayProperty"`
+    - buffer: `[1, 3, 5, ...]`
+    - arrayOffsetBuffer: `[0, 3, 7, ...]`
 
 This example shows how to encode a variable-length array of strings.
 
 ![Variable-length array of string](figures/array-of-strings.png)
 
-```jsonc
-{
-  "schema": {
-    "classes": {
-      "weather": {
-        "properties": {
-          "forecastHistory": {
-            "type": "ARRAY",
-            "componentType": "STRING"
-          }
-        }
-      }
-    }
-  },
-  "entityTable":  {
-    "count": 2,
-    "class": "weather",
-    "properties": {
-      "forecastHistory": {
-        "buffer": {...},
-        "arrayOffsetBuffer": {...},
-        "stringOffsetBuffer": {...}
-      }
-    }
-  }
-}
-```
+**schema → classes → weather**
+
+| property          | type    | componentType |
+|-------------------|---------|---------------|
+| "forecastHistory" | "ARRAY" | "STRING"      |
+
+**table**
+
+- count: `2`
+- class `"weather"`
+- properties
+  - `"forecastHistory"`
+    - buffer: `['R', 'a', 'i', 'n', ...]`
+    - arrayOffsetBuffer: `[0, 2, 3]`
+    - stringOffsetBuffer: `[0, 8, 19, 28]`
 
 #### JSON Encoding
 
