@@ -22,10 +22,12 @@ Draft
 - [Overview](#overview)
 - [Concepts](#concepts)
 - [Schemas](#schemas)
+  - [Overview](#overview-1)
   - [Version](#version)
   - [Enums](#enums)
   - [Classes](#classes)
   - [Properties](#properties)
+    - [Overview](#overview-2)
     - [ID](#id)
     - [Name](#name)
     - [Description](#description)
@@ -36,19 +38,21 @@ Draft
     - [Minimum and Maximum Values](#minimum-and-maximum-values)
     - [Required Properties and No Data Values](#required-properties-and-no-data-values)
 - [Storage Formats](#storage-formats)
-  - [Table Format](#table-format)
-    - [Binary Encoding](#binary-encoding)
-      - [Numbers](#numbers)
-      - [Booleans](#booleans)
-      - [Strings](#strings)
-      - [Enums](#enums-1)
-      - [Arrays](#arrays)
-    - [JSON Encoding](#json-encoding)
-      - [Numbers](#numbers-1)
-      - [Booleans](#booleans-1)
-      - [Strings](#strings-1)
-      - [Enums](#enums-2)
-      - [Arrays](#arrays-1)
+  - [Overview](#overview-3)
+  - [Binary Table Format](#binary-table-format)
+    - [Overview](#overview-4)
+    - [Numbers](#numbers)
+    - [Booleans](#booleans)
+    - [Strings](#strings)
+    - [Enums](#enums-1)
+    - [Arrays](#arrays)
+  - [JSON Table Format](#json-table-format)
+    - [Overview](#overview-5)
+    - [Numbers](#numbers-1)
+    - [Booleans](#booleans-1)
+    - [Strings](#strings-1)
+    - [Enums](#enums-2)
+    - [Arrays](#arrays-1)
 - [Revision History](#revision-history)
 
 ## Overview
@@ -80,6 +84,8 @@ Property values are stored with flexible representations to allow compact transm
 
 ## Schemas
 
+### Overview
+
 A schema defines the organization and types of metadata used in 3D content, represented as a set of classes and enums. Class definitions are referenced by entities whose metadata conforms to the class definition, providing a consistent and machine-readable structure for all entities in a dataset.
 
 ### Version
@@ -106,6 +112,8 @@ The example below defines a "species" enum with three possible tree species, as 
 Classes represent categories of similar entities, and are defined by a collection of one or more properties shared by the entities of a class. Each class has a unique ID within the schema, and each property has a unique ID within the class, to be used for references within the schema and externally.
 
 ### Properties
+
+#### Overview
 
 Properties describe the type and structure of values that may be associated with entities of a class. Entities may omit values for a property, unless the property is required. Entities must not contain values other than those defined by the properties of their class.
 
@@ -198,6 +206,8 @@ Floating-point properties (`FLOAT32` and `FLOAT64`) must not include values `NaN
 
 [Enum properties](#enums) are denoted by `ENUM`. An enum property must additionally provide the ID of the specific enum it uses, referred to as its enum type (`enumType`).
 
+> **Implementation Note:** Developers of authoring tools should be aware that many JSON implementations support only numeric values that can be represented as IEEE-754 double precision floating point numbers. Floating point numbers should be representable as double precision IEEE-754 floats when encoded in JSON. When those numbers represent property values (such as `noData`, `min`, or `max`) having lower precision (e.g. single-precision float or 8-bit or 16-bit integer), the values should be rounded to the same precision in JSON to avoid any potential boundary mismatches. Numeric property values encoded in binary storage are unaffected by these limitations of JSON implementations.
+
 #### Normalized Values
 
 Normalized properties (`normalized`) provide a compact alternative to larger floating-point types. Normalized values are stored as integers, but when accessed are transformed to floating-point form according to the following rules:
@@ -205,7 +215,7 @@ Normalized properties (`normalized`) provide a compact alternative to larger flo
 * Unsigned integer values (`UINT8`, `UINT16`, `UINT32`, `UINT64`) must be rescaled to the range `[0.0, 1.0]` (inclusive)
 * Signed integer values (`INT8`, `INT16`, `INT32`, `INT64`) must be rescaled to the range `[-1.0, 1.0]` (inclusive)
 
-> **Implementation Note:** Depending on the implementation and the chosen integer type, there may be some loss of precision in the normalized values. For example, if the implementation uses 32-bit floating point variables to represent the normalized value, there are only 23 bits in the mantissa. In this case, if the value to normalize is 32- or 64-bit, a number of lower bits will be truncated when normalized. Therefore, it is recommended that implementations use the highest precision floats available for representing the result.
+> **Implementation Note:** Depending on the implementation and the chosen integer type, there may be some loss of precision in values after denormalization. For example, if the implementation uses 32-bit floating point variables to represent the value of a normalized 32-bit integer, there are only 23 bits in the mantissa of the float, and lower bits will be truncated by denormalization. Client implementations should use higher precision floats when appropriate for correctly representing the result.
 
 #### Minimum and Maximum Values
 
@@ -235,37 +245,36 @@ For `ENUM` component types, a `noData` value should contain the name of the enum
 
 ## Storage Formats
 
-A schema provides the pattern for creating entities. This section covers a format and encoding for storing entity metadata. Additional formats and encoding may be defined outside of this specification.
+### Overview
 
-* **Table format** - property values are stored in parallel 1D arrays
+Schemas provide templates for entities, but creating an entity requires specific property values and storage. This section covers two serialization formats for entity metadata, both having column-based tabular layouts:
 
-The table format is suitable for general purpose metadata storage. This is similar in concept to a database table where entities are rows and properties are columns.
+* **Binary Table Format** - property values are stored in parallel 1D arrays, encoded as binary data
+* **JSON Table Format** - property values are stored in parallel 1D arrays, encoded as JSON
+
+Additional serialization methods may be defined outside of this specification, and are not required to use the column-based layouts described here. For example, property values could be stored in texture channels or retrieved from a REST API.
+
+> **Implementation note:** Any specification that references Cesium 3D Metadata must state explicitly which serialization formats are supported, or define its own serialization. For example, the [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) glTF extension implements the binary table format described below, and defines an additional image-based format for per-texel metadata.
+
+Table formats are suitable for general purpose metadata storage, similar to a database table where entities are rows and properties are columns. Each column represents one of the properties of the class. Each row represents a single entity conforming to the class.
 
 <img src="figures/table-format.png"  alt="Table Format" width="1000px">
-
-Each format may have any number of **encodings**. Two encodings are defined for the table format: a **binary encoding** and a **JSON encoding**. A specification that references Cesium 3D Metadata must state which format and encoding it uses and is free to define its own formats and encodings. For example, while this specification does not define any raster encodings, the [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) glTF extension may use any image formats supported by glTF for storing per-texel metadata, including PNG and JPEG.
-
-### Table Format
-
-The table format is general purpose and is conceptually similar to a database table. Each column represents one of the properties of the class. Each row represents a single entity conforming to the class.
 
 The rows of a table are addressed by an integer index called an **entity ID**. Entity IDs are always numbered `0, 1, ..., N - 1` where `N` is the number of rows in the table.
 
 The metadata values are stored in parallel arrays called **property arrays**, one per column. Each property array stores values for a single property. The `i-th` value of each property array is the value of that property for the entity with an entity ID of `i`.
 
-Two encodings are defined for the table format: **binary encoding** and **JSON encoding**.
+### Binary Table Format
 
-Binary encoding is designed to be runtime efficient, and scalable to large quantities of metadata. Since a property array stores elements of a single type, this allows storage optimizations such as storing boolean values in a tightly packed bitstream, or data type-aware compression.
+#### Overview
 
-JSON encoding is useful for storing a small number of entities in human readable form.
+Binary encoding is efficient for runtime use, and scalable to large quantities of metadata. Because property arrays contain elements of a single type, bitstreams may be tightly packed or may use compression methods appropriate for a particular data type.
 
-#### Binary Encoding
+Property values are binary-encoded according to their data type, in little-endian format. Values are tightly packed: there is no padding between values.
 
-Property vales are encoded in binary according to their type, in little-endian format. Values are tightly packed: there is no padding between values.
+#### Numbers
 
-##### Numbers
-
-Numeric types are encoded as follows:
+A numeric value may be encoded as 8-, 16-, 32-, or 64-bit types. Multiple numeric values are packed tightly in the same buffer. The following data types are supported:
 
 | Name    | Description                            |
 |---------|----------------------------------------|
@@ -280,81 +289,71 @@ Numeric types are encoded as follows:
 | FLOAT32 | 32-bit IEEE floating point number      |
 | FLOAT64 | 64-bit IEEE floating point number      |
 
-##### Booleans
+#### Booleans
 
-A boolean value is encoded as a single bit, either 0 (`false`) or 1 (`true`). Multiple boolean values are packed into a bitstream.
+A boolean value is encoded as a single bit, either 0 (`false`) or 1 (`true`). Multiple boolean values are packed tightly in the same buffer.
 
-To access the boolean value for entity ID `i`:
+> **Implementation note:** Example accessing a boolean value for entity ID `i`.
+>
+> ```js
+> byteIndex = floor(i / 8)
+> bitIndex = i % 8
+> bitValue = (buffer[byteIndex] >> bitIndex) & 1
+> value = bitValue == 1
+> ```
 
-```
-byteIndex = floor(i / 8)
-bitIndex = i % 8
-bitValue = (buffer[byteIndex] >> bitIndex) & 1
-value = bitValue == 1
-```
-
-##### Strings
+#### Strings
 
 A string value is a UTF-8 encoded byte sequence. Multiple strings are packed tightly in the same buffer.
 
-Since strings byte lengths may vary, an **offset buffer** is used to identify strings in the buffer. If there are `N` strings in the property array, the offset buffer has `N + 1` elements. The first `N` of these point to the start byte of each string, while the last one points to the byte immediately after the last string. The byte length of the `i-th` string (0-indexed) is given by `offsetBuffer[i + 1] - offsetBuffer[i]`.
+Because string lengths may vary, a **string offset** buffer (`stringOffset`) is used to identify strings in the buffer. If there are `N` strings in the property array, the string offset buffer has `N + 1` elements. The first `N` of these point to the first byte of each string, while the last points to the byte immediately after the last string. The number of bytes in the `i-th` string is given by `stringOffset[i + 1] - stringOffset[i]`. UTF-8 encodes each character as 1-4 bytes, so string offsets do not necessarily represent the number of characters in the string.
 
-The size of each offset can be configured with an offset type, which may be `UINT8`, `UINT16`, `UINT32`, or `UINT64`.
+The data type used for offsets is defined by a **string offset type** (`stringOffsetType`), which may be `UINT8`, `UINT16`, `UINT32`, or `UINT64`.
 
-The following example shows how UTF-8 strings are encoded in binary:
+> **Example:** Three UTF-8 strings, binary-encoded in a buffer.
+>
+> ![String property example](figures/unicode-strings.png)
 
-![String property example](figures/unicode-strings.png)
+#### Enums
 
-##### Enums
+Enums are encoded as integer values according to the enum value type (see [Enums](#enums)). Multiple enum values are packed tightly in the same buffer. Any integer data type supported for [Numbers](#numbers) may be used for enum values.
 
-Enums are encoded as integer values according to the enum value type (see [Enums](#enums)).
+#### Arrays
 
-##### Arrays
+Array values are encoded with varying array lengths and element sizes. Multiple arrays and array values are packed tightly in the same buffer.
 
-Array values are encoded according to their component type. Components are tightly packed.
+Variable-length arrays use an additional **array offset** buffer (`arrayOffset`). The `i-th` value in the array offset buffer is an element index — not a byte offset — identifying the beginning of the `i-th` array. String values within an array may have inconsistent lengths, requiring both array offset and **string offset** buffers (see: [Strings](#strings)).
 
-Variable-length arrays use a similar offset buffer technique like [strings](#strings) do, with one main difference. Instead of storing _byte_ offsets, array offset buffers store _array index_ offsets. For example, for an array of `FLOAT32`, an offset of `3` would correspond to element `3`. The byte offset would be `3 * sizeof(FLOAT32) = 12`. For an array of `BOOLEAN` an offset of `3` would correspond to a _bit_ offset of 3.
+The data type used for offsets is defined by an **array offset type** (`arrayOffsetType`), which may be `UINT8`, `UINT16`, `UINT32`, or `UINT64`.
 
-This example shows how to encode a variable-length array of integers.
+If there are `N` arrays in the property array, the array offset buffer has `N + 1` elements. The first `N` of these point to the first element of an array within the property array, or within a string offset buffer for string component types. The last value points to a (non-existent) element immediately following the last array element.
 
-<img src="figures/array-of-ints.png"  alt="Variable-length array" width="640px">
+As a result, property value lookups for fixed- and variable-length arrays must compute an element's index differently. For each case below, the offset of an array element `i` within its binary storage is expressed in terms of entity ID `id` and element index `i`.
 
-**schema → classes → arrayExample**
+| Array length | Array type                        | Offset type | Offset                                  |
+|--------------|-----------------------------------|-------------|-----------------------------------------|
+| variable     | `number[]`, `boolean[]`, `enum[]` | array index | `arrayOffset[id] + i`                   |
+| fixed        | `number[]`, `boolean[]`, `enum[]` | array index | `id * componentCount + i`               |
+| variable     | `string[]`                        | byte offset | `stringOffset[arrayOffset[id] + i]`     |
+| fixed        | `string[]`                        | byte offset | `stringOffset[id * componentCount + i]` |
 
-| property        | type    | componentType |
-|-----------------|---------|---------------|
-| "arrayProperty" | "ARRAY" | "UINT8"       |
+`VECN` and `MATN` types are treated as fixed-length numeric arrays.
 
-**table**
+Each expression in the table above defines an index into the underlying property array. For a property array of `FLOAT32` components, index `3` would correspond to <u>_byte_</u> offset `3 * sizeof(FLOAT32) = 12` within that array. For an array of `BOOLEAN` components, offset `3` would correspond to <u>_bit_</u> offset `3`.
 
-- count: `5`
-- class: `"arrayExample"`
-- properties
-  - `"arrayProperty"`
-    - buffer: `[1, 3, 5, ...]`
-    - arrayOffsetBuffer: `[0, 3, 7, ...]`
+> **Example:** Five variable-length arrays of UINT8 components, binary-encoded in a buffer. The associated property definition would be `type = "ARRAY"`, and `componentType = "UINT8"`, `componentCount = undefined` (variable-length).
+>
+> <img src="figures/array-of-ints.png"  alt="Variable-length array" width="640px">
 
-This example shows how to encode a variable-length array of strings.
+> **Example:** Two variable-length arrays of strings, binary-encoded in a buffer. The associated property definition would be `type = "ARRAY"`, `componentType = "STRING"`, `componentCount = undefined` (variable-length).
+>
+> ![Variable-length array of string](figures/array-of-strings.png)
 
-![Variable-length array of string](figures/array-of-strings.png)
+### JSON Table Format
 
-**schema → classes → weather**
+#### Overview
 
-| property          | type    | componentType |
-|-------------------|---------|---------------|
-| "forecastHistory" | "ARRAY" | "STRING"      |
-
-**table**
-
-- count: `2`
-- class `"weather"`
-- properties
-  - `"forecastHistory"`
-    - buffer: `['R', 'a', 'i', 'n', ...]`
-    - arrayOffsetBuffer: `[0, 2, 3]`
-    - stringOffsetBuffer: `[0, 8, 19, 28]`
-
-#### JSON Encoding
+JSON encoding is useful for storing a small number of entities in human readable form.
 
 Property values are encoded as their corresponding JSON types: numeric types are represented as `number`, booleans as `boolean`, strings as `string`, enums as `string`, and arrays as `array`.
 
@@ -467,25 +466,25 @@ _A collection of entities encoded in JSON_
 }
 ```
 
-##### Numbers
+#### Numbers
 
 All numeric types (`INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, `UINT64`, `FLOAT32`, and `FLOAT64`) are encoded as JSON numbers. Floating point numbers must be representable as IEEE floating point.
 
 > **Implementation Note:** For numeric types the size in bits is made explicit. Even though JSON only has a single `number` type for all integers and floating point numbers, the application that consumes the JSON may make a distinction. For example, C and C++ have several different integer types such as `uint8_t`, `uint32_t`. The application is responsible for interpreting the metadata using the type specified in the property definition.
 
-##### Booleans
+#### Booleans
 
 Booleans are encoded as a JSON boolean, either `true` or `false`.
 
-##### Strings
+#### Strings
 
 Strings are encoded as JSON strings.
 
-##### Enums
+#### Enums
 
 Enums are encoded as JSON strings using the name the enum value rather than the integer value. Therefore the enum value type, if specified, is ignored for the JSON encoding.
 
-##### Arrays
+#### Arrays
 
 Arrays are encoded as JSON arrays, where each component is encoded according to the component type. When a component count is specified, the length of the JSON array must match the component count. Otherwise, for variable-length arrays, the JSON array may be any length, including zero-length.
 
