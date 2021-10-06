@@ -162,6 +162,14 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 Sphere bounding volumes are disallowed, as these cannot be
 divided into a quadtree or octree.
 
+> Implementation note
+> 
+> In order to increase numerical stability during this subdivision process, the actual bounding volumes should not be computed by repeatedly subdividing a given volume. Instead, the exact bounding volumes should be computed directly for a given level.
+> 
+> Let the extent of the bounding volume of a tile along one dimension *d* be *(min<sub>d</sub>, max<sub>d</sub>)*. The number of bounding volumes along that dimension for a given level  is *2<sup>level</sup>*. The size of each bounding volume at this level, along dimension *d*, is *size<sub>d</sub> = (max<sub>d</sub> - min<sub>d</sub>) / 2<sup>level</sup>*. The extent of the bounding volume of a child can then be computed directly as *(min<sub>d</sub> + size<sub>d</sub> * i, min<sub>d</sub> + size<sub>d</sub> * (i + 1))*, where *i* is the index of the child in dimension *d*. 
+> 
+
+
 ### Subdivision Rules
 
 Implicit tiling only requires defining the subdivision scheme, refine strategy, bounding volume, and geometric error at the implicit root tile. These properties are computed automatically for any descendant tile based on the following rules:
