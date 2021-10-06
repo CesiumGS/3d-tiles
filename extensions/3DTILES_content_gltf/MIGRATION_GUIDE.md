@@ -6,7 +6,7 @@ This document covers the differences between existing tile formats and the new g
 
 [Batched 3D Model](../../specification/TileFormats/Batched3DModel) is a wrapper around a binary glTF that includes additional information in its Feature Table and Batch Table. Batched 3D Model content can be converted into glTF content with the following changes: 
 
-* The `RTC_CENTER` can be added to the translation component of the root node of the glTF asset.
+* The [`RTC_CENTER`](https://github.com/CesiumGS/3d-tiles/tree/main/specification/TileFormats/Batched3DModel#coordinate-system) can be added to the translation component of the root node of the glTF asset.
 * Batch Tables and Batch IDs can be represented using [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata).
 
 ### Instanced 3D Model (i3dm)
