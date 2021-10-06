@@ -205,7 +205,7 @@ For `region` bounding volumes:
 
 A **Template URI** is a URI pattern used to refer to tiles by their tile coordinates.
 
-Template URIs must include the variables `{level}`, `{x}`, `{y}`. Template URIs for octrees must also include `{z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
+Template URIs must include the variables `{level}`, `{x}`, `{y}`. Template URIs for octrees must also include `{z}`. When referring to a specific tile, the tile's coordinates are substituted for these variables.
 
 Here are some examples of template URIs and files that they match:
 
@@ -317,7 +317,7 @@ Header fields:
 
 | Bytes | Field | Type     | Description |
 |-------|-------|----------|-------------|
-| 0-3   | Magic | `UINT32` | A magic number identifying this as a subtree file. This is always `0x74627573` which when stored in little-endian is the ASCII string `subt` |
+| 0-3   | Magic | `UINT32` | A magic number identifying this as a subtree file. This is always `0x74627573`, which are the four bytes of the ASCII string `subt`, stored in little-endian order |
 | 4-7   | Version | `UINT32` | The version number. Always `1` for this version of the specification. |
 | 8-15  | JSON byte length | `UINT64` | The length of the subtree JSON, including any padding. |
 | 16-23 | Binary byte length | `UINT64` | The length of the buffer (or 0 if the buffer does not exist) including any padding. |
@@ -390,10 +390,10 @@ Availability bitstreams are packed in binary using the format described in the [
 * **implicit tiling** - A description of a tileset using recursive subdivision.
 * **implicit root tile** - A tile with the `3DTILES_implicit_tiling` extension, which denotes the root of an implicit tileset.
 * **octree** - A 3D subdivision scheme that divides each bounding volume into 8 smaller bounding volumes along the midpoint of the `x`, `y`, and `z` axes.
-* **quadtree** - A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volume along the midpoint of the `x` and `y` axes.
+* **quadtree** - A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volumes along the midpoint of the `x` and `y` axes.
 * **subtree** - A fixed-size section of the tree that contains availability information.
 * **subtree file** - A binary file storing information about a specific subtree.
-* **subdivision scheme** - A recursive pattern of dividing a parent tile into smaller children. tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile.
+* **subdivision scheme** - A recursive pattern of dividing a parent tile into smaller child tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile.
 * **template URI** - A URI pattern containing tile coordinates for directly addressing tiles.
 * **tile** - A division of space that may contain content.
 * **tileset** - A hierarchical collection of tiles.
@@ -914,7 +914,7 @@ tile.globalZ = concatBits(subtreeRoot.globalZ, tile.localZ)
 <!-- omit in toc -->
 ### Finding Parent and Child Tiles
 
-Computing the coordinates of a parent or child tile can also be computed by bitwise operations on the Morton index. The following formulas apply for both local and global coordinates.
+The coordinates of a parent or child tile can also be computed with bitwise operations on the Morton index. The following formulas apply for both local and global coordinates.
 
 ```
 childTile.level = parentTile.level + 1
