@@ -111,11 +111,11 @@ The `3DTILES_implicit_tiling` extension may be defined on any tile in the tilese
     "extensions": {
       "3DTILES_implicit_tiling": {
         "subdivisionScheme": "QUADTREE",
-        "subtreeLevels": 7,
         "maximumLevel": 20,
         "subtrees": {
           "uri": "subtrees/{level}/{x}/{y}.subtree"
-        }
+        },
+        "subtreeLevels": 7
       }
     }
   }
@@ -126,10 +126,10 @@ In the extension object of the tile, the following properties about the implicit
 
 | Property | Description |
 | ------ | ----------- |
-| `subdivisionScheme` | Either `QUADTREE` or `OCTREE` |
-| `subtreeLevels` | How many levels there are in each subtree |
+| `subdivisionScheme` | Either `QUADTREE` or `OCTREE`. See [Subdivision scheme](#subdivision-scheme). |
 | `maximumLevel` | Level of the deepest available tile in the tree. |
 | `subtrees` | Template URI for subtree files. See [Subtrees](#subtrees). |
+| `subtreeLevels` | How many levels there are in each subtree. |
 
 [Template URIs](#template-uris) are used for locating subtree files as well as tile contents. For content, the template URI is specified in the tile's `content.uri` property.
 
