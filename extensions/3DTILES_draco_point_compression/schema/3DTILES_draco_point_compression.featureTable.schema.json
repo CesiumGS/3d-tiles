@@ -1,9 +1,9 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "id" : "3DTILES_draco_point_compression.featureTable.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "id": "3DTILES_draco_point_compression.featureTable.schema.json",
     "title": "3DTILES_draco_point_compression Feature Table extension",
     "type": "object",
-    "description" : "Specifies the compressed Feature Table properties and the location of the compressed data in the Feature Table binary.",
+    "description": "Specifies the compressed Feature Table properties and the location of the compressed data in the Feature Table binary.",
     "properties": {
         "properties": {
             "type": "object",
@@ -25,6 +25,10 @@
             "minimum": 0
         }
     },
-    "required": ["properties", "byteOffset", "byteLength"],
-    "additionalProperties" : false
+    "required": [
+        "properties",
+        "byteOffset",
+        "byteLength"
+    ],
+    "additionalProperties": false
 }

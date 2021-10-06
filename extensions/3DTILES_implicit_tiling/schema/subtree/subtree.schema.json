@@ -1,40 +1,52 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "title": "Subtree",
-  "type": "object",
-  "description": "An object describing the availability of tiles and content in a subtree, as well as availability of children subtrees.",
-  "properties": {
-    "buffers": {
-      "type": "array",
-      "description": "An array of buffers.",
-      "items": {
-        "$ref": "buffer.schema.json"
-      }
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Subtree",
+    "type": "object",
+    "description": "An object describing the availability of tiles and content in a subtree, as well as availability of children subtrees.",
+    "properties": {
+        "buffers": {
+            "type": "array",
+            "description": "An array of buffers.",
+            "items": {
+                "$ref": "buffer.schema.json"
+            }
+        },
+        "bufferViews": {
+            "type": "array",
+            "description": "An array of bufferViews.",
+            "items": {
+                "$ref": "bufferView.schema.json"
+            }
+        },
+        "tileAvailability": {
+            "allOf": [
+                {
+                    "$ref": "availability.schema.json"
+                }
+            ],
+            "description": "The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a bufferView or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability must also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees must have at least one tile."
+        },
+        "childSubtreeAvailability": {
+            "allOf": [
+                {
+                    "$ref": "availability.schema.json"
+                }
+            ],
+            "description": "The availability of children subtrees. The availability bitstream is a 1D boolean array where subtrees are ordered by their Morton index in the level of the tree immediately below the bottom row of the subtree. A child subtree's availability is determined by a single bit, 1 meaning a subtree exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `N^subtreeLevels` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a bufferView or as a constant value that applies to all child subtrees. If availability is 0 for all child subtrees, then the tileset does not subdivide further."
+        },
+        "contentAvailability": {
+            "allOf": [
+                {
+                    "$ref": "availability.schema.json"
+                }
+            ],
+            "description": "The availability of the content of the tiles of the subtree. The structure of the content availability bitstream matches the tile availability bitstream. Content availability is determined by a single bit, 1 meaning content exists at that spatial index, and 0 meaning it does not. If content availability is 1 its corresponding tile availability must also be 1. If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile. If `tile.content` is defined, then `contentAvailability` is required. Otherwise, `contentAvailability` is disallowed."
+        },
+        "extensions": {},
+        "extras": {}
     },
-    "bufferViews": {
-      "type": "array",
-      "description": "An array of bufferViews.",
-      "items": {
-        "$ref": "bufferView.schema.json"
-      }
-    },
-    "tileAvailability": {
-      "allOf": [ { "$ref": "availability.schema.json" } ],
-      "description": "The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a bufferView or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability must also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees must have at least one tile."
-    },
-    "childSubtreeAvailability": {
-      "allOf": [ { "$ref": "availability.schema.json" } ],
-      "description": "The availability of children subtrees. The availability bitstream is a 1D boolean array where subtrees are ordered by their Morton index in the level of the tree immediately below the bottom row of the subtree. A child subtree's availability is determined by a single bit, 1 meaning a subtree exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `N^subtreeLevels` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a bufferView or as a constant value that applies to all child subtrees. If availability is 0 for all child subtrees, then the tileset does not subdivide further."
-    },
-    "contentAvailability": {
-      "allOf": [ { "$ref": "availability.schema.json" } ],
-      "description": "The availability of the content of the tiles of the subtree. The structure of the content availability bitstream matches the tile availability bitstream. Content availability is determined by a single bit, 1 meaning content exists at that spatial index, and 0 meaning it does not. If content availability is 1 its corresponding tile availability must also be 1. If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile. If `tile.content` is defined, then `contentAvailability` is required. Otherwise, `contentAvailability` is disallowed."
-    },
-    "extensions": {},
-    "extras": {}
-  },
-  "required": [
-    "tileAvailability",
-    "childSubtreeAvailability"
-  ]
+    "required": [
+        "tileAvailability",
+        "childSubtreeAvailability"
+    ]
 }

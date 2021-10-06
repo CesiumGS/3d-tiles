@@ -1,14 +1,14 @@
 {
-  "$schema": "https://json-schema.org/draft-04/schema",
-  "title": "3DTILES_metadata content extension",
-  "type": "object",
-  "description": "An object containing metadata about a content.",
-  "properties": {
-    "group": {
-      "type": "string",
-      "description": "The group this content belongs to. The value must be a group ID declared in the `groups` dictionary."
-    },
-    "extensions": {},
-    "extras": {}
-  }
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "3DTILES_metadata content extension",
+    "type": "object",
+    "description": "An object containing metadata about a content.",
+    "properties": {
+        "group": {
+            "type": "string",
+            "description": "The group this content belongs to. The value must be a group ID declared in the `groups` dictionary."
+        },
+        "extensions": {},
+        "extras": {}
+    }
 }

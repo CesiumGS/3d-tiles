@@ -1,28 +1,28 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "title": "Buffer",
-  "type": "object",
-  "description": "A buffer is a binary blob. It is either the binary chunk of the subtree file, or an external buffer referenced by a URI",
-  "properties": {
-    "uri": {
-      "type": "string",
-      "description": "The URI of the buffer. Relative paths are relative to the file containing the buffer JSON. If `uri` is omitted, the buffer is assumed to refer to the binary chunk of the subtree file.",
-      "format": "uriref"
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Buffer",
+    "type": "object",
+    "description": "A buffer is a binary blob. It is either the binary chunk of the subtree file, or an external buffer referenced by a URI",
+    "properties": {
+        "uri": {
+            "type": "string",
+            "description": "The URI of the buffer. Relative paths are relative to the file containing the buffer JSON. If `uri` is omitted, the buffer is assumed to refer to the binary chunk of the subtree file.",
+            "format": "uriref"
+        },
+        "byteLength": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "The length of the buffer in bytes."
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The name of the buffer."
+        },
+        "extensions": {},
+        "extras": {}
     },
-    "byteLength": {
-      "type": "integer",
-      "minimum": 1,
-      "description": "The length of the buffer in bytes."
-    },
-    "name": {
-      "type": "string",
-      "minLength": 1,
-      "description": "The name of the buffer."
-    },
-    "extensions": {},
-    "extras": {}
-  },
-  "required": [
-    "byteLength"
-  ]
+    "required": [
+        "byteLength"
+    ]
 }

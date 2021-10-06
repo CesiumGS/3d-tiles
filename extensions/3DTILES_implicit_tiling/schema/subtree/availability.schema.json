@@ -1,40 +1,40 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "title": "Availability",
-  "type": "object",
-  "description": "An object describing the availability of a set of elements.",
-  "properties": {
-    "bufferView": {
-      "description": "Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../specification/Metadata). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.",
-      "type": "integer",
-      "minimum": 0
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Availability",
+    "type": "object",
+    "description": "An object describing the availability of a set of elements.",
+    "properties": {
+        "bufferView": {
+            "description": "Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [Cesium 3D Metadata specification](../../specification/Metadata). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "availableCount": {
+            "description": "A number indicating how many 1 bits exist in the availability bitstream.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "constant": {
+            "type": "integer",
+            "enum": [
+                0,
+                1
+            ],
+            "description": "Integer indicating whether all of the elements are available (1) or all are unavailable (0)."
+        },
+        "extensions": {},
+        "extras": {}
     },
-    "availableCount": {
-      "description": "A number indicating how many 1 bits exist in the availability bitstream.",
-      "type": "integer",
-      "minimum": 0
-    },
-    "constant": {
-      "type": "integer",
-      "enum": [
-        0,
-        1
-      ],
-      "description": "Integer indicating whether all of the elements are available (1) or all are unavailable (0)."
-    },
-    "extensions": {},
-    "extras": {}
-  },
-  "oneOf": [
-    {
-      "required": [
-        "bufferView"
-      ]
-    },
-    {
-      "required": [
-        "constant"
-      ]
-    }
-  ]
+    "oneOf": [
+        {
+            "required": [
+                "bufferView"
+            ]
+        },
+        {
+            "required": [
+                "constant"
+            ]
+        }
+    ]
 }

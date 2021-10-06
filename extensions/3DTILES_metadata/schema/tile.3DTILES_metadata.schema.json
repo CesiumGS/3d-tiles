@@ -1,27 +1,27 @@
 {
-  "$schema": "https://json-schema.org/draft-04/schema",
-  "title": "3DTILES_metadata tile extension",
-  "type": "object",
-  "description": "An object containing metadata about a tile. This extension must not be added to tiles using the `3DTILES_implicit_tiling` extension since tile metadata is provided separately in the subtrees.",
-  "properties": {
-    "class": {
-      "type": "string",
-      "description": "The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary."
-    },
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "3DTILES_metadata tile extension",
+    "type": "object",
+    "description": "An object containing metadata about a tile. This extension must not be added to tiles using the `3DTILES_implicit_tiling` extension since tile metadata is provided separately in the subtrees.",
     "properties": {
-      "type": "object",
-      "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.",
-      "minProperties": 1,
-      "additionalProperties": {
-        "type": [
-          "boolean",
-          "number",
-          "string",
-          "array"
-        ]
-      }
-    },
-    "extensions": {},
-    "extras": {}
-  }
+        "class": {
+            "type": "string",
+            "description": "The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary."
+        },
+        "properties": {
+            "type": "object",
+            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "type": [
+                    "boolean",
+                    "number",
+                    "string",
+                    "array"
+                ]
+            }
+        },
+        "extensions": {},
+        "extras": {}
+    }
 }

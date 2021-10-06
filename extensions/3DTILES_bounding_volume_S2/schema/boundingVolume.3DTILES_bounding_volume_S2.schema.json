@@ -1,32 +1,32 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "title": "3DTILES_bounding_volume_S2 extension",
-  "type": "object",
-  "properties" : {
-    "token": {
-      "type": "string",
-      "description": "A hexadecimal representation of the S2CellId. Tokens must be lower-case, must not contain whitespace and must have trailing zeros stripped."
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "3DTILES_bounding_volume_S2 extension",
+    "type": "object",
+    "properties": {
+        "token": {
+            "type": "string",
+            "description": "A hexadecimal representation of the S2CellId. Tokens must be lower-case, must not contain whitespace and must have trailing zeros stripped."
+        },
+        "minimumHeight": {
+            "type": "number",
+            "description": "The minimum height of the tile, specified in meters above (or below) the WGS84 ellipsoid."
+        },
+        "maximumHeight": {
+            "type": "number",
+            "description": "The maximum height of the tile, specified in meters above (or below) the WGS84 ellipsoid."
+        },
+        "extensions": {
+            "type": "object",
+            "description": "Dictionary object with extension-specific objects."
+        },
+        "extras": {
+            "description": "Application-specific data."
+        }
     },
-    "minimumHeight": {
-      "type": "number",
-      "description": "The minimum height of the tile, specified in meters above (or below) the WGS84 ellipsoid."
-    },
-    "maximumHeight": {
-      "type": "number",
-      "description": "The maximum height of the tile, specified in meters above (or below) the WGS84 ellipsoid."
-    },
-    "extensions": {
-      "type": "object",
-      "description": "Dictionary object with extension-specific objects."
-    },
-    "extras": {
-      "description": "Application-specific data."
-    }
-  },
-  "required": [
-    "token",
-    "minimumHeight",
-    "maximumHeight"
-  ],
-  "additionalProperties": false
+    "required": [
+        "token",
+        "minimumHeight",
+        "maximumHeight"
+    ],
+    "additionalProperties": false
 }
