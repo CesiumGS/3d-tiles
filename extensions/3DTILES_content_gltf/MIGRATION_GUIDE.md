@@ -1,6 +1,6 @@
 # Conversion of Existing Tile Formats
 
-This section covers the differences between existing tile formats and the new glTF approach to tile content, and describes how existing tile formats can be converted into equivalent glTF content.
+This document covers the differences between existing tile formats and the new glTF approach to tile content, and describes how existing tile formats can be converted into equivalent glTF content.
 
 ### Batched 3D Model (b3dm)
 
