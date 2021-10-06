@@ -172,13 +172,13 @@ divided into a quadtree or octree.
 
 ### Subdivision Rules
 
-Implicit tiling only requires defining the subdivision scheme, refine strategy, bounding volume, and geometric error at the implicit root tile. These properties are computed automatically for any descendant tile based on the following rules:
+Implicit tiling only requires defining the subdivision scheme, refine strategy, bounding volume, and geometric error at the implicit root tile. For descendant tiles, these properties are computed automatically, based on the following rules:
 
 | Property | Subdivision Rule | 
 | --- | --- |
 | `subdivisionScheme` | Constant for all descendant tiles |
 | `refine` | Constant for all descendant tiles |
-| `boundingVolume` | If `subdivisionScheme` is `QUADTREE`, each parent tile is divided into four child tiles. If `subdivisionScheme` is `OCTREE`, each parent tile is divided into eight child tiles. |
+| `boundingVolume` | If `subdivisionScheme` is `QUADTREE`, the bounding volume of the child tile is computed from the bounding volume of the parent tile by dividing it into four parts. If `subdivisionScheme` is `OCTREE`, the bounding volume is divided into eight parts. |
 | `geometricError` | Each child's `geometricError` is half of its parent's `geometricError` |
 
 ## Tile Coordinates
