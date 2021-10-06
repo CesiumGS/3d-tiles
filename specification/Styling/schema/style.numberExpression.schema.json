@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "style.numberExpression.schema.json",
-    "title": "number expression",
+    "$id": "style.numberExpression.schema.json",
+    "title": "Number Expression",
     "type": [
         "number",
         "string"

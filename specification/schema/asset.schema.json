@@ -1,9 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "asset.schema.json",
+    "$id": "asset.schema.json",
     "title": "Asset",
     "type": "object",
     "description": "Metadata about the entire tileset.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "version": {
             "type": "string",
@@ -13,15 +18,10 @@
             "type": "string",
             "description": "Application-specific version of this tileset, e.g., for when an existing tileset is updated."
         },
-        "extensions": {
-            "$ref": "extension.schema.json"
-        },
-        "extras": {
-            "$ref": "extras.schema.json"
-        }
+        "extensions": {},
+        "extras": {}
     },
     "required": [
         "version"
-    ],
-    "additionalProperties": false
+    ]
 }

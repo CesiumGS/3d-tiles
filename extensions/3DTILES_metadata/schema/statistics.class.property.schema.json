@@ -1,8 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "statistics.class.property.schema.json",
     "title": "Property Statistics",
     "type": "object",
     "description": "Statistics about property values.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "min": {
             "type": [

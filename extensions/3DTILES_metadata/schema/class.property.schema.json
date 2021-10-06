@@ -1,8 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "class.property.schema.json",
     "title": "Class property",
     "type": "object",
     "description": "A class property.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "name": {
             "type": "string",

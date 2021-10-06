@@ -1,17 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "batchTable.schema.json",
+    "$id": "batchTable.schema.json",
     "title": "Batch Table",
     "type": "object",
     "description": "A set of properties defining application-specific metadata for features in a tile.",
-    "properties": {
-        "extensions": {
-            "$ref": "extension.schema.json"
-        },
-        "extras": {
-            "$ref": "extras.schema.json"
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
         }
-    },
+    ],
     "additionalProperties": {
         "$ref": "#/definitions/property"
     },
@@ -20,6 +17,11 @@
             "title": "BinaryBodyReference",
             "type": "object",
             "description": "An object defining the reference to a section of the binary body of the batch table where the property values are stored if not defined directly in the JSON.",
+            "allOf": [
+                {
+                    "$ref": "tilesetProperty.schema.json"
+                }
+            ],
             "properties": {
                 "byteOffset": {
                     "type": "integer",
@@ -49,7 +51,9 @@
                         "VEC3",
                         "VEC4"
                     ]
-                }
+                },
+                "extensions": {},
+                "extras": {}
             },
             "required": [
                 "byteOffset",

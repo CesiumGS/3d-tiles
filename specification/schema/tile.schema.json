@@ -1,9 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "tile.schema.json",
+    "$id": "tile.schema.json",
     "title": "Tile",
     "type": "object",
     "description": "A tile in a 3D Tiles tileset.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "boundingVolume": {
             "description": "The bounding volume that encloses the tile.",
@@ -65,16 +70,11 @@
             },
             "uniqueItems": true
         },
-        "extensions": {
-            "$ref": "extension.schema.json"
-        },
-        "extras": {
-            "$ref": "extras.schema.json"
-        }
+        "extensions": {},
+        "extras": {}
     },
     "required": [
         "boundingVolume",
         "geometricError"
-    ],
-    "additionalProperties": false
+    ]
 }

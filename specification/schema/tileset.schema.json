@@ -1,9 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "tileset.schema.json",
+    "$id": "tileset.schema.json",
     "title": "Tileset",
     "type": "object",
     "description": "A 3D Tiles tileset.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "asset": {
             "$ref": "asset.schema.json"
@@ -11,7 +16,6 @@
         "properties": {
             "type": "object",
             "description": "A dictionary object of metadata about per-feature properties.",
-            "properties": {},
             "additionalProperties": {
                 "$ref": "properties.schema.json"
             }
@@ -43,17 +47,12 @@
             "uniqueItems": true,
             "minItems": 1
         },
-        "extensions": {
-            "$ref": "extension.schema.json"
-        },
-        "extras": {
-            "$ref": "extras.schema.json"
-        }
+        "extensions": {},
+        "extras": {}
     },
     "required": [
         "asset",
         "geometricError",
         "root"
-    ],
-    "additionalProperties": false
+    ]
 }

@@ -1,14 +1,27 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "featureTable.schema.json",
+    "$id": "featureTable.schema.json",
     "title": "Feature Table",
     "type": "object",
     "description": "A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
+    "additionalProperties": {
+        "$ref": "#/definitions/property"
+    },
     "definitions": {
         "binaryBodyReference": {
             "title": "BinaryBodyReference",
             "type": "object",
             "description": "An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
+            "allOf": [
+                {
+                    "$ref": "tilesetProperty.schema.json"
+                }
+            ],
             "properties": {
                 "byteOffset": {
                     "type": "integer",
@@ -28,7 +41,9 @@
                         "FLOAT",
                         "DOUBLE"
                     ]
-                }
+                },
+                "extensions": {},
+                "extras": {}
             },
             "required": [
                 "byteOffset"
@@ -63,45 +78,9 @@
             "description": "An object defining a global boolean property value for all features.",
             "type": "boolean"
         },
-        "globalPropertyInteger" : {
+        "globalPropertyInteger": {
             "title": "GlobalPropertyInteger",
             "description": "An object defining a global integer property value for all features.",
-            "oneOf" : [{
-                "type" : "object",
-                "properties" : {
-                    "byteOffset" : {
-                        "type" : "integer",
-                        "description": "The offset into the buffer in bytes.",
-                        "minimum" : 0
-                    }
-                },
-                "required" : ["byteOffset"]
-            }, {
-                "type" : "integer",
-                "minimum" : 0
-            }]
-        },
-        "globalPropertyNumber" : {
-            "title": "GlobalPropertyNumber",
-            "description": "An object defining a global numeric property value for all features.",
-            "oneOf" : [{
-                "type" : "object",
-                "properties" : {
-                    "byteOffset" : {
-                        "type" : "integer",
-                        "description": "The offset into the buffer in bytes.",
-                        "minimum" : 0
-                    }
-                },
-                "required" : ["byteOffset"]
-            }, {
-                "type" : "number",
-                "minimum" : 0
-            }]
-        },
-        "globalPropertyCartesian3": {
-            "title": "GlobalPropertyCartesian3",
-            "description": "An object defining a global 3-component numeric property values for all features.",
             "oneOf": [
                 {
                     "type": "object",
@@ -111,6 +90,59 @@
                             "description": "The offset into the buffer in bytes.",
                             "minimum": 0
                         }
+                    },
+                    "required": [
+                        "byteOffset"
+                    ]
+                },
+                {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            ]
+        },
+        "globalPropertyNumber": {
+            "title": "GlobalPropertyNumber",
+            "description": "An object defining a global numeric property value for all features.",
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "byteOffset": {
+                            "type": "integer",
+                            "description": "The offset into the buffer in bytes.",
+                            "minimum": 0
+                        }
+                    },
+                    "required": [
+                        "byteOffset"
+                    ]
+                },
+                {
+                    "type": "number",
+                    "minimum": 0
+                }
+            ]
+        },
+        "globalPropertyCartesian3": {
+            "title": "GlobalPropertyCartesian3",
+            "description": "An object defining a global 3-component numeric property values for all features.",
+            "oneOf": [
+                {
+                    "type": "object",
+                    "allOf": [
+                        {
+                            "$ref": "tilesetProperty.schema.json"
+                        }
+                    ],
+                    "properties": {
+                        "byteOffset": {
+                            "type": "integer",
+                            "description": "The offset into the buffer in bytes.",
+                            "minimum": 0
+                        },
+                        "extensions": {},
+                        "extras": {}
                     },
                     "required": [
                         "byteOffset"
@@ -132,12 +164,19 @@
             "oneOf": [
                 {
                     "type": "object",
+                    "allOf": [
+                        {
+                            "$ref": "tilesetProperty.schema.json"
+                        }
+                    ],
                     "properties": {
                         "byteOffset": {
                             "type": "integer",
                             "description": "The offset into the buffer in bytes.",
                             "minimum": 0
-                        }
+                        },
+                        "extensions": {},
+                        "extras": {}
                     },
                     "required": [
                         "byteOffset"
@@ -153,16 +192,5 @@
                 }
             ]
         }
-    },
-    "properties": {
-        "extensions": {
-            "$ref": "extension.schema.json"
-        },
-        "extras": {
-            "$ref": "extras.schema.json"
-        }
-    },
-    "additionalProperties": {
-        "$ref": "#/definitions/property"
     }
 }

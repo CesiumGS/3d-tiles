@@ -1,8 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "enum.schema.json",
     "title": "Enum",
     "type": "object",
     "description": "An object defining the values of an enum.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "name": {
             "type": "string",

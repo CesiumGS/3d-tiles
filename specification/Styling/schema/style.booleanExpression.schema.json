@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "style.booleanExpression.schema.json",
-    "title": "boolean expression",
+    "$id": "style.booleanExpression.schema.json",
+    "title": "Boolean Expression",
     "type": [
         "boolean",
         "string"

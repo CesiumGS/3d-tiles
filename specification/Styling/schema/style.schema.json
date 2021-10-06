@@ -1,9 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "style.schema.json",
-    "title": "style",
+    "$id": "style.schema.json",
+    "title": "Style",
     "type": "object",
     "description": "A 3D Tiles style.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "defines": {
             "type": "object",
@@ -43,7 +48,8 @@
                 }
             ],
             "description": "A `meta` object which determines the values of non-visual properties of the feature."
-        }
-    },
-    "additionalProperties": false
+        },
+        "extensions": {},
+        "extras": {}
+    }
 }

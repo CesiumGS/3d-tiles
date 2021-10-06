@@ -1,8 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tile.3DTILES_implicit_tiling.schema.json",
     "title": "3DTILES_implicit_tiling tile extension",
     "type": "object",
     "description": "This extension allows a tile to be implicitly subdivided. Tile and content availability is stored in subtrees which are referenced externally.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "subdivisionScheme": {
             "type": "string",

@@ -1,8 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "group.schema.json",
     "title": "Group Metadata",
     "type": "object",
     "description": "An object containing metadata about a group.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "name": {
             "type": "string",

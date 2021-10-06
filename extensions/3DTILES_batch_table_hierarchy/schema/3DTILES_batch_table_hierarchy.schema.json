@@ -1,12 +1,24 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "3DTILES_batch_table_hierarchy.schema.json",
     "title": "3DTILES_batch_table_hierarchy extension",
     "type": "object",
+    "description": "3D Tiles extension for representing metadata hierarchies.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "classes": {
             "type": "array",
             "items": {
                 "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "tilesetProperty.schema.json"
+                    }
+                ],
                 "properties": {
                     "name": {
                         "type": "string"
@@ -20,7 +32,9 @@
                         "additionalProperties": {
                             "$ref": "#/definitions/property"
                         }
-                    }
+                    },
+                    "extensions": {},
+                    "extras": {}
                 },
                 "required": [
                     "name",
@@ -42,16 +56,17 @@
         "parentIds": {
             "$ref": "#/definitions/integerProperty"
         },
-        "extensions": {
-            "$ref": "extension.schema.json"
-        },
-        "extras": {
-            "$ref": "extras.schema.json"
-        }
+        "extensions": {},
+        "extras": {}
     },
     "definitions": {
         "binaryBodyReference": {
             "type": "object",
+            "allOf": [
+                {
+                    "$ref": "tilesetProperty.schema.json"
+                }
+            ],
             "properties": {
                 "byteOffset": {
                     "type": "integer",
@@ -78,7 +93,9 @@
                         "VEC3",
                         "VEC4"
                     ]
-                }
+                },
+                "extensions": {},
+                "extras": {}
             },
             "required": [
                 "byteOffset",
@@ -105,6 +122,11 @@
         },
         "integerBinaryBodyReference": {
             "type": "object",
+            "allOf": [
+                {
+                    "$ref": "tilesetProperty.schema.json"
+                }
+            ],
             "properties": {
                 "byteOffset": {
                     "type": "integer",
@@ -117,7 +139,9 @@
                         "UNSIGNED_SHORT",
                         "UNSIGNED_INT"
                     ]
-                }
+                },
+                "extensions": {},
+                "extras": {}
             },
             "required": [
                 "byteOffset"

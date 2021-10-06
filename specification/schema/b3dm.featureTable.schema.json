@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "b3dm.featureTable.schema.json",
+    "$id": "b3dm.featureTable.schema.json",
     "title": "Batched 3D Model Feature Table",
     "type": "object",
     "description": "A set of Batched 3D Model semantics that contain additional information about features in a tile.",
@@ -26,12 +26,8 @@
                         }
                     ]
                 },
-                "extensions": {
-                    "$ref": "extension.schema.json"
-                },
-                "extras": {
-                    "$ref": "extras.schema.json"
-                }
+                "extensions": {},
+                "extras": {}
             },
             "required": [
                 "BATCH_LENGTH"

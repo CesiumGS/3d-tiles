@@ -1,8 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "subtree.property.schema.json",
     "title": "Subtree property values",
     "type": "object",
     "description": "An array of binary property values.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "bufferView": {
             "type": "integer",

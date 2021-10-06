@@ -1,8 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "bufferView.schema.json",
     "title": "Buffer View",
     "type": "object",
     "description": "A contiguous subset of a buffer",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "buffer": {
             "type": "integer",

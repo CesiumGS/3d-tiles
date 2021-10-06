@@ -1,8 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "subtree.3DTILES_multiple_contents.schema.json",
     "title": "3DTILES_multiple_contents extension for 3DTILES_implicit_tiling subtree",
     "type": "object",
     "description": "Content availability for the `3DTILES_multiple_contents` extension.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "contentAvailability": {
             "type": "array",
@@ -11,7 +17,9 @@
                 "$ref": "availability.schema.json"
             },
             "minItems": 1
-        }
+        },
+        "extensions": {},
+        "extras": {}
     },
     "required": [
         "contentAvailability"

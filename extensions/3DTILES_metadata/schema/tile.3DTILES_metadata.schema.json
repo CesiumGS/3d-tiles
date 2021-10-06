@@ -1,8 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tile.3DTILES_metadata.schema.json",
     "title": "3DTILES_metadata tile extension",
     "type": "object",
     "description": "An object containing metadata about a tile. This extension must not be added to tiles using the `3DTILES_implicit_tiling` extension since tile metadata is provided separately in the subtrees.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "class": {
             "type": "string",

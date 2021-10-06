@@ -1,9 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "boundingVolume.schema.json",
+    "$id": "boundingVolume.schema.json",
     "title": "Bounding Volume",
     "type": "object",
     "description": "A bounding volume that encloses a tile or its content.  Exactly one `box`, `region`, or `sphere` property is required.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "properties": {
         "box": {
             "type": "array",
@@ -32,12 +37,8 @@
             "minItems": 4,
             "maxItems": 4
         },
-        "extensions": {
-            "$ref": "extension.schema.json"
-        },
-        "extras": {
-            "$ref": "extras.schema.json"
-        }
+        "extensions": {},
+        "extras": {}
     },
     "oneOf": [
         {
@@ -55,6 +56,5 @@
                 "sphere"
             ]
         }
-    ],
-    "additionalProperties": false
+    ]
 }

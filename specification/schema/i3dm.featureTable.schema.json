@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "i3dm.featureTable.schema.json",
+    "$id": "i3dm.featureTable.schema.json",
     "title": "Instanced 3D Model Feature Table",
     "type": "object",
     "description": "A set of Instanced 3D Model semantics that contains values defining the position and appearance properties for instanced models in a tile.",
@@ -122,12 +122,8 @@
                         }
                     ]
                 },
-                "extensions": {
-                    "$ref": "extension.schema.json"
-                },
-                "extras": {
-                    "$ref": "extras.schema.json"
-                }
+                "extensions": {},
+                "extras": {}
             },
             "oneOf": [
                 {

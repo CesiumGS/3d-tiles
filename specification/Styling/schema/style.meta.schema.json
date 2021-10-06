@@ -1,9 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "id": "style.meta.schema.json",
-    "title": "meta",
+    "$id": "style.meta.schema.json",
+    "title": "Meta",
     "type": "object",
     "description": "A series of property names and the `expression` to evaluate for the value of that property.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
     "additionalProperties": {
         "$ref": "style.expression.schema.json"
     }
