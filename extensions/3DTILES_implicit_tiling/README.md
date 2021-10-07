@@ -162,7 +162,7 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 Sphere bounding volumes are disallowed, as these cannot be
 divided into a quadtree or octree.
 
-> Implementation note
+> *Implementation note:*
 > 
 > In order to increase numerical stability during this subdivision process, the actual bounding volumes should not be computed by repeatedly subdividing a given volume. Instead, the exact bounding volumes should be computed directly for a given level.
 > 
