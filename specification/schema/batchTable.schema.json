@@ -29,27 +29,55 @@
                     "minimum": 0
                 },
                 "componentType": {
-                    "type": "string",
                     "description": "The datatype of components in the property.",
-                    "enum": [
-                        "BYTE",
-                        "UNSIGNED_BYTE",
-                        "SHORT",
-                        "UNSIGNED_SHORT",
-                        "INT",
-                        "UNSIGNED_INT",
-                        "FLOAT",
-                        "DOUBLE"
+                    "anyOf": [
+                        {
+                            "const": "BYTE"
+                        },
+                        {
+                            "const": "UNSIGNED_BYTE"
+                        },
+                        {
+                            "const": "SHORT"
+                        },
+                        {
+                            "const": "UNSIGNED_SHORT"
+                        },
+                        {
+                            "const": "INT"
+                        },
+                        {
+                            "const": "UNSIGNED_INT"
+                        },
+                        {
+                            "const": "FLOAT"
+                        },
+                        {
+                            "const": "DOUBLE"
+                        },
+                        {
+                            "type": "string"
+                        }
                     ]
                 },
                 "type": {
-                    "type": "string",
                     "description": "Specifies if the property is a scalar or vector.",
-                    "enum": [
-                        "SCALAR",
-                        "VEC2",
-                        "VEC3",
-                        "VEC4"
+                    "anyOf": [
+                        {
+                            "const": "SCALAR"
+                        },
+                        {
+                            "const": "VEC2"
+                        },
+                        {
+                            "const": "VEC3"
+                        },
+                        {
+                            "const": "VEC4"
+                        },
+                        {
+                            "type": "string"
+                        }
                     ]
                 },
                 "extensions": {},

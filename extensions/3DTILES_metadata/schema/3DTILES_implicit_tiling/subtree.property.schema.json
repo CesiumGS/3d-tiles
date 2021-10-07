@@ -16,15 +16,25 @@
             "minimum": 0
         },
         "offsetType": {
-            "type": "string",
+            "description": "The type of values in `arrayOffsetBufferView` and `stringOffsetBufferView`.",
             "default": "UINT32",
-            "enum": [
-                "UINT8",
-                "UINT16",
-                "UINT32",
-                "UINT64"
-            ],
-            "description": "The type of values in `arrayOffsetBufferView` and `stringOffsetBufferView`."
+            "anyOf": [
+                {
+                    "const": "UINT8"
+                },
+                {
+                    "const": "UINT16"
+                },
+                {
+                    "const": "UINT32"
+                },
+                {
+                    "const": "UINT64"
+                },
+                {
+                    "type": "string"
+                }
+            ]
         },
         "arrayOffsetBufferView": {
             "type": "integer",

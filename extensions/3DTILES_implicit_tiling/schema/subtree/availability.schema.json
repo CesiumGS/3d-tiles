@@ -21,12 +21,18 @@
             "minimum": 0
         },
         "constant": {
-            "type": "integer",
-            "enum": [
-                0,
-                1
-            ],
-            "description": "Integer indicating whether all of the elements are available (1) or all are unavailable (0)."
+            "description": "Integer indicating whether all of the elements are available (1) or all are unavailable (0).",
+            "anyOf": [
+                {
+                    "const": 0
+                },
+                {
+                    "const": 1
+                },
+                {
+                    "type": "integer"
+                }
+            ]
         },
         "extensions": {},
         "extras": {}

@@ -24,11 +24,17 @@
             "minimum": 0
         },
         "refine": {
-            "type": "string",
             "description": "Specifies if additive or replacement refinement is used when traversing the tileset for rendering.  This property is required for the root tile of a tileset; it is optional for all other tiles.  The default is to inherit from the parent tile.",
-            "enum": [
-                "ADD",
-                "REPLACE"
+            "anyOf": [
+                {
+                    "const": "ADD"
+                },
+                {
+                    "const": "REPLACE"
+                },
+                {
+                    "type": "string"
+                }
             ]
         },
         "transform": {

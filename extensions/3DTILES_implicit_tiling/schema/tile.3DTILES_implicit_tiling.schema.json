@@ -11,11 +11,17 @@
     ],
     "properties": {
         "subdivisionScheme": {
-            "type": "string",
             "description": "A string describing the subdivision scheme used within the tileset.",
-            "enum": [
-                "QUADTREE",
-                "OCTREE"
+            "anyOf": [
+                {
+                    "const": "QUADTREE"
+                },
+                {
+                    "const": "OCTREE"
+                },
+                {
+                    "type": "string"
+                }
             ]
         },
         "subtreeLevels": {
