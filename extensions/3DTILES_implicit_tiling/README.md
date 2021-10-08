@@ -836,20 +836,20 @@ The name of the `bufferView`.
 A [Morton index](https://en.wikipedia.org/wiki/Z-order_curve) is computed by interleaving the bits of the `(x, y)` or `(x, y, z)` coordinates of a tile. Specifically:
 
 ```
-quadtreeMortonIndex = interleaveBits(y, x)
-octreeMortonIndex = interleaveBits(z, y, x)
+quadtreeMortonIndex = interleaveBits(x, y)
+octreeMortonIndex = interleaveBits(x, y, z)
 ```
 
 For example:
 
 ```
 // Quadtree
-interleaveBits(0b11, 0b00) = 0b1010
-interleaveBits(0b1010, 0b0011) = 0b10001101
-interleaveBits(0b0110, 0b0101) = 0b00111001
+interleaveBits(0b11, 0b00) = 0b0101
+interleaveBits(0b1010, 0b0011) = 0b01001110
+interleaveBits(0b0110, 0b0101) = 0b00110110
 
 // Octree
-interleaveBits(0b001, 0b010, 0b100) = 0b001010100
+interleaveBits(0b001, 0b010, 0b100) = 0b100010001
 interleaveBits(0b111, 0b000, 0b111) = 0b101101101
 ```
 
