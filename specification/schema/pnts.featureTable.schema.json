@@ -57,9 +57,9 @@
                 }]
             },
             "POINTS_LENGTH" : {
-                "description": "A `GlobalPropertyScalar` object defining a numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "description": "A `GlobalPropertyInteger` object defining an integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
                 "allOf" : [{
-                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyInteger"
                 }]
             },
             "RTC_CENTER" : {
@@ -87,9 +87,9 @@
                 }]
             },
             "BATCH_LENGTH" : {
-                "description": "A `GlobalPropertyScalar` object defining a numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
+                "description": "A `GlobalPropertyInteger` object defining an integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
                 "allOf" : [{
-                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyScalar"
+                    "$ref" : "featureTable.schema.json#/definitions/globalPropertyInteger"
                 }]
             },
             "extensions" : {
