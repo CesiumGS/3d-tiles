@@ -1,39 +1,55 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "id" : "style.schema.json",
-    "title" : "style",
-    "type" : "object",
-    "description" : "A 3D Tiles style.",
-    "properties" : {
-        "defines" : {
-            "type" : "object",
-            "additionalProperties" : {
-                "$ref" : "style.expression.schema.json"
-            },
-            "description" : "A dictionary object of `expression` strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression."
-        },
-        "show" : {
-            "oneOf" : [{
-                "$ref" : "style.booleanExpression.schema.json"
-            }, {
-                "$ref" : "style.conditions.schema.json"
-            }],
-            "description" : "A `boolean expression` or `conditions` property which determines if a feature should be shown.",
-            "default" : "true"
-        },
-        "color" : {
-            "oneOf" : [{
-                "$ref" : "style.colorExpression.schema.json"
-            }, {
-                "$ref" : "style.conditions.schema.json"
-            }],
-            "description" : "A `color expression` or `conditions` property which determines the color blended with the feature's intrinsic color.",
-            "default" : "color('#FFFFFF')"
-        },
-        "meta" : {
-            "allOf": [ { "$ref" : "style.meta.schema.json" } ],
-            "description" : "A `meta` object which determines the values of non-visual properties of the feature."
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "style.schema.json",
+    "title": "Style",
+    "type": "object",
+    "description": "A 3D Tiles style.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
         }
-    },
-    "additionalProperties" : false
+    ],
+    "properties": {
+        "defines": {
+            "type": "object",
+            "additionalProperties": {
+                "$ref": "style.expression.schema.json"
+            },
+            "description": "A dictionary object of `expression` strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression."
+        },
+        "show": {
+            "oneOf": [
+                {
+                    "$ref": "style.booleanExpression.schema.json"
+                },
+                {
+                    "$ref": "style.conditions.schema.json"
+                }
+            ],
+            "description": "A `boolean expression` or `conditions` property which determines if a feature should be shown.",
+            "default": "true"
+        },
+        "color": {
+            "oneOf": [
+                {
+                    "$ref": "style.colorExpression.schema.json"
+                },
+                {
+                    "$ref": "style.conditions.schema.json"
+                }
+            ],
+            "description": "A `color expression` or `conditions` property which determines the color blended with the feature's intrinsic color.",
+            "default": "color('#FFFFFF')"
+        },
+        "meta": {
+            "allOf": [
+                {
+                    "$ref": "style.meta.schema.json"
+                }
+            ],
+            "description": "A `meta` object which determines the values of non-visual properties of the feature."
+        },
+        "extensions": {},
+        "extras": {}
+    }
 }

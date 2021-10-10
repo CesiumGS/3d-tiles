@@ -163,8 +163,6 @@ Specifies the compressed Feature Table properties and the location of the compre
 |**byteOffset**|`number`|A zero-based offset relative to the start of the Feature Table binary at which the compressed data starts.| :white_check_mark: Yes|
 |**byteLength**|`number`|The length, in bytes, of the compressed data.| :white_check_mark: Yes|
 
-Additional properties are not allowed.
-
 ### properties :white_check_mark:
 
 Defines the properties stored in the compressed data. Each property is associated with a unique ID. This ID is used to identify the property within
@@ -201,8 +199,6 @@ Specifies the compressed Batch Table properties.
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**properties**|`object`|Defines the properties stored in the compressed data. Each property is associated with a unique ID. This ID is used to identify the property within the compressed data. No two properties in the Feature Table and Batch Table may use the same ID.| :white_check_mark: Yes|
-
-Additional properties are not allowed.
 
 ### properties :white_check_mark:
 

@@ -1,7 +1,10 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "id" : "style.booleanExpression.schema.json",
-    "title" : "boolean expression",
-    "type" : ["boolean", "string"],
-    "description" : "A boolean or string with a 3D Tiles style expression that evaluates to a boolean. See [Expressions](/specification/Styling/README.md#expressions)."
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "style.booleanExpression.schema.json",
+    "title": "Boolean Expression",
+    "type": [
+        "boolean",
+        "string"
+    ],
+    "description": "A boolean or string with a 3D Tiles style expression that evaluates to a boolean. See [Expressions](/specification/Styling/README.md#expressions)."
 }

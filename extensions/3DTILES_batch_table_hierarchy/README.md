@@ -188,7 +188,7 @@ Finally, `classIds`, `parentCounts`, and `parentIds` may instead be references t
 };
 ```
 
-JSON schema definitions can be found in [3DTILES_batch_table_hierarchy.json](./schema/3DTILES_batch_table_hierarchy.json).
+JSON schema definitions can be found in [3DTILES_batch_table_hierarchy.schema.json](./schema/3DTILES_batch_table_hierarchy.schema.json).
 
 ## Examples
 
