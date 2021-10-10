@@ -1,25 +1,27 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "id" : "asset.schema.json",
-    "title" : "Asset",
-    "type" : "object",
-    "description" : "Metadata about the entire tileset.",
-    "properties" : {
-        "version" : {
-            "type" : "string",
-            "description" : "The 3D Tiles version.  The version defines the JSON schema for the tileset JSON and the base set of tile formats."
-        },
-        "tilesetVersion" : {
-            "type" : "string",
-            "description" : "Application-specific version of this tileset, e.g., for when an existing tileset is updated."
-        },
-        "extensions" : {
-            "$ref": "extension.schema.json"
-        },
-        "extras" : {
-            "$ref": "extras.schema.json"
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "asset.schema.json",
+    "title": "Asset",
+    "type": "object",
+    "description": "Metadata about the entire tileset.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
         }
+    ],
+    "properties": {
+        "version": {
+            "type": "string",
+            "description": "The 3D Tiles version. The version defines the JSON schema for the tileset JSON and the base set of tile formats."
+        },
+        "tilesetVersion": {
+            "type": "string",
+            "description": "Application-specific version of this tileset, e.g., for when an existing tileset is updated."
+        },
+        "extensions": {},
+        "extras": {}
     },
-    "required" : ["version"],
-    "additionalProperties" : false
+    "required": [
+        "version"
+    ]
 }

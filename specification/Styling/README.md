@@ -1287,8 +1287,6 @@ A 3D Tiles style.
 |**color**|`string`, `object`|A [`color expression`](#reference-color-expression) or [`conditions`](#reference-conditions) property which determines the color blended with the feature's intrinsic color.|No, default: `color('#FFFFFF')`|
 |**meta**|`object`|A [`meta`](#reference-meta) object which determines the values of non-visual properties of the feature.|No|
 
-Additional properties are not allowed.
-
 #### style.defines
 
 A dictionary object of [`expression`](#reference-expression) strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
@@ -1350,8 +1348,6 @@ A series of conditions evaluated in order, like a series of if...else statements
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**conditions**|`array` `[]`|A series of boolean conditions evaluated in order.  For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned.  Result expressions must all be the same type.  If no condition evaluates to true, the result is `undefined`.  When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.|No|
-
-Additional properties are not allowed.
 
 #### conditions.conditions
 
@@ -1415,8 +1411,6 @@ A 3D Tiles style with additional properties for Point Clouds.
 |**color**|`string`, `object`|A [`color expression`](#reference-color-expression) or [`conditions`](#reference-conditions) property which determines the color blended with the feature's intrinsic color.|No, default: `color('#FFFFFF')`|
 |**meta**|`object`|A [`meta`](#reference-meta) object which determines the values of non-visual properties of the feature.|No|
 |**pointSize**|`number`, `string`, `object`|A [`number expression`](#reference-number-expression) or [`conditions`](#reference-conditions) property which determines the size of the points in pixels.|No, default: `1`|
-
-Additional properties are not allowed.
 
 #### PointCloudStyle.defines
 

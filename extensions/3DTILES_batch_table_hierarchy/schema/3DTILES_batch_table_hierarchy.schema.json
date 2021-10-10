@@ -1,0 +1,202 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "3DTILES_batch_table_hierarchy.schema.json",
+    "title": "3DTILES_batch_table_hierarchy extension",
+    "type": "object",
+    "description": "3D Tiles extension for representing metadata hierarchies.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
+    "properties": {
+        "classes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "tilesetProperty.schema.json"
+                    }
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "length": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "instances": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "#/definitions/property"
+                        }
+                    },
+                    "extensions": {},
+                    "extras": {}
+                },
+                "required": [
+                    "name",
+                    "length",
+                    "instances"
+                ]
+            }
+        },
+        "instancesLength": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "classIds": {
+            "$ref": "#/definitions/integerProperty"
+        },
+        "parentCounts": {
+            "$ref": "#/definitions/integerProperty"
+        },
+        "parentIds": {
+            "$ref": "#/definitions/integerProperty"
+        },
+        "extensions": {},
+        "extras": {}
+    },
+    "definitions": {
+        "binaryBodyReference": {
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "tilesetProperty.schema.json"
+                }
+            ],
+            "properties": {
+                "byteOffset": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "componentType": {
+                    "anyOf": [
+                        {
+                            "const": "BYTE"
+                        },
+                        {
+                            "const": "UNSIGNED_BYTE"
+                        },
+                        {
+                            "const": "SHORT"
+                        },
+                        {
+                            "const": "UNSIGNED_SHORT"
+                        },
+                        {
+                            "const": "INT"
+                        },
+                        {
+                            "const": "UNSIGNED_INT"
+                        },
+                        {
+                            "const": "FLOAT"
+                        },
+                        {
+                            "const": "DOUBLE"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "type": {
+                    "anyOf": [
+                        {
+                            "const": "SCALAR"
+                        },
+                        {
+                            "const": "VEC2"
+                        },
+                        {
+                            "const": "VEC3"
+                        },
+                        {
+                            "const": "VEC4"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "extensions": {},
+                "extras": {}
+            },
+            "required": [
+                "byteOffset",
+                "componentType",
+                "type"
+            ]
+        },
+        "property": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/binaryBodyReference"
+                },
+                {
+                    "type": "array"
+                }
+            ]
+        },
+        "integerArray": {
+            "type": "array",
+            "items": {
+                "type": "integer",
+                "minimum": 0
+            }
+        },
+        "integerBinaryBodyReference": {
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "tilesetProperty.schema.json"
+                }
+            ],
+            "properties": {
+                "byteOffset": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "componentType": {
+                    "anyOf": [
+                        {
+                            "const": "UNSIGNED_BYTE"
+                        },
+                        {
+                            "const": "UNSIGNED_SHORT"
+                        },
+                        {
+                            "const": "UNSIGNED_INT"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "extensions": {},
+                "extras": {}
+            },
+            "required": [
+                "byteOffset"
+            ]
+        },
+        "integerProperty": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/integerBinaryBodyReference"
+                },
+                {
+                    "$ref": "#/definitions/integerArray"
+                }
+            ]
+        }
+    },
+    "required": [
+        "classes",
+        "instancesLength",
+        "classIds"
+    ]
+}
