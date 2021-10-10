@@ -793,8 +793,6 @@ A 3D Tiles tileset.
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
 
-Additional properties are not allowed.
-
 #### Tileset.asset  :white_check_mark:
 
 Metadata about the entire tileset.
@@ -872,8 +870,6 @@ Metadata about the entire tileset.
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
 
-Additional properties are not allowed.
-
 #### Asset.version :white_check_mark:
 
 The 3D Tiles version. The version defines the JSON schema for the tileset JSON and the base set of tile formats.
@@ -921,8 +917,6 @@ A bounding volume that encloses a tile or its content. Exactly one `box`, `regio
 |**sphere**|`number` `[4]`|An array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere. The last element (with index 3) defines the radius in meters.|No|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
-
-Additional properties are not allowed.
 
 #### BoundingVolume.box
 
@@ -1000,8 +994,6 @@ A dictionary object of metadata about per-feature properties.
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
 
-Additional properties are not allowed.
-
 #### Properties.maximum :white_check_mark:
 
 The maximum value of this property of all the features in the tileset.
@@ -1053,8 +1045,6 @@ A tile in a 3D Tiles tileset.
 |**children**|`array[]`|An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.|No|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
-
-Additional properties are not allowed.
 
 #### Tile.boundingVolume :white_check_mark:
 
@@ -1142,8 +1132,6 @@ Metadata about the tile's content and a link to the content.
 |**uri**|`string`|A uri that points to the tile's content. When the uri is relative, it is relative to the referring tileset JSON file.| :white_check_mark: Yes|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
-
-Additional properties are not allowed.
 
 #### Content.boundingVolume
 
