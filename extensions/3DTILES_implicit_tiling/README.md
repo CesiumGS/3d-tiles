@@ -164,7 +164,7 @@ divided into a quadtree or octree.
 
 > *Implementation note:*
 > 
-> In order to increase numerical stability during this subdivision process, the actual bounding volumes should not be computed by repeatedly subdividing a given volume. Instead, the exact bounding volumes should be computed directly for a given level.
+> In order to increase numerical stability during this subdivision process, the actual bounding volumes should not be computed progressively by subdividing a non-root tile volume. Instead, the exact bounding volumes should be computed directly for a given level.
 > 
 > Let the extent of the bounding volume of a tile along one dimension *d* be *(min<sub>d</sub>, max<sub>d</sub>)*. The number of bounding volumes along that dimension for a given level  is *2<sup>level</sup>*. The size of each bounding volume at this level, along dimension *d*, is *size<sub>d</sub> = (max<sub>d</sub> - min<sub>d</sub>) / 2<sup>level</sup>*. The extent of the bounding volume of a child can then be computed directly as *(min<sub>d</sub> + size<sub>d</sub> * i, min<sub>d</sub> + size<sub>d</sub> * (i + 1))*, where *i* is the index of the child in dimension *d*. 
 > 
@@ -172,7 +172,7 @@ divided into a quadtree or octree.
 
 ### Subdivision Rules
 
-Implicit tiling only requires defining the subdivision scheme, refine strategy, bounding volume, and geometric error at the implicit root tile. For descendant tiles, these properties are computed automatically, based on the following rules:
+Implicit tiling only requires defining the subdivision scheme, refinement strategy, bounding volume, and geometric error at the implicit root tile. For descendant tiles, these properties are computed automatically, based on the following rules:
 
 | Property | Subdivision Rule | 
 | --- | --- |
@@ -325,7 +325,7 @@ Header fields:
 
 | Bytes | Field | Type     | Description |
 |-------|-------|----------|-------------|
-| 0-3   | Magic | `UINT32` | A magic number identifying this as a subtree file. This is always `0x74627573`, which are the four bytes of the ASCII string `subt`, stored in little-endian order |
+| 0-3   | Magic | `UINT32` | A magic number identifying this as a subtree file. This is always `0x74627573`, the four bytes of the ASCII string `subt` stored in little-endian order. |
 | 4-7   | Version | `UINT32` | The version number. Always `1` for this version of the specification. |
 | 8-15  | JSON byte length | `UINT64` | The length of the subtree JSON, including any padding. |
 | 16-23 | Binary byte length | `UINT64` | The length of the buffer (or 0 if the buffer does not exist) including any padding. |
@@ -339,7 +339,7 @@ The subtree JSON describes where the availability information for a single subtr
 
 ### Buffers and Buffer Views
 
-A **buffer** is a binary blob. A single buffer can be stored within the binary chunk of a subtree file. Further buffers can be stored as individual binary files that are referred to by the `buffer.uri` property. The buffers can store the availability data of a subtree in a binary form, or other data that is associated with a subtree, like metadata for the implicit tiles that is defined using the [`3DTILES_metadata` extension.](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_metadata#implicit-tile-metadata)
+A **buffer** is a binary blob. A single buffer can be stored within the binary chunk of a subtree file. Further buffers can be stored as individual binary files that are referred to by the `buffer.uri` property. The buffers can store the availability data of a subtree in binary form, or other data that is associated with a subtree, like metadata for implicit tiles defined using the [`3DTILES_metadata` extension.](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_metadata#implicit-tile-metadata)
 
 Each buffer has a `byteLength` describing the size of the data, including any padding (for subtree binary files). 
 
