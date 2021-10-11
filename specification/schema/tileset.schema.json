@@ -1,29 +1,34 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "id" : "tileset.schema.json",
-    "title" : "Tileset",
-    "type" : "object",
-    "description" : "A 3D Tiles tileset.",
-    "properties" : {
-        "asset" : {
-            "$ref" : "asset.schema.json"
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tileset.schema.json",
+    "title": "Tileset",
+    "type": "object",
+    "description": "A 3D Tiles tileset.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
+    "properties": {
+        "asset": {
+            "description": "Metadata about the entire tileset.",
+            "$ref": "asset.schema.json"
         },
-        "properties" : {
+        "properties": {
             "type": "object",
             "description": "A dictionary object of metadata about per-feature properties.",
-            "properties" : {},
-            "additionalProperties" : {
-                "$ref" : "properties.schema.json"
+            "additionalProperties": {
+                "$ref": "properties.schema.json"
             }
         },
-        "geometricError" : {
-            "type" : "number",
-            "description" : "The error, in meters, introduced if this tileset is not rendered. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.",
-            "minimum" : 0
+        "geometricError": {
+            "type": "number",
+            "description": "The error, in meters, introduced if this tileset is not rendered. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.",
+            "minimum": 0
         },
-        "root" : {
-            "description" : "The root tile.",
-            "$ref" : "tile.schema.json"
+        "root": {
+            "description": "The root tile.",
+            "$ref": "tile.schema.json"
         },
         "extensionsUsed": {
             "type": "array",
@@ -43,13 +48,12 @@
             "uniqueItems": true,
             "minItems": 1
         },
-        "extensions" : {
-            "$ref": "extension.schema.json"
-        },
-        "extras" : {
-            "$ref": "extras.schema.json"
-        }
+        "extensions": {},
+        "extras": {}
     },
-    "required" : ["asset", "geometricError", "root"],
-    "additionalProperties" : false
+    "required": [
+        "asset",
+        "geometricError",
+        "root"
+    ]
 }

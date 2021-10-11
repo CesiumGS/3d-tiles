@@ -1,50 +1,104 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "id" : "batchTable.schema.json",
-    "title" : "Batch Table",
-    "type" : "object",
-    "description" : "A set of properties defining application-specific metadata for features in a tile.",
-    "properties" : {
-        "extensions" : {
-            "$ref": "extension.schema.json"
-        },
-        "extras" : {
-            "$ref": "extras.schema.json"
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "batchTable.schema.json",
+    "title": "Batch Table",
+    "type": "object",
+    "description": "A set of properties defining application-specific metadata for features in a tile.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
         }
+    ],
+    "additionalProperties": {
+        "$ref": "#/definitions/property"
     },
-    "additionalProperties" : {
-        "$ref" : "#/definitions/property"
-    },
-    "definitions" : {
-        "binaryBodyReference" : {
-            "title" : "BinaryBodyReference",
-            "type" : "object",
-            "description" : "An object defining the reference to a section of the binary body of the batch table where the property values are stored if not defined directly in the JSON.",
-            "properties" : {
-                "byteOffset" : {
-                    "type" : "integer",
-                    "description": "The offset into the buffer in bytes.",
-                    "minimum" : 0
-                },
-                "componentType" : {
-                    "type" : "string",
-                    "description": "The datatype of components in the property.",
-                    "enum" : ["BYTE", "UNSIGNED_BYTE", "SHORT", "UNSIGNED_SHORT", "INT", "UNSIGNED_INT", "FLOAT", "DOUBLE"]
-                },
-                "type" : {
-                    "type" : "string",
-                    "description": "Specifies if the property is a scalar or vector.",
-                    "enum" : ["SCALAR", "VEC2", "VEC3", "VEC4"]
+    "definitions": {
+        "binaryBodyReference": {
+            "title": "BinaryBodyReference",
+            "type": "object",
+            "description": "An object defining the reference to a section of the binary body of the batch table where the property values are stored if not defined directly in the JSON.",
+            "allOf": [
+                {
+                    "$ref": "tilesetProperty.schema.json"
                 }
+            ],
+            "properties": {
+                "byteOffset": {
+                    "type": "integer",
+                    "description": "The offset into the buffer in bytes.",
+                    "minimum": 0
+                },
+                "componentType": {
+                    "description": "The datatype of components in the property.",
+                    "anyOf": [
+                        {
+                            "const": "BYTE"
+                        },
+                        {
+                            "const": "UNSIGNED_BYTE"
+                        },
+                        {
+                            "const": "SHORT"
+                        },
+                        {
+                            "const": "UNSIGNED_SHORT"
+                        },
+                        {
+                            "const": "INT"
+                        },
+                        {
+                            "const": "UNSIGNED_INT"
+                        },
+                        {
+                            "const": "FLOAT"
+                        },
+                        {
+                            "const": "DOUBLE"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "type": {
+                    "description": "Specifies if the property is a scalar or vector.",
+                    "anyOf": [
+                        {
+                            "const": "SCALAR"
+                        },
+                        {
+                            "const": "VEC2"
+                        },
+                        {
+                            "const": "VEC3"
+                        },
+                        {
+                            "const": "VEC4"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "extensions": {},
+                "extras": {}
             },
-            "required" : ["byteOffset", "componentType", "type"]
+            "required": [
+                "byteOffset",
+                "componentType",
+                "type"
+            ]
         },
-        "property" : {
-            "title" : "Property",
-            "description" : "A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a `BinaryBodyReference` object.",
-            "oneOf" : [
-                { "$ref" : "#/definitions/binaryBodyReference" },
-                { "type" : "array"}
+        "property": {
+            "title": "Property",
+            "description": "A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a `BinaryBodyReference` object.",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/binaryBodyReference"
+                },
+                {
+                    "type": "array"
+                }
             ]
         }
     }

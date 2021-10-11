@@ -1,145 +1,214 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "id" : "featureTable.schema.json",
-    "title" : "Feature Table",
-    "type" : "object",
-    "description" : "A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.",
-    "definitions" : {
-        "binaryBodyReference" : {
-            "title" : "BinaryBodyReference",
-            "type" : "object",
-            "description" : "An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
-            "properties" : {
-                "byteOffset" : {
-                    "type" : "integer",
-                    "description": "The offset into the buffer in bytes.",
-                    "minimum" : 0
-                },
-                "componentType" : {
-                    "type" : "string",
-                    "description": "The datatype of components in the property. This is defined only if the semantic allows for overriding the implicit component type. These cases are specified in each tile format.",
-                    "enum" : ["BYTE", "UNSIGNED_BYTE", "SHORT", "UNSIGNED_SHORT", "INT", "UNSIGNED_INT", "FLOAT", "DOUBLE"]
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "featureTable.schema.json",
+    "title": "Feature Table",
+    "type": "object",
+    "description": "A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
+    "additionalProperties": {
+        "$ref": "#/definitions/property"
+    },
+    "definitions": {
+        "binaryBodyReference": {
+            "title": "BinaryBodyReference",
+            "type": "object",
+            "description": "An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
+            "allOf": [
+                {
+                    "$ref": "tilesetProperty.schema.json"
                 }
+            ],
+            "properties": {
+                "byteOffset": {
+                    "type": "integer",
+                    "description": "The offset into the buffer in bytes.",
+                    "minimum": 0
+                },
+                "componentType": {
+                    "description": "The datatype of components in the property. This is defined only if the semantic allows for overriding the implicit component type. These cases are specified in each tile format.",
+                    "anyOf": [
+                        {
+                            "const": "BYTE"
+                        },
+                        {
+                            "const": "UNSIGNED_BYTE"
+                        },
+                        {
+                            "const": "SHORT"
+                        },
+                        {
+                            "const": "UNSIGNED_SHORT"
+                        },
+                        {
+                            "const": "INT"
+                        },
+                        {
+                            "const": "UNSIGNED_INT"
+                        },
+                        {
+                            "const": "FLOAT"
+                        },
+                        {
+                            "const": "DOUBLE"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "extensions": {},
+                "extras": {}
             },
-            "required" : ["byteOffset"]
+            "required": [
+                "byteOffset"
+            ]
         },
-        "numericArray" : {
-            "type" : "array",
-            "items" : {
-                "type" : "number"
+        "numericArray": {
+            "type": "array",
+            "items": {
+                "type": "number"
             }
         },
-        "property" : {
-            "title" : "Property",
-            "description" : "A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a `BinaryBodyReference` object.",
-            "oneOf" : [
+        "property": {
+            "title": "Property",
+            "description": "A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a `BinaryBodyReference` object.",
+            "oneOf": [
                 {
-                    "$ref" : "#/definitions/binaryBodyReference"
-                }, {
-                    "type" : "array",
-                    "items" : {
-                        "type" : "number"
+                    "$ref": "#/definitions/binaryBodyReference"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
                     }
-                }, {
-                    "type" : "number"
+                },
+                {
+                    "type": "number"
                 }
             ]
         },
-        "globalPropertyBoolean" : {
+        "globalPropertyBoolean": {
             "title": "GlobalPropertyBoolean",
             "description": "An object defining a global boolean property value for all features.",
-            "type" : "boolean"
+            "type": "boolean"
         },
-        "globalPropertyInteger" : {
+        "globalPropertyInteger": {
             "title": "GlobalPropertyInteger",
             "description": "An object defining a global integer property value for all features.",
-            "oneOf" : [{
-                "type" : "object",
-                "properties" : {
-                    "byteOffset" : {
-                        "type" : "integer",
-                        "description": "The offset into the buffer in bytes.",
-                        "minimum" : 0
-                    }
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "byteOffset": {
+                            "type": "integer",
+                            "description": "The offset into the buffer in bytes.",
+                            "minimum": 0
+                        }
+                    },
+                    "required": [
+                        "byteOffset"
+                    ]
                 },
-                "required" : ["byteOffset"]
-            }, {
-                "type" : "integer",
-                "minimum" : 0
-            }]
+                {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            ]
         },
-        "globalPropertyNumber" : {
+        "globalPropertyNumber": {
             "title": "GlobalPropertyNumber",
             "description": "An object defining a global numeric property value for all features.",
-            "oneOf" : [{
-                "type" : "object",
-                "properties" : {
-                    "byteOffset" : {
-                        "type" : "integer",
-                        "description": "The offset into the buffer in bytes.",
-                        "minimum" : 0
-                    }
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "byteOffset": {
+                            "type": "integer",
+                            "description": "The offset into the buffer in bytes.",
+                            "minimum": 0
+                        }
+                    },
+                    "required": [
+                        "byteOffset"
+                    ]
                 },
-                "required" : ["byteOffset"]
-            }, {
-                "type" : "number",
-                "minimum" : 0
-            }]
+                {
+                    "type": "number",
+                    "minimum": 0
+                }
+            ]
         },
-        "globalPropertyCartesian3" : {
+        "globalPropertyCartesian3": {
             "title": "GlobalPropertyCartesian3",
             "description": "An object defining a global 3-component numeric property values for all features.",
-            "oneOf" : [{
-                "type" : "object",
-                "properties" : {
-                    "byteOffset" : {
-                        "type" : "integer",
-                        "description": "The offset into the buffer in bytes.",
-                        "minimum" : 0
-                    }
+            "oneOf": [
+                {
+                    "type": "object",
+                    "allOf": [
+                        {
+                            "$ref": "tilesetProperty.schema.json"
+                        }
+                    ],
+                    "properties": {
+                        "byteOffset": {
+                            "type": "integer",
+                            "description": "The offset into the buffer in bytes.",
+                            "minimum": 0
+                        },
+                        "extensions": {},
+                        "extras": {}
+                    },
+                    "required": [
+                        "byteOffset"
+                    ]
                 },
-                "required" : ["byteOffset"]
-            }, {
-                "type" : "array",
-                "items" : {
-                    "type" : "number"
-                },
-                "minItems" : 3,
-                "maxItems" : 3
-            }]
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                }
+            ]
         },
-        "globalPropertyCartesian4" : {
+        "globalPropertyCartesian4": {
             "title": "GlobalPropertyCartesian4",
             "description": "An object defining a global 4-component numeric property values for all features.",
-            "oneOf" : [{
-                "type" : "object",
-                "properties" : {
-                    "byteOffset" : {
-                        "type" : "integer",
-                        "description": "The offset into the buffer in bytes.",
-                        "minimum" : 0
-                    }
+            "oneOf": [
+                {
+                    "type": "object",
+                    "allOf": [
+                        {
+                            "$ref": "tilesetProperty.schema.json"
+                        }
+                    ],
+                    "properties": {
+                        "byteOffset": {
+                            "type": "integer",
+                            "description": "The offset into the buffer in bytes.",
+                            "minimum": 0
+                        },
+                        "extensions": {},
+                        "extras": {}
+                    },
+                    "required": [
+                        "byteOffset"
+                    ]
                 },
-                "required" : ["byteOffset"]
-            }, {
-                "type" : "array",
-                "items" : {
-                    "type" : "number"
-                },
-                "minItems": 4,
-                "maxItems": 4
-            }]
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 4,
+                    "maxItems": 4
+                }
+            ]
         }
-    },
-    "properties" : {
-        "extensions" : {
-            "$ref": "extension.schema.json"
-        },
-        "extras" : {
-            "$ref": "extras.schema.json"
-        }
-    },
-    "additionalProperties" : {
-        "$ref" : "#/definitions/property"
     }
 }

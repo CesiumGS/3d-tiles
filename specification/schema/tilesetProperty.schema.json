@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tilesetProperty.schema.json",
+    "title": "Tileset Property",
+    "type": "object",
+    "properties": {
+        "extensions": {
+            "$ref": "extension.schema.json"
+        },
+        "extras": {
+            "$ref": "extras.schema.json"
+        }
+    }
+}
