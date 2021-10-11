@@ -285,7 +285,7 @@ Individual components in an array cannot be marked as optional; only the array p
 
 ### Semantics
 
-As mentioned earlier, a property does not have inherent meaning. However it may be assigned a semantic, an identifier that describes how this property should be interpreted in an external semantic specification.
+As mentioned earlier, a property does not have inherent meaning. But each property may have a _semantic_ identifier. Extensions and applications can define sets of known semantic identifiers. Each of these identifiers describes the domain-specific meaning of a property. Applications can then assign this domain-specific meaning to the properties that have one of these known semantic identifiers.
 
 ## Storage Formats
 
