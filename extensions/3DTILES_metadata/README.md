@@ -204,7 +204,7 @@ Metadata may be assigned to individual tiles. Tile metadata often contains spati
               "horizonOcclusionPoint": {
                 "type": "ARRAY",
                 "componentType": "FLOAT64",
-                "componentCount": 4,
+                "componentCount": 3,
                 "semantic": "TILE_HORIZON_OCCLUSION_POINT",
               },
               "countries": {
