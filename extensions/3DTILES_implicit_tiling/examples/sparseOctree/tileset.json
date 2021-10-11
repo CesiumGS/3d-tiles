@@ -17,7 +17,7 @@
     "refine": "ADD",
     "geometricError": 5000,
     "content": {
-      "uri": "content/{level}/{x}/{y}/{z}.b3dm"
+      "uri": "content/{level}/{x}/{y}/{z}.pnts"
     },
     "extensions": {
       "3DTILES_implicit_tiling": {
