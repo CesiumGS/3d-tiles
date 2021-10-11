@@ -1,6 +1,7 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "title": "Template URI",
-  "type": "string",
-  "description": "A URI with embedded expressions. Allowed expressions are `{level}`, `{x}` and `{y}`. `{level}` is substituted with the level of the node, `{x}` is substituted with the x index of the node within the level, and `{y}` is substituted with the y index of the node within the level. For subdivision scheme `OCTREE`, `{z}` may also be given, and it is substituted with the z index of the node within the level"
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tile.3DTILES_implicit_tiling.templateUri.schema.json",
+    "title": "Template URI",
+    "type": "string",
+    "description": "A URI with embedded expressions. Allowed expressions are `{level}`, `{x}` and `{y}`. `{level}` is substituted with the level of the node, `{x}` is substituted with the x index of the node within the level, and `{y}` is substituted with the y index of the node within the level. For subdivision scheme `OCTREE`, `{z}` may also be given, and it is substituted with the z index of the node within the level."
 }

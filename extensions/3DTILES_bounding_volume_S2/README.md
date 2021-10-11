@@ -405,8 +405,6 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
 |**extensions**|`object`|Dictionary object with extension-specific objects.| No|
 |**extras**|`any`|Application-specific data.| No|
 
-Additional properties are not allowed.
-
 <!-- omit in toc -->
 #### token ✅
 

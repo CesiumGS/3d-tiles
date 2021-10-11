@@ -1,38 +1,54 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "title": "3DTILES_implicit_tiling tile extension",
-  "type": "object",
-  "description": "This extension allows a tile to be implicitly subdivided. Tile and content availability is stored in subtrees which are referenced externally.",
-  "properties": {
-    "subdivisionScheme": {
-      "type": "string",
-      "description": "A string describing the subdivision scheme used within the tileset.",
-      "enum": [
-        "QUADTREE",
-        "OCTREE"
-      ]
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tile.3DTILES_implicit_tiling.schema.json",
+    "title": "3DTILES_implicit_tiling tile extension",
+    "type": "object",
+    "description": "This extension allows a tile to be implicitly subdivided. Tile and content availability is stored in subtrees which are referenced externally.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
+    "properties": {
+        "subdivisionScheme": {
+            "description": "A string describing the subdivision scheme used within the tileset.",
+            "anyOf": [
+                {
+                    "const": "QUADTREE"
+                },
+                {
+                    "const": "OCTREE"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "subtreeLevels": {
+            "type": "integer",
+            "description": "The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with 5 nodes (one root and 4 children)",
+            "minimum": 1
+        },
+        "maximumLevel": {
+            "type": "integer",
+            "description": "The level of the deepest available tile. Levels are numbered from 0 starting at the tile with the `3DTILES_implicit_tiling` extension. This tile's children are at level 1, the children's children are at level 2, and so on.",
+            "minimum": 0
+        },
+        "subtrees": {
+            "allOf": [
+                {
+                    "$ref": "tile.3DTILES_implicit_tiling.subtree.schema.json"
+                }
+            ],
+            "description": "An object describing the location of subtree files."
+        },
+        "extensions": {},
+        "extras": {}
     },
-    "subtreeLevels": {
-      "type": "integer",
-      "description": "The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with 5 nodes (one root and 4 children)",
-      "minimum": 1
-    },
-    "maximumLevel": {
-      "type": "integer",
-      "description": "The level of the deepest available tile. Levels are numbered from 0 starting at the tile with the `3DTILES_implicit_tiling` extension. This tile's children are at level 1, the children's children are at level 2, and so on.",
-      "minimum": 0
-    },
-    "subtrees": {
-      "allOf": [ { "$ref": "tile.3DTILES_implicit_tiling.subtree.schema.json" } ],
-      "description": "An object describing the location of subtree files."
-    },
-    "extensions": {},
-    "extras": {}
-  },
-  "required": [
-    "subdivisionScheme",
-    "subtreeLevels",
-    "maximumLevel",
-    "subtrees"
-  ]
+    "required": [
+        "subdivisionScheme",
+        "subtreeLevels",
+        "maximumLevel",
+        "subtrees"
+    ]
 }
