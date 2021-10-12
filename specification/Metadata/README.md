@@ -49,11 +49,6 @@ Draft
       - [Strings](#strings-1)
       - [Enums](#enums-2)
       - [Arrays](#arrays-1)
-  - [Raster Format](#raster-format)
-    - [Numbers](#numbers-2)
-    - [Enums](#enums-3)
-    - [Arrays](#arrays-2)
-    - [Implementation Notes](#implementation-notes)
 - [Revision History](#revision-history)
 
 ## Overview
@@ -81,7 +76,7 @@ This specification defines metadata schemas and methods for encoding metadata.
 
 **Metadata**, as used throughout this specification, refers to any association of 3D content with entities and properties, such that entities represent meaningful units within an overall structure. Other common definitions of metadata, particularly in relation to filesystems or networking as opposed to 3D content, remain outside the scope of the document.
 
-Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines two such representations, a **Table Format** and a **Raster format**.
+Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines one such representation, a **Table Format**.
 
 ## Schemas
 
@@ -240,19 +235,13 @@ For `ENUM` component types, a `noData` value should contain the name of the enum
 
 ## Storage Formats
 
-A schema provides the pattern for creating entities. This section covers the various formats and encodings for storing entity metadata. Additional formats and encoding may be defined outside of this specification.
+A schema provides the pattern for creating entities. This section covers a format and encoding for storing entity metadata. Additional formats and encoding may be defined outside of this specification.
 
 * **Table format** - property values are stored in parallel 1D arrays
-* **Raster format** - property values are stored in channels of pixel-based formats (usually images)
 
-The table format is suitable for general purpose metadata storage. This is similar in concept to a database table where entities are rows and properties are columns. The raster format is for storing fine-grained metadata in pixel-based formats such as images and video. Entities correspond to pixels and properties correspond to channels. This format is especially useful when texture mapping high frequency data, like material properties, to less detailed 3D surfaces. The raster format can also take advantage of image compression techniques.
+The table format is suitable for general purpose metadata storage. This is similar in concept to a database table where entities are rows and properties are columns.
 
-Both formats are designed for storing metadata for a large number of entities.
-
-Table Format|Raster Format
---|--
-|<img src="figures/table-format.png"  alt="Table Format" width="1000px">|<img src="figures/raster-format.png" alt="Raster Format" width="400px"> |
-
+<img src="figures/table-format.png"  alt="Table Format" width="1000px">
 
 Each format may have any number of **encodings**. Two encodings are defined for the table format: a **binary encoding** and a **JSON encoding**. A specification that references Cesium 3D Metadata must state which format and encoding it uses and is free to define its own formats and encodings. For example, while this specification does not define any raster encodings, the [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) glTF extension may use any image formats supported by glTF for storing per-texel metadata, including PNG and JPEG.
 
@@ -500,126 +489,6 @@ Enums are encoded as JSON strings using the name the enum value rather than the 
 
 Arrays are encoded as JSON arrays, where each component is encoded according to the component type. When a component count is specified, the length of the JSON array must match the component count. Otherwise, for variable-length arrays, the JSON array may be any length, including zero-length.
 
-### Raster Format
-
-The raster format is designed for high frequency metadata encoded in images. Metadata is directly accessed via pixel coordinates. Entities correspond to pixels and properties correspond to image channels. Implementations must specify the image format. This flexibility allows for a wide range of image formats and compression techniques.
-
-#### Numbers
-
-Numeric values like `UINT8` are encoded directly in channels of an image.
-
-In the following example, a single-channel image is used to encode ocean temperature data.
-
-```jsonc
-{
-  "schema": {
-    "classes": {
-      "ocean": {
-        "properties": {
-          "temperature": {
-            "type": "UINT8",
-            "normalized": "true"
-          }
-        }
-      }
-    }
-  },
-  "oceanTexture": {
-    "class": "ocean",
-    "image": "ocean.png",
-    "properties": {
-      "temperature": {
-        "channels": "0"
-      }
-    }
-  }
-}
-```
-
-In this example temperature, salinity, and ship count are encoded in separate channels of the same image.
-
-```jsonc
-{
-  "schema": {
-    "classes": {
-      "ocean": {
-        "properties": {
-          "temperature": {
-            "type": "UINT8",
-            "normalized": "true"
-          },
-          "salinity": {
-            "type": "UINT8",
-            "normalized": "true"
-          },
-          "shipCount": {
-            "type": "UINT8"
-          }
-        }
-      }
-    }
-  },
-  "oceanTexture": {
-    "class": "ocean",
-    "image": "ocean.png",
-    "properties": {
-      "temperature": {
-        "channels": "0"
-      },
-      "salinity": {
-        "channels": "1"
-      },
-      "shipCount": {
-        "channels": "2"
-      }
-    }
-  }
-}
-```
-
-#### Enums
-
-Enum values may also be encoded in images. Enums are encoded as integer values according to their enum value type (see [Enums](#enums)).
-
-
-#### Arrays
-
-Fixed-length arrays can be stored in a multi-channel texture. This is useful for encoding vector-valued properties.
-
-The example below demonstrates encoding vector properties using a 3-channel image. Channel 0 stores the x-component, channel 1 stores the y-component, and channel 2 stores the z-component.
-
-```jsonc
-{
-  "schema": {
-    "classes": {
-      "wind": {
-        "properties": {
-          "velocity": {
-            "type": "ARRAY",
-            "componentType": "UINT8",
-            "componentCount": 3,
-            "normalized": "true"
-          }
-        }
-      }
-    }
-  },
-  "windTexture": {
-    "class": "wind",
-    "image": "wind.png",
-    "properties": {
-      "velocity": {
-        "channels": "012"
-      }
-    }
-  }
-}
-```
-
-#### Implementation Notes
-
-The data type and bit depth of the image should be compatible with the property type. In the examples above, the ocean surface temperature should be encoded in an 8-bit per-channel image. Likewise, a floating point property should use a floating point-compatible image format like TIFF or KTX2. Aside from these guidelines, implementations have a large degree of freedom in determining how raster data is encoded.
-
 ## Revision History
 
 * **Version 0.0.0** November 6, 2020
@@ -631,3 +500,5 @@ The data type and bit depth of the image should be compatible with the property 
   * Added ability to assign a semantic identifiers to properties
   * Removed blob support
   * Removed special handling for fixed-length strings
+* **Version 2.0.0** September, 2021
+  * Removed raster encoding. Storing metadata in texture channels remains a valid implementation of this specification, but is not within the scope of this document.
