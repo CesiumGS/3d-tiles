@@ -111,11 +111,11 @@ The `3DTILES_implicit_tiling` extension may be defined on any tile in the tilese
     "extensions": {
       "3DTILES_implicit_tiling": {
         "subdivisionScheme": "QUADTREE",
-        "subtreeLevels": 7,
         "maximumLevel": 20,
         "subtrees": {
           "uri": "subtrees/{level}/{x}/{y}.subtree"
-        }
+        },
+        "subtreeLevels": 7
       }
     }
   }
@@ -126,10 +126,10 @@ In the extension object of the tile, the following properties about the implicit
 
 | Property | Description |
 | ------ | ----------- |
-| `subdivisionScheme` | Either `QUADTREE` or `OCTREE` |
-| `subtreeLevels` | How many levels there are in each subtree |
+| `subdivisionScheme` | Either `QUADTREE` or `OCTREE`. See [Subdivision scheme](#subdivision-scheme). |
 | `maximumLevel` | Level of the deepest available tile in the tree. |
 | `subtrees` | Template URI for subtree files. See [Subtrees](#subtrees). |
+| `subtreeLevels` | How many levels there are in each subtree. |
 
 [Template URIs](#template-uris) are used for locating subtree files as well as tile contents. For content, the template URI is specified in the tile's `content.uri` property.
 
@@ -164,14 +164,23 @@ divided into a quadtree or octree.
 
 ### Subdivision Rules
 
-Implicit tiling only requires defining the subdivision scheme, refine strategy, bounding volume, and geometric error at the implicit root tile. These properties are computed automatically for any descendant tile based on the following rules:
+Implicit tiling only requires defining the subdivision scheme, refinement strategy, bounding volume, and geometric error at the implicit root tile. For descendant tiles, these properties are computed automatically, based on the following rules:
 
 | Property | Subdivision Rule | 
 | --- | --- |
 | `subdivisionScheme` | Constant for all descendant tiles |
 | `refine` | Constant for all descendant tiles |
-| `boundingVolume` | If `subdivisionScheme` is `QUADTREE`, each parent tile is divided into four child tiles. If `subdivisionScheme` is `OCTREE`, each parent tile is divided into eight child tiles. |
+| `boundingVolume` | If `subdivisionScheme` is `QUADTREE`, the parent tile's bounding volume is divided into four parts, one per child tile. If `subdivisionScheme` is `OCTREE`, the bounding volume is divided into eight parts. |
 | `geometricError` | Each child's `geometricError` is half of its parent's `geometricError` |
+
+
+> **Implementation note:**
+> 
+> In order to maintain numerical stability during this subdivision process, the actual bounding volumes should not be computed progressively by subdividing a non-root tile volume. Instead, the exact bounding volumes should be computed directly for a given level.
+> 
+> Let the extent of the root bounding volume along one dimension *d* be *(min<sub>d</sub>, max<sub>d</sub>)*. The number of bounding volumes along that dimension for a given level  is *2<sup>level</sup>*. The size of each bounding volume at this level, along dimension *d*, is *size<sub>d</sub> = (max<sub>d</sub> - min<sub>d</sub>) / 2<sup>level</sup>*. The extent of the bounding volume of a child can then be computed directly as *(min<sub>d</sub> + size<sub>d</sub> * i, min<sub>d</sub> + size<sub>d</sub> * (i + 1))*, where *i* is the index of the child in dimension *d*. 
+> 
+
 
 ## Tile Coordinates
 
@@ -205,7 +214,7 @@ For `region` bounding volumes:
 
 A **Template URI** is a URI pattern used to refer to tiles by their tile coordinates.
 
-Template URIs must include the variables `{level}`, `{x}`, `{y}`. Template URIs for octrees must also include `{z}`. When referring to a specific tile, the tile's coordinates are substituted in for these variables.
+Template URIs must include the variables `{level}`, `{x}`, `{y}`. Template URIs for octrees must also include `{z}`. When referring to a specific tile, the tile's coordinates are substituted for these variables.
 
 Here are some examples of template URIs and files that they match:
 
@@ -317,7 +326,7 @@ Header fields:
 
 | Bytes | Field | Type     | Description |
 |-------|-------|----------|-------------|
-| 0-3   | Magic | `UINT32` | A magic number identifying this as a subtree file. This is always `0x74627573` which when stored in little-endian is the ASCII string `subt` |
+| 0-3   | Magic | `UINT32` | A magic number identifying this as a subtree file. This is always `0x74627573`, the four bytes of the ASCII string `subt` stored in little-endian order. |
 | 4-7   | Version | `UINT32` | The version number. Always `1` for this version of the specification. |
 | 8-15  | JSON byte length | `UINT64` | The length of the subtree JSON, including any padding. |
 | 16-23 | Binary byte length | `UINT64` | The length of the buffer (or 0 if the buffer does not exist) including any padding. |
@@ -331,7 +340,9 @@ The subtree JSON describes where the availability information for a single subtr
 
 ### Buffers and Buffer Views
 
-A **buffer** is a binary blob. A single buffer can be stored within the binary chunk of a subtree file. In all other cases, the binary file is assumed to be an external resource specified by the `uri` property. Each buffer has a `byteLength` describing the size of the data, including any padding (for subtree binary files)
+A **buffer** is a binary blob. A single buffer can be stored within the binary chunk of a subtree file. Further buffers can be stored as individual binary files that are referred to by the `buffer.uri` property. The buffers can store the availability data of a subtree in binary form, or other data that is associated with a subtree, like metadata for implicit tiles defined using the [`3DTILES_metadata` extension.](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_metadata#implicit-tile-metadata)
+
+Each buffer has a `byteLength` describing the size of the data, including any padding (for subtree binary files). 
 
 A **buffer view** is a contiguous subset of a buffer. A buffer view's `buffer` property is an integer index to identify the buffer. A buffer view has a `byteOffset` and a `byteLength` to describe the range of bytes within the buffer. The `byteLength` does not include any padding. There may be multiple buffer views referencing a single buffer.
 
@@ -374,7 +385,13 @@ For efficient memory access, the `byteOffset` of a buffer view must be aligned t
 }
 ```
 
-In the example above, every tile in the subtree exists, but not every tile has content. `tileAvailability.constant` is set to `1` to indicate that all tiles exist without needing an explicit bitstream. Since only some tiles have content, `contentAvailability.bufferView` indicates where the bitstream is stored. Some child subtrees exist so `childSubtreeAvailability.bufferView` refers to another bitstream. This second bitstream is stored in an external binary file.
+In the example above, every tile in the subtree exists, but not every tile has content. 
+
+When all tiles exist, then their availability can be encoded by setting `tileAvailability.constant` to `1`, without needing an explicit bitstream.
+
+Only some tiles have content, and `contentAvailability.bufferView` indicates where the bitstream for the content availability is stored: The `bufferView` with index 0 refers to the `buffer` with index 0. This buffer does not have a `uri` property, and therefore refers to the _internal_ buffer. The `byteOffset` and `byteLength` indicate that the content availability bitstream is stored in the bytes `[0...11)` of the internal buffer.
+
+Some child subtrees exist, so `childSubtreeAvailability.bufferView` refers to another bitstream. The `bufferView` with index 1 refers to the buffer with index `1`. This buffer has a `uri` property, indicating that this second bitstream is stored in an external binary file.
 
 ### Availability Packing
 
@@ -390,10 +407,10 @@ Availability bitstreams are packed in binary using the format described in the [
 * **implicit tiling** - A description of a tileset using recursive subdivision.
 * **implicit root tile** - A tile with the `3DTILES_implicit_tiling` extension, which denotes the root of an implicit tileset.
 * **octree** - A 3D subdivision scheme that divides each bounding volume into 8 smaller bounding volumes along the midpoint of the `x`, `y`, and `z` axes.
-* **quadtree** - A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volume along the midpoint of the `x` and `y` axes.
+* **quadtree** - A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volumes along the midpoint of the `x` and `y` axes.
 * **subtree** - A fixed-size section of the tree that contains availability information.
 * **subtree file** - A binary file storing information about a specific subtree.
-* **subdivision scheme** - A recursive pattern of dividing a parent tile into smaller children. tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile.
+* **subdivision scheme** - A recursive pattern of dividing a parent tile into smaller child tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile.
 * **template URI** - A URI pattern containing tile coordinates for directly addressing tiles.
 * **tile** - A division of space that may contain content.
 * **tileset** - A hierarchical collection of tiles.
@@ -820,20 +837,20 @@ The name of the `bufferView`.
 A [Morton index](https://en.wikipedia.org/wiki/Z-order_curve) is computed by interleaving the bits of the `(x, y)` or `(x, y, z)` coordinates of a tile. Specifically:
 
 ```
-quadtreeMortonIndex = interleaveBits(y, x)
-octreeMortonIndex = interleaveBits(z, y, x)
+quadtreeMortonIndex = interleaveBits(x, y)
+octreeMortonIndex = interleaveBits(x, y, z)
 ```
 
 For example:
 
 ```
 // Quadtree
-interleaveBits(0b11, 0b00) = 0b1010
-interleaveBits(0b1010, 0b0011) = 0b10001101
-interleaveBits(0b0110, 0b0101) = 0b00111001
+interleaveBits(0b11, 0b00) = 0b0101
+interleaveBits(0b1010, 0b0011) = 0b01001110
+interleaveBits(0b0110, 0b0101) = 0b00110110
 
 // Octree
-interleaveBits(0b001, 0b010, 0b100) = 0b001010100
+interleaveBits(0b001, 0b010, 0b100) = 0b100010001
 interleaveBits(0b111, 0b000, 0b111) = 0b101101101
 ```
 
@@ -914,7 +931,7 @@ tile.globalZ = concatBits(subtreeRoot.globalZ, tile.localZ)
 <!-- omit in toc -->
 ### Finding Parent and Child Tiles
 
-Computing the coordinates of a parent or child tile can also be computed by bitwise operations on the Morton index. The following formulas apply for both local and global coordinates.
+The coordinates of a parent or child tile can also be computed with bitwise operations on the Morton index. The following formulas apply for both local and global coordinates.
 
 ```
 childTile.level = parentTile.level + 1
