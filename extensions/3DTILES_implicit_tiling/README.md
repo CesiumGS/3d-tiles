@@ -174,7 +174,7 @@ Implicit tiling only requires defining the subdivision scheme, refinement strate
 | `geometricError` | Each child's `geometricError` is half of its parent's `geometricError` |
 
 
-> *Implementation note:*
+> **Implementation note:**
 > 
 > In order to maintain numerical stability during this subdivision process, the actual bounding volumes should not be computed progressively by subdividing a non-root tile volume. Instead, the exact bounding volumes should be computed directly for a given level.
 > 
