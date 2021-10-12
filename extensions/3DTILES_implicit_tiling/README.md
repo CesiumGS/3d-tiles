@@ -170,7 +170,7 @@ Implicit tiling only requires defining the subdivision scheme, refinement strate
 | --- | --- |
 | `subdivisionScheme` | Constant for all descendant tiles |
 | `refine` | Constant for all descendant tiles |
-| `boundingVolume` | If `subdivisionScheme` is `QUADTREE`, the bounding volume of the child tile is computed from the bounding volume of the parent tile by dividing it into four parts. If `subdivisionScheme` is `OCTREE`, the bounding volume is divided into eight parts. |
+| `boundingVolume` | If `subdivisionScheme` is `QUADTREE`, the parent tile's bounding volume is divided into four parts, one per child tile. If `subdivisionScheme` is `OCTREE`, the bounding volume is divided into eight parts. |
 | `geometricError` | Each child's `geometricError` is half of its parent's `geometricError` |
 
 
