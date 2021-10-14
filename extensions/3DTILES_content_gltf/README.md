@@ -6,6 +6,8 @@
 
 * Sean Lilley, Cesium
 * Peter Gagliardi, Cesium
+* Marco Hutter, Cesium
+* Don McCurdy, Independent
 * Patrick Cozzi, Cesium
 
 <!-- omit in toc -->
