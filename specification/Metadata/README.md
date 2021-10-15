@@ -72,7 +72,7 @@ The specification does not enumerate or define the semantic meanings of metadata
 
 This specification defines metadata schemas and methods for encoding metadata.
 
-**Schemas** contain a set of **classes** and **enums**. Class represents a category of similar entities, defined as a set of **properties**. Each property describes values of a particular type. Enums defines a set of named values representing a single value type, and may be referenced by class properties. Schema definitions do not describe how entities or properties are stored, and may be represented in a file format in various ways. Schemas can be reused across multiple assets or even file formats.
+**Schemas** contain a set of **classes** and **enums**. A class represents a category of similar entities, defined as a set of **properties**. Each property describes values of a particular type. An enum defines a set of named values representing a single value type, and may be referenced by class properties. Schema definitions do not describe how entities or properties are stored, and may be represented in a file format in various ways. Schemas can be reused across multiple assets or even file formats.
 
 **Entities** are instantiations of class, populated with **property values** conforming to the class definition. Every property value of an entity must be defined by its class, and an entity must not have extraneous property values. Properties of a class may be required, in which case all entities instantiating the class are required to include them.
 
