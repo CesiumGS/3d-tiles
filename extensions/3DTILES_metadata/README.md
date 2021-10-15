@@ -53,7 +53,7 @@ This extension defines a standard mechanism for adding metadata to 3D Tiles. Thi
 * Tileset metadata - metadata about the tileset as a whole.
 * Tile metadata - metadata about individual tiles.
 * Group metadata - metadata about groups of content.
-* Feature metadata - metadata about features. See the companion glTF extension [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata).
+* Feature metadata - metadata about features. See the companion glTF extension [EXT_mesh_features](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features).
 
 <img src="figures/metadata-granularity.png"  alt="Metadata Granularity" width="600">
 
@@ -84,7 +84,7 @@ This extension is designed with several new use cases in mind.
 
 This extension is independent of the [Batch Table](../../specification/TileFormats/BatchTable) used in the Batched 3D Model, Instanced 3D Model, and Point Cloud formats. Similarly, this extension is independent of the [`properties`](../../specification/schema/properties.schema.json) object in tileset JSON.
 
-glTF models in Batched 3D Model or Instanced 3D Model content must not use the [EXT_feature_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) extension. Instead use glTF content directly with [`3DTILES_content_gltf`](../3DTILES_content_gltf).
+glTF models in Batched 3D Model or Instanced 3D Model content must not use the [EXT_mesh_features](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) extension. Instead use glTF content directly with [`3DTILES_content_gltf`](../3DTILES_content_gltf).
 
 ## Concepts
 
@@ -405,7 +405,7 @@ Group metadata can be paired with [`3DTILES_multiple_contents`](../3DTILES_multi
 
 A feature is an entity that has both geometry and metadata, such as a 3D building in a city. Features are the finest level of granularity within the tileset.
 
-Metadata may be assigned to features using the glTF extension [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata).
+Metadata may be assigned to features using the glTF extension [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features).
 
 Feature metadata classes may be included in the `3DTILES_metadata` schema. This lets an application know what classes exist before requesting content.
 

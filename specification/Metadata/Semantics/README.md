@@ -24,7 +24,7 @@ Semantics describe how properties should be interpreted. For example, an applica
 For full usage see:
 
 * [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) - 3D Tiles extension that assigns metadata to various components of 3D Tiles
-* [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) - glTF extension that assigns metadata to features in a model on a per-vertex, per-texel, or per-instance basis
+* [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) - glTF extension that assigns metadata to features in a model on a per-vertex, per-texel, or per-instance basis
 
 <!-- omit in toc -->
 ### **TILE_BOUNDING_BOX**
