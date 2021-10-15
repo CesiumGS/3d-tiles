@@ -40,7 +40,7 @@ Subtree files are designed to facilitate fast tree traversals, as each tile can 
 
 #### [Cesium 3D Metadata Specification](./specification/Metadata)
 
-This specification defines a standard metadata format for 3D data. This format is shared by two other extensions, `3DTILES_metadata` in 3D Tiles and `EXT_feature_metadata` in glTF.
+This specification defines a standard metadata format for 3D data. This format is shared by two other extensions, `3DTILES_metadata` in 3D Tiles and `EXT_mesh_features` in glTF.
 
 3D Tiles Metadata defines key concepts such as schemas, property types, and storage formats.
 
@@ -50,23 +50,23 @@ This extension defines several granularities of metadata:
 
 * Tileset Metadata
 * Group Metadata
-* Tile Metadata 
+* Tile Metadata
 
 `3DTILES_metadata` also interacts with other extensions to add metadata capability:
 
 * `3DTILES_implicit_tiling` - tile metadata can be stored in binary subtree files.
 * `3DTILES_multiple_contents` - Each content in a tile can independently be added to groups for group metadata. This allows for more complex grouping behavior, such as organizing contents into layers. It also makes it easier to style and filter content using the group ID.
 
-#### [`EXT_feature_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata) (glTF 2.0 extension)
+#### [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) (glTF 2.0 extension)
 
-This extension adds 3D Tiles Metadata to glTF models. This can be used both in the context of 3D Tiles, as well as individual 3D models. The following levels of granularity are defined for feature metadata:
+This extension adds 3D Tiles Metadata to glTF models. This can be used both in the context of 3D Tiles, as well as individual 3D models. The following levels of granularity are defined:
 
-* **Per-feature metadata** - Vertices can be grouped into features; each feature has metadata. This works in a similar fashion to the Batch Table works in 3D Tiles 1.0
-* **Per-vertex metadata** - features can be as fine-grained as individual vertices
-* **Feature ID textures** - Textures allow very fine-grained metadata storage. Texels are grouped into features, each feature has metadata. This is essentially the texture equivalent of per-feature metadata. 
-* **Feature Textures** - Each texel stores a value of a metadata property.
+* **Per-feature properties** - Vertices can be grouped into features; each feature has properties associated with it. This works in a similar fashion to the Batch Table works in 3D Tiles 1.0
+* **Per-vertex properties** - features can be as fine-grained as individual vertices
+* **Property ID textures** - Textures allow very fine-grained metadata storage. Texels are grouped into features, each feature has properties associated with it. This is the texture equivalent of per-feature metadata.
+* **Property Textures** - Each texel stores a value of a metadata property.
 
-See the [Examples section](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata#examples) of the `EXT_feature_metadata` specification for several examples of how feature metadata can be used.
+See the [Examples section](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features#examples) of the `EXT_mesh_features` specification for several examples of how feature metadata can be used.
 
 ### [`3DTILES_bounding_volume_S2`](./extensions/3DTILES_bounding_volume_S2) (3D Tiles 1.0 extension)
 
