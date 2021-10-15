@@ -96,7 +96,7 @@ Schema version (`version`) is an application-specific identifier for a given sch
 
 ### Enums
 
-An enum consists of a set of named values, represented as `string: integer` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the [Type](#type) section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
+An enum consists of a set of named values, represented as `(string, integer)` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the [Type](#type) section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
 
 The example below defines a "species" enum with three possible tree species, as well as an "Unknown" value.
 
@@ -153,7 +153,7 @@ Descriptions (`description`) provide a human-readable explanation of a property,
 
 Property IDs, names, and descriptions do not impute meaning. To provide such a meaning, properties may be assigned a semantic identifier string (`semantic`), indicating how the property's content should be interpreted. Semantic identifiers may be defined by the [Cesium Metadata Semantic Reference](./Semantics/) or by external semantic references, and may be application-specific. Identifiers should be uppercase, with underscores as word separators.
 
-> **Example:** Common semantic definitions might include temperature in degrees Celsius (e.g. `TEMPERATURE_DEGREES_CELSIUS`), time in milliseconds (e.g. `TIME_MILLIS`), or mean squared error (e.g. `MSE`). These examples are only illustrative.
+> **Example:** Semantic definitions might include temperature in degrees Celsius (e.g. `TEMPERATURE_DEGREES_CELSIUS`), time in milliseconds (e.g. `TIME_MILLISECONDS`), or mean squared error (e.g. `MEAN_SQUARED_ERROR`). These examples are only illustrative.
 
 #### Type
 
@@ -196,8 +196,8 @@ Properties may be comprised of one component (`SINGLE`) or many components (`ARR
 | UINT32  | Unsigned integer in the range `[0, 4294967295]`                           |
 | INT64   | Signed integer in the range `[-9223372036854775808, 9223372036854775807]` |
 | UINT64  | Unsigned integer in the range `[0, 18446744073709551615]`                 |
-| FLOAT32 | A number that can be represented as 32-bit IEEE floating point            |
-| FLOAT64 | A number that can be represented as 64-bit IEEE floating point            |
+| FLOAT32 | A number that can be represented as a 32-bit IEEE floating point number   |
+| FLOAT64 | A number that can be represented as a 64-bit IEEE floating point number   |
 | BOOLEAN | True or false                                                             |
 | STRING  | A sequence of characters                                                  |
 | ENUM    | An enumerated type                                                        |
@@ -291,7 +291,7 @@ A numeric value may be encoded as 8-, 16-, 32-, or 64-bit types. Multiple numeri
 
 #### Booleans
 
-A boolean value is encoded as a single bit, either 0 (`false`) or 1 (`true`). Multiple boolean values are packed tightly in the same buffer.
+A boolean value is encoded as a single bit, either 0 (`false`) or 1 (`true`). Multiple boolean values are packed tightly in the same buffer. These buffers of tightly-packed bits are sometimes referred to as bitstreams.
 
 > **Implementation note:** Example accessing a boolean value for entity ID `i`.
 >
@@ -468,7 +468,7 @@ _A collection of entities encoded in JSON_
 
 #### Numbers
 
-All numeric types (`INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, `UINT64`, `FLOAT32`, and `FLOAT64`) are encoded as JSON numbers. Floating point numbers must be representable as IEEE floating point.
+All numeric types (`INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, `UINT64`, `FLOAT32`, and `FLOAT64`) are encoded as JSON numbers. Floating point values must be representable as IEEE floating point numbers.
 
 > **Implementation Note:** For numeric types the size in bits is made explicit. Even though JSON only has a single `number` type for all integers and floating point numbers, the application that consumes the JSON may make a distinction. For example, C and C++ have several different integer types such as `uint8_t`, `uint32_t`. The application is responsible for interpreting the metadata using the type specified in the property definition.
 
