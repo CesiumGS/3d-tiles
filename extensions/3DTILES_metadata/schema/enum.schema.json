@@ -21,8 +21,8 @@
             "description": "The description of the enum."
         },
         "valueType": {
-            "description": "The type of the integer enum value.",
             "default": "UINT16",
+            "description": "The type of the integer enum value.",
             "anyOf": [
                 {
                     "const": "INT8"
@@ -55,7 +55,7 @@
         },
         "values": {
             "type": "array",
-            "description": "An array of enum values. Duplicate names or integer values are not allowed.",
+            "description": "An array of enum values. Duplicate names or duplicate integer values are not allowed.",
             "items": {
                 "$ref": "enum.value.schema.json"
             },

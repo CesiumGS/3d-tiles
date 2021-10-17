@@ -105,7 +105,7 @@ This extension may be paired with the [`3DTILES_metadata` extension](../3DTILES_
                 "componentCount": 3
               },
               "order": {
-                "type": "INT32"
+                "componentType": "INT32"
               }
             }
           }
@@ -272,7 +272,7 @@ Example tileset JSON:
                 "componentCount": 3
               },
               "order": {
-                "type": "INT32"
+                "componentType": "INT32"
               }
             }
           }

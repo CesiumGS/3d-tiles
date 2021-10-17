@@ -12,7 +12,7 @@
     "properties": {
         "group": {
             "type": "string",
-            "description": "The group this content belongs to. The value must be a group ID declared in the `groups` dictionary."
+            "description": "The group this content belongs to. The value must correspond to a group ID declared in the `groups` dictionary."
         },
         "extensions": {},
         "extras": {}

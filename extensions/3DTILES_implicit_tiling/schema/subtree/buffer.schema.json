@@ -12,8 +12,8 @@
     "properties": {
         "uri": {
             "type": "string",
-            "description": "The URI of the buffer. Relative paths are relative to the file containing the buffer JSON. If `uri` is omitted, the buffer is assumed to refer to the binary chunk of the subtree file.",
-            "format": "uriref"
+            "description": "The URI (or IRI) of the external schema file. Relative paths are relative to the file containing the buffer JSON. If `uri` is omitted, the buffer is assumed to refer to the binary chunk of the subtree file.",
+            "format": "iri-reference"
         },
         "byteLength": {
             "type": "integer",

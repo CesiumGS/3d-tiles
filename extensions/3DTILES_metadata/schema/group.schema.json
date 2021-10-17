@@ -22,22 +22,49 @@
         },
         "class": {
             "type": "string",
-            "description": "The class this metadata object conforms to. The value must be a class ID declared in the `classes` dictionary."
+            "description": "The class that property values conform to. The value must be a class ID declared in the `classes` dictionary."
         },
         "properties": {
             "type": "object",
-            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`. Optional properties may be excluded from this dictionary.",
+            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid item name, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties must be included in this dictionary.",
             "minProperties": 1,
             "additionalProperties": {
-                "type": [
-                    "boolean",
-                    "number",
-                    "string",
-                    "array"
+                "oneOf": [
+                    {
+                        "type": "boolean"
+                    },
+                    {
+                        "type": "number"
+                    },
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
                 ]
             }
         },
         "extensions": {},
         "extras": {}
-    }
+    },
+    "required": [
+        "class",
+        "properties"
+    ]
 }
