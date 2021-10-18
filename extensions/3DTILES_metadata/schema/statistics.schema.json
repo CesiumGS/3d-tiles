@@ -12,7 +12,7 @@
     "properties": {
         "classes": {
             "type": "object",
-            "description": "A dictionary, where each key is a class ID declared in the `classes` dictionary and each value is an object containing statistics about entities that conform to the class.",
+            "description": "A dictionary, where each key corresponds to a class ID in the `classes` dictionary and each value is an object containing statistics about entities that conform to the class.",
             "minProperties": 1,
             "additionalProperties": {
                 "$ref": "statistics.class.schema.json"

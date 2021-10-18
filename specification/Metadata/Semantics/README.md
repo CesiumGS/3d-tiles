@@ -14,7 +14,7 @@ Semantics describe how properties should be interpreted. For example, an applica
       "semantic": "TILE_HORIZON_OCCLUSION_POINT",
     },
     "name": {
-      "type": "STRING",
+      "componentType": "STRING",
       "semantic": "NAME"
     }
   }

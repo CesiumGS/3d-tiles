@@ -385,19 +385,19 @@ _Schema_
       "basicClass": {
         "properties": {
           "floatProperty": {
-            "type": "FLOAT64"
+            "componentType": "FLOAT64"
           },
           "integerProperty": {
-            "type": "INT32"
+            "componentType": "INT32"
           },
           "booleanProperty": {
-            "type": "BOOLEAN"
+            "componentType": "BOOLEAN"
           },
           "stringProperty": {
-            "type": "STRING"
+            "componentType": "STRING"
           },
           "enumProperty": {
-            "type": "ENUM",
+            "componentType": "ENUM",
             "enumType": "basicEnum"
           },
           "floatArrayProperty": {
@@ -408,10 +408,6 @@ _Schema_
           "stringArrayProperty": {
             "type": "ARRAY",
             "componentType": "STRING"
-          },
-          "optionalProperty": {
-            "type": "FLOAT32",
-            "optional": true
           }
         }
       }

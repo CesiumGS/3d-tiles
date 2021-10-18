@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "class.property.schema.json",
-    "title": "Class property",
+    "title": "Property",
     "type": "object",
     "description": "A class property.",
     "allOf": [
@@ -21,46 +21,29 @@
             "description": "The description of the property."
         },
         "type": {
-            "description": "The property type. If `ENUM` is used, then `enumType` must also be specified. If `ARRAY` is used, then `componentType` must also be specified. `ARRAY` is a fixed-length array when `componentCount` is defined, and variable-length otherwise.",
+            "description": "Element type represented by each property value. `VECN` is a vector of `N` numeric components. `MATN` is an `N ⨉ N` matrix of numeric components stored in column-major order. `ARRAY` is fixed-length when `componentCount` is defined, and is variable-length otherwise.",
+            "default": "SINGLE",
             "anyOf": [
                 {
-                    "const": "INT8"
+                    "const": "SINGLE"
                 },
                 {
-                    "const": "UINT8"
+                    "const": "VEC2"
                 },
                 {
-                    "const": "INT16"
+                    "const": "VEC3"
                 },
                 {
-                    "const": "UINT16"
+                    "const": "VEC4"
                 },
                 {
-                    "const": "INT32"
+                    "const": "MAT2"
                 },
                 {
-                    "const": "UINT32"
+                    "const": "MAT3"
                 },
                 {
-                    "const": "INT64"
-                },
-                {
-                    "const": "UINT64"
-                },
-                {
-                    "const": "FLOAT32"
-                },
-                {
-                    "const": "FLOAT64"
-                },
-                {
-                    "const": "BOOLEAN"
-                },
-                {
-                    "const": "STRING"
-                },
-                {
-                    "const": "ENUM"
+                    "const": "MAT4"
                 },
                 {
                     "const": "ARRAY"
@@ -72,10 +55,10 @@
         },
         "enumType": {
             "type": "string",
-            "description": "An enum ID as declared in the `enums` dictionary. This value must be specified when `type` or `componentType` is `ENUM`."
+            "description": "Enum ID as declared in the `enums` dictionary. Required when `componentType` is `ENUM`."
         },
         "componentType": {
-            "description": "When `type` is `ARRAY` this indicates the type of each component of the array. If `ENUM` is used, then `enumType` must also be specified.",
+            "description": "Data type of an element's components. When `type` is `SINGLE`, then `componentType` is also the data type of the element. When `componentType` is `ENUM`, `enumType` is required.",
             "anyOf": [
                 {
                     "const": "INT8"
@@ -124,40 +107,72 @@
         "componentCount": {
             "type": "integer",
             "minimum": 2,
-            "description": "The number of components per element for `ARRAY` elements."
+            "description": "Number of components per element for fixed-length `ARRAY` elements. Always undefined for variable-length `ARRAY` and all other element types."
         },
         "normalized": {
             "type": "boolean",
-            "description": "Specifies whether integer values are normalized. This applies both when `type` is an integer type, or when `type` is `ARRAY` with a `componentType` that is an integer type. For unsigned integer types, values are normalized between `[0.0, 1.0]`. For signed integer types, values are normalized between [-1.0, 1.0]. For all other types, this property is ignored.",
+            "description": "Specifies whether integer values are normalized. This applies when `componentType` is an integer type. For unsigned integer component types, values are normalized between `[0.0, 1.0]`. For signed integer component types, values are normalized between `[-1.0, 1.0]`. For all other component types, this property must be false.",
             "default": false
         },
         "max": {
-            "type": [
-                "number",
-                "array"
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 1
+                }
             ],
-            "description": "Maximum allowed values for property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. `normalized` property has no effect on these values: they always correspond to the integer values."
+            "description": "Maximum allowed value for the property. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise maximum values. The `normalized` property has no effect on the maximum, which always contains integer values."
         },
         "min": {
-            "type": [
-                "number",
-                "array"
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 1
+                }
             ],
-            "description": "Minimum allowed values for property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. `normalized` property has no effect on these values: they always correspond to the integer values."
+            "description": "Minimum allowed value for the property. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise minimum values. The `normalized` property has no effect on the minimum, which always contains integer values."
         },
-        "default": {
-            "type": [
-                "boolean",
-                "number",
-                "string",
-                "array"
-            ],
-            "description": "A default value to use when the property value is not defined. If used, `optional` must be set to true. The type of the default value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use the enum `name`, not the integer value. For `ARRAY` use a JSON array containing values matching the `componentType`."
-        },
-        "optional": {
+        "required": {
             "type": "boolean",
-            "description": "If true, this property is optional.",
+            "description": "If required, the property must be present for every feature of its class. If not required, individual features may include `noData` values, or the entire property may be omitted from a property table or texture. As a result, `noData` has no effect on a required property. Client implementations may use required properties to make performance optimizations.",
             "default": false
+        },
+        "noData": {
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 1
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1
+                }
+            ],
+            "description": "A `noData` value represents missing data — also known as a sentinel value — wherever it appears. If omitted (excluding variable-length `ARRAY` properties), property values exist for all features, and the property is required in property tables or textures instantiating the class. For variable-length `ARRAY` elements, `noData` is implicitly `[]` and the property is never required; an additional `noData` array, such as `[\"UNSPECIFIED\"]`, may be provided if necessary. For fixed-length `ARRAY` properties, `noData` must be an array of length `componentCount`. For `VECN` properties, `noData` must be an array of length `N`. For `MATN` propperties, `noData` must be an array of length `N²`. `BOOLEAN` properties may not specify `noData` values. `ENUM` `noData` values must use a valid enum `name`, not an integer value."
         },
         "semantic": {
             "type": "string",
@@ -169,13 +184,10 @@
     },
     "dependencies": {
         "componentCount": [
-            "componentType"
-        ],
-        "default": [
-            "optional"
+            "type"
         ]
     },
     "required": [
-        "type"
+        "componentType"
     ]
 }

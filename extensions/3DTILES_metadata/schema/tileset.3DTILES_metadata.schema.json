@@ -20,8 +20,8 @@
         },
         "schemaUri": {
             "type": "string",
-            "description": "A uri to an external schema file.",
-            "format": "uriref"
+            "description": "The URI (or IRI) of the external schema file.",
+            "format": "iri-reference"
         },
         "statistics": {
             "allOf": [
@@ -33,7 +33,7 @@
         },
         "groups": {
             "type": "object",
-            "description": "A dictionary, where each key is a group ID and each value is an object defining the group.",
+            "description": "A dictionary, where each key is a group ID and each value is an object defining the group. Group IDs may contain only alphanumeric and underscore characters",
             "minProperties": 1,
             "additionalProperties": {
                 "$ref": "group.schema.json"
@@ -50,10 +50,22 @@
         "extensions": {},
         "extras": {}
     },
-    "not": {
-        "required": [
-            "schema",
-            "schemaUri"
-        ]
-    }
+    "oneOf": [
+        {
+            "description": "External schema, if any.",
+            "not": {
+                "required": [
+                    "schema"
+                ]
+            }
+        },
+        {
+            "description": "Internal schema, if any.",
+            "not": {
+                "required": [
+                    "schemaUri"
+                ]
+            }
+        }
+    ]
 }

@@ -11,62 +11,126 @@
     ],
     "properties": {
         "min": {
-            "type": [
-                "number",
-                "array"
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 1
+                }
             ],
-            "description": "The minimum property value. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values."
+            "description": "The minimum property value occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise minimum values. The `normalized` property has no effect on the minimum, which always contains integer values."
         },
         "max": {
-            "type": [
-                "number",
-                "array"
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 1
+                }
             ],
-            "description": "The maximum property value. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values."
+            "description": "The maximum property value occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise maximum values. The `normalized` property has no effect on the maximum, which always contains integer values."
         },
         "mean": {
-            "type": [
-                "number",
-                "array"
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 1
+                }
             ],
-            "description": "The arithmetic mean of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values."
+            "description": "The arithmetic mean of property values occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise mean values. The `normalized` property has no effect on the mean, which always contains integer values."
         },
         "median": {
-            "type": [
-                "number",
-                "array"
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 1
+                }
             ],
-            "description": "The median of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values."
+            "description": "The median of property values occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise median values. The `normalized` property has no effect on the median, which always contains integer values."
         },
         "standardDeviation": {
-            "type": [
-                "number",
-                "array"
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 1
+                }
             ],
-            "description": "The standard deviation of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values."
+            "description": "The standard deviation of property values occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise standard deviation values. The `normalized` property has no effect on the standard deviation, which always contains integer values."
         },
         "variance": {
-            "type": [
-                "number",
-                "array"
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 1
+                }
             ],
-            "description": "The variance of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values."
+            "description": "The variance of property values occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise variance values. The `normalized` property has no effect on the variance, which always contains integer values."
         },
         "sum": {
-            "type": [
-                "number",
-                "array"
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 1
+                }
             ],
-            "description": "The sum of the property values. Only applicable for numeric types and fixed-length arrays of numeric types. For numeric types this is a single number. For fixed-length arrays this is an array with `componentCount` number of elements. The `normalized` property has no effect on these values."
+            "description": "The sum of property values occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise sum values. The `normalized` property has no effect on the sum, which always contains integer values."
         },
         "occurrences": {
             "type": "object",
-            "description": "A dictionary, where each key corresponds to an enum `name` and each value is the number of occurrences of that enum. Only applicable when `type` or `componentType` is `ENUM`. For fixed-length arrays, this is an array with `componentCount` number of elements.",
+            "description": "A dictionary, where each key corresponds to an enum `name` and each value is the number of occurrences of that enum. Only applicable when `componentType` is `ENUM`. For fixed-length arrays, this is an array of component-wise occurrences.",
             "minProperties": 1,
             "additionalProperties": {
-                "type": [
-                    "integer",
-                    "array"
+                "oneOf": [
+                    {
+                        "type": "integer"
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "minItems": 1
+                    }
                 ]
             }
         },
