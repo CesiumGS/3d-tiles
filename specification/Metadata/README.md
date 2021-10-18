@@ -74,7 +74,7 @@ This specification defines metadata schemas and methods for encoding metadata.
 
 **Schemas** contain a set of **classes** and **enums**. A class represents a category of similar entities, defined as a set of **properties**. Each property describes values of a particular type. An enum defines a set of named values representing a single value type, and may be referenced by class properties. Schema definitions do not describe how entities or properties are stored, and may be represented in a file format in various ways. Schemas can be reused across multiple assets or even file formats.
 
-**Entities** are instantiations of class, populated with **property values** conforming to the class definition. Every property value of an entity must be defined by its class, and an entity must not have extraneous property values. Properties of a class may be required, in which case all entities instantiating the class are required to include them.
+**Entities** are instantiations of a class, populated with **property values** conforming to the class definition. Every property value of an entity must be defined by its class, and an entity must not have extraneous property values. Properties of a class may be required, in which case all entities instantiating the class are required to include them.
 
 >  **Implementation note:** Entities may be defined at various levels of abstraction. Within a large dataset, individual vertices or texels may represent entities with granular metadata properties. Vertices and texels may be organized into higher-order groups (such as meshes, scene graphs, or tilesets) having their own associated properties.
 
@@ -142,8 +142,6 @@ IDs (`id`) uniquely identify a property within a class, and must contain only al
 Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid UTF-8 strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a [semantic](#semantic).
 
 > **Example:** A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to alphanumeric characters and underscores, use of helpful property names is essential for clarity in many languages.
-
-> **Example:**
 
 #### Description
 
@@ -219,9 +217,9 @@ Normalized properties (`normalized`) provide a compact alternative to larger flo
 
 #### Minimum and Maximum Values
 
-Properties representing numeric values, fixed-length numeric arrays, and vectors may specify a minimum (`minimum`) and maximum (`maximum`). Minimum and maximum values may represent bounds of the valid range for a property, or the exact minimum and maximum values found in the dataset.
+Properties representing numeric values, fixed-length numeric arrays, vectors, and matrices may specify a minimum (`minimum`) and maximum (`maximum`). Minimum and maximum values may represent component-wise bounds of the valid range for a property.
 
-> **Example:** A property storing GPS coordinates might define a range of `[-180, 180]` degrees for longitude values and `[-90, 90]` degrees for latitude values. If the dataset contains GPS coordinates only in a small region, more specific ranges may be given instead.
+> **Example:** A property storing GPS coordinates might define a range of `[-180, 180]` degrees for longitude values and `[-90, 90]` degrees for latitude values.
 
 #### Required Properties and No Data Values
 
@@ -355,7 +353,7 @@ Each expression in the table above defines an index into the underlying property
 
 JSON encoding is useful for storing a small number of entities in human readable form.
 
-Property values are encoded as their corresponding JSON types: numeric types are represented as `number`, booleans as `boolean`, strings as `string`, enums as `string`, and arrays as `array`.
+Property values are encoded as their corresponding JSON types: numeric types are represented as `number`, booleans as `boolean`, strings as `string`, enums as `string`, and arrays, vectors and matrices as `array`.
 
 The following example demonstrates usage for both fixed and variable size arrays:
 
@@ -385,29 +383,40 @@ _Schema_
       "basicClass": {
         "properties": {
           "floatProperty": {
-            "componentType": "FLOAT64"
+            "componentType": "FLOAT64",
+            "required": true
           },
           "integerProperty": {
-            "componentType": "INT32"
+            "componentType": "INT32",
+            "required": true
           },
           "booleanProperty": {
-            "componentType": "BOOLEAN"
+            "componentType": "BOOLEAN",
+            "required": true
           },
           "stringProperty": {
-            "componentType": "STRING"
+            "componentType": "STRING",
+            "required": true
           },
           "enumProperty": {
             "componentType": "ENUM",
-            "enumType": "basicEnum"
+            "enumType": "basicEnum",
+            "required": true
           },
           "floatArrayProperty": {
             "type": "ARRAY",
             "componentType": "FLOAT32",
-            "componentCount": 3
+            "componentCount": 3,
+            "required": true
           },
           "stringArrayProperty": {
             "type": "ARRAY",
-            "componentType": "STRING"
+            "componentType": "STRING",
+            "required": true
+          },
+          "optionalProperty": {
+            "type": "VEC3",
+            "componentType": "UINT8"
           }
         }
       }
@@ -478,11 +487,13 @@ Strings are encoded as JSON strings.
 
 #### Enums
 
-Enums are encoded as JSON strings using the name the enum value rather than the integer value. Therefore the enum value type, if specified, is ignored for the JSON encoding.
+Enums are encoded as JSON strings using the name of the enum value rather than the integer value. Therefore the enum value type, if specified, is ignored for the JSON encoding.
 
 #### Arrays
 
 Arrays are encoded as JSON arrays, where each component is encoded according to the component type. When a component count is specified, the length of the JSON array must match the component count. Otherwise, for variable-length arrays, the JSON array may be any length, including zero-length.
+
+`VECN` and `MATN` types are treated as fixed-length numeric arrays.
 
 ## Revision History
 
