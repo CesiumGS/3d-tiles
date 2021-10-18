@@ -217,7 +217,7 @@ Normalized properties (`normalized`) provide a compact alternative to larger flo
 
 #### Minimum and Maximum Values
 
-Properties representing numeric values, fixed-length numeric arrays, vectors, and matrices may specify a minimum (`minimum`) and maximum (`maximum`). Minimum and maximum values may represent component-wise bounds of the valid range for a property.
+Properties representing numeric values, fixed-length numeric arrays, vectors, and matrices may specify a minimum (`minimum`) and maximum (`maximum`). Minimum and maximum values represent component-wise bounds of the valid range for a property.
 
 > **Example:** A property storing GPS coordinates might define a range of `[-180, 180]` degrees for longitude values and `[-90, 90]` degrees for latitude values.
 
