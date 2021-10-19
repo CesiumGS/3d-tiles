@@ -355,121 +355,74 @@ JSON encoding is useful for storing a small number of entities in human readable
 
 Property values are encoded as their corresponding JSON types: numeric types are represented as `number`, booleans as `boolean`, strings as `string`, enums as `string`, and arrays, vectors and matrices as `array`.
 
-The following example demonstrates usage for both fixed and variable size arrays:
-
-_Schema_
-```jsonc
-{
-  "schema": {
-    "enums": {
-      "basicEnum": {
-        "values": [
-          {
-            "name": "Enum A",
-            "value": 0
-          },
-          {
-            "name": "Enum B",
-            "value": 1
-          },
-          {
-            "name": "Enum C",
-            "value": 2
-          }
-        ]
-      }
-    },
-    "classes": {
-      "basicClass": {
-        "properties": {
-          "floatProperty": {
-            "componentType": "FLOAT64",
-            "required": true
-          },
-          "integerProperty": {
-            "componentType": "INT32",
-            "required": true
-          },
-          "booleanProperty": {
-            "componentType": "BOOLEAN",
-            "required": true
-          },
-          "stringProperty": {
-            "componentType": "STRING",
-            "required": true
-          },
-          "enumProperty": {
-            "componentType": "ENUM",
-            "enumType": "basicEnum",
-            "required": true
-          },
-          "floatArrayProperty": {
-            "type": "ARRAY",
-            "componentType": "FLOAT32",
-            "componentCount": 3,
-            "required": true
-          },
-          "stringArrayProperty": {
-            "type": "ARRAY",
-            "componentType": "STRING",
-            "required": true
-          },
-          "optionalProperty": {
-            "type": "VEC3",
-            "componentType": "UINT8"
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-_A single entity encoded in JSON. Note that the optional property is omitted in this example._
-```jsonc
-{
-  "entity": {
-    "class": "basicClass",
-    "properties": {
-      "floatProperty": 1.5,
-      "integerProperty": -90,
-      "booleanProperty": true,
-      "stringProperty": "x123",
-      "enumProperty": "Enum B",
-      "floatArrayProperty": [1.0, 0.5, -0.5],
-      "stringArrayProperty": ["abc", "12345", "おはようございます"]
-    }
-  }
-}
-```
-
-_A collection of entities encoded in JSON_
-
-```jsonc
-{
-  "entityTable": {
-    "count": 3,
-    "class": "basicClass",
-    "properties": {
-      "floatProperty": [1.5, 0.9, -0.1],
-      "integerProperty": [-90, 90, 180],
-      "booleanProperty": [true, false, false],
-      "stringProperty": ["x123", "x437", "x910"],
-      "enumProperty": ["Enum B", "Enum A", "Enum C"],
-      "floatArrayProperty": [
-        [1.0, 0.5, -0.5],
-        [-0.5, 0.0, 0.1],
-        [0.9, 0.3, -0.2]
-      ],
-      "stringArrayProperty": [
-        ["abc", "12345", "おはようございます"],
-        ["☺", "value 0", "", "value 1"],
-        []
-      ]
-    }
-  }
-}
-```
+> **Example:** The following example demonstrates usage for both fixed and variable size arrays:
+>
+> _An enum, "basicEnum", composed of three `(name: value)` pairs:_
+>
+> | name       | value |
+> |------------|-------|
+> | `"Enum A"` | `0`   |
+> | `"Enum B"` | `1`   |
+> | `"Enum C"` | `2`   |
+>
+> _A class, "basicClass", composed of eight properties. `stringArrayProperty` (`ARRAY`) component count is undefined and therefore variable. `optionalProperty` (`VEC3`) component count is implicitly `3`, and may be omitted from the property definition._
+>
+> | id                  | type       | componentType | componentCount | enumType      | required |
+> |---------------------|------------|---------------|----------------|---------------|----------|
+> | floatProperty       | `"SINGLE"` | `"FLOAT64"`   |                |               | ✓        |
+> | integerProperty     | `"SINGLE"` | `"INT32"`     |                |               | ✓        |
+> | booleanProperty     | `"SINGLE"` | `"BOOLEAN"`   |                |               | ✓        |
+> | stringProperty      | `"SINGLE"` | `"STRING"`    |                |               | ✓        |
+> | enumProperty        | `"SINGLE"` | `"ENUM"`      |                | `"basicEnum"` | ✓        |
+> | floatArrayProperty  | `"ARRAY"`  | `"FLOAT32"`   | `3`            |               | ✓        |
+> | stringArrayProperty | `"ARRAY"`  | `"STRING"`    |                |               | ✓        |
+> | optionalProperty    | `"VEC3"`   | `"UINT8"`     |                |               |          |
+>
+> _A single entity encoded in JSON. Note that the optional property is omitted in this example._
+> ```jsonc
+> {
+>   "entity": {
+>     "class": "basicClass",
+>     "properties": {
+>       "floatProperty": 1.5,
+>       "integerProperty": -90,
+>       "booleanProperty": true,
+>       "stringProperty": "x123",
+>       "enumProperty": "Enum B",
+>       "floatArrayProperty": [1.0, 0.5, -0.5],
+>       "stringArrayProperty": ["abc", "12345", "おはようございます"]
+>     }
+>   }
+> }
+> ```
+>
+> _A collection of entities encoded in JSON_
+>
+> ```jsonc
+> {
+>   "entityTable": {
+>     "count": 3,
+>     "class": "basicClass",
+>     "properties": {
+>       "floatProperty": [1.5, 0.9, -0.1],
+>       "integerProperty": [-90, 90, 180],
+>       "booleanProperty": [true, false, false],
+>       "stringProperty": ["x123", "x437", "x910"],
+>       "enumProperty": ["Enum B", "Enum A", "Enum C"],
+>       "floatArrayProperty": [
+>         [1.0, 0.5, -0.5],
+>         [-0.5, 0.0, 0.1],
+>         [0.9, 0.3, -0.2]
+>       ],
+>       "stringArrayProperty": [
+>         ["abc", "12345", "おはようございます"],
+>         ["☺", "value 0", "", "value 1"],
+>         []
+>       ]
+>     }
+>   }
+> }
+> ```
 
 #### Numbers
 
