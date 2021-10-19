@@ -2,7 +2,7 @@
 
 This document defines a general set of semantics for 3D Tiles and glTF. Tileset authors may define their own application- or domain-specific semantics separately.
 
-Semantics describe how properties should be interpreted. For example, an application that sees the `TILE_BOUNDING_SPHERE` semantic would use the property for the bounding volume as defined below.
+Semantics describe how properties should be interpreted. For example, an application that sees the `TILE_BOUNDING_SPHERE` semantic (as shown below) while parsing 3D Tiles would use the property for the bounding volume of a tile.
 
 ```jsonc
 {
