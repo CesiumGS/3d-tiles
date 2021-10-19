@@ -580,3 +580,4 @@ TODO - use semantics in styling language
   * Added vector and matrix types: `VEC2`, `VEC3`, `VEC4`, `MAT2`, `MAT3`, `MAT4`
   * Refactored `type` and `componentType` to avoid overlap. Properties that store a single value now have a `type` of `SINGLE` and a `componentType` of the desired type (e.g. `type: "SINGLE", componentType: "UINT8"`)
   * Class IDs, enum IDs, property IDs, and group IDs must now contain only alphanumeric and underscore characters
+  * Split `offsetType` into `arrayOffsetType` and `stringOffsetType`
