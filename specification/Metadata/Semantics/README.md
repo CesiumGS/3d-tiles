@@ -2,16 +2,16 @@
 
 This document defines a general set of semantics for 3D Tiles and glTF. Tileset authors may define their own application- or domain-specific semantics separately.
 
-Semantics describe how properties should be interpreted. For example, an application that sees the `TILE_HORIZON_OCCLUSION_POINT` semantic would use the property for horizon occlusion culling as defined below.
+Semantics describe how properties should be interpreted. For example, an application that sees the `TILE_BOUNDING_SPHERE` semantic would use the property for the bounding volume as defined below.
 
 ```jsonc
 {
   "properties": {
-    "horizonOcclusionPoint": {
+    "tileBoundingSphere": {
       "type": "ARRAY",
       "componentType": "FLOAT64",
       "componentCount": 4,
-      "semantic": "TILE_HORIZON_OCCLUSION_POINT",
+      "semantic": "TILE_BOUNDING_SPHERE",
     },
     "name": {
       "componentType": "STRING",
