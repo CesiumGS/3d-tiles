@@ -121,18 +121,16 @@ The maximum height of the content of a tile above (or below) the WGS84 ellipsoid
 
 The horizon occlusion point of the tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire tile is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information.
 
-* Type: `ARRAY`
+* Type: `VEC3`
 * Component type: `FLOAT32` or `FLOAT64`
-* Component count: `3`
 
 <!-- omit in toc -->
 ### **CONTENT_HORIZON_OCCLUSION_POINT**
 
 The horizon occlusion point of the content of a tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire content is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information.
 
-* Type: `ARRAY`
+* Type: `VEC3`
 * Component type: `FLOAT32` or `FLOAT64`
-* Component count: `3`
 
 > **Implementation Note**: Just as tile bounding volumes provide spatial coherence for traversal while content bounding volumes enable finer grained culling, the computation of `TILE_HORIZON_OCCLUSION_POINT` should account for all content in a tile and its descendants whereas `CONTENT_HORIZON_OCCLUSION_POINT` should only account for content in a tile. When the two values are equivalent only `TILE_HORIZON_OCCLUSION_POINT` should be specified.
 
