@@ -369,7 +369,7 @@ Property values are encoded as their corresponding JSON types: numeric types are
 >
 > | id                  | type       | componentType | componentCount | enumType      | required |
 > |---------------------|------------|---------------|----------------|---------------|----------|
-> | floatProperty       | `"SINGLE"` | `"FLOAT64"`   |                |               | ✓        |
+> | floatProperty       | `"SINGLE"` (default) | `"FLOAT64"`   |                |               | ✓        |
 > | integerProperty     | `"SINGLE"` | `"INT32"`     |                |               | ✓        |
 > | booleanProperty     | `"SINGLE"` | `"BOOLEAN"`   |                |               | ✓        |
 > | stringProperty      | `"SINGLE"` | `"STRING"`    |                |               | ✓        |
