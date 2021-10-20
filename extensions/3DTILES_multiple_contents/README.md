@@ -337,3 +337,13 @@ Example tileset JSON:
 }
 ```
 
+## Revision History
+
+* **Version 0.0.0** November 6, 2020
+  * Initial draft (named `3DTILES_layers`) 
+* **Version 1.0.0** February 24, 2021
+  * Renamed to `3DTILES_multiple_contents`
+* **Version 2.0.0** 
+  * Renamed `content.schema.json` to `tile.content.schema.json`
+  * Let extension objects extend `tilesetProperty`
+  
