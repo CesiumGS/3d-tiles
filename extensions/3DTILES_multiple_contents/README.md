@@ -199,7 +199,7 @@ Example tileset JSON:
 }
 ```
 
-The JSON part of the `subtree` file then uses a `3DTILES_multiple_contents` object, as defined in [subtree.3DTILES_multiple_contents.schema.json](schema/3DTILES_multiple_contents/subtree.3DTILES_multiple_contents.schema.json). It stores an array of [content availability](../3DTILES_implicit_tiling#content-availability) objects, one for each content that was given in the `3DTILES_multiple_contents` object of the enclosing tile.
+The JSON part of the `subtree` file then uses a `3DTILES_multiple_contents` object, as defined in [subtree.3DTILES_multiple_contents.schema.json](schema/3DTILES_implicit_tiling/subtree.3DTILES_multiple_contents.schema.json). It stores an array of [content availability](../3DTILES_implicit_tiling#content-availability) objects, one for each content that was given in the `3DTILES_multiple_contents` object of the enclosing tile.
 
 
 ```jsonc
