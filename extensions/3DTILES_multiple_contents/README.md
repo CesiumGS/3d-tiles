@@ -39,7 +39,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 ## Overview
 
-This extension adds support for multiple contents per tile. Examples of contents are Batched 3D Models, Point Clouds, or other [Tile Formats](../../specification#tile-format-specifications).
+This extension adds support for multiple contents per tile. Examples of contents are Batched 3D Models, Point Clouds, or other [Tile Formats](../../specification#tile-format-specifications), as well as glTF content when it is combined with the [`3DTILES_content_gltf`](../3DTILES_content_gltf) extension.
 
 <img src="figures/overview.jpg" width="500" />
 
@@ -53,13 +53,14 @@ In both cases, groups of contents can be used for selectively showing content or
 
 ![Filtering Groups](figures/filtering-groups.jpg)
 
-Besides styling, groups can also be used to filter out unused content resources to reduce bandwidth usage.
+Besides styling, groups can also be used to filter out unused content resources to reduce bandwidth usage by only requesting the content that is supposed to be displayed.
 
-Multiple contents is also compatible with the [3DTILES_implicit_tiling](../3DTILES_implicit_tiling) extension. See the [Implicit Tiling](#implicit-tiling) section for more details.
+Multiple contents is also compatible with the [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling) extension. See the [Implicit Tiling](#implicit-tiling) section for more details.
 
 ## Concepts
 
-A `tile` may be extended with the `3DTILES_multiple_contents` extension.
+A `tile` may be extended with the `3DTILES_multiple_contents` extension. This is an object that contains an array of [tile content](../../specification#reference-tile-content) objects:
+
 
 ```jsonc
 {
@@ -85,11 +86,11 @@ A `tile` may be extended with the `3DTILES_multiple_contents` extension.
 }
 ```
 
-When this extension is used the tile's `content` property must be omitted.
+When this extension is used the containing tile's `content` property must be omitted.
 
 ### Metadata Groups
 
-This extension may be paired with the [`3DTILES_metadata` extension](../3DTILES_metadata) to assign metadata to each content.
+This extension may be paired with the [`3DTILES_metadata` extension](../3DTILES_metadata) to assign metadata to each content. In this case, each content contains a `3DTILES_metadata` extension object that defines the `group` that the content belongs to. The availabe groups and their schema are defined in the `3DTILES_metadata` object of the surrounding tileset.
 
 ```jsonc
 {
@@ -199,7 +200,7 @@ Example tileset JSON:
 }
 ```
 
-Example subtree JSON:
+The JSON part of the `subtree` file then uses a `3DTILES_multiple_contents` object to store an array of [content availability](../3DTILES_implicit_tiling#content-availability) objects, one for each content that was given in the `3DTILES_multiple_contents` object of the enclosing tile.
 
 ```jsonc
 {
