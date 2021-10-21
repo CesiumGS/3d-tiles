@@ -35,6 +35,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 - [Combining With Other Extensions](#combining-with-other-extensions)  
   - [Metadata Groups](#metadata-groups)
   - [Implicit Tiling](#implicit-tiling)
+  - [Metadata Groups in Implicit Tiling](#metadata-groups-in-implicit-tiling)
 
 
 ## Overview
@@ -263,8 +264,7 @@ This extension can also be combined with the [`3DTILES_implicit_tiling`](../3DTI
 > ```
 
 
-<!-- omit in toc -->
-#### Metadata Groups in Implicit Tiling
+### Metadata Groups in Implicit Tiling
 
 If both the [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling) and [`3DTILES_metadata`](../3DTILES_metadata) extensions are used, each content template URI can be assigned to a metadata group.
 
