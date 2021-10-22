@@ -98,8 +98,7 @@ When this extension is used the containing tile's `content` property must be omi
 
 ### Metadata Groups
 
-This extension may be paired with the [`3DTILES_metadata`](../3DTILES_metadata) extension to assign metadata to each content. Each content can contain a `3DTILES_metadata` extension object that defines the group that the content belongs to. The availabe groups and their schema are defined in the `3DTILES_metadata` object of the surrounding tileset.
-
+This extension may be paired with the [`3DTILES_metadata`](../3DTILES_metadata) extension to assign each content to a group, optionally associated with some metadata. Each content within a `3DTILES_multiple_contents` extension may then contain a `3DTILES_metadata` extension object, identifying a group for the content. The available groups and their schema are defined in the `3DTILES_metadata` object of the surrounding tileset.
 
 > **Example:** A tileset where the root tile uses the `3DTILES_multiple_contents` extension to refer to two different content files. The first content uses the `3DTILES_metadata` extension to assign it to a group called `"buildings"`. The second one is assigned to a group called `"trees"`. The schema contains entity definitions for these groups. Both entities belong to the class `"layer"` that is also defined in the schema, and contain the values for the properties of this class.
 > ```jsonc
@@ -174,9 +173,9 @@ This extension may be paired with the [`3DTILES_metadata`](../3DTILES_metadata) 
 
 ### Implicit Tiling
 
-This extension can also be combined with the [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling) extension. In this case, there must be one content availability bitstream for each of the multiple contents. 
+The `3DTILES_multiple_contents` extension can also be combined with the [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling) extension. In this case, there must be one content availability bitstream for each of the multiple contents. 
 
-> **Example:** A tileset where the root tile uses multiple contents, and the `3DTILES_implicit_tiling` extension to define an implicit subtree of the root:
+> **Example:** A tileset where the root tile uses multiple contents, and the `3DTILES_implicit_tiling` extension, to define an implicit subtree of the root:
 > 
 > ```jsonc
 > {
@@ -268,7 +267,7 @@ This extension can also be combined with the [`3DTILES_implicit_tiling`](../3DTI
 
 If both the [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling) and [`3DTILES_metadata`](../3DTILES_metadata) extensions are used, each content template URI can be assigned to a metadata group.
 
-> **Example:** A tileset where the root tile uses multiple contents and the `3DTILES_implicit_tiling` extension to define an implicit subtree of the root. Each content uses a template URI. The coordinates of the implicit subtree are substituted into the template URI of both contents. The resulting subtrees are assigned to different metadata groups. This means that all implicit tiles that are created from the `buildings/{level}/{x}/{y}.b3dm` URI are assigned to the `"buildings"` group, and all implicit tiles that are created from the `"trees/{level}/{x}/{y}.i3dm"` URI are assigned to the `"trees"` group.
+> **Example:** A tileset where the root tile uses multiple contents and the `3DTILES_implicit_tiling` extension, to define an implicit subtree of the root. Each content uses a template URI. The coordinates of the implicit subtree are substituted into the template URI of both contents. The resulting subtrees are assigned to different metadata groups. This means that all implicit tiles that are created from the `buildings/{level}/{x}/{y}.b3dm` URI are assigned to the `"buildings"` group, and all implicit tiles that are created from the `"trees/{level}/{x}/{y}.i3dm"` URI are assigned to the `"trees"` group.
 >
 > ```jsonc
 > {
