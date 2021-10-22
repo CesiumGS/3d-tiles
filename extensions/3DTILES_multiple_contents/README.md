@@ -94,6 +94,8 @@ A `tile` may be extended with the `3DTILES_multiple_contents` extension. This is
 
 When this extension is used the containing tile's `content` property must be omitted.
 
+Each content object may optionally have a `boundingVolume` that tightly fits the actual content. When a content does not have a `boundingVolume` property, then the bounding volume of the enclosing tile is used. When bounding volumes for contents are given, then they must maintain the [spatial coherence](https://github.com/CesiumGS/3d-tiles/blob/main/specification/README.md#bounding-volume-spatial-coherence) of the tile hierarchy. This means that these bounding volumes must all be fully contained in the bounding volume of the enclosing tile.
+
 ## Combining With Other Extensions
 
 ### Metadata Groups
