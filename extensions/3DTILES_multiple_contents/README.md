@@ -214,32 +214,12 @@ The `3DTILES_multiple_contents` extension can also be combined with the [`3DTILE
 > 
 > ```jsonc
 > {
->   "buffers": [
->     {
->       "byteLength": 262160
->     }
->   ],
->   "bufferViews": [
->     {
->       "buffer": 0,
->       "byteLength": 43691,
->       "byteOffset": 0
->     },
->     {
->       "buffer": 0,
->       "byteLength": 131072,
->       "byteOffset": 43696
->     },
->     {
->       "buffer": 0,
->       "byteLength": 43691,
->       "byteOffset": 174768
->     },
->     {
->       "buffer": 0,
->       "byteLength": 43691,
->       "byteOffset": 218464
->     }
+>   "buffers": [ { "byteLength": 262160 } ],
+>   "bufferViews": [ 
+>     { "buffer": 0, "byteLength": 43691, "byteOffset": 0 },
+>     { "buffer": 0, "byteLength": 131072, "byteOffset": 43696 },
+>     { "buffer": 0, "byteLength": 43691, "byteOffset": 174768 },
+>     { "buffer": 0, "byteLength": 43691, "byteOffset": 218464 }
 >   ],
 >   "tileAvailability": {
 >     "bufferView": 0
@@ -273,22 +253,9 @@ If both the [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling) and [`3DTILE
 > {
 >   "extensions": {
 >     "3DTILES_metadata": {
->       "schema": {
->         "classes": {
->           "layer": {
->             "properties": {
->               "color": {
->                 "type": "ARRAY",
->                 "componentType": "UINT8",
->                 "componentCount": 3
->               },
->               "order": {
->                 "componentType": "INT32"
->               }
->             }
->           }
->         }
->       },
+>
+>       ...
+>
 >       "groups": {
 >         "buildings": {
 >           "class": "layer",
@@ -318,19 +285,11 @@ If both the [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling) and [`3DTILE
 >         "content": [
 >           {
 >             "uri": "buildings/{level}/{x}/{y}.b3dm",
->             "extensions": {
->               "3DTILES_metadata": {
->                 "group": "buildings"
->               }
->             }
+>             "extensions": {"3DTILES_metadata": { "group": "buildings" } }
 >           },
 >           {
 >             "uri": "trees/{level}/{x}/{y}.i3dm",
->             "extensions": {
->               "3DTILES_metadata": {
->                 "group": "trees"
->               }
->             }
+>             "extensions": { "3DTILES_metadata": { "group": "trees" } }
 >           }
 >         ]    
 >       },
