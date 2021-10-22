@@ -29,10 +29,6 @@ Optionally, this extension may be used with [`3DTILES_multiple_contents`](../3DT
 
 > **Disambiguation:** This extension does not interact with the [`properties`](../../specification/schema/properties.schema.json) object in tileset JSON, which is an alternative way of including small amounts of metadata associated with the tileset as a whole.
 
-```patch
-- TODO: Is this a correct understanding of `properties.schema.json`?
-```
-
 <!-- omit in toc -->
 ## Optional vs. Required
 
@@ -74,11 +70,6 @@ Concepts and terminology used throughout this document refer to the [Cesium 3D M
 The figure below shows the relationship between entities (tilesets, tiles, contents, and groups) in 3D Tiles.
 
 <img src="figures/metadata-granularity.png"  alt="Metadata Granularity" width="600">
-
-```diff
-- TODO: Consider using Marco's diagram here?
-- TODO: Consider omitting EXT_mesh_features from the diagram?
-```
 
 > **Implementation note:** Additionally, smaller subcomponents of tile content ("features") may also have associated metadata. See [Content Feature Properties](#content-feature-properties).
 
@@ -257,12 +248,6 @@ Statistics provide aggregate information about the distribution of property valu
 
 These summary statistics allow applications to analyze or display metadata, e.g. with the [declarative styling language](../../specification/Styling), without first having to process the complete dataset to identify bounds for color ramps and histograms. Statistics are provided on a per-class basis, so that applications can provide styling or context based on the tileset as a whole, while only needing to download and process a subset of its tiles.
 
-```diff
-- Patrick: Reading just this far, I don't yet know if this is only at the tileset granularity or
-- at any subtree; we'll want the flexibility for the later unless there is a good reason to avoid
-- the complexity.
-```
-
 * `count` is the number of entities of a class occurring within the tileset
 * `properties` contains summary statistics about properties of a class occurring within the tileset
 
@@ -433,12 +418,7 @@ A `3DTILES_metadata` extension on a tile object may specify its class (`class`),
 
 ### Implicit Tile Properties
 
-*Defined in `TODO`.*
-
-```patch
-- TODO: Do we have a schema for this...?
-- TODO: Could really use a diagram here...
-```
+*Defined in [subtree.3DTILES_metadata.schema.json](./schema/3DTILES_implicit_tiling/subtree.3DTILES_metadata.schema.json) and [subtree.property.schema.json](./schema/3DTILES_implicit_tiling/subtree.property.schema.json).*
 
 When tiles are listed explicitly within a tileset, each tile's metadata is also embedded explicitly within the tile definition. When the tile hierarchy is _implicit_, as enabled by [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling), tiles are not listed exhaustively and metadata cannot be directly embedded in tile definitions. To support metadata for tiles within implicit tiling schemes, the `3DTILES_metadata` extension provides an additional metadata storage mechanism compatible with `3DTILES_implicit_tiling`.
 
@@ -503,11 +483,6 @@ Binary property value arrays are located in buffer views of the implicit tiling 
 ### Content Group Properties
 
 *Defined in [group.schema.json](./schema/group.schema.json) and [tileset.3DTILES_metadata.schema.json](./schema/content.3DTILES_metadata.schema.json)*.
-
-```diff
-- TODO: If we weren't committed yet, I'd suggest the term "layer".
-- TODO: Is it intentional that groups _must_ have metadata? Could you use them as just a name layering system?
-```
 
 Tiles may contain more than one content entity (see: [3DTILES_multiple_contents](../3DTILES_multiple_contents)), or multiple tiles may reference content sharing the same metadata. In these cases, metadata assigned to the tile would be inadequate or inefficient for describing tile contents. This extension allows content to be organized into collections, or "groups", and metadata may be associated with each group. Groups are useful for supporting metadata on only a subset of a tile's content, or for working with collections of contents as layers, e.g. to manage visibility or visual styling.
 
