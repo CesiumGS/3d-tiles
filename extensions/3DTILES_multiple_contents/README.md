@@ -100,7 +100,7 @@ Each content object may optionally have a `boundingVolume` that tightly fits the
 
 ### Metadata Groups
 
-This extension may be paired with the [`3DTILES_metadata`](../3DTILES_metadata) extension to assign each content to a group, optionally associated with some metadata. Each content within a `3DTILES_multiple_contents` extension may then contain a `3DTILES_metadata` extension object, identifying a group for the content. The available groups and their schema are defined in the `3DTILES_metadata` object of the surrounding tileset.
+This extension may be paired with the [`3DTILES_metadata`](../3DTILES_metadata) extension to assign each content to a group associated with some metadata. Each content within a `3DTILES_multiple_contents` extension may then contain a `3DTILES_metadata` extension object, identifying a group for the content. The available groups and their schema are defined in the `3DTILES_metadata` object of the surrounding tileset.
 
 > **Example:** A tileset where the root tile uses the `3DTILES_multiple_contents` extension to refer to two different content files. The first content uses the `3DTILES_metadata` extension to assign it to a group called `"buildings"`. The second one is assigned to a group called `"trees"`. The schema contains entity definitions for these groups. Both entities belong to the class `"layer"` that is also defined in the schema, and contain the values for the properties of this class.
 > ```jsonc
