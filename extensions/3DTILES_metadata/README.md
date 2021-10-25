@@ -65,7 +65,7 @@ This extension defines a means of including structured metadata ("properties") i
 * **Tile** - Tiles may be individually associated with more specific metadata, such as the timestamp when a tile was last updated, or maximum height of the tile's content.
 * **Content** - Tile contents may be organized into collections (see: [Groups](#content-group-properties)) with shared metadata.
 
-Concepts and terminology used throughout this document refer to the [Cesium 3D Metadata Specification](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/README.md), which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
+Concepts and terminology used throughout this document refer to the [Cesium 3D Metadata Specification](../../specification/Metadata/README.md), which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
 
 The figure below shows the relationship between entities (tilesets, tiles, contents, and groups) in 3D Tiles.
 
@@ -209,7 +209,7 @@ Set of categorical types, defined as `(name, value)` pairs. Enum properties use 
 
 Enums are defined as entries in the `schema.enums` dictionary, indexed by an alphanumeric enum ID.
 
-> **Example:** A "Quality" enum defining quality level of data within a tile. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: [Cesium 3D Metadata → No Data Values](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/specification/Metadata#required-properties-and-no-data-values)) may be helpful to identify missing data.
+> **Example:** A "Quality" enum defining quality level of data within a tile. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: [Cesium 3D Metadata → No Data Values](../../specification/Metadata#required-properties-and-no-data-values)) may be helpful to identify missing data.
 >
 > ```jsonc
 > {
@@ -426,11 +426,11 @@ Unlike other methods of assigning metadata, properties of implicit tiles are not
 
  Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the [Availability Ordering](../3DTILES_implicit_tiling/README.md#availability). Because properties of available tiles are tightly packed, each tile must have a value — representation of missing values within an available tile is possible only with the `noData` indicator defined by the *Binary Table Format*.
 
-> **Implementation note:** To determine the index into a property value array for a particular tile, count the number of available tiles occurring before that index, according to the tile Availability Ordering. If `i` available tiles occur before a particular tile, that tile's property values are stored at index `i` of each property value array. These indexes may be precomputed for all available tiles, as a single pass over the subtree availability buffer.
+> **Implementation note:** To determine the index into a property value array for a particular tile, count the number of available tiles occurring before that index, according to the tile Availability Ordering. If `i` available tiles occur before a particular tile, that tile's property values are stored at index `i` of each property value array. These indices may be precomputed for all available tiles, as a single pass over the subtree availability buffer.
 
 Binary property value arrays are located in buffer views of the implicit tiling subtree. Storage of those subtree buffer views and buffers is defined in the [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling) extension. Details of binary value encoding, including how to determine property value offsets for mixed-length string and array values, are defined by the *Binary Table Format*.
 
-> **Example:** The following example defines a `subtree` object from the `3DTILES_implicit_tiling` extension, extended with `3DTILES_metadata` to include "horizonOcclusionPoint" and "countries" properties for each available tile, stored in buffer views `3` and `4` respectively. The `arrayOffsetBufferView` and `stringOffsetBufferView` arrays are used to determine indexes into the "countries" array, which contains tightly packed mixed-length arrays of mixed-length strings. See the *Binary Table Format* for full details.
+> **Example:** The following example defines a `subtree` object from the `3DTILES_implicit_tiling` extension, extended with `3DTILES_metadata` to include "horizonOcclusionPoint" and "countries" properties for each available tile, stored in buffer views `3` and `4` respectively. The `arrayOffsetBufferView` and `stringOffsetBufferView` arrays are used to determine indices into the "countries" array, which contains tightly packed mixed-length arrays of mixed-length strings. See the *Binary Table Format* for full details.
 >
 > ```jsonc
 > {
@@ -484,7 +484,7 @@ Binary property value arrays are located in buffer views of the implicit tiling 
 
 *Defined in [group.schema.json](./schema/group.schema.json) and [tileset.3DTILES_metadata.schema.json](./schema/content.3DTILES_metadata.schema.json)*.
 
-Tiles may contain more than one content entity (see: [3DTILES_multiple_contents](../3DTILES_multiple_contents)), or multiple tiles may reference content sharing the same metadata. In these cases, metadata assigned to the tile would be inadequate or inefficient for describing tile contents. This extension allows content to be organized into collections, or "groups", and metadata may be associated with each group. Groups are useful for supporting metadata on only a subset of a tile's content, or for working with collections of contents as layers, e.g. to manage visibility or visual styling.
+Tiles may contain more than one content entity (see: [`3DTILES_multiple_contents`](../3DTILES_multiple_contents)), or multiple tiles may reference content sharing the same metadata. In these cases, metadata assigned to the tile would be inadequate or inefficient for describing tile contents. This extension allows content to be organized into collections, or "groups", and metadata may be associated with each group. Groups are useful for supporting metadata on only a subset of a tile's content, or for working with collections of contents as layers, e.g. to manage visibility or visual styling.
 
 Tile contents are assigned to groups, representing collections of content, by attaching a `3DTILES_metadata` extension to the content object and specifying its `group` property. Each content entity may be assigned only to a single group, but a single group may have any number of tile contents assigned to it.
 
@@ -548,11 +548,11 @@ The tileset's root `3DTILES_metadata` extension must define a list of available 
 
 _This section is non-normative_
 
-Certain kinds of tile content may contain meaningful subcomponents ("features"), which may themselves be associated with metadata through more granular properties. Schema may be embedded in these content types, but unused classes in a `3DTILES_metadata` are allowed, and may hint to an application that tile content might include entities instantiating those classes.
+Certain kinds of tile content may contain meaningful subcomponents ("features"), which may themselves be associated with metadata through more granular properties. Schemas may be embedded in these content types, but unused classes in a `3DTILES_metadata` are allowed, and may hint to an application that tile content might include entities instantiating those classes.
 
 Assigning properties to tile content is not within the scope of this extension, but may be defined by other specifications. One such example is the glTF extension, [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features), which supports definitions of conceptual features within geometry and textures, and associated metadata. glTF 2.0 assets with feature metadata may be included as tile contents with the [`3DTILES_content_gltf`](../3DTILES_content_gltf) extension.
 
-While `3DTILES_metadata` and `EXT_mesh_features` are defined independently, both conform to the [Cesium 3D Metadata Specification](https://github.com/CesiumGS/3d-tiles/blob/3d-tiles-next/specification/Metadata/README.md) and share the same representation of metadata as schema and properties.
+While `3DTILES_metadata` and `EXT_mesh_features` are defined independently, both conform to the [Cesium 3D Metadata Specification](../../specification/Metadata/README.md) and share the same representation of metadata as schema and properties.
 
 ## Schema
 
