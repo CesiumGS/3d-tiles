@@ -436,3 +436,11 @@ Arrays are encoded as JSON arrays, where each component is encoded according to 
 * **Version 2.0.0** September, 2021
   * Removed raster encoding. Storing metadata in texture channels remains a valid implementation of this specification, but is not within the scope of this document.
   * Removed table layout from the JSON Format; each entity is encoded as a single JSON object.
+  * Removed `optional` and added `required`. Properties are now assumed to be optional unless `required` is true.
+  * Added `noData` for specifying a sentinel value that indicates missing data
+  * Removed `default`
+  * `NaN` and `Infinity` are now explicitly disallowed as property values
+  * Added vector and matrix types: `VEC2`, `VEC3`, `VEC4`, `MAT2`, `MAT3`, `MAT4`
+  * Refactored `type` and `componentType` to avoid overlap. Properties that store a single value now have a `type` of `SINGLE` and a `componentType` of the desired type (e.g. `type: "SINGLE", componentType: "UINT8"`)
+  * Class IDs, enum IDs, property IDs, and group IDs must now contain only alphanumeric and underscore characters
+  * Split `offsetType` into `arrayOffsetType` and `stringOffsetType`
