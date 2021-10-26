@@ -46,7 +46,7 @@ Draft
     - [Strings](#strings)
     - [Enums](#enums-1)
     - [Arrays](#arrays)
-  - [JSON Table Format](#json-table-format)
+  - [JSON Format](#json-format)
     - [Overview](#overview-5)
     - [Numbers](#numbers-1)
     - [Booleans](#booleans-1)
@@ -80,7 +80,7 @@ This specification defines metadata schemas and methods for encoding metadata.
 
 **Metadata**, as used throughout this specification, refers to any association of 3D content with entities and properties, such that entities represent meaningful units within an overall structure. Other common definitions of metadata, particularly in relation to filesystems or networking as opposed to 3D content, remain outside the scope of the document.
 
-Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines one such representation, a **Table Format**.
+Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines two possible [storage formats](#storage-formats).
 
 ## Schemas
 
@@ -245,26 +245,28 @@ For `ENUM` component types, a `noData` value should contain the name of the enum
 
 ### Overview
 
-Schemas provide templates for entities, but creating an entity requires specific property values and storage. This section covers two serialization formats for entity metadata, both having column-based tabular layouts:
+Schemas provide templates for entities, but creating an entity requires specific property values and storage. This section covers two storage formats for entity metadata:
 
 * **Binary Table Format** - property values are stored in parallel 1D arrays, encoded as binary data
-* **JSON Table Format** - property values are stored in parallel 1D arrays, encoded as JSON
+* **JSON Format** - property values are stored in key/value dictionaries, encoded as JSON objects
 
-Additional serialization methods may be defined outside of this specification, and are not required to use the column-based layouts described here. For example, property values could be stored in texture channels or retrieved from a REST API.
+Both formats formats are suitable for general purpose metadata storage. Binary formats may be preferrable for larger quantities of metadata.
 
-> **Implementation note:** Any specification that references Cesium 3D Metadata must state explicitly which serialization formats are supported, or define its own serialization. For example, the [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) glTF extension implements the binary table format described below, and defines an additional image-based format for per-texel metadata.
+Additional serialization methods may be defined outside of this specification. For example, property values could be stored in texture channels or retrieved from a REST API as XML data.
 
-Table formats are suitable for general purpose metadata storage, similar to a database table where entities are rows and properties are columns. Each column represents one of the properties of the class. Each row represents a single entity conforming to the class.
+> **Implementation note:** Any specification that references Cesium 3D Metadata must state explicitly which storage formats are supported, or define its own serialization. For example, the [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) glTF extension implements the binary table format described below, and defines an additional image-based format for per-texel metadata.
+
+### Binary Table Format
+
+#### Overview
+
+The binary table format is similar to a database table where entities are rows and properties are columns. Each column represents one of the properties of the class. Each row represents a single entity conforming to the class.
 
 <img src="figures/table-format.png"  alt="Table Format" width="1000px">
 
 The rows of a table are addressed by an integer index called an **entity ID**. Entity IDs are always numbered `0, 1, ..., N - 1` where `N` is the number of rows in the table.
 
-The metadata values are stored in parallel arrays called **property arrays**, one per column. Each property array stores values for a single property. The `i-th` value of each property array is the value of that property for the entity with an entity ID of `i`.
-
-### Binary Table Format
-
-#### Overview
+Property values are stored in parallel arrays called **property arrays**, one per column. Each property array stores values for a single property. The `i-th` value of each property array is the value of that property for the entity with an entity ID of `i`.
 
 Binary encoding is efficient for runtime use, and scalable to large quantities of metadata. Because property arrays contain elements of a single type, bitstreams may be tightly packed or may use compression methods appropriate for a particular data type.
 
@@ -347,13 +349,13 @@ Each expression in the table above defines an index into the underlying property
 >
 > ![Variable-length array of string](figures/array-of-strings.png)
 
-### JSON Table Format
+### JSON Format
 
 #### Overview
 
 JSON encoding is useful for storing a small number of entities in human readable form.
 
-Property values are encoded as their corresponding JSON types: numeric types are represented as `number`, booleans as `boolean`, strings as `string`, enums as `string`, and arrays, vectors and matrices as `array`.
+Each entity is represented as a JSON object with its `class` identified by a string ID. Property values are defined in a key/value `properties` dictionary, having property IDs as its keys. Property values are encoded as corresponding JSON types: numeric types are represented as `number`, booleans as `boolean`, strings as `string`, enums as `string`, and arrays, vectors and matrices as `array`.
 
 > **Example:** The following example demonstrates usage for both fixed and variable size arrays:
 >
@@ -391,34 +393,6 @@ Property values are encoded as their corresponding JSON types: numeric types are
 >       "enumProperty": "Enum B",
 >       "floatArrayProperty": [1.0, 0.5, -0.5],
 >       "stringArrayProperty": ["abc", "12345", "おはようございます"]
->     }
->   }
-> }
-> ```
->
-> _A collection of entities encoded in JSON_
->
-> ```jsonc
-> {
->   "entityTable": {
->     "count": 3,
->     "class": "basicClass",
->     "properties": {
->       "floatProperty": [1.5, 0.9, -0.1],
->       "integerProperty": [-90, 90, 180],
->       "booleanProperty": [true, false, false],
->       "stringProperty": ["x123", "x437", "x910"],
->       "enumProperty": ["Enum B", "Enum A", "Enum C"],
->       "floatArrayProperty": [
->         [1.0, 0.5, -0.5],
->         [-0.5, 0.0, 0.1],
->         [0.9, 0.3, -0.2]
->       ],
->       "stringArrayProperty": [
->         ["abc", "12345", "おはようございます"],
->         ["☺", "value 0", "", "value 1"],
->         []
->       ]
 >     }
 >   }
 > }
@@ -461,3 +435,4 @@ Arrays are encoded as JSON arrays, where each component is encoded according to 
   * Removed special handling for fixed-length strings
 * **Version 2.0.0** September, 2021
   * Removed raster encoding. Storing metadata in texture channels remains a valid implementation of this specification, but is not within the scope of this document.
+  * Removed table layout from the JSON Format; each entity is encoded as a single JSON object.
