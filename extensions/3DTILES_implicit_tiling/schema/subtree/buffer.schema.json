@@ -1,0 +1,34 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "buffer.schema.json",
+    "title": "Buffer",
+    "type": "object",
+    "description": "A buffer is a binary blob. It is either the binary chunk of the subtree file, or an external buffer referenced by a URI.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
+    "properties": {
+        "uri": {
+            "type": "string",
+            "description": "The URI (or IRI) of the external schema file. Relative paths are relative to the file containing the buffer JSON. If `uri` is omitted, the buffer is assumed to refer to the binary chunk of the subtree file.",
+            "format": "iri-reference"
+        },
+        "byteLength": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "The length of the buffer in bytes."
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The name of the buffer."
+        },
+        "extensions": {},
+        "extras": {}
+    },
+    "required": [
+        "byteLength"
+    ]
+}
