@@ -66,7 +66,7 @@ Multiple contents is also compatible with the [`3DTILES_implicit_tiling`](../3DT
 
 A `tile` may be extended with the `3DTILES_multiple_contents` extension. This is an object that contains an array of [tile content](../../specification#reference-tile-content) objects that are treated as the contents of the tile.
 
-> **Example:** : A tile that uses the `3DTILES_multiple_contents` extension to refer to a Batched 3D Model containing buildings, and an Instanced 3D Model containing trees.
+> **Example:** A tile that uses the `3DTILES_multiple_contents` extension to refer to a Batched 3D Model containing buildings, and an Instanced 3D Model containing trees.
 > 
 > ```jsonc
 > {
