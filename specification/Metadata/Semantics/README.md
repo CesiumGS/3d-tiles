@@ -24,19 +24,23 @@ For use of semantics in extensions of specific standards, see:
     - [`NAME`](#name)
   - [3D Tiles](#3d-tiles)
     - [Overview](#overview-2)
-    - [`TILE_BOUNDING_BOX`](#tile_bounding_box)
-    - [`TILE_BOUNDING_REGION`](#tile_bounding_region)
-    - [`TILE_BOUNDING_SPHERE`](#tile_bounding_sphere)
-    - [`CONTENT_BOUNDING_BOX`](#content_bounding_box)
-    - [`CONTENT_BOUNDING_REGION`](#content_bounding_region)
-    - [`CONTENT_BOUNDING_SPHERE`](#content_bounding_sphere)
-    - [`TILE_MINIMUM_HEIGHT`](#tile_minimum_height)
-    - [`TILE_MAXIMUM_HEIGHT`](#tile_maximum_height)
-    - [`CONTENT_MINIMUM_HEIGHT`](#content_minimum_height)
-    - [`CONTENT_MAXIMUM_HEIGHT`](#content_maximum_height)
-    - [`TILE_HORIZON_OCCLUSION_POINT`](#tile_horizon_occlusion_point)
-    - [`CONTENT_HORIZON_OCCLUSION_POINT`](#content_horizon_occlusion_point)
-    - [`TILE_GEOMETRIC_ERROR`](#tile_geometric_error)
+    - [Tile](#tile)
+      - [Overview](#overview-3)
+      - [`TILE_BOUNDING_BOX`](#tile_bounding_box)
+      - [`TILE_BOUNDING_REGION`](#tile_bounding_region)
+      - [`TILE_BOUNDING_SPHERE`](#tile_bounding_sphere)
+      - [`TILE_MINIMUM_HEIGHT`](#tile_minimum_height)
+      - [`TILE_MAXIMUM_HEIGHT`](#tile_maximum_height)
+      - [`TILE_HORIZON_OCCLUSION_POINT`](#tile_horizon_occlusion_point)
+      - [`TILE_GEOMETRIC_ERROR`](#tile_geometric_error)
+    - [Content](#content)
+      - [Overview](#overview-4)
+      - [`CONTENT_BOUNDING_BOX`](#content_bounding_box)
+      - [`CONTENT_BOUNDING_REGION`](#content_bounding_region)
+      - [`CONTENT_BOUNDING_SPHERE`](#content_bounding_sphere)
+      - [`CONTENT_MINIMUM_HEIGHT`](#content_minimum_height)
+      - [`CONTENT_MAXIMUM_HEIGHT`](#content_maximum_height)
+      - [`CONTENT_HORIZON_OCCLUSION_POINT`](#content_horizon_occlusion_point)
   - [Revision History](#revision-history)
 
 ## General
@@ -61,126 +65,126 @@ The name of the entity. Names should be human-readable, and do not have to be un
 
 ### Overview
 
-Semantics in this section are assigned in relationship to a tile or tile content, as defined by the 3D Tiles 1.0 specification. When associated with other types of entities, these semantics may have invalid or undefined meanings.
+Semantics for 3D Tiles are assigned in relationship to a tile or tile content, as defined by the 3D Tiles 1.0 specification. When associated with other types of entities, these semantics may have invalid or undefined meanings.
 
-Per the 3D Tiles specification, the units for all linear distances are meters and all angles are radians.
+Units for all linear distances are meters, and all angles are radians.
 
-### `TILE_BOUNDING_BOX`
+### Tile
 
-The bounding volume of the tile, expressed as a [box (as defined by 3D Tiles 1.0)](../../../specification#box). This property is equivalent to `tile.boundingVolume.box`.
+#### Overview
 
-* Type: `ARRAY`
-* Component type: `FLOAT32` or `FLOAT64`
-* Component count: `12`
+`TILE_*` semantics provide meaning for properties associated with a particular tile, and should take precedence over equivalent metadata on parent objects, as well as over values derived from subdivision schemes like [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
 
-> **Implementation note:** `TILE_BOUNDING_BOX` may be used to describe a tighter bounding volume for a tile than is implicitly calculated from [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
+In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_SPHERE` semantics each define a tighter bounding volume for a tile than is implicitly calculated from [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling). If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
 
-### `TILE_BOUNDING_REGION`
+#### `TILE_BOUNDING_BOX`
 
-The bounding volume of the tile, expressed as a [region (as defined by 3D Tiles 1.0)](../../../specification#region). This property is equivalent to `tile.boundingVolume.region`.
-
-* Type: `ARRAY`
-* Component type: `FLOAT64`
-* Component count: `6`
-
-> **Implementation note:** `TILE_BOUNDING_REGION` may be used to describe a tighter bounding volume for a tile than is implicitly calculated from [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
-
-### `TILE_BOUNDING_SPHERE`
-
-The bounding volume of the tile, expressed as a [sphere (as defined by 3D Tiles 1.0)](../../../specification#sphere). This property is equivalent to `tile.boundingVolume.sphere`.
-
-* Type: `ARRAY`
-* Component type: `FLOAT32` or `FLOAT64`
-* Component count: `4`
-
-> **Implementation Note**: If multiple tile bounding volumes are specified the implementation may decide which bounding volume to use.
-
-### `CONTENT_BOUNDING_BOX`
-
-The bounding volume of the content of a tile, expressed as a [box (as defined by 3D Tiles 1.0)](../../../specification#box). This property is equivalent to `tile.content.boundingVolume.box`.
+The bounding volume of the tile, expressed as a [box (as defined by 3D Tiles 1.0)](../../../specification#box). Equivalent to `tile.boundingVolume.box`.
 
 * Type: `ARRAY`
 * Component type: `FLOAT32` or `FLOAT64`
 * Component count: `12`
 
-> **Implementation note:** `CONTENT_BOUNDING_BOX` may be used to describe a tighter bounding volume for the content of a tile than is implicitly calculated from [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
+#### `TILE_BOUNDING_REGION`
 
-### `CONTENT_BOUNDING_REGION`
-
-The bounding volume of the content of a tile, expressed as a [region (as defined by 3D Tiles 1.0)](../../../specification#region). This property is equivalent to `tile.content.boundingVolume.region`.
+The bounding volume of the tile, expressed as a [region (as defined by 3D Tiles 1.0)](../../../specification#region). Equivalent to `tile.boundingVolume.region`.
 
 * Type: `ARRAY`
 * Component type: `FLOAT64`
 * Component count: `6`
 
-> **Implementation note:** `CONTENT_BOUNDING_REGION` may be used to describe a tighter bounding volume for the content of a tile than is implicitly calculated from [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
+#### `TILE_BOUNDING_SPHERE`
 
-### `CONTENT_BOUNDING_SPHERE`
-
-The bounding volume of the content of  tile, expressed as a [sphere (as defined by 3D Tiles 1.0)](../../../specification#sphere). This property is equivalent to `tile.content.boundingVolume.sphere`.
+The bounding volume of the tile, expressed as a [sphere (as defined by 3D Tiles 1.0)](../../../specification#sphere). Equivalent to `tile.boundingVolume.sphere`.
 
 * Type: `ARRAY`
 * Component type: `FLOAT32` or `FLOAT64`
 * Component count: `4`
 
-> **Implementation Note**: If multiple content bounding volumes are specified the implementation may decide which bounding volume to use.
-
-### `TILE_MINIMUM_HEIGHT`
+#### `TILE_MINIMUM_HEIGHT`
 
 The minimum height of the tile above (or below) the WGS84 ellipsoid.
 
 * Type: `FLOAT32` or `FLOAT64`
 
-### `TILE_MAXIMUM_HEIGHT`
+#### `TILE_MAXIMUM_HEIGHT`
 
 The maximum height of the tile above (or below) the WGS84 ellipsoid.
 
 * Type: `FLOAT32` or `FLOAT64`
 
-> **Implementation Note**: `TILE_MINIMUM_HEIGHT` and `TILE_MAXIMUM_HEIGHT` may be ignored if `TILE_BOUNDING_REGION` is specified or if the tile has an explicit bounding volume.
-
-### `CONTENT_MINIMUM_HEIGHT`
-
-The minimum height of the content of a tile above (or below) the WGS84 ellipsoid.
-
-* Type: `FLOAT32` or `FLOAT64`
-
-### `CONTENT_MAXIMUM_HEIGHT`
-
-The maximum height of the content of a tile above (or below) the WGS84 ellipsoid.
-
-* Type: `FLOAT32` or `FLOAT64`
-
-> **Implementation Note**: `CONTENT_MINIMUM_HEIGHT` and `CONTENT_MAXIMUM_HEIGHT` may be ignored if `CONTENT_BOUNDING_REGION` is specified or if the tile has an explicit content bounding volume.
-
-### `TILE_HORIZON_OCCLUSION_POINT`
+#### `TILE_HORIZON_OCCLUSION_POINT`
 
 The horizon occlusion point of the tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire tile is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information.
 
 * Type: `VEC3`
 * Component type: `FLOAT32` or `FLOAT64`
 
-### `CONTENT_HORIZON_OCCLUSION_POINT`
+> **Implementation Note**: `TILE_HORIZON_OCCLUSION_POINT` should account for all content in a tile and its descendants, whereas `CONTENT_HORIZON_OCCLUSION_POINT` should only account for content in a tile. When the two values are equivalent, only `TILE_HORIZON_OCCLUSION_POINT` should be specified.
+
+#### `TILE_GEOMETRIC_ERROR`
+
+The geometric error of the tile. Equivalent to `tile.geometricError`.
+
+* Type: `FLOAT32` or `FLOAT64`
+
+### Content
+
+#### Overview
+
+`CONTENT_*` semantics provide meaning for properties associated with a particular tile content, and should take precedence over equivalent metadata on the parent tile.
+
+`CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, and `CONTENT_BOUNDING_SPHERE` semantics each define a tighter bounding volume for tile contents than the bounding volume of the tile. If more than one of these semantics are available for the same content, clients may select the most appropriate option based on use case and performance requirements.
+
+#### `CONTENT_BOUNDING_BOX`
+
+The bounding volume of the content of a tile, expressed as a [box (as defined by 3D Tiles 1.0)](../../../specification#box). Equivalent to `tile.content.boundingVolume.box`.
+
+* Type: `ARRAY`
+* Component type: `FLOAT32` or `FLOAT64`
+* Component count: `12`
+
+#### `CONTENT_BOUNDING_REGION`
+
+The bounding volume of the content of a tile, expressed as a [region (as defined by 3D Tiles 1.0)](../../../specification#region). Equivalent to `tile.content.boundingVolume.region`.
+
+* Type: `ARRAY`
+* Component type: `FLOAT64`
+* Component count: `6`
+
+#### `CONTENT_BOUNDING_SPHERE`
+
+The bounding volume of the content of  tile, expressed as a [sphere (as defined by 3D Tiles 1.0)](../../../specification#sphere). Equivalent to `tile.content.boundingVolume.sphere`.
+
+* Type: `ARRAY`
+* Component type: `FLOAT32` or `FLOAT64`
+* Component count: `4`
+
+#### `CONTENT_MINIMUM_HEIGHT`
+
+The minimum height of the content of a tile above (or below) the WGS84 ellipsoid.
+
+* Type: `FLOAT32` or `FLOAT64`
+
+#### `CONTENT_MAXIMUM_HEIGHT`
+
+The maximum height of the content of a tile above (or below) the WGS84 ellipsoid.
+
+* Type: `FLOAT32` or `FLOAT64`
+
+#### `CONTENT_HORIZON_OCCLUSION_POINT`
 
 The horizon occlusion point of the content of a tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire content is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information.
 
 * Type: `VEC3`
 * Component type: `FLOAT32` or `FLOAT64`
 
-> **Implementation Note**: Just as tile bounding volumes provide spatial coherence for traversal while content bounding volumes enable finer grained culling, the computation of `TILE_HORIZON_OCCLUSION_POINT` should account for all content in a tile and its descendants whereas `CONTENT_HORIZON_OCCLUSION_POINT` should only account for content in a tile. When the two values are equivalent only `TILE_HORIZON_OCCLUSION_POINT` should be specified.
-
-### `TILE_GEOMETRIC_ERROR`
-
-The geometric error of the tile. This property is equivalent to `tile.geometricError`.
-
-* Type: `FLOAT32` or `FLOAT64`
-
-> **Implementation note:** `TILE_GEOMETRIC_ERROR` takes precedence over geometric error implicitly calculated from [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
+> **Implementation Note**: `TILE_HORIZON_OCCLUSION_POINT` should account for all content in a tile and its descendants, whereas `CONTENT_HORIZON_OCCLUSION_POINT` should only account for content in a tile. When the two values are equivalent, only `TILE_HORIZON_OCCLUSION_POINT` should be specified.
 
 ## Revision History
 
 * **Version 1.0.0** February 25, 2021
   * Initial draft
 * **Version 2.0.0** October 2021
-  * Reorganize document to distinguish generic and 3D Tiles-specific semantics
+  * Reorganize document to distinguish general and 3D Tiles-specific semantics
   * Added clarification for units of distance and angles
