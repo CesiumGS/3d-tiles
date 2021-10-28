@@ -132,7 +132,7 @@ The geometric error of the tile. Equivalent to `tile.geometricError`.
 
 #### Overview
 
-`CONTENT_*` semantics provide meaning for properties associated with a particular tile content, and should take precedence over equivalent metadata on the parent tile.
+`CONTENT_*` semantics provide meaning for properties associated with a particular tile content, and should take precedence over equivalent metadata on the containing tile.
 
 `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, and `CONTENT_BOUNDING_SPHERE` semantics each define a tighter bounding volume for tile contents than the bounding volume of the tile. If more than one of these semantics are available for the same content, clients may select the most appropriate option based on use case and performance requirements.
 
