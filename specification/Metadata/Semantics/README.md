@@ -103,13 +103,13 @@ The bounding volume of the tile, expressed as a [sphere (as defined by 3D Tiles 
 
 #### `TILE_MINIMUM_HEIGHT`
 
-The minimum height of the tile above (or below) the WGS84 ellipsoid.
+The minimum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`.
 
 * Type: `FLOAT32` or `FLOAT64`
 
 #### `TILE_MAXIMUM_HEIGHT`
 
-The maximum height of the tile above (or below) the WGS84 ellipsoid.
+The maximum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`.
 
 * Type: `FLOAT32` or `FLOAT64`
 
@@ -162,13 +162,13 @@ The bounding volume of the content of  tile, expressed as a [sphere (as defined 
 
 #### `CONTENT_MINIMUM_HEIGHT`
 
-The minimum height of the content of a tile above (or below) the WGS84 ellipsoid.
+The minimum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`.
 
 * Type: `FLOAT32` or `FLOAT64`
 
 #### `CONTENT_MAXIMUM_HEIGHT`
 
-The maximum height of the content of a tile above (or below) the WGS84 ellipsoid.
+The maximum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`.
 
 * Type: `FLOAT32` or `FLOAT64`
 
