@@ -80,7 +80,7 @@ _This section is non-normative_
 Metadata in 3D Tiles enables additional use cases and functionality for the format:
 
 - **Inspection:** Applications displaying a tileset within a user interface (UI) may allow users to click or hover over specific tiles or tile contents, showing informative metadata about a selected entity in the UI.
-- **Layers:** Tile content groups may be used to define collections of tile contents, similar to a layer compositing system, such that each layer may be shown/hidden, visually styled, or reordered.
+- **Collections:** Tile content groups may be used to define collections (similar to map layers), such that each collection may be shown, hidden, or visually styled with effects synchronized across many tiles.
 - **Structured Data:** Metadata supports both embedded and externally-referenced schemas, such that tileset authors may define new data models for common domains (e.g. for AEC or scientific datasets) or fully customized, application-specific data (e.g. for a particular video game).
 - **Optimization:** Per-tile metadata may include properties with performance-related semantics, enabling engines to optimize traversal and streaming algorithms significantly.
 
