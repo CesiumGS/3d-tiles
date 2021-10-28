@@ -59,19 +59,19 @@ This extension is optional, meaning it should be placed in the tileset JSON `ext
 
 ## Overview
 
-This extension defines a means of including structured metadata ("properties") in 3D Tiles, extending the format with semantically-rich data that may be used for inspection, analysis, styling, or other purposes. Properties are structured according to declared templates ("schema"), and associated with specific objects within a tileset ("entities") at various levels of abstraction. Metadata is supported on the following 3D Tiles entity types:
+This extension defines a means of including structured metadata ("properties") in 3D Tiles, extending the format with semantically-rich data that may be used for inspection, analysis, styling, or other purposes. Properties are structured according to declared templates ("schema"), and associated with specific objects within a tileset ("entities") at various levels of granularity. Metadata is supported on the following 3D Tiles entity types:
 
 * **Tileset** - Tileset as a whole may be associated with global metadata, such as the year of publication.
 * **Tile** - Tiles may be individually associated with more specific metadata, such as the timestamp when a tile was last updated, or maximum height of the tile's content.
-* **Content** - Tile contents may be organized into collections (see: [Groups](#content-group-properties)) with shared metadata.
+* **Tile Content Groups** - Tile contents may be organized into collections (see: [Groups](#content-group-properties)) with shared metadata.
+
+> **Implementation note:** Certain subcomponents of tile content ("features") may also have associated metadata. See [Content Feature Properties](#content-feature-properties).
 
 Concepts and terminology used throughout this document refer to the [Cesium 3D Metadata Specification](../../specification/Metadata/README.md), which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
 
-The figure below shows the relationship between entities (tilesets, tiles, contents, and groups) in 3D Tiles.
+The figure below shows the relationship between entities (tilesets, tiles, contents, and groups) in 3D Tiles:
 
 <img src="figures/metadata-granularity.png"  alt="Metadata Granularity" width="600">
-
-> **Implementation note:** Additionally, smaller subcomponents of tile content ("features") may also have associated metadata. See [Content Feature Properties](#content-feature-properties).
 
 ## Use Cases
 
@@ -81,14 +81,14 @@ Metadata in 3D Tiles enables additional use cases and functionality for the form
 
 - **Inspection:** Applications displaying a tileset within a user interface (UI) may allow users to click or hover over specific tiles or tile contents, showing informative metadata about a selected entity in the UI.
 - **Layers:** Tile content groups may be used to define collections of tile contents, similar to a layer compositing system, such that each layer may be shown/hidden, visually styled, or reordered.
-- **Structured Data:** Metadata supports both embedded and externally-referenced schemas, such that tileset authors may define new semantic data models for common domains or fully customized, application-specific data.
+- **Structured Data:** Metadata supports both embedded and externally-referenced schemas, such that tileset authors may define new data models for common domains (e.g. for AEC or scientific datasets) or fully customized, application-specific data (e.g. for a particular video game).
 - **Optimization:** Per-tile metadata may include properties with performance-related semantics, enabling engines to optimize traversal and streaming algorithms significantly.
 
 ## Metadata
 
 ### Overview
 
-[*Properties*](#class-property) describe attributes or characteristics of an *Entity* (tileset, tile, or content group). [*Classes*](#class), provided by [*Schemas*](#schema), are templates defining the data types and semantic meanings of properties. Each entity is a single instance of that class with specific values. Additionally, [*Statistics*](#statistics) may provide aggregate information about the distribution of property values within a particular class, and [*Semantics*](#semantics) may define usage and meaning of particular properties.
+[*Properties*](#class-property) describe attributes or characteristics of an *Entity* (tileset, tile, or content group). [*Classes*](#class), provided by [*Schemas*](#schema), are templates defining the data types and meanings of properties. Each entity is a single instance of that class with specific values. Additionally, [*Statistics*](#statistics) may provide aggregate information about the distribution of property values within a particular class, and [*Semantics*](#semantics) may define usage and meaning of particular properties.
 
 ### Schema
 
@@ -145,7 +145,7 @@ Schemas may be embedded in tilesets with the `schema` property, or referenced ex
 
 *Defined in [class.schema.json](./schema/class.schema.json).*
 
-Template for entities. Classes provide a list of properties with type and semantic information. Every entity must be associated with a class, and the entity's properties must conform to the class's property definitions. Entities whose properties conform to a class are considered instances of that class.
+Template for entities. Classes provide a list of property definitions. Every entity must be associated with a class, and the entity's properties must conform to the class's property definitions. Entities whose properties conform to a class are considered instances of that class.
 
 Classes are defined as entries in the `schema.classes` dictionary, indexed by an alphanumeric class ID.
 
@@ -153,7 +153,7 @@ Classes are defined as entries in the `schema.classes` dictionary, indexed by an
 
 *Defined in [class.property.schema.json](./schema/class.property.schema.json).*
 
-Properties are defined abstractly in a class by their semantic meaning and data type, and are instantiated in an entity with specific values conforming to that definition. Properties support a rich variety of data types, defined by `property.componentType`.
+Properties are defined abstractly in a class, and are instantiated in an entity with specific values conforming to that definition. Properties support a rich variety of data types, defined by `property.componentType`.
 
 Allowed values for `componentType`:
 
@@ -262,7 +262,7 @@ Properties may include the following built-in statistics:
 | `standardDeviation` | The standard deviation of the property values | ...                                                                                        |
 | `variance`          | The variance of the property values           | ...                                                                                        |
 | `sum`               | The sum of the property values                | ...                                                                                        |
-| `occurrences`       | Number of enum occurrences                    | Object in which keys are enum names, and values are the number of occurrences of that enum value |
+| `frequencies`       | Frequencies of value occurrences              | Object in which keys are property values (for enums, the enum name), and values are the number of occurrences of that property value |
 
 Tileset authors may define their own additional statistics, like `_mode` in the example below. Application-specific statistics should use an underscore prefix (`_*`) and lowerCamelCase for consistency and to avoid conflicting with future built-in statistics.
 
@@ -305,7 +305,7 @@ Tileset authors may define their own additional statistics, like `_mode` in the 
 >                 "_mode": 5.0
 >               },
 >               "buildingType": {
->                 "occurrences": {
+>                 "frequencies": {
 >                   "Residential": 50000,
 >                   "Commercial": 40950,
 >                   "Hospital": 50
@@ -324,7 +324,7 @@ Tileset authors may define their own additional statistics, like `_mode` in the 
 
 ### Overview
 
-While [classes](#class) within a schema define the data types and semantic meanings of properties, properties do not take on particular values until a metadata is assigned (i.e. the class is "instatiated") to a particular entity within the 3D Tiles hierarchy. Property values may be assigned to entities as described in the sections below.
+While [classes](#class) within a schema define the data types and meanings of properties, properties do not take on particular values until a metadata is assigned (i.e. the class is "instatiated") to a particular entity within the 3D Tiles hierarchy. Property values may be assigned to entities as described in the sections below.
 
 Each property value assigned must be defined by a class property with the same alphanumeric property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
 
@@ -377,44 +377,46 @@ Property values may be assigned to individual tiles, including (for example) spa
 
 A `3DTILES_metadata` extension on a tile object may specify its class (`class`), as well as a human-readable name (`name`) and longer description (`description`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Table Format](../../specification/Metadata/README.md#json-table-format) specification.
 
-```jsonc
-{
-  "extensions": {
-    "3DTILES_metadata": {
-      "schema": {
-        "classes": {
-          "tile": {
-            "properties": {
-              "maximumHeight": {
-                "semantic": "TILE_MAXIMUM_HEIGHT",
-                "componentType": "FLOAT32"
-              },
-              "countries": {
-                "description": "Countries a tile intersects.",
-                "type": "ARRAY",
-                "componentType": "STRING"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "root": {
-    "extensions": {
-      "3DTILES_metadata": {
-        "class": "tile",
-        "properties": {
-          "maximumHeight": 4418,
-          "countries": ["United States", "Canada", "Mexico"]
-        }
-      }
-    },
-    "content": { ... },
-    ...
-  }
-}
-```
+> **Example:**
+>
+> ```jsonc
+> {
+>   "extensions": {
+>     "3DTILES_metadata": {
+>       "schema": {
+>         "classes": {
+>           "tile": {
+>             "properties": {
+>               "maximumHeight": {
+>                 "semantic": "TILE_MAXIMUM_HEIGHT",
+>                 "componentType": "FLOAT32"
+>               },
+>               "countries": {
+>                 "description": "Countries a tile intersects.",
+>                 "type": "ARRAY",
+>                 "componentType": "STRING"
+>               }
+>             }
+>           }
+>         }
+>       }
+>     }
+>   },
+>   "root": {
+>     "extensions": {
+>       "3DTILES_metadata": {
+>         "class": "tile",
+>         "properties": {
+>           "maximumHeight": 4418,
+>           "countries": ["United States", "Canada", "Mexico"]
+>         }
+>       }
+>     },
+>     "content": { ... },
+>     ...
+>   }
+> }
+> ```
 
 ### Implicit Tile Properties
 
@@ -424,7 +426,7 @@ When tiles are listed explicitly within a tileset, each tile's metadata is also 
 
 Unlike other methods of assigning metadata, properties of implicit tiles are not encoded as JSON objects. Instead, property values for all available tile contents are encoded in a compact [*Binary Table Format*](../../specification/Metadata/README.md#binary-table-format) defined by the Cesium 3D Metadata Specification. The binary representation is particularly efficient for larger datasets with many tiles.
 
- Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the [Availability Ordering](../3DTILES_implicit_tiling/README.md#availability). Because properties of available tiles are tightly packed, each tile must have a value — representation of missing values within an available tile is possible only with the `noData` indicator defined by the *Binary Table Format*.
+ Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the [Availability Ordering](../3DTILES_implicit_tiling/README.md#availability). Each available tile must have a value — representation of missing values within a tile is possible only with the `noData` indicator defined by the *Binary Table Format*.
 
 > **Implementation note:** To determine the index into a property value array for a particular tile, count the number of available tiles occurring before that index, according to the tile Availability Ordering. If `i` available tiles occur before a particular tile, that tile's property values are stored at index `i` of each property value array. These indices may be precomputed for all available tiles, as a single pass over the subtree availability buffer.
 
@@ -548,7 +550,7 @@ The tileset's root `3DTILES_metadata` extension must define a list of available 
 
 _This section is non-normative_
 
-Certain kinds of tile content may contain meaningful subcomponents ("features"), which may themselves be associated with metadata through more granular properties. Schemas may be embedded in these content types, but unused classes in a `3DTILES_metadata` are allowed, and may hint to an application that tile content might include entities instantiating those classes.
+Certain kinds of tile content may contain meaningful subcomponents ("features"), which may themselves be associated with metadata through more granular properties. Schemas may be embedded in these content types, but unused classes in a `3DTILES_metadata` schema are allowed, and may hint to an application that tile content might include entities instantiating those classes.
 
 Assigning properties to tile content is not within the scope of this extension, but may be defined by other specifications. One such example is the glTF extension, [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features), which supports definitions of conceptual features within geometry and textures, and associated metadata. glTF 2.0 assets with feature metadata may be included as tile contents with the [`3DTILES_content_gltf`](../3DTILES_content_gltf) extension.
 
