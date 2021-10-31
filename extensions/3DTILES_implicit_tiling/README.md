@@ -912,7 +912,7 @@ tile.globalLevel = subtreeRoot.globalLevel + tile.localLevel
 
 <img src="figures/global-to-local-levels.jpg" width="500" />
 
-`(x, y, z)` coordinates follow the same pattern a Morton indices. The only difference is that the concatenation of bits happens component-wise. That is:
+`(x, y, z)` coordinates follow the same pattern as Morton indices. The only difference is that the concatenation of bits happens component-wise. That is:
 
 ```
 tile.globalX = concatBits(subtreeRoot.globalX, tile.localX)
