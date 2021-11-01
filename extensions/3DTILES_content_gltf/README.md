@@ -31,12 +31,10 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 - [Overview](#overview)
 - [Extension JSON](#extension-json)
 - [Examples](#examples)
-- [JSON Schema Reference](#json-schema-reference)
-- [Appendix: Comparison with Existing Tile Formats](#appendix-comparison-with-existing-tile-formats)
 
 ## Overview
 
-This extension allows a tileset to use [glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) assets directly as tile content. Both `glTF` JSON and `GLB` binary formats are supported.
+This extension allows a tileset to use [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) assets directly as tile content. Both `glTF` JSON and `GLB` binary formats are supported.
 
 Using glTF as a tile format simplifies content pipelines from creation to runtime. This allows greater compatibility with existing tools (e.g. 3D modeling software, validators, optimizers) that create or process glTF assets. Runtime engines that currently support glTF can more easily support 3D Tiles. In many cases, existing tile formats can be converted into the corresponding glTF content, as described in the [Migration Guide](MIGRATION_GUIDE.md).
 
@@ -84,7 +82,3 @@ The following is an example of using the `3DTILES_content_gltf` extension to dir
   }
 }
 ```
-
-## Examples
-
-A simple example can be found [here](examples/tileset).
