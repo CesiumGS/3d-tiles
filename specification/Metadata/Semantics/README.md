@@ -134,7 +134,7 @@ The geometric error of the tile. Equivalent to `tile.geometricError`.
 
 `CONTENT_*` semantics provide meaning for properties associated with the content of a tile, and may be more specific to that content than properties of the containing tile. When a tile has multiple contents (e.g. with [3DTILES_multiple_contents](../../../extensions/3DTILES_multiple_contents)), a `CONTENT_*` property may describe all tile contents or a single content entry, depending on whether the property is located in the tile or tile content definition.
 
-`CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, and `CONTENT_BOUNDING_SPHERE` semantics each define a tighter bounding volume for tile contents than the bounding volume of the tile. If more than one of these semantics are available for the same content, clients may select the most appropriate option based on use case and performance requirements.
+`CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, and `CONTENT_BOUNDING_SPHERE` semantics each define a more specific bounding volume for tile contents than the bounding volume of the tile. If more than one of these semantics are available for the same content, clients may select the most appropriate option based on use case and performance requirements.
 
 #### `CONTENT_BOUNDING_BOX`
 
