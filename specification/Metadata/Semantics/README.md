@@ -11,7 +11,7 @@ Each semantic is defined in terms of its meaning, and the datatypes it may assum
 
 For use of semantics in extensions of specific standards, see:
 
-* [`3DTILES_metadata`](../../extensions/3DTILES_metadata) (3D Tiles 1.0) — Assigns metadata to tilesets, tiles, or tile contents
+* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) (3D Tiles 1.0) — Assigns metadata to tilesets, tiles, or tile contents
 * [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) (glTF 2.0) —  Assigns metadata to subcomponents ("features") of geometry or textures
 
 <!-- omit in toc -->
