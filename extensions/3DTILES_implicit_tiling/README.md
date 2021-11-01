@@ -121,7 +121,7 @@ The `3DTILES_implicit_tiling` extension may be defined on any tile in the tilese
   }
 }
 ```
-The `content` of an implicit tile must not have an associated `boundingVolume` property, but the [`3DTILES_metadata`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_metadata#implicit-tile-metadata) extension still allows defining bounding volumes for the content of implicit tiles. The possible [Semantics](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/specification/Metadata/Semantics) of the metadata include semantics like [`CONTENT_BOUNDING_BOX`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/specification/Metadata/Semantics#content_bounding_box) that can be used to associate bounding volumes with the content of implicit tiles, for all tiles that are available in the implicit tree.  
+The `content` of an implicit tile must not have an associated `boundingVolume` property, but the [`3DTILES_metadata`](../3DTILES_metadata#implicit-tile-metadata) extension still allows defining bounding volumes for the content of implicit tiles. The possible [Semantics](../../specification/Metadata/Semantics) of the metadata include semantics like [`CONTENT_BOUNDING_BOX`](../../specification/Metadata/Semantics#content_bounding_box) that can be used to associate bounding volumes with the content of implicit tiles, for all tiles that are available in the implicit tree.  
 
 
 In the extension object of the tile, the following properties about the implicit root tile are included:
