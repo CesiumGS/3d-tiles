@@ -1,6 +1,7 @@
 <!-- omit in toc -->
 # Cesium Metadata Semantic Reference
 
+<!-- omit in toc -->
 ## Overview
 
 This document provides common definitions of meaning ("semantics") used by metadata properties in 3D Tiles 1.0 and glTF 2.0. Tileset authors may define their own application- or domain-specific semantics separately.
@@ -17,15 +18,11 @@ For use of semantics in extensions of specific standards, see:
 <!-- omit in toc -->
 ## Contents
 
-- [Overview](#overview)
 - [General](#general)
-  - [Overview](#overview-1)
   - [`ID`](#id)
   - [`NAME`](#name)
 - [3D Tiles](#3d-tiles)
-  - [Overview](#overview-2)
   - [Tile](#tile)
-    - [Overview](#overview-3)
     - [`TILE_BOUNDING_BOX`](#tile_bounding_box)
     - [`TILE_BOUNDING_REGION`](#tile_bounding_region)
     - [`TILE_BOUNDING_SPHERE`](#tile_bounding_sphere)
@@ -34,7 +31,6 @@ For use of semantics in extensions of specific standards, see:
     - [`TILE_HORIZON_OCCLUSION_POINT`](#tile_horizon_occlusion_point)
     - [`TILE_GEOMETRIC_ERROR`](#tile_geometric_error)
   - [Content](#content)
-    - [Overview](#overview-4)
     - [`CONTENT_BOUNDING_BOX`](#content_bounding_box)
     - [`CONTENT_BOUNDING_REGION`](#content_bounding_region)
     - [`CONTENT_BOUNDING_SPHERE`](#content_bounding_sphere)
@@ -45,6 +41,7 @@ For use of semantics in extensions of specific standards, see:
 
 ## General
 
+<!-- omit in toc -->
 ### Overview
 
 Throughout this section, the term "entity" refers to any conceptual object with which a property value (as defined in the [Cesium 3D Metadata Specification](../)) may be associated. Examples of entities include tilesets, tiles, and tile contents in 3D Tiles, or groups of vertices and texels in glTF 2.0 assets. Additional types of entities may be defined by other specifications or applications.
@@ -63,6 +60,7 @@ The name of the entity. Names should be human-readable, and do not have to be un
 
 ## 3D Tiles
 
+<!-- omit in toc -->
 ### Overview
 
 Semantics for 3D Tiles are assigned in relationship to a tile or tile content, as defined by the 3D Tiles 1.0 specification. When associated with other types of entities, these semantics may have invalid or undefined meanings.
@@ -71,6 +69,7 @@ Units for all linear distances are meters, and all angles are radians.
 
 ### Tile
 
+<!-- omit in toc -->
 #### Overview
 
 `TILE_*` semantics provide meaning for properties associated with a particular tile, and should take precedence over equivalent metadata on parent objects, as well as over values derived from subdivision schemes like [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
@@ -130,6 +129,7 @@ The geometric error of the tile. Equivalent to `tile.geometricError`.
 
 ### Content
 
+<!-- omit in toc -->
 #### Overview
 
 `CONTENT_*` semantics provide meaning for properties associated with the content of a tile, and may be more specific to that content than properties of the containing tile. When a tile has multiple contents (e.g. with [3DTILES_multiple_contents](../../../extensions/3DTILES_multiple_contents)), a `CONTENT_*` property may describe all tile contents or a single content entry, depending on whether the property is located in the tile or tile content definition.
