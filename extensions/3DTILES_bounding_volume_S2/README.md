@@ -17,7 +17,10 @@ Draft
 <!-- omit in toc -->
 ## Dependencies
 
-Written against 3D Tiles 1.0. Optionally, this extension may be used with [3DTILES_implicit_tiling](../3DTILES_implicit_tiling). 
+Written against 3D Tiles 1.0.
+
+Optionally, this extension may be used in conjunction with [3DTILES_implicit_tiling](../3DTILES_implicit_tiling). When used together, S2 bounding volumes will be implicitly subdivided
+in a quadtree or octree.
 
 <!-- omit in toc -->
 ## Optional vs. Required
@@ -39,7 +42,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 ## Overview
 
-S2 is a geometry library that defines a framework for decomposing the unit sphere into a hierarchy of cells. A cell is a quadrilateral bounded by four geodesics. The S2 cell hierarchy has 6 root cells, that are obtained by projecting the six faces of a cube onto the unit sphere.
+[S2](https://s2geometry.io/) is a geometry library that defines a framework for decomposing the unit sphere into a hierarchy of cells. A cell is a quadrilateral bounded by four geodesics. The S2 cell hierarchy has 6 root cells, that are obtained by projecting the six faces of a cube onto the unit sphere.
 
 Typically, traditional GIS libraries rely on projecting map data from an ellipsoid onto a plane. For example, the Mercator projection is a cylindrical projection, where the ellipsoid is mapped onto a cylinder that is then unrolled as a plane. This method leads to increasingly large distortion in areas as you move further away from the equator. S2 makes it possible to split the Earth into tiles that have no singularities, have relatively low distortion and are nearly equal in size.
 
@@ -62,7 +65,7 @@ The S2 library uses a modified Hilbert curve to provide a one dimensional orderi
 
 ## Cell IDs
 
-The 64-bit S2 cell ID is constructed as follows:
+The 64-bit [S2 cell ID](https://s2geometry.io/devguide/s2cell_hierarchy#s2cellid-numbering) is constructed as follows:
 
 1. Use 3 bits to encode the index of the root cell it belongs to. Valid values are in the range `[0-5]`.
 2. For a cell at level `k`, for each of the `k` "child" values, add 2 bits to the right, indicating the selection of one of 4 children during subdivision.
