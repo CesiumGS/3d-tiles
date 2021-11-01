@@ -7,6 +7,7 @@
 - Sam Suhag, Cesium
 - Sean Lilley, Cesium
 - Peter Gagliardi, Cesium
+- Marco Hutter, Cesium
 
 <!-- omit in toc -->
 ## Status
@@ -209,22 +210,7 @@ When used with [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling), a `QUADT
 
 To ensure continuity of the Hilbert curve, the faces of the cube are rotated as shown in the diagram below. This must be carefully considered when interpreting the tile coordinates in implicit tiling, since the traversal order in the odd-numbered faces is the mirror of the order in even numbered faces.
 
-```
-                  ^---->  <----^
-                  | 4  |    5  |
-                  |    |       |
-                  x    V  ----->
-
-          ^---->  <----^
-          | 2  |    3  |
-          |    |       |
-          x    V  ----->
-
-  ^---->  <----^
-  | 0  |    1  |
-  |    |       |
-  x    v  ----->
-```
+![S2 Face Order](figures/s2-face-winding.png)
 
 
 ### Availability
