@@ -1,0 +1,27 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tile.3DTILES_implicit_tiling.subtree.schema.json",
+    "title": "Subtree",
+    "type": "object",
+    "description": "An object describing the location of subtree files.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
+    "properties": {
+        "uri": {
+            "allOf": [
+                {
+                    "$ref": "templateUri.schema.json"
+                }
+            ],
+            "description": "A template URI pointing to subtree files. A subtree is a fixed-depth (defined by `subtreeLevels`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree root's global level, x, and y. For subdivision scheme `OCTREE`, z must also be given. Relative paths are relative to the tileset JSON."
+        },
+        "extensions": {},
+        "extras": {}
+    },
+    "required": [
+        "uri"
+    ]
+}
