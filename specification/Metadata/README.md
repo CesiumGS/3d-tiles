@@ -135,7 +135,7 @@ Properties describe the type and structure of values that may be associated with
 
 #### ID
 
-IDs (`id`) uniquely identify a property within a class, and must contain only alphanumeric characters and underscores. IDs should be human-readable (wherever possible) and camel-case. When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a property *name*.
+IDs (`id`) uniquely identify a property within a class, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a property *name*.
 
 #### Name
 
