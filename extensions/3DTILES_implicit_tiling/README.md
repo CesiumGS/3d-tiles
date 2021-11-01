@@ -95,10 +95,10 @@ The `3DTILES_implicit_tiling` extension may be defined on any tile in the tilese
   },
   "geometricError": 10000,
   "extensionsUsed": [
-    "3DTILES_implicit_tiling",
+    "3DTILES_implicit_tiling"
   ],
   "extensionsRequired": [
-    "3DTILES_implicit_tiling",
+    "3DTILES_implicit_tiling"
   ],
   "root": {
     "boundingVolume": {
