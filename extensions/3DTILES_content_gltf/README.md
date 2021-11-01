@@ -1,7 +1,5 @@
-<!-- omit in toc -->
 # 3DTILES_content_gltf
 
-<!-- omit in toc -->
 ## Contributors
 
 * Sean Lilley, Cesium
@@ -10,27 +8,17 @@
 * Don McCurdy, Independent
 * Patrick Cozzi, Cesium
 
-<!-- omit in toc -->
 ## Status
 
 Draft
 
-<!-- omit in toc -->
 ## Dependencies
 
 Written against the 3D Tiles 1.0 specification.
 
-<!-- omit in toc -->
 ## Optional vs. Required
 
 This extension is required, meaning it must be placed in both the `extensionsUsed` and `extensionsRequired` lists in the tileset JSON.
-
-<!-- omit in toc -->
-## Contents
-
-- [Overview](#overview)
-- [Extension JSON](#extension-json)
-- [Examples](#examples)
 
 ## Overview
 
