@@ -350,44 +350,44 @@ A **buffer view** is a contiguous subset of a buffer. A buffer view's `buffer` p
 
 For efficient memory access, the `byteOffset` of a buffer view must be aligned to a multiple of 8 bytes.
 
-```json
-{
-  "buffers": [
-    {
-      "name": "Internal Buffer",
-      "byteLength": 16
-    },
-    {
-      "name": "External Buffer",
-      "uri": "external.bin",
-      "byteLength": 32
-    }
-  ],
-  "bufferViews": [
-    {
-      "buffer": 0,
-      "byteOffset": 0,
-      "byteLength": 11
-    },
-    {
-      "buffer": 1,
-      "byteOffset": 0,
-      "byteLength": 32
-    }
-  ],
-  "tileAvailability": {
-    "constant": 1,
-  },
-  "contentAvailability": {
-    "bufferView": 0
-  },
-  "childSubtreeAvailability": {
-    "bufferView": 1
-  }
-}
-```
-
-In the example above, every tile in the subtree exists, but not every tile has content. 
+> **Example:** The JSON description of a subtree where each tile is available, but not all tiles have content, and not all child subtrees are available:
+> 
+> ```json
+> {
+>   "buffers": [
+>     {
+>       "name": "Internal Buffer",
+>       "byteLength": 16
+>     },
+>     {
+>       "name": "External Buffer",
+>       "uri": "external.bin",
+>       "byteLength": 32
+>     }
+>   ],
+>   "bufferViews": [
+>     {
+>       "buffer": 0,
+>       "byteOffset": 0,
+>       "byteLength": 11
+>     },
+>     {
+>       "buffer": 1,
+>       "byteOffset": 0,
+>       "byteLength": 32
+>     }
+>   ],
+>   "tileAvailability": {
+>     "constant": 1,
+>   },
+>   "contentAvailability": {
+>     "bufferView": 0
+>   },
+>   "childSubtreeAvailability": {
+>     "bufferView": 1
+>   }
+> }
+> ```
 
 When all tiles exist, then their availability can be encoded by setting `tileAvailability.constant` to `1`, without needing an explicit bitstream.
 
