@@ -1,6 +1,7 @@
+<!-- omit in toc -->
 # Cesium Metadata Semantic Reference
 
-### Overview
+## Overview
 
 This document provides common definitions of meaning ("semantics") used by metadata properties in 3D Tiles 1.0 and glTF 2.0. Tileset authors may define their own application- or domain-specific semantics separately.
 
@@ -10,38 +11,37 @@ Each semantic is defined in terms of its meaning, and the datatypes it may assum
 
 For use of semantics in extensions of specific standards, see:
 
-* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) (3D Tiles 1.0) — Assigns metadata to tilesets, tiles, or tile contents
+* [`3DTILES_metadata`](../../extensions/3DTILES_metadata) (3D Tiles 1.0) — Assigns metadata to tilesets, tiles, or tile contents
 * [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) (glTF 2.0) —  Assigns metadata to subcomponents ("features") of geometry or textures
 
+<!-- omit in toc -->
 ## Contents
 
-- [Cesium Metadata Semantic Reference](#cesium-metadata-semantic-reference)
-    - [Overview](#overview)
-  - [Contents](#contents)
-  - [General](#general)
-    - [Overview](#overview-1)
-    - [`ID`](#id)
-    - [`NAME`](#name)
-  - [3D Tiles](#3d-tiles)
-    - [Overview](#overview-2)
-    - [Tile](#tile)
-      - [Overview](#overview-3)
-      - [`TILE_BOUNDING_BOX`](#tile_bounding_box)
-      - [`TILE_BOUNDING_REGION`](#tile_bounding_region)
-      - [`TILE_BOUNDING_SPHERE`](#tile_bounding_sphere)
-      - [`TILE_MINIMUM_HEIGHT`](#tile_minimum_height)
-      - [`TILE_MAXIMUM_HEIGHT`](#tile_maximum_height)
-      - [`TILE_HORIZON_OCCLUSION_POINT`](#tile_horizon_occlusion_point)
-      - [`TILE_GEOMETRIC_ERROR`](#tile_geometric_error)
-    - [Content](#content)
-      - [Overview](#overview-4)
-      - [`CONTENT_BOUNDING_BOX`](#content_bounding_box)
-      - [`CONTENT_BOUNDING_REGION`](#content_bounding_region)
-      - [`CONTENT_BOUNDING_SPHERE`](#content_bounding_sphere)
-      - [`CONTENT_MINIMUM_HEIGHT`](#content_minimum_height)
-      - [`CONTENT_MAXIMUM_HEIGHT`](#content_maximum_height)
-      - [`CONTENT_HORIZON_OCCLUSION_POINT`](#content_horizon_occlusion_point)
-  - [Revision History](#revision-history)
+- [Overview](#overview)
+- [General](#general)
+  - [Overview](#overview-1)
+  - [`ID`](#id)
+  - [`NAME`](#name)
+- [3D Tiles](#3d-tiles)
+  - [Overview](#overview-2)
+  - [Tile](#tile)
+    - [Overview](#overview-3)
+    - [`TILE_BOUNDING_BOX`](#tile_bounding_box)
+    - [`TILE_BOUNDING_REGION`](#tile_bounding_region)
+    - [`TILE_BOUNDING_SPHERE`](#tile_bounding_sphere)
+    - [`TILE_MINIMUM_HEIGHT`](#tile_minimum_height)
+    - [`TILE_MAXIMUM_HEIGHT`](#tile_maximum_height)
+    - [`TILE_HORIZON_OCCLUSION_POINT`](#tile_horizon_occlusion_point)
+    - [`TILE_GEOMETRIC_ERROR`](#tile_geometric_error)
+  - [Content](#content)
+    - [Overview](#overview-4)
+    - [`CONTENT_BOUNDING_BOX`](#content_bounding_box)
+    - [`CONTENT_BOUNDING_REGION`](#content_bounding_region)
+    - [`CONTENT_BOUNDING_SPHERE`](#content_bounding_sphere)
+    - [`CONTENT_MINIMUM_HEIGHT`](#content_minimum_height)
+    - [`CONTENT_MAXIMUM_HEIGHT`](#content_maximum_height)
+    - [`CONTENT_HORIZON_OCCLUSION_POINT`](#content_horizon_occlusion_point)
+- [Revision History](#revision-history)
 
 ## General
 
@@ -132,7 +132,7 @@ The geometric error of the tile. Equivalent to `tile.geometricError`.
 
 #### Overview
 
-`CONTENT_*` semantics provide meaning for properties associated with a particular tile content, and should take precedence over equivalent metadata on the containing tile.
+`CONTENT_*` semantics provide meaning for properties associated with the content of a tile, and may be more specific to that content than properties of the containing tile. When a tile has multiple contents (e.g. with [3DTILES_multiple_contents](../../../extensions/3DTILES_multiple_contents)), a `CONTENT_*` property may describe all tile contents or a single content entry, depending on whether the property is located in the tile or tile content definition.
 
 `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, and `CONTENT_BOUNDING_SPHERE` semantics each define a tighter bounding volume for tile contents than the bounding volume of the tile. If more than one of these semantics are available for the same content, clients may select the most appropriate option based on use case and performance requirements.
 
