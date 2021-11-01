@@ -336,7 +336,7 @@ Most property values are encoded as JSON within the entity to which they are ass
 
 Properties assigned to tilesets provide metadata about the tileset as a whole. Common examples might include year of collection, author details, or other general context for the tileset contents.
 
-The `tileset` object within a tileset's `3DTILES_metadata` extension may specify its class (`class`), as well as a human-readable name (`name`) and longer description (`description`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Table Format](../../specification/Metadata/README.md#json-table-format) specification.
+The `tileset` object within a tileset's `3DTILES_metadata` extension must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Table Format](../../specification/Metadata/README.md#json-table-format) specification.
 
 > **Example:** The example below defines properties of a tileset, with the tileset representing an instance of a "city" class. Required properties "dateFounded" and "population" are given; optional property "country" is omitted.
 >
@@ -348,6 +348,7 @@ The `tileset` object within a tileset's `3DTILES_metadata` extension may specify
 >         "classes": {
 >           "city": {
 >             "properties": {
+>               "name": {"componentType": "STRING", "semantic": "NAME", "required": true},
 >               "dateFounded": {"componentType": "STRING", "required": true},
 >               "population": {"componentType": "UINT32", "required": true},
 >               "country": {"componentType": "STRING"}
@@ -356,10 +357,9 @@ The `tileset` object within a tileset's `3DTILES_metadata` extension may specify
 >         }
 >       },
 >       "tileset": {
->         "name": "Philadelphia",
->         "description": "Point cloud of Philadelphia",
 >         "class": "city",
 >         "properties": {
+>           "name": "Philadelphia",
 >           "dateFounded": "October 27, 1682",
 >           "population": 1579000
 >         }
@@ -375,7 +375,7 @@ The `tileset` object within a tileset's `3DTILES_metadata` extension may specify
 
 Property values may be assigned to individual tiles, including (for example) spatial hints to optimize traversal algorithms. The example below uses the built-in semantic `TILE_MAXIMUM_HEIGHT` from the [Cesium Metadata Semantic Reference](../../specification/Metadata/Semantics).
 
-A `3DTILES_metadata` extension on a tile object may specify its class (`class`), as well as a human-readable name (`name`) and longer description (`description`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Table Format](../../specification/Metadata/README.md#json-table-format) specification.
+A `3DTILES_metadata` extension on a tile object must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Table Format](../../specification/Metadata/README.md#json-table-format) specification.
 
 > **Example:**
 >
@@ -490,9 +490,9 @@ Tiles may contain more than one content entity (see: [`3DTILES_multiple_contents
 
 Tile contents are assigned to groups, representing collections of content, by attaching a `3DTILES_metadata` extension to the content object and specifying its `group` property. Each content entity may be assigned only to a single group, but a single group may have any number of tile contents assigned to it.
 
-The tileset's root `3DTILES_metadata` extension must define a list of available groups, if any, under its `groups` property. Each group definition must specify its class (`class`), as may include a human-readable name (`name`) and longer description (`description`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Table Format](../../specification/Metadata/README.md#json-table-format) specification.
+The tileset's root `3DTILES_metadata` extension must define a list of available groups, if any, under its `groups` property. Each group definition must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Table Format](../../specification/Metadata/README.md#json-table-format) specification.
 
-> **Example:** The example below defines a custom "layer" class, where each of its two groups ("buildings" and "trees") are instances of the "layer" class associated with different "color" and "priority" property values. The root tile defines two contents using `3DTILES_multiple_contents`, one content item belonging to each group.
+> **Example:** The example below defines a custom "layer" class, where each of its two groups ("buildings" and "trees") are instances of the "layer" class associated with different "name", "color", and "priority" property values. The root tile defines two contents using `3DTILES_multiple_contents`, one content item belonging to each group.
 >
 > ```jsonc
 > {
@@ -502,6 +502,7 @@ The tileset's root `3DTILES_metadata` extension must define a list of available 
 >         "classes": {
 >           "layer": {
 >             "properties": {
+>               "name": {"componentType": "STRING", "semantic": "NAME", "required": true},
 >               "color": {"type": "VEC3", "componentType": "UINT8"},
 >               "priority": {"componentType": "UINT32"}
 >             }
@@ -512,6 +513,7 @@ The tileset's root `3DTILES_metadata` extension must define a list of available 
 >         "buildings": {
 >           "class": "layer",
 >           "properties": {
+>             "name": "Buildings Layer",
 >             "color": [128, 128, 128],
 >             "priority": 0
 >           }
@@ -519,6 +521,7 @@ The tileset's root `3DTILES_metadata` extension must define a list of available 
 >         "trees": {
 >           "class": "layer",
 >           "properties": {
+>             "name": "Trees Layer",
 >             "color": [10, 240, 30],
 >             "priority": 1
 >           }
@@ -594,3 +597,4 @@ While `3DTILES_metadata` and `EXT_mesh_features` are defined independently, both
   * Removed incomplete styling section
   * Recommend "_*" prefix for application-specific summary statistics
   * Renamed `min` and `max` summary statistics to `minimum` and `maximum`
+  * Removed `name` and `description` from entity schemas. Entities should use properties with equivalent semantics instead.
