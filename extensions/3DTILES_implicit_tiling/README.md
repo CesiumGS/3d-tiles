@@ -11,6 +11,7 @@
 * Ian Lilley, Cesium
 * Josh Lawrence, Cesium
 * Marco Hutter, Cesium
+* Don McCurdy, Independent
 * Patrick Cozzi, Cesium
 * Shehzan Mohammed, Cesium
 
