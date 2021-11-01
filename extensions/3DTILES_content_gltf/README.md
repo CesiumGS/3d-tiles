@@ -47,38 +47,38 @@ With this extension, the tile content may be a glTF asset. Runtime engines must 
 * `extensionsUsed`: an array of glTF extensions used by any glTF content in the tileset.
 * `extensionsRequired`: an array of glTF extensions required by any glTF content in the tileset.
 
-The following is an example of using the `3DTILES_content_gltf` extension to directly refer to a glTF asset, which in turn requires the `EXT_mesh_gpu_instancing` extension:
-
-```json
-{
-  "asset": {
-    "version": "1.0"
-  },
-  "extensionsUsed": ["3DTILES_content_gltf"],
-  "extensionsRequired": ["3DTILES_content_gltf"],
-  "extensions": {
-    "3DTILES_content_gltf": {
-      "extensionsUsed": ["EXT_mesh_gpu_instancing"],
-      "extensionsRequired": ["EXT_mesh_gpu_instancing"]
-    }
-  },
-  "geometricError": 240,
-  "root": {
-    "boundingVolume": {
-      "region": [
-        -1.3197209591796106,
-        0.6988424218,
-        -1.3196390408203893,
-        0.6989055782,
-        0,
-        88
-      ]
-    },
-    "geometricError": 0,
-    "refine": "ADD",
-    "content": {
-      "uri": "trees.gltf"
-    }
-  }
-}
-```
+> **Example:** A tileset that uses the `3DTILES_content_gltf` extension to directly refer to a glTF asset in the content of the root tile. The glTF asset in turn requires the `EXT_mesh_gpu_instancing` extension.
+> 
+> ```json
+> {
+>   "asset": {
+>     "version": "1.0"
+>   },
+>   "extensionsUsed": ["3DTILES_content_gltf"],
+>   "extensionsRequired": ["3DTILES_content_gltf"],
+>   "extensions": {
+>     "3DTILES_content_gltf": {
+>       "extensionsUsed": ["EXT_mesh_gpu_instancing"],
+>       "extensionsRequired": ["EXT_mesh_gpu_instancing"]
+>     }
+>   },
+>   "geometricError": 240,
+>   "root": {
+>     "boundingVolume": {
+>       "region": [
+>         -1.3197209591796106,
+>         0.6988424218,
+>         -1.3196390408203893,
+>         0.6989055782,
+>         0,
+>         88
+>       ]
+>     },
+>     "geometricError": 0,
+>     "refine": "ADD",
+>     "content": {
+>       "uri": "trees.gltf"
+>     }
+>   }
+> }
+> ```
