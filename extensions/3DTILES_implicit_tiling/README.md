@@ -244,7 +244,7 @@ Unless otherwise specified, template URIs are resolved relative to the tileset J
 
 In order to support sparse datasets, additional information is needed to indicate which tiles or contents exist. This is called **availability**.
 
-**Subtrees** are fixed size sections of the tileset tree used for storing availability. The tileset is partitioned into subtrees to bound the size of each availability object for optimal network transfer and caching. The `subtreeLevels` property defines the number of levels in each subtree. The subdivision scheme determines the number of children per tile.
+**Subtrees** are fixed size sections of the tileset tree used for storing availability. The tileset is partitioned into subtrees to bound the size of each availability buffer for optimal network transfer and caching. The `subtreeLevels` property defines the number of levels in each subtree. The subdivision scheme determines the number of children per tile.
 
 ![subtree anatomy](figures/subtree-anatomy.jpg)
 
