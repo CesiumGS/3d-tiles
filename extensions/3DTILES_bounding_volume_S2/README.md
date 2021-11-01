@@ -50,7 +50,7 @@ This extension to 3D Tiles enables using S2 cells as bounding volumes. Due to th
 
 ## Hierarchy
 
-The cell hierarchy of S2 is rooted in the 6 faces of a cube, which are projected onto the unit sphere. In S2, each face of the unit cube can be subdivided into 30 levels using a quadtree structure, in which each cell on the grid subdivides into 4 equal cells at the subsequent level.
+The [cell hierarchy of S2](https://s2geometry.io/devguide/s2cell_hierarchy) is rooted in the 6 faces of a cube, which are projected onto the unit sphere. In S2, each face of the unit cube can be subdivided into 30 levels using a quadtree structure, in which each cell on the grid subdivides into 4 equal cells at the subsequent level.
 
 |Level 0|Level 1|
 |:-:|:-:|
