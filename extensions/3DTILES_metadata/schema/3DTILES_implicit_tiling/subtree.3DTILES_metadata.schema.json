@@ -1,0 +1,32 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "subtree.3DTILES_metadata.schema.json",
+    "title": "3DTILES_metadata extension for 3DTILES_implicit_tiling subtree",
+    "type": "object",
+    "description": "An object assigning tile metadata to implicit tiles in the subtree. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
+    "properties": {
+        "class": {
+            "type": "string",
+            "description": "The class that property values conform to. The value must be a class ID declared in the `classes` dictionary."
+        },
+        "properties": {
+            "type": "object",
+            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Required properties must be included in this dictionary.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "subtree.property.schema.json"
+            }
+        },
+        "extensions": {},
+        "extras": {}
+    },
+    "required": [
+        "class",
+        "properties"
+    ]
+}

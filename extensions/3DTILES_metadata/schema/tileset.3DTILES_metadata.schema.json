@@ -1,0 +1,71 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tileset.3DTILES_metadata.schema.json",
+    "title": "3DTILES_metadata 3D Tiles extension",
+    "type": "object",
+    "description": "3D Tiles extension that defines metadata for a tileset.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
+    "properties": {
+        "schema": {
+            "allOf": [
+                {
+                    "$ref": "schema.schema.json"
+                }
+            ],
+            "description": "An object defining classes and enums."
+        },
+        "schemaUri": {
+            "type": "string",
+            "description": "The URI (or IRI) of the external schema file.",
+            "format": "iri-reference"
+        },
+        "statistics": {
+            "allOf": [
+                {
+                    "$ref": "statistics.schema.json"
+                }
+            ],
+            "description": "An object containing statistics about entities."
+        },
+        "groups": {
+            "type": "object",
+            "description": "A dictionary, where each key is a group ID and each value is an object defining the group. Group IDs may contain only alphanumeric and underscore characters",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "group.schema.json"
+            }
+        },
+        "tileset": {
+            "allOf": [
+                {
+                    "$ref": "tileset.schema.json"
+                }
+            ],
+            "description": "An object containing metadata about the tileset."
+        },
+        "extensions": {},
+        "extras": {}
+    },
+    "oneOf": [
+        {
+            "description": "External schema, if any.",
+            "not": {
+                "required": [
+                    "schema"
+                ]
+            }
+        },
+        {
+            "description": "Internal schema, if any.",
+            "not": {
+                "required": [
+                    "schemaUri"
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "content.3DTILES_metadata.schema.json",
+    "title": "3DTILES_metadata content extension",
+    "type": "object",
+    "description": "An object containing metadata about a content.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
+    "properties": {
+        "group": {
+            "type": "string",
+            "description": "The group this content belongs to. The value must correspond to a group ID declared in the `groups` dictionary."
+        },
+        "extensions": {},
+        "extras": {}
+    }
+}
