@@ -34,8 +34,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 - [Bounding Volume](#bounding-volume)
 - [Implicit Subdivision](#implicit-subdivision)
   - [Availability](#availability)
-- [Property Reference](#property-reference)
-- [JSON Schema](#json-schema)
+- [Schema](#schema)
 - [Implementation Examples](#implementation-examples)
 
 ## Overview
@@ -379,62 +378,9 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
 }
 ```
 
-## Property Reference
+## Schema
 
-**`3DTILES_bounding_volume_S2` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**token**|`string`|A hexadecimal representation of the S2 cell identifier. Tokens must be lower-case, must not contain whitespace and must have trailing zeros stripped.| &#10003; Yes|
-|**minimumHeight**|`number`|The minimum height of the tile, specified in meters above (or below) the WGS84 ellipsoid.| &#10003; Yes|
-|**maximumHeight**|`number`|The maximum height of the tile, specified in meters above (or below) the WGS84 ellipsoid.| &#10003; Yes|
-|**extensions**|`object`|Dictionary object with extension-specific objects.| No|
-|**extras**|`any`|Application-specific data.| No|
-
-<!-- omit in toc -->
-#### token ✅
-
-A hexadecimal representation of the S2CellId. Tokens must be lower-case, must not contain whitespace and must have trailing zeros stripped.
-
-* **Type**: `string`
-* **Required**:  &#10003; Yes
-
-<!-- omit in toc -->
-#### minimumHeight ✅
-
-The minimum height of the tile, specified in meters above (or below) the WGS84 ellipsoid.
-
-* **Type**: `number`
-* **Required**:  &#10003; Yes
-
-<!-- omit in toc -->
-#### maximumHeight ✅
-
-The maximum height of the tile, specified in meters above (or below) the WGS84 ellipsoid.
-
-* **Type**: `number`
-* **Required**:  &#10003; Yes
-
-<!-- omit in toc -->
-#### extensions
-
-Dictionary object with extension-specific objects.
-
-* **Type**: `object`
-* **Required**: No
-
-<!-- omit in toc -->
-#### extras
-
-Application-specific data.
-
-* **Type**: `any`
-* **Required**: No
-
-
-## JSON Schema
-
-The JSON schema for this extension can be found [here](schema/boundingVolume.3DTILES_bounding_volume_S2.schema.json).
+* [boundingVolume.3DTILES_bounding_volume_S2.schema.json](schema/boundingVolume.3DTILES_bounding_volume_S2.schema.json).
 
 ## Implementation Examples
 
