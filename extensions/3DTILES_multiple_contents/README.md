@@ -59,7 +59,7 @@ Multiple contents is also compatible with the [3DTILES_implicit_tiling](../3DTIL
 
 ## Concepts
 
-A `tile` may be extended with the `3DTILES_multiple_contents` extension object, as defined in [tile.3DTILES_multiple_contents.schema.json](/schema/tile.3DTILES_multiple_contents.schema.json):
+A `tile` may be extended with the `3DTILES_multiple_contents` extension object, as defined in [tile.3DTILES_multiple_contents.schema.json](schema/tile.3DTILES_multiple_contents.schema.json):
 
 
 ```jsonc
@@ -200,7 +200,7 @@ Example tileset JSON:
 }
 ```
 
-The subtree file then contains multiple `contentAvailability` objects, as defined in [/schema/subtree.3DTILES_multiple_contents.schema.json](subtree.3DTILES_multiple_contents.schema.json):
+The subtree file then contains multiple `contentAvailability` objects, as defined in [subtree.3DTILES_multiple_contents.schema.json](schema/subtree.3DTILES_multiple_contents.schema.json):
 
 ```jsonc
 {
