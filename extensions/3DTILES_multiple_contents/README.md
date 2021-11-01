@@ -35,8 +35,6 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 - [Concepts](#concepts)
   - [Metadata Groups](#metadata-groups)
   - [Implicit Tiling](#implicit-tiling)
-- [Extension Schema Reference](#extension-schema-reference)
-- [`3DTILES_implicit_tiling` Subtree JSON Reference](#3dtiles_implicit_tiling-subtree-json-reference)
 
 
 ## Overview
@@ -61,7 +59,8 @@ Multiple contents is also compatible with the [3DTILES_implicit_tiling](../3DTIL
 
 ## Concepts
 
-A `tile` may be extended with the `3DTILES_multiple_contents` extension.
+A `tile` may be extended with the `3DTILES_multiple_contents` extension object, as defined in [tile.3DTILES_multiple_contents.schema.json](/schema/tile.3DTILES_multiple_contents.schema.json):
+
 
 ```jsonc
 {
@@ -201,7 +200,7 @@ Example tileset JSON:
 }
 ```
 
-Example subtree JSON:
+The subtree file then contains multiple `contentAvailability` objects, as defined in [/schema/subtree.3DTILES_multiple_contents.schema.json](subtree.3DTILES_multiple_contents.schema.json):
 
 ```jsonc
 {
@@ -338,58 +337,3 @@ Example tileset JSON:
 }
 ```
 
-## Extension Schema Reference
-
-* [`3DTILES_multiple_contents tile extension`](#reference-3dtiles_multiple_contents-tile-extension) (root object)
-
-
----------------------------------------
-<a name="reference-3dtiles_multiple_contents-tile-extension"></a>
-<!-- omit in toc -->
-#### 3DTILES_multiple_contents tile extension
-
-Extends a tile to have multiple contents. When this extension is used the tile's `content` property must be omitted.
-
-**`3DTILES_multiple_contents tile extension` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**content**|`array[1-*]`|An array of contents.| &#10003; Yes|
-
-Additional properties are allowed.
-
-<!-- omit in toc -->
-##### 3DTILES_multiple_contents tile extension.content
-
-An array of contents.
-
-* **Type**: `array[1-*]`
-* **Required**:  &#10003; Yes
-
-
-## `3DTILES_implicit_tiling` Subtree JSON Reference
-
-* [`3DTILES_multiple_contents extension for 3DTILES_implicit_tiling subtree`](#reference-3dtiles_multiple_contents-extension-for-3dtiles_implicit_tiling-subtree) (root object)
-
----------------------------------------
-<a name="reference-3dtiles_multiple_contents-extension-for-3dtiles_implicit_tiling-subtree"></a>
-<!-- omit in toc -->
-### 3DTILES_multiple_contents extension for 3DTILES_implicit_tiling subtree
-
-Content availability for the `3DTILES_multiple_contents` extension.
-
-**`3DTILES_multiple_contents extension for 3DTILES_implicit_tiling subtree` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**contentAvailability**|`array[1-*]`|An array of content availability objects with a one-to-one mapping to the `content` array in the tile's `3DTILES_multiple_contents` extension object.| &#10003; Yes|
-
-Additional properties are allowed.
-
-<!-- omit in toc -->
-#### 3DTILES_multiple_contents extension for 3DTILES_implicit_tiling subtree.contentAvailability
-
-An array of content availability objects with a one-to-one mapping to the `content` array in the tile's `3DTILES_multiple_contents` extension object.
-
-* **Type**: `array[1-*]`
-* **Required**:  &#10003; Yes
