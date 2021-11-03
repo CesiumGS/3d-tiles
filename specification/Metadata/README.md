@@ -22,15 +22,28 @@ Draft
 - [Overview](#overview)
 - [Concepts](#concepts)
 - [Schemas](#schemas)
-  - [Overview](#overview-1)
-  - [Version](#version)
-  - [Enums](#enums)
-  - [Classes](#classes)
-  - [Properties](#properties)
-    - [Overview](#overview-2)
+  - [Schema](#schema)
     - [ID](#id)
+    - [Version](#version)
     - [Name](#name)
     - [Description](#description)
+    - [Enums](#enums)
+    - [Classes](#classes)
+  - [Enum](#enum)
+    - [ID](#id-1)
+    - [Name](#name-1)
+    - [Description](#description-1)
+    - [Values](#values)
+  - [Class](#class)
+    - [ID](#id-2)
+    - [Name](#name-2)
+    - [Description](#description-2)
+    - [Properties](#properties)
+  - [Property](#property)
+    - [Overview](#overview-1)
+    - [ID](#id-3)
+    - [Name](#name-3)
+    - [Description](#description-3)
     - [Semantic](#semantic)
     - [Type](#type)
     - [Component Type](#component-type)
@@ -38,16 +51,16 @@ Draft
     - [Minimum and Maximum Values](#minimum-and-maximum-values)
     - [Required Properties and No Data Values](#required-properties-and-no-data-values)
 - [Storage Formats](#storage-formats)
-  - [Overview](#overview-3)
+  - [Overview](#overview-2)
   - [Binary Table Format](#binary-table-format)
-    - [Overview](#overview-4)
+    - [Overview](#overview-3)
     - [Numbers](#numbers)
     - [Booleans](#booleans)
     - [Strings](#strings)
     - [Enums](#enums-1)
     - [Arrays](#arrays)
   - [JSON Format](#json-format)
-    - [Overview](#overview-5)
+    - [Overview](#overview-4)
     - [Numbers](#numbers-1)
     - [Booleans](#booleans-1)
     - [Strings](#strings-1)
@@ -84,34 +97,102 @@ Property values are stored with flexible representations to allow compact transm
 
 ## Schemas
 
-### Overview
+### Schema
 
 A schema defines the organization and types of metadata used in 3D content, represented as a set of classes and enums. Class definitions are referenced by entities whose metadata conforms to the class definition. This provides a consistent and machine-readable structure for all entities in a dataset.
 
-### Version
+Components of a schema are listed below, and implementations may define additional components.
+
+#### ID
+
+IDs (`id`) uniquely identify a schema, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name`.
+
+When a schema has multiple versions, the `(id, version)` pair uniquely identifies a particular schema and revision.
+
+#### Version
 
 Schema version (`version`) is an application-specific identifier for a given schema revision. Version must be a string, and should be syntactically compatible with [SemVer](https://semver.org/).
 
+When a schema has multiple versions, the `(id, version)` pair uniquely identifies a particular schema and revision.
+
 > **Example:** Valid semantic versions include strings like `0.1.2`, `1.2.3`, and `1.2.3-alpha`.
 
-### Enums
+#### Name
+
+Names (`name`) provide a human-readable label for a schema, and are not required to be unique. Names must be valid Unicode strings, and should be written in natural language.
+
+#### Description
+
+Descriptions (`description`) provide a human-readable explanation of a schema, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs.
+
+#### Enums
+
+Unordered set of [enums](#enum).
+
+#### Classes
+
+Unordered set of [classes](#class).
+
+***
+
+### Enum
+
+An enum consists of a set of named values, represented as `(string, integer)` pairs. Each enum collection is identified by a unique ID.
+
+> **Example:** A "species" enum with three possible tree species, as well as an "Unknown" value.
+>
+> - **ID:** "species"
+> - **Name:** "Species"
+> - **Description:** "Common tree species identified in the study."
+>
+> | name      | value |
+> |-----------|------:|
+> | "Oak"     |     0 |
+> | "Pine"    |     1 |
+> | "Maple"   |     2 |
+> | "Unknown" |    -1 |
+
+#### ID
+
+IDs (`id`) uniquely identify an enum within a schema, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name`.
+
+#### Name
+
+Names (`name`) provide a human-readable label for an enum, and are not required to be unique within a schema. Names must be valid Unicode strings, and should be written in natural language.
+
+#### Description
+
+Descriptions (`description`) provide a human-readable explanation of an enum, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs.
+
+#### Values
 
 An enum consists of a set of named values, represented as `(string, integer)` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the [Type](#type) section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
 
-The example below defines a "species" enum with three possible tree species, as well as an "Unknown" value.
+***
 
-| name      | value |
-|-----------|------:|
-| "Oak"     |     0 |
-| "Pine"    |     1 |
-| "Maple"   |     2 |
-| "Unknown" |    -1 |
-
-### Classes
+### Class
 
 Classes represent categories of similar entities, and are defined by a collection of one or more properties shared by the entities of a class. Each class has a unique ID within the schema, and each property has a unique ID within the class, to be used for references within the schema and externally.
 
-### Properties
+#### ID
+
+IDs (`id`) uniquely identify a class within a schema, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name`.
+
+#### Name
+
+Names (`name`) provide a human-readable label for a class, and are not required to be unique within a schema. Names must be valid Unicode strings, and should be written in natural language.
+
+#### Description
+
+Descriptions (`description`) provide a human-readable explanation of a class, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs.
+
+#### Properties
+
+Unordered set of [properties](#property).
+
+***
+
+### Property
 
 #### Overview
 
@@ -135,7 +216,7 @@ Properties describe the type and structure of values that may be associated with
 
 #### ID
 
-IDs (`id`) uniquely identify a property within a class, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a property *name*.
+IDs (`id`) uniquely identify a property within a class, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name`.
 
 #### Name
 
@@ -444,3 +525,5 @@ Arrays are encoded as JSON arrays, where each component is encoded according to 
   * Refactored `type` and `componentType` to avoid overlap. Properties that store a single value now have a `type` of `SINGLE` and a `componentType` of the desired type (e.g. `type: "SINGLE", componentType: "UINT8"`)
   * Class IDs, enum IDs, property IDs, and group IDs must now contain only alphanumeric and underscore characters
   * Split `offsetType` into `arrayOffsetType` and `stringOffsetType`
+  * Add `name` and `description` to schema, class, and enum definitions
+  * Add `id` to schema definitions
