@@ -177,7 +177,7 @@ Allowed values for `type`:
 
 Class properties are defined as entries in the `class.properties` dictionary, indexed by an alphanumeric property ID.
 
-By default, properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes a property's meaning, for higher-level type information, runtime behavior, or other interpretation. The list of built-in semantics can be found in the [Cesium Metadata Semantic Reference](../../specification/Metadata/Semantics). Tileset authors may define their own application- or domain-specific semantics separately, and should follow the naming conventions in the Semantic Reference.
+By default, properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes a property's meaning, for higher-level type information, runtime behavior, or other interpretation. The list of built-in semantics can be found in the [3D Metadata Semantic Reference](../../specification/Metadata/Semantics). Tileset authors may define their own application- or domain-specific semantics separately, and should follow the naming conventions in the Semantic Reference.
 
 > **Example:** Schema defining a "building" class. The class's properties use two built-in semantics, `NAME` and `ID`, and one custom semantic, `_HEIGHT`.
 >
@@ -373,7 +373,7 @@ The `tileset` object within a tileset's `3DTILES_metadata` extension must specif
 
 *Defined in [tileset.3DTILES_metadata.schema.json](./schema/tile.3DTILES_metadata.schema.json)*.
 
-Property values may be assigned to individual tiles, including (for example) spatial hints to optimize traversal algorithms. The example below uses the built-in semantic `TILE_MAXIMUM_HEIGHT` from the [Cesium Metadata Semantic Reference](../../specification/Metadata/Semantics).
+Property values may be assigned to individual tiles, including (for example) spatial hints to optimize traversal algorithms. The example below uses the built-in semantic `TILE_MAXIMUM_HEIGHT` from the [3D Metadata Semantic Reference](../../specification/Metadata/Semantics).
 
 A `3DTILES_metadata` extension on a tile object must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Table Format](../../specification/Metadata/README.md#json-table-format) specification.
 
