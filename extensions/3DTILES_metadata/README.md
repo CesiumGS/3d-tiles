@@ -67,7 +67,7 @@ This extension defines a means of including structured metadata ("properties") i
 
 > **Implementation note:** Certain subcomponents of tile content ("features") may also have associated metadata. See [Content Feature Properties](#content-feature-properties).
 
-Concepts and terminology used throughout this document refer to the [Cesium 3D Metadata Specification](../../specification/Metadata/README.md), which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
+Concepts and terminology used throughout this document refer to the [3D Metadata Specification](../../specification/Metadata/README.md), which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
 
 The figure below shows the relationship between entities (tilesets, tiles, contents, and groups) in 3D Tiles:
 
@@ -94,7 +94,7 @@ Metadata in 3D Tiles enables additional use cases and functionality for the form
 
 *Defined in [schema.schema.json](./schema/schema.schema.json).*
 
-A schema defines a set of classes and enums used in a tileset. Classes serve as templates for entities - they provide a list of properties and the type information for those properties. Enums define the allowable values for enum properties. `3DTILES_metadata` implements the [Cesium 3D Metadata Specification](../../specification/Metadata), which describes the metadata format and property definitions in full detail.
+A schema defines a set of classes and enums used in a tileset. Classes serve as templates for entities - they provide a list of properties and the type information for those properties. Enums define the allowable values for enum properties. `3DTILES_metadata` implements the [3D Metadata Specification](../../specification/Metadata), which describes the metadata format and property definitions in full detail.
 
 Schemas may be embedded in tilesets with the `schema` property, or referenced externally by the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same schema to avoid duplication.
 
@@ -209,7 +209,7 @@ Set of categorical types, defined as `(name, value)` pairs. Enum properties use 
 
 Enums are defined as entries in the `schema.enums` dictionary, indexed by an alphanumeric enum ID.
 
-> **Example:** A "Quality" enum defining quality level of data within a tile. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: [Cesium 3D Metadata → No Data Values](../../specification/Metadata#required-properties-and-no-data-values)) may be helpful to identify missing data.
+> **Example:** A "Quality" enum defining quality level of data within a tile. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: [3D Metadata → No Data Values](../../specification/Metadata#required-properties-and-no-data-values)) may be helpful to identify missing data.
 >
 > ```jsonc
 > {
@@ -424,7 +424,7 @@ A `3DTILES_metadata` extension on a tile object must specify its class (`class`)
 
 When tiles are listed explicitly within a tileset, each tile's metadata is also embedded explicitly within the tile definition. When the tile hierarchy is _implicit_, as enabled by [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling), tiles are not listed exhaustively and metadata cannot be directly embedded in tile definitions. To support metadata for tiles within implicit tiling schemes, the `3DTILES_metadata` extension provides an additional metadata storage mechanism compatible with `3DTILES_implicit_tiling`.
 
-Unlike other methods of assigning metadata, properties of implicit tiles are not encoded as JSON objects. Instead, property values for all available tile contents are encoded in a compact [*Binary Table Format*](../../specification/Metadata/README.md#binary-table-format) defined by the Cesium 3D Metadata Specification. The binary representation is particularly efficient for larger datasets with many tiles.
+Unlike other methods of assigning metadata, properties of implicit tiles are not encoded as JSON objects. Instead, property values for all available tile contents are encoded in a compact [*Binary Table Format*](../../specification/Metadata/README.md#binary-table-format) defined by the 3D Metadata Specification. The binary representation is particularly efficient for larger datasets with many tiles.
 
  Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the [Availability Ordering](../3DTILES_implicit_tiling/README.md#availability). Each available tile must have a value — representation of missing values within a tile is possible only with the `noData` indicator defined by the *Binary Table Format*.
 
@@ -557,7 +557,7 @@ Certain kinds of tile content may contain meaningful subcomponents ("features"),
 
 Assigning properties to tile content is not within the scope of this extension, but may be defined by other specifications. One such example is the glTF extension, [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features), which supports definitions of conceptual features within geometry and textures, and associated metadata. glTF 2.0 assets with feature metadata may be included as tile contents with the [`3DTILES_content_gltf`](../3DTILES_content_gltf) extension.
 
-While `3DTILES_metadata` and `EXT_mesh_features` are defined independently, both conform to the [Cesium 3D Metadata Specification](../../specification/Metadata/README.md) and share the same representation of metadata as schema and properties.
+While `3DTILES_metadata` and `EXT_mesh_features` are defined independently, both conform to the [3D Metadata Specification](../../specification/Metadata/README.md) and share the same representation of metadata as schema and properties.
 
 ## Schema
 
