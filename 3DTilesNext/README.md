@@ -6,23 +6,23 @@ The 3D Tiles Next extensions add capabilities to 3D Tiles on a number of fronts:
 
 3D Tiles Next **enables new methods for storing metadata.** Metadata can now be stored at different levels of granularity: tileset, tile, group, feature, and texture. Texture metadata allows for fine-grained storage of metadata down to individual texels. Feature metadata is similar to the existing Batch Table format, but allows for additional types such as enumerated types (enums). Tileset, tile and group metadata provide standardized methods to store coarse-grained metadata about a tileset.
 
-<img src="figures/3d-tiles-next/metadata-granularity.png" alt="Metadata Granularity" width="600">
+<img src="figures/metadata-granularity.png" alt="Metadata Granularity" width="600">
 
 **Implicit Tiling** is an alternate method for describing a tileset that **enables new algorithms and optimizations**. This compact tree representation allows for new tree traversal algorithms, raycasting, and faster spatial queries. It also **provides interoperability** with several geospatial formats such as CDB, TMS, WMTS, and S2.
 
-<img src="figures/3d-tiles-next/implicit-tiling.jpg" width="600px" alt="Implicit Tiling">
+<img src="figures/implicit-tiling.jpg" width="600px" alt="Implicit Tiling">
 
 **S2 Bounding Volumes** provide a tiling scheme that is **suited for global scale tilesets**. Cells at the same level of detail have approximately equal area. Furthermore, the [S2 tiling scheme](http://s2geometry.io/) is designed to **minimize distortion near the poles**.
 
-<img src="figures/3d-tiles-next/s2.png" width="600px" alt="S2 Tiling Scheme">
+<img src="figures/s2.png" width="600px" alt="S2 Tiling Scheme">
 
 **glTF is the future of 3D Tiles**. 3D Tiles Next provides an extension to support glTF models directly in a tileset. In the future, even 3D Tiles 1.0 formats (such as B3DM) will be rephrased as glTF models.
 
-<img src="figures/3d-tiles-next/content-gltf.png" width="600px" alt="Tileset with glTF content">
+<img src="figures/content-gltf.png" width="600px" alt="Tileset with glTF content">
 
 **Multiple Contents allows storing more than one content model per tile**. This enables storing more than one content in a single region of space. Contents can be organized in several ways (layers, arbitrary groupings), especially when combined with group metadata.
 
-<img src="figures/3d-tiles-next/multiple-contents.png" width="600px" alt="Tileset with multiple contents">
+<img src="figures/multiple-contents.png" width="600px" alt="Tileset with multiple contents">
 
 ## Specifications
 
