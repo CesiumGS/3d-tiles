@@ -21,6 +21,7 @@ For use of semantics in extensions of specific standards, see:
 - [General](#general)
   - [`ID`](#id)
   - [`NAME`](#name)
+  - [`DESCRIPTION`](#description)
 - [3D Tiles](#3d-tiles)
   - [Tile](#tile)
     - [`TILE_BOUNDING_BOX`](#tile_bounding_box)
@@ -55,6 +56,12 @@ The unique identifier for the entity.
 ### `NAME`
 
 The name of the entity. Names should be human-readable, and do not have to be unique.
+
+* Type: `STRING`
+
+### `DESCRIPTION`
+
+Description of the entity. Typically at least a phrase, and possibly several sentences or paragraphs.
 
 * Type: `STRING`
 
@@ -188,3 +195,4 @@ The horizon occlusion point of the content of a tile expressed in an ellipsoid-s
 * **Version 2.0.0** October 2021
   * Reorganize document to distinguish general and 3D Tiles-specific semantics
   * Added clarification for units of distance and angles
+  * Added `DESCRIPTION` semantic
