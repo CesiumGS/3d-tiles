@@ -398,7 +398,7 @@ Some child subtrees exist, so `childSubtreeAvailability.bufferView` refers to an
 
 ### Availability Packing
 
-Availability bitstreams are packed in binary using the format described in the [Booleans](../../specification/Metadata#booleans) section of the Cesium 3D Metadata Specification.
+Availability bitstreams are packed in binary using the format described in the [Booleans](../../specification/Metadata#booleans) section of the 3D Metadata Specification.
 
 ## Glossary
 

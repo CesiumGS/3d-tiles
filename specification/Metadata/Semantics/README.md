@@ -1,5 +1,5 @@
 <!-- omit in toc -->
-# Cesium Metadata Semantic Reference
+# 3D Metadata Semantic Reference
 
 <!-- omit in toc -->
 ## Overview
@@ -8,7 +8,7 @@ This document provides common definitions of meaning ("semantics") used by metad
 
 Semantics describe how properties should be interpreted. For example, an application that encounters the `ID` or `NAME` semantics while parsing a dataset may use these values as unique identifiers or human-readable labels, respectively.
 
-Each semantic is defined in terms of its meaning, and the datatypes it may assume. Datatype specifications include "type", "component type", and "component count" attributes as defined by the [Cesium 3D Metadata Specification](../).
+Each semantic is defined in terms of its meaning, and the datatypes it may assume. Datatype specifications include "type", "component type", and "component count" attributes as defined by the [3D Metadata Specification](../).
 
 For use of semantics in extensions of specific standards, see:
 
@@ -44,7 +44,7 @@ For use of semantics in extensions of specific standards, see:
 <!-- omit in toc -->
 ### Overview
 
-Throughout this section, the term "entity" refers to any conceptual object with which a property value (as defined in the [Cesium 3D Metadata Specification](../)) may be associated. Examples of entities include tilesets, tiles, and tile contents in 3D Tiles, or groups of vertices and texels in glTF 2.0 assets. Additional types of entities may be defined by other specifications or applications.
+Throughout this section, the term "entity" refers to any conceptual object with which a property value (as defined in the [3D Metadata Specification](../)) may be associated. Examples of entities include tilesets, tiles, and tile contents in 3D Tiles, or groups of vertices and texels in glTF 2.0 assets. Additional types of entities may be defined by other specifications or applications.
 
 ### `ID`
 
