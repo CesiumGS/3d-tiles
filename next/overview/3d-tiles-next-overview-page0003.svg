@@ -22451,7 +22451,7 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="0.89999999"
-     inkscape:cx="597.77778"
+     inkscape:cx="613.8889"
      inkscape:cy="589.44445"
      inkscape:document-units="in"
      inkscape:current-layer="layer1"
@@ -22513,27 +22513,27 @@
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="46.170525"
          y="145.07405"
-         id="tspan371757">The Cesium 3D Metadata Specification defines a standard format for structured metadata. The core </tspan><tspan
+         id="tspan35080">The 3D Metadata Specification defines a standard format for structured metadata. The core concept is the </tspan><tspan
          sodipodi:role="line"
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="46.170525"
          y="160.69905"
-         id="tspan149257">concept is the definition of a schema for the data. This schema is language- and format agnostic:</tspan><tspan
+         id="tspan35082">definition of a schema for the data. This schema is language- and format agnostic: It does not impose a </tspan><tspan
          sodipodi:role="line"
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="46.170525"
          y="176.32405"
-         id="tspan35080">It does not impose a particular format for the serialization of the schema itself, or for the storage of </tspan><tspan
+         id="tspan15812">particular format for the serialization of the schema itself, or for the storage of the actual data. Instead, </tspan><tspan
          sodipodi:role="line"
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="46.170525"
          y="191.94905"
-         id="tspan35082">the actual data. Instead, it can be combined with the storage format that is most suitable for the level</tspan><tspan
+         id="tspan36790">it can be combined with the storage format that is most suitable for the level of granularity on which the</tspan><tspan
          sodipodi:role="line"
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="46.170525"
          y="207.57405"
-         id="tspan36790">of granularity on which the metadata is applied.</tspan></text>
+         id="tspan17940">metadata is applied.</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:20px;line-height:0;font-family:sans-serif;-inkscape-font-specification:sans-serif;display:inline;stroke-width:0.9375"
@@ -22693,7 +22693,7 @@
          id="tspan16632-2-2-76-6-3-7-0"
          style="font-size:17.5px;line-height:1.25"><tspan
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:20px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
-           id="tspan17175-8-0">4. The Cesium 3D Metadata Specification</tspan></tspan></text>
+           id="tspan17175-8-0">4. The 3D Metadata Specification</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:20px;line-height:0;font-family:sans-serif;-inkscape-font-specification:sans-serif;display:inline;stroke-width:0.9375"
@@ -22718,21 +22718,21 @@
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="46.112823"
          y="268.47101"
-         id="tspan60431"><tspan
+         id="tspan77745"><tspan
    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
    id="tspan67991">enums</tspan>. A class consists of a set of <tspan
    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
-   id="tspan73637">properties</tspan>, where each property has a certain type. The type </tspan><tspan
+   id="tspan73637">properties</tspan>, where each property has a certain type. The type can </tspan><tspan
          sodipodi:role="line"
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="46.112823"
          y="284.09601"
-         id="tspan77745">can be one of multiple primitive- or structured types, or an enum type, meaning that the actual </tspan><tspan
+         id="tspan80649">be one of multiple primitive- or structured types, or an enum type, meaning that the actual value of </tspan><tspan
          sodipodi:role="line"
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="46.112823"
          y="299.72101"
-         id="tspan80649">value of the property is one of multiple, enumerated, named values. </tspan></text>
+         id="tspan22360">the property is one of multiple, enumerated, named values. </tspan></text>
     <text
        xml:space="preserve"
        style="font-size:20px;line-height:0;font-family:sans-serif;-inkscape-font-specification:sans-serif;display:inline;stroke-width:0.9375"
@@ -22992,7 +22992,7 @@
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="46.387352"
          y="974.6684"
-         id="tspan45645">Implementations of the Cesium 3D Metadata specification may define their own, custom serialization- </tspan><tspan
+         id="tspan45645">Implementations of the 3D Metadata specification may define their own, custom serialization- </tspan><tspan
          sodipodi:role="line"
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="46.387352"

@@ -22476,9 +22476,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.2727922"
-     inkscape:cx="662.71619"
-     inkscape:cy="650.93108"
+     inkscape:zoom="0.9"
+     inkscape:cx="616.11111"
+     inkscape:cy="476.11111"
      inkscape:document-units="in"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -22670,14 +22670,14 @@
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="45.917603"
          y="146.39485"
-         id="tspan191692">The <tspan
+         id="tspan181365">The <tspan
    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold'"
-   id="tspan89233">3DTILES_metadata</tspan> extension is an extension for 3D Tiles 1.0. It is an implementation of the Cesium</tspan><tspan
+   id="tspan89233">3DTILES_metadata</tspan> extension is an extension for 3D Tiles 1.0. It is an implementation of the 3D </tspan><tspan
          sodipodi:role="line"
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="45.917603"
          y="162.11838"
-         id="tspan181365">3D Metadata specification and allows assigning metadata to elements of a tileset.</tspan></text>
+         id="tspan13762">Metadata specification and allows assigning metadata to elements of a tileset.</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:20px;line-height:0;font-family:sans-serif;-inkscape-font-specification:sans-serif;display:inline;stroke-width:0.9375"

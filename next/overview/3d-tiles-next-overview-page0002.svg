@@ -22452,7 +22452,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1.2727922"
      inkscape:cx="394.01561"
-     inkscape:cy="789.99541"
+     inkscape:cy="664.28754"
      inkscape:document-units="in"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -22796,14 +22796,14 @@
          y="580.49921" /><tspan
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          sodipodi:role="line"
-         id="tspan129984"
          x="46.02478"
-         y="597.03729">The Cesium 3D Metadata Specification defines a standard metadata format for 3D data. The specification </tspan><tspan
+         y="597.03729"
+         id="tspan142120">The 3D Metadata Specification defines a standard metadata format for 3D data. The specification is </tspan><tspan
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          sodipodi:role="line"
          x="46.02478"
          y="612.66229"
-         id="tspan142120">is language- and format agnostic: It defines key concepts for structured metadata that can be associated </tspan><tspan
+         id="tspan14107">language- and format agnostic: It defines key concepts for structured metadata that can be associated </tspan><tspan
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          sodipodi:role="line"
          x="46.02478"
@@ -22836,7 +22836,7 @@
          id="tspan16632-2-2-76-6-3-7-0-6"
          style="font-size:17.5px;line-height:1.25"><tspan
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:20px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
-           id="tspan17175-8-0-7">3. Cesium 3D Metadata Introduction</tspan></tspan></text>
+           id="tspan17175-8-0-7">3. 3D Metadata Introduction</tspan></tspan></text>
     <rect
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.9;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect11845-3-8-7-0-5-5-9-5-5-5"
