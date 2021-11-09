@@ -1,7 +1,7 @@
 
 # 3D Tiles Next Overview
 
-[![](../figures/3d-tiles-next-overview-pages-combined-3x2.jpg)](../3d-tiles-next-overview.pdf)
+[![Overview pages](../figures/3d-tiles-next-overview-pages-combined-3x2.jpg)](../3d-tiles-next-overview.pdf)
 
 The [**3D Tiles Next Overview**](../3d-tiles-next-overview.pdf) is an overview of the new extensions that are introduced with 3D Tiles Next.
 
