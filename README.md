@@ -36,7 +36,7 @@ Please provide spec feedback by [submitting issues](https://github.com/CesiumGS/
 
 ### Upcoming
 
-[3D Tiles Next](./next) is a set of new capabilities for the future of 3D Tiles. Provided as extensions to the [3D Tiles 1.0](../specification) specification, these features may be incorporated into 3D Tiles 2.0 in the future.
+[3D Tiles Next](./next) is a set of new capabilities for the future of 3D Tiles. Provided as draft extensions to the [3D Tiles 1.0](../specification) specification, these features may be incorporated into 3D Tiles 2.0 in the future.
 
 - [Tile Content](./next#tile-content): glTF 2.0 assets may be used directly as tile content, without intermediate formats, improving interoperability with 3D content and tooling ecosystems. Tiles may reference multiple contents — for organization, styling, and filtering — and contents may be collected into groups similar to map layers in mapping applications.
 - [Implicit Tiling](./next#implicit-tiling): Common subdivision schemes and spatial index patterns may be declared without listing bounding volumes exhaustively. Reduces tileset size, and enables new optimizations including faster traversal, raycasting, random access, and spatial queries.
