@@ -22451,8 +22451,8 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="1.2727922"
-     inkscape:cx="394.01561"
-     inkscape:cy="664.28754"
+     inkscape:cx="372.01674"
+     inkscape:cy="978.55722"
      inkscape:document-units="in"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -22602,17 +22602,17 @@
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="45.100708"
          y="243.63242"
-         id="tspan359409-7">Together, this forms an implicit hierarchy by compositing a </tspan><tspan
+         id="tspan19338">The entire tileset is described by this tree of subtrees. </tspan><tspan
          sodipodi:role="line"
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="45.100708"
          y="259.25742"
-         id="tspan359415-1">tree of subtrees. The entire tileset is described by this tree</tspan><tspan
+         id="tspan14284">Clients may use the child subtree availability to only </tspan><tspan
          sodipodi:role="line"
          style="font-size:12.5px;line-height:1.25;stroke-width:0.9375"
          x="45.100708"
          y="274.88242"
-         id="tspan19338">of subtrees.</tspan></text>
+         id="tspan15178">request subtrees that are relevant at runtime. </tspan></text>
     <text
        xml:space="preserve"
        style="font-size:20px;line-height:0;font-family:sans-serif;-inkscape-font-specification:sans-serif;display:inline;stroke-width:0.9375"
@@ -25413,17 +25413,17 @@
          x="50.401611"
          y="966.61481"
          style="font-size:12.5px;line-height:1.25"
-         id="tspan73785">metadata to features in a model on the </tspan><tspan
+         id="tspan42693">metadata to features in a model on the </tspan><tspan
          sodipodi:role="line"
          x="50.401611"
          y="982.23981"
          style="font-size:12.5px;line-height:1.25"
-         id="tspan73791">level of vertices or groups of vertices, or </tspan><tspan
+         id="tspan25145">level of vertices, groups of vertices, or </tspan><tspan
          sodipodi:role="line"
          x="50.401611"
          y="997.86481"
          style="font-size:12.5px;line-height:1.25"
-         id="tspan42693">texels.</tspan></text>
+         id="tspan25147">texels.</tspan></text>
     <g
        id="g86126"
        transform="translate(976.4998,-786.85132)">
