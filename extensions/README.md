@@ -2,6 +2,19 @@
 
 ## Extensions
 
+### 3D Tiles Next Extensions:
+
+3D Tiles Next is a collection of draft extensions to advance 3D Tiles. It provides extensions for cleaner integration with the glTF ecosystem, rich semantic metadata, and efficient spatial indexes for scalable simulations.
+the [3D Tiles Next](../next) page for more details.
+
+* [3DTILES_content_gltf](./3DTILES_content_gltf)
+* [3DTILES_multiple_contents](./3DTILES_multiple_contents)
+* [3DTILES_metadata](./3DTILES_metadata)
+* [3DTILES_implicit_tiling](./3DTILES_implicit_tiling)
+* [3DTILES_bounding_volume_S2](./3DTILES_bounding_volume_S2)
+
+### Other Extensions:
+
 * [3DTILES_batch_table_hierarchy](./3DTILES_batch_table_hierarchy/)
 * [3DTILES_draco_point_compression](./3DTILES_draco_point_compression/)
 
