@@ -2,6 +2,18 @@
 
 ## Extensions
 
+### 3D Tiles Next
+
+3D Tiles Next is a collection of draft extensions to advance 3D Tiles. It provides extensions for cleaner integration with the glTF ecosystem, rich semantic metadata, and efficient spatial indexes for scalable simulations. See the [3D Tiles Next](../next) page for more details.
+
+* [3DTILES_content_gltf](./3DTILES_content_gltf)
+* [3DTILES_multiple_contents](./3DTILES_multiple_contents)
+* [3DTILES_metadata](./3DTILES_metadata)
+* [3DTILES_implicit_tiling](./3DTILES_implicit_tiling)
+* [3DTILES_bounding_volume_S2](./3DTILES_bounding_volume_S2)
+
+### Other
+
 * [3DTILES_batch_table_hierarchy](./3DTILES_batch_table_hierarchy/)
 * [3DTILES_draco_point_compression](./3DTILES_draco_point_compression/)
 
@@ -57,4 +69,4 @@ All extensions used in a tileset or any descendant external tilesets must be lis
 }
 ```
 
-All extensions required to load and render a tileset or any descendant external tilesets must also be listed in the tileset JSON in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` must also exist in `extensionsUsed`.
+All extensions required to load and render a tileset or any descendant external tilesets must be listed in the tileset JSON in the top-level `extensionsRequired` array. Extensions in `extensionsRequired` must also be listed in `extensionsUsed`.
