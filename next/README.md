@@ -1,4 +1,4 @@
-<p align="center"><img src="./figures/next_logo.png" alt="3D Tiles Next" width="500px" align="center"></p>
+<p align="center"><img src="./figures/next_logo_dark.png" alt="3D Tiles Next" width="500px" align="center"></p>
 
 # 3D Tiles Next
 
@@ -43,7 +43,7 @@ The 3D Metadata Specification also provides a [Semantic Reference](../specificat
 
 For further use cases of feature metadata, see the [examples](https://github.com/CesiumGS/glTF/blob/proposal-EXT_mesh_features/extensions/2.0/Vendor/EXT_mesh_features/README.md#examples) in the `EXT_mesh_features` specification. Together, `3DTILES_metadata` and `EXT_mesh_features` allow flexible definitions of metadata at any level of granularity within a tileset. The illustration below provides an overview of these levels, in which the first levels ("Tileset", "Tiles", "Tile Content Groups") are provided by `3DTILES_metadata` and the lowest level ("Features") is provided by `EXT_mesh_features` in a glTF asset.
 
-![Available metadata granularity, including tilesets, tiles, tile content groups, and features.](./figures/metadata-granularity-extended.png)
+<p align="center"><img src="./figures/metadata-granularity-extended.png" alt="Available metadata granularity, including tilesets, tiles, tile content groups, and features." width="600px" align="center"></p>
 
 ## Contributing
 
