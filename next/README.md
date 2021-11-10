@@ -45,6 +45,13 @@ For further use cases of feature metadata, see the [examples](https://github.com
 
 <p align="center"><img src="./figures/metadata-granularity-extended.png" alt="Available metadata granularity, including tilesets, tiles, tile content groups, and features." width="600px" align="center"></p>
 
+## 3D Tiles Next Overview
+
+[![Overview pages](figures/3d-tiles-next-overview-pages-combined-3x2.jpg)](3d-tiles-next-overview.pdf)
+
+The [**3D Tiles Next Overview**](3d-tiles-next-overview.pdf) is an overview of the new extensions that are introduced with 3D Tiles Next. 
+
+
 ## Contributing
 
 3D Tiles Next is an open specification, and contributions and feedback are encouraged. Over the next several months, our focus on 3D Tiles Next is to solidify the draft specifications and continue to facilitate ecosystem growth, keeping specification design pragmatic based on implementation experience.
