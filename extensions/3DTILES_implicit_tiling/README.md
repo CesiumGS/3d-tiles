@@ -59,7 +59,7 @@ In order to support sparse datasets, **availability** data determines which tile
 
 The `3DTILES_implicit_tiling` extension may be added to any tile in the tileset. This extension defines how the tile is subdivided and where to locate content resources. The extension may be added to multiple tiles to create more complex subdivision schemes like double-headed quadtrees.
 
-The figure below shows how tiles are accessed directly by their tile coordinates, in contrast to explicit tiling which must traverse the tree:
+The figure below shows how tiles are accessed directly by their [tile coordinates](#tile-coordinates), in contrast to explicit tiling which must traverse the tree:
 
 <img src="figures/implicit-vs-explicit.jpg" width="700"/>
 
