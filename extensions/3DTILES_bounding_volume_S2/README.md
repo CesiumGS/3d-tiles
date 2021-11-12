@@ -87,7 +87,7 @@ In their decimal forms, the cell IDs above are represented as follows:
 3458764513820540928   Root cell 2
 3170534137668829184   2nd child of root cell 2
 3386706919782612992   4th child of 2nd child of root cell 2
-3368692521273131008   1st child of 4th child of 2nd child of root cell 2
+3332663724254167040   1st child of 4th child of 2nd child of root cell 2
 ```
 
 ## Tokens
