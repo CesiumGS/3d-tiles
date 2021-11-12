@@ -309,7 +309,7 @@ For efficient memory access, the `byteOffset` of a buffer view must be aligned t
 
 Tile availability, content availability, and child subtree availability may refer to either a buffer view containing an availability bitstream or a constant value (`1` meaning all elements are available, `0` meaning no elements are available).
 
-Availability bitstreams are packed in binary using the format described in the [Booleans](../../specification/Metadata#booleans) section of the Cesium 3D Metadata Specification.
+Availability bitstreams are packed in binary using the format described in the [Booleans](../../specification/Metadata#booleans) section of the 3D Metadata Specification.
 
 > **Example:** The JSON description of a subtree where each tile is available, but not all tiles have content, and not all child subtrees are available:
 > 
