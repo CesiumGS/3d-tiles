@@ -81,7 +81,6 @@ See [Property reference](#property-reference) for the `i3dm` feature table schem
 #### Instance semantics
 
 These semantics map to an array of feature values that are used to create instances. The length of these arrays must be the same for all semantics and is equal to the number of instances.
-The value for each instance semantic must be a reference to the Feature Table binary body; they cannot be embedded in the Feature Table JSON header.
 
 If a semantic has a dependency on another semantic, that semantic must be defined.
 If both `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scaling operations will be applied.

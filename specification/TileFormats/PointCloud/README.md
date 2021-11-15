@@ -76,7 +76,6 @@ See [Property reference](#property-reference) for the `pnts` feature table schem
 #### Point semantics
 
 These semantics map to an array of feature values that define each point. The length of these arrays must be the same for all semantics and is equal to the number of points.
-The value for each point semantic must be a reference to the Feature Table binary body; they cannot be embedded in the Feature Table JSON header.
 
 If a semantic has a dependency on another semantic, that semantic must be defined.
 If both `POSITION` and `POSITION_QUANTIZED` are defined for a point, the higher precision `POSITION` will be used.
