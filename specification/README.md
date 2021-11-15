@@ -540,7 +540,7 @@ The tileset JSON has four top-level properties: `asset`, `properties`, `geometri
 
 `asset` is an object containing metadata about the entire tileset. The `asset.version` property is a string that defines the 3D Tiles version, which specifies the JSON schema for the tileset and the base set of tile formats.  The `tilesetVersion` property is an optional string that defines an application-specific version of a tileset, e.g., for when an existing tileset is updated.
 
-> **Implementation Note**: `tilesetVersion` can be used as a query parameter when requesting tiles to avoid using outdated content from a cache.
+> **Implementation Note**: `tilesetVersion` can be used as a query parameter when requesting content to avoid using outdated content from a cache.
 
 `properties` is an object containing objects for each per-feature property in the tileset.  This tileset JSON snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see [Batch Table](TileFormats/BatchTable/README.md)).  The name of each object in `properties` matches the name of a per-feature property, and its value defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
