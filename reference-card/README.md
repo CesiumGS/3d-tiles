@@ -24,7 +24,7 @@ The resulting PDF files can be combined with any PDF tool, for example [PDFtk Se
 
 The `/resources` subdirectory contains the images (screenshots and SVG versions of the logos) that are used in the reference card. They are not necessary for creating the PDF files, but are added here for reference.
 
-The file `/resources/3d-tiles-reference-card-tables.odt` is an [OpenDocument Text](https://en.wikipedia.org/wiki/OpenDocument) that can be edited with any standard office program. It contains most of the tables that are used in the reference -card. In order to change one of the tables, it is edited in the ODT file, exported as PDF, and imported into Inkscape. (Considering the limited support for tables in Inkscape, this still seemed to be the most simple approach here.)
+The file `/resources/3d-tiles-reference-card-tables.odt` is an [OpenDocument Text](https://en.wikipedia.org/wiki/OpenDocument) that can be edited with any standard office program. It contains most of the tables that are used in the reference card. In order to change one of the tables, it is edited in the ODT file, exported as PDF, and imported into Inkscape. (Considering the limited support for tables in Inkscape, this still seemed to be the most simple approach here.)
 
 ## Acknowldgements
 
