@@ -14,7 +14,7 @@ Draft
 
 Written against the [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/1.0/specification) spec.
 
-Referenced 3tz files must follow the [3D Tiles Archive Format 1.3](https://github.com/CesiumGS/3d-tiles/issues/422) spec.
+Referenced 3tz files must follow the [3D Tiles Archive Format 1.3](https://github.com/erikdahlstrom/3tz-specification/blob/master/3D%20Tiles%20Archive%20Format%20v1.3.pdf) spec.
 
 ## Contents
 
@@ -25,7 +25,7 @@ Referenced 3tz files must follow the [3D Tiles Archive Format 1.3](https://githu
 
 ## Overview
 
-This extension allows a tileset to use a [3tz container](https://github.com/CesiumGS/3d-tiles/issues/422) directly as tile content.
+This extension allows a tileset to use a [3tz container](https://github.com/erikdahlstrom/3tz-specification/blob/master/3D%20Tiles%20Archive%20Format%20v1.3.pdf) directly as tile content.
 
 When this extension is required by a tileset, then all URIs referenced by the tileset, both directly and indirectly, must be resolved using the 3tz [Path Resolver algorithm](#path-resolver-algorithm). Note that this requirement includes any URIs inside of tile contents, e.g resources referenced by glTF.
 
