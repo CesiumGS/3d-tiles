@@ -65,7 +65,7 @@ The 32-byte header contains the following fields:
 | `featureTableBinaryByteLength` | `uint32` | The length of the Feature Table binary section in bytes. |
 | `batchTableJSONByteLength` | `uint32` | The length of the Batch Table JSON section in bytes. Zero indicates that there is no Batch Table. |
 | `batchTableBinaryByteLength` | `uint32` | The length of the Batch Table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero. |
-| `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a uri, `1` indicates it is embedded binary glTF.  See the [glTF](#gltf) section below. |
+| `gltfFormat` | `uint32` | Indicates the format of the glTF field of the body.  `0` indicates it is a URI, `1` indicates it is embedded binary glTF.  See the [glTF](#gltf) section below. |
 
 The body section immediately follows the header section and is composed of three fields: `Feature Table`, `Batch Table`, and `glTF`.
 
@@ -250,8 +250,11 @@ The glTF asset to be instanced is stored after the Feature Table and Batch Table
 
 `header.gltfFormat` determines the format of the glTF field
 
-* When the value of `header.gltfFormat` is `0`, the glTF field is a UTF-8 string, which contains a uri of the glTF or binary glTF model content.
+* When the value of `header.gltfFormat` is `0`, the glTF field is a UTF-8 string, which contains a URI of the glTF or binary glTF model content.
 * When the value of `header.gltfFormat` is `1`, the glTF field is a binary blob containing [binary glTF](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout).
+
+When the glTF field contains a URI, then this URI may point to a [relative external reference (RFC3986)](https://tools.ietf.org/html/rfc3986#section-4.2). When the URI is relative, its base is always relative to the referring `.i3dm` file. Client implementations are required to support relative external references. Optionally, client implementations may support other schemes (such as `http://`). All URIs must be valid and resolvable.
+
 
 ### Coordinate system
 
