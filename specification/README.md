@@ -562,6 +562,8 @@ When a tile points to an external tileset, the tile:
 
 ![](figures/tileTransformExternalTileset.png)
 
+If an external tileset defines `asset.tilesetVersion`, this overrides the value from the parent tileset. If the external tileset does not define `asset.tilesetVersion`, the value is inherited from the parent tileset (if defined).
+
 #### Bounding volume spatial coherence
 
 As described above, the tree has spatial coherence; each tile has a bounding volume completely enclosing its content, and the content for child tiles are completely inside the parent's bounding volume.  This does not imply that a child's bounding volume is completely inside its parent's bounding volume.  For example:
