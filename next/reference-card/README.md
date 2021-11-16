@@ -1,9 +1,9 @@
 
-# 3D Tiles Next Overview
+# 3D Tiles Next Reference Card
 
-[![Overview pages](../figures/3d-tiles-next-overview-pages-combined-3x2.jpg)](../3d-tiles-next-overview.pdf)
+[![Reference Card pages](../figures/3d-tiles-next-reference-card-pages-combined-3x2.jpg)](../3d-tiles-next-reference-card.pdf)
 
-The [**3D Tiles Next Overview**](../3d-tiles-next-overview.pdf) is an overview of the new extensions that are introduced with 3D Tiles Next.
+The [**3D Tiles Next Reference Card**](../3d-tiles-next-reference-card.pdf) is an overview of the new extensions that are introduced with 3D Tiles Next.
 
 This guide augments the fully detailed [3D Tiles Next specification](https://github.com/CesiumGS/3d-tiles/tree/main/next).
 
@@ -30,10 +30,10 @@ The resulting PDF files can be combined with any PDF tool, for example
 [PDFtk Server](https://www.pdflabs.com/tools/pdftk-server/). The 
 `combinePdfs.bat` batch file contains the call that combines all PDF files 
 from the `/output` directory, and writes the result as into the base directory
-as `3d-tiles-next-overview.pdf`.
+as `3d-tiles-next-reference-card.pdf`.
 
 ### Resources 
 
 The `/resources` subdirectory contains the images (screenshots and SVG versions
-of the logos) that are used in the overview. They are not necessary for creating
+of the logos) that are used in the reference card. They are not necessary for creating
 the PDF files, but added here for reference. 
