@@ -49,8 +49,6 @@ This extension is required, meaning it must be placed in both the `extensionsUse
   - [Buffers and Buffer Views](#buffers-and-buffer-views)
   - [Availability Packing](#availability-packing)
 - [Glossary](#glossary)
-- [Extension JSON Schema Reference](#extension-json-schema-reference)
-- [Subtree JSON Schema Reference](#subtree-json-schema-reference)
 - [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
 
 ## Overview
@@ -122,7 +120,7 @@ The `3DTILES_implicit_tiling` extension may be defined on any tile in the tilese
   }
 }
 ```
-The `content` of an implicit tile must not have an associated `boundingVolume` property, but the [`3DTILES_metadata`](../3DTILES_metadata#implicit-tile-metadata) extension still allows defining bounding volumes for the content of implicit tiles. The possible [Semantics](../../specification/Metadata/Semantics) of the metadata include semantics like [`CONTENT_BOUNDING_BOX`](../../specification/Metadata/Semantics#content_bounding_box) that can be used to associate bounding volumes with the content of implicit tiles, for all tiles that are available in the implicit tree.  
+The `content` of an implicit tile must not have an associated `boundingVolume` property, but the [`3DTILES_metadata`](../3DTILES_metadata#implicit-tile-metadata) extension still allows defining bounding volumes for the content of implicit tiles. The possible [Semantics](../../specification/Metadata/Semantics) of the metadata include semantics like [`CONTENT_BOUNDING_BOX`](../../specification/Metadata/Semantics#content-semantics) that can be used to associate bounding volumes with the content of implicit tiles, for all tiles that are available in the implicit tree.  
 
 
 In the extension object of the tile, the following properties about the implicit root tile are included:
@@ -183,7 +181,7 @@ Implicit tiling only requires defining the subdivision scheme, refinement strate
 > Let the extent of the root bounding volume along one dimension *d* be *(min<sub>d</sub>, max<sub>d</sub>)*. The number of bounding volumes along that dimension for a given level  is *2<sup>level</sup>*. The size of each bounding volume at this level, along dimension *d*, is *size<sub>d</sub> = (max<sub>d</sub> - min<sub>d</sub>) / 2<sup>level</sup>*. The extent of the bounding volume of a child can then be computed directly as *(min<sub>d</sub> + size<sub>d</sub> * i, min<sub>d</sub> + size<sub>d</sub> * (i + 1))*, where *i* is the index of the child in dimension *d*. 
 > 
 
-The computed `boundingVolume` and `geometricError` properties can be overridden: The [`3DTILES_metadata`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_metadata#implicit-tile-metadata) extension offers a mechanism for associating metadata with implicit tiles. This metadata can have different [Semantics](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/specification/Metadata/Semantics), including [`TILE_BOUNDING_BOX`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/specification/Metadata/Semantics#tile_bounding_box) and [`TILE_GEOMETRIC_ERROR`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/specification/Metadata/Semantics#tile_geometric_error). When metadata with these semantics is given for the implicit tiles, then the metadata values override the computed `boundingVolume` and `geometricError` properties of implicit tiles, respectively. 
+The computed `boundingVolume` and `geometricError` properties can be overridden: The [`3DTILES_metadata`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_metadata#implicit-tile-metadata) extension offers a mechanism for associating metadata with implicit tiles. This metadata can have different [Semantics](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/specification/Metadata/Semantics), including [`TILE_BOUNDING_BOX`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/specification/Metadata/Semantics#tile-semantics) and [`TILE_GEOMETRIC_ERROR`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/specification/Metadata/Semantics#tile-semantics). When metadata with these semantics is given for the implicit tiles, then the metadata values override the computed `boundingVolume` and `geometricError` properties of implicit tiles, respectively. 
 
 ## Tile Coordinates
 
