@@ -55,7 +55,7 @@ Semantic|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 `TILE_HORIZON_OCCLUSION_POINT`|<ul><li>Type: `VEC3`</li><li>Component type: `FLOAT32` or `FLOAT64`</li></ul>|The horizon occlusion point of the tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire tile is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information.
 `TILE_GEOMETRIC_ERROR`|<ul><li>Type: `SINGLE`</li><li>Component type: `FLOAT32` or `FLOAT64`</li></ul>|The geometric error of the tile. Equivalent to `tile.geometricError`.
 
-> **Implementation Note**: `TILE_HORIZON_OCCLUSION_POINT` should account for all content in a tile and its descendants, whereas `CONTENT_HORIZON_OCCLUSION_POINT` should only account for content in a tile. When the two values are equivalent, only `TILE_HORIZON_OCCLUSION_POINT` should be specified.
+<small><sup>1</sup> `TILE_HORIZON_OCCLUSION_POINT` should account for all content in a tile and its descendants, whereas `CONTENT_HORIZON_OCCLUSION_POINT` should only account for content in a tile. When the two values are equivalent, only `TILE_HORIZON_OCCLUSION_POINT` should be specified.</small>
 
 ### Content
 
