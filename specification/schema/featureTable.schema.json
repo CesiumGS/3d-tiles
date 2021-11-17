@@ -67,24 +67,12 @@
                 "byteOffset"
             ]
         },
-        "numericArray": {
-            "type": "array",
-            "items": {
-                "type": "number"
-            }
-        },
         "property": {
             "title": "Property",
-            "description": "A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a `BinaryBodyReference` object.",
+            "description": "A user-defined property which specifies application-specific metadata in a tile. Values can refer to sections in the binary body with a `BinaryBodyReference` object. Global values can be also be defined directly in the JSON.",
             "oneOf": [
                 {
                     "$ref": "#/definitions/binaryBodyReference"
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    }
                 },
                 {
                     "type": "number"
