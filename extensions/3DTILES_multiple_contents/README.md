@@ -90,7 +90,7 @@ When this extension is used the tile's `content` property must be omitted.
 
 ### Metadata Groups
 
-This extension may be paired with the [`3DTILES_metadata` extension](../3DTILES_metadata) to assign metadata to each content.
+This extension may be paired with the [`3DTILES_metadata` extension](../3DTILES_metadata) to store properties that are constant across one or more tile contents. Each content may be optionally added to one of the metadata groups by adding a `3DTILES_metadata` extension with a `group` property that identifies one of the metadata groups.
 
 ```jsonc
 {
