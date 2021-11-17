@@ -29,7 +29,7 @@
 
 **Implementations**
   * [CesiumJS](https://github.com/CesiumGS/cesium) added experimental support for 3D Tiles Next features in version 1.87.1 ([Release Notes](https://github.com/CesiumGS/cesium/blob/main/CHANGES.md#1871---2021-11-09))
-  * [cesium-native](https://github.com/CesiumGS/cesium-native/issues/386) is in progress of adding 3D Tiles Next support ([Open pull request](https://github.com/CesiumGS/cesium-native/issues/386))
+  * [cesium-native](https://github.com/CesiumGS/cesium-native) is in progress of adding 3D Tiles Next support ([Open pull request](https://github.com/CesiumGS/cesium-native/issues/386))
 
 **Projects**
   * [minimal-pointcloud-gltf](https://github.com/wallabyway/minimal-pointcloud-gltf). A proposal for a standard point cloud representation in glTF and 3D Tiles Next
