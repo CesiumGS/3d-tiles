@@ -1,4 +1,4 @@
-<p align="center"><img src="./figures/next_logo_dark.png" alt="3D Tiles Next" width="500px" align="center"></p>
+<p align="center"><img src="./figures/3DTiles_Next_Dark.png" alt="3D Tiles Next" width="500px" align="center"></p>
 
 # 3D Tiles Next
 
@@ -45,15 +45,22 @@ For further use cases of feature metadata, see the [examples](https://github.com
 
 <p align="center"><img src="./figures/metadata-granularity-extended.png" alt="Available metadata granularity, including tilesets, tiles, tile content groups, and features." width="600px" align="center"></p>
 
-## 3D Tiles Next Overview
+## 3D Tiles Next Reference Card
 
-[![Overview pages](figures/3d-tiles-next-overview-pages-combined-3x2.jpg)](3d-tiles-next-overview.pdf)
+[![Reference Card pages](figures/3d-tiles-next-reference-card-pages-combined-3x2.jpg)](3d-tiles-next-reference-card.pdf)
 
-The [**3D Tiles Next Overview**](3d-tiles-next-overview.pdf) is an overview of the new extensions that are introduced with 3D Tiles Next. 
-
+The [**3D Tiles Next Reference Card**](3d-tiles-next-reference-card.pdf) is an overview of the new extensions that are introduced with 3D Tiles Next. 
 
 ## Contributing
 
 3D Tiles Next is an open specification, and contributions and feedback are encouraged. Over the next several months, our focus on 3D Tiles Next is to solidify the draft specifications and continue to facilitate ecosystem growth, keeping specification design pragmatic based on implementation experience.
 
 Issues and pull requests are welcome on this repository. Please see our guidelines for contributing in [CONTRIBUTING.md](../CONTRIBUTING.md).
+
+## Logo
+
+The 3D Tiles next logo is available under the same usage terms of the [official Cesium logos](https://cesium.com/press) for the developer community to include in presentations, GitHub repos, etc - but this logo should not be for mainstream use since the **Next** suffix will be replaced with a version, [#556](https://github.com/CesiumGS/3d-tiles/issues/556).
+
+The logo pack can be downloaded here: [3D-Tiles-Next-Logo.zip](https://github.com/CesiumGS/3d-tiles/raw/add-3d-tiles-next-logo-pack/next/logo/3D-Tiles-Next-Logo.zip)
+
+<img src="./figures/3DTiles_Next_Dark.png" alt="3D Tiles Next" width="500px">
