@@ -86,7 +86,9 @@ A `tile` may be extended with the `3DTILES_multiple_contents` extension object, 
 }
 ```
 
-When this extension is used the tile's `content` property must be omitted.
+When this extension is used the tile's `content` property must be omitted. 
+
+For any of the contents in the `3DTILES_multiple_contents` extension, the `uri` property may not point to an [external tileset](../../../specification#external-tilesets).
 
 ### Metadata Groups
 
