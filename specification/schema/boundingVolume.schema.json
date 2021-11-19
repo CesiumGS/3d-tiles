@@ -39,22 +39,5 @@
         },
         "extensions": {},
         "extras": {}
-    },
-    "oneOf": [
-        {
-            "required": [
-                "box"
-            ]
-        },
-        {
-            "required": [
-                "region"
-            ]
-        },
-        {
-            "required": [
-                "sphere"
-            ]
-        }
-    ]
+    }
 }
