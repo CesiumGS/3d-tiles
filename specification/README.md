@@ -910,7 +910,7 @@ Application-specific data.
 <a name="reference-bounding-volume"></a>
 ### Bounding Volume
 
-A bounding volume that encloses a tile or its content. Exactly one `box`, `region`, or `sphere` property is required.
+A bounding volume that encloses a tile or its content. At least one bounding volume property must be specified. This may be a `box`, `region`, or `sphere` property. Extensions may define additional bounding volume types. If more than one bounding volume is specified, clients may select the most appropriate option based on use case and performance requirements.
 
 **Properties**
 
@@ -1040,8 +1040,8 @@ A tile in a 3D Tiles tileset.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**boundingVolume**|`object`|A bounding volume that encloses a tile or its content. Exactly one `box`, `region`, or `sphere` property is required.|:white_check_mark: Yes|
-|**viewerRequestVolume**|`object`|A bounding volume that encloses a tile or its content. Exactly one `box`, `region`, or `sphere` property is required.|No|
+|**boundingVolume**|`object`|A bounding volume that encloses a tile or its content. At least one bounding volume property is required. Bounding volumes include `box`, `region`, or `sphere`.|:white_check_mark: Yes|
+|**viewerRequestVolume**|`object`|A bounding volume that encloses a tile or its content. At least one bounding volume property is required. Bounding volumes include `box`, `region`, or `sphere`.|No|
 |**geometricError**|`number`|The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.| :white_check_mark: Yes|
 |**refine**|`string`|Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This property is required for the root tile of a tileset; it is optional for all other tiles. The default is to inherit from the parent tile.|No|
 |**transform**|`number` `[16]`|A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system. transform does not apply to any volume property when the volume is a region, defined in EPSG:4979 coordinates. transform scales the `geometricError` by the maximum scaling factor from the matrix.|No, default: `[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]`|
@@ -1052,14 +1052,14 @@ A tile in a 3D Tiles tileset.
 
 #### Tile.boundingVolume :white_check_mark:
 
-A bounding volume that encloses a tile or its content. Exactly one `box`, `region`, or `sphere` property is required.
+A bounding volume that encloses a tile or its content. At least one bounding volume property is required. Bounding volumes include `box`, `region`, or `sphere`.
 
 * **Type**: `object`
 * **Required**: Yes
 
 #### Tile.viewerRequestVolume
 
-A bounding volume that encloses a tile or its content. Exactly one `box`, `region`, or `sphere` property is required.
+A bounding volume that encloses a tile or its content. At least one bounding volume property is required. Bounding volumes include `box`, `region`, or `sphere`.
 
 * **Type**: `object`
 * **Required**: No
@@ -1132,14 +1132,14 @@ Metadata about the tile's content and a link to the content.
 
 |   |Type|Description|Required|
 |---|----|-----------|--------|
-|**boundingVolume**|`object`|A bounding volume that encloses a tile or its content. Exactly one `box`, `region`, or `sphere` property is required.|No|
+|**boundingVolume**|`object`|A bounding volume that encloses a tile or its content. At least one bounding volume property is required. Bounding volumes include `box`, `region`, or `sphere`.|No|
 |**uri**|`string`|A uri that points to the tile's content. When the uri is relative, it is relative to the referring tileset JSON file.| :white_check_mark: Yes|
 |**extensions**|`object`|Dictionary object with extension-specific objects.|No|
 |**extras**|`any`|Application-specific data.|No|
 
 #### Content.boundingVolume
 
-A bounding volume that encloses a tile or its content. Exactly one `box`, `region`, or `sphere` property is required.
+A bounding volume that encloses a tile or its content. At least one bounding volume property is required. Bounding volumes include `box`, `region`, or `sphere`.
 
 * **Type**: `object`
 * **Required**: No
