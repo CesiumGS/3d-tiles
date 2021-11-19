@@ -122,6 +122,7 @@ The `3DTILES_implicit_tiling` extension may be defined on any tile in the tilese
 ```
 The `content` of an implicit tile must not have an associated `boundingVolume` property, but the [`3DTILES_metadata`](../3DTILES_metadata#implicit-tile-metadata) extension still allows defining bounding volumes for the content of implicit tiles. The possible [Semantics](../../specification/Metadata/Semantics) of the metadata include semantics like [`CONTENT_BOUNDING_BOX`](../../specification/Metadata/Semantics#content-semantics) that can be used to associate bounding volumes with the content of implicit tiles, for all tiles that are available in the implicit tree.  
 
+The `content.uri` may not point to an [external tileset](../../../specification#external-tilesets).
 
 In the extension object of the tile, the following properties about the implicit root tile are included:
 
