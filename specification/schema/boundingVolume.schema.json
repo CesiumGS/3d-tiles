@@ -3,12 +3,13 @@
     "$id": "boundingVolume.schema.json",
     "title": "Bounding Volume",
     "type": "object",
-    "description": "A bounding volume that encloses a tile or its content. Exactly one `box`, `region`, or `sphere` property is required.",
+    "description": "A bounding volume that encloses a tile or its content. At least one bounding volume property is required. Bounding volumes include `box`, `region`, or `sphere`.",
     "allOf": [
         {
             "$ref": "tilesetProperty.schema.json"
         }
     ],
+    "minProperties": 1,
     "properties": {
         "box": {
             "type": "array",
