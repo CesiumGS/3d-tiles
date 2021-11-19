@@ -74,7 +74,8 @@
             "items": {
                 "$ref": "tile.schema.json"
             },
-            "uniqueItems": true
+            "uniqueItems": true,
+            "minItems": 1
         },
         "extensions": {},
         "extras": {}
