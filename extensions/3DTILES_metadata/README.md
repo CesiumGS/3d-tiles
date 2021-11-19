@@ -244,6 +244,8 @@ Enum values are defined as entries in the `enum.values` array. Duplicate names o
 
 ### Statistics
 
+*Defined in [statistics.class.property.schema.json](./schema/statistics.class.property.schema.json).*
+
 Statistics provide aggregate information about the distribution of property values, summarized over all instances of a class within a tileset. For example, statistics may include the minimum/maximum values of a numeric property, or the number of occurrences for specific enum values.
 
 These summary statistics allow applications to analyze or display metadata, e.g. with the [declarative styling language](../../specification/Styling), without first having to process the complete dataset to identify bounds for color ramps and histograms. Statistics are provided on a per-class basis, so that applications can provide styling or context based on the tileset as a whole, while only needing to download and process a subset of its tiles.
