@@ -32,7 +32,7 @@ Bringing techniques from the field of 3D graphics and built on [glTF](https://gi
 * [3D Tiles Format Specification](./specification/)
 * [3D Tiles Extension Registry](./extensions/)
 
-Please provide spec feedback by [submitting issues](https://github.com/CesiumGS/3d-tiles/issues). For questions on implementation, generating 3D Tiles, or to showcase your work, join the [Cesium community forum](https://community.cesium.com/). A list of resources for developers, including blog posts and presentations that explain the concepts and applications of 3D Tiles, can be found on the [3D Tiles Resources](./next/RESOURCES.md) page.
+Please provide spec feedback by [submitting issues](https://github.com/CesiumGS/3d-tiles/issues). For questions on implementation, generating 3D Tiles, or to showcase your work, join the [Cesium community forum](https://community.cesium.com/). A list of resources for developers, including blog posts and presentations that explain the concepts and applications of 3D Tiles, can be found on the [3D Tiles Resources](./RESOURCES.md) page.
 
 ### Upcoming
 
