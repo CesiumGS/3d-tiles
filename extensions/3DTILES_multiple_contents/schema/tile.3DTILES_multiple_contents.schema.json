@@ -14,7 +14,7 @@
             "type": "array",
             "description": "An array of contents.",
             "items": {
-                "$ref": "tile.content.schema.json"
+                "$ref": "content.schema.json"
             },
             "minItems": 1
         },
