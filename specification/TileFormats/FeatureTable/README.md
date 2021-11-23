@@ -36,13 +36,11 @@ Binary properties must start at a byte offset that is a multiple of the size in 
 
 ### JSON header
 
-Feature Table values can be represented in the JSON header in three different ways:
+Feature Table values can be represented in the JSON header in two different ways:
 
 1. A single value or object, e.g., `"INSTANCES_LENGTH" : 4`.
    * This is used for global semantics like `"INSTANCES_LENGTH"`, which defines the number of model instances in an Instanced 3D Model tile.
-2. An array of values, e.g., `"POSITION" : [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]`.
-   * This is used for per-feature semantics like `"POSITION"` in Instanced 3D Model.  Above, each `POSITION` refers to a `float32[3]` data type so there are three features: `Feature 0's position`=`(1.0, 0.0, 0.0)`, `Feature 1's position`=`(0.0, 1.0, 0.0)`, `Feature 2's position`=`(0.0, 0.0, 1.0)`.
-3. A reference to data in the binary body, denoted by an object with a `byteOffset` property, e.g., `"SCALE" : { "byteOffset" : 24}`.
+2. A reference to data in the binary body, denoted by an object with a `byteOffset` property, e.g., `"SCALE" : { "byteOffset" : 24}`.
    * `byteOffset` specifies a zero-based offset relative to the start of the binary body. The value of `byteOffset` must be a multiple of the size in bytes of the property's implicit component type, e.g., the `"POSITION"` property has the component type `FLOAT` (4 bytes), so the value of `byteOffset` must be of a multiple of `4`.
    * The semantic defines the allowed data type, e.g., when `"POSITION"` in Instanced 3D Model refers to the binary body, the component type is `FLOAT` and the number of components is `3`.
    * Some semantics allow for overriding the implicit component type. These cases are specified in each tile format, e.g., `"BATCH_ID" : { "byteOffset" : 24, "componentType" : "UNSIGNED_BYTE"}`.
