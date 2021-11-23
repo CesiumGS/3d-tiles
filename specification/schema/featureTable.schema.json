@@ -75,7 +75,19 @@
                     "$ref": "#/definitions/binaryBodyReference"
                 },
                 {
-                    "type": "number"
+                    "$ref": "#/definitions/globalPropertyBoolean"
+                },
+                {
+                    "$ref": "#/definitions/globalPropertyInteger"
+                },
+                {
+                    "$ref": "#/definitions/globalPropertyNumber"
+                },
+                {
+                    "$ref": "#/definitions/globalPropertyCartesian3"
+                },
+                {
+                    "$ref": "#/definitions/globalPropertyCartesian4"
                 }
             ]
         },
