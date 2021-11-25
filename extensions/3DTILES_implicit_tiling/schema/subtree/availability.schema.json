@@ -6,7 +6,7 @@
     "description": "An object describing the availability of a set of elements.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "subtreeProperty.schema.json"
         }
     ],
     "properties": {
