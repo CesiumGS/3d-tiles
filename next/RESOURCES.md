@@ -19,7 +19,7 @@
 **Demos**
   * Demos that have been published based on the experimental 3D Tiles Next support in the [CesiumJS 1.87.1 Release:](https://github.com/CesiumGS/cesium/blob/main/CHANGES.md#1871---2021-11-09)
     * [Photogrammetry Classification Demo](https://demos.cesium.com/ferry-building)
-    * [Property Textures Demo](https://demos.cesium.com/property-textures)
+    * [Property Textures Demo](https://demos.cesium.com/owt-uncertainty)
     * [S2 Base Globe Demo](https://demos.cesium.com/owt-globe)
     * [CDB Yemen Demo](https://demos.cesium.com/cdb-yemen)
 
