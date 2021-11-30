@@ -6,7 +6,7 @@
     "description": "A contiguous subset of a buffer",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "subtreeProperty.schema.json"
         }
     ],
     "properties": {

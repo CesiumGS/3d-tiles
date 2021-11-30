@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "tile.3DTILES_implicit_tiling.subtree.schema.json",
-    "title": "Subtree",
+    "$id": "tile.3DTILES_implicit_tiling.subtrees.schema.json",
+    "title": "Subtrees",
     "type": "object",
     "description": "An object describing the location of subtree files.",
     "allOf": [

@@ -6,7 +6,7 @@
     "description": "A buffer is a binary blob. It is either the binary chunk of the subtree file, or an external buffer referenced by a URI.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "subtreeProperty.schema.json"
         }
     ],
     "properties": {

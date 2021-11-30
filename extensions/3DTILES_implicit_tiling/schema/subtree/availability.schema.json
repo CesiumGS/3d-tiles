@@ -6,7 +6,7 @@
     "description": "An object describing the availability of a set of elements.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "subtreeProperty.schema.json"
         }
     ],
     "properties": {
@@ -24,10 +24,14 @@
             "description": "Integer indicating whether all of the elements are available (1) or all are unavailable (0).",
             "anyOf": [
                 {
-                    "const": 0
+                    "const": 0,
+                    "description": "UNAVAILABLE",
+                    "type": "integer"
                 },
                 {
-                    "const": 1
+                    "const": 1,
+                    "description": "AVAILABLE",
+                    "type": "integer"
                 },
                 {
                     "type": "integer"

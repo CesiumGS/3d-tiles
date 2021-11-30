@@ -6,7 +6,7 @@
     "description": "An object describing the availability of tiles and content in a subtree, as well as availability of children subtrees.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "subtreeProperty.schema.json"
         }
     ],
     "properties": {
