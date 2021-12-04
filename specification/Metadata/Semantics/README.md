@@ -86,3 +86,4 @@ Semantic|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
   * Reorganize document to distinguish general and 3D Tiles-specific semantics
   * Added clarification for units of distance and angles
   * Added `DESCRIPTION` semantic
+  * Changed `TILE_HORIZON_OCCLUSION_POINT` and `CONTENT_HORIZON_OCCLUSION_POINT` type from `ARRAY` to `VEC3`
