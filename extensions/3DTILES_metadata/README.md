@@ -600,3 +600,4 @@ While `3DTILES_metadata` and `EXT_mesh_features` are defined independently, both
   * Recommend "_*" prefix for application-specific summary statistics
   * Renamed `min` and `max` summary statistics to `minimum` and `maximum`
   * Removed `name` and `description` from entity schemas. Entities should use properties with equivalent semantics instead.
+  * Added `id` to schema object
