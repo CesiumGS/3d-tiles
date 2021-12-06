@@ -373,7 +373,7 @@ The `tileset` object within a tileset's `3DTILES_metadata` extension must specif
 
 ### Tile Properties
 
-*Defined in [tileset.3DTILES_metadata.schema.json](./schema/tile.3DTILES_metadata.schema.json)*.
+*Defined in [tile.3DTILES_metadata.schema.json](./schema/tile.3DTILES_metadata.schema.json)*.
 
 Property values may be assigned to individual tiles, including (for example) spatial hints to optimize traversal algorithms. The example below uses the built-in semantic `TILE_MAXIMUM_HEIGHT` from the [3D Metadata Semantic Reference](../../specification/Metadata/Semantics).
 
