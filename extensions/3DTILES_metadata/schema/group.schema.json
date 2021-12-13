@@ -10,6 +10,8 @@
         }
     ],
     "properties": {
+        "class": {},
+        "properties": {},
         "extensions": {},
         "extras": {}
     }
