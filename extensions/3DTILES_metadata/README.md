@@ -334,7 +334,7 @@ Most property values are encoded as JSON within the entity to which they are ass
 
 ### Tileset Properties
 
-*Defined in [tileset.schema.json](./schema/tileset.schema.json)*.
+*Defined in [tileset.schema.json](./schema/tileset.schema.json) and [metadataEntity.schema.json](./schema/metadataEntity.schema.json)*.
 
 Properties assigned to tilesets provide metadata about the tileset as a whole. Common examples might include year of collection, author details, or other general context for the tileset contents.
 
@@ -373,7 +373,7 @@ The `tileset` object within a tileset's `3DTILES_metadata` extension must specif
 
 ### Tile Properties
 
-*Defined in [tile.3DTILES_metadata.schema.json](./schema/tile.3DTILES_metadata.schema.json)*.
+*Defined in [tile.3DTILES_metadata.schema.json](./schema/tile.3DTILES_metadata.schema.json) and [metadataEntity.schema.json](./schema/metadataEntity.schema.json)*.
 
 Property values may be assigned to individual tiles, including (for example) spatial hints to optimize traversal algorithms. The example below uses the built-in semantic `TILE_MAXIMUM_HEIGHT` from the [3D Metadata Semantic Reference](../../specification/Metadata/Semantics).
 
@@ -486,7 +486,7 @@ Binary property value arrays are located in buffer views of the implicit tiling 
 
 ### Content Group Properties
 
-*Defined in [group.schema.json](./schema/group.schema.json) and [tileset.3DTILES_metadata.schema.json](./schema/content.3DTILES_metadata.schema.json)*.
+*Defined in [group.schema.json](./schema/group.schema.json), [metadataEntity.schema.json](./schema/metadataEntity.schema.json), and [tileset.3DTILES_metadata.schema.json](./schema/content.3DTILES_metadata.schema.json)*.
 
 Tiles may contain more than one content entity (see: [`3DTILES_multiple_contents`](../3DTILES_multiple_contents)), or multiple tiles may reference content sharing the same metadata. In these cases, metadata assigned to the tile would be inadequate or inefficient for describing tile contents. This extension allows content to be organized into collections, or "groups", and metadata may be associated with each group. Groups are useful for supporting metadata on only a subset of a tile's content, or for working with collections of contents as layers, e.g. to manage visibility or visual styling.
 
