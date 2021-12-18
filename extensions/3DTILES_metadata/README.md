@@ -326,11 +326,11 @@ Tileset authors may define their own additional statistics, like `_mode` in the 
 
 ### Overview
 
-While [classes](#class) within a schema define the data types and meanings of properties, properties do not take on particular values until a metadata is assigned (i.e. the class is "instatiated") to a particular entity within the 3D Tiles hierarchy. Property values may be assigned to entities as described in the sections below.
+While [classes](#class) within a schema define the data types and meanings of properties, properties do not take on particular values until a metadata is assigned (i.e. the class is "instatiated") as a particular metadata entity within the 3D Tiles hierarchy. Each metadata entity contains the name of the class that it is an instance of, as well as a dictionary of property values that correspond to the properties of that class. This common structure is defined in [metadataEntity.schema.json](./schema/metadataEntity.schema.json). 
 
 Each property value assigned must be defined by a class property with the same alphanumeric property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
 
-Most property values are encoded as JSON within the entity to which they are assigned. One notable exception is metadata assigned to [implicit tiles](#implicit-tile-properties), stored in a more compact binary form.
+Most property values are encoded as JSON within the entity. One notable exception is metadata assigned to [implicit tiles](#implicit-tile-properties), stored in a more compact binary form.
 
 ### Tileset Properties
 
@@ -340,7 +340,7 @@ Properties assigned to tilesets provide metadata about the tileset as a whole. C
 
 The `tileset` object within a tileset's `3DTILES_metadata` extension must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
 
-> **Example:** The example below defines properties of a tileset, with the tileset representing an instance of a "city" class. Required properties "dateFounded" and "population" are given; optional property "country" is omitted.
+> **Example:** The example below defines properties of a tileset, with the tileset being an instance of a "city" class. Required properties "dateFounded" and "population" are given; optional property "country" is omitted.
 >
 > ```jsonc
 > {
