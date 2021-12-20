@@ -6,55 +6,13 @@
     "description": "An object containing metadata about the tileset.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "metadataEntity.schema.json"
         }
     ],
     "properties": {
-        "class": {
-            "type": "string",
-            "description": "The class that property values conform to. The value must be a class ID declared in the `classes` dictionary."
-        },
-        "properties": {
-            "type": "object",
-            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties must be included in this dictionary.",
-            "minProperties": 1,
-            "additionalProperties": {
-                "oneOf": [
-                    {
-                        "type": "boolean"
-                    },
-                    {
-                        "type": "number"
-                    },
-                    {
-                        "type": "string"
-                    },
-                    {
-                        "type": "array",
-                        "items": {
-                            "type": "boolean"
-                        }
-                    },
-                    {
-                        "type": "array",
-                        "items": {
-                            "type": "number"
-                        }
-                    },
-                    {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    }
-                ]
-            }
-        },
+        "class": {},
+        "properties": {},
         "extensions": {},
         "extras": {}
-    },
-    "required": [
-        "class",
-        "properties"
-    ]
+    }
 }
