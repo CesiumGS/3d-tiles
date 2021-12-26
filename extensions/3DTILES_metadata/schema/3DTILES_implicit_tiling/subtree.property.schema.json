@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "subtree.property.schema.json",
-    "title": "Subtree property values",
+    "title": "Subtree Metadata Property",
     "type": "object",
     "description": "An array of binary property values.",
     "allOf": [
