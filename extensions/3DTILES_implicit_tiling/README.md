@@ -293,7 +293,7 @@ Tile availability has the following restrictions:
 
 ### Content Availability
 
-Content availability determines which tiles have a content resource. The content resource is located using the `content.uri` template URI.
+Content availability determines which tiles have a content resource. The content resource is located using the `content.uri` template URI. If there are no tiles with a content resource, `tile.content` must be omitted.
 
 Content availability has the following restrictions:
 
