@@ -75,19 +75,19 @@ The 64-bit [S2 cell ID](https://s2geometry.io/devguide/s2cell_hierarchy#s2cellid
 For example:
 
 ```
-0011000000000...000   Root cell 2
-0010110000000...000   2nd child of root cell 2
-0010111100000...000   4th child of 2nd child of root cell 2
-0010111001000...000   1st child of 4th child of 2nd child of root cell 2
+0011000000000...000   Root cell 1
+0010110000000...000   2nd child of root cell 1
+0010111100000...000   4th child of 2nd child of root cell 1
+0010111001000...000   1st child of 4th child of 2nd child of root cell 1
 ```
 
 In their decimal forms, the cell IDs above are represented as follows:
 
 ```
-3458764513820540928   Root cell 2
-3170534137668829184   2nd child of root cell 2
-3386706919782612992   4th child of 2nd child of root cell 2
-3332663724254167040   1st child of 4th child of 2nd child of root cell 2
+3458764513820540928   Root cell 1
+3170534137668829184   2nd child of root cell 1
+3386706919782612992   4th child of 2nd child of root cell 1
+3332663724254167040   1st child of 4th child of 2nd child of root cell 1
 ```
 
 ## Tokens
@@ -97,10 +97,10 @@ To provide a more concise representation of the cell ID, as well as to provide a
 For the cell IDs in the example above, the tokens are:
 
 ```
-3     Root cell 2
-2c    2nd child of root cell 2
-2f    4th child of 2nd child of root cell 2
-2e4   1st child of 4th child of 2nd child of root cell 2
+3     Root cell 1
+2c    2nd child of root cell 1
+2f    4th child of 2nd child of root cell 1
+2e4   1st child of 4th child of 2nd child of root cell 1
 ```
 
 ## Bounding Volume
