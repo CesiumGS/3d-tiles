@@ -431,6 +431,7 @@ An object defining the reference to a section of the binary body of the features
 |   |Type|Description|Required|
 |---|----|-----------|--------|
 |**byteOffset**|`number`|The offset into the buffer in bytes.| :white_check_mark: Yes|
+|**componentType**|`string`|The datatype of components in the property. The implicit component type of some semantics may be overridden using this property.| No|
 
 Additional properties are allowed.
 
@@ -441,6 +442,23 @@ The offset into the buffer in bytes.
 * **Type**: `number`
 * **Required**: Yes
 * **Minimum**: ` >= 0`
+
+#### BinaryBodyReference.componentType
+
+The datatype of components in the property.
+
+* **Type**: `string`
+* **Required**: Yes
+* **Allowed values**:
+   * `"BYTE"`
+   * `"UNSIGNED_BYTE"`
+   * `"SHORT"`
+   * `"UNSIGNED_SHORT"`
+   * `"INT"`
+   * `"UNSIGNED_INT"`
+   * `"FLOAT"`
+   * `"DOUBLE"`
+
 
 ---------------------------------------
 <a name="reference-globalpropertycartesian3"></a>
