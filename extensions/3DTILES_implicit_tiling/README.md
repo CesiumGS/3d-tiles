@@ -342,7 +342,7 @@ The subtree JSON describes where the availability information for a single subtr
 
 ### Buffers and Buffer Views
 
-A **buffer** is a binary blob. A single buffer can be stored within the binary chunk of a subtree file. Further buffers can be stored as individual binary files that are referred to by the `buffer.uri` property. The buffers can store the availability data of a subtree in binary form, or other data that is associated with a subtree, like metadata for implicit tiles defined using the [`3DTILES_metadata` extension.](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_metadata#implicit-tile-metadata)
+A **buffer** is a binary blob. A single buffer can be stored within the binary chunk of a subtree file. This buffer is referred to as the _internal buffer_. Further (external) buffers can be stored as individual binary files that are referred to by the `buffer.uri` property. The buffers can store the availability data of a subtree in binary form, or other data that is associated with a subtree, like metadata for implicit tiles defined using the [`3DTILES_metadata` extension.](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_metadata#implicit-tile-metadata)
 
 Each buffer has a `byteLength` describing the size of the data, including any padding (for subtree binary files). 
 
@@ -388,12 +388,12 @@ For efficient memory access, the `byteOffset` of a buffer view must be aligned t
 >   }
 > }
 > ```
-
-When all tiles exist, then their availability can be encoded by setting `tileAvailability.constant` to `1`, without needing an explicit bitstream.
-
-Only some tiles have content, and `contentAvailability.bufferView` indicates where the bitstream for the content availability is stored: The `bufferView` with index 0 refers to the `buffer` with index 0. This buffer does not have a `uri` property, and therefore refers to the _internal_ buffer. The `byteOffset` and `byteLength` indicate that the content availability bitstream is stored in the bytes `[0...11)` of the internal buffer.
-
-Some child subtrees exist, so `childSubtreeAvailability.bufferView` refers to another bitstream. The `bufferView` with index 1 refers to the buffer with index `1`. This buffer has a `uri` property, indicating that this second bitstream is stored in an external binary file.
+>
+> The tile availability can be encoded by setting `tileAvailability.constant` to `1`, without needing an explicit bitstream, because all tiles in the subtree are available.
+> 
+> Only some tiles have content, and `contentAvailability.bufferView` indicates where the bitstream for the content availability is stored: The `bufferView` with index 0 refers to the `buffer` with index 0. This buffer does not have a `uri` property, and therefore refers to the _internal_ buffer that is stored directly in the binary chunk of the subtree file. The `byteOffset` and `byteLength` indicate that the content availability bitstream is stored in the bytes `[0...11)` of the internal buffer.
+>
+> Some child subtrees exist, so `childSubtreeAvailability.bufferView` refers to another bitstream. The `bufferView` with index 1 refers to the buffer with index `1`. This buffer has a `uri` property, indicating that this second bitstream is stored in an external binary file.
 
 ### Availability Packing
 
