@@ -26,7 +26,6 @@
         "extras": {}
     },
     "required": [
-        "class",
-        "properties"
+        "class"
     ]
 }
