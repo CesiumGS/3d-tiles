@@ -41,6 +41,8 @@ Units for all linear distances are meters, and all angles are radians.
 
 `TILE_*` semantics provide meaning for properties associated with a particular tile, and should take precedence over equivalent metadata on parent objects, as well as over values derived from subdivision schemes like [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
 
+If property values are missing, either because the property is omitted or the property table contains `noData` values, the original tile properties are used, such as those explicitly defined in tileset JSON or implicitly derived from subdivision schemes like [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
+
 In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_SPHERE` semantics each define a more specific bounding volume for a tile than is implicitly calculated from [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling). If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
 
 #### Tile Semantics
@@ -62,6 +64,8 @@ Semantic|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 #### Overview
 
 `CONTENT_*` semantics provide meaning for properties associated with the content of a tile, and may be more specific to that content than properties of the containing tile. When a tile has multiple contents (e.g. with [3DTILES_multiple_contents](../../../extensions/3DTILES_multiple_contents)), a `CONTENT_*` property may describe all tile contents or a single content entry, depending on whether the property is located in the tile or tile content definition.
+
+If property values are missing, either because the property is omitted or the property table contains `noData` values, the original tile content properties are used, such as those explicitly defined in tileset JSON or implicitly derived from subdivision schemes like [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
 
 `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, and `CONTENT_BOUNDING_SPHERE` semantics each define a more specific bounding volume for tile contents than the bounding volume of the tile. If more than one of these semantics are available for the same content, clients may select the most appropriate option based on use case and performance requirements.
 
