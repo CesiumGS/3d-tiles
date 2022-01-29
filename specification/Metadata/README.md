@@ -374,6 +374,8 @@ A numeric value may be encoded as 8-, 16-, 32-, or 64-bit types. Multiple numeri
 
 A boolean value is encoded as a single bit, either 0 (`false`) or 1 (`true`). Multiple boolean values are packed tightly in the same buffer. These buffers of tightly-packed bits are sometimes referred to as bitstreams.
 
+For a table with `N` rows, the buffer that stores these boolean values will consist of `ceil(N / 8)` bytes. When `N` is not divisible by 8, then the unused bits of the last byte of this buffer must be set to 0.
+
 > **Implementation note:** Example accessing a boolean value for entity ID `i`.
 >
 > ```js
