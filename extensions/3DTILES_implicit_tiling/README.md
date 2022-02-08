@@ -49,6 +49,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
   - [Buffers and Buffer Views](#buffers-and-buffer-views)
   - [Availability Packing](#availability-packing)
 - [Glossary](#glossary)
+- [Revision History](#revision-history)
 - [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
 
 ## Overview
@@ -110,7 +111,7 @@ The `3DTILES_implicit_tiling` extension may be defined on any tile in the tilese
     "extensions": {
       "3DTILES_implicit_tiling": {
         "subdivisionScheme": "QUADTREE",
-        "maximumLevel": 20,
+        "availableLevels": 21,
         "subtrees": {
           "uri": "subtrees/{level}/{x}/{y}.subtree"
         },
@@ -129,7 +130,7 @@ In the extension object of the tile, the following properties about the implicit
 | Property | Description |
 | ------ | ----------- |
 | `subdivisionScheme` | Either `QUADTREE` or `OCTREE`. See [Subdivision scheme](#subdivision-scheme). |
-| `maximumLevel` | Level of the deepest available tile in the tree. |
+| `availableLevels` | How many levels there in the tree containing available tiles. |
 | `subtrees` | Template URI for subtree files. See [Subtrees](#subtrees). |
 | `subtreeLevels` | How many levels there are in each subtree. |
 
@@ -418,6 +419,12 @@ Availability bitstreams are packed in binary using the format described in the [
 * **tileset** - A hierarchical collection of tiles.
 * **tileset JSON** - A JSON file describing a tileset, as defined in the [3D Tiles specification](../../specification#tileset-json).
 
+## Revision History
+
+* **Version 0.0.0** November 2021
+  * Initial draft
+* **Version 1.0.0** February, 2022
+  * Changed `maximumLevel` to `availableLevels` for consistency with `subtreeLevels`. Note that `maximumLevel` is an index whereas `availableLevels` is a length, so `availableLevels` is equivalent to `maximumLevel + 1`.
 
 ## Appendix A: Availability Indexing
 

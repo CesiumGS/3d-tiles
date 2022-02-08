@@ -192,7 +192,7 @@ Example tileset JSON:
       "3DTILES_implicit_tiling": {
         "subdivisionScheme": "QUADTREE",
         "subtreeLevels": 10,
-        "maximumLevel": 16,
+        "availableLevels": 17,
         "subtrees": {
           "uri": "subtrees/{level}/{x}/{y}.subtree"
         }
@@ -329,7 +329,7 @@ Example tileset JSON:
       "3DTILES_implicit_tiling": {
         "subdivisionScheme": "QUADTREE",
         "subtreeLevels": 10,
-        "maximumLevel": 16,
+        "availableLevels": 17,
         "subtrees": {
           "uri": "subtrees/{level}/{x}/{y}.subtree"
         }
