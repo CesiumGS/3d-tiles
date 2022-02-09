@@ -256,7 +256,7 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2` with `3D
       "3DTILES_implicit_tiling": {
         "subdivisionScheme": "QUADTREE",
         "subtreeLevels": 4,
-        "maximumLevel": 7,
+        "availableLevels": 8,
         "subtrees": {
           "uri": "subtrees/{level}/{x}/{y}.subtree"
         }
