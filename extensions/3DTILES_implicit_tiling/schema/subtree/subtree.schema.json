@@ -40,7 +40,7 @@
                 "$ref": "availability.schema.json"
             },
             "minItems": 1,
-            "description": "An array of content availability objects. If the tile has a single content this array will have one element; if the tile has multiple contents this array will have multiple elements (see `3DTILES_multiple_contents`)."
+            "description": "An array of content availability objects. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by EXT_multiple_contents or 3D Tiles 1.1 - this array will have multiple elements."
         },
         "childSubtreeAvailability": {
             "allOf": [
@@ -64,7 +64,7 @@
                 "$ref": "propertyTable.schema.json"
             },
             "minItems": 1,
-            "description": "An array of property tables containing content metadata. If the tile has a single content this array will have one element; if the tile has multiple contents this array will have multiple elements (see `3DTILES_multiple_contents`). Tile metadata only exists for available contents and is tightly packed by increasing tile index. To access individual content metadata, implementations may create a mapping from tile indices to content metadata indices."
+            "description": "An array of property tables containing content metadata. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by EXT_multiple_contents or 3D Tiles 1.1 - this array will have multiple elements. Tile metadata only exists for available contents and is tightly packed by increasing tile index. To access individual content metadata, implementations may create a mapping from tile indices to content metadata indices."
         },
         "subtreeMetadata": {
             "allOf": [
