@@ -10,7 +10,7 @@
         }
     ],
     "properties": {
-        "accessor": {
+        "bitstream": {
             "description": "Index of an accessor that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [3D Metadata specification](../../specification/Metadata). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The availability bits are packed into an array of bytes; the accessor `componentCount` must be 1, the accessor `componentType` must be `UINT8`, and the accessor `count` must be equal to `ceil(availableCount / 8)`.",
             "type": "integer",
             "minimum": 0
@@ -44,7 +44,7 @@
     "oneOf": [
         {
             "required": [
-                "accessor"
+                "bitstream"
             ]
         },
         {
