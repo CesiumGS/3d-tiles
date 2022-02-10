@@ -49,7 +49,6 @@ This extension is required, meaning it must be placed in both the `extensionsUse
   - [Buffers and Buffer Views](#buffers-and-buffer-views)
   - [Availability Packing](#availability-packing)
 - [Glossary](#glossary)
-- [Revision History](#revision-history)
 - [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
 
 ## Overview
@@ -418,26 +417,6 @@ Availability bitstreams are packed in binary using the format described in the [
 * **tile** - A division of space that may contain content.
 * **tileset** - A hierarchical collection of tiles.
 * **tileset JSON** - A JSON file describing a tileset, as defined in the [3D Tiles specification](../../specification#tileset-json).
-
-## Revision History
-
-* **Version 0.0.0** November 2021
-  * Initial draft
-* **Version 1.0.0** February, 2022
-  * Changed `maximumLevel` to `availableLevels`. Note that `maximumLevel` is an index whereas `availableLevels` is a length; `availableLevels` is equivalent to `maximumLevel + 1`.
-  * Content availability for multiple contents is now provided by the `contentAvailability` property instead of a separate `3DTILES_multiple_contents` extension. `contentAvailability` is now an array.
-  * Tile metadata is now provided by the `tileMetadata` property instead of a separate `3DTILES_metadata` extension.
-  * Content metadata is now provided by the `contentMetadata` property. Each array element is a property table containing metadata about available content.
-  * Subtree metadata is now provided by the `subtreeMetadata` object. Subtree metadata is encoded in JSON.
-  * Removed `bufferViews` and added `accessors`. Accessors provide typed views over a buffer. See [accessor.schema.json](schema/subtree/accessor.schema.json) for more details.
-  * Updates to property tables
-    * Renamed `bufferView` to `values`. `values` now points to an accessor.
-    * Renamed `stringOffsetBufferView` to `stringOffsets`. `stringOffsets` now points to an accessor. Removed `stringOffsetType`.
-    * Renamed `arrayOffsetBufferView` to `arrayOffsets`. `arrayOffsets` now points to an accessor. Removed `arrayOffsetType`.
-    * Added `offset` and `scale` which are used to transform property values into a different range. When present, these override the class property's `offset` and `scale`.
-  * Updates to availability
-    * Renamed `bufferView` to `bitstream`. `bitstream` now points to an accessor.
-  * Added JSON subtree format
 
 ## Appendix A: Availability Indexing
 

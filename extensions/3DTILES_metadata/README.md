@@ -55,7 +55,6 @@ This extension is optional, meaning it should be placed in the tileset JSON `ext
   - [Content Group Properties](#content-group-properties)
   - [Content Feature Properties](#content-feature-properties)
 - [Schema](#schema-1)
-- [Revision History](#revision-history)
 
 ## Overview
 
@@ -566,53 +565,3 @@ While `3DTILES_metadata` and `EXT_mesh_features` are defined independently, both
 * [tileset.3DTILES_metadata.schema.json](./schema/tileset.3DTILES_metadata.schema.json)
 * [tile.3DTILES_metadata.schema.json](./schema/tile.3DTILES_metadata.schema.json)
 * [content.3DTILES_metadata.schema.json](./schema/content.3DTILES_metadata.schema.json)
-
-## Revision History
-
-* **Version 0.0.0** November 6, 2020
-  * Initial draft
-* **Version 1.0.0** February 25, 2021
-  * Changes to properties
-    * Removed `FLOAT16` type
-    * Removed `BLOB` type and `blobByteLength` property
-    * Removed `stringByteLength` property
-    * Added optional `semantic` property
-    * Added enum support. Added `ENUM` to `type` and `componentType` and added `enumType` property.
-    * `min` and `max` are now numbers instead of single-element arrays for non-`ARRAY` properties
-  * Changes to `3DTILES_metadata` extension object
-    * Added `schema` which contains `classes` and `enums`
-    * Added `schemaUri` which refers to an external schema JSON file
-    * Added `groups` which contain metadata about groups of content. Contents are assigned to groups with the `3DTILES_metadata` content extension.
-    * Added `statistics` which provide aggregate information about select properties within a tileset.
-  * Added tile metadata. A tile may specify its class and property values with the `3DTILES_metadata` tile extension object.
-  * Added support for tile metadata in the `3DTILES_implicit_tiling` extension. Tile metadata may be provided for each subtree in binary.
-* **Version 2.0.0** October 2021
-  * Removed `optional` and added `required`. Properties are now assumed to be optional unless `required` is true.
-  * Added `noData` for specifying a sentinel value that indicates missing data
-  * Removed `default`
-  * `NaN` and `Infinity` are now explicitly disallowed as property values
-  * Relaxed buffer view alignment to component size, rather than strict 8-byte boundaries
-  * Added vector and matrix types: `VEC2`, `VEC3`, `VEC4`, `MAT2`, `MAT3`, `MAT4`
-  * Refactored `type` and `componentType` to avoid overlap. Properties that store a single value now have a `type` of `SINGLE` and a `componentType` of the desired type (e.g. `type: "SINGLE", componentType: "UINT8"`)
-  * Class IDs, enum IDs, property IDs, and group IDs must now contain only alphanumeric and underscore characters
-  * Split `offsetType` into `arrayOffsetType` and `stringOffsetType`
-  * Removed incomplete styling section
-  * Recommend "_*" prefix for application-specific summary statistics
-  * Renamed `min` and `max` summary statistics to `minimum` and `maximum`
-  * Removed `name` and `description` from entity schemas. Entities should use properties with equivalent semantics instead.
-  * Added `id` to schema object
-* **Version 3.0.0** February 2022
-  * Updates to class properties
-    * `type` is required and must be one of the following: `SCALAR`, `VEC2`, `VEC3`, `VEC4`, `MAT2`, `MAT3`, `MAT4`, `STRING`, `BOOLEAN`, `ENUM`
-    * `componentType` is required for scalar, vector, and matrix types and must be one of the following: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, `UINT64`, `FLOAT32`, `FLOAT64`
-    * Arrays are now distinct from the type system
-      * Removed `ARRAY` type. Removed `componentCount`. Added `count` and `hasFixedCount`.
-      * To indicate that a property is a single element, `count` must be 1 and `hasFixedCount` must be true. Since these are the default values `count` and `hasFixedCount` may be omitted.
-      * To indicate that a property is a fixed-length array, `count` must be greater than 1 and `hasFixedCount` must be true. Since true is the default value `hasFixedCount` may be omitted.
-      * To indicate that a property is a variable-length array, `hasFixedCount` must be false and `count` may be omitted.
-      * Arrays of vectors and matrices are now supported
-    * Added `offset` and `scale` which are used to transform property values into a different range
-    * Added back `default`
-  * Removed content groups. This feature may be added back in a future extension.
-  * Added content metadata. A content may specify its class and property values with the `3DTILES_metadata` content extension object.
-  * Removed the implicit tiling `3DTILES_metadata` extension. Tile metadata is now provided by the `tileMetadata` subtree property.

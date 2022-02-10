@@ -77,13 +77,3 @@ Semantic|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 `CONTENT_HORIZON_OCCLUSION_POINT`<sup>1</sup>|<ul><li>Type: `VEC3`</li><li>Component type: `FLOAT32` or `FLOAT64`</li></ul>|The horizon occlusion point of the content of a tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire content is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information.
 
 <small><sup>1</sup>`TILE_HORIZON_OCCLUSION_POINT` should account for all content in a tile and its descendants, whereas `CONTENT_HORIZON_OCCLUSION_POINT` should only account for content in a tile. When the two values are equivalent, only `TILE_HORIZON_OCCLUSION_POINT` should be specified.</small>
-
-## Revision History
-
-* **Version 1.0.0** February 25, 2021
-  * Initial draft
-* **Version 2.0.0** October 2021
-  * Reorganize document to distinguish general and 3D Tiles-specific semantics
-  * Added clarification for units of distance and angles
-  * Added `DESCRIPTION` semantic
-  * Changed `TILE_HORIZON_OCCLUSION_POINT` and `CONTENT_HORIZON_OCCLUSION_POINT` type from `ARRAY` to `VEC3`
