@@ -19,7 +19,7 @@
             "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. Required properties must be included in this dictionary.",
             "minProperties": 1,
             "additionalProperties": {
-                "$ref": "definitions.schema.json/#/definitions/anyValue"
+                "$ref": "definitions.schema.json#/definitions/anyValue"
             }
         },
         "extensions": {},
