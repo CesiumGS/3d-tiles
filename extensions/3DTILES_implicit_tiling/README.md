@@ -429,7 +429,7 @@ Availability bitstreams are packed in binary using the format described in the [
   * Tile metadata is now provided by the `tileMetadata` property instead of a separate `3DTILES_metadata` extension.
   * Content metadata is now provided by the `contentMetadata` property. Each array element is a property table containing metadata about available content.
   * Subtree metadata is now provided by the `subtreeMetadata` object. Subtree metadata is encoded in JSON.
-  * Removed `bufferViews` and added `accessors`. Accessors provide typed views over a buffer. See [accessor.schema.json](schema/accessor.schema.json) for more details.
+  * Removed `bufferViews` and added `accessors`. Accessors provide typed views over a buffer. See [accessor.schema.json](schema/subtree/accessor.schema.json) for more details.
   * Updates to property tables
     * Renamed `bufferView` to `values`. `values` now points to an accessor.
     * Renamed `stringOffsetBufferView` to `stringOffsets`. `stringOffsets` now points to an accessor. Removed `stringOffsetType`.
