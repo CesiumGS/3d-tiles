@@ -35,6 +35,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 - [Concepts](#concepts)
   - [Metadata Groups](#metadata-groups)
   - [Implicit Tiling](#implicit-tiling)
+- [Revision History](#revision-history)
 
 
 ## Overview
@@ -339,3 +340,9 @@ Example tileset JSON:
 }
 ```
 
+## Revision History
+
+* **Version 0.0.0** November 2021
+  * Initial draft
+* **Version 1.0.0** February, 2022
+  * Removed the implicit tiling `3DTILES_multiple_contents` extension. Content availability for multiple contents is now provided by the `contentAvailability` subtree property.
