@@ -437,6 +437,7 @@ Availability bitstreams are packed in binary using the format described in the [
     * Added `offset` and `scale` which are used to transform property values into a different range. When present, these override the class property's `offset` and `scale`.
   * Updates to availability
     * Renamed `bufferView` to `bitstream`. `bitstream` now points to an accessor.
+  * Added JSON subtree format
 
 ## Appendix A: Availability Indexing
 
