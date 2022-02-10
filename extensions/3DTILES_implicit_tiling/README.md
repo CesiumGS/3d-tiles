@@ -435,7 +435,7 @@ Availability bitstreams are packed in binary using the format described in the [
     * Renamed `stringOffsetBufferView` to `stringOffsets`. `stringOffsets` now points to an accessor. Removed `stringOffsetType`.
     * Renamed `arrayOffsetBufferView` to `arrayOffsets`. `arrayOffsets` now points to an accessor. Removed `arrayOffsetType`.
     * Added `offset` and `scale` which are used to transform property values into a different range. When present, these override the class property's `offset` and `scale`.
-  * Updates to availability:
+  * Updates to availability
     * Renamed `bufferView` to `bitstream`. `bitstream` now points to an accessor.
 
 ## Appendix A: Availability Indexing
