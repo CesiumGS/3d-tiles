@@ -11,113 +11,64 @@
     ],
     "properties": {
         "min": {
-            "oneOf": [
+            "allOf": [
                 {
-                    "type": "number"
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    },
-                    "minItems": 1
+                    "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The minimum property value occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise minimum values. The `normalized` property has no effect on the minimum, which always contains integer values."
+            "description": "The minimum property value occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the minimum, it always corresponds to the actual value."
         },
         "max": {
-            "oneOf": [
+            "allOf": [
                 {
-                    "type": "number"
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    },
-                    "minItems": 1
+                    "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The maximum property value occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise maximum values. The `normalized` property has no effect on the maximum, which always contains integer values."
+            "description": "The maximum property value occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the maximum, it always corresponds to the actual value."
         },
         "mean": {
-            "oneOf": [
+            "allOf": [
                 {
-                    "type": "number"
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    },
-                    "minItems": 1
+                    "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The arithmetic mean of property values occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise mean values. The `normalized` property has no effect on the mean, which always contains integer values."
+            "description": "The arithmetic mean of property values occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the mean, it always corresponds to the actual value."
         },
         "median": {
-            "oneOf": [
+            "allOf": [
                 {
-                    "type": "number"
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    },
-                    "minItems": 1
+                    "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The median of property values occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise median values. The `normalized` property has no effect on the median, which always contains integer values."
+            "description": "The median of property values occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the median, it always corresponds to the actual value."
         },
         "standardDeviation": {
-            "oneOf": [
+            "allOf": [
                 {
-                    "type": "number"
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    },
-                    "minItems": 1
+                    "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The standard deviation of property values occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise standard deviation values. The `normalized` property has no effect on the standard deviation, which always contains integer values."
+            "description": "The standard deviation of property values occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the standard deviation, it always corresponds to the actual value."
         },
         "variance": {
-            "oneOf": [
+            "allOf": [
                 {
-                    "type": "number"
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    },
-                    "minItems": 1
+                    "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The variance of property values occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise variance values. The `normalized` property has no effect on the variance, which always contains integer values."
+            "description": "The variance of property values occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the variance, it always corresponds to the actual value."
         },
         "sum": {
-            "oneOf": [
+            "allOf": [
                 {
-                    "type": "number"
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    },
-                    "minItems": 1
+                    "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The sum of property values occurring in the tileset. Only applicable for single-value numeric types, fixed-length arrays of numeric types, `VECN`, and `MATN` types. For single-value numeric types this is a single number. For fixed-length arrays, `VECN`, and `MATN` types, this is an array of component-wise sum values. The `normalized` property has no effect on the sum, which always contains integer values."
+            "description": "The sum of property values occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the sum, it always corresponds to the actual value."
         },
         "occurrences": {
             "type": "object",
-            "description": "A dictionary, where each key corresponds to an enum `name` and each value is the number of occurrences of that enum. Only applicable when `componentType` is `ENUM`. For fixed-length arrays, this is an array of component-wise occurrences.",
+            "description": "A dictionary, where each key corresponds to an enum `name` and each value is the number of occurrences of that enum. Only applicable when `type` is `ENUM`. For fixed-length arrays, this is an array of component-wise occurrences.",
             "minProperties": 1,
             "additionalProperties": {
                 "oneOf": [

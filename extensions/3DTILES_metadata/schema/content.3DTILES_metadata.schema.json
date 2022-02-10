@@ -1,0 +1,18 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "content.3DTILES_metadata.schema.json",
+    "title": "3DTILES_metadata tile content extension",
+    "type": "object",
+    "description": "An object containing metadata about content. This extension must not be added to tiles using the `3DTILES_implicit_tiling` extension since content metadata is provided separately in the subtrees.",
+    "allOf": [
+        {
+            "$ref": "metadataEntity.schema.json"
+        }
+    ],
+    "properties": {
+        "class": {},
+        "properties": {},
+        "extensions": {},
+        "extras": {}
+    }
+}

@@ -73,7 +73,6 @@
   * Group IDs must now contain only alphanumeric and underscore characters
   * Removed incomplete styling section
   * Recommend `_*` prefix for application-specific summary statistics
-  * Renamed `min` and `max` summary statistics to `minimum` and `maximum`
   * Removed `name` and `description` from entity schemas. Entities should use properties with equivalent semantics instead.
 * Updated `3DTILES_implicit_tiling` extension
   * Updated to draft version `1.0.0`
@@ -115,6 +114,7 @@
     * Arrays of vectors and matrices are now supported
   * Added `offset` and `scale` which are used to transform property values into a different range. Useful for quantized property values.
   * Added back `default`
+  * Schema `id` property is now required
 * Updated property table definition
   * Renamed `bufferView` to `values`. `values` now points to an accessor.
   * Renamed `stringOffsetBufferView` to `stringOffsets`. `stringOffsets` now points to an accessor. Removed `stringOffsetType`.
