@@ -31,14 +31,6 @@
             ],
             "description": "An object containing statistics about entities."
         },
-        "groups": {
-            "type": "object",
-            "description": "A dictionary, where each key is a group ID and each value is an object defining the group. Group IDs may contain only alphanumeric and underscore characters",
-            "minProperties": 1,
-            "additionalProperties": {
-                "$ref": "group.schema.json"
-            }
-        },
         "tileset": {
             "allOf": [
                 {
