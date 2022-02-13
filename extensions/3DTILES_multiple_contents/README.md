@@ -23,9 +23,19 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 ## Overview
 
+<<<<<<< HEAD
 This extension allows storing more than one content per tile, and in effect, per single volume of space. Contents can be organized in various ways — e.g. as map layers or arbitrary groupings — which becomes particularly useful when combined with content metadata defined by [3DTILES_metadata](../3DTILES_metadata).
 
 When this extension is used the tile's `content` property must be omitted.
+=======
+This extension allows storing more than one content per tile, and in effect, per single volume of space. Contents can be organized in various ways — e.g. as map layers or arbitrary groupings — which becomes particularly useful when combined with content group metadata defined by [3DTILES_metadata](../3DTILES_metadata).
+
+Groups of contents can be used for selectively showing content or applying custom styling. Besides styling, groups can also be used to filter out unused content resources to reduce bandwidth usage.
+
+When this extension is used the tile's `content` property must be omitted.
+
+<img src="figures/filtering-groups.jpg" width="700" />
+>>>>>>> implicit-revisions
 
 
 ```jsonc
@@ -44,6 +54,12 @@ When this extension is used the tile's `content` property must be omitted.
           },
           {
             "uri": "trees.i3dm"
+<<<<<<< HEAD
+=======
+          },
+          {
+            "uri": "cars.i3dm"
+>>>>>>> implicit-revisions
           }
         ]
       }
