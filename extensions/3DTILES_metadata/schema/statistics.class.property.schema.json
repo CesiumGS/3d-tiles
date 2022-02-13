@@ -16,7 +16,7 @@
                     "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The minimum property value occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the minimum, it always corresponds to the actual value."
+            "description": "The minimum property value occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the minimum, it always corresponds to the actual value."
         },
         "max": {
             "allOf": [
@@ -24,7 +24,7 @@
                     "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The maximum property value occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the maximum, it always corresponds to the actual value."
+            "description": "The maximum property value occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the maximum, it always corresponds to the actual value."
         },
         "mean": {
             "allOf": [
@@ -32,7 +32,7 @@
                     "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The arithmetic mean of property values occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the mean, it always corresponds to the actual value."
+            "description": "The arithmetic mean of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the mean, it always corresponds to the actual value."
         },
         "median": {
             "allOf": [
@@ -40,7 +40,7 @@
                     "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The median of property values occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the median, it always corresponds to the actual value."
+            "description": "The median of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the median, it always corresponds to the actual value."
         },
         "standardDeviation": {
             "allOf": [
@@ -48,7 +48,7 @@
                     "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The standard deviation of property values occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the standard deviation, it always corresponds to the actual value."
+            "description": "The standard deviation of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the standard deviation, it always corresponds to the actual value."
         },
         "variance": {
             "allOf": [
@@ -56,7 +56,7 @@
                     "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The variance of property values occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the variance, it always corresponds to the actual value."
+            "description": "The variance of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the variance, it always corresponds to the actual value."
         },
         "sum": {
             "allOf": [
@@ -64,7 +64,7 @@
                     "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "The sum of property values occurring in the tileset. Only applicable for `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the sum, it always corresponds to the actual value."
+            "description": "The sum of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the sum, it always corresponds to the actual value."
         },
         "occurrences": {
             "type": "object",

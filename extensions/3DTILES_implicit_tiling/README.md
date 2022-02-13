@@ -86,7 +86,7 @@ The `3DTILES_implicit_tiling` extension may be defined on any tile in the tilese
         "availableLevels": 21,
         "subtreeLevels": 7,
         "subtrees": {
-          "uri": "subtrees/{level}/{x}/{y}.subtree"
+          "uri": "subtrees/{level}/{x}/{y}.json"
         },
       }
     }
@@ -311,12 +311,7 @@ A subtree file contains availability and metadata for a single subtree. The subt
 > {
 >   "buffers": [
 >     {
->       "name": "Internal Buffer",
->       "byteLength": 16
->     },
->     {
->       "name": "External Buffer",
->       "uri": "external.bin",
+>       "uri": "availability.bin",
 >       "byteLength": 32
 >     }
 >   ],
@@ -324,12 +319,14 @@ A subtree file contains availability and metadata for a single subtree. The subt
 >     {
 >       "buffer": 0,
 >       "byteOffset": 0,
->       "byteLength": 11
+>       "componentType": "UINT8",
+>       "count": 11
 >     },
 >     {
 >       "buffer": 1,
 >       "byteOffset": 0,
->       "byteLength": 32
+>       "componentType": "UINT8",
+>       "count": 32
 >     }
 >   ],
 >   "tileAvailability": {
@@ -401,7 +398,7 @@ Tiles may contain more than one content entity (see: [`3DTILES_multiple_contents
 >         "subtreeLevels": 10,
 >         "maximumLevel": 16,
 >         "subtrees": {
->           "uri": "subtrees/{level}/{x}/{y}.subtree"
+>           "uri": "subtrees/{level}/{x}/{y}.json"
 >         }
 >       }
 >     }
