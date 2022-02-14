@@ -10,6 +10,10 @@
         }
     ],
     "properties": {
+        "group": {
+            "type": "string",
+            "description": "The group this content belongs to. The value must correspond to a group ID declared in the `groups` dictionary."
+        },
         "class": {},
         "properties": {},
         "extensions": {},

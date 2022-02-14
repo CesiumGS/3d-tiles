@@ -124,7 +124,6 @@
 * Updated `3DTILES_metadata` extension
   * Updated to draft version `3.0.0`
   * Updated schema definition. See notes above.
-  * Removed content groups. This feature may be added back in a future extension.
   * Added content metadata. A content may specify its class and property values with the `3DTILES_metadata` content extension object.
   * Removed the implicit tiling `3DTILES_metadata` extension. Tile metadata is now provided by the `tileMetadata` subtree property.
 * Updated `3DTILES_implicit_tiling` extension
