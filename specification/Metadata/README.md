@@ -83,8 +83,9 @@ Many domains benefit from structured metadata — typical examples include histo
 
 The specification defines core concepts to be used by multiple 3D formats, and is language and format agnostic. This document defines concepts with purpose and terminology, but does not impose a particular schema or serialization format for implementation. For use of the format outside of abstract conceptual definitions, see:
 
-* [`3DTILES_metadata`](../../extensions/3DTILES_metadata) (3D Tiles 1.0) — Assigns metadata to tilesets, tiles, or contents
-* [`EXT_structural_metadata`](TODO) (glTF 2.0) —  Assigns metadata to subcomponents ("features") of geometry or textures
+* [`3DTILES_metadata`](../../extensions/3DTILES_metadata) (3D Tiles 1.0) — Assigns metadata to tilesets, tiles, groups, and contents
+* [`EXT_structural_metadata`](TODO) (glTF 2.0) —  Assigns metadata to vertices, texels, and features in a glTF asset
+* [3D Tiles 1.1](TODO)
 
 The specification does not enumerate or define the semantic meanings of metadata, and assumes that separate specifications will define semantics for their particular application or domain. One example is the [3D Metadata Semantic Reference](./Semantics/) which defines built-in semantics for 3D Tiles and glTF. Identifiers for externally-defined semantics can be stored within the 3D Metadata Specification.
 
@@ -150,12 +151,12 @@ An enum consists of a set of named values, represented as `(string, integer)` pa
 > - **Name:** "Species"
 > - **Description:** "Common tree species identified in the study."
 >
-> | name      | value |
-> |-----------|------:|
-> | "Oak"     |     0 |
-> | "Pine"    |     1 |
-> | "Maple"   |     2 |
-> | "Unknown" |    -1 |
+> | name        | value   |
+> |-------------|---------|
+> | `"Oak"`     |     `0` |
+> | `"Pine"`    |     `1` |
+> | `"Maple"`   |     `2` |
+> | `"Unknown"` |    `-1` |
 
 #### ID
 
@@ -171,7 +172,7 @@ Descriptions (`description`) provide a human-readable explanation of an enum, it
 
 #### Values
 
-An enum consists of a set of named values, represented as `(string, integer)` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the [Type](#type) section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
+An enum consists of a set of named values, represented as `(string, integer)` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the [Component Type](#component-type) section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
 
 ***
 
@@ -209,14 +210,15 @@ Properties describe the type and structure of values that may be associated with
 >
 > | property | type     | componentType |
 > |----------|----------|---------------|
-> | height   | "SCALAR" | "FLOAT32"     |
+> | height   | `SCALAR` | `FLOAT32`     |
+>
 > **tree**
 >
-> | property  | type     | componentType |
-> |-----------|----------|---------------|
-> | height    | "SCALAR" | "FLOAT32"     |
-> | species   | "ENUM"   |               |
-> | leafColor | "STRING" |               |
+> | property  | type     | componentType | enumType   |
+> |-----------|----------|---------------|------------|
+> | height    | `SCALAR` | `FLOAT32`     |            |
+> | species   | `ENUM`   |               | `species`  |
+> | leafColor | `STRING` |               |            |
 
 #### ID
 
@@ -244,13 +246,13 @@ A property's type (`type`) describes the structure of the value given for each e
 
 | name    | type                                                  |
 |---------|-------------------------------------------------------|
-| SCALAR  | Single-component scalar                               |
+| SCALAR  | Single numeric component                              |
 | VEC2    | Fixed-length vector with two (2) numeric components   |
 | VEC3    | Fixed-length vector with three (3) numeric components |
 | VEC4    | Fixed-length vector with four (4) numeric components  |
-| MAT2    | 2x2 matrix in column-major order                      |
-| MAT3    | 3x3 matrix in column-major order                      |
-| MAT4    | 4x4 matrix in column-major order                      |
+| MAT2    | 2x2 matrix                                            |
+| MAT3    | 3x3 matrix                                            |
+| MAT4    | 4x4 matrix                                            |
 | STRING  | A sequence of characters                              |
 | BOOLEAN | True or false                                         |
 | ENUM    | An enumerated type                                    |
@@ -329,17 +331,17 @@ Individual elements in an array or individual components in a vector or matrix c
 
 Properties may optionally specify a No Data value (`noData`, or "sentinel value") to be used when property values do not exist. This value must match the property definition, e.g. if `type` is `SCALAR` and `componentType` is `UINT8` the `noData` value must be an unsigned integer in the range `[0, 255]` and if `type` is `VEC3` and `componentType` is `FLOAT32` the value must be an array-typed value with three floats. If the property is a fixed-length array the value must be an array with elements corresponding to the given `type` and `componentType`. The property's `normalized`, `scale` and `offset` attributes have no affect on the value. A `noData` value may be provided for any `type` except `BOOLEAN`. For `ENUM` types, a `noData` value should contain the name of the enum value as a string, rather than its integer value.
 
-No Data values are especially useful when only some entities in a property table are missing property values (see [Binary Table Format](#binary-table-format)). Otherwise if all entities are missing property values the column may be omitted from the table and a `noData` value need not be provided. Similarly, missing properties may be omitted instead of assigned a `noData` value when using the [JSON Format](#json-format). `noData` values and omitted properties are functionally equivalent.
+`noData` values are especially useful when only some entities in a property table are missing property values (see [Binary Table Format](#binary-table-format)). Otherwise if all entities are missing property values the column may be omitted from the table and a `noData` value need not be provided. Entities encoded in the [JSON Format](#json-format) may omit the property instead of providing a `noData` value. `noData` values and omitted properties are functionally equivalent.
 
 A default value (`defaultValue`) may be provided for missing property values. This value must match the property definition and may be provided for any `type`. For `ENUM` types, a `noData` value should contain the name of the enum value as a string, rather than its integer value. If a default value is not provided, the behavior when encountering missing property values is implementation-defined.
 
 > **Example:** In the example below, a "tree" class is defined with `noData` indicating a specific enum value to be interpreted as missing data.
 >
-> | property  | componentType | required | noData    |
-> |:----------|:--------------|:---------|:----------|
-> | height    | "FLOAT32"     | ✓        |           |
-> | species   | "ENUM"        |          | "Unknown" |
-> | leafColor | "STRING"      | ✓        |           |
+> | property  | componentType   | required | noData      |
+> |-----------|-----------------|----------|-------------|
+> | height    | `FLOAT32`       | ✓        |             |
+> | species   | `ENUM`          |          | `"Unknown"` |
+> | leafColor | `STRING`        | ✓        |             |
 
 ## Storage Formats
 
@@ -449,11 +451,11 @@ For each case below, the offset of an array element `i` within its binary storag
 
 Each expression in the table above defines an index into the underlying property array. For a property array of `FLOAT32` elements, index `3` would correspond to <u>_byte_</u> offset `3 * sizeof(FLOAT32) = 12` within that array. For an array of `BOOLEAN` components, offset `3` would correspond to <u>_bit_</u> offset `3`.
 
-> **Example:** Five variable-length arrays of UINT8 components, binary-encoded in a buffer. The associated property definition would be `type = "SCALAR"`, and `componentType = "UINT8"`, `hasFixedCount = false` (variable-length).
+> **Example:** Five variable-length arrays of UINT8 components, binary-encoded in a buffer. The associated property definition would be `type = "SCALAR"`, `componentType = "UINT8"`, and `count = undefined` (variable-length).
 >
 > <img src="figures/array-of-ints.png"  alt="Variable-length array" width="640px">
 
-> **Example:** Two variable-length arrays of strings, binary-encoded in a buffer. The associated property definition would be `type = "STRING"`, `hasFixedCount = false` (variable-length). Observe that the last element of the array offset buffer points to the last element of the string offset buffer. This is because the last valid string offset is the next-to-last element of the string offset buffer.
+> **Example:** Two variable-length arrays of strings, binary-encoded in a buffer. The associated property definition would be `type = "STRING"` and `count = undefined` (variable-length). Observe that the last element of the array offset buffer points to the last element of the string offset buffer. This is because the last valid string offset is the next-to-last element of the string offset buffer.
 >
 > ![Variable-length array of string](figures/array-of-strings.png)
 
@@ -475,20 +477,20 @@ Each entity is represented as a JSON object with its `class` identified by a str
 > | `"Enum B"` | `1`   |
 > | `"Enum C"` | `2`   |
 >
-> _A class, "basicClass", composed of eight properties. `stringArrayProperty` count is undefined and therefore variable._
+> _A class, "basicClass", composed of ten properties. `stringArrayProperty` count is undefined and therefore variable-length._
 >
-> | id                  | type        | componentType | count | enumType      | required |
-> |---------------------|-------------|---------------|-------|---------------|----------|
-> | floatProperty       | `"SCALAR"`  | `"FLOAT64"`   | `1`   |               | ✓        |
-> | integerProperty     | `"SCALAR"`  | `"INT32"`     | `1`   |               | ✓        |
-> | vectorProperty      | `"VEC2"`    | `"FLOAT32"`   | `1`   |               | ✓        |
-> | floatArrayProperty  | `"SCALAR"`  | `"FLOAT32"`   | `3`   |               | ✓        |
-> | vectorArrayProperty | `"VEC2"`    | `"FLOAT32"`   | `2`   |               | ✓        |
-> | booleanProperty     | `"BOOLEAN"` |               | `1`   |               | ✓        |
-> | stringProperty      | `"STRING"`  |               | `1`   |               | ✓        |
-> | enumProperty        | `"ENUM"`    |               | `1`   | `"basicEnum"` | ✓        |
-> | stringArrayProperty | `"STRING"`  |               |       |               | ✓        |
-> | optionalProperty    | `"STRING"`  |               | `1`   |               |          |
+> | id                  | type      | componentType | count | enumType    | required |
+> |---------------------|-----------|---------------|-------|-------------|----------|
+> | floatProperty       | `SCALAR`  | `FLOAT64`     | `1`   |             | ✓        |
+> | integerProperty     | `SCALAR`  | `INT32`       | `1`   |             | ✓        |
+> | vectorProperty      | `VEC2`    | `FLOAT32`     | `1`   |             | ✓        |
+> | floatArrayProperty  | `SCALAR`  | `FLOAT32`     | `3`   |             | ✓        |
+> | vectorArrayProperty | `VEC2`    | `FLOAT32`     | `2`   |             | ✓        |
+> | booleanProperty     | `BOOLEAN` |               | `1`   |             | ✓        |
+> | stringProperty      | `STRING`  |               | `1`   |             | ✓        |
+> | enumProperty        | `ENUM`    |               | `1`   | `basicEnum` | ✓        |
+> | stringArrayProperty | `STRING`  |               |       |             | ✓        |
+> | optionalProperty    | `STRING`  |               | `1`   |             |          |
 >
 > _A single entity encoded in JSON. Note that the optional property is omitted in this example._
 > ```jsonc
