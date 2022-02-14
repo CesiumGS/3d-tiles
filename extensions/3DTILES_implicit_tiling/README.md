@@ -48,11 +48,6 @@ This extension is required, meaning it must be placed in both the `extensionsUse
     - [Content Metadata](#content-metadata)
     - [Subtree Metadata](#subtree-metadata)
 - [Subtree File Format](#subtree-file-format)
-  - [Buffers and Buffer Views](#buffers-and-buffer-views)
-  - [Availability Packing](#availability-packing)
-- [Multiple contents](#multiple-contents)
-- [Subtree File Format](#subtree-file-format-1)
-  - [Binary Format](#binary-format)
 - [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
 
 ## Overview
@@ -64,6 +59,8 @@ Implicit tiling also allows for better interoperability with existing GIS data f
 In order to support sparse datasets, **availability** data determines which tiles exist. To support massive datasets, availability is partitioned into fixed-size **subtrees**. Subtrees may store **metadata** for available tiles and content.
 
 The `3DTILES_implicit_tiling` extension may be added to any tile in the tileset. The extension object defines how the tile is subdivided and where to locate content resources. The extension may be added to multiple tiles to create more complex subdivision schemes like double-headed quadtrees.
+
+[TODO: diagram for double-headed quadtree and for implicit tiling as a whole]
 
 ## Tile Extension
 
@@ -291,7 +288,7 @@ The `TILE_GEOMETRIC_ERROR` semantic allows tiles to provide a geometric error th
 
 #### Content Metadata
 
-Subtrees may also store metadata for tile content. Content metadata exists only for available content and is tightly packed by increasing tile index. Binary property values are encoded in a compact [*Binary Table Format*](../../specification/Metadata/README.md#binary-table-format) defined by the 3D Metadata Specification and are stored in a property table. If the implicit root tile has multiple contents — as supported by `EXT_multiple_contents` — content metadata is stored in multiple property tables.
+Subtrees may also store metadata for tile content. Content metadata exists only for available content and is tightly packed by increasing tile index. Binary property values are encoded in a compact [*Binary Table Format*](../../specification/Metadata/README.md#binary-table-format) defined by the 3D Metadata Specification and are stored in a property table. If the implicit root tile has multiple contents — as supported by `EXT_multiple_contents` and 3D Tiles 1.1 — content metadata is stored in multiple property tables.
 
 Content bounding volumes can be provided by content metadata semantics such as `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, `CONTENT_BOUNDING_SPHERE`, `CONTENT_MINIMUM_HEIGHT`, and `CONTENT_MAXIMUM_HEIGHT`.
 
@@ -304,187 +301,6 @@ Properties assigned to subtrees provide metadata about the subtree as a whole. S
 🚧 In progress 🚧
 
 _Defined in [subtree.schema.json](schema/subtree/subtree.schema.json)._
-
-A subtree file contains availability and metadata for a single subtree. The subtree JSON describes how this data is stored.
-
-> **Example:** The JSON description of a subtree where each tile is available, but not all tiles have content, and not all child subtrees are available:
-> 
-> ```json
-> {
->   "buffers": [
->     {
->       "uri": "availability.bin",
->       "byteLength": 32
->     }
->   ],
->   "accessors": [
->     {
->       "buffer": 0,
->       "byteOffset": 0,
->       "componentType": "UINT8",
->       "count": 11
->     },
->     {
->       "buffer": 1,
->       "byteOffset": 0,
->       "componentType": "UINT8",
->       "count": 32
->     }
->   ],
->   "tileAvailability": {
->     "constant": 1,
->   },
->   "contentAvailability": {
->     "bufferView": 0
->   },
->   "childSubtreeAvailability": {
->     "bufferView": 1
->   }
-> }
-> ```
->
-> The tile availability can be encoded by setting `tileAvailability.constant` to `1`, without needing an explicit bitstream, because all tiles in the subtree are available.
-> 
-> Only some tiles have content, and `contentAvailability.bufferView` indicates where the bitstream for the content availability is stored: The `bufferView` with index 0 refers to the `buffer` with index 0. This buffer does not have a `uri` property, and therefore refers to the _internal_ buffer that is stored directly in the binary chunk of the subtree file. The `byteOffset` and `byteLength` indicate that the content availability bitstream is stored in the bytes `[0...11)` of the internal buffer.
->
-> Some child subtrees exist, so `childSubtreeAvailability.bufferView` refers to another bitstream. The `bufferView` with index 1 refers to the buffer with index `1`. This buffer has a `uri` property, indicating that this second bitstream is stored in an external binary file.
-
-### Buffers and Buffer Views
-
-A **buffer** is a binary blob. A single buffer can be stored within the binary chunk of a subtree file. This buffer is referred to as the _internal buffer_. Further (external) buffers can be stored as individual binary files that are referred to by the `buffer.uri` property. The buffers can store the availability data of a subtree in binary form, or other data that is associated with a subtree, like metadata for implicit tiles defined using the [`3DTILES_metadata` extension.](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_metadata#implicit-tile-metadata)
-
-Each buffer has a `byteLength` describing the size of the data, including any padding (for subtree binary files). 
-
-A **buffer view** is a contiguous subset of a buffer. A buffer view's `buffer` property is an integer index to identify the buffer. A buffer view has a `byteOffset` and a `byteLength` to describe the range of bytes within the buffer. The `byteLength` does not include any padding. There may be multiple buffer views referencing a single buffer.
-
-For efficient memory access, the `byteOffset` of a buffer view must be aligned to a multiple of 8 bytes.
-
-### Availability Packing
-
-Availability bitstreams are packed in binary using the format described in the [Booleans](../../specification/Metadata#booleans) section of the 3D Metadata Specification.
-
-## Multiple contents
-
-Tiles may contain more than one content entity (see: [`3DTILES_multiple_contents`](https://github.com/CesiumGS/3d-tiles/blob/main/extensions/3DTILES_multiple_contents)). In this case `contentAvailability` is provided for each element in the content array. The subtree's top-level `contentAvailability` must be omitted.
-
-> **Example:** The example below has two contents for each implicit tile. Each content provides its own template URI in the tileset JSON and its own content availability in subtrees.
-> 
-> _Tileset JSON_
-> 
-> ```jsonc
-> {
->   "root": {
->     "refine": "ADD",
->     "geometricError": 16384.0,
->     "boundingVolume": {
->       "region": [-1.707, 0.543, -1.706, 0.544, 203.895, 253.113]
->     },
->     "extensions": {
->       "3DTILES_multiple_contents": {
->         "content": [
->           {
->             "uri": "buildings/{level}/{x}/{y}.b3dm",
->           },
->           {
->             "uri": "trees/{level}/{x}/{y}.i3dm",
->           }
->         ]    
->       },
->       "3DTILES_implicit_tiling": {
->         "subdivisionScheme": "QUADTREE",
->         "subtreeLevels": 10,
->         "maximumLevel": 16,
->         "subtrees": {
->           "uri": "subtrees/{level}/{x}/{y}.json"
->         }
->       }
->     }
->   }
-> }
-> ```
->
-> _Subtree JSON_
-> 
-> ```jsonc
-> {
->   "buffers": [
->     {
->       "byteLength": 262160
->     }
->   ],
->   "bufferViews": [
->     {
->       "buffer": 0,
->       "byteLength": 43691,
->       "byteOffset": 0
->     },
->     {
->       "buffer": 0,
->       "byteLength": 131072,
->       "byteOffset": 43696
->     },
->     {
->       "buffer": 0,
->       "byteLength": 43691,
->       "byteOffset": 174768
->     },
->     {
->       "buffer": 0,
->       "byteLength": 43691,
->       "byteOffset": 218464
->     }
->   ],
->   "tileAvailability": {
->     "bufferView": 0
->   },
->   "childSubtreeAvailability": {
->     "bufferView": 1
->   },
->   "extensions": {
->     "3DTILES_multiple_contents": {
->       "contentAvailability": [
->         {
->           "bufferView": 2
->         },
->         {
->           "bufferView": 3
->         }
->       ]
->     }
->   }
-> }
-> ```
-
-
-## Subtree File Format
-
-A **subtree file** is a file that contains availability and metadata for a single subtree. A subtree file may be one of two formats:
-
-* JSON format - subtree definition in JSON, with external buffer references
-* Binary format - binary file containing a JSON section and binary section
-
-> **Informational:** similar to the distinction between glTF vs. glb. See https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#glb-file-format-specification-general for motivation.
-
-### Binary Format
-
-The binary subtree format is little-endian and consists of a 24-byte header and a variable length payload: 
-
-![Subtree Binary Format](figures/binary-subtree.jpg)
-
-Header fields:
-
-| Bytes | Field | Type     | Description |
-|-------|-------|----------|-------------|
-| 0-3   | Magic | `UINT32` | A magic number identifying this as a subtree file. This is always `0x74627573`, the four bytes of the ASCII string `subt` stored in little-endian order. |
-| 4-7   | Version | `UINT32` | The version number. Always `1` for this version of the specification. |
-| 8-15  | JSON byte length | `UINT64` | The length of the subtree JSON, including any padding. |
-| 16-23 | Binary byte length | `UINT64` | The length of the buffer (or 0 if the buffer does not exist) including any padding. |
-
-Each chunk must be padded so it ends on an 8-byte boundary:
-
-* The JSON chunk must be padded at the end with spaces (ASCII `' '` = `0x20`)
-* If it exists, the binary chunk must be padded at the end with zeros (`0x00`)
-
 
 ## Appendix A: Availability Indexing
 

@@ -44,7 +44,7 @@
     "oneOf": [
         {
             "required": [
-                "bufferView"
+                "bitstream"
             ]
         },
         {
