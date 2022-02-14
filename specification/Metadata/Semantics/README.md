@@ -11,8 +11,8 @@ Each semantic is defined in terms of its meaning, and the datatypes it may assum
 For use of semantics in extensions of specific standards, see:
 
 * [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) (3D Tiles 1.0)
-* [`3D Tiles schema`](TODO) (3D Tiles 1.1)
 * [`EXT_structural_metadata`](TODO) (glTF 2.0)
+* [3D Tiles 1.1](TODO)
 
 ## General
 
@@ -32,7 +32,7 @@ Semantic|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 
 ### Overview
 
-Semantics for 3D Tiles are assigned in relationship to a tileset, subtree, tile, or tile content, as defined by the 3D Tiles 1.1 specification. When associated with other types of entities, these semantics may have invalid or undefined meanings.
+Semantics for 3D Tiles are assigned in relationship to a tileset, subtree, tile, or tile content, as defined by the 3D Tiles specification. When associated with other types of entities, these semantics may have invalid or undefined meanings.
 
 Units for all linear distances are meters, and all angles are radians.
 
@@ -46,7 +46,7 @@ Units for all linear distances are meters, and all angles are radians.
 
 Semantic|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|Description
 --|--|--
-`TILESET_FEATURE_ID_SETS`|<ul><li>Type: `STRING`</li><li>Variable-length array</li></ul>|The union of all the feature ID sets in referenced glTF assets using the `EXT_mesh_features` extension.
+`TILESET_FEATURE_ID_SETS`|<ul><li>Type: `STRING`</li><li>Count: variable-length</li></ul>|The union of all the feature ID sets in referenced glTF assets using the [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) extension.
 
 ### Tile
 
