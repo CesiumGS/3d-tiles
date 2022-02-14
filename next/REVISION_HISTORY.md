@@ -116,10 +116,11 @@
   * Added back `default`
   * Schema `id` property is now required
 * Updated property table definition
-  * Renamed `bufferView` to `values`. `values` now points to an accessor.
-  * Renamed `stringOffsetBufferView` to `stringOffsets`. `stringOffsets` now points to an accessor. Removed `stringOffsetType`.
-  * Renamed `arrayOffsetBufferView` to `arrayOffsets`. `arrayOffsets` now points to an accessor. Removed `arrayOffsetType`.
+  * Renamed `bufferView` to `values`
+  * Renamed `stringOffsetBufferView` to `stringOffsets`
+  * Renamed `arrayOffsetBufferView` to `arrayOffsets`
   * Added `offset` and `scale` which are used to transform property values into a different range. When present, these override the class property's `offset` and `scale`.
+  * Added `min` and `max` which store the minimum and maximum property values.
 * Updated `3DTILES_metadata` extension
   * Updated to draft version `3.0.0`
   * Updated schema definition. See notes above.
@@ -134,8 +135,7 @@
   * Tile metadata is now provided by the `tileMetadata` property instead of a separate `3DTILES_metadata` extension. `tileMetadata` is a property table containing metadata about available tiles.
   * Content metadata is now provided by the `contentMetadata` property. Each array element is a property table containing metadata about available content.
   * Subtree metadata is now provided by the `subtreeMetadata` object. Subtree metadata is encoded in JSON, similar to tileset metadata.
-  * Removed `bufferViews` and added `accessors`. Accessors provide typed views over a buffer. See [accessor.schema.json](schema/subtree/accessor.schema.json) for more details.
-  * Renamed availability `bufferView` to `bitstream`. `bitstream` now points to an accessor.
+  * Renamed availability `bufferView` to `bitstream`
   * Added JSON subtree format as an alternative to the binary subtree format
 * Updated `3DTILES_multiple_contents` extension
   * Updated to draft version `1.0.0`
@@ -156,12 +156,11 @@
 * Added `EXT_structural_metadata` extension (draft version `0.0.0`)
   * Updated property table definition. See notes above.
   * Update schema definition. See notes above.
-  * Property table values are now stored in accessors and may be padded or interleaved with the accessor's bufferView's `byteStride`
-  * Added new accessor types: `5124` (`INT32`), `5134` (`INT64`), `5125` (`UINT64`), `5130` (`FLOAT64`) so that higher bit depth types can be stored in accessors
   * Updated property texture definition
     * Properties are no longer required to be packed into the same texture. The number of class properties is no longer constrained by the number of texture channels.
     * Each item in the `properties` dictionary is now a `textureInfo` object
     * Added `offset` and `scale` which are used to transform property values into a different range. When present, these override the class property's `offset` and `scale`.
+    * Added `min` and `max` which store the minimum and maximum property values in the texture.
   * Added `propertyMappings` which defines a mapping between class properties and vertex attributes. Provides structural metadata for point clouds.
 * Added `EXT_instance_features` extension (draft version `0.0.0`)
   * TODO

@@ -301,6 +301,8 @@ Properties assigned to subtrees provide metadata about the subtree as a whole. S
 
 ## Subtree File Format
 
+🚧 In progress 🚧
+
 _Defined in [subtree.schema.json](schema/subtree/subtree.schema.json)._
 
 A subtree file contains availability and metadata for a single subtree. The subtree JSON describes how this data is stored.
@@ -349,18 +351,13 @@ A subtree file contains availability and metadata for a single subtree. The subt
 
 ### Buffers and Buffer Views
 
-A **buffer** is a binary blob. A single buffer can be stored within the binary chunk of a subtree file. This buffer is referred to as the _internal buffer_. Further buffers can be stored as external binary files that are referred to by the `buffer.uri` property. The buffers can store availability bitstreams, or other data that is associated with a subtree, like metadata for implicit tiles defined using the [`3DTILES_metadata`](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_metadata#implicit-tile-metadata) extension.
+A **buffer** is a binary blob. A single buffer can be stored within the binary chunk of a subtree file. This buffer is referred to as the _internal buffer_. Further (external) buffers can be stored as individual binary files that are referred to by the `buffer.uri` property. The buffers can store the availability data of a subtree in binary form, or other data that is associated with a subtree, like metadata for implicit tiles defined using the [`3DTILES_metadata` extension.](https://github.com/CesiumGS/3d-tiles/tree/3d-tiles-next/extensions/3DTILES_metadata#implicit-tile-metadata)
 
-Each buffer has a `byteLength` describing the size of the data, including any padding. 
+Each buffer has a `byteLength` describing the size of the data, including any padding (for subtree binary files). 
 
-A **buffer view** is a contiguous subset of a buffer. A buffer view's `buffer` property is an integer index to identify the buffer. A buffer view has a `byteOffset` and a `byteLength` to describe the range of bytes within the buffer. The `byteLength` does not include any padding. Multiple buffer views may reference a single buffer.
+A **buffer view** is a contiguous subset of a buffer. A buffer view's `buffer` property is an integer index to identify the buffer. A buffer view has a `byteOffset` and a `byteLength` to describe the range of bytes within the buffer. The `byteLength` does not include any padding. There may be multiple buffer views referencing a single buffer.
 
 For efficient memory access, the `byteOffset` of a buffer view must be aligned to a multiple of 8 bytes.
-
-Tile availability, content availability, and child subtree availability may refer to either a buffer view containing an availability bitstream or a constant value (`1` meaning all elements are available, `0` meaning no elements are available).
-
-Availability bitstreams are packed in binary using the format described in the [Booleans](../../specification/Metadata#booleans) section of the 3D Metadata Specification.
-
 
 ### Availability Packing
 

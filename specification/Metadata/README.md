@@ -370,13 +370,11 @@ Property values are stored in parallel arrays called **property arrays**, one pe
 
 Binary encoding is efficient for runtime use, and scalable to large quantities of metadata. Because property arrays contain elements of a single type, bitstreams may be tightly packed or may use compression methods appropriate for a particular data type.
 
-Property values are binary-encoded according to their data type, in little-endian format. Array elements and vector and matrix components are tightly packed within a cell.
-
-A byte stride (`byteStride`) may be provided to add padding between cells. Byte stride is only allowed for enum, scalar, vector, and matrix types and fixed-length arrays thereof. All other property values are tightly packed. The byte stride must be greater than or equal to the cell byte length, and must be divisible by the byte length of the component type or enum value type.
+Property values are binary-encoded according to their data type, in little-endian format. Values are tightly packed: there is no padding between values.
 
 #### Scalars
 
-A scalar value may be encoded as 8-, 16-, 32-, or 64-bit types. The following data types are supported:
+A scalar value is encoded based on the `componentType`. Multiple values are packed tightly in the same buffer. The following data types are supported:
 
 | Name    | Description                            |
 |---------|----------------------------------------|
@@ -393,15 +391,11 @@ A scalar value may be encoded as 8-, 16-, 32-, or 64-bit types. The following da
 
 #### Vectors
 
-A vector value is encoded as a tightly packed array of numbers of the provided `componentType`.
-
-`VEC2` has two elements, `VEC3` has three elements, and `VEC4` has four elements.
+Vector components are tightly packed and encoded based on the `componentType`.
 
 #### Matrices
 
-A matrix value is encoded as a tightly packed array of numbers of the provided `componentType` in column-major order.
-
-`MAT2` has four elements, `MAT3` has nine elements, and `MAT4` has sixteen elements.
+Matrix components are tightly packed in column-major order and encoded based on the `componentType`.
 
 #### Booleans
 
@@ -524,15 +518,11 @@ All component types (`INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT
 
 #### Vectors
 
-Vectors are encoded as JSON arrays of numbers.
-
-`VEC2` has two elements, `VEC3` has three elements, and `VEC4` has four elements.
+Vectors are encoded as a JSON array of numbers.
 
 ### Matrices
 
-Matrices are encoded as JSON arrays of numbers in column-major order.
-
-`MAT2` has four elements, `MAT3` has nine elements, and `MAT4` has sixteen elements.
+Matrices are encoded as a JSON array of numbers in column-major order.
 
 #### Booleans
 
