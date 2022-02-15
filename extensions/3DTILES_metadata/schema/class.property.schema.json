@@ -122,7 +122,7 @@
                     "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types."
+            "description": "An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types with numeric `componentType`."
         },
         "scale": {
             "allOf": [
@@ -130,7 +130,7 @@
                     "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types."
+            "description": "A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types with numeric `componentType`."
         },
         "max": {
             "allOf": [
@@ -138,7 +138,7 @@
                     "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the maximum, it always corresponds to the actual value."
+            "description": "Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types with numeric `componentType`. The `normalized`, `offset`, and `scale` properties have no effect on the maximum, it always corresponds to the actual value."
         },
         "min": {
             "allOf": [
@@ -146,7 +146,7 @@
                     "$ref": "definitions.schema.json#/definitions/numericValue"
                 }
             ],
-            "description": "Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. The `normalized`, `offset`, and `scale` properties have no effect on the minimum, it always corresponds to the actual value."
+            "description": "Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types with numeric `componentType`. The `normalized`, `offset`, and `scale` properties have no effect on the minimum, it always corresponds to the actual value."
         },
         "required": {
             "type": "boolean",
