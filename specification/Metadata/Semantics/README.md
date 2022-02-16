@@ -27,6 +27,8 @@ Semantic|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 `ID`|<ul><li>Type: `STRING`</li></ul>|The unique identifier for the entity.
 `NAME`|<ul><li>Type: `STRING`</li></ul>|The name of the entity. Names should be human-readable, and do not have to be unique.
 `DESCRIPTION`|<ul><li>Type: `STRING`</li></ul>|Description of the entity. Typically at least a phrase, and possibly several sentences or paragraphs.
+`ATTRIBUTION_IDS`|<ul><li>Type: `SCALAR`</li><li>Component type: `UINT8`, `UINT16`, `UINT32`, or `UINT64`</li><li>Count: variable-length</li></ul>|List of attribution IDs that index into a global list of attribution strings. This semantic may be assigned to metadata at any level of granularity including tileset, group, subtree, tile, content, feature, vertex, and texel granularity. The global list of attribution strings is located in a tileset or subtree with the property semantic `ATTRIBUTION_STRINGS`. The following precedence order is used to locate the attribution strings: first the containing subtree (if applicable), then the containing external tileset (if applicable), and finally the root tileset.
+`ATTRIBUTION_STRINGS`|<ul><li>Type: `STRING`</li><li>Count: variable-length</li></ul>|List of attribution strings. Each string contains information about a data provider or copyright text. Text may include embedded markup languages such as HTML. This semantic may be assigned to metadata at any granularity (wherever `STRING` property values can be encoded). When used in combination with `ATTRIBUTION_IDS` it is assigned to subtrees and tilesets.
 
 ## 3D Tiles
 
