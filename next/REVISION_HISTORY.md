@@ -161,6 +161,6 @@
     * Each item in the `properties` dictionary is now a `textureInfo` object
     * Added `offset` and `scale` which are used to transform property values into a different range. When present, these override the class property's `offset` and `scale`.
     * Added `min` and `max` which store the minimum and maximum property values in the texture.
-  * Added `propertyMappings` which defines a mapping between class properties and vertex attributes. Provides structural metadata for point clouds.
+  * Added `propertyAttributes`, and additional metadata encoding for vertex data, in particular point clouds
 * Added `EXT_instance_features` extension (draft version `0.0.0`)
   * TODO
