@@ -556,7 +556,7 @@ The tileset's root `3DTILES_metadata` extension must define a list of available 
 
 *Defined in [content.3DTILES_metadata.schema.json](./schema/content.3DTILES_metadata.schema.json) and [metadataEntity.schema.json](./schema/metadataEntity.schema.json)*.
 
-Property values may be assigned to individual tile contents, including (for example) attribution IDs. The example below uses the built-in semantic `CONTENT_ATTRIBUTION_ID` from the [3D Metadata Semantic Reference](../../specification/Metadata/Semantics).
+Property values may be assigned to individual tile contents, including (for example) attribution strings. The example below uses the built-in semantic `ATTRIBUTION_STRING` from the [3D Metadata Semantic Reference](../../specification/Metadata/Semantics).
 
 A `3DTILES_metadata` extension on a content object must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
 
@@ -572,11 +572,9 @@ Metadata assigned to implicit tile content is stored in a more compact binary fo
 >         "classes": {
 >           "content": {
 >             "properties": {
->               "attributionIds": {
->                 "description": "Array of attribution IDs that index into the tileset's attribution list",
->                 "semantic": "CONTENT_ATTRIBUTION_IDS",
->                 "type": "SCALAR",
->                 "componentType": "UINT16",
+>               "attributionStrings": {
+>                 "semantic": "ATTRIBUTION_STRINGS",
+>                 "type": "STRING",
 >                 "hasFixedCount": false
 >               },
 >               "triangleCount": {
@@ -585,23 +583,7 @@ Metadata assigned to implicit tile content is stored in a more compact binary fo
 >                 "componentType": "UINT32"
 >               }
 >             }
->           },
->           "tileset": {
->             "properties": {
->               "attributionList": {
->                 "description": "Attribution strings for the entire tileset",
->                 "semantic": "TILESET_ATTRIBUTION_LIST",
->                 "type": "STRING",
->                 "hasFixedCount": false
->               }
->             }
 >           }
->         }
->       },
->       "tileset": {
->         "class": "tileset",
->         "properties": {
->           "attributionList": ["Data Source A", "Data Source B", "Data Source C"]
 >         }
 >       }
 >     }
@@ -613,7 +595,7 @@ Metadata assigned to implicit tile content is stored in a more compact binary fo
 >         "3DTILES_metadata": {
 >           "class": "content",
 >           "properties": {
->             "attributionIds": [1, 2],
+>             "attributionStrings": ["Source A", "Source B"],
 >             "triangleCount": 65000
 >           }
 >         }
