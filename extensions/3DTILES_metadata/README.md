@@ -369,7 +369,7 @@ While [classes](#class) within a schema define the data types and meanings of pr
 
 Each property value assigned must be defined by a class property with the same alphanumeric property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
 
-Most property values are encoded as JSON within the entity. One notable exception is metadata assigned to [implicit tiles](#implicit-tile-properties), stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/#metadata).
+Most property values are encoded as JSON within the entity. One notable exception is metadata assigned to implicit tiles and contents, stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/#metadata).
 
 ### Tileset Properties
 
@@ -431,6 +431,8 @@ Property values may be assigned to individual tiles, including (for example) spa
 
 A `3DTILES_metadata` extension on a tile object must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
 
+Metadata assigned to implicit tiles is stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/#metadata).
+
 > **Example:**
 >
 > ```jsonc
@@ -477,7 +479,7 @@ A `3DTILES_metadata` extension on a tile object must specify its class (`class`)
 
 *Defined in [group.schema.json](./schema/group.schema.json), [metadataEntity.schema.json](./schema/metadataEntity.schema.json), and [tileset.3DTILES_metadata.schema.json](./schema/content.3DTILES_metadata.schema.json)*.
 
-Tiles may contain more than one content entity (see: [`3DTILES_multiple_contents`](../3DTILES_multiple_contents)), or multiple tiles may reference content sharing the same metadata. In these cases, metadata assigned to the tile would be inadequate or inefficient for describing tile contents. This extension allows content to be organized into collections, or "groups", and metadata may be associated with each group. Groups are useful for supporting metadata on only a subset of a tile's content, or for working with collections of contents as layers, e.g. to manage visibility or visual styling.
+Tiles may contain more than one content (see: [`3DTILES_multiple_contents`](../3DTILES_multiple_contents)), or multiple tiles may reference content sharing the same metadata. In these cases, metadata assigned to the tile would be inadequate or inefficient for describing tile contents. This extension allows content to be organized into collections, or "groups", and metadata may be associated with each group. Groups are useful for supporting metadata on only a subset of a tile's content, or for working with collections of contents as layers, e.g. to manage visibility or visual styling.
 
 Tile contents are assigned to groups, representing collections of content, by attaching a `3DTILES_metadata` extension to the content object and specifying its `group` property. Each content entity may be assigned only to a single group, but a single group may have any number of tile contents assigned to it.
 
@@ -552,7 +554,75 @@ The tileset's root `3DTILES_metadata` extension must define a list of available 
 
 ### Content Properties
 
-TODO
+*Defined in [content.3DTILES_metadata.schema.json](./schema/content.3DTILES_metadata.schema.json) and [metadataEntity.schema.json](./schema/metadataEntity.schema.json)*.
+
+Property values may be assigned to individual tile contents, including (for example) attribution IDs. The example below uses the built-in semantic `CONTENT_ATTRIBUTION_ID` from the [3D Metadata Semantic Reference](../../specification/Metadata/Semantics).
+
+A `3DTILES_metadata` extension on a content object must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
+
+Metadata assigned to implicit tile content is stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/#metadata).
+
+> **Example:**
+>
+> ```jsonc
+> {
+>   "extensions": {
+>     "3DTILES_metadata": {
+>       "schema": {
+>         "classes": {
+>           "content": {
+>             "properties": {
+>               "attributionIds": {
+>                 "description": "Array of attribution IDs that index into the tileset's attribution list",
+>                 "semantic": "CONTENT_ATTRIBUTION_IDS",
+>                 "type": "SCALAR",
+>                 "componentType": "UINT16",
+>                 "hasFixedCount": false
+>               },
+>               "triangleCount": {
+>                 "description": "The number of triangles in the glTF content",
+>                 "type": "SCALAR",
+>                 "componentType": "UINT32"
+>               }
+>             }
+>           },
+>           "tileset": {
+>             "properties": {
+>               "attributionList": {
+>                 "description": "Attribution strings for the entire tileset",
+>                 "semantic": "TILESET_ATTRIBUTION_LIST",
+>                 "type": "STRING",
+>                 "hasFixedCount": false
+>               }
+>             }
+>           }
+>         }
+>       },
+>       "tileset": {
+>         "class": "tileset",
+>         "properties": {
+>           "attributionList": ["Data Source A", "Data Source B", "Data Source C"]
+>         }
+>       }
+>     }
+>   },
+>   "root": {
+>     "content": {
+>       "uri": "tile.glb",
+>       "extensions": {
+>         "3DTILES_metadata": {
+>           "class": "content",
+>           "properties": {
+>             "attributionIds": [1, 2],
+>             "triangleCount": 65000
+>           }
+>         }
+>       }
+>     }
+>     ...
+>   }
+> }
+> ```
 
 ### Content Feature Properties
 
