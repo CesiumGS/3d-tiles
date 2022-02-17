@@ -40,7 +40,7 @@
                 "$ref": "availability.schema.json"
             },
             "minItems": 1,
-            "description": "An array of content availability objects. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by EXT_multiple_contents and 3D Tiles 1.1 - this array will have multiple elements."
+            "description": "An array of content availability objects. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by 3DTILES_multiple_contents and 3D Tiles 1.1 - this array will have multiple elements."
         },
         "childSubtreeAvailability": {
             "allOf": [
