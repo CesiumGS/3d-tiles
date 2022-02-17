@@ -116,7 +116,7 @@ Schemas may be embedded in tilesets with the `schema` property, or referenced ex
 >               },
 >               "owners": {
 >                 "type": "STRING",
->                 "hasFixedCount": false,
+>                 "array": true,
 >                 "description": "Names of owners."
 >               },
 >               "buildingType": {
@@ -314,7 +314,7 @@ Tileset authors may define their own additional statistics, like `_mode` in the 
 >               },
 >               "owners": {
 >                 "type": "STRING",
->                 "hasFixedCount": false
+>                 "array": true
 >               },
 >               "buildingType": {
 >                 "type": "ENUM",
@@ -451,7 +451,7 @@ Metadata assigned to implicit tiles is stored in a more compact binary form. See
 >               "countries": {
 >                 "description": "Countries a tile intersects.",
 >                 "type": "STRING",
->                 "hasFixedCount": false
+>                 "array": true
 >               }
 >             }
 >           }
@@ -575,7 +575,7 @@ Metadata assigned to implicit tile content is stored in a more compact binary fo
 >               "attributionStrings": {
 >                 "semantic": "ATTRIBUTION_STRINGS",
 >                 "type": "STRING",
->                 "hasFixedCount": false
+>                 "array": true
 >               },
 >               "triangleCount": {
 >                 "description": "The number of triangles in the glTF content",

@@ -108,10 +108,7 @@
   * `type` is required and must be one of the following: `SCALAR`, `VEC2`, `VEC3`, `VEC4`, `MAT2`, `MAT3`, `MAT4`, `STRING`, `BOOLEAN`, `ENUM`
   * `componentType` is required for scalar, vector, and matrix types and must be one of the following: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, `UINT64`, `FLOAT32`, `FLOAT64`
   * Arrays are now distinct from the type system
-    * Removed `ARRAY` type and `componentCount` property. Added `count` and `hasFixedCount` properties to indicate whether a property is a single element, fixed-length array, or variable-length array.
-    * To indicate that a property is a single element, `count` must be 1 and `hasFixedCount` must be true
-    * To indicate that a property is a fixed-length array, `count` must be greater than 1 and `hasFixedCount` must be true
-    * To indicate that a property is a variable-length array, `hasFixedCount` must be false and `count` may be omitted
+    * Removed `ARRAY` type and `componentCount` property; replaced with `array` and `count` properties. `array` is a boolean that indicates whether the property is an array. When `count` is defined the property is a fixed-length array. Otherwise the property is a variable-length array.
     * Arrays of vectors and matrices are now supported
   * Added `offset` and `scale` which are used to transform property values into a different range. Useful for quantized property values.
   * Added back `default`

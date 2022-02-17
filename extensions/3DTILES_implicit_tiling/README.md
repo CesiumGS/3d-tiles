@@ -404,7 +404,7 @@ Details of binary value encoding, including how to determine property value offs
 >         "countries": {
 >           "description": "Countries a tile intersects",
 >           "type": "STRING",
->           "hasFixedCount": false
+>           "array": true
 >         }
 >       }
 >     },
@@ -414,7 +414,7 @@ Details of binary value encoding, including how to determine property value offs
 >           "semantic": "ATTRIBUTION_IDS",
 >           "type": "SCALAR",
 >           "componentType": "UINT16",
->           "hasFixedCount": false
+>           "array": true
 >         },
 >         "minimumHeight": {
 >           "semantic": "CONTENT_MINIMUM_HEIGHT",
@@ -437,7 +437,7 @@ Details of binary value encoding, including how to determine property value offs
 >         "attributionStrings": {
 >           "semantic": "ATTRIBUTION_STRINGS",
 >           "type": "STRING",
->           "hasFixedCount": false
+>           "array": true
 >         }
 >       }
 >     }

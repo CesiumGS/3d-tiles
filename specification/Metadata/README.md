@@ -451,11 +451,11 @@ For each case below, the offset of an array element `i` within its binary storag
 
 Each expression in the table above defines an index into the underlying property array. For a property array of `FLOAT32` elements, index `3` would correspond to <u>_byte_</u> offset `3 * sizeof(FLOAT32) = 12` within that array. For an array of `BOOLEAN` components, offset `3` would correspond to <u>_bit_</u> offset `3`.
 
-> **Example:** Five variable-length arrays of UINT8 components, binary-encoded in a buffer. The associated property definition would be `type = "SCALAR"`, `componentType = "UINT8"`, and `count = undefined` (variable-length).
+> **Example:** Five variable-length arrays of UINT8 components, binary-encoded in a buffer. The associated property definition would be `type = "SCALAR"`, `componentType = "UINT8"`, and `array = true`.
 >
 > <img src="figures/array-of-ints.png"  alt="Variable-length array" width="640px">
 
-> **Example:** Two variable-length arrays of strings, binary-encoded in a buffer. The associated property definition would be `type = "STRING"` and `count = undefined` (variable-length). Observe that the last element of the array offset buffer points to the last element of the string offset buffer. This is because the last valid string offset is the next-to-last element of the string offset buffer.
+> **Example:** Two variable-length arrays of strings, binary-encoded in a buffer. The associated property definition would be `type = "STRING"` and `array = true` (variable-length). Observe that the last element of the array offset buffer points to the last element of the string offset buffer. This is because the last valid string offset is the next-to-last element of the string offset buffer.
 >
 > ![Variable-length array of string](figures/array-of-strings.png)
 
@@ -479,18 +479,18 @@ Each entity is represented as a JSON object with its `class` identified by a str
 >
 > _A class, "basicClass", composed of ten properties. `stringArrayProperty` count is undefined and therefore variable-length._
 >
-> | id                  | type      | componentType | count | enumType    | required |
-> |---------------------|-----------|---------------|-------|-------------|----------|
-> | floatProperty       | `SCALAR`  | `FLOAT64`     | `1`   |             | ✓        |
-> | integerProperty     | `SCALAR`  | `INT32`       | `1`   |             | ✓        |
-> | vectorProperty      | `VEC2`    | `FLOAT32`     | `1`   |             | ✓        |
-> | floatArrayProperty  | `SCALAR`  | `FLOAT32`     | `3`   |             | ✓        |
-> | vectorArrayProperty | `VEC2`    | `FLOAT32`     | `2`   |             | ✓        |
-> | booleanProperty     | `BOOLEAN` |               | `1`   |             | ✓        |
-> | stringProperty      | `STRING`  |               | `1`   |             | ✓        |
-> | enumProperty        | `ENUM`    |               | `1`   | `basicEnum` | ✓        |
-> | stringArrayProperty | `STRING`  |               |       |             | ✓        |
-> | optionalProperty    | `STRING`  |               | `1`   |             |          |
+> | id                  | type      | componentType | array   | count | enumType    | required |
+> |---------------------|-----------|---------------|---------|-------|-------------|----------|
+> | floatProperty       | `SCALAR`  | `FLOAT64`     | `false` |       |             | ✓        |
+> | integerProperty     | `SCALAR`  | `INT32`       | `false` |       |             | ✓        |
+> | vectorProperty      | `VEC2`    | `FLOAT32`     | `false` |       |             | ✓        |
+> | floatArrayProperty  | `SCALAR`  | `FLOAT32`     | `true`  | 3     |             | ✓        |
+> | vectorArrayProperty | `VEC2`    | `FLOAT32`     | `true`  | 2     |             | ✓        |
+> | booleanProperty     | `BOOLEAN` |               | `false` |       |             | ✓        |
+> | stringProperty      | `STRING`  |               | `false` |       |             | ✓        |
+> | enumProperty        | `ENUM`    |               | `false` |       | `basicEnum` | ✓        |
+> | stringArrayProperty | `STRING`  |               | `true`  |       |             | ✓        |
+> | optionalProperty    | `STRING`  |               | `1`     |       |             |          |
 >
 > _A single entity encoded in JSON. Note that the optional property is omitted in this example._
 > ```jsonc
