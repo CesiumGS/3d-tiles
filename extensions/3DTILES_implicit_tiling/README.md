@@ -47,7 +47,9 @@ This extension is required, meaning it must be placed in both the `extensionsUse
     - [Tile Metadata](#tile-metadata)
     - [Content Metadata](#content-metadata)
     - [Subtree Metadata](#subtree-metadata)
-- [Subtree File Format](#subtree-file-format)
+- [Subtree JSON](#subtree-json)
+- [Subtree File Formats](#subtree-file-formats)
+  - [Binary Format](#binary-format)
 - [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
 
 ## Overview
@@ -60,7 +62,9 @@ In order to support sparse datasets, **availability** data determines which tile
 
 The `3DTILES_implicit_tiling` extension may be added to any tile in the tileset. The extension object defines how the tile is subdivided and where to locate content resources. The extension may be added to multiple tiles to create more complex subdivision schemes like double-headed quadtrees.
 
-[TODO: diagram for double-headed quadtree and for implicit tiling as a whole]
+<img src="figures/sparse-octree.png" width="500" />
+
+_Sparse point cloud with octree tiling scheme. Data source: Trimble_
 
 ## Tile Extension
 
@@ -296,11 +300,40 @@ Content bounding volumes can be provided by content metadata semantics such as `
 
 Properties assigned to subtrees provide metadata about the subtree as a whole. Subtree metadata is encoded in JSON according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
 
-## Subtree File Format
+## Subtree JSON
 
 🚧 In progress 🚧
 
 _Defined in [subtree.schema.json](schema/subtree/subtree.schema.json)._
+
+## Subtree File Formats
+
+A subtree file may be one of two formats:
+
+* JSON format - subtree definition in JSON, with external binary data
+* Binary format - binary file with embedded JSON and binary data
+
+> **Informational:** having separate JSON and binary formats is similar to, and inspired by, glTF which can be re as JSON (.gltf) or binary (.glb). See https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#glb-file-format-specification-general for motivation.
+
+### Binary Format
+
+The binary subtree format is little-endian and consists of a 24-byte header and a variable length payload:
+
+![Subtree Binary Format](figures/binary-subtree.jpg)
+
+Header fields:
+
+| Bytes | Field | Type     | Description |
+|-------|-------|----------|-------------|
+| 0-3   | Magic | `UINT32` | A magic number identifying this as a subtree file. This is always `0x74627573`, the four bytes of the ASCII string `subt` stored in little-endian order. |
+| 4-7   | Version | `UINT32` | The version number. Always `1` for this version of the specification. |
+| 8-15  | JSON byte length | `UINT64` | The length of the subtree JSON, including any padding. |
+| 16-23 | Binary byte length | `UINT64` | The length of the buffer (or 0 if the buffer does not exist) including any padding. |
+
+Each chunk must be padded so it ends on an 8-byte boundary:
+
+* The JSON chunk must be padded with trailing `Space` chars (`0x20`)
+* If it exists, the binary chunk must be padded with trailing zeros (`0x00`)
 
 ## Appendix A: Availability Indexing
 
