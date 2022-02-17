@@ -48,9 +48,6 @@ This extension is required, meaning it must be placed in both the `extensionsUse
     - [Content Metadata](#content-metadata)
     - [Subtree Metadata](#subtree-metadata)
 - [Subtree JSON Format](#subtree-json-format)
-    - [Buffers and Buffer Views](#buffers-and-buffer-views)
-  - [Availability](#availability-1)
-  - [Metadata](#metadata-1)
 - [Subtree Binary Format](#subtree-binary-format)
 - [Appendix A: Availability Indexing](#appendix-a-availability-indexing)
 
@@ -270,7 +267,7 @@ Unlike tile and content availability, which store bits for every level in the su
 
 ### Metadata
 
-Subtrees may store metadata about available tiles and contents, as well as metadata about the subtree as a whole.
+Subtrees may store metadata at multiple granularities.
 
 * **Tile metadata** - metadata for available tiles in the subtree
 * **Content metadata** - metadata for available content in the subtree
@@ -286,9 +283,9 @@ Tile metadata exists only for available tiles and is tightly packed by an increa
 
 Tile properties can have [Semantics](../../specification/Metadata/Semantics) which define how property values should be interpreted. In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, `TILE_BOUNDING_SPHERE`, `TILE_MINIMUM_HEIGHT`, and `TILE_MAXIMUM_HEIGHT` semantics each define a more specific bounding volume for a tile than is implicitly calculated from `3DTILES_implicit_tiling`. If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
 
-The following diagram shows of how tile height semantics may be used to define tighter bounding regions for an implicit tileset: The overall height of the bounding region of the whole tileset is 320. The bounding regions for the child tiles will be computed by splitting the bounding regions of the respective parent tile at its center. By default, the height will remain constant. By storing the _actual_ height of the contents in the respective region, and providing it as the `TILE_MAXIMUM_HEIGHT` for each available tile, it is possible to define the tightest-fitting bounding region for each level. 
-
-![Tile Height Semantics](figures/tile-height-semantics.png)
+> **Example:** The following diagram shows of how tile height semantics may be used to define tighter bounding regions for an implicit tileset: The overall height of the bounding region of the whole tileset is 320. The bounding regions for the child tiles will be computed by splitting the bounding regions of the respective parent tile at its center. By default, the height will remain constant. By storing the _actual_ height of the contents in the respective region, and providing it as the `TILE_MAXIMUM_HEIGHT` for each available tile, it is possible to define the tightest-fitting bounding region for each level. 
+>
+><img src="figures/tile-height-semantics.png" width="600" />
 
 
 The `TILE_GEOMETRIC_ERROR` semantic allows tiles to provide a geometric error that overrides the implicitly computed geometric error.
@@ -307,22 +304,25 @@ Properties assigned to subtrees provide metadata about the subtree as a whole. S
 
 _Defined in [subtree.schema.json](schema/subtree/subtree.schema.json)._
 
-A **subtree file** is a JSON file that contains availability and metadata information for a single subtree. A subtree may reference external files containing binary data. An alternative [Binary Format](#binary-format) allows the JSON and binary data to be embedded into a single binary file.
+A **subtree file** is a JSON file that contains availability and metadata information for a single subtree. A subtree may reference external files containing binary data. An alternative [Binary Format](#binary-subtree-format) allows the JSON and binary data to be embedded into a single binary file.
+
+<!-- omit in toc -->
 #### Buffers and Buffer Views
 
-A **buffer** is a binary blob. Each buffer has a `uri` that refers to an external file containing the buffer data and a `byteLength` describing the size in bytes of the buffer. Relative paths are relative to the subtree file. `uri` is required when using the JSON subtree format and not required when using the binary subtree format - when omitted the buffer refers to the binary chunk of the subtree file. Data URIs are not allowed.
+A **buffer** is a binary blob. Each buffer has a `uri` that refers to an external file containing buffer data and a `byteLength` describing the buffer size in bytes. Relative paths are relative to the subtree file. `uri` is required when using the JSON subtree format and not required when using the binary subtree format - when omitted the buffer refers to the binary chunk of the subtree file. Data URIs are not allowed.
 
 A **buffer view** is a contiguous subset of a buffer. A buffer view's `buffer` property is an integer index to identify the buffer. A buffer view has a `byteOffset` and a `byteLength` to describe the range of bytes within the buffer. The `byteLength` does not include any padding. There may be multiple buffer views referencing a single buffer.
 
 For efficient memory access, the `byteOffset` of a buffer view must be aligned to a multiple of 8 bytes.
 
+<!-- omit in toc -->
 ### Availability
 
 Tile availability (`tileAvailability`) and child subtree availability (`childSubtreeAvailability`) must always be provided for a subtree. 
 
 Content availability (`contentAvailability`) is an array of content availability objects. If the implicit root tile has a single content this array will have one element; if the tile has multiple contents - as supported by `3DTILES_multiple_contents` - this array will have multiple elements. If the implicit root tile does not have content then `contentAvailability` must be omitted.
 
-Availability may be represented either as a `bistream`, an integer index to identify the buffer view containing the availability bistream, or as a `constant` value, an integer indicating whether all of the elements are available (`1`) or all are unavailable (`0`). `availableCount` is an integer indicating how many `1` bits exist in the availability bistream.
+Availability may be represented either as a bitstream or a constant value. `bitstream` is an integer index that identifies the buffer view containing the availability bistream. `constant` is an integer indicating whether all of the elements are available (`1`) or all are unavailable (`0`). `availableCount` is an integer indicating how many `1` bits exist in the availability bitstream.
 
 Availability bitstreams are packed in binary using the format described in the [Booleans](../../specification/Metadata#booleans) section of the 3D Metadata Specification.
 
@@ -372,9 +372,10 @@ Availability bitstreams are packed in binary using the format described in the [
 >
 > Some child subtrees exist, so `childSubtreeAvailability.bufferView` refers to another bitstream. The `bufferView` with index 1 refers to the buffer with index `1`. This buffer has a `uri` property, indicating that this second bitstream is stored in an external binary file.
 
+<!-- omit in toc -->
 ### Metadata
 
-A subtree may also store metadata for tiles and content. `tileMetadata` is a property table containing metadata for available tiles. `contentMetadata` is an array of property tables containing metadata for available content. If the implicit root tile has a single content this array will have one element; if the tile has multiple contents - as supported by `3DTILES_multiple_contents` - this array will have multiple elements. If the implicit root tile does not have content then `contentMetadata` must be omitted.
+Subtrees may store metadata at multiple granularities. `tileMetadata` is a property table containing metadata for available tiles. `contentMetadata` is an array of property tables containing metadata for available content. If the implicit root tile has a single content this array will have one element; if the tile has multiple contents - as supported by `3DTILES_multiple_contents` - this array will have multiple elements. If the implicit root tile does not have content then `contentMetadata` must be omitted.
 
 Subtree metadata (`subtreeMetadata`) is encoded in JSON according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
 
@@ -389,7 +390,7 @@ Details of binary value encoding, including how to determine property value offs
 
 > **Example:** The same JSON description of a subtree extended with tile, content, and subtree metadata. The subtree JSON refers to class IDs in the `3DTILES_metadata` schema definition. Tile and content metadata is stored in property tables; subtree metadata is encoded directly in JSON.
 >
-> _`3DTILES_metadata` extension in root tileset JSON_
+> _`3DTILES_metadata` extension in the root tileset JSON_
 > ```json
 > {
 >   "classes": {
