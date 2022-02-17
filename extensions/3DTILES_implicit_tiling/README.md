@@ -286,7 +286,10 @@ Binary property values are located in a property table in the subtree. Details o
 
 Tile properties can have [Semantics](../../specification/Metadata/Semantics) which define how property values should be interpreted. In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, `TILE_BOUNDING_SPHERE`, `TILE_MINIMUM_HEIGHT`, and `TILE_MAXIMUM_HEIGHT` semantics each define a more specific bounding volume for a tile than is implicitly calculated from 3DTILES_implicit_tiling. If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
 
-[TODO: image + caption showing how TILE_MINIMUM_HEIGHT and TILE_MAXIMUM_HEIGHT can define a tighter range]
+The following diagram shows of how tile height semantics may be used to define tighter bounding regions for an implicit tileset: The overall height of the bounding region of the whole tileset is 320. The bounding regions for the child tiles will be computed by splitting the bounding regions of the respective parent tile at its center. By default, the height will remain constant. By storing the _actual_ height of the contents in the respective region, and providing it as the `TILE_MAXIMUM_HEIGHT` for each available tile, it is possible to define the tightest-fitting bounding region for each level. 
+
+![Tile Height Semantics](figures/tile-height-semantics.png)
+
 
 The `TILE_GEOMETRIC_ERROR` semantic allows tiles to provide a geometric error that overrides the implicitly computed geometric error.
 
