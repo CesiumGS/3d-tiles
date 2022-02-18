@@ -292,18 +292,18 @@ Normalized properties (`normalized`) provide a compact alternative to larger flo
 * Unsigned integer values (`UINT8`, `UINT16`, `UINT32`, `UINT64`) must be rescaled to the range `[0.0, 1.0]` (inclusive)
 * Signed integer values (`INT8`, `INT16`, `INT32`, `INT64`) must be rescaled to the range `[-1.0, 1.0]` (inclusive)
 
-Implementations must use following equations to decode floating-point value `f` from a normalized integer `c`:
+Implementations must use following equations to decode floating-point value `f` from a normalized integer `i` and vice-versa:
 
-| componentType | int-to-float                               |
-|---------------|--------------------------------------------|
-| UINT8         | `f = c / 255.0`                            |
-| UINT16        | `f = c / 65535.0`                          |
-| UINT32        | `f = c / 4294967295.0`                     |
-| UINT64        | `f = c / 18446744073709551615.0`           |
-| INT8          | `f = max(c / 127.0, -1.0)`                 |
-| INT16         | `f = max(c / 32767.0, -1.0)`               |
-| INT32         | `f = max(c / 2147483647.0, -1.0)`          |
-| INT64         | `f = max(c / 9223372036854775807.0, -1.0)` |
+| componentType | int-to-float                               | float-to-int                            |
+|---------------|--------------------------------------------|-----------------------------------------|
+| INT8          | `f = max(i / 127.0, -1.0)`                 | `i = round(f * 127.0)`                  |
+| UINT8         | `f = i / 255.0`                            | `i = round(f * 255.0)`                  |
+| INT16         | `f = max(i / 32767.0, -1.0)`               | `i = round(f * 32767.0)`                |
+| UINT16        | `f = i / 65535.0`                          | `i = round(f * 65535.0)`                |
+| INT32         | `f = max(i / 2147483647.0, -1.0)`          | `i = round(f * 2147483647.0)`           |
+| UINT32        | `f = i / 4294967295.0`                     | `i = round(f * 4294967295.0)`           |
+| INT64         | `f = max(i / 9223372036854775807.0, -1.0)` | `i = round(f * 9223372036854775807.0)`  |
+| UINT64        | `f = i / 18446744073709551615.0`           | `i = round(f * 18446744073709551615.0)` |
 
 `normalized` is only applicable to scalar, vector, and matrix types with integer component types.
 
