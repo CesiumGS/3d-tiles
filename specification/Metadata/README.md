@@ -128,7 +128,7 @@ Names (`name`) provide a human-readable label for a schema, and are not required
 
 #### Description
 
-Descriptions (`description`) provide a human-readable explanation of a schema, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs.
+Descriptions (`description`) provide a human-readable explanation of a schema, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings.
 
 #### Enums
 
@@ -142,13 +142,14 @@ Unordered set of [classes](#class).
 
 ### Enum
 
-An enum consists of a set of named values, represented as `(string, integer)` pairs. Each enum collection is identified by a unique ID.
+An enum consists of a set of named values, represented as `(string, integer)` pairs. Each enum is identified by a unique ID.
 
 > **Example:** A "species" enum with three possible tree species, as well as an "Unknown" value.
 >
 > - **ID:** "species"
 > - **Name:** "Species"
 > - **Description:** "Common tree species identified in the study."
+> - **Value type:** `INT32`
 >
 > | name        | value   |
 > |-------------|---------|
@@ -167,11 +168,11 @@ Names (`name`) provide a human-readable label for an enum, and are not required 
 
 #### Description
 
-Descriptions (`description`) provide a human-readable explanation of an enum, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs.
+Descriptions (`description`) provide a human-readable explanation of an enum, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings.
 
 #### Values
 
-An enum consists of a set of named values, represented as `(string, integer)` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the [Component Type](#component-type) section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
+An enum consists of a set of named values, represented as `(string, integer)` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the [Component Type](#component-type) section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. Duplicate names or values within the same enum are not allowed.
 
 ***
 
@@ -189,7 +190,7 @@ Names (`name`) provide a human-readable label for a class, and are not required 
 
 #### Description
 
-Descriptions (`description`) provide a human-readable explanation of a class, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs.
+Descriptions (`description`) provide a human-readable explanation of a class, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings.
 
 #### Properties
 
@@ -231,7 +232,7 @@ Names (`name`) provide a human-readable label for a property, and must be unique
 
 #### Description
 
-Descriptions (`description`) provide a human-readable explanation of a property, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. To provide a machine-readable semantic meaning, a property must also define a [semantic](#semantic).
+Descriptions (`description`) provide a human-readable explanation of a property, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings. To provide a machine-readable semantic meaning, a property must also define a [semantic](#semantic).
 
 #### Semantic
 
@@ -249,9 +250,9 @@ A property's type (`type`) describes the structure of the value given for each e
 | VEC2    | Fixed-length vector with two (2) numeric components   |
 | VEC3    | Fixed-length vector with three (3) numeric components |
 | VEC4    | Fixed-length vector with four (4) numeric components  |
-| MAT2    | 2x2 matrix                                            |
-| MAT3    | 3x3 matrix                                            |
-| MAT4    | 4x4 matrix                                            |
+| MAT2    | 2x2 matrix with numeric components                    |
+| MAT3    | 3x3 matrix with numeric components                    |
+| MAT4    | 4x4 matrix with numeric components                    |
 | STRING  | A sequence of characters                              |
 | BOOLEAN | True or false                                         |
 | ENUM    | An enumerated type                                    |
