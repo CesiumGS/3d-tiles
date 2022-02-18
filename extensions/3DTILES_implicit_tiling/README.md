@@ -108,7 +108,7 @@ The following properties about the implicit root tile are included in the extens
 The following constraints apply to implicit root tiles:
   
   * The tile must omit the `children` property
-  * The `content.uri` must not point to an [external tileset](../../../specification#external-tilesets)
+  * The `content.uri` must not point to an [external tileset](../../specification#external-tilesets)
   * The `content` must not have an associated `boundingVolume` property
 
 ## Subdivision Scheme
@@ -306,7 +306,7 @@ Properties assigned to subtrees provide metadata about the subtree as a whole. S
 
 _Defined in [subtree.schema.json](schema/subtree/subtree.schema.json)._
 
-A **subtree file** is a JSON file that contains availability and metadata information for a single subtree. A subtree may reference external files containing binary data. An alternative [Binary Format](#binary-subtree-format) allows the JSON and binary data to be embedded into a single binary file.
+A **subtree file** is a JSON file that contains availability and metadata information for a single subtree. A subtree may reference external files containing binary data. An alternative [Binary Format](#subtree-binary-format) allows the JSON and binary data to be embedded into a single binary file.
 
 <!-- omit in toc -->
 #### Buffers and Buffer Views
@@ -386,7 +386,7 @@ Subtree metadata (`subtreeMetadata`) is encoded in JSON according to the [JSON F
 
 Binary property values are stored in a **property table**. A property table must specify its class (`class`), which refers to a class ID in the `3DTILES_metadata` extension of root tileset JSON, and a dictionary of properties (`properties`), where each key is a property ID correspond to a class property and each value is the index of the buffer view containing property values. The property table may provide value arrays for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
 
-A property may override the [`minimum` and `maximum` values](https://github.com/CesiumGS/3d-tiles/tree/main/specification/Metadata#minimum-and-maximum-values) and the [`offset` and `scale`](https://github.com/CesiumGS/3d-tiles/tree/main/specification/Metadata#offset-and-scale) from the property definition in the class, to account for the actual range of values that is stored in the property table.
+A property may override the [`minimum` and `maximum` values](../../specification/Metadata#minimum-and-maximum-values) and the [`offset` and `scale`](../../specification/Metadata#offset-and-scale) from the property definition in the class, to account for the actual range of values that is stored in the property table.
 
 Array offsets (`arrayOffsets`) is required for variable-length arrays and string offsets (`stringOffsets`) is required for strings. For variable-length arrays of strings, both are required. `arrayOffsetType` describes the storage type for array offsets and `stringOffsetType` describes the storage type for string offsets. Allowed types are `UINT8`, `UINT16`, `UINT32`, and `UINT64`. The default is `UINT32`.
 

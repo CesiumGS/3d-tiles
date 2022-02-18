@@ -490,7 +490,7 @@ Each entity is represented as a JSON object with its `class` identified by a str
 > | stringProperty      | `STRING`  |               | `false` |       |             | ✓        |
 > | enumProperty        | `ENUM`    |               | `false` |       | `basicEnum` | ✓        |
 > | stringArrayProperty | `STRING`  |               | `true`  |       |             | ✓        |
-> | optionalProperty    | `STRING`  |               | `1`     |       |             |          |
+> | optionalProperty    | `STRING`  |               | `false` |       |             |          |
 >
 > _A single entity encoded in JSON. Note that the optional property is omitted in this example._
 > ```jsonc
