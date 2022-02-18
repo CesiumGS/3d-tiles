@@ -99,7 +99,7 @@
 
 * Updated 3D Metadata Specification
   * Updated to draft version `3.0.0`
-  * TODO
+  * Updated schema definition. See notes below.
 * Updated 3D Metadata Semantic Reference
   * Updated to draft version `3.0.0`
   * `CONTENT_*` semantics should now be assigned to content metadata properties instead of tile metadata properties
@@ -160,4 +160,3 @@
     * Added `min` and `max` which store the minimum and maximum property values in the texture.
   * Added `propertyAttributes`, and additional metadata encoding for vertex data, in particular point clouds
 * Added `EXT_instance_features` extension (draft version `0.0.0`)
-  * TODO
