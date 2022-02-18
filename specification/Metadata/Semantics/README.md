@@ -12,7 +12,6 @@ For use of semantics in extensions of specific standards, see:
 
 * [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) (3D Tiles 1.0)
 * [`EXT_structural_metadata`](TODO) (glTF 2.0)
-* [3D Tiles 1.1](TODO)
 
 ## General
 
@@ -54,9 +53,9 @@ Semantic|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 
 #### Overview
 
-`TILE_*` semantics provide meaning for properties associated with a particular tile, and should take precedence over equivalent metadata on parent objects, as well as over values derived from subdivision schemes like [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling) (3D Tiles 1.1 TODO).
+`TILE_*` semantics provide meaning for properties associated with a particular tile, and should take precedence over equivalent metadata on parent objects, as well as over values derived from subdivision schemes like [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
 
-In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_SPHERE` semantics each define a more specific bounding volume for a tile than is implicitly calculated from [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling) (3D Tiles 1.1 TODO). If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
+In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_SPHERE` semantics each define a more specific bounding volume for a tile than is implicitly calculated from [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling). If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
 
 #### Tile Semantics
 

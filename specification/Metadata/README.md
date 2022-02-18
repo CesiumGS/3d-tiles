@@ -85,7 +85,6 @@ The specification defines core concepts to be used by multiple 3D formats, and i
 
 * [`3DTILES_metadata`](../../extensions/3DTILES_metadata) (3D Tiles 1.0) — Assigns metadata to tilesets, tiles, groups, and contents
 * [`EXT_structural_metadata`](TODO) (glTF 2.0) —  Assigns metadata to vertices, texels, and features in a glTF asset
-* [3D Tiles 1.1](TODO)
 
 The specification does not enumerate or define the semantic meanings of metadata, and assumes that separate specifications will define semantics for their particular application or domain. One example is the [3D Metadata Semantic Reference](./Semantics/) which defines built-in semantics for 3D Tiles and glTF. Identifiers for externally-defined semantics can be stored within the 3D Metadata Specification.
 
