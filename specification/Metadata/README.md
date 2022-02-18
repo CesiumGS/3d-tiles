@@ -294,7 +294,7 @@ Normalized properties (`normalized`) provide a compact alternative to larger flo
 
 Implementations must use following equations to decode floating-point value `f` from a normalized integer `i` and vice-versa:
 
-| componentType | int-to-float                               | float-to-int                            |
+| componentType | int to float                               | float to int                            |
 |---------------|--------------------------------------------|-----------------------------------------|
 | INT8          | `f = max(i / 127.0, -1.0)`                 | `i = round(f * 127.0)`                  |
 | UINT8         | `f = i / 255.0`                            | `i = round(f * 255.0)`                  |
