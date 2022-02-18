@@ -292,7 +292,7 @@ Normalized properties (`normalized`) provide a compact alternative to larger flo
 * Unsigned integer values (`UINT8`, `UINT16`, `UINT32`, `UINT64`) must be rescaled to the range `[0.0, 1.0]` (inclusive)
 * Signed integer values (`INT8`, `INT16`, `INT32`, `INT64`) must be rescaled to the range `[-1.0, 1.0]` (inclusive)
 
-Implementations must use following equations to decode floating-point value `f` from a normalized integer `i` and vice-versa:
+Implementations must use following equations to decode floating-point value `f` from a normalized integer `i` and vice versa:
 
 | componentType | int to float                               | float to int                            |
 |---------------|--------------------------------------------|-----------------------------------------|
