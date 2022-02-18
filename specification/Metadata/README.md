@@ -287,12 +287,7 @@ A property can be declared to be a fixed- and variable-length array, consisting 
 
 #### Normalized Values
 
-Normalized properties (`normalized`) provide a compact alternative to larger floating-point types. Normalized values are stored as integers, but when accessed are transformed to floating-point form according to the following rules:
-
-* Unsigned integer values (`UINT8`, `UINT16`, `UINT32`, `UINT64`) must be rescaled to the range `[0.0, 1.0]` (inclusive)
-* Signed integer values (`INT8`, `INT16`, `INT32`, `INT64`) must be rescaled to the range `[-1.0, 1.0]` (inclusive)
-
-Implementations must use following equations to decode floating-point value `f` from a normalized integer `i` and vice versa:
+Normalized properties (`normalized`) provide a compact alternative to larger floating-point types. Normalized values are stored as integers, but when accessed are transformed to floating-point according to the following rules:
 
 | componentType | int to float                               | float to int                            |
 |---------------|--------------------------------------------|-----------------------------------------|
