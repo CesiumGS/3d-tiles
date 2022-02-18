@@ -292,6 +292,19 @@ Normalized properties (`normalized`) provide a compact alternative to larger flo
 * Unsigned integer values (`UINT8`, `UINT16`, `UINT32`, `UINT64`) must be rescaled to the range `[0.0, 1.0]` (inclusive)
 * Signed integer values (`INT8`, `INT16`, `INT32`, `INT64`) must be rescaled to the range `[-1.0, 1.0]` (inclusive)
 
+Implementations must use following equations to decode floating-point value `f` from a normalized integer `c`:
+
+| componentType | int-to-float                               |
+|---------------|--------------------------------------------|
+| UINT8         | `f = c / 255.0`                            |
+| UINT16        | `f = c / 65535.0`                          |
+| UINT32        | `f = c / 4294967295.0`                     |
+| UINT64        | `f = c / 18446744073709551615.0`           |
+| INT8          | `f = max(c / 127.0, -1.0)`                 |
+| INT16         | `f = max(c / 32767.0, -1.0)`               |
+| INT32         | `f = max(c / 2147483647.0, -1.0)`          |
+| INT64         | `f = max(c / 9223372036854775807.0, -1.0)` |
+
 `normalized` is only applicable to scalar, vector, and matrix types with integer component types.
 
 > **Implementation Note:** Depending on the implementation and the chosen integer type, there may be some loss of precision in values after denormalization. For example, if the implementation uses 32-bit floating point variables to represent the value of a normalized 32-bit integer, there are only 23 bits in the mantissa of the float, and lower bits will be truncated by denormalization. Client implementations should use higher precision floats when appropriate for correctly representing the result.
