@@ -287,7 +287,7 @@ A property can be declared to be a fixed- and variable-length array, consisting 
 
 #### Normalized Values
 
-Normalized properties (`normalized`) provide a compact alternative to larger floating-point types. Normalized values are stored as integers, but when accessed are transformed to floating-point according to the following rules:
+Normalized properties (`normalized`) provide a compact alternative to larger floating-point types. Normalized values are stored as integers, but when accessed are transformed to floating-point according to the following equations:
 
 | componentType | int to float                               | float to int                            |
 |---------------|--------------------------------------------|-----------------------------------------|
