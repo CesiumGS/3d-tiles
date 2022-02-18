@@ -4,10 +4,11 @@
 <!-- omit in toc -->
 ## Contributors
 
-* Peter Gagliardi, Cesium
 * Sean Lilley, Cesium
-* Sam Suhag, Cesium
+* Peter Gagliardi, Cesium
+* Marco Hutter, Cesium
 * Don McCurdy, Independent
+* Sam Suhag, Cesium
 * Bao Tran, Cesium
 * Patrick Cozzi, Cesium
 

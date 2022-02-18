@@ -5,13 +5,13 @@
 ## Contributors
 
 * Peter Gagliardi, Cesium
-* Erixen Cruz, Cesium
 * Sam Suhag, Cesium
 * Sean Lilley, Cesium
 * Ian Lilley, Cesium
-* Josh Lawrence, Cesium
 * Marco Hutter, Cesium
 * Don McCurdy, Independent
+* Erixen Cruz, Cesium
+* Josh Lawrence, Cesium
 * Shehzan Mohammed, Cesium
 * Patrick Cozzi, Cesium
 

@@ -6,10 +6,11 @@
 
 * Sean Lilley, Cesium
 * Peter Gagliardi, Cesium
-* Sam Suhag, Cesium
+* Marco Hutter, Cesium
 * Don McCurdy, Independent
-* Patrick Cozzi, Cesium
+* Sam Suhag, Cesium
 * Bao Tran, Cesium
+* Patrick Cozzi, Cesium
 
 <!-- omit in toc -->
 ## Status

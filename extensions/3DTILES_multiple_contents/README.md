@@ -4,9 +4,9 @@
 
 * Sean Lilley, Cesium
 * Peter Gagliardi, Cesium
-* Sam Suhag, Cesium
 * Marco Hutter, Cesium
 * Don McCurdy, Independent
+* Sam Suhag, Cesium
 * Patrick Cozzi, Cesium
 
 ## Status
