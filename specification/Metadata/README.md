@@ -283,7 +283,7 @@ Floating-point properties (`FLOAT32` and `FLOAT64`) must not include values `NaN
 
 #### Arrays
 
-A property can be declared to be a fixed- and variable-length array, consisting of elements of the given type. For fixed-length arrays, a count (`count`) denotes the number of elements in each array, and must be greater than or equal to 2. Variable-length arrays do not define a count, and arrays may have any length, including zero.
+A property can be declared to be a fixed- and variable-length array, consisting of elements of the given type. For fixed-length arrays, a count (`count`) denotes the number of elements in each array, and must be greater than or equal to 2. Variable-length arrays do not define a count and may have any length, including zero.
 
 #### Normalized Values
 
