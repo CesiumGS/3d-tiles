@@ -342,7 +342,7 @@ Properties may optionally specify a No Data value (`noData`, or "sentinel value"
 
 `noData` values are especially useful when only some entities in a property table are missing property values (see [Binary Table Format](#binary-table-format)). Otherwise if all entities are missing property values the column may be omitted from the table and a `noData` value need not be provided. Entities encoded in the [JSON Format](#json-format) may omit the property instead of providing a `noData` value. `noData` values and omitted properties are functionally equivalent.
 
-A default value (`defaultValue`) may be provided for missing property values. This value must match the property definition and may be provided for any `type`. For `ENUM` types, a `noData` value should contain the name of the enum value as a string, rather than its integer value. If a default value is not provided, the behavior when encountering missing property values is implementation-defined.
+A default value (`defaultValue`) may be provided for missing property values. This value must match the property definition and may be provided for any `type`. For `ENUM` types, a `defaultValue` value should contain the name of the enum value as a string, rather than its integer value. If a default value is not provided, the behavior when encountering missing property values is implementation-defined.
 
 > **Example:** In the example below, a "tree" class is defined with `noData` indicating a specific enum value to be interpreted as missing data.
 >
