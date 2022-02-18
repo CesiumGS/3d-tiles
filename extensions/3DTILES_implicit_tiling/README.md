@@ -296,6 +296,8 @@ Subtrees may also store metadata for tile content. Content metadata exists only 
 
 Content bounding volumes are not computed automatically by `3DTILES_implicit_tiling` but may be provided by properties with semantics `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, `CONTENT_BOUNDING_SPHERE`, `CONTENT_MINIMUM_HEIGHT`, and `CONTENT_MAXIMUM_HEIGHT`.
 
+If the tile content is assigned a [`group`](../3DTILES_metadata#content-group-properties) — such as with the `3DTILES_metadata` extension — all contents in the implicit tree are assigned to that group.
+
 #### Subtree Metadata
 
 Properties assigned to subtrees provide metadata about the subtree as a whole. Subtree metadata is encoded in JSON according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
@@ -356,10 +358,10 @@ Availability bitstreams are packed in binary using the format described in the [
 >   "tileAvailability": {
 >     "constant": 1,
 >   },
->   "contentAvailability": {
+>   "contentAvailability": [{
 >     "bitstream": 0,
 >     "availableCount": 60
->   },
+>   }],
 >   "childSubtreeAvailability": {
 >     "bitstream": 1
 >   }
@@ -386,6 +388,8 @@ Binary property values are stored in a **property table**. A property table must
 
 A property may override the [`minimum` and `maximum` values](https://github.com/CesiumGS/3d-tiles/tree/main/specification/Metadata#minimum-and-maximum-values) and the [`offset` and `scale`](https://github.com/CesiumGS/3d-tiles/tree/main/specification/Metadata#offset-and-scale) from the property definition in the class, to account for the actual range of values that is stored in the property table.
 
+Array offsets (`arrayOffsets`) is required for variable-length arrays and string offsets (`stringOffsets`) is required for strings. For variable-length arrays of strings, both are required. `arrayOffsetType` describes the storage type for array offsets and `stringOffsetType` describes the storage type for string offsets. Allowed types are `UINT8`, `UINT16`, `UINT32`, and `UINT64`. The default is `UINT32`.
+
 Details of binary value encoding, including how to determine property value offsets for mixed-length string and array values, are defined by the [*Binary Table Format*](../../specification/Metadata/README.md#binary-table-format).
 
 > **Example:** The same JSON description of a subtree extended with tile, content, and subtree metadata. The subtree JSON refers to class IDs in the `3DTILES_metadata` schema definition. Tile and content metadata is stored in property tables; subtree metadata is encoded directly in JSON.
@@ -393,51 +397,53 @@ Details of binary value encoding, including how to determine property value offs
 > _`3DTILES_metadata` extension in the root tileset JSON_
 > ```json
 > {
->   "classes": {
->     "tile": {
->       "properties": {
->         "horizonOcclusionPoint": {
->           "semantic": "TILE_HORIZON_OCCLUSION_POINT",
->           "type": "VEC3",
->           "componentType": "FLOAT64",
->         },
->         "countries": {
->           "description": "Countries a tile intersects",
->           "type": "STRING",
->           "array": true
+>   "schema": {
+>     "classes": {
+>       "tile": {
+>         "properties": {
+>           "horizonOcclusionPoint": {
+>             "semantic": "TILE_HORIZON_OCCLUSION_POINT",
+>             "type": "VEC3",
+>             "componentType": "FLOAT64",
+>           },
+>           "countries": {
+>             "description": "Countries a tile intersects",
+>             "type": "STRING",
+>             "array": true
+>           }
 >         }
->       }
->     },
->     "content": {
->       "properties": {
->         "attributionIds": {
->           "semantic": "ATTRIBUTION_IDS",
->           "type": "SCALAR",
->           "componentType": "UINT16",
->           "array": true
->         },
->         "minimumHeight": {
->           "semantic": "CONTENT_MINIMUM_HEIGHT",
->           "type": "SCALAR",
->           "componentType": "FLOAT64"
->         },
->         "maximumHeight": {
->           "semantic": "CONTENT_MAXIMUM_HEIGHT",
->           "type": "SCALAR",
->           "componentType": "FLOAT64"
->         },
->         "triangleCount": {
->           "type": "SCALAR",
->           "componentType": "UINT32"
+>       },
+>       "content": {
+>         "properties": {
+>           "attributionIds": {
+>             "semantic": "ATTRIBUTION_IDS",
+>             "type": "SCALAR",
+>             "componentType": "UINT16",
+>             "array": true
+>           },
+>           "minimumHeight": {
+>             "semantic": "CONTENT_MINIMUM_HEIGHT",
+>             "type": "SCALAR",
+>             "componentType": "FLOAT64"
+>           },
+>           "maximumHeight": {
+>             "semantic": "CONTENT_MAXIMUM_HEIGHT",
+>             "type": "SCALAR",
+>             "componentType": "FLOAT64"
+>           },
+>           "triangleCount": {
+>             "type": "SCALAR",
+>             "componentType": "UINT32"
+>           }
 >         }
->       }
->     },
->     "subtree": {
->       "properties": {
->         "attributionStrings": {
->           "semantic": "ATTRIBUTION_STRINGS",
->           "type": "STRING",
->           "array": true
+>       },
+>       "subtree": {
+>         "properties": {
+>           "attributionStrings": {
+>             "semantic": "ATTRIBUTION_STRINGS",
+>             "type": "STRING",
+>             "array": true
+>           }
 >         }
 >       }
 >     }
@@ -477,10 +483,10 @@ Details of binary value encoding, including how to determine property value offs
 >   "tileAvailability": {
 >     "constant": 1
 >   },
->   "contentAvailability": {
+>   "contentAvailability": [{
 >     "bitstream": 0,
 >     "availableCount": 60
->   },
+>   }],
 >   "childSubtreeAvailability": {
 >     "bitstream": 1
 >   },
@@ -533,6 +539,94 @@ Details of binary value encoding, including how to determine property value offs
 >       ]
 >     }
 >   }
+> }
+> ```
+
+<!-- omit in toc -->
+### Multiple Contents
+
+When using the `3DTILES_multiple_contents` extension `contentAvailability` and `contentMetadata` are provided for each content layer.
+
+> **Example:** JSON description of a subtree extended with multiple contents. In this example all tiles are available, all building contents are available, and only some tree contents are available. 
+> 
+> _Implicit root tile_
+> 
+> ```json
+> {
+>   "root": {
+>     "boundingVolume": {
+>       "region": [-1.318, 0.697, -1.319, 0.698, 0, 20]
+>     },
+>     "refine": "ADD",
+>     "geometricError": 5000,
+>     "extensions": {
+>       "3DTILES_multiple_contents": {
+>         "content": [
+>           {
+>             "uri": "buildings/{level}/{x}/{y}.b3dm",
+>           },
+>           {
+>             "uri": "trees/{level}/{x}/{y}.i3dm",
+>           }
+>         ]    
+>       },
+>       "3DTILES_implicit_tiling": {
+>         "subdivisionScheme": "QUADTREE",
+>         "availableLevels": 21,
+>         "subtreeLevels": 7,
+>         "subtrees": {
+>           "uri": "subtrees/{level}/{x}/{y}.json"
+>         },
+>       }
+>     }
+>   }
+> }
+> ```
+> 
+> _Subtree JSON_
+> ```json
+> {
+>   "tileAvailability": {
+>     "constant": 1
+>   },
+>   "contentAvailability": [
+>     {
+>       "constant": 1
+>     },
+>     {
+>       "bitstream": 0,
+>       "availableCount": 52
+>     }
+>   ],
+>   "childSubtreeAvailability": {
+>     "constant": 1
+>   },
+>   "contentMetadata": [
+>     {
+>       "class": "building",
+>       "properties": {
+>         "height": {
+>           "values": 1,
+>         },
+>         "owners": {
+>           "values": 2,
+>           "arrayOffsets": 3,
+>           "stringOffsets": 4
+>         }
+>       }
+>     },
+>     {
+>       "class": "tree",
+>       "properties": {
+>         "height": {
+>           "values": 5,
+>         },
+>         "species": {
+>           "values": 6
+>         }
+>       }
+>     }
+>   ]
 > }
 > ```
 
