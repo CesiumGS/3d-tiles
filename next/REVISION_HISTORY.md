@@ -105,7 +105,6 @@
   * `CONTENT_*` semantics should now be assigned to content metadata properties instead of tile metadata properties
   * Added `ATTRIBUTION_IDS` and `ATTRIBUTION_STRINGS` semantics for providing data attribution at multiple levels of granularity
   * Added `TILESET_FEATURE_ID_SETS` semantic to list the feature ID sets present in glTF content referenced by the tileset
-  * Added `TILESET_CRS_GEOCENTRIC` semantic to describe the geocentric coordinate reference system of the tileset
 * Updated schema definition
   * `type` is required and must be one of the following: `SCALAR`, `VEC2`, `VEC3`, `VEC4`, `MAT2`, `MAT3`, `MAT4`, `STRING`, `BOOLEAN`, `ENUM`
   * `componentType` is required for scalar, vector, and matrix types and must be one of the following: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, `UINT64`, `FLOAT32`, `FLOAT64`

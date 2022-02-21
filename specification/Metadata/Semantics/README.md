@@ -48,7 +48,6 @@ Units for all linear distances are meters, and all angles are radians.
 Semantic|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|Description
 --|--|--
 `TILESET_FEATURE_ID_SETS`|<ul><li>Type: `STRING`</li><li>Array: `true`</li></ul>|The union of all the feature ID sets in glTF content using the [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) and [`EXT_instance_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features) extensions.
-`TILESET_CRS_GEOCENTRIC`|<ul><li>Type: `STRING`</li></ul>|The geocentric coordinate reference system of the tileset. Known values include:<ul><li>`"EPSG:4978"` - WGS 84</li><li>`"EPSG:7656"` - WGS 84 (G730)</li><li>`"EPSG:7658"` - WGS 84 (G873)</li><li>`"EPSG:7660"` - WGS 84 (G1150)</li><li>`"EPSG:7662"` - WGS 84 (G1674)</li><li>`"EPSG:7664"` - WGS 84 (G1762)</li><li>`"EPSG:9753"` - WGS 84 (G2139)</li></ul>Other values may be used. This semantic is purely informational and does not require runtime reprojection or affect visualization.
 
 ### Tile
 
