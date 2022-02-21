@@ -458,7 +458,7 @@ For each case below, the offset of an array element `i` within its binary storag
 | `STRING`        | byte offset | `stringOffset[arrayOffset[id] + i]` |
 | All other types | array index | `arrayOffset[id] + i`               |
 
-Each expression in the table above defines an index into the underlying property array. For a property array of `FLOAT32` elements, index `3` would correspond to <u>_byte_</u> offset `3 * sizeof(FLOAT32) = 12` within that array. For an array of `BOOLEAN` components, offset `3` would correspond to <u>_bit_</u> offset `3`.
+Each expression in the table above defines an index into the underlying property array. For a property array of `SCALAR` elements with `FLOAT32` component type, index `3` corresponds to byte offset `3 * sizeof(FLOAT32)`. For a property array of `VEC4` elements with `FLOAT32` component type, index `3` corresponds to byte offset `3 * 4 * sizeof(FLOAT32) = 48`. For an array of `BOOLEAN` elements, offset `3` would correspond to <u>_bit_</u> offset `3`.
 
 > **Example:** Five variable-length arrays of UINT8 components, binary-encoded in a buffer. The associated property definition would be `type = "SCALAR"`, `componentType = "UINT8"`, and `array = true`.
 >
