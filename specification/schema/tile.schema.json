@@ -66,7 +66,32 @@
         },
         "content": {
             "description": "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling.",
-            "$ref": "content.schema.json"
+            "$ref": "content.schema.json",
+            "deprecated": true
+        },
+        "contents": {
+            "type": "array",
+            "description": "An array of contents.",
+            "items": {
+                "$ref": "content.schema.json"
+            },
+            "minItems": 1
+        },
+        "metadata": {
+            "allOf": [
+                {
+                    "$ref": "metadataEntity.schema.json"
+                }
+            ],
+            "description": "Content metadata."
+        },
+        "implicitTiling": {
+            "allOf": [
+                {
+                    "$ref": "tile.implicitTiling.schema.json"
+                }
+            ],
+            "description": "Implicit tiling."
         },
         "children": {
             "type": "array",

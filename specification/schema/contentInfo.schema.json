@@ -1,0 +1,24 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "contentInfo.schema.json",
+    "title": "Content Info",
+    "type": "object",
+    "description": "Information about tileset content.",
+    "allOf": [
+        {
+            "$ref": "tilesetProperty.schema.json"
+        }
+    ],
+    "properties": {
+        "gltf": {
+            "allOf": [
+                {
+                    "$ref": "contentInfo.gltf.schema.json"
+                }
+            ],
+            "description": "Information about glTF content."
+        },
+        "extensions": {},
+        "extras": {}
+    }
+}
