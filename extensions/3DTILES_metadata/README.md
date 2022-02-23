@@ -74,7 +74,6 @@ The figure below shows the relationship between entities (tilesets, tiles, conte
 
 <img src="figures/metadata-granularity.png"  alt="Metadata Granularity" width="600">
 
-[TODO: update image to include content metadata]
 
 ## Use Cases
 
