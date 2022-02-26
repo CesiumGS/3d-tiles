@@ -308,25 +308,38 @@ Normalized properties (`normalized`) provide a compact alternative to larger flo
 
 #### Offset and Scale
 
-A property may declare an offset (`offset`) and scale (`scale`) to apply to property values. This is useful when mapping property values to a different range. The following equation is used to transform property values:
+A property may declare an offset (`offset`) and scale (`scale`) to apply to property values. This is useful when mapping property values to a different range. 
 
-`transformedValue = offset + scale * value`
+The `offset` and `scale` can be defined for types that either have a floating-point `componentType`, or when `normalized` is set to `true`. This applies to `SCALAR`, `VECN`, and `MATN` types, and to fixed-length arrays of these types. The structure of `offset` and `scale` must match the `type` of the property:
 
-Offset and scale may also be used in conjunction with normalized properties:
+- For `SCALAR` (non-array) types, they are single numeric values.
+- For `SCALAR` array types with fixed length `count`, they are arrays with length `count`.
+- For `VECN` types, they are arrays, with length `N`.
+- For `MATN` types, they are arrays, with length `N * N*`.
+- For `VECN` array types with fixed length `count`, they are arrays with length `count`, where each array element is itself an array of length `N`
+- For `MATN` array types with fixed length `count`, they are arrays with length `count`, where each array element is itself an array of length `N * N`.
+
+The components of `offset` and `scale` are floating-point values. 
+
+The following equation is used to transform the original property value into the actual value that is used by the client:
 
 `transformedValue = offset + scale * normalize(value)`
 
-Offset and scale values must match the property type, e.g. if `type` is `SCALAR` the value must be a single number and if `type` is `VEC3` the value must be an array-typed value with three numbers. If the property is a fixed-length array the value must be an array with elements corresponding to the given `type`. Offset and scale are only applicable to scalar, vector, and matrix types, and fixed-length arrays thereof. Offset and scale values are not required to match the `componentType`. Transform operations are applied component-wise, both for array elements and for vector and matrix components.
+These operations are applied component-wise, both for array elements and for vector and matrix components.
 
-When offset is not provided, a default offset with all `0.0` values is used. When scale is not provided, a default scale with all `1.0` values is used.
+The transformation that is described here allows arbitrary source value ranges to be mapped to arbitrary target value ranges, by first computing the `float` value for the original `normalized` value, and then mapping that floating point range to the desired target range.
 
-> **Example:** A property storing quantized temperature values in the range -10.5°C to 44°C would have `SCALAR` type, `UINT8` component type, `normalized` true, `offset` of -10.5, and `scale` of 54.5. Integer values from 0 to 255 would be remapped to values from -10.5 to 44.0.
+> **Implementation Note**: The result of transforming a `normalized` integer value into a floating point value may be lossy, as described in the [section about Normalized Values](#normalized-values). Depending on the range of property values, the values of `offset` and `scale`, and the floating point precision that is used in the client implementation, the computation may cause low-significance bits to be truncated from the final result. Client implementations should retain as much precision as reasonably possible. 
+
+When the `offset` for a property is not given, then is is assumed to be `0` for each component of the respective type. When the `scale` value of a property is not given, then it is assumed to be `1` for each component of the respective type. 
 
 #### Minimum and Maximum Values
 
-Properties representing numeric values — such scalar, vector, and matrix types — may specify a minimum (`minimum`) and maximum (`maximum`). Minimum and maximum values represent component-wise bounds of the valid range for a property.
+Properties may specify a minimum (`minimum`) and maximum (`maximum`) value. Minimum and maximum values represent component-wise bounds of the valid range of values for a property. The `minimum` and `maximum` value can be defined for `SCALAR`, `VECN`, and `MATN` types with numeric component types, and for fixed-length arrays of these types. The structure of `minimum` and `maximum` must match the `type` of the property, as described in the [section about Offset and Scale](#offset-and-scale). 
 
-Minimum and maximum values must match the property type and component type, e.g. if `type` is `SCALAR` and `componentType` is `UINT8` the value must be an unsigned integer in the range `[0, 255]` and if `type` is `VEC3` and `componentType` is `FLOAT32` the value must be an array-typed value with three floats. If the property is a fixed-length array the value must be an array with elements corresponding to the given `type` and `componentType`. Minimum and maximum are only applicable to scalar, vector, and matrix types, and fixed-length arrays thereof. The property's `normalized`, `scale` and `offset` attributes have no affect on the value.
+For properties that are `normalized`, the component type of `minimum` and `maximum` is a floating point type, and their values represent the the bounds of the property values _after_ normalization or `offset`- or `scale` computations have been applied. 
+
+For all other properties, the component type of `minimum` and `maximum` matches the `componentType` of the property, and the values are the bounds of the original property values. 
 
 > **Example:** A property storing GPS coordinates might define a range of `[-180, 180]` degrees for longitude values and `[-90, 90]` degrees for latitude values.
 
