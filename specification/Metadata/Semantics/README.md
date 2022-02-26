@@ -6,7 +6,7 @@ This document provides common definitions of meaning ("semantics") used by metad
 
 Semantics describe how properties should be interpreted. For example, an application that encounters the `ID` or `NAME` semantics while parsing a dataset may use these values as unique identifiers or human-readable labels, respectively.
 
-Each semantic is defined in terms of its meaning, and the datatypes it may assume. Datatype specifications include "type" as defined by the [3D Metadata Specification](../). When applicable they may also include "array" and "count".
+Each semantic is defined in terms of its meaning, and the datatypes it may assume. Datatype specifications include "type" as defined by the [3D Metadata Specification](../). When applicable they may also include "component type", "array", and "count".
 
 For use of semantics in extensions of specific standards, see:
 
