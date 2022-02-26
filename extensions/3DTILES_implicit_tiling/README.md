@@ -108,6 +108,7 @@ The following properties about the implicit root tile are included in the extens
 The following constraints apply to implicit root tiles:
   
   * The tile must omit the `children` property
+  * The tile must not have the `3DTILES_metadata` extension
   * The `content.uri` must not point to an [external tileset](../../specification#external-tilesets)
   * The `content` must not have an associated `boundingVolume` property
 
