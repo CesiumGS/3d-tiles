@@ -310,16 +310,7 @@ Normalized properties (`normalized`) provide a compact alternative to larger flo
 
 A property may declare an offset (`offset`) and scale (`scale`) to apply to property values. This is useful when mapping property values to a different range. 
 
-The `offset` and `scale` can be defined for types that either have a floating-point `componentType`, or when `normalized` is set to `true`. This applies to `SCALAR`, `VECN`, and `MATN` types, and to fixed-length arrays of these types. The structure of `offset` and `scale` must match the `type` of the property:
-
-- For `SCALAR` (non-array) types, they are single numeric values.
-- For `SCALAR` array types with fixed length `count`, they are arrays with length `count`.
-- For `VECN` types, they are arrays, with length `N`.
-- For `MATN` types, they are arrays, with length `N * N*`.
-- For `VECN` array types with fixed length `count`, they are arrays with length `count`, where each array element is itself an array of length `N`
-- For `MATN` array types with fixed length `count`, they are arrays with length `count`, where each array element is itself an array of length `N * N`.
-
-The components of `offset` and `scale` are floating-point values. 
+The `offset` and `scale` can be defined for types that either have a floating-point `componentType`, or when `normalized` is set to `true`. This applies to `SCALAR`, `VECN`, and `MATN` types, and to fixed-length arrays of these types. The structure of `offset` and `scale` is explained in the [Property Values Structure](#property-values-structure) section.
 
 The following equation is used to transform the original property value into the actual value that is used by the client:
 
@@ -331,13 +322,15 @@ The transformation that is described here allows arbitrary source value ranges t
 
 > **Implementation Note**: The result of transforming a `normalized` integer value into a floating point value may be lossy, as described in the [section about Normalized Values](#normalized-values). Depending on the range of property values, the values of `offset` and `scale`, and the floating point precision that is used in the client implementation, the computation may cause low-significance bits to be truncated from the final result. Client implementations should retain as much precision as reasonably possible. 
 
-When the `offset` for a property is not given, then is is assumed to be `0` for each component of the respective type. When the `scale` value of a property is not given, then it is assumed to be `1` for each component of the respective type. 
+When the `offset` for a property is not given, then is is assumed to be `0` for each component of the respective type. When the `scale` value of a property is not given, then it is assumed to be `1` for each component of the respective type. _Instances_ of the class that defines the respective property can override the offset- and scale factors, to account for the actual range of property values that are provided by the instance. 
 
 #### Minimum and Maximum Values
 
-Properties may specify a minimum (`minimum`) and maximum (`maximum`) value. Minimum and maximum values represent component-wise bounds of the valid range of values for a property. The `minimum` and `maximum` value can be defined for `SCALAR`, `VECN`, and `MATN` types with numeric component types, and for fixed-length arrays of these types. The structure of `minimum` and `maximum` must match the `type` of the property, as described in the [section about Offset and Scale](#offset-and-scale). 
+Properties may specify a minimum (`minimum`) and maximum (`maximum`) value. Minimum and maximum values represent component-wise bounds of the valid range of values for a property. Both values are _inclusive_, meaning that they denote the smallest and largest allowed value, respectively. 
 
-For properties that are `normalized`, the component type of `minimum` and `maximum` is a floating point type, and their values represent the the bounds of the property values _after_ normalization or `offset`- or `scale` computations have been applied. 
+The `minimum` and `maximum` value can be defined for `SCALAR`, `VECN`, and `MATN` types with numeric component types, and for fixed-length arrays of these types. The structure of `minimum` and `maximum` is explained in the [Property Values Structure](#property-values-structure) section.
+
+For properties that are `normalized`, the component type of `minimum` and `maximum` is a floating point type. Their values represent the bounds of the final, transformed property values. This includes the normalization and `offset`- or `scale` computations, as well as other transforms or constraints that are not part of the class definition itself: A `normalized` unsigned value is in the range [0.0, 1.0] after the normalization has been applied, but [`minimum`, `maximum`] may specify a different value range.
 
 For all other properties, the component type of `minimum` and `maximum` matches the `componentType` of the property, and the values are the bounds of the original property values. 
 
@@ -351,11 +344,13 @@ When associated property values must exist for all entities of a class, a proper
 
 Individual elements in an array or individual components in a vector or matrix cannot be marked as required; only the property itself can be marked as required.
 
-Properties may optionally specify a No Data value (`noData`, or "sentinel value") to be used when property values do not exist. This value must match the property definition, e.g. if `type` is `SCALAR` and `componentType` is `UINT8` the `noData` value must be an unsigned integer in the range `[0, 255]` and if `type` is `VEC3` and `componentType` is `FLOAT32` the value must be an array-typed value with three floats. If the property is a fixed-length array the value must be an array with elements corresponding to the given `type` and `componentType`. The property's `normalized`, `scale` and `offset` attributes have no affect on the value. A `noData` value may be provided for any `type` except `BOOLEAN`. For `ENUM` types, a `noData` value should contain the name of the enum value as a string, rather than its integer value.
+Properties may optionally specify a No Data value (`noData`, or "sentinel value") to be used when property values do not exist. A `noData` value may be provided for any `type` except `BOOLEAN`. For `ENUM` types, a `noData` value should contain the name of the enum value as a string, rather than its integer value. The structure of the `noData` value is explained in the [Property Values Structure](#property-values-structure) section.
 
-`noData` values are especially useful when only some entities in a property table are missing property values (see [Binary Table Format](#binary-table-format)). Otherwise if all entities are missing property values the column may be omitted from the table and a `noData` value need not be provided. Entities encoded in the [JSON Format](#json-format) may omit the property instead of providing a `noData` value. `noData` values and omitted properties are functionally equivalent.
+A `noData` value is especially useful when only some entities in a property table are missing property values (see [Binary Table Format](#binary-table-format)). Otherwise if all entities are missing property values the column may be omitted from the table and a `noData` value need not be provided. Entities encoded in the [JSON Format](#json-format) may omit the property instead of providing a `noData` value. `noData` values and omitted properties are functionally equivalent.
 
-A default value (`defaultValue`) may be provided for missing property values. This value must match the property definition and may be provided for any `type`. For `ENUM` types, a `defaultValue` value should contain the name of the enum value as a string, rather than its integer value. If a default value is not provided, the behavior when encountering missing property values is implementation-defined.
+A default value (`defaultValue`) may be provided for missing property values. For `ENUM` types, a `defaultValue` value should contain the name of the enum value as a string, rather than its integer value. For all other cases, the structure of the `defaultValue` value is explained in the [Property Values Structure](#property-values-structure) section.
+
+If a default value is not provided, the behavior when encountering missing property values is implementation-defined.
 
 > **Example:** In the example below, a "tree" class is defined with `noData` indicating a specific enum value to be interpreted as missing data.
 >
@@ -364,6 +359,20 @@ A default value (`defaultValue`) may be provided for missing property values. Th
 > | height    | `FLOAT32`       | ✓        |             |
 > | species   | `ENUM`          |          | `"Unknown"` |
 > | leafColor | `STRING`        | ✓        |             |
+
+
+#### Property Values Structure
+
+Property values that appear as part of the class definition are the offset, scale, minimum, maximum, default values and no-data values. The structure of these values inside the class definition depends on the type of the property. For `SCALAR` (non-array) types, they are single values. For all other cases, they are arrays:
+
+- For `SCALAR` array types with fixed length `count`, they are arrays with length `count`.
+- For `VECN` types, they are arrays, with length `N`.
+- For `MATN` types, they are arrays, with length `N * N*`.
+- For `VECN` array types with fixed length `count`, they are arrays with length `count`, where each array element is itself an array of length `N`
+- For `MATN` array types with fixed length `count`, they are arrays with length `count`, where each array element is itself an array of length `N * N`.
+
+For `noData` values and numeric values that are not `normalized`, the type of the innermost elements of these arrays corresponds to the `componentType`. For numeric values that are `normalized`, the innermost elements are floating-point values. 
+
 
 ## Storage Formats
 
