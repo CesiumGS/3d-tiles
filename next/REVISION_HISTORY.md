@@ -105,6 +105,8 @@
   * `CONTENT_*` semantics should now be assigned to content metadata properties instead of tile metadata properties
   * Added `ATTRIBUTION_IDS` and `ATTRIBUTION_STRINGS` semantics for providing data attribution at multiple levels of granularity
   * Added `TILESET_FEATURE_ID_SETS` semantic to list the feature ID sets present in glTF content referenced by the tileset
+  * Added `TILESET_CRS_GEOCENTRIC` semantic to describe the geocentric coordinate reference system of the tileset
+  * Added `TILESET_CRS_COORDINATE_EPOCH` semantic to describe the coordinate epoch of vertex data
   * Added `TILE_BOUNDING_S2_CELL` semantic
   * Added `TILE_REFINE` semantic
   * Added `TILE_TRANSFORM` semantic
