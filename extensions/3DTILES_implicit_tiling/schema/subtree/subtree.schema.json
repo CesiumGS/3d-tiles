@@ -26,6 +26,14 @@
             "minItems": 1,
             "description": "An array of buffer views."
         },
+        "propertyTables": {
+            "type": "array",
+            "items": {
+                "$ref": "propertyTable.schema.json"
+            },
+            "minItems": 1,
+            "description": "An array of property tables."
+        },
         "tileAvailability": {
             "allOf": [
                 {
@@ -53,7 +61,7 @@
         "tileMetadata": {
             "allOf": [
                 {
-                    "$ref": "propertyTable.schema.json"
+                    "$ref": "tileMetadata.schema.json"
                 }
             ],
             "description": "A property table containing tile metadata. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices."
@@ -61,7 +69,7 @@
         "contentMetadata": {
             "type": "array",
             "items": {
-                "$ref": "propertyTable.schema.json"
+                "$ref": "contentMetadata.schema.json"
             },
             "minItems": 1,
             "description": "An array of property tables containing content metadata. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by EXT_multiple_contents and 3D Tiles 1.1 - this array will have multiple elements. Content metadata only exists for available contents and is tightly packed by increasing tile index. To access individual content metadata, implementations may create a mapping from tile indices to content metadata indices."

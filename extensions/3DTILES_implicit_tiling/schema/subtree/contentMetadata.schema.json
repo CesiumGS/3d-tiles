@@ -1,0 +1,24 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "contentMetadata.schema.json",
+    "title": "Content Metadata",
+    "type": "object",
+    "description": "Content metadata stored in a property table.",
+    "allOf": [
+        {
+            "$ref": "subtreeProperty.schema.json"
+        }
+    ],
+    "properties": {
+        "propertyTable": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The index of the property table."
+        },
+        "extensions": {},
+        "extras": {}
+    },
+    "required": [
+        "propertyTable"
+    ]
+}
