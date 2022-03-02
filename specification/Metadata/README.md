@@ -54,6 +54,7 @@ Draft
     - [Offset and Scale](#offset-and-scale)
     - [Minimum and Maximum Values](#minimum-and-maximum-values)
     - [Required Properties, No Data Values, and Default Values](#required-properties-no-data-values-and-default-values)
+    - [Property Values Structure](#property-values-structure)
 - [Storage Formats](#storage-formats)
   - [Overview](#overview-2)
   - [Binary Table Format](#binary-table-format)
@@ -326,13 +327,13 @@ When the `offset` for a property is not given, then is is assumed to be `0` for 
 
 #### Minimum and Maximum Values
 
-Properties may specify a minimum (`minimum`) and maximum (`maximum`) value. Minimum and maximum values represent component-wise bounds of the valid range of values for a property. Both values are _inclusive_, meaning that they denote the smallest and largest allowed value, respectively. 
+Properties may specify a minimum (`min`) and maximum (`max`) value. Minimum and maximum values represent component-wise bounds of the valid range of values for a property. Both values are _inclusive_, meaning that they denote the smallest and largest allowed value, respectively. 
 
-The `minimum` and `maximum` value can be defined for `SCALAR`, `VECN`, and `MATN` types with numeric component types, and for fixed-length arrays of these types. The structure of `minimum` and `maximum` is explained in the [Property Values Structure](#property-values-structure) section.
+The `min` and `max` value can be defined for `SCALAR`, `VECN`, and `MATN` types with numeric component types, and for fixed-length arrays of these types. The structure of `min` and `max` is explained in the [Property Values Structure](#property-values-structure) section.
 
-For properties that are `normalized`, the component type of `minimum` and `maximum` is a floating point type. Their values represent the bounds of the final, transformed property values. This includes the normalization and `offset`- or `scale` computations, as well as other transforms or constraints that are not part of the class definition itself: A `normalized` unsigned value is in the range [0.0, 1.0] after the normalization has been applied, but [`minimum`, `maximum`] may specify a different value range.
+For properties that are `normalized`, the component type of `min` and `max` is a floating point type. Their values represent the bounds of the final, transformed property values. This includes the normalization and `offset`- or `scale` computations, as well as other transforms or constraints that are not part of the class definition itself: A `normalized` unsigned value is in the range [0.0, 1.0] after the normalization has been applied, but [`min`, `max`] may specify a different value range.
 
-For all other properties, the component type of `minimum` and `maximum` matches the `componentType` of the property, and the values are the bounds of the original property values. 
+For all other properties, the component type of `min` and `max` matches the `componentType` of the property, and the values are the bounds of the original property values. 
 
 > **Example:** A property storing GPS coordinates might define a range of `[-180, 180]` degrees for longitude values and `[-90, 90]` degrees for latitude values.
 
@@ -348,7 +349,7 @@ Properties may optionally specify a No Data value (`noData`, or "sentinel value"
 
 A `noData` value is especially useful when only some entities in a property table are missing property values (see [Binary Table Format](#binary-table-format)). Otherwise if all entities are missing property values the column may be omitted from the table and a `noData` value need not be provided. Entities encoded in the [JSON Format](#json-format) may omit the property instead of providing a `noData` value. `noData` values and omitted properties are functionally equivalent.
 
-A default value (`defaultValue`) may be provided for missing property values. For `ENUM` types, a `defaultValue` value should contain the name of the enum value as a string, rather than its integer value. For all other cases, the structure of the `defaultValue` value is explained in the [Property Values Structure](#property-values-structure) section.
+A default value (`default`) may be provided for missing property values. For `ENUM` types, a `default` value should contain the name of the enum value as a string, rather than its integer value. For all other cases, the structure of the `default` value is explained in the [Property Values Structure](#property-values-structure) section.
 
 If a default value is not provided, the behavior when encountering missing property values is implementation-defined.
 
