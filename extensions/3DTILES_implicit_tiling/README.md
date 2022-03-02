@@ -387,7 +387,7 @@ Subtree metadata (`subtreeMetadata`) is encoded in JSON according to the [JSON F
 <!-- omit in toc -->
 #### Property Tables
 
-Binary property values are stored in a **property table**. A property table must specify its class (`class`), which refers to a class ID in the `3DTILES_metadata` extension of root tileset JSON,  a dictionary of properties (`properties`), where each key is a property ID correspond to a class property and each value is the index of the buffer view containing property values, and a count (`count`) for the number of elements in the property table. The property table may provide value arrays for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
+Binary property values are stored in a **property table**. A property table must specify its class (`class`), which refers to a class ID in the `3DTILES_metadata` extension of root tileset JSON, a dictionary of properties (`properties`), where each key is a property ID correspond to a class property and each value is the index of the buffer view containing property values, and a count (`count`) for the number of elements in the property table. The property table may provide value arrays for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
 
 A property may override the [`minimum` and `maximum` values](../../specification/Metadata#minimum-and-maximum-values) and the [`offset` and `scale`](../../specification/Metadata#offset-and-scale) from the property definition in the class, to account for the actual range of values that is stored in the property table.
 
