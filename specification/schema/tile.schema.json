@@ -108,5 +108,18 @@
     "required": [
         "boundingVolume",
         "geometricError"
+    ],
+    "oneOf": [
+        {
+            "required": [
+                "content"
+            ]
+        },
+        {
+            "required": [
+                "contents"
+            ]
+        },
+        {}
     ]
 }
