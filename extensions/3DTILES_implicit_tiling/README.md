@@ -532,12 +532,8 @@ Details of binary value encoding, including how to determine property value offs
 >   "childSubtreeAvailability": {
 >     "bitstream": 1
 >   },
->   "tileMetadata": {
->     "propertyTable": 0
->   },
->   "contentMetadata": [{
->     "propertyTable": 1
->   }],
+>   "tileMetadata": 0,
+>   "contentMetadata": [1],
 >   "subtreeMetadata": {
 >     "class": "subtree",
 >     "properties": {
@@ -639,14 +635,7 @@ When using the `3DTILES_multiple_contents` extension `contentAvailability` and `
 >   "childSubtreeAvailability": {
 >     "constant": 1
 >   },
->   "contentMetadata": [
->     {
->       "propertyTable": 0
->     },
->     {
->       "propertyTable": 1
->     }
->   ]
+>   "contentMetadata": [0, 1]
 > }
 > ```
 
