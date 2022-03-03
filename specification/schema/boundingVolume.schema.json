@@ -42,7 +42,7 @@
             "description": "S2 cell",
             "allOf": [
                 {
-                    "$ref": "s2.schema.json"
+                    "$ref": "s2Cell.schema.json"
                 }
             ]
         },

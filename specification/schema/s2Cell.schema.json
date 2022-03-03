@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "s2.schema.json",
+    "$id": "s2Cell.schema.json",
     "title": "S2 Bounding Volume",
     "type": "object",
     "description": "S2 Bounding Volume.",
