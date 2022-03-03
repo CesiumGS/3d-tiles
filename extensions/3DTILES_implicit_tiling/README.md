@@ -387,7 +387,7 @@ Subtree metadata (`subtreeMetadata`) is encoded in JSON according to the [JSON F
 <!-- omit in toc -->
 #### Property Tables
 
-Binary property values are stored in a **property table**. A property table must specify its class (`class`), which refers to a class ID in the `3DTILES_metadata` extension of root tileset JSON, and a dictionary of properties (`properties`), where each key is a property ID correspond to a class property and each value is the index of the buffer view containing property values. The property table may provide value arrays for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
+Binary property values are stored in a **property table**. A property table must specify its class (`class`), which refers to a class ID in the `3DTILES_metadata` extension of root tileset JSON, a dictionary of properties (`properties`), where each key is a property ID correspond to a class property and each value is the index of the buffer view containing property values, and a count (`count`) for the number of elements in the property table. The property table may provide value arrays for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
 
 A property may override the [`minimum` and `maximum` values](../../specification/Metadata#minimum-and-maximum-values) and the [`offset` and `scale`](../../specification/Metadata#offset-and-scale) from the property definition in the class, to account for the actual range of values that is stored in the property table.
 
@@ -481,36 +481,27 @@ Details of binary value encoding, including how to determine property value offs
 >     { "buffer": 1, "byteOffset": 5312, "byteLength": 480 },
 >     { "buffer": 1, "byteOffset": 5792, "byteLength": 480 },
 >     { "buffer": 1, "byteOffset": 6272, "byteLength": 240 }
-> 
 >   ],
->   "tileAvailability": {
->     "constant": 1
->   },
->   "contentAvailability": [{
->     "bitstream": 0,
->     "availableCount": 60
->   }],
->   "childSubtreeAvailability": {
->     "bitstream": 1
->   },
->   "tileMetadata": {
->     "class": "tile",
->     "properties": {
->       "horizonOcclusionPoint": {
->         "values": 2
->       },
->       "countries": {
->         "values": 3,
->         "arrayOffsets": 4,
->         "stringOffsets": 5,
->         "arrayOffsetType": "UINT32",
->         "stringOffsetType": "UINT32"
+>   "propertyTables": [
+>     {
+>       "class": "tile",
+>       "count": 85,
+>       "properties": {
+>         "horizonOcclusionPoint": {
+>           "values": 2
+>         },
+>         "countries": {
+>           "values": 3,
+>           "arrayOffsets": 4,
+>           "stringOffsets": 5,
+>           "arrayOffsetType": "UINT32",
+>           "stringOffsetType": "UINT32"
+>         }
 >       }
->     }
->   },
->   "contentMetadata": [
+>     },
 >     {
 >       "class": "content",
+>       "count": 60,
 >       "properties": {
 >         "attributionIds": {
 >           "values": 6,
@@ -531,6 +522,18 @@ Details of binary value encoding, including how to determine property value offs
 >       }
 >     }
 >   ],
+>   "tileAvailability": {
+>     "constant": 1
+>   },
+>   "contentAvailability": [{
+>     "bitstream": 0,
+>     "availableCount": 60
+>   }],
+>   "childSubtreeAvailability": {
+>     "bitstream": 1
+>   },
+>   "tileMetadata": 0,
+>   "contentMetadata": [1],
 >   "subtreeMetadata": {
 >     "class": "subtree",
 >     "properties": {
@@ -589,6 +592,34 @@ When using the `3DTILES_multiple_contents` extension `contentAvailability` and `
 > _Subtree JSON_
 > ```json
 > {
+>   "propertyTables": [
+>     {
+>       "class": "building",
+>       "count": 85,
+>       "properties": {
+>         "height": {
+>           "values": 1
+>         },
+>         "owners": {
+>           "values": 2,
+>           "arrayOffsets": 3,
+>           "stringOffsets": 4
+>         }
+>       }
+>     },
+>     {
+>       "class": "tree",
+>       "count": 52,
+>       "properties": {
+>         "height": {
+>           "values": 5
+>         },
+>         "species": {
+>           "values": 6
+>         }
+>       }
+>     }
+>   ],
 >   "tileAvailability": {
 >     "constant": 1
 >   },
@@ -604,32 +635,7 @@ When using the `3DTILES_multiple_contents` extension `contentAvailability` and `
 >   "childSubtreeAvailability": {
 >     "constant": 1
 >   },
->   "contentMetadata": [
->     {
->       "class": "building",
->       "properties": {
->         "height": {
->           "values": 1,
->         },
->         "owners": {
->           "values": 2,
->           "arrayOffsets": 3,
->           "stringOffsets": 4
->         }
->       }
->     },
->     {
->       "class": "tree",
->       "properties": {
->         "height": {
->           "values": 5,
->         },
->         "species": {
->           "values": 6
->         }
->       }
->     }
->   ]
+>   "contentMetadata": [0, 1]
 > }
 > ```
 

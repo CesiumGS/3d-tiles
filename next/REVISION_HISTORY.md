@@ -138,8 +138,9 @@
   * Updated property table definition. See notes above.
   * Changed `maximumLevel` to `availableLevels` for consistency with `subtreeLevels`. Note that `maximumLevel` is an index whereas `availableLevels` is a length: `availableLevels` is equivalent to `maximumLevel + 1`.
   * Content availability for multiple contents is now provided by the `contentAvailability` property instead of a separate `3DTILES_multiple_contents` extension. `contentAvailability` is now an array of availability objects.
-  * Tile metadata is now provided by the `tileMetadata` property instead of a separate `3DTILES_metadata` extension. `tileMetadata` is a property table containing metadata about available tiles.
-  * Content metadata is now provided by the `contentMetadata` property. Each array element is a property table containing metadata about available content.
+  * Added top-level `propertyTables` array to subtree format.
+  * Tile metadata is now provided by the `tileMetadata` property instead of a separate `3DTILES_metadata` extension. `tileMetadata` refers to a property table containing metadata about available tiles.
+  * Content metadata is now provided by the `contentMetadata` property. Each array element refers to a property table containing metadata about available content.
   * Subtree metadata is now provided by the `subtreeMetadata` object. Subtree metadata is encoded in JSON, similar to tileset metadata.
   * Renamed availability `bufferView` to `bitstream`
   * Added JSON subtree format as an alternative to the binary subtree format
