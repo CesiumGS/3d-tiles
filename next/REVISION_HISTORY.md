@@ -156,7 +156,7 @@
   * Removed the "Implicit Feature IDs" concept. There have not been enough practical use-cases that could justify including them.
   * Renamed `FEATURE_ID_#` back to `_FEATURE_ID_#`: The underscore is required for custom attributes, according to the glTF specification, and without it, the assets do not pass validation.
   * The `featureIds` and the `propertyTables` had been stored as parallel arrays, and the connection between them had been established _implicitly_, by them appearing at the same index in their respective array. Now each feature ID set can _explicitly_ contain `propertyTable`, which is the index of the property table that it refers to.
-  * Added optional `label` property to identify feature ID sets across different glTF primitives.
+  * Added optional `label` property to identify feature ID sets across different glTF primitives and assets.
   * Instead of having dedicated classes for "Attribute Feature IDs" and "Texture Feature IDs", there is one common "Feature ID" class that either stores the `attribute` or the `texture`, respectively.
   * Added `featureId.nullFeatureId`, which can be used as a value indicating that a certain element is not associated with a feature ID.
   * Added `featureId.featureCount`, which is the number of distinct, non-`null` feature ID values.
