@@ -147,6 +147,7 @@
   * Added JSON subtree format as an alternative to the binary subtree format
 * Updated `3DTILES_multiple_contents` extension
   * Updated to draft version `1.0.0`
+  * Renamed `content` to `contents`
   * Removed the implicit tiling `3DTILES_multiple_contents` extension. Content availability for multiple contents is now provided by the `contentAvailability` subtree property.
 * Split the `EXT_mesh_features` extension into three separate extensions:
   * `EXT_mesh_features` that only defines the concept of feature IDs

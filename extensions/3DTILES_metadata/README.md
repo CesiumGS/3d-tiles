@@ -537,7 +537,7 @@ Tile contents are assigned to groups, representing collections of content, by at
 >   "root": {
 >     "extensions": {
 >       "3DTILES_multiple_contents": {
->         "content": [
+>         "contents": [
 >           {
 >             "uri": "buildings.glb",
 >             "extensions": {"3DTILES_metadata": {"group": 0 }}

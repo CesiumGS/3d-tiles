@@ -42,7 +42,7 @@ When this extension is used the tile's `content` property must be omitted.
     },
     "extensions": {
       "3DTILES_multiple_contents": {
-        "content": [
+        "contents": [
           {
             "uri": "buildings.b3dm"
           },
