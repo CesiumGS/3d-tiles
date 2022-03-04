@@ -104,6 +104,7 @@ This specification defines metadata schemas and methods for encoding metadata.
 
 Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines two possible [storage formats](#storage-formats).
 
+<!-- omit in toc -->
 #### Identifiers
 
 Throughout this specification, IDs (identifiers) are strings that match the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`: Strings that consist of upper- or lowercase letters, digits, or underscores, starting with either a letter or an underscore. These strings should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name` for the structures that support dedicated names. 
@@ -234,7 +235,7 @@ IDs (`id`) are unique [identifiers](#identifiers) for a property within a class.
 
 Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid Unicode strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a [semantic](#semantic).
 
-> **Example:** A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to alphanumeric identifiers, use of helpful property names is essential for clarity in many languages.
+> **Example:** A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to [identifiers](#identifiers), use of helpful property names is essential for clarity in many languages.
 
 #### Description
 

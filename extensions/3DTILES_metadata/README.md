@@ -367,7 +367,7 @@ Tileset authors may define their own additional statistics, like `_mode` in the 
 
 While [classes](#class) within a schema define the data types and meanings of properties, properties do not take on particular values until a metadata is assigned (i.e. the class is "instantiated") as a particular metadata entity within the 3D Tiles hierarchy. Each metadata entity contains the name of the class that it is an instance of, as well as a dictionary of property values that correspond to the properties of that class. This common structure is defined in [metadataEntity.schema.json](./schema/metadataEntity.schema.json).
 
-Each property value assigned must be defined by a class property with the same alphanumeric property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
+Each property value assigned must be defined by a class property with the same property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
 
 Most property values are encoded as JSON within the entity. One notable exception is metadata assigned to implicit tiles and contents, stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/#metadata).
 
