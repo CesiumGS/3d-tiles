@@ -368,7 +368,7 @@ Property values that appear as part of the class definition are the offset, scal
 
 - For `SCALAR` array types with fixed length `count`, they are arrays with length `count`.
 - For `VECN` types, they are arrays, with length `N`.
-- For `MATN` types, they are arrays, with length `N * N*`.
+- For `MATN` types, they are arrays, with length `N * N`.
 - For `VECN` array types with fixed length `count`, they are arrays with length `count`, where each array element is itself an array of length `N`
 - For `MATN` array types with fixed length `count`, they are arrays with length `count`, where each array element is itself an array of length `N * N`.
 
