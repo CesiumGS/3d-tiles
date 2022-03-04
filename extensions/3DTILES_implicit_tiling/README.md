@@ -567,7 +567,7 @@ When using the `3DTILES_multiple_contents` extension `contentAvailability` and `
 >     "geometricError": 5000,
 >     "extensions": {
 >       "3DTILES_multiple_contents": {
->         "content": [
+>         "contents": [
 >           {
 >             "uri": "buildings/{level}/{x}/{y}.b3dm",
 >           },
