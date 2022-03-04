@@ -159,7 +159,7 @@ Schemas may be embedded in tilesets with the `schema` property, or referenced ex
 
 Template for entities. Classes provide a list of property definitions. Every entity must be associated with a class, and the entity's properties must conform to the class's property definitions. Entities whose properties conform to a class are considered instances of that class.
 
-Classes are defined as entries in the `schema.classes` dictionary, indexed by an alphanumeric class ID.
+Classes are defined as entries in the `schema.classes` dictionary, indexed by class ID. Class IDs must be [identifiers](../../specification/Metadata/README.md#identifiers) as defined in the 3D Metadata Specification.
 
 ### Class Property
 
@@ -195,7 +195,7 @@ Allowed values for `componentType`:
 - `"FLOAT32"`
 - `"FLOAT64"`
 
-Class properties are defined as entries in the `class.properties` dictionary, indexed by an alphanumeric property ID.
+Class properties are defined as entries in the `class.properties` dictionary, indexed by property ID. Property IDs must be [identifiers](../../specification/Metadata/README.md#identifiers) as defined in the 3D Metadata Specification.
 
 By default, properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes a property's meaning, for higher-level type information, runtime behavior, or other interpretation. The list of built-in semantics can be found in the [3D Metadata Semantic Reference](../../specification/Metadata/Semantics). Tileset authors may define their own application- or domain-specific semantics separately, and should follow the naming conventions in the Semantic Reference.
 
@@ -237,7 +237,7 @@ By default, properties do not have any inherent meaning. A property may be assig
 
 Set of categorical types, defined as `(name, value)` pairs. Enum properties use an enum as their type.
 
-Enums are defined as entries in the `schema.enums` dictionary, indexed by an alphanumeric enum ID.
+Enums are defined as entries in the `schema.enums` dictionary, indexed by enum ID. Enum IDs must be [identifiers](../../specification/Metadata/README.md#identifiers) as defined in the 3D Metadata Specification.
 
 > **Example:** A "quality" enum defining quality level of data within a tile. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: [3D Metadata → No Data Values](../../specification/Metadata#required-properties-and-no-data-values)) may be helpful to identify missing data.
 >
@@ -367,7 +367,7 @@ Tileset authors may define their own additional statistics, like `_mode` in the 
 
 While [classes](#class) within a schema define the data types and meanings of properties, properties do not take on particular values until a metadata is assigned (i.e. the class is "instantiated") as a particular metadata entity within the 3D Tiles hierarchy. Each metadata entity contains the name of the class that it is an instance of, as well as a dictionary of property values that correspond to the properties of that class. This common structure is defined in [metadataEntity.schema.json](./schema/metadataEntity.schema.json).
 
-Each property value assigned must be defined by a class property with the same alphanumeric property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
+Each property value assigned must be defined by a class property with the same property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
 
 Most property values are encoded as JSON within the entity. One notable exception is metadata assigned to implicit tiles and contents, stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/#metadata).
 

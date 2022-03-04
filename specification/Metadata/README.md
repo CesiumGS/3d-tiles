@@ -104,6 +104,11 @@ This specification defines metadata schemas and methods for encoding metadata.
 
 Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines two possible [storage formats](#storage-formats).
 
+<!-- omit in toc -->
+#### Identifiers
+
+Throughout this specification, IDs (identifiers) are strings that match the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`: Strings that consist of upper- or lowercase letters, digits, or underscores, starting with either a letter or an underscore. These strings should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name` for the structures that support dedicated names. 
+
 ## Schemas
 
 ### Schema
@@ -114,7 +119,7 @@ Components of a schema are listed below, and implementations may define addition
 
 #### ID
 
-IDs (`id`) uniquely identify a schema, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name`.
+IDs (`id`) are unique [identifiers](#identifiers) for a schema.
 
 #### Version
 
@@ -162,7 +167,7 @@ An enum consists of a set of named values, represented as `(string, integer)` pa
 
 #### ID
 
-IDs (`id`) uniquely identify an enum within a schema, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name`.
+IDs (`id`) are unique [identifiers](#identifiers) for an enum within a schema.
 
 #### Name
 
@@ -184,7 +189,7 @@ Classes represent categories of similar entities, and are defined by a collectio
 
 #### ID
 
-IDs (`id`) uniquely identify a class within a schema, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name`.
+IDs (`id`) are unique [identifiers](#identifiers) for a class within a schema.
 
 #### Name
 
@@ -224,13 +229,13 @@ Properties describe the type and structure of values that may be associated with
 
 #### ID
 
-IDs (`id`) uniquely identify a property within a class, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name`.
+IDs (`id`) are unique [identifiers](#identifiers) for a property within a class.
 
 #### Name
 
 Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid Unicode strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a [semantic](#semantic).
 
-> **Example:** A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to alphanumeric characters and underscores, use of helpful property names is essential for clarity in many languages.
+> **Example:** A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to [identifiers](#identifiers), use of helpful property names is essential for clarity in many languages.
 
 #### Description
 
