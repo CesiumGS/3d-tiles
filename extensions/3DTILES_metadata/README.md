@@ -481,9 +481,9 @@ Metadata assigned to implicit tiles is stored in a more compact binary form. See
 
 Tiles may contain more than one content (see: [`3DTILES_multiple_contents`](../3DTILES_multiple_contents)), or multiple tiles may reference content sharing the same metadata. In these cases, metadata assigned to the tile would be inadequate or inefficient for describing tile contents. This extension allows content to be organized into collections, or "groups", and metadata may be associated with each group. Groups are useful for supporting metadata on only a subset of a tile's content, or for working with collections of contents as layers, e.g. to manage visibility or visual styling.
 
-Tile contents are assigned to groups, representing collections of content, by attaching a `3DTILES_metadata` extension to the content object and specifying its `group` property. Each content entity may be assigned only to a single group, but a single group may have any number of tile contents assigned to it.
+The tileset's root `3DTILES_metadata` extension must define a list of available groups, if any, under its `groups` property. Each group definition must specify its class (`class`) and an identifier (`id`) that uniquely identifies this group in the tileset. Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
 
-The tileset's root `3DTILES_metadata` extension must define a list of available groups, if any, under its `groups` property. Each group definition must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
+Tile contents are assigned to groups, representing collections of content, by attaching a `3DTILES_metadata` extension to the content object and specifying its `group` property to be the index of the group in the list of groups that was defined for the tileset. Each content entity may be assigned only to a single group, but a single group may have any number of tile contents assigned to it.
 
 > **Example:** The example below defines a custom "layer" class, where each of its two groups ("buildings" and "trees") are instances of the "layer" class associated with different "name", "color", and "priority" property values. The root tile defines two contents using `3DTILES_multiple_contents`, one content item belonging to each group.
 >
@@ -512,8 +512,9 @@ The tileset's root `3DTILES_metadata` extension must define a list of available 
 >           }
 >         }
 >       },
->       "groups": {
->         "buildings": {
+>       "groups": [
+>         {
+>           "id": "buildings",
 >           "class": "layer",
 >           "properties": {
 >             "name": "Buildings Layer",
@@ -521,7 +522,8 @@ The tileset's root `3DTILES_metadata` extension must define a list of available 
 >             "priority": 0
 >           }
 >         },
->         "trees": {
+>         {
+>           "id": "trees",
 >           "class": "layer",
 >           "properties": {
 >             "name": "Trees Layer",
@@ -529,7 +531,7 @@ The tileset's root `3DTILES_metadata` extension must define a list of available 
 >             "priority": 1
 >           }
 >         }
->       }
+>       ]
 >     }
 >   },
 >   "root": {
@@ -538,11 +540,11 @@ The tileset's root `3DTILES_metadata` extension must define a list of available 
 >         "content": [
 >           {
 >             "uri": "buildings.glb",
->             "extensions": {"3DTILES_metadata": {"group": "buildings"}}
+>             "extensions": {"3DTILES_metadata": {"group": 0 }}
 >           },
 >           {
 >             "uri": "trees.glb",
->             "extensions": {"3DTILES_metadata": {"group": "trees"}}
+>             "extensions": {"3DTILES_metadata": {"group": 1 }}
 >           }
 >         ]
 >       }
