@@ -99,7 +99,7 @@ The following properties about the implicit root tile are included in the extens
 | Property | Description |
 | ------ | ----------- |
 | `subdivisionScheme` | Either `QUADTREE` or `OCTREE`. See [Subdivision scheme](#subdivision-scheme). |
-| `availableLevels` | How many levels there are in the tree. |
+| `availableLevels` | How many levels there are in the tree with available tiles. |
 | `subtreeLevels` | How many levels there are in each subtree. |
 | `subtrees` | Template URI for subtree files. See [Subtrees](#subtrees). |
 
