@@ -19,7 +19,45 @@
             "description": "A dictionary object of metadata about per-feature properties.",
             "additionalProperties": {
                 "$ref": "properties.schema.json"
-            }
+            },
+            "deprecated": true
+        },
+        "schema": {
+            "allOf": [
+                {
+                    "$ref": "Schema/schema.schema.json"
+                }
+            ],
+            "description": "An object defining classes and enums."
+        },
+        "schemaUri": {
+            "type": "string",
+            "description": "The URI (or IRI) of the external schema file.",
+            "format": "iri-reference"
+        },
+        "statistics": {
+            "allOf": [
+                {
+                    "$ref": "Statistics/statistics.schema.json"
+                }
+            ],
+            "description": "An object containing statistics about entities."
+        },
+        "groups": {
+            "type": "array",
+            "description": "An array of groups.",
+            "items": {
+                "$ref": "group.schema.json"
+            },
+            "minItems": 1
+        },
+        "metadata": {
+            "allOf": [
+                {
+                    "$ref": "metadataEntity.schema.json"
+                }
+            ],
+            "description": "Tileset metadata."            
         },
         "geometricError": {
             "type": "number",
@@ -55,5 +93,23 @@
         "asset",
         "geometricError",
         "root"
+    ],
+    "oneOf": [
+        {
+            "description": "External schema, if any.",
+            "not": {
+                "required": [
+                    "schema"
+                ]
+            }
+        },
+        {
+            "description": "Internal schema, if any.",
+            "not": {
+                "required": [
+                    "schemaUri"
+                ]
+            }
+        }
     ]
 }

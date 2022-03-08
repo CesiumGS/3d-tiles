@@ -1,0 +1,24 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "statistics.schema.json",
+    "title": "Statistics",
+    "type": "object",
+    "description": "Statistics about entities.",
+    "allOf": [
+        {
+            "$ref": "rootProperty.schema.json"
+        }
+    ],
+    "properties": {
+        "classes": {
+            "type": "object",
+            "description": "A dictionary, where each key corresponds to a class ID in the `classes` dictionary and each value is an object containing statistics about entities that conform to the class.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "statistics.class.schema.json"
+            }
+        },
+        "extensions": {},
+        "extras": {}
+    }
+}

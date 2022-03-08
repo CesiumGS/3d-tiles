@@ -18,6 +18,18 @@
             "type": "string",
             "description": "A uri that points to tile content. When the uri is relative, it is relative to the referring tileset JSON file."
         },
+        "metadata": {
+            "allOf": [
+                {
+                    "$ref": "metadataEntity.schema.json"
+                }
+            ],
+            "description": "Content metadata."
+        },
+        "group": {
+            "type": "string",
+            "description": "The group this content belongs to. The value must correspond to a group ID declared in the `groups` dictionary."
+        },
         "extensions": {},
         "extras": {}
     },
