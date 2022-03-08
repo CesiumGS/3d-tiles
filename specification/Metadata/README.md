@@ -71,7 +71,7 @@ Draft
     - [Overview](#overview-4)
     - [Scalars](#scalars-1)
     - [Vectors](#vectors-1)
-  - [Matrices](#matrices-1)
+    - [Matrices](#matrices-1)
     - [Booleans](#booleans-1)
     - [Strings](#strings-1)
     - [Enums](#enums-2)
@@ -559,7 +559,7 @@ All component types (`INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT
 
 Vectors are encoded as a JSON array of numbers.
 
-### Matrices
+#### Matrices
 
 Matrices are encoded as a JSON array of numbers in column-major order.
 
