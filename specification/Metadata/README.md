@@ -86,7 +86,7 @@ Many domains benefit from structured metadata — typical examples include histo
 The specification defines core concepts to be used by multiple 3D formats, and is language and format agnostic. This document defines concepts with purpose and terminology, but does not impose a particular schema or serialization format for implementation. For use of the format outside of abstract conceptual definitions, see:
 
 * [`3DTILES_metadata`](../../extensions/3DTILES_metadata) (3D Tiles 1.0) — Assigns metadata to tilesets, tiles, groups, and contents
-* [`EXT_structural_metadata`](TODO) (glTF 2.0) —  Assigns metadata to vertices, texels, and features in a glTF asset
+* [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) (glTF 2.0) —  Assigns metadata to vertices, texels, and features in a glTF asset
 
 The specification does not enumerate or define the semantic meanings of metadata, and assumes that separate specifications will define semantics for their particular application or domain. One example is the [3D Metadata Semantic Reference](./Semantics/) which defines built-in semantics for 3D Tiles and glTF. Identifiers for externally-defined semantics can be stored within the 3D Metadata Specification.
 
@@ -393,7 +393,7 @@ Both formats are suitable for general purpose metadata storage. Binary formats m
 
 Additional serialization methods may be defined outside of this specification. For example, property values could be stored in texture channels or retrieved from a REST API as XML data.
 
-> **Implementation note:** Any specification that references 3D Metadata must state explicitly which storage formats are supported, or define its own serialization. For example, the [`EXT_structural_metadata`](TODO) glTF extension implements the binary table format described below, and defines an additional image-based format for per-texel metadata.
+> **Implementation note:** Any specification that references 3D Metadata must state explicitly which storage formats are supported, or define its own serialization. For example, the [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) glTF extension implements the binary table format described below, and defines an additional image-based format for per-texel metadata.
 
 ### Binary Table Format
 

@@ -26,7 +26,7 @@ Optionally, this extension may be used with [`3DTILES_implicit_tiling`](../3DTIL
 
 Optionally, this extension may be used with [`3DTILES_multiple_contents`](../3DTILES_multiple_contents), organizing tile contents into groups and providing metadata for each.
 
-> **Disambiguation:** This extension does not interact with the [Batch Table](../../specification/TileFormats/BatchTable) feature used by the Batched 3D Model, Instanced 3D Model, and Point Cloud formats. Instead, glTF 2.0 assets may be referenced with [`3DTILES_content_gltf`](../3DTILES_content_gltf). Metadata within these assets is enabled with the glTF extension, [`EXT_structural_metadata`](TODO) using the same schema format and conventions defined here.
+> **Disambiguation:** This extension does not interact with the [Batch Table](../../specification/TileFormats/BatchTable) feature used by the Batched 3D Model, Instanced 3D Model, and Point Cloud formats. Instead, glTF 2.0 assets may be referenced with [`3DTILES_content_gltf`](../3DTILES_content_gltf). Metadata within these assets is enabled with the glTF extension, [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) using the same schema format and conventions defined here.
 
 > **Disambiguation:** This extension does not interact with the [`properties`](../../specification/schema/properties.schema.json) object in tileset JSON, which is an alternative way of including small amounts of metadata associated with the tileset as a whole.
 
@@ -614,7 +614,7 @@ _This section is non-normative_
 
 Certain kinds of tile content may contain meaningful subcomponents ("features"), which may themselves be associated with metadata through more granular properties. Schemas may be embedded in these content types, but unused classes in a `3DTILES_metadata` schema are allowed, and may hint to an application that tile content might include entities instantiating those classes.
 
-Assigning properties to tile content is not within the scope of this extension, but may be defined by other specifications. One such example is the glTF extension, [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features), which supports definitions of conceptual features within geometry and textures, and [`EXT_structural_metadata`](TODO) for associated metadata. glTF 2.0 assets with feature metadata may be included as tile contents with the [`3DTILES_content_gltf`](../3DTILES_content_gltf) extension.
+Assigning properties to tile content is not within the scope of this extension, but may be defined by other specifications. One such example is the glTF extension, [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features), which supports definitions of conceptual features within geometry and textures, and [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) for associated metadata. glTF 2.0 assets with feature metadata may be included as tile contents with the [`3DTILES_content_gltf`](../3DTILES_content_gltf) extension.
 
 While `3DTILES_metadata` and `EXT_mesh_features` are defined independently, both conform to the [3D Metadata Specification](../../specification/Metadata/README.md) and share the same representation of metadata as schema and properties.
 
