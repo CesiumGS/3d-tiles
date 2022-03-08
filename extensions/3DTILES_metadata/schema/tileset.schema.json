@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "tileset.schema.json",
+    "$id": "tilesetMetadata.schema.json",
     "title": "Tileset Metadata",
     "type": "object",
     "description": "An object containing metadata about the tileset.",

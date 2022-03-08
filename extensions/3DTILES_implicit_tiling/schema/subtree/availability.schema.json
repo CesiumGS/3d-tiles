@@ -10,8 +10,8 @@
         }
     ],
     "properties": {
-        "bufferView": {
-            "description": "Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [3D Metadata specification](../../specification/Metadata). If an element is available, its bit is 1, and if it is unavailable, its bit is 0. The `bufferView` `byteOffset` must be aligned to a multiple of 8 bytes.",
+        "bitstream": {
+            "description": "Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [3D Metadata specification](../../specification/Metadata). If an element is available, its bit is 1, and if it is unavailable, its bit is 0.",
             "type": "integer",
             "minimum": 0
         },
@@ -44,7 +44,7 @@
     "oneOf": [
         {
             "required": [
-                "bufferView"
+                "bitstream"
             ]
         },
         {

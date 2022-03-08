@@ -3,7 +3,7 @@
     "$id": "tile.3DTILES_implicit_tiling.schema.json",
     "title": "3DTILES_implicit_tiling tile extension",
     "type": "object",
-    "description": "This extension allows a tile to be implicitly subdivided. Tile and content availability is stored in subtrees which are referenced externally.",
+    "description": "This extension allows a tile to be implicitly subdivided. Tile and content availability and metadata is stored in subtrees which are referenced externally.",
     "allOf": [
         {
             "$ref": "tilesetProperty.schema.json"
@@ -26,18 +26,18 @@
         },
         "subtreeLevels": {
             "type": "integer",
-            "description": "The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with 5 nodes (one root and 4 children)",
+            "description": "The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with 5 nodes (one root and 4 children).",
             "minimum": 1
         },
-        "maximumLevel": {
+        "availableLevels": {
             "type": "integer",
-            "description": "The level of the deepest available tile. Levels are numbered from 0 starting at the tile with the `3DTILES_implicit_tiling` extension. This tile's children are at level 1, the children's children are at level 2, and so on.",
-            "minimum": 0
+            "description": "The numbers of the levels in the tree with available tiles.",
+            "minimum": 1
         },
         "subtrees": {
             "allOf": [
                 {
-                    "$ref": "tile.3DTILES_implicit_tiling.subtrees.schema.json"
+                    "$ref": "subtrees.schema.json"
                 }
             ],
             "description": "An object describing the location of subtree files."
@@ -48,7 +48,7 @@
     "required": [
         "subdivisionScheme",
         "subtreeLevels",
-        "maximumLevel",
+        "availableLevels",
         "subtrees"
     ]
 }

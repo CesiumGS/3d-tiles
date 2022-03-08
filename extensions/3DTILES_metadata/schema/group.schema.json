@@ -10,9 +10,17 @@
         }
     ],
     "properties": {
+        "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$",
+            "description": "Unique identifier for the group within the tileset. This must be an alphanumeric identifier matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`."
+        },
         "class": {},
         "properties": {},
         "extensions": {},
         "extras": {}
-    }
+    },
+    "required": [
+        "id"
+    ]
 }

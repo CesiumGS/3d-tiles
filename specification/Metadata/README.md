@@ -4,10 +4,11 @@
 <!-- omit in toc -->
 ## Contributors
 
-* Peter Gagliardi, Cesium
 * Sean Lilley, Cesium
-* Sam Suhag, Cesium
+* Peter Gagliardi, Cesium
+* Marco Hutter, Cesium
 * Don McCurdy, Independent
+* Sam Suhag, Cesium
 * Bao Tran, Cesium
 * Patrick Cozzi, Cesium
 
@@ -47,26 +48,34 @@ Draft
     - [Semantic](#semantic)
     - [Type](#type)
     - [Component Type](#component-type)
+    - [Enum Type](#enum-type)
+    - [Arrays](#arrays)
     - [Normalized Values](#normalized-values)
+    - [Offset and Scale](#offset-and-scale)
     - [Minimum and Maximum Values](#minimum-and-maximum-values)
-    - [Required Properties and No Data Values](#required-properties-and-no-data-values)
+    - [Required Properties, No Data Values, and Default Values](#required-properties-no-data-values-and-default-values)
+    - [Property Values Structure](#property-values-structure)
 - [Storage Formats](#storage-formats)
   - [Overview](#overview-2)
   - [Binary Table Format](#binary-table-format)
     - [Overview](#overview-3)
-    - [Numbers](#numbers)
+    - [Scalars](#scalars)
+    - [Vectors](#vectors)
+    - [Matrices](#matrices)
     - [Booleans](#booleans)
     - [Strings](#strings)
     - [Enums](#enums-1)
-    - [Arrays](#arrays)
+    - [Fixed-Length Arrays](#fixed-length-arrays)
+    - [Variable-Length Arrays](#variable-length-arrays)
   - [JSON Format](#json-format)
     - [Overview](#overview-4)
-    - [Numbers](#numbers-1)
+    - [Scalars](#scalars-1)
+    - [Vectors](#vectors-1)
+    - [Matrices](#matrices-1)
     - [Booleans](#booleans-1)
     - [Strings](#strings-1)
     - [Enums](#enums-2)
     - [Arrays](#arrays-1)
-- [Revision History](#revision-history)
 
 ## Overview
 
@@ -76,8 +85,8 @@ Many domains benefit from structured metadata — typical examples include histo
 
 The specification defines core concepts to be used by multiple 3D formats, and is language and format agnostic. This document defines concepts with purpose and terminology, but does not impose a particular schema or serialization format for implementation. For use of the format outside of abstract conceptual definitions, see:
 
-* [`3DTILES_metadata`](../../extensions/3DTILES_metadata) (3D Tiles 1.0) — Assigns metadata to tilesets, tiles, or tile contents
-* [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) (glTF 2.0) —  Assigns metadata to subcomponents ("features") of geometry or textures
+* [`3DTILES_metadata`](../../extensions/3DTILES_metadata) (3D Tiles 1.0) — Assigns metadata to tilesets, tiles, groups, and contents
+* [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) (glTF 2.0) —  Assigns metadata to vertices, texels, and features in a glTF asset
 
 The specification does not enumerate or define the semantic meanings of metadata, and assumes that separate specifications will define semantics for their particular application or domain. One example is the [3D Metadata Semantic Reference](./Semantics/) which defines built-in semantics for 3D Tiles and glTF. Identifiers for externally-defined semantics can be stored within the 3D Metadata Specification.
 
@@ -95,6 +104,11 @@ This specification defines metadata schemas and methods for encoding metadata.
 
 Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines two possible [storage formats](#storage-formats).
 
+<!-- omit in toc -->
+#### Identifiers
+
+Throughout this specification, IDs (identifiers) are strings that match the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`: Strings that consist of upper- or lowercase letters, digits, or underscores, starting with either a letter or an underscore. These strings should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name` for the structures that support dedicated names. 
+
 ## Schemas
 
 ### Schema
@@ -105,9 +119,7 @@ Components of a schema are listed below, and implementations may define addition
 
 #### ID
 
-IDs (`id`) uniquely identify a schema, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name`.
-
-When a schema has multiple versions, the `(id, version)` pair uniquely identifies a particular schema and revision.
+IDs (`id`) are unique [identifiers](#identifiers) for a schema.
 
 #### Version
 
@@ -123,7 +135,7 @@ Names (`name`) provide a human-readable label for a schema, and are not required
 
 #### Description
 
-Descriptions (`description`) provide a human-readable explanation of a schema, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs.
+Descriptions (`description`) provide a human-readable explanation of a schema, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings.
 
 #### Enums
 
@@ -137,24 +149,25 @@ Unordered set of [classes](#class).
 
 ### Enum
 
-An enum consists of a set of named values, represented as `(string, integer)` pairs. Each enum collection is identified by a unique ID.
+An enum consists of a set of named values, represented as `(string, integer)` pairs. Each enum is identified by a unique ID.
 
 > **Example:** A "species" enum with three possible tree species, as well as an "Unknown" value.
 >
 > - **ID:** "species"
 > - **Name:** "Species"
 > - **Description:** "Common tree species identified in the study."
+> - **Value type:** `INT32`
 >
-> | name      | value |
-> |-----------|------:|
-> | "Oak"     |     0 |
-> | "Pine"    |     1 |
-> | "Maple"   |     2 |
-> | "Unknown" |    -1 |
+> | name        | value   |
+> |-------------|---------|
+> | `"Oak"`     |     `0` |
+> | `"Pine"`    |     `1` |
+> | `"Maple"`   |     `2` |
+> | `"Unknown"` |    `-1` |
 
 #### ID
 
-IDs (`id`) uniquely identify an enum within a schema, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name`.
+IDs (`id`) are unique [identifiers](#identifiers) for an enum within a schema.
 
 #### Name
 
@@ -162,11 +175,11 @@ Names (`name`) provide a human-readable label for an enum, and are not required 
 
 #### Description
 
-Descriptions (`description`) provide a human-readable explanation of an enum, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs.
+Descriptions (`description`) provide a human-readable explanation of an enum, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings.
 
 #### Values
 
-An enum consists of a set of named values, represented as `(string, integer)` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the [Type](#type) section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. For unsigned value types, enum values most be non-negative. Duplicate names or values within the same enum are not allowed.
+An enum consists of a set of named values, represented as `(string, integer)` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the [Component Type](#component-type) section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. Duplicate names or values within the same enum are not allowed.
 
 ***
 
@@ -176,7 +189,7 @@ Classes represent categories of similar entities, and are defined by a collectio
 
 #### ID
 
-IDs (`id`) uniquely identify a class within a schema, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name`.
+IDs (`id`) are unique [identifiers](#identifiers) for a class within a schema.
 
 #### Name
 
@@ -184,7 +197,7 @@ Names (`name`) provide a human-readable label for a class, and are not required 
 
 #### Description
 
-Descriptions (`description`) provide a human-readable explanation of a class, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs.
+Descriptions (`description`) provide a human-readable explanation of a class, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings.
 
 #### Properties
 
@@ -202,31 +215,31 @@ Properties describe the type and structure of values that may be associated with
 >
 > **building**
 >
-> | property | componentType | required | noData |
-> |:---------|:--------------|:---------|:-------|
-> | height   | "FLOAT32"     | ✓        |        |
+> | property | type     | componentType |
+> |----------|----------|---------------|
+> | height   | `SCALAR` | `FLOAT32`     |
 >
 > **tree**
 >
-> | property  | componentType | required | noData    |
-> |:----------|:--------------|:---------|:----------|
-> | height    | "FLOAT32"     | ✓        |           |
-> | species   | "STRING"      |          | "Unknown" |
-> | leafColor | "STRING"      | ✓        |           |
+> | property  | type     | componentType | enumType   |
+> |-----------|----------|---------------|------------|
+> | height    | `SCALAR` | `FLOAT32`     |            |
+> | species   | `ENUM`   |               | `species`  |
+> | leafColor | `STRING` |               |            |
 
 #### ID
 
-IDs (`id`) uniquely identify a property within a class, and must contain only alphanumeric characters and underscores. IDs should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name`.
+IDs (`id`) are unique [identifiers](#identifiers) for a property within a class.
 
 #### Name
 
 Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid Unicode strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a [semantic](#semantic).
 
-> **Example:** A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to alphanumeric characters and underscores, use of helpful property names is essential for clarity in many languages.
+> **Example:** A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to [identifiers](#identifiers), use of helpful property names is essential for clarity in many languages.
 
 #### Description
 
-Descriptions (`description`) provide a human-readable explanation of a property, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. To provide a machine-readable semantic meaning, a property must also define a [semantic](#semantic).
+Descriptions (`description`) provide a human-readable explanation of a property, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings. To provide a machine-readable semantic meaning, a property must also define a [semantic](#semantic).
 
 #### Semantic
 
@@ -236,34 +249,24 @@ Property IDs, names, and descriptions do not have an inherent meaning. To provid
 
 #### Type
 
-A property's type (`type`) describes the structure of the value given for each entity. Most commonly a single value, a property may also represent a fixed- or variable-length array, or vector and matrix types:
+A property's type (`type`) describes the structure of the value given for each entity.
 
-| name   | type                                                    |
-|--------|---------------------------------------------------------|
-| SINGLE | Single-component value or scalar                        |
-| ARRAY  | Fixed- or variable-length array of arbitrary components |
-| VEC2   | Fixed-length vector with two (2) numeric components     |
-| VEC3   | Fixed-length vector with three (3) numeric components   |
-| VEC4   | Fixed-length vector with four (4) numeric components    |
-| MAT2   | 2x2 matrix                                              |
-| MAT3   | 3x3 matrix                                              |
-| MAT4   | 4x4 matrix                                              |
-
-The `ARRAY` type is used to define a fixed- or variable-length array of components. For fixed-length arrays, a component count denotes the number of components in each array, and must be ≥2. Variable-length arrays do not define a component count, and arrays may have any length, including zero.
-
-The `VECN` and `MATN` types represent specific subsets of the fixed-length `ARRAY` type, where `VECN` is a vector with `N` numeric components and `MATN` is an `N x N` matrix with `N²` numeric components in column-major order. Where applicable, authoring implementations should choose these more specific types. Schema representations may choose to make component counts for `VECN` and `MATN` types implicit, rather than storing a `componentCount` descriptor for `VECN` and `MATN` types.
-
-> **Example:** This example defines a `car` class with three array-like properties. The `passengers` property is a variable-length array, because `componentCount` is undefined.
->
-> | property         | description                |  type   | componentType | componentCount |
-> |:-----------------|:---------------------------|:-------:|:-------------:|---------------:|
-> | forwardDirection | "Forward direction vector" | "VEC3"  |   "FLOAT64"   |              3 |
-> | passengers       | "Passenger names"          | "ARRAY" |   "STRING"    |                |
-> | modelMatrix      | "4x4 model matrix"         | "MAT4"  |   "FLOAT32"   |             16 |
+| name    | type                                                  |
+|---------|-------------------------------------------------------|
+| SCALAR  | Single numeric component                              |
+| VEC2    | Fixed-length vector with two (2) numeric components   |
+| VEC3    | Fixed-length vector with three (3) numeric components |
+| VEC4    | Fixed-length vector with four (4) numeric components  |
+| MAT2    | 2x2 matrix with numeric components                    |
+| MAT3    | 3x3 matrix with numeric components                    |
+| MAT4    | 4x4 matrix with numeric components                    |
+| STRING  | A sequence of characters                              |
+| BOOLEAN | True or false                                         |
+| ENUM    | An enumerated type                                    |
 
 #### Component Type
 
-Properties may be comprised of one component (`SINGLE`) or many components (`ARRAY`, `VECN`, `MATN`), depending on the property `type`. Each component is an instance of the property's component type (`componentType`), with the following component types supported:
+Scalar, vector, and matrix types comprise of numeric components. Each component is an instance of the property's component type (`componentType`), with the following component types supported:
 
 | name    | componentType                                                             |
 |---------|---------------------------------------------------------------------------|
@@ -277,50 +280,105 @@ Properties may be comprised of one component (`SINGLE`) or many components (`ARR
 | UINT64  | Unsigned integer in the range `[0, 18446744073709551615]`                 |
 | FLOAT32 | A number that can be represented as a 32-bit IEEE floating point number   |
 | FLOAT64 | A number that can be represented as a 64-bit IEEE floating point number   |
-| BOOLEAN | True or false                                                             |
-| STRING  | A sequence of characters                                                  |
-| ENUM    | An enumerated type                                                        |
 
 Floating-point properties (`FLOAT32` and `FLOAT64`) must not include values `NaN`, `+Infinity`, or `-Infinity`.
 
+> **Implementation Note:** Developers of authoring tools should be aware that many JSON implementations support only numeric values that can be represented as IEEE-754 double precision floating point numbers. Floating point numbers should be representable as double precision IEEE-754 floats when encoded in JSON. When those numbers represent property values (such as `noData`, `min`, or `max`) having lower precision (e.g. single-precision float, 8-bit integer, or 16-bit integer), the values should be rounded to the same precision in JSON to avoid any potential mismatches. Numeric property values encoded in binary storage are unaffected by these limitations of JSON implementations.
+
+#### Enum Type
+
 [Enum properties](#enums) are denoted by `ENUM`. An enum property must additionally provide the ID of the specific enum it uses, referred to as its enum type (`enumType`).
 
-> **Implementation Note:** Developers of authoring tools should be aware that many JSON implementations support only numeric values that can be represented as IEEE-754 double precision floating point numbers. Floating point numbers should be representable as double precision IEEE-754 floats when encoded in JSON. When those numbers represent property values (such as `noData`, `min`, or `max`) having lower precision (e.g. single-precision float, 8-bit integer, or 16-bit integer), the values should be rounded to the same precision in JSON to avoid any potential mismatches. Numeric property values encoded in binary storage are unaffected by these limitations of JSON implementations.
+#### Arrays
+
+A property can be declared to be a fixed- and variable-length array, consisting of elements of the given type. For fixed-length arrays, a count (`count`) denotes the number of elements in each array, and must be greater than or equal to 2. Variable-length arrays do not define a count and may have any length, including zero.
 
 #### Normalized Values
 
-Normalized properties (`normalized`) provide a compact alternative to larger floating-point types. Normalized values are stored as integers, but when accessed are transformed to floating-point form according to the following rules:
+Normalized properties (`normalized`) provide a compact alternative to larger floating-point types. Normalized values are stored as integers, but when accessed are transformed to floating-point according to the following equations:
 
-* Unsigned integer values (`UINT8`, `UINT16`, `UINT32`, `UINT64`) must be rescaled to the range `[0.0, 1.0]` (inclusive)
-* Signed integer values (`INT8`, `INT16`, `INT32`, `INT64`) must be rescaled to the range `[-1.0, 1.0]` (inclusive)
+| componentType | int to float                               | float to int                            |
+|---------------|--------------------------------------------|-----------------------------------------|
+| INT8          | `f = max(i / 127.0, -1.0)`                 | `i = round(f * 127.0)`                  |
+| UINT8         | `f = i / 255.0`                            | `i = round(f * 255.0)`                  |
+| INT16         | `f = max(i / 32767.0, -1.0)`               | `i = round(f * 32767.0)`                |
+| UINT16        | `f = i / 65535.0`                          | `i = round(f * 65535.0)`                |
+| INT32         | `f = max(i / 2147483647.0, -1.0)`          | `i = round(f * 2147483647.0)`           |
+| UINT32        | `f = i / 4294967295.0`                     | `i = round(f * 4294967295.0)`           |
+| INT64         | `f = max(i / 9223372036854775807.0, -1.0)` | `i = round(f * 9223372036854775807.0)`  |
+| UINT64        | `f = i / 18446744073709551615.0`           | `i = round(f * 18446744073709551615.0)` |
+
+`normalized` is only applicable to scalar, vector, and matrix types with integer component types.
 
 > **Implementation Note:** Depending on the implementation and the chosen integer type, there may be some loss of precision in values after denormalization. For example, if the implementation uses 32-bit floating point variables to represent the value of a normalized 32-bit integer, there are only 23 bits in the mantissa of the float, and lower bits will be truncated by denormalization. Client implementations should use higher precision floats when appropriate for correctly representing the result.
 
+#### Offset and Scale
+
+A property may declare an offset (`offset`) and scale (`scale`) to apply to property values. This is useful when mapping property values to a different range. 
+
+The `offset` and `scale` can be defined for types that either have a floating-point `componentType`, or when `normalized` is set to `true`. This applies to `SCALAR`, `VECN`, and `MATN` types, and to fixed-length arrays of these types. The structure of `offset` and `scale` is explained in the [Property Values Structure](#property-values-structure) section.
+
+The following equation is used to transform the original property value into the actual value that is used by the client:
+
+`transformedValue = offset + scale * normalize(value)`
+
+These operations are applied component-wise, both for array elements and for vector and matrix components.
+
+The transformation that is described here allows arbitrary source value ranges to be mapped to arbitrary target value ranges, by first computing the `float` value for the original `normalized` value, and then mapping that floating point range to the desired target range.
+
+> **Implementation Note**: The result of transforming a `normalized` integer value into a floating point value may be lossy, as described in the [section about Normalized Values](#normalized-values). Depending on the range of property values, the values of `offset` and `scale`, and the floating point precision that is used in the client implementation, the computation may cause low-significance bits to be truncated from the final result. Client implementations should retain as much precision as reasonably possible. 
+
+When the `offset` for a property is not given, then is is assumed to be `0` for each component of the respective type. When the `scale` value of a property is not given, then it is assumed to be `1` for each component of the respective type. _Instances_ of the class that defines the respective property can override the offset- and scale factors, to account for the actual range of property values that are provided by the instance. 
+
 #### Minimum and Maximum Values
 
-Properties representing numeric values, fixed-length numeric arrays, vectors, and matrices may specify a minimum (`minimum`) and maximum (`maximum`). Minimum and maximum values represent component-wise bounds of the valid range for a property.
+Properties may specify a minimum (`min`) and maximum (`max`) value. Minimum and maximum values represent component-wise bounds of the valid range of values for a property. Both values are _inclusive_, meaning that they denote the smallest and largest allowed value, respectively. 
+
+The `min` and `max` value can be defined for `SCALAR`, `VECN`, and `MATN` types with numeric component types, and for fixed-length arrays of these types. The structure of `min` and `max` is explained in the [Property Values Structure](#property-values-structure) section.
+
+For properties that are `normalized`, the component type of `min` and `max` is a floating point type. Their values represent the bounds of the final, transformed property values. This includes the normalization and `offset`- or `scale` computations, as well as other transforms or constraints that are not part of the class definition itself: A `normalized` unsigned value is in the range [0.0, 1.0] after the normalization has been applied, but [`min`, `max`] may specify a different value range.
+
+For all other properties, the component type of `min` and `max` matches the `componentType` of the property, and the values are the bounds of the original property values. 
 
 > **Example:** A property storing GPS coordinates might define a range of `[-180, 180]` degrees for longitude values and `[-90, 90]` degrees for latitude values.
 
-#### Required Properties and No Data Values
+Property values outside the `[minimum, maximum]` range are not allowed, with the exception of `noData` values.
+
+#### Required Properties, No Data Values, and Default Values
 
 When associated property values must exist for all entities of a class, a property is considered required (`required`).
 
-Properties may optionally specify a No Data value (`noData`, or "sentinel value") to be used when property values do not exist. This value must match the property definition, e.g. if `type` is `UINT8` the `noData` value must be an unsigned integer in the range `[0, 255]`. If the property is normalized, the `noData` value is given in its original integer form, not the normalized form.
+Individual elements in an array or individual components in a vector or matrix cannot be marked as required; only the property itself can be marked as required.
 
-Individual components in an array cannot be marked as optional; only the array property itself can be marked as optional.
+Properties may optionally specify a No Data value (`noData`, or "sentinel value") to be used when property values do not exist. A `noData` value may be provided for any `type` except `BOOLEAN`. For `ENUM` types, a `noData` value should contain the name of the enum value as a string, rather than its integer value. The structure of the `noData` value is explained in the [Property Values Structure](#property-values-structure) section.
 
-For `ARRAY`, `VECN`, and `MATN` types, `noData` is an array-typed value indicating that the entire array represents a missing value. For example, `[-1, -1, -1]` might be used as a `noData` value for a `VEC3` property. When an array-typed property is required or includes a `noData` value, this has no effect on the interpretation of individual array elements. When variable-length arrays are required, an empty array is still valid.
+A `noData` value is especially useful when only some entities in a property table are missing property values (see [Binary Table Format](#binary-table-format)). Otherwise if all entities are missing property values the column may be omitted from the table and a `noData` value need not be provided. Entities encoded in the [JSON Format](#json-format) may omit the property instead of providing a `noData` value. `noData` values and omitted properties are functionally equivalent.
 
-For `ENUM` component types, a `noData` value should contain the name of the enum value as a string, rather than its integer value.
+A default value (`default`) may be provided for missing property values. For `ENUM` types, a `default` value should contain the name of the enum value as a string, rather than its integer value. For all other cases, the structure of the `default` value is explained in the [Property Values Structure](#property-values-structure) section.
+
+If a default value is not provided, the behavior when encountering missing property values is implementation-defined.
 
 > **Example:** In the example below, a "tree" class is defined with `noData` indicating a specific enum value to be interpreted as missing data.
 >
-> | property  | componentType | required | noData    |
-> |:----------|:--------------|:---------|:----------|
-> | height    | "FLOAT32"     | ✓        |           |
-> | species   | "ENUM"        |          | "Unknown" |
-> | leafColor | "STRING"      | ✓        |           |
+> | property  | componentType   | required | noData      |
+> |-----------|-----------------|----------|-------------|
+> | height    | `FLOAT32`       | ✓        |             |
+> | species   | `ENUM`          |          | `"Unknown"` |
+> | leafColor | `STRING`        | ✓        |             |
+
+
+#### Property Values Structure
+
+Property values that appear as part of the class definition are the offset, scale, minimum, maximum, default values and no-data values. The structure of these values inside the class definition depends on the type of the property. For `SCALAR` (non-array) types, they are single values. For all other cases, they are arrays:
+
+- For `SCALAR` array types with fixed length `count`, they are arrays with length `count`.
+- For `VECN` types, they are arrays, with length `N`.
+- For `MATN` types, they are arrays, with length `N * N`.
+- For `VECN` array types with fixed length `count`, they are arrays with length `count`, where each array element is itself an array of length `N`
+- For `MATN` array types with fixed length `count`, they are arrays with length `count`, where each array element is itself an array of length `N * N`.
+
+For `noData` values and numeric values that are not `normalized`, the type of the innermost elements of these arrays corresponds to the `componentType`. For numeric values that are `normalized`, the innermost elements are floating-point values. 
+
 
 ## Storage Formats
 
@@ -331,11 +389,11 @@ Schemas provide templates for entities, but creating an entity requires specific
 * **Binary Table Format** - property values are stored in parallel 1D arrays, encoded as binary data
 * **JSON Format** - property values are stored in key/value dictionaries, encoded as JSON objects
 
-Both formats formats are suitable for general purpose metadata storage. Binary formats may be preferrable for larger quantities of metadata.
+Both formats are suitable for general purpose metadata storage. Binary formats may be preferable for larger quantities of metadata.
 
 Additional serialization methods may be defined outside of this specification. For example, property values could be stored in texture channels or retrieved from a REST API as XML data.
 
-> **Implementation note:** Any specification that references 3D Metadata must state explicitly which storage formats are supported, or define its own serialization. For example, the [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) glTF extension implements the binary table format described below, and defines an additional image-based format for per-texel metadata.
+> **Implementation note:** Any specification that references 3D Metadata must state explicitly which storage formats are supported, or define its own serialization. For example, the [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) glTF extension implements the binary table format described below, and defines an additional image-based format for per-texel metadata.
 
 ### Binary Table Format
 
@@ -353,9 +411,9 @@ Binary encoding is efficient for runtime use, and scalable to large quantities o
 
 Property values are binary-encoded according to their data type, in little-endian format. Values are tightly packed: there is no padding between values.
 
-#### Numbers
+#### Scalars
 
-A numeric value may be encoded as 8-, 16-, 32-, or 64-bit types. Multiple numeric values are packed tightly in the same buffer. The following data types are supported:
+A scalar value is encoded based on the `componentType`. Multiple values are packed tightly in the same buffer. The following data types are supported:
 
 | Name    | Description                            |
 |---------|----------------------------------------|
@@ -369,6 +427,14 @@ A numeric value may be encoded as 8-, 16-, 32-, or 64-bit types. Multiple numeri
 | UINT64  | 64-bit unsigned integer                |
 | FLOAT32 | 32-bit IEEE floating point number      |
 | FLOAT64 | 64-bit IEEE floating point number      |
+
+#### Vectors
+
+Vector components are tightly packed and encoded based on the `componentType`.
+
+#### Matrices
+
+Matrix components are tightly packed in column-major order and encoded based on the `componentType`.
 
 #### Booleans
 
@@ -389,9 +455,9 @@ For a table with `N` rows, the buffer that stores these boolean values will cons
 
 A string value is a UTF-8 encoded byte sequence. Multiple strings are packed tightly in the same buffer.
 
-Because string lengths may vary, a **string offset** buffer (`stringOffset`) is used to identify strings in the buffer. If there are `N` strings in the property array, the string offset buffer has `N + 1` elements. The first `N` of these point to the first byte of each string, while the last points to the byte immediately after the last string. The number of bytes in the `i-th` string is given by `stringOffset[i + 1] - stringOffset[i]`. UTF-8 encodes each character as 1-4 bytes, so string offsets do not necessarily represent the number of characters in the string.
+Because string lengths may vary, a **string offset** buffer is used to identify strings in the buffer. If there are `N` strings in the property array, the string offset buffer has `N + 1` elements. The first `N` of these point to the first byte of each string, while the last points to the byte immediately after the last string. The number of bytes in the `i-th` string is given by `stringOffset[i + 1] - stringOffset[i]`. UTF-8 encodes each character as 1-4 bytes, so string offsets do not necessarily represent the number of characters in the string.
 
-The data type used for offsets is defined by a **string offset type** (`stringOffsetType`), which may be `UINT8`, `UINT16`, `UINT32`, or `UINT64`.
+The data type used for offsets is defined by a **string offset type**, which may be `UINT8`, `UINT16`, `UINT32`, or `UINT64`.
 
 > **Example:** Three UTF-8 strings, binary-encoded in a buffer.
 >
@@ -399,36 +465,34 @@ The data type used for offsets is defined by a **string offset type** (`stringOf
 
 #### Enums
 
-Enums are encoded as integer values according to the enum value type (see [Enums](#enums)). Multiple enum values are packed tightly in the same buffer. Any integer data type supported for [Numbers](#numbers) may be used for enum values.
+Enums are encoded as integer values according to the enum value type (see [Enums](#enums)). Any integer data type supported for [Scalars](#scalars) may be used for enum values.
 
-#### Arrays
+#### Fixed-Length Arrays
 
-Array values are encoded with varying array lengths and element sizes. Multiple arrays and array values are packed tightly in the same buffer.
+A fixed-length array value is encoded as a tightly packed array of `count` elements, where each element is encoded according to the `type`.
 
-Variable-length arrays use an additional **array offset** buffer (`arrayOffset`). The `i-th` value in the array offset buffer is an element index — not a byte offset — identifying the beginning of the `i-th` array. String values within an array may have inconsistent lengths, requiring both array offset and **string offset** buffers (see: [Strings](#strings)).
+#### Variable-Length Arrays
 
-The data type used for offsets is defined by an **array offset type** (`arrayOffsetType`), which may be `UINT8`, `UINT16`, `UINT32`, or `UINT64`.
+Variable-length arrays use an additional **array offset** buffer. The `i-th` value in the array offset buffer is an element index — not a byte offset — identifying the beginning of the `i-th` array. String values within an array may have inconsistent lengths, requiring both array offset and **string offset** buffers (see: [Strings](#strings)).
+
+The data type used for offsets is defined by an **array offset type**, which may be `UINT8`, `UINT16`, `UINT32`, or `UINT64`.
 
 If there are `N` arrays in the property array, the array offset buffer has `N + 1` elements. The first `N` of these point to the first element of an array within the property array, or within a string offset buffer for string component types. The last value points to a (non-existent) element immediately following the last array element.
 
-As a result, property value lookups for fixed- and variable-length arrays must compute an element's index differently. For each case below, the offset of an array element `i` within its binary storage is expressed in terms of entity ID `id` and element index `i`.
+For each case below, the offset of an array element `i` within its binary storage is expressed in terms of entity ID `id` and element index `i`.
 
-| Array length | Array type                        | Offset type | Offset                                  |
-|--------------|-----------------------------------|-------------|-----------------------------------------|
-| variable     | `number[]`, `boolean[]`, `enum[]` | array index | `arrayOffset[id] + i`                   |
-| fixed        | `number[]`, `boolean[]`, `enum[]` | array index | `id * componentCount + i`               |
-| variable     | `string[]`                        | byte offset | `stringOffset[arrayOffset[id] + i]`     |
-| fixed        | `string[]`                        | byte offset | `stringOffset[id * componentCount + i]` |
+| Type            | Offset type | Offset                              |
+|-----------------|-------------|-------------------------------------|
+| `STRING`        | byte offset | `stringOffset[arrayOffset[id] + i]` |
+| All other types | array index | `arrayOffset[id] + i`               |
 
-`VECN` and `MATN` types are treated as fixed-length numeric arrays.
+Each expression in the table above defines an index into the underlying property array. For a property array of `SCALAR` elements with `FLOAT32` component type, index `3` corresponds to byte offset `3 * sizeof(FLOAT32)`. For a property array of `VEC4` elements with `FLOAT32` component type, index `3` corresponds to byte offset `3 * 4 * sizeof(FLOAT32) = 48`. For an array of `BOOLEAN` elements, offset `3` would correspond to <u>_bit_</u> offset `3`.
 
-Each expression in the table above defines an index into the underlying property array. For a property array of `FLOAT32` components, index `3` would correspond to <u>_byte_</u> offset `3 * sizeof(FLOAT32) = 12` within that array. For an array of `BOOLEAN` components, offset `3` would correspond to <u>_bit_</u> offset `3`.
-
-> **Example:** Five variable-length arrays of UINT8 components, binary-encoded in a buffer. The associated property definition would be `type = "ARRAY"`, and `componentType = "UINT8"`, `componentCount = undefined` (variable-length).
+> **Example:** Five variable-length arrays of UINT8 components, binary-encoded in a buffer. The associated property definition would be `type = "SCALAR"`, `componentType = "UINT8"`, and `array = true`.
 >
 > <img src="figures/array-of-ints.png"  alt="Variable-length array" width="640px">
 
-> **Example:** Two variable-length arrays of strings, binary-encoded in a buffer. The associated property definition would be `type = "ARRAY"`, `componentType = "STRING"`, `componentCount = undefined` (variable-length). Observe that the last element of the array offset buffer points to the last element of the string offset buffer. This is because the last valid string offset is the next-to-last element of the string offset buffer.
+> **Example:** Two variable-length arrays of strings, binary-encoded in a buffer. The associated property definition would be `type = "STRING"` and `array = true` (variable-length). Observe that the last element of the array offset buffer points to the last element of the string offset buffer. This is because the last valid string offset is the next-to-last element of the string offset buffer.
 >
 > ![Variable-length array of string](figures/array-of-strings.png)
 
@@ -438,9 +502,9 @@ Each expression in the table above defines an index into the underlying property
 
 JSON encoding is useful for storing a small number of entities in human readable form.
 
-Each entity is represented as a JSON object with its `class` identified by a string ID. Property values are defined in a key/value `properties` dictionary, having property IDs as its keys. Property values are encoded as corresponding JSON types: numeric types are represented as `number`, booleans as `boolean`, strings as `string`, enums as `string`, and arrays, vectors and matrices as `array`.
+Each entity is represented as a JSON object with its `class` identified by a string ID. Property values are defined in a key/value `properties` dictionary, having property IDs as its keys. Property values are encoded as corresponding JSON types: numeric types are represented as `number`, booleans as `boolean`, strings as `string`, enums as `string`, vectors and matrices as `array` of `number`, and arrays as `array` of the containing type.
 
-> **Example:** The following example demonstrates usage for both fixed and variable size arrays:
+> **Example:** The following example demonstrates usage for both fixed- and variable-length arrays:
 >
 > _An enum, "basicEnum", composed of three `(name: value)` pairs:_
 >
@@ -450,18 +514,20 @@ Each entity is represented as a JSON object with its `class` identified by a str
 > | `"Enum B"` | `1`   |
 > | `"Enum C"` | `2`   |
 >
-> _A class, "basicClass", composed of eight properties. `stringArrayProperty` (`ARRAY`) component count is undefined and therefore variable. `optionalProperty` (`VEC3`) component count is implicitly `3`, and may be omitted from the property definition._
+> _A class, "basicClass", composed of ten properties. `stringArrayProperty` count is undefined and therefore variable-length._
 >
-> | id                  | type       | componentType | componentCount | enumType      | required |
-> |---------------------|------------|---------------|----------------|---------------|----------|
-> | floatProperty       | `"SINGLE"` (default) | `"FLOAT64"`   |                |               | ✓        |
-> | integerProperty     | `"SINGLE"` | `"INT32"`     |                |               | ✓        |
-> | booleanProperty     | `"SINGLE"` | `"BOOLEAN"`   |                |               | ✓        |
-> | stringProperty      | `"SINGLE"` | `"STRING"`    |                |               | ✓        |
-> | enumProperty        | `"SINGLE"` | `"ENUM"`      |                | `"basicEnum"` | ✓        |
-> | floatArrayProperty  | `"ARRAY"`  | `"FLOAT32"`   | `3`            |               | ✓        |
-> | stringArrayProperty | `"ARRAY"`  | `"STRING"`    |                |               | ✓        |
-> | optionalProperty    | `"VEC3"`   | `"UINT8"`     |                |               |          |
+> | id                  | type      | componentType | array   | count | enumType    | required |
+> |---------------------|-----------|---------------|---------|-------|-------------|----------|
+> | floatProperty       | `SCALAR`  | `FLOAT64`     | `false` |       |             | ✓        |
+> | integerProperty     | `SCALAR`  | `INT32`       | `false` |       |             | ✓        |
+> | vectorProperty      | `VEC2`    | `FLOAT32`     | `false` |       |             | ✓        |
+> | floatArrayProperty  | `SCALAR`  | `FLOAT32`     | `true`  | 3     |             | ✓        |
+> | vectorArrayProperty | `VEC2`    | `FLOAT32`     | `true`  | 2     |             | ✓        |
+> | booleanProperty     | `BOOLEAN` |               | `false` |       |             | ✓        |
+> | stringProperty      | `STRING`  |               | `false` |       |             | ✓        |
+> | enumProperty        | `ENUM`    |               | `false` |       | `basicEnum` | ✓        |
+> | stringArrayProperty | `STRING`  |               | `true`  |       |             | ✓        |
+> | optionalProperty    | `STRING`  |               | `false` |       |             |          |
 >
 > _A single entity encoded in JSON. Note that the optional property is omitted in this example._
 > ```jsonc
@@ -471,21 +537,31 @@ Each entity is represented as a JSON object with its `class` identified by a str
 >     "properties": {
 >       "floatProperty": 1.5,
 >       "integerProperty": -90,
+>       "vectorProperty": [0.0, 1.0],
+>       "floatArrayProperty": [1.0, 0.5, -0.5],
+>       "vectorArrayProperty": [[0.0, 1.0], [1.0, 2.0]],
 >       "booleanProperty": true,
 >       "stringProperty": "x123",
 >       "enumProperty": "Enum B",
->       "floatArrayProperty": [1.0, 0.5, -0.5],
 >       "stringArrayProperty": ["abc", "12345", "おはようございます"]
 >     }
 >   }
 > }
 > ```
 
-#### Numbers
+#### Scalars
 
-All numeric types (`INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, `UINT64`, `FLOAT32`, and `FLOAT64`) are encoded as JSON numbers. Floating point values must be representable as IEEE floating point numbers.
+All component types (`INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, `UINT64`, `FLOAT32`, and `FLOAT64`) are encoded as JSON numbers. Floating point values must be representable as IEEE floating point numbers.
 
 > **Implementation Note:** For numeric types the size in bits is made explicit. Even though JSON only has a single `number` type for all integers and floating point numbers, the application that consumes the JSON may make a distinction. For example, C and C++ have several different integer types such as `uint8_t`, `uint32_t`. The application is responsible for interpreting the metadata using the type specified in the property definition.
+
+#### Vectors
+
+Vectors are encoded as a JSON array of numbers.
+
+#### Matrices
+
+Matrices are encoded as a JSON array of numbers in column-major order.
 
 #### Booleans
 
@@ -501,31 +577,4 @@ Enums are encoded as JSON strings using the name of the enum value rather than t
 
 #### Arrays
 
-Arrays are encoded as JSON arrays, where each component is encoded according to the component type. When a component count is specified, the length of the JSON array must match the component count. Otherwise, for variable-length arrays, the JSON array may be any length, including zero-length.
-
-`VECN` and `MATN` types are treated as fixed-length numeric arrays.
-
-## Revision History
-
-* **Version 0.0.0** November 6, 2020
-  * Initial draft
-* **Version 1.0.0** February 25, 2021
-  * The specification has been revised to focus on the core concepts of schemas (including classes, enums, and properties) and formats for encoding metadata. It is now language independent. The JSON schema has been removed.
-  * Added schemas which contain classes and enums
-  * Added enum support
-  * Added ability to assign a semantic identifiers to properties
-  * Removed blob support
-  * Removed special handling for fixed-length strings
-* **Version 2.0.0** September, 2021
-  * Removed raster encoding. Storing metadata in texture channels remains a valid implementation of this specification, but is not within the scope of this document.
-  * Removed table layout from the JSON Format; each entity is encoded as a single JSON object.
-  * Removed `optional` and added `required`. Properties are now assumed to be optional unless `required` is true.
-  * Added `noData` for specifying a sentinel value that indicates missing data
-  * Removed `default`
-  * `NaN` and `Infinity` are now explicitly disallowed as property values
-  * Added vector and matrix types: `VEC2`, `VEC3`, `VEC4`, `MAT2`, `MAT3`, `MAT4`
-  * Refactored `type` and `componentType` to avoid overlap. Properties that store a single value now have a `type` of `SINGLE` and a `componentType` of the desired type (e.g. `type: "SINGLE", componentType: "UINT8"`)
-  * Class IDs, enum IDs, property IDs, and group IDs must now contain only alphanumeric and underscore characters
-  * Split `offsetType` into `arrayOffsetType` and `stringOffsetType`
-  * Add `name` and `description` to schema, class, and enum definitions
-  * Add `id` to schema definitions
+Arrays are encoded as JSON arrays, where each element is encoded according to the `type`. When a count is specified, the length of the JSON array must match the count. Otherwise, for variable-length arrays, the JSON array may be any length, including zero-length.

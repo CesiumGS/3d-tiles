@@ -10,7 +10,7 @@
         }
     ],
     "properties": {
-        "content": {
+        "contents": {
             "type": "array",
             "description": "An array of contents.",
             "items": {
