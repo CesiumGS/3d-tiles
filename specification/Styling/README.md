@@ -1,34 +1,34 @@
+<!-- omit in toc -->
 # Styling
 
+<!-- omit in toc -->
 ## Contents
 
-* [Overview](#overview)
-* [Concepts](#concepts)
-   * [Styling features](#styling-features)
-   * [Conditions](#conditions)
-   * [Defining variables](#defining-variables)
-   * [Meta property](#meta-property)
-* [Expressions](#expressions)
-   * [Semantics](#semantics)
-   * [Operators](#operators)
-   * [Types](#types)
-      * [Number](#number)
-      * [String](#string)
-      * [vec2](#vector)
-      * [vec3](#vector)
-      * [vec4](#vector)
-      * [Color](#color)
-      * [RegExp](#regexp)
-   * [Operator rules](#operator-rules)
-   * [Type conversions](#type-conversions)
-   * [String conversion](#string-conversions)
-   * [Constants](#constants)
-   * [Variables](#variables)
-   * [Built-in functions](#built-in-functions)
-   * [Notes](#notes)
-* [Point Cloud](#point-cloud)
-* [File extension and MIME type](#file-extension-and-mime-type)
-* [Property reference](#property-reference)
+- [Overview](#overview)
+- [Concepts](#concepts)
+  - [Styling features](#styling-features)
+  - [Conditions](#conditions)
+  - [Defining variables](#defining-variables)
+  - [Meta property](#meta-property)
+- [Expressions](#expressions)
+  - [Semantics](#semantics)
+  - [Operators](#operators)
+  - [Types](#types)
+    - [Number](#number)
+    - [String](#string)
+    - [Vector](#vector)
+    - [Color](#color)
+    - [RegExp](#regexp)
+  - [Operator rules](#operator-rules)
+  - [Type conversions](#type-conversions)
+  - [String conversions](#string-conversions)
+  - [Constants](#constants)
+  - [Variables](#variables)
+  - [Built-in functions](#built-in-functions)
+  - [Notes](#notes)
+- [Point Cloud](#point-cloud)
+- [File extension and MIME type](#file-extension-and-mime-type)
+- [Property reference](#property-reference)
 
 ## Overview
 
@@ -273,6 +273,7 @@ Strings are encoded in UTF-8.
 
 The styling language includes 2, 3, and 4 component floating-point vector types: `vec2`, `vec3`, and `vec4`. Vector constructors share the same rules as GLSL:
 
+<!-- omit in toc -->
 ##### vec2
 
 * `vec2(xy : Number)` - initialize each component with the number
@@ -281,6 +282,7 @@ The styling language includes 2, 3, and 4 component floating-point vector types:
 * `vec2(xyz : vec3)` - drops the third component of a `vec3`
 * `vec2(xyzw : vec4)` - drops the third and fourth component of a `vec4`
 
+<!-- omit in toc -->
 ##### vec3
 
 * `vec3(xyz : Number)` - initialize each component with the number
@@ -290,6 +292,7 @@ The styling language includes 2, 3, and 4 component floating-point vector types:
 * `vec3(xy : vec2, z : Number)` - initialize with a `vec2` and number
 * `vec3(x : Number, yz : vec2)` - initialize with a `vec2` and number
 
+<!-- omit in toc -->
 ##### vec4
 
 * `vec4(xyzw : Number)` - initialize each component with the number
@@ -301,6 +304,7 @@ The styling language includes 2, 3, and 4 component floating-point vector types:
 * `vec4(xyz : vec3, w : Number)` - initialize with a `vec3` and number
 * `vec4(x : Number, yzw : vec3)` - initialize with a `vec3` and number
 
+<!-- omit in toc -->
 ##### Vector usage
 
 `vec2` components may be accessed with
@@ -491,6 +495,7 @@ The following constants are supported by the styling language:
 * [`Math.PI`](#pi)
 * [`Math.E`](#e)
 
+<!-- omit in toc -->
 #### PI
 
 The mathematical constant PI, which represents a circle's circumference divided by its diameter, approximately `3.14159`.
@@ -501,6 +506,7 @@ The mathematical constant PI, which represents a circle's circumference divided 
 }
 ```
 
+<!-- omit in toc -->
 #### E
 
 Euler's constant and the base of the natural logarithm, approximately `2.71828`.
@@ -676,6 +682,7 @@ The following built-in functions are supported by the styling language:
 
 Many of the built-in functions take either scalars or vectors as arguments. For vector arguments the function is applied component-wise and the resulting vector is returned.
 
+<!-- omit in toc -->
 #### abs
 
 ```
@@ -693,6 +700,7 @@ Returns the absolute value of `x`.
 }
 ```
 
+<!-- omit in toc -->
 #### sqrt
 
 ```
@@ -715,6 +723,7 @@ Returns the square root of `x` when `x >= 0`. Returns `NaN` when `x < 0`.
 }
 ```
 
+<!-- omit in toc -->
 #### cos
 
 ```
@@ -732,6 +741,7 @@ Returns the cosine of `angle` in radians.
 }
 ```
 
+<!-- omit in toc -->
 #### sin
 
 ```
@@ -749,6 +759,7 @@ Returns the sine of `angle` in radians.
 }
 ```
 
+<!-- omit in toc -->
 #### tan
 
 ```
@@ -766,6 +777,7 @@ Returns the tangent of `angle` in radians.
 }
 ```
 
+<!-- omit in toc -->
 #### acos
 
 ```
@@ -783,6 +795,7 @@ Returns the arccosine of `angle` in radians.
 }
 ```
 
+<!-- omit in toc -->
 #### asin
 
 ```
@@ -800,6 +813,7 @@ Returns the arcsine of `angle` in radians.
 }
 ```
 
+<!-- omit in toc -->
 #### atan
 
 ```
@@ -817,6 +831,7 @@ Returns the arctangent of `angle` in radians.
 }
 ```
 
+<!-- omit in toc -->
 #### atan2
 
 ```
@@ -834,6 +849,7 @@ Returns the arctangent of the quotient of `y` and `x`.
 }
 ```
 
+<!-- omit in toc -->
 #### radians
 
 ```
@@ -851,6 +867,7 @@ Converts `angle` from degrees to radians.
 }
 ```
 
+<!-- omit in toc -->
 #### degrees
 
 ```
@@ -868,6 +885,7 @@ Converts `angle` from radians to degrees.
 }
 ```
 
+<!-- omit in toc -->
 #### sign
 
 ```
@@ -885,6 +903,7 @@ Returns 1.0 when `x` is positive, 0.0 when `x` is zero, and -1.0 when `x` is neg
 }
 ```
 
+<!-- omit in toc -->
 #### floor
 
 ```
@@ -902,6 +921,7 @@ Returns the nearest integer less than or equal to `x`.
 }
 ```
 
+<!-- omit in toc -->
 #### ceil
 
 ```
@@ -919,6 +939,7 @@ Returns the nearest integer greater than or equal to `x`.
 }
 ```
 
+<!-- omit in toc -->
 #### round
 
 ```
@@ -936,6 +957,7 @@ Returns the nearest integer to `x`. A number with a fraction of 0.5 will round i
 }
 ```
 
+<!-- omit in toc -->
 #### exp
 
 ```
@@ -953,6 +975,7 @@ Returns `e` to the power of `x`, where `e` is Euler's constant, approximately `2
 }
 ```
 
+<!-- omit in toc -->
 #### log
 
 ```
@@ -970,6 +993,7 @@ Returns the natural logarithm (base `e`) of `x`.
 }
 ```
 
+<!-- omit in toc -->
 #### exp2
 
 ```
@@ -987,6 +1011,7 @@ Returns 2 to the power of `x`.
 }
 ```
 
+<!-- omit in toc -->
 #### log2
 
 ```
@@ -1004,6 +1029,7 @@ Returns the base 2 logarithm of `x`.
 }
 ```
 
+<!-- omit in toc -->
 #### fract
 
 ```
@@ -1021,6 +1047,7 @@ Returns the fractional part of `x`. Equivalent to `x - floor(x)`.
 }
 ```
 
+<!-- omit in toc -->
 #### pow
 
 ```
@@ -1038,6 +1065,7 @@ Returns `base` raised to the power of `exponent`.
 }
 ```
 
+<!-- omit in toc -->
 #### min
 
 ```
@@ -1062,6 +1090,7 @@ Returns the smaller of `x` and `y`.
 }
 ```
 
+<!-- omit in toc -->
 #### max
 
 ```
@@ -1086,6 +1115,7 @@ Returns the larger of `x` and `y`.
 }
 ```
 
+<!-- omit in toc -->
 #### clamp
 
 ```
@@ -1110,6 +1140,7 @@ Constrains `x` to lie between `min` and `max`.
 }
 ```
 
+<!-- omit in toc -->
 #### mix
 
 ```
@@ -1134,6 +1165,7 @@ Computes the linear interpolation of `x` and `y`.
 }
 ```
 
+<!-- omit in toc -->
 #### length
 
 ```
@@ -1151,6 +1183,7 @@ Computes the length of vector `x`, i.e., the square root of the sum of the squar
 }
 ```
 
+<!-- omit in toc -->
 #### distance
 
 ```
@@ -1168,6 +1201,7 @@ Computes the distance between two points `x` and `y`, i.e., `length(x - y)`.
 }
 ```
 
+<!-- omit in toc -->
 #### normalize
 
 ```
@@ -1184,6 +1218,7 @@ Returns a vector with length 1.0 that is parallel to `x`. When `x` is a number, 
 }
 ```
 
+<!-- omit in toc -->
 #### dot
 
 ```
@@ -1200,6 +1235,7 @@ Computes the dot product of `x` and `y`.
 }
 ```
 
+<!-- omit in toc -->
 #### cross
 
 ```
@@ -1274,6 +1310,7 @@ Tileset styles use the `.json` extension and the `application/json` mime type.
 
 ---------------------------------------
 <a name="reference-style"></a>
+<!-- omit in toc -->
 ### style
 
 A 3D Tiles style.
@@ -1287,6 +1324,7 @@ A 3D Tiles style.
 |**color**|`string`, `object`|A [`color expression`](#reference-color-expression) or [`conditions`](#reference-conditions) property which determines the color blended with the feature's intrinsic color.|No, default: `color('#FFFFFF')`|
 |**meta**|`object`|A [`meta`](#reference-meta) object which determines the values of non-visual properties of the feature.|No|
 
+<!-- omit in toc -->
 #### style.defines
 
 A dictionary object of [`expression`](#reference-expression) strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
@@ -1295,6 +1333,7 @@ A dictionary object of [`expression`](#reference-expression) strings mapped to a
 * **Required**: No
 * **Type of each property**: `string`
 
+<!-- omit in toc -->
 #### style.show
 
 A [`boolean expression`](#reference-boolean-expression) or [`conditions`](#reference-conditions) property which determines if a feature should be shown.
@@ -1302,6 +1341,7 @@ A [`boolean expression`](#reference-boolean-expression) or [`conditions`](#refer
 * **Type**: `boolean`, `string`, `object`
 * **Required**: No, default: `true`
 
+<!-- omit in toc -->
 #### style.color
 
 A [`color expression`](#reference-color-expression) or [`conditions`](#reference-conditions) property which determines the color blended with the feature's intrinsic color.
@@ -1309,6 +1349,7 @@ A [`color expression`](#reference-color-expression) or [`conditions`](#reference
 * **Type**: `string`, `object`
 * **Required**: No, default: `color('#FFFFFF')`
 
+<!-- omit in toc -->
 #### style.meta
 
 A [`meta`](#reference-meta) object which determines the values of non-visual properties of the feature.
@@ -1320,25 +1361,28 @@ A [`meta`](#reference-meta) object which determines the values of non-visual pro
 
 ---------------------------------------
 <a name="reference-boolean-expression"></a>
+<!-- omit in toc -->
 ### boolean expression
 
 A boolean or string with a 3D Tiles style expression that evaluates to a boolean. See [Expressions](/specification/Styling/README.md#expressions).
 
-* **JSON schema**: [`style.booleanExpression.schema.json`](schema/style.booleanExpression.schema.json)
+* **JSON schema**: [`style.booleanExpression.schema.json`](../schema/Styling/style.booleanExpression.schema.json)
 
 
 
 ---------------------------------------
 <a name="reference-color-expression"></a>
+<!-- omit in toc -->
 ### color expression
 
 3D Tiles style [`expression`](#reference-expression) that evaluates to a Color. See [Expressions](/specification/Styling/README.md#expressions).
 
-* **JSON schema**: [`style.colorExpression.schema.json`](schema/style.colorExpression.schema.json)
+* **JSON schema**: [`style.colorExpression.schema.json`](../schema/Styling/style.colorExpression.schema.json)
 
 
 ---------------------------------------
 <a name="reference-conditions"></a>
+<!-- omit in toc -->
 ### conditions
 
 A series of conditions evaluated in order, like a series of if...else statements that result in an expression being evaluated.
@@ -1349,6 +1393,7 @@ A series of conditions evaluated in order, like a series of if...else statements
 |---|----|-----------|--------|
 |**conditions**|`array` `[]`|A series of boolean conditions evaluated in order.  For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned.  Result expressions must all be the same type.  If no condition evaluates to true, the result is `undefined`.  When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.|No|
 
+<!-- omit in toc -->
 #### conditions.conditions
 
 A series of boolean conditions evaluated in order.  For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned.  Result expressions must all be the same type.  If no condition evaluates to true, the result is `undefined`.  When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.
@@ -1358,24 +1403,27 @@ A series of boolean conditions evaluated in order.  For the first one that evalu
 
 ---------------------------------------
 <a name="reference-condition"></a>
+<!-- omit in toc -->
 ### condition
 
 An [`expression`](#reference-expression) evaluated as the result of a condition being true. An array of two expressions. If the first expression is evaluated and the result is `true`, then the second expression is evaluated and returned as the result of the condition.
 
-* **JSON schema**: [`style.conditions.condition.schema.json`](schema/style.conditions.condition.schema.json)
+* **JSON schema**: [`style.conditions.condition.schema.json`](../schema/Styling/style.conditions.condition.schema.json)
 
 ---------------------------------------
 <a name="reference-expression"></a>
+<!-- omit in toc -->
 ### expression
 
 A valid 3D Tiles style expression. See [Expressions](/specification/Styling/README.md#expressions).
 
-* **JSON schema**: [`style.expression.schema.json`](schema/style.expression.schema.json)
+* **JSON schema**: [`style.expression.schema.json`](../schema/Styling/style.expression.schema.json)
 
 
 
 ---------------------------------------
 <a name="reference-meta"></a>
+<!-- omit in toc -->
 ### meta
 
 A series of property names and the [`expression`](#reference-expression) to evaluate for the value of that property.
@@ -1388,16 +1436,18 @@ Additional properties are allowed.
 
 ---------------------------------------
 <a name="reference-number-expression"></a>
+<!-- omit in toc -->
 ### number expression
 
 3D Tiles style expression that evaluates to a number. See [Expressions](/specification/Styling/README.md#expressions).
 
-* **JSON schema**: [`style.numberExpression.schema.json`](schema/style.numberExpression.schema.json)
+* **JSON schema**: [`style.numberExpression.schema.json`](../schema/Styling/style.numberExpression.schema.json)
 
 
 
 ---------------------------------------
 <a name="reference-point-cloud-style"></a>
+<!-- omit in toc -->
 ### Point Cloud Style
 
 A 3D Tiles style with additional properties for Point Clouds.
@@ -1412,6 +1462,7 @@ A 3D Tiles style with additional properties for Point Clouds.
 |**meta**|`object`|A [`meta`](#reference-meta) object which determines the values of non-visual properties of the feature.|No|
 |**pointSize**|`number`, `string`, `object`|A [`number expression`](#reference-number-expression) or [`conditions`](#reference-conditions) property which determines the size of the points in pixels.|No, default: `1`|
 
+<!-- omit in toc -->
 #### PointCloudStyle.defines
 
 A dictionary object of [`expression`](#reference-expression) strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
@@ -1420,6 +1471,7 @@ A dictionary object of [`expression`](#reference-expression) strings mapped to a
 * **Required**: No
 * **Type of each property**: `string`
 
+<!-- omit in toc -->
 #### PointCloudStyle.show
 
 A [`boolean expression`](#reference-boolean-expression) or [`conditions`](#reference-conditions) property which determines if a feature should be shown.
@@ -1427,6 +1479,7 @@ A [`boolean expression`](#reference-boolean-expression) or [`conditions`](#refer
 * **Type**: `boolean`, `string`, `object`
 * **Required**: No, default: `true`
 
+<!-- omit in toc -->
 #### PointCloudStyle.color
 
 A [`color expression`](#reference-color-expression) or [`conditions`](#reference-conditions) property which determines the color blended with the feature's intrinsic color.
@@ -1434,6 +1487,7 @@ A [`color expression`](#reference-color-expression) or [`conditions`](#reference
 * **Type**: `string`, `object`
 * **Required**: No, default: `color('#FFFFFF')`
 
+<!-- omit in toc -->
 #### PointCloudStyle.meta
 
 A [`meta`](#reference-meta) object which determines the values of non-visual properties of the feature.
@@ -1442,6 +1496,7 @@ A [`meta`](#reference-meta) object which determines the values of non-visual pro
 * **Required**: No
 * **Type of each property**: `string`
 
+<!-- omit in toc -->
 #### PointCloudStyle.pointSize
 
 A [`number expression`](#reference-number-expression) or [`conditions`](#reference-conditions) property which determines the size of the points in pixels.
