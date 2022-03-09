@@ -8,10 +8,10 @@ Semantics describe how properties should be interpreted. For example, an applica
 
 Each semantic is defined in terms of its meaning, and the datatypes it may assume. Datatype specifications include "type" as defined by the [3D Metadata Specification](../). When applicable they may also include "component type", "array", and "count".
 
-For use of semantics in extensions of specific standards, see:
+For use of semantics, see:
 
-* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata) (3D Tiles 1.0)
-* [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) (glTF 2.0)
+* [3D Tiles Metadata](TODO) - Assigns metadata to tilesets, tiles, and contents
+* [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) (glTF 2.0) —  Assigns metadata to vertices, texels, and features in a glTF asset
 
 ## General
 
@@ -55,11 +55,11 @@ Semantic|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 
 #### Overview
 
-`TILE_*` semantics provide meaning for properties associated with a particular tile, and should take precedence over equivalent metadata on parent objects, as well as over values derived from subdivision schemes like [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
+`TILE_*` semantics provide meaning for properties associated with a particular tile, and should take precedence over equivalent metadata on parent objects, as well as over values derived from subdivision schemes in [Implicit Tiling](../../ImplicitTiling/).
 
-If property values are missing, either because the property is omitted or the property table contains `noData` values, the original tile properties are used, such as those explicitly defined in tileset JSON or implicitly computed from subdivision schemes like [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling).
+If property values are missing, either because the property is omitted or the property table contains `noData` values, the original tile properties are used, such as those explicitly defined in tileset JSON or implicitly computed from subdivision schemes in [Implicit Tiling](../../ImplicitTiling/).
 
-In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_SPHERE` semantics each define a more specific bounding volume for a tile than is implicitly calculated from [3DTILES_implicit_tiling](../../../extensions/3DTILES_implicit_tiling). If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
+In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_SPHERE` semantics each define a more specific bounding volume for a tile than is implicitly calculated from [Implicit Tiling](../../ImplicitTiling/). If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
 
 #### Tile Semantics
 
@@ -68,7 +68,7 @@ Semantic|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 `TILE_BOUNDING_BOX`|<ul><li>Type: `SCALAR`</li><li>Component type: `FLOAT32` or `FLOAT64`</li><li>Array: `true`</li><li>Count: `12`</li></ul>|The bounding volume of the tile, expressed as a [box](../../../specification#box). Equivalent to `tile.boundingVolume.box`.
 `TILE_BOUNDING_REGION`|<ul><li>Type: `SCALAR`</li><li>Component type: `FLOAT64`</li><li>Array: `true`</li><li>Count: `6`</li></ul>|The bounding volume of the tile, expressed as a [region](../../../specification#region). Equivalent to `tile.boundingVolume.region`.
 `TILE_BOUNDING_SPHERE`|<ul><li>Type: `SCALAR`</li><li>Component type: `FLOAT32` or `FLOAT64`</li><li>Array: `true`</li><li>Count: `4`</li></ul>|The bounding volume of the tile, expressed as a [sphere](../../../specification#sphere). Equivalent to `tile.boundingVolume.sphere`.
-`TILE_BOUNDING_S2_CELL`|<ul><li>Type: `SCALAR`</li><li>Component type: `UINT64`</li></ul>|The bounding volume of the tile, expressed as an [S2 Cell ID](../../../extensions/3DTILES_bounding_volume_S2#cell-ids) using the 64-bit representation instead of the hexadecimal representation.
+`TILE_BOUNDING_S2_CELL`|<ul><li>Type: `SCALAR`</li><li>Component type: `UINT64`</li></ul>|The bounding volume of the tile, expressed as an [S2 Cell ID](TODO#cell-ids) using the 64-bit representation instead of the hexadecimal representation.
 `TILE_MINIMUM_HEIGHT`|<ul><li>Type: `SCALAR`</li><li>Component type: `FLOAT32` or `FLOAT64`</li></ul>|The minimum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to `tile.boundingVolume.s2.minimumHeight`.
 `TILE_MAXIMUM_HEIGHT`|<ul><li>Type: `SCALAR`</li><li>Component type: `FLOAT32` or `FLOAT64`</li></ul>|The maximum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to `tile.boundingVolume.s2.maximumHeight`.
 `TILE_HORIZON_OCCLUSION_POINT`<sup>1</sup>|<ul><li>Type: `VEC3`</li><li>Component type: `FLOAT32` or `FLOAT64`</li></ul>|The horizon occlusion point of the tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire tile is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information.
@@ -94,7 +94,7 @@ Semantic|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 `CONTENT_BOUNDING_BOX`|<ul><li>Type: `SCALAR`</li><li>Component type: `FLOAT32` or `FLOAT64`</li><li>Array: `true`</li><li>Count: `12`</li></ul>|The bounding volume of the content of a tile, expressed as a [box](../../../specification#box). Equivalent to `tile.content.boundingVolume.box`.
 `CONTENT_BOUNDING_REGION`|<ul><li>Type: `SCALAR`</li><li>Component type: `FLOAT64`</li><li>Array: `true`</li><li>Count: `6`</li></ul>|The bounding volume of the content of a tile, expressed as a [region](../../../specification#region). Equivalent to `tile.content.boundingVolume.region`.
 `CONTENT_BOUNDING_SPHERE`|<ul><li>Type: `SCALAR`</li><li>Component type: `FLOAT32` or `FLOAT64`</li><li>Array: `true`</li><li>Count: `4`</li></ul>|The bounding volume of the content of a tile, expressed as a [sphere](../../../specification#sphere). Equivalent to `tile.content.boundingVolume.sphere`.
-`CONTENT_BOUNDING_S2_CELL`|<ul><li>Type: `SCALAR`</li><li>Component type: `UINT64`</li></ul>|The bounding volume of the content of a tile, expressed as an [S2 Cell ID](../../../extensions/3DTILES_bounding_volume_S2#cell-ids) using the 64-bit representation instead of the hexadecimal representation.
+`CONTENT_BOUNDING_S2_CELL`|<ul><li>Type: `SCALAR`</li><li>Component type: `UINT64`</li></ul>|The bounding volume of the content of a tile, expressed as an [S2 Cell ID](TODO#cell-ids) using the 64-bit representation instead of the hexadecimal representation.
 `CONTENT_MINIMUM_HEIGHT`|<ul><li>Type: `SCALAR`</li><li>Component type: `FLOAT32` or `FLOAT64`</li></ul>|The minimum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to `tile.content.boundingVolume.s2.minimumHeight`.
 `CONTENT_MAXIMUM_HEIGHT`|<ul><li>Type: `SCALAR`</li><li>Component type: `FLOAT32` or `FLOAT64`</li></ul>|The minimum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to `tile.content.boundingVolume.s2.maximumHeight`.
 <sub>`CONTENT_HORIZON_OCCLUSION_POINT`</sub><sup>1</sup>|<ul><li>Type: `VEC3`</li><li>Component type: `FLOAT32` or `FLOAT64`</li></ul>|The horizon occlusion point of the content of a tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire content is below the horizon. See [Horizon Culling](https://cesium.com/blog/2013/04/25/horizon-culling/) for more information.
