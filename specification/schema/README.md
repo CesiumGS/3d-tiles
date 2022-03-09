@@ -4,7 +4,7 @@ Parts of 3D Tiles are represented with JSON. The JSON structure is defined using
 
 This directory contains the JSON schema definitions for different concepts. Some of the concepts are defined in subfolders, in order to modularize the schema and define clear dependencies. Dependencies in a JSON schema are established with the `$ref` keyword, and these references are assumed to be resolved against the respective subdirectories. 
 
-- Root directory: Core concepts of 3D Tiles. This includes schemas for the [Tileset JSON](../README.md#tileset-json), [Feature Table](../TileFormats/FeatureTable/README.md), and [Batch Table](../TileFormats/BatchTable/README.md).
+- Root directory: The core concepts of 3D Tiles, including the definition of the [Tileset JSON](../README.md#tileset-json).
 
 - [`Schema`](Schema) directory: A reference implementation of the Schema definition of the [3D Metadata Specification](../Metadata/README.md#schema). This is used by the Core 3D Tiles schema to define the structure of metadata for tilesets, tiles, groups, and content. And it is used by the glTF `EXT_structural_metadata` extension to define the structure of metadata in glTF assets.
 
@@ -15,6 +15,10 @@ This directory contains the JSON schema definitions for different concepts. Some
 
 - [`Subtree`](Subtree) directory: The JSON part of a `.subtree` file that is used for implicit tiling in 3D Tiles.
   - *Depends on: [`PropertyTable`](PropertyTable), 3D Tiles core schema* 
+
+- [`TileFormats`](TileFormats) directory: The JSON part of the [Feature Table](../TileFormats/FeatureTable/README.md) and [Batch Table](../TileFormats/BatchTable/README.md) for the different tile formats.
+  - *Depends on: 3D Tiles core schema* 
+
 
 The [common](common) directory contains common definitions that are used by all other JSON schemas, but have no dependency to any other schema.
 
