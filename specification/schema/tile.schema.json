@@ -83,7 +83,7 @@
                     "$ref": "metadataEntity.schema.json"
                 }
             ],
-            "description": "Content metadata."
+            "description": "Tile metadata."
         },
         "implicitTiling": {
             "allOf": [
