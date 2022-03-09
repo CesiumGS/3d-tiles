@@ -75,7 +75,7 @@
         "subtreeMetadata": {
             "allOf": [
                 {
-                    "$ref": "subtreeMetadata.schema.json"
+                    "$ref": "metadataEntity.schema.json"
                 }
             ],
             "description": "Subtree metadata encoded in JSON."
