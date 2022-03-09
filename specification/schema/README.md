@@ -8,12 +8,12 @@ This directory contains the JSON schema definitions for different concepts. Some
 
 - [`Schema`](Schema) directory: A reference implementation of the Schema definition of the [3D Metadata Specification](../Metadata/README.md#schema). This is used by the Core 3D Tiles schema to define the structure of metadata for tilesets, tiles, groups, and content. And it is used by the glTF `EXT_structural_metadata` extension to define the structure of metadata in glTF assets.
 
-- [`PropertyTable`](PropertyTable) directory: A reference implementation of a binary storage format of metadata property values according to the [3D Metadata Specification](../Metadata/README.md#storage-formats). This is used by [`subtree`](subtree) to define the binary storage of metadata in `.subtree` files, and by the glTF `EXT_structural_metadata` extension to define the binary storage of metadata in glTF assets.
+- [`PropertyTable`](PropertyTable) directory: A reference implementation of a binary storage format of metadata property values according to the [3D Metadata Specification](../Metadata/README.md#storage-formats). This is used by [`Subtree`](Subtree) to define the binary storage of metadata in `.subtree` files, and by the glTF `EXT_structural_metadata` extension to define the binary storage of metadata in glTF assets.
 
 - [`Statistics`](Statistics) directory: The JSON structure for statistics about metadata that appears in a 3D Tiles tileset. metadata in glTF assets.
   - *Depends on: 3D Tiles core schema* 
 
-- [`subtree`](subtree) directory: The JSON part of a `.subtree` file that is used for implicit tiling in 3D Tiles.
+- [`Subtree`](Subtree) directory: The JSON part of a `.subtree` file that is used for implicit tiling in 3D Tiles.
   - *Depends on: [`PropertyTable`](PropertyTable), 3D Tiles core schema* 
 
 The [common](common) directory contains common definitions that are used by all other JSON schemas, but have no dependency to any other schema.
