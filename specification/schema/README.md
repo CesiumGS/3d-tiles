@@ -1,8 +1,27 @@
 # 3D Tiles JSON Schema
 
-Parts of 3D Tiles, such as [Tileset JSON](../README.md#tileset-json), [Feature Table](../TileFormats/FeatureTable/README.md), and [Batch Table](../TileFormats/BatchTable/README.md), are represented with JSON.  The JSON schema is defined using [JSON Schema](http://json-schema.org/) 2020-12 in schema subdirectories.
+Parts of 3D Tiles are represented with JSON. The JSON structure is defined using [JSON Schema](http://json-schema.org/) 2020-12 in schema subdirectories.
+
+This directory contains the JSON schema definitions for different concepts. Some of the concepts are defined in subfolders, in order to modularize the schema and define clear dependencies. Dependencies in a JSON schema are established with the `$ref` keyword, and these references are assumed to be resolved against the respective subdirectories. 
+
+- Root directory: Core concepts of 3D Tiles. This includes schemas for the [Tileset JSON](../README.md#tileset-json), [Feature Table](../TileFormats/FeatureTable/README.md), and [Batch Table](../TileFormats/BatchTable/README.md).
+
+- [`Schema`](Schema) directory: A reference implementation of the Schema definition of the [3D Metadata Specification](../Metadata/README.md#schema). This is used by the Core 3D Tiles schema to define the structure of metadata for tilesets, tiles, groups, and content. And it is used by the glTF `EXT_structural_metadata` extension to define the structure of metadata in glTF assets.
+
+- [`PropertyTable`](PropertyTable) directory: A reference implementation of a binary storage format of metadata property values according to the [3D Metadata Specification](../Metadata/README.md#storage-formats). This is used by [`subtree`](subtree) to define the binary storage of metadata in `.subtree` files, and by the glTF `EXT_structural_metadata` extension to define the binary storage of metadata in glTF assets.
+
+- [`Statistics`](Statistics) directory: The JSON structure for statistics about metadata that appears in a 3D Tiles tileset. metadata in glTF assets.
+  - *Depends on: 3D Tiles core schema* 
+
+- [`subtree`](subtree) directory: The JSON part of a `.subtree` file that is used for implicit tiling in 3D Tiles.
+  - *Depends on: [`PropertyTable`](PropertyTable)* 
+
+The [common](common) directory contains common definitions that are used by all other JSON schemas, but have no dependency to any other schema.
+
 
 ## Usage
+
+> **NOTE:** This section will have to be updated with further details about the usage of `ajv-cli`, and further examples.
 
 A JSON object can be validated against the schema using a JSON schema validator such as [Ajv JSON schema validator](https://github.com/ajv-validator/ajv), which supports JSON Schema 2020-12.  A command-line tool is available on npm as [ajv-cli](https://www.npmjs.com/package/ajv-cli).
 
