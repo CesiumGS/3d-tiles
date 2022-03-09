@@ -14,7 +14,7 @@ This directory contains the JSON schema definitions for different concepts. Some
   - *Depends on: 3D Tiles core schema* 
 
 - [`subtree`](subtree) directory: The JSON part of a `.subtree` file that is used for implicit tiling in 3D Tiles.
-  - *Depends on: [`PropertyTable`](PropertyTable)* 
+  - *Depends on: [`PropertyTable`](PropertyTable), 3D Tiles core schema* 
 
 The [common](common) directory contains common definitions that are used by all other JSON schemas, but have no dependency to any other schema.
 
