@@ -38,6 +38,14 @@
             "minItems": 4,
             "maxItems": 4
         },
+        "s2Cell": {
+            "description": "S2 cell",
+            "allOf": [
+                {
+                    "$ref": "s2Cell.schema.json"
+                }
+            ]
+        },
         "extensions": {},
         "extras": {}
     }

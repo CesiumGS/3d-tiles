@@ -18,6 +18,19 @@
             "type": "string",
             "description": "A uri that points to tile content. When the uri is relative, it is relative to the referring tileset JSON file."
         },
+        "metadata": {
+            "allOf": [
+                {
+                    "$ref": "metadataEntity.schema.json"
+                }
+            ],
+            "description": "Content metadata."
+        },
+        "group": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The group this content belongs to. The value is an index into the array of `groups` that is defined for the containing tileset."
+        },
         "extensions": {},
         "extras": {}
     },
