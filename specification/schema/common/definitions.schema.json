@@ -59,7 +59,7 @@
             "title": "No Data Value",
             "oneOf": [
                 {
-                    "$ref": "#/$definitions/numericValue"
+                    "$ref": "#/definitions/numericValue"
                 },
                 {
                     "type": "string"
