@@ -128,6 +128,8 @@ For a `region` bounding volume, `x`, `y`, and `z` refer to `longitude`, `latitud
 
 Sphere bounding volumes are disallowed, as these cannot be divided into a quadtree or octree.
 
+For [3DTILES_bounding_volume_S2](../3DTILES_bounding_volume_S2) refer to [Implicit Subdivision](../3DTILES_bounding_volume_S2/README.md#implicit-subdivision).
+
 The following diagrams illustrate the subdivision in the bounding volume types supported by 3D Tiles:
 
 | Root Box | Quadtree | Octree |
