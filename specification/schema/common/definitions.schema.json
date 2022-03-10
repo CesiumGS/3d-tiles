@@ -4,6 +4,42 @@
     "title": "Definitions",
     "description": "Common definitions used in schema files.",
     "definitions": {
+        "numericArray1D": {
+            "title": "Numeric 1D Array",
+            "type": "array",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 1,
+            "description": "An array of numeric values"
+        },
+        "numericArray2D": {
+            "title": "Numeric 2D Array",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/numericArray1D"
+            },
+            "minItems": 1,
+            "description": "An array of arrays of numeric values"
+        },
+        "booleanArray1D": {
+            "title": "Boolean 1D Array",
+            "type": "array",
+            "items": {
+                "type": "boolean"
+            },
+            "minItems": 1,
+            "description": "An array of boolean values"
+        },
+        "stringArray1D": {
+            "title": "String 1D Array",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "description": "An array of string values"
+        },
         "numericValue": {
             "title": "Numeric Value",
             "oneOf": [
@@ -11,22 +47,10 @@
                     "type": "number"
                 },
                 {
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    },
-                    "minItems": 1
+                    "$ref": "#/definitions/numericArray1D"
                 },
                 {
-                    "type": "array",
-                    "items": {
-                        "type": "array",
-                        "items": {
-                            "type": "number"
-                        },
-                        "minItems": 1
-                    },
-                    "minItems": 1
+                    "$ref": "#/definitions/numericArray2D"
                 }
             ],
             "description": "For `SCALAR` this is a number. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`."
@@ -35,35 +59,13 @@
             "title": "No Data Value",
             "oneOf": [
                 {
-                    "type": "number"
+                    "$ref": "#/$definitions/numericValue"
                 },
                 {
                     "type": "string"
                 },
                 {
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    },
-                    "minItems": 1
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "minItems": 1
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "array",
-                        "items": {
-                            "type": "number"
-                        },
-                        "minItems": 1
-                    },
-                    "minItems": 1
+                    "$ref": "#/definitions/stringArray1D"
                 }
             ],
             "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`."
@@ -72,45 +74,19 @@
             "title": "Any Value",
             "oneOf": [
                 {
-                    "type": "number"
+                    "$ref": "#/definitions/numericValue"
+                },
+               {
+                    "type": "string"
                 },
                 {
-                    "type": "string"
+                    "$ref": "#/definitions/stringArray1D"
                 },
                 {
                     "type": "boolean"
                 },
                 {
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    },
-                    "minItems": 1
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "minItems": 1
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "boolean"
-                    },
-                    "minItems": 1
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "array",
-                        "items": {
-                            "type": "number"
-                        },
-                        "minItems": 1
-                    },
-                    "minItems": 1
+                    "$ref": "#/definitions/booleanArray1D"
                 }
             ],
             "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `BOOLEAN` this is a boolean. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length array this is an array of `count` elements of the given `type`. For variable-length arrays this is an array of any length of the given `type`."
