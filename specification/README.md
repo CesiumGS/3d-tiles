@@ -58,7 +58,6 @@ Acknowledgements:
       - [Region](#region)
       - [Box](#box)
       - [Sphere](#sphere)
-      - [Extensions](#extensions)
     - [Viewer request volume](#viewer-request-volume)
     - [Transforms](#transforms)
       - [Tile transforms](#tile-transforms)
@@ -262,6 +261,7 @@ The `boundingVolume.sphere` property is an array of four numbers that define a b
 }
 ```
 
+<!-- omit in toc -->
 ##### Extensions
 
 Other bounding volumes are supported through extensions.
