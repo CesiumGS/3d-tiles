@@ -74,7 +74,6 @@
   * Removed incomplete styling section
   * Recommend `_*` prefix for application-specific summary statistics
   * Removed `name` and `description` from entity schemas. Entities should use properties with equivalent semantics instead.
-  * The `groups` that are defined in a tileset are now given as an array. Each group has a unique identifier.
 * Updated `3DTILES_implicit_tiling` extension
   * Updated to draft version `1.0.0`
   * Updated property table definition. See notes above.
@@ -134,6 +133,7 @@
   * Updated schema definition. See notes above.
   * Added content metadata. A content may specify its class and property values with the `3DTILES_metadata` content extension object.
   * Removed the implicit tiling `3DTILES_metadata` extension. Tile metadata is now provided by the `tileMetadata` subtree property.
+  * The `groups` that are defined in a tileset are now given as an array. Each group has a unique identifier.
 * Updated `3DTILES_implicit_tiling` extension
   * Updated to draft version `2.0.0`
   * Updated property table definition. See notes above.
