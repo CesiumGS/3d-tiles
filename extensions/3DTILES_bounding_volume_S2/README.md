@@ -17,10 +17,9 @@ Draft
 <!-- omit in toc -->
 ## Dependencies
 
-Written against 3D Tiles 1.0.
+Written against the 3D Tiles 1.0 and 1.1 specifications.
 
-Optionally, this extension may be used in conjunction with [3DTILES_implicit_tiling](../3DTILES_implicit_tiling). When used together, S2 bounding volumes will be implicitly subdivided
-in a quadtree or octree.
+Optionally, this extension may be used in conjunction with [Implicit Tiling](../../specification/ImplicitTiling). When used together, S2 bounding volumes will be implicitly subdivided in a quadtree or octree. If using 3D Tiles 1.0 instead of 1.1, refer to [3DTILES_implicit_tiling](../3DTILES_implicit_tiling).
 
 <!-- omit in toc -->
 ## Optional vs. Required
@@ -132,7 +131,7 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2`:
 ```json
 {
   "asset": {
-    "version": "1.0"
+    "version": "1.1"
   },
   "geometricError": 1000000,
   "extensionsUsed": [
@@ -204,7 +203,7 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2`:
 
 ## Implicit Subdivision
 
-When used with [`3DTILES_implicit_tiling`](../3DTILES_implicit_tiling), a `QUADTREE` subdivision scheme will follow the rules for subdivision as defined by the S2 cell hierarchy. When an `OCTREE` subdivision scheme is used, the split in the vertical dimension occurs at the midpoint of the `minimumHeight` and `maximumHeight` of the parent tile.
+When used with [Implicit Tiling](../../specification/ImplicitTiling), a `QUADTREE` subdivision scheme will follow the rules for subdivision as defined by the S2 cell hierarchy. When an `OCTREE` subdivision scheme is used, the split in the vertical dimension occurs at the midpoint of the `minimumHeight` and `maximumHeight` of the parent tile.
 
 | Cell  | Quadtree Subdivision | Octree Subdivision |
 |---|---|---|
@@ -217,24 +216,22 @@ To ensure continuity of the Hilbert curve, the faces of the cube are rotated as 
 
 ### Availability
 
-When using this extension with `3DTILES_implicit_tiling`, the availability bitstreams must be indexed in Morton order, as illustrated by the following diagram:
+When using this extension with [Implicit Tiling](../../specification/ImplicitTiling), the availability bitstreams must be indexed in Morton order, as illustrated by the following diagram:
 
 ![Availability](figures/availability.jpg)
 
-The following example illustrates usage of `3DTILES_bounding_volume_S2` with `3DTILES_implicit_tiling`:
+The following example illustrates usage of `3DTILES_bounding_volume_S2` with [Implicit Tiling](../../specification/ImplicitTiling):
 
 ```json
 {
   "asset": {
-    "version": "1.0"
+    "version": "1.1"
   },
   "geometricError": 10000,
   "extensionsUsed": [
-    "3DTILES_implicit_tiling",
     "3DTILES_bounding_volume_S2"
   ],
   "extensionsRequired": [
-    "3DTILES_implicit_tiling",
     "3DTILES_bounding_volume_S2"
   ],
   "root": {
@@ -252,14 +249,12 @@ The following example illustrates usage of `3DTILES_bounding_volume_S2` with `3D
     "content": {
       "uri": "content/{level}/{x}/{y}.glb"
     },
-    "extensions": {
-      "3DTILES_implicit_tiling": {
-        "subdivisionScheme": "QUADTREE",
-        "subtreeLevels": 4,
-        "availableLevels": 8,
-        "subtrees": {
-          "uri": "subtrees/{level}/{x}/{y}.subtree"
-        }
+    "implicitTiling": {
+      "subdivisionScheme": "QUADTREE",
+      "subtreeLevels": 4,
+      "availableLevels": 8,
+      "subtrees": {
+        "uri": "subtrees/{level}/{x}/{y}.subtree"
       }
     }
   }
@@ -273,15 +268,13 @@ The following example usage of `3DTILES_bounding_volume_S2` to represent all 6 f
 ```json
 {
   "asset": {
-    "version": "1.0"
+    "version": "1.1"
   },
   "geometricError": 10000,
   "extensionsUsed": [
-    "3DTILES_implicit_tiling",
     "3DTILES_bounding_volume_S2"
   ],
   "extensionsRequired": [
-    "3DTILES_implicit_tiling",
     "3DTILES_bounding_volume_S2"
   ],
   "root": {

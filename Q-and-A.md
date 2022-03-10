@@ -73,13 +73,13 @@ Yes.  There will always be a need to know metadata about the tileset and about t
 
 3D Tiles already supports trees of trees. `content.uri` can point to another tileset JSON file, which enables conversion tools to chunk up a tileset into any number of JSON files that reference each other.
 
-Implicit tiling ([`3DTILES_implicit_tiling`](./extensions/3DTILES_implicit_tiling)) layouts allow common subdivision schemes and spatial index patterns to be declared without listing bounding volumes exhaustively. This representation reduces tileset size, and enables new optimizations including faster traversal, raycasting, random access, and spatial queries.
+[Implicit Tiling](./specification/ImplicitTiling) layouts allow common subdivision schemes and spatial index patterns to be declared without listing bounding volumes exhaustively. This representation reduces tileset size, and enables new optimizations including faster traversal, raycasting, random access, and spatial queries.
 
 #### How do I request the tiles for Level `n`?
 
 More generally, how does 3D Tiles support the use case for when the viewer is zoomed in very close to terrain, for example, and we do not want to load all the parent tiles toward the root of the tree; instead, we want to skip right to the high-resolution tiles needed for the current 3D view?
 
-The answer is basically the same as above: either the skeleton of the tree can be quickly traversed to find the desired tiles (see [Skipping Levels of Detail](https://cesium.com/blog/2017/05/05/skipping-levels-of-detail/)) or an implicit layout scheme ([`3DTILES_implicit_tiling`](./extensions/3DTILES_implicit_tiling)) may be used for common subdivision patterns.
+The answer is basically the same as above: either the skeleton of the tree can be quickly traversed to find the desired tiles (see [Skipping Levels of Detail](https://cesium.com/blog/2017/05/05/skipping-levels-of-detail/)) or an implicit layout scheme ([Implicit Tiling](./specification/ImplicitTiling)) may be used for common subdivision patterns.
 
 #### Is screen space error the only metric used to drive refinement?
 

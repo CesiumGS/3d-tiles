@@ -243,6 +243,12 @@ The `boundingVolume.sphere` property is an array of four numbers that define a b
 }
 ```
 
+##### Extensions
+
+Other bounding volumes are supported through extensions.
+
+* [3DTILES_bounding_volume_S2](../extensions/3DTILES_bounding_volume_S2/)
+
 #### Viewer request volume
 
 A tile's `viewerRequestVolume` can be used for combining heterogeneous datasets, and can be combined with [external tilesets](#external-tilesets).
