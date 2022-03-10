@@ -245,9 +245,9 @@ Subtrees may store metadata at multiple granularities.
 
 #### Tile Metadata
 
-When tiles are listed explicitly within a tileset, each tile's metadata is also embedded explicitly within the tile definition. When the tile hierarchy is _implicit_, as enabled by implicit tiling, tiles are not listed exhaustively and metadata cannot be directly embedded in tile definitions. To support metadata for tiles within implicit tiling schemes, property values for all available tiles in a subtree are encoded in a compact [*Binary Table Format*](../Metadata/README.md#binary-table-format) defined by the 3D Metadata Specification. The binary representation is particularly efficient for larger datasets with many tiles.
+When tiles are listed explicitly within a tileset, each tile's metadata is also embedded explicitly within the tile definition. When the tile hierarchy is _implicit_, as enabled by implicit tiling, tiles are not listed exhaustively and metadata cannot be directly embedded in tile definitions. To support metadata for tiles within implicit tiling schemes, property values for all available tiles in a subtree are encoded in a [property table](../Metadata/ReferenceImplementation/PropertyTable/README.md). The binary representation is particularly efficient for larger datasets with many tiles.
 
-Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the [Availability Ordering](#availability). Each available tile must have a value — representation of missing values within a tile is possible only with the `noData` indicator defined by the *Binary Table Format*.
+Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the [Availability Ordering](#availability). Each available tile must have a value — representation of missing values within a tile is possible only with the `noData` indicator defined by the [*Binary Table Format*](../Metadata/README.md#binary-table-format) specification.
 
 > **Implementation note:** To determine the index into a property value array for a particular tile, count the number of available tiles occurring before that index, according to the tile Availability Ordering. If `i` available tiles occur before a particular tile, that tile's property values are stored at index `i` of each property value array. These indices may be precomputed for all available tiles, as a single pass over the subtree availability buffer.
 
@@ -262,7 +262,7 @@ The `TILE_GEOMETRIC_ERROR` semantic allows tiles to provide a geometric error th
 
 #### Content Metadata
 
-Subtrees may also store metadata for tile content. Content metadata exists only for available content and is tightly packed by increasing tile index. Binary property values are encoded in a compact [*Binary Table Format*](../Metadata/README.md#binary-table-format) defined by the 3D Metadata Specification and are stored in a property table. If the implicit root tile has multiple contents then content metadata is stored in multiple property tables.
+Subtrees may also store metadata for tile content. Content metadata exists only for available content and is tightly packed by increasing tile index. Binary property values are encoded in a compact [*Binary Table Format*](../Metadata/README.md#binary-table-format) defined by the 3D Metadata Specification and are stored in a [property table](../Metadata/ReferenceImplementation/PropertyTable/README.md). If the implicit root tile has multiple contents then content metadata is stored in multiple property tables.
 
 Content bounding volumes are not computed automatically by implicit tiling but may be provided by properties with semantics `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, `CONTENT_BOUNDING_SPHERE`, `CONTENT_MINIMUM_HEIGHT`, and `CONTENT_MAXIMUM_HEIGHT`.
 
@@ -280,6 +280,8 @@ A **subtree file** is a JSON file that contains availability and metadata inform
 
 <!-- omit in toc -->
 #### Buffers and Buffer Views
+
+The [property table](../Metadata/ReferenceImplementation/PropertyTable/README.md) defines the storage of metadata in a binary form based on _buffer views_ that are parts of a _buffer_. 
 
 A **buffer** is a binary blob. Each buffer has a `uri` that refers to an external file containing buffer data and a `byteLength` describing the buffer size in bytes. Relative paths are relative to the subtree file. Data URIs are not allowed.
 
@@ -353,18 +355,7 @@ Subtrees may store metadata at multiple granularities. `tileMetadata` is a prope
 
 Subtree metadata (`subtreeMetadata`) is encoded in JSON according to the [JSON Format](../Metadata/README.md#json-format) specification.
 
-<!-- omit in toc -->
-#### Property Tables
-
-Binary property values are stored in a **property table**. A property table must specify its class (`class`), which refers to a class ID in the root tileset schema, a dictionary of properties (`properties`), where each key is a property ID correspond to a class property and each value is the index of the buffer view containing property values, and a count (`count`) for the number of elements in the property table. The property table may provide value arrays for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
-
-A property may override the [`minimum` and `maximum` values](../Metadata#minimum-and-maximum-values) and the [`offset` and `scale`](../Metadata#offset-and-scale) from the property definition in the class, to account for the actual range of values that is stored in the property table.
-
-Array offsets (`arrayOffsets`) is required for variable-length arrays and string offsets (`stringOffsets`) is required for strings. For variable-length arrays of strings, both are required. `arrayOffsetType` describes the storage type for array offsets and `stringOffsetType` describes the storage type for string offsets. Allowed types are `UINT8`, `UINT16`, `UINT32`, and `UINT64`. The default is `UINT32`.
-
-Details of binary value encoding, including how to determine property value offsets for mixed-length string and array values, are defined by the [*Binary Table Format*](../Metadata/README.md#binary-table-format).
-
-> **Example:** The same JSON description of a subtree extended with tile, content, and subtree metadata. The subtree JSON refers to a class ID in the root tileset schema. Tile and content metadata is stored in property tables; subtree metadata is encoded directly in JSON.
+> **Example:** The same JSON description of a subtree extended with tile, content, and subtree metadata. The subtree JSON refers to a class ID in the root tileset schema. Tile and content metadata is stored in [property tables](../Metadata/ReferenceImplementation/PropertyTable/README.md); subtree metadata is encoded directly in JSON.
 >
 > _Schema in the root tileset JSON_
 > ```json
