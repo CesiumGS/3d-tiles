@@ -245,9 +245,9 @@ The `boundingVolume.sphere` property is an array of four numbers that define a b
 
 ##### Extensions
 
-The following extensions can be applied to a bounding volume.
+Other bounding volumes are supported through extensions.
 
-* [3DTILES_bounding_volume_S2](../../../extensions/3DTILES_bounding_volume_S2/)
+* [3DTILES_bounding_volume_S2](../extensions/3DTILES_bounding_volume_S2/)
 
 #### Viewer request volume
 
