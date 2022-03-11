@@ -92,7 +92,7 @@ In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structu
 
 See [glTF Tile Format](./TileFormats/glTF/) for more details.
 
-Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats are deprecated and may be removed in a future version of 3D Tiles.
+Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
 
 Legacy Format|Uses
 ---|---
@@ -101,7 +101,7 @@ Legacy Format|Uses
 [Point Cloud (`pnts`)](./TileFormats/PointCloud/)|Massive number of points
 [Composite (`cmpt`)](./TileFormats/Composite/)|Concatenate tiles of different formats into one tile
 
-A tile's _content_, an individual instance of a tile format, is a binary blob with format-specific components. A tile may have multiple contents.
+A tile's _content_ is an individual instance of a tile format. A tile may have multiple contents.
 
 The content references a set of _features_, such as 3D models representing buildings or trees, or points in a point cloud. Each feature has position and appearance properties and additional application-specific properties. A client may choose to select features at runtime and retrieve their properties for visualization or analysis.
 
@@ -111,7 +111,7 @@ Tiles are organized in a tree which incorporates the concept of Hierarchical Lev
 
 A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (WMTS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, the tree can be any [spatial data structure](#spatial-data-structures) with spatial coherence, including k-d trees, quadtrees, octrees, and grids. [Implicit tiling](#implicit-tiling) defines a concise representation of quadtrees and octrees.
 
-Application-specific _metadata_ may be provided at multiple granularities within a tileset. Metadata may be associated with high-level entities like tilesets, tiles, contents, or features, or with individual vertices and texels on glTF 2.0 geometry. Metadata conforms to a well-defined type system described by the [3D Metadata Specification](./Metadata/Specification/), which may be extended with application- or domain-specific semantics.
+Application-specific _metadata_ may be provided at multiple granularities within a tileset. Metadata may be associated with high-level entities like tilesets, tiles, contents, or features, or with individual vertices and texels. Metadata conforms to a well-defined type system described by the [3D Metadata Specification](./Metadata/), which may be extended with application- or domain-specific semantics.
 
 Optionally a [3D Tiles Style](./Styling/), or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
 
@@ -170,7 +170,7 @@ Tiles consist of metadata used to determine if a tile is rendered, a reference t
 
 Tiles are structured into a tree incorporating _Hierarchical Level of Detail_ (HLOD) so that at runtime a client implementation will need to determine if a tile is sufficiently detailed for rendering and if the content of tiles should be successively refined by children tiles of higher resolution. An implementation will consider a maximum allowed _Screen-Space Error_ (SSE), the error measured in pixels.
 
-A tile's geometric error defines the selection metric for that tile. Its value is a nonnegative number that specifies the error, in meters, of the tile's simplified representation of its source geometry. Generally, the root tile will have the biggest geometric error, and each successive level of children will have a smaller geometric error than its parent, with leaf tiles having a geometric error of or close to 0.
+A tile's geometric error defines the selection metric for that tile. Its value is a nonnegative number that specifies the error, in meters, of the tile's simplified representation of its source geometry. Generally, the root tile will have the largest geometric error, and each successive level of children will have a smaller geometric error than its parent, with leaf tiles having a geometric error of or close to 0.
 
 In a client implementation, geometric error is used with other screen space metrics&mdash;e.g., distance from the tile to the camera, screen size, and resolution&mdash; to calculate the SSE introduced if this tile is rendered and its children are not. If the introduced SSE exceeds the maximum allowed, then the tile is refined and its children are considered for rendering.
 
@@ -264,7 +264,7 @@ The `boundingVolume.sphere` property is an array of four numbers that define a b
 <!-- omit in toc -->
 ##### Extensions
 
-Other bounding volumes are supported through extensions.
+Other bounding volume types are supported through extensions.
 
 * [3DTILES_bounding_volume_S2](../extensions/3DTILES_bounding_volume_S2/)
 
@@ -350,7 +350,7 @@ The transformation from each tile's local coordinate system to the tileset's glo
 
 ##### glTF transforms
 
-[Batched 3D Model](TileFormats/Batched3DModel) and [Instanced 3D Model](TileFormats/Instanced3DModel) tiles embed glTF, which defines its own node hierarchy and uses a _y_-up coordinate system. Any transforms specific to a tile format and the `tile.transform` property are applied after these transforms are resolved.
+glTF defines its own node hierarchy and uses a _y_-up coordinate system. Any transforms specific to a tile format and the `tile.transform` property are applied after these transforms are resolved.
 
 <!-- omit in toc -->
 ###### glTF node hierarchy
@@ -456,7 +456,7 @@ function computeTransform(tile, transformToRoot) {
 
 #### Multiple contents
 
-A tile may have multiple contents. This allows more flexible tileset structures: for example, a single tile contain multiple representations of the same geometry data, once as a triangle mesh and once as a point cloud:
+A tile may have multiple contents. This allows more flexible tileset structures: for example, a single tile may contain multiple representations of the same geometry data, one as a triangle mesh and one as a point cloud:
 
 ![](figures/multiple-contents-geometry.png)
 
@@ -547,11 +547,13 @@ The screenshot below shows the bounding volumes for the root tile for Canary Wha
 
 ![](figures/contentsBox.png)
 
-The `contents` property (not shown above) is an array containing multiple contents. `contents` and `content` are mutually exclusive. When a tile has a single content it should use `content` for backwards compatibility with engines that only support 3D Tiles 1.0. See the [Multiple Contents](#multiple-contents) section.
-
 The `content.group` property (not shown above) assigns the content to a group. The value is an index into the array of `groups`. See the [Content Groups](#content-groups) section.
 
+The `contents` property (not shown above) is an array containing one or more contents. `contents` and `content` are mutually exclusive. When a tile has a single content it should use `content` for backwards compatibility with engines that only support 3D Tiles 1.0. See the [Multiple Contents](#multiple-contents) section.
+
 The optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transforms) section.
+
+The optional `implicitTiling` property (not shown above) defines how the tile is subdivided and where to locate content resources. See [Implicit Tiling](#implicit-tiling).
 
 The `children` property is an array of objects that define child tiles. Each child tile's content is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`. For leaf tiles, the length of this array is zero, and `children` may not be defined. See the [Tileset JSON](#tileset-json) section below.
 
@@ -726,17 +728,18 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 
 #### Implicit Tiling
 
-The bounding volume hierarchy may be defined _explicitly_ — as shown previously — which enables a wide variety of spatial data structures. Certain common data structures such as regular quadtrees and octrees may be defined _implicitly_ without listing bounding volumes exhaustively. This regular pattern allows for random access of tiles based on their tile coordinates which enables accelerated spatial queries, new traversal algorithms, and efficient updates of tile content, among other use cases.
+The bounding volume hierarchy may be defined _explicitly_ — as shown previously — which enables a wide variety of spatial data structures. Certain common data structures such as quadtrees and octrees may be defined _implicitly_ without providing bounding volumes for every tile. This regular pattern allows for random access of tiles based on their tile coordinates which enables accelerated spatial queries, new traversal algorithms, and efficient updates of tile content, among other use cases.
 
 <p align="center">
   <img src="figures/implicit-tiling-small.png" /><br />
   Quadtree with tile coordinates.
 </p>
 
-An `implicitTiling` object may be added to any tile in the tileset JSON. The object defines how the tile is subdivided and where to locate content resources. It may be added to multiple tiles to create more complex subdivision schemes. In order to support sparse datasets, tile availability is partitioned into fixed-size subtrees.
+In order to support sparse datasets, availability data determines which tiles exist. To support massive datasets, availability is partitioned into fixed-size subtrees. Subtrees may store metadata for available tiles and contents.
+
+An `implicitTiling` object may be added to any tile in the tileset JSON. The object defines how the tile is subdivided and where to locate content resources. It may be added to multiple tiles to create more complex subdivision schemes.
 
 The following example shows a quadtree defined on the root tile, with template URIs pointing to content and subtree files.
-
 
 ```json
 {
@@ -850,7 +853,7 @@ See [Property reference](#property-reference) for the tileset JSON schema refere
 
 ## Tile format specifications
 
-Each tile's `content.uri` property may be the uri of binary blob that contains information for rendering the tile's 3D content. The content is an instance of one of the formats listed below.
+Each tile's `content.uri` property is a uri to a file containing information for rendering the tile's 3D content. The content is an instance of one of the formats listed below.
 
 [glTF 2.0](https://github.com/KhronosGroup/glTF) is the primary tile format for 3D Tiles. glTF is an open specification designed for the efficient transmission and loading of 3D content. A glTF asset includes geometry and texture information for a single tile, and may be extended to include metadata, model instancing, and compression. glTF may be used for a wide variety of 3D content including:
 
@@ -860,7 +863,7 @@ Each tile's `content.uri` property may be the uri of binary blob that contains i
 
 See [glTF Tile Format](./TileFormats/glTF/) for more details.
 
-Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats are deprecated and may be removed in a future version of 3D Tiles.
+Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
 
 Legacy Format|Uses
 ---|---
