@@ -6,7 +6,7 @@
     "description": "A series of conditions evaluated in order, like a series of if...else statements that result in an expression being evaluated.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {

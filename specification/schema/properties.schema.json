@@ -6,7 +6,7 @@
     "description": "A dictionary object of metadata about per-feature properties.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {

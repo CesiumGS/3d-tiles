@@ -6,7 +6,7 @@
     "description": "An object containing a reference to a class from a metadata schema, and property values that conform to the properties of that class.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {

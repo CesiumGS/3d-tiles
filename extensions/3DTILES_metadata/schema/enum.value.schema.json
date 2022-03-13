@@ -6,7 +6,7 @@
     "description": "An enum value.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {

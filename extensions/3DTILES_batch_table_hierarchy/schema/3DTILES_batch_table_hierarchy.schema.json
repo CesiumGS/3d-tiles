@@ -6,7 +6,7 @@
     "description": "3D Tiles extension for representing metadata hierarchies.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {
@@ -16,7 +16,7 @@
                 "type": "object",
                 "allOf": [
                     {
-                        "$ref": "tilesetProperty.schema.json"
+                        "$ref": "rootProperty.schema.json"
                     }
                 ],
                 "properties": {
@@ -64,7 +64,7 @@
             "type": "object",
             "allOf": [
                 {
-                    "$ref": "tilesetProperty.schema.json"
+                    "$ref": "rootProperty.schema.json"
                 }
             ],
             "properties": {
@@ -152,7 +152,7 @@
             "type": "object",
             "allOf": [
                 {
-                    "$ref": "tilesetProperty.schema.json"
+                    "$ref": "rootProperty.schema.json"
                 }
             ],
             "properties": {
