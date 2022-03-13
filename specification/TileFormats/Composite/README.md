@@ -1,14 +1,18 @@
+### ⚠️ Composite was deprecated in 3D Tiles 1.1. See [`cpmt` migration guide](../glTF/#composite-cmpt). ⚠️
+
+<!-- omit in toc -->
 # Composite
 
+<!-- omit in toc -->
 ## Contents
 
-* [Overview](#overview)
-* [Layout](#layout)
-    * [Padding](#padding)
-* [Header](#header)
-* [Inner tiles](#inner-tiles)
-* [File extension and MIME type](#file-extension-and-mime-type)
-* [Implementation examples](#implementation-examples)
+- [Overview](#overview)
+- [Layout](#layout)
+  - [Padding](#padding)
+- [Header](#header)
+- [Inner tiles](#inner-tiles)
+- [File extension and MIME type](#file-extension-and-mime-type)
+- [Implementation examples](#implementation-examples)
 
 ## Overview
 

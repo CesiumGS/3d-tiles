@@ -1,3 +1,5 @@
+### ⚠️ `3DTILES_metadata` has been promoted to core in 3D Tiles 1.1. See [Metadata](../../specification/Metadata/). ⚠️
+
 <!-- omit in toc -->
 # 3DTILES_metadata Extension
 
@@ -15,7 +17,7 @@
 <!-- omit in toc -->
 ## Status
 
-Draft
+Complete
 
 <!-- omit in toc -->
 ## Dependencies

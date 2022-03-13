@@ -1,19 +1,38 @@
+### ⚠️ `3DTILES_batch_table_hierarchy` was deprecated in 3D Tiles 1.1. See https://github.com/CesiumGS/3d-tiles/issues/558 for discussion about hierarchical metadata. ⚠️
+
+<!-- omit in toc -->
 # 3DTILES_batch_table_hierarchy Extension
 
+<!-- omit in toc -->
 ## Contributors
 
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 * Patrick Cozzi, [@pjcozzi](https://twitter.com/pjcozzi)
 
+<!-- omit in toc -->
+## Status
+
+Complete
+
+<!-- omit in toc -->
+## Dependencies
+
+Written against the 3D Tiles 1.0 and 1.1 specifications.
+
+<!-- omit in toc -->
+## Optional vs. Required
+
+This extension is optional, meaning it should be placed in the `extensionsUsed` list, but not in the `extensionsRequired` list.
+
 ## Contents
 
-* [Overview](#overview)
-* [Motivation](#motivation)
-* [Batch table JSON schema updates](#batch-table-json-schema-updates)
-   * [3DTILES_batch_table_hierarchy](#3dtiles_batch_table_hierarchy)
-* [Examples](#examples)
-* [Styling](#styling)
-* [Notes](#notes)
+- [Contents](#contents)
+- [Overview](#overview)
+- [Motivation](#motivation)
+- [Batch table JSON schema updates](#batch-table-json-schema-updates)
+- [Examples](#examples)
+- [Styling](#styling)
+- [Notes](#notes)
 
 ## Overview
 
@@ -152,6 +171,7 @@ Sample Batch Table:
 }
 ```
 
+<!-- omit in toc -->
 ### 3DTILES_batch_table_hierarchy
 
 `classes` is an array of objects, where each object contains the following properties:
@@ -192,6 +212,7 @@ JSON schema definitions can be found in [3DTILES_batch_table_hierarchy.schema.js
 
 ## Examples
 
+<!-- omit in toc -->
 ### Feature classes
 
 Going back to the example of a parking lot with car, lamp post, and tree features, a Batch Table might look like this:
@@ -250,6 +271,7 @@ Batch Table Hierarchy, parking lot:
 
 ![batch table hierarchy parking lot](figures/batch-table-hierarchy-parking-lot.png)
 
+<!-- omit in toc -->
 ### Feature hierarchy
 
 The city block example would now look like this:
@@ -344,6 +366,7 @@ This extension supports additional built-in functions in the styling language fo
 * [`isExactClass`](#isexactclass)
 * [`isClass`](#isclass)
 
+<!-- omit in toc -->
 ### getExactClassName
 
 ```
@@ -370,6 +393,7 @@ For example, the following style will color all doorknobs yellow, all doors gree
 }
 ```
 
+<!-- omit in toc -->
 ### isExactClass
 
 ```
@@ -389,6 +413,7 @@ For example, the following style will color all doors, but not features that are
 }
 ```
 
+<!-- omit in toc -->
 ### isClass
 
 ```

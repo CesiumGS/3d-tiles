@@ -1,3 +1,5 @@
+### ⚠️ `3DTILES_multiple_contents` has been promoted to core in 3D Tiles 1.1. See [Multiple Contents](../../specification/#multiple-contents). ⚠️
+
 # 3DTILES_multiple_contents
 
 ## Contributors
@@ -11,7 +13,7 @@
 
 ## Status
 
-Draft
+Complete
 
 ## Dependencies
 
