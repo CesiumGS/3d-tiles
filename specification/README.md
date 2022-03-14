@@ -73,6 +73,16 @@ Acknowledgements:
       - [Octrees](#octrees)
       - [Grids](#grids)
     - [Implicit Tiling](#implicit-tiling)
+  - [Metadata](#metadata)
+    - [Metadata Schema](#metadata-schema)
+    - [Metadata Statistics](#metadata-statistics)
+    - [Assigning Metadata](#assigning-metadata)
+      - [Overview](#overview)
+      - [Tileset Properties](#tileset-properties)
+      - [Tile Properties](#tile-properties)
+      - [Content Group Properties](#content-group-properties)
+      - [Content Properties](#content-properties)
+      - [Content Feature Properties](#content-feature-properties)
   - [Specifying extensions and application specific extras](#specifying-extensions-and-application-specific-extras)
 - [Tile format specifications](#tile-format-specifications)
 - [Declarative styling specification](#declarative-styling-specification)
@@ -460,7 +470,7 @@ A tile may have multiple contents. This allows more flexible tileset structures:
 
 ![](figures/multiple-contents-geometry.png)
 
-The contents can also be arranged into [groups](#content-groups), and these groups can be associated with metadata. This allows applications to perform styling or filtering based on the group that the content belongs to, similar to map layers in mapping applications.
+The contents can also be arranged into groups, and these groups can be associated with [group metadata](#content-group-properties) metadata. This allows applications to perform styling or filtering based on the group that the content belongs to, similar to map layers in mapping applications.
 
 ```json
 {
@@ -765,6 +775,382 @@ The following example shows a quadtree defined on the root tile, with template U
 ```
 
 See [Implicit Tiling](./ImplicitTiling/) for more details about the `implicitTiling` object structure and the subtree file format.
+
+
+### Metadata 
+
+Structured metadata can be associated with specific objects within a tileset. The metadata enables additional use cases and functionality for the format:
+
+- **Inspection:** Applications displaying a tileset within a user interface (UI) may allow users to click or hover over specific tiles or tile contents, showing informative metadata about a selected entity in the UI.
+- **Collections:** Tile content groups may be used to define collections (similar to map layers), such that each collection may be shown, hidden, or visually styled with effects synchronized across many tiles.
+- **Structured Data:** Metadata supports both embedded and externally-referenced schemas, such that tileset authors may define new data models for common domains (e.g. for AEC or scientific datasets) or fully customized, application-specific data (e.g. for a particular video game).
+- **Optimization:** Per-content metadata may include properties with performance-related semantics, enabling engines to optimize traversal and streaming algorithms significantly.
+
+The metadata can be associated with elements of a tileset at various levels of granularity:
+
+* **Tileset** - The tileset as a whole may be associated with global metadata, such as the year of publication.
+* **Tile** - Tiles may be individually associated with more specific metadata, such as the timestamp when a tile was last updated or the maximum height of the tile.
+* **Groups** - Tile contents may be organized into groups (see: [Groups](#content-groups)) with shared metadata.
+* **Content** - Tile contents may be individually associated with more specific metadata, such as a list of attribution strings.
+* **Features** glTF 2.0 assets with feature metadata can be included as tile contents. The [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) extension allows associating metadata with vertices or texels. 
+
+The figure below shows the relationship between these entities, and examples of metadata that may be associated with these entities:
+
+<img src="figures/3d-tiles-metadata-granularities.png"  alt="Metadata Granularity" width="600">
+
+Concepts and terminology used throughout this document refer to the [3D Metadata Specification](Metadata/README.md), which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
+
+#### Metadata Schema
+
+The Metadata schema defines the structure of the metadata. It contains a definition of the metadata classes, which are templates for the metadata instances, and define the set of properties that each metadata instance has. The metadata schema is stored within a tileset in the form of a JSON representation according to the [Metadata Schema Reference Implementation](Metadata/ReferenceImplementation/Schema/README.md). This reference implementation includes the definition of the JSON schema for the metadata schema. 
+
+Schemas may be embedded in tilesets with the `schema` property, or referenced externally by the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same schema to avoid duplication.
+
+> **Example:** Schema with a `building` class having three properties, "height", "owners", and "buildingType". The "buildingType" property refers to the `buildingType` enum as its data type, also defined in the schema. Later examples show how entities declare their class and supply values for their properties.
+>
+> ```jsonc
+> {
+>   "schema": {
+>     "classes": {
+>       "building": {
+>         "properties": {
+>           "height": {
+>             "type": "SCALAR",
+>             "componentType": "FLOAT32"
+>           },
+>           "owners": {
+>             "type": "STRING",
+>             "array": true,
+>             "description": "Names of owners."
+>           },
+>           "buildingType": {
+>             "type": "ENUM",
+>             "enumType": "buildingType"
+>           }
+>         }
+>       }
+>     },
+>     "enums": {
+>       "buildingType": {
+>         "values": [
+>           {"value": 0, "name": "Residential"},
+>           {"value": 1, "name": "Commercial"},
+>           {"value": 2, "name": "Other"}
+>         ]
+>       }
+>     }
+>   }
+> }
+> ```
+
+> **Example:** External schema referenced by a URI.
+>
+> ```jsonc
+> {
+>   "schemaUri": "https://example.com/metadata/buildings/1.0/schema.json"
+> }
+> ```
+
+#### Metadata Statistics
+
+Statistics provide aggregate information about the distribution of property values, summarized over all instances of a metadata class within a tileset. For example, statistics may include the minimum/maximum values of a numeric property, or the number of occurrences for specific enum values.
+
+These summary statistics allow applications to analyze or display metadata, e.g. with the [declarative styling language](Styling), without first having to process the complete dataset to identify bounds for color ramps and histograms. Statistics are provided on a per-class basis, so that applications can provide styling or context based on the tileset as a whole, while only needing to download and process a subset of its tiles.
+
+The statistics are stored in the top-level `statistics` object of the tileset. The structure of this statistics object is defined in [statistics.schema.json](schema/Statistics/statistics.schema.json). The statistics are defined for each metadata class, including the following elements:
+
+* `count` is the number of entities of a class occurring within the tileset
+* `properties` contains summary statistics about properties of a class occurring within the tileset
+
+Properties may include the following built-in statistics:
+
+| Name                | Description                                   | Type                                                                                                                                 |
+|---------------------|-----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| `minimum`           | The minimum property value                    | Scalars, vector, matrices                                                                                                            |
+| `maximum`           | The maximum property value                    | ...                                                                                                                                  |
+| `mean`              | The arithmetic mean of the property values    | ...                                                                                                                                  |
+| `median`            | The median of the property values             | ...                                                                                                                                  |
+| `standardDeviation` | The standard deviation of the property values | ...                                                                                                                                  |
+| `variance`          | The variance of the property values           | ...                                                                                                                                  |
+| `sum`               | The sum of the property values                | ...                                                                                                                                  |
+| `occurrences`       | Frequencies of value occurrences              | Object in which keys are property values (for enums, the enum name), and values are the number of occurrences of that property value |
+
+Tileset authors may define their own additional statistics, like `_mode` in the example below. Application-specific statistics should use an underscore prefix (`_*`) and lowerCamelCase for consistency and to avoid conflicting with future built-in statistics.
+
+> **Example:** Definition of a "building" class, with three properties. Summary statistics provide a minimum, maximum, and (application-specific) "_mode" for the numerical "height" property. The enum "buildingType" property is summarized by the number of distinct enum value occurrences.
+>
+> ```jsonc
+> {
+>   "schema": {
+>     "classes": {
+>       "building": {
+>         "properties": {
+>           "height": {
+>             "type": "SCALAR",
+>             "componentType": "FLOAT32"
+>           },
+>           "owners": {
+>             "type": "STRING",
+>             "array": true
+>           },
+>           "buildingType": {
+>             "type": "ENUM",
+>             "enumType": "buildingType"
+>           }
+>         }
+>       }
+>     },
+>     "enums": {
+>       "buildingType": {
+>         "valueType": "UINT16",
+>         "values": [
+>           {"name": "Residential", "value": 0},
+>           {"name": "Commercial", "value": 1},
+>           {"name": "Hospital", "value": 2},
+>           {"name": "Other", "value": 3}
+>         ]
+>       }
+>     }
+>   },
+>   "statistics": {
+>     "classes": {
+>       "building": {
+>         "count": 100000,
+>         "properties": {
+>           "height": {
+>             "minimum": 3.9,
+>             "maximum": 341.7,
+>             "_mode": 5.0
+>           },
+>           "buildingType": {
+>             "occurrences": {
+>               "Residential": 50000,
+>               "Commercial": 40950,
+>               "Hospital": 50
+>             }
+>           }
+>         }
+>       }
+>     }
+>   }
+> }
+> ```
+
+#### Assigning Metadata
+
+##### Overview
+
+While classes within a schema define the data types and meanings of properties, properties do not take on particular values until a metadata is assigned (i.e. the class is "instantiated") as a particular metadata entity within the 3D Tiles hierarchy. The common structure of metadata entities that appear in a tileset is defined in [metadataEntity.schema.json](./schema/metadataEntity.schema.json). Each metadata entity contains the name of the class that it is an instance of, as well as a dictionary of property values that correspond to the properties of that class.
+
+Each property value assigned must be defined by a class property with the same property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
+
+Most property values are encoded as JSON within the entity. One notable exception is metadata assigned to implicit tiles and contents, stored in a more compact binary form. See [Implicit Tiling](ImplicitTiling/README.md).
+
+##### Tileset Properties
+
+Properties assigned to tilesets provide metadata about the tileset as a whole. Common examples might include year of collection, author details, or other general context for the tileset contents.
+
+> **Example:** The example below defines properties of a tileset, with the tileset being an instance of a "city" class. Required properties "dateFounded" and "population" are given; optional property "country" is omitted.
+>
+> ```jsonc
+> {
+>   "schema": {
+>     "classes": {
+>       "city": {
+>         "properties": {
+>           "name": {
+>             "type": "STRING",
+>             "semantic": "NAME",
+>             "required": true
+>           },
+>           "dateFounded": {
+>             "type": "STRING",
+>             "required": true
+>           },
+>           "population": {
+>             "type": "SCALAR",
+>             "componentType": "UINT32",
+>             "required": true
+>           },
+>           "country": {
+>             "type": "STRING"
+>           }
+>         }
+>       }
+>     }
+>   },
+>   "tileset": {
+>     "class": "city",
+>     "properties": {
+>       "name": "Philadelphia",
+>       "dateFounded": "October 27, 1682",
+>       "population": 1579000
+>     }
+>   }
+> }
+> ```
+
+##### Tile Properties
+
+Property values may be assigned to individual tiles, including (for example) spatial hints to optimize traversal algorithms. The example below uses the built-in semantic `TILE_MAXIMUM_HEIGHT` from the [3D Metadata Semantic Reference](Metadata/Semantics/README.md).
+
+Metadata assigned to implicit tiles is stored in a more compact binary form. See [Implicit Tiling](ImplicitTiling/README.md).
+
+> **Example:**
+>
+> ```jsonc
+> {
+>   "schema": {
+>     "classes": {
+>       "tile": {
+>         "properties": {
+>           "maximumHeight": {
+>             "semantic": "TILE_MAXIMUM_HEIGHT",
+>             "type": "SCALAR",
+>             "componentType": "FLOAT32"
+>           },
+>           "countries": {
+>             "description": "Countries a tile intersects.",
+>             "type": "STRING",
+>             "array": true
+>           }
+>         }
+>       }
+>     }
+>   },
+>   "root": {
+>     "metadata": {
+>       "class": "tile",
+>       "properties": {
+>         "maximumHeight": 4418,
+>         "countries": ["United States", "Canada", "Mexico"]
+>       }
+>     },
+>     "content": { ... },
+>     ...
+>   }
+> }
+> ```
+
+##### Content Group Properties
+
+Tiles may contain more than one content, or multiple tiles may reference content sharing the same metadata. In these cases, metadata assigned to the tile would be inadequate or inefficient for describing tile contents. Therefore, content can be organized into collections, or "groups", and metadata may be associated with each group. Groups are useful for supporting metadata on only a subset of a tile's content, or for working with collections of contents as layers, e.g. to manage visibility or visual styling.
+
+The tileset must define a list of available groups, if any, under its `groups` property. Each group definition represents a metadata entity that can be assigned to the tile contents by specifying the index within this list as the `group` property of the content. 
+
+> **Example:** The example below defines a custom "layer" class, where each of its two groups ("buildings" and "trees") are instances of the "layer" class associated with different "name", "color", and "priority" property values. 
+>
+> ```jsonc
+> {
+>   "schema": {
+>     "classes": {
+>       "layer": {
+>         "properties": {
+>           "name": {
+>             "type": "STRING",
+>             "semantic": "NAME",
+>             "required": true
+>           },
+>           "color": {
+>             "type": "VEC3",
+>             "componentType": "UINT8"
+>           },
+>           "priority": {
+>             "type": "SCALAR",
+>             "componentType": "UINT32"
+>           }
+>         }
+>       }
+>     }
+>   },
+>   "groups": [
+>     {
+>       "id": "buildings",
+>       "class": "layer",
+>       "properties": {
+>         "name": "Buildings Layer",
+>         "color": [128, 128, 128],
+>         "priority": 0
+>       }
+>     },
+>     {
+>       "id": "trees",
+>       "class": "layer",
+>       "properties": {
+>         "name": "Trees Layer",
+>         "color": [10, 240, 30],
+>         "priority": 1
+>       }
+>     }
+>   ],
+>   
+>   "root": {
+>     "contents": [
+>       {
+>         "uri": "buildings.glb",
+>         "group": 0 
+>       },
+>       {
+>         "uri": "trees.glb",
+>         "group": 1 
+>       }
+>     ],
+>     ...
+>   }
+> }
+> ```
+
+##### Content Properties
+
+Property values may be assigned to individual tile contents, including (for example) attribution strings. The example below uses the built-in semantic `ATTRIBUTION_STRING` from the [3D Metadata Semantic Reference](Metadata/Semantics/README.md). 
+
+Metadata assigned to implicit tile content is stored in a more compact binary form. See [Implicit Tiling](ImplicitTiling/README.md).
+
+> **Example:**
+>
+> ```jsonc
+> {
+>   "schema": {
+>     "classes": {
+>       "content": {
+>         "properties": {
+>           "attributionStrings": {
+>             "semantic": "ATTRIBUTION_STRINGS",
+>             "type": "STRING",
+>             "array": true
+>           },
+>           "triangleCount": {
+>             "description": "The number of triangles in the glTF content",
+>             "type": "SCALAR",
+>             "componentType": "UINT32"
+>           }
+>         }
+>       }
+>     }
+>   },
+>   
+>   "root": {
+>     "content": {
+>       "uri": "tile.glb",
+>       "metadata": {
+>         "class": "content",
+>         "properties": {
+>           "attributionStrings": ["Source A", "Source B"],
+>           "triangleCount": 65000
+>         }
+>       }
+>     }
+>     ...
+>   }
+> }
+> ```
+
+##### Content Feature Properties
+
+Certain kinds of tile content may contain meaningful subcomponents ("features"), which may themselves be associated with metadata through more granular properties. One example of how metadata can be assigned to these subcomponents is the [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) glTF 2.0 extension.
+
+While defined independently, the metadata structure in 3D Tiles and in the `EXT_structural_metadata` extension both conform to the [3D Metadata Specification](Metadata/README.md) and build upon the [Reference Implementation of the 3D Metadata Specification](Metadata/ReferenceImplementation/README.md). 
+
 
 ### Specifying extensions and application specific extras
 
