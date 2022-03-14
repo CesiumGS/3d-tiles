@@ -557,7 +557,7 @@ The screenshot below shows the bounding volumes for the root tile for Canary Wha
 
 ![](figures/contentsBox.png)
 
-The `content.group` property (not shown above) assigns the content to a group. The value is an index into the array of `groups`. See the [Content Groups](#content-groups) section.
+The `content.group` property (not shown above) assigns the content to a group. The value is an index into the array of `groups`. See the [Multiple Contents](#multiple-contents) section.
 
 The `contents` property (not shown above) is an array containing one or more contents. `contents` and `content` are mutually exclusive. When a tile has a single content it should use `content` for backwards compatibility with engines that only support 3D Tiles 1.0. See the [Multiple Contents](#multiple-contents) section.
 

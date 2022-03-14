@@ -97,7 +97,7 @@ This section describes how legacy tile formats can be converted into equivalent 
 
 ### Batched 3D Model (b3dm)
 
-[Batched 3D Model](../../specification/TileFormats/Batched3DModel) is a wrapper around a binary glTF that includes additional information in its Feature Table and Batch Table. Batched 3D Model content can be converted into glTF content with the following changes: 
+[Batched 3D Model](../Batched3DModel) is a wrapper around a binary glTF that includes additional information in its Feature Table and Batch Table. Batched 3D Model content can be converted into glTF content with the following changes: 
 
 * The [`RTC_CENTER`](https://github.com/CesiumGS/3d-tiles/tree/main/specification/TileFormats/Batched3DModel#coordinate-system) can be added to the translation component of the root node of the glTF asset.
 * Batch IDs and Batch Tables can be represented using [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) and [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata).
@@ -106,7 +106,7 @@ This section describes how legacy tile formats can be converted into equivalent 
 
 ### Instanced 3D Model (i3dm)
 
-[Instanced 3D Model](../../specification/TileFormats/Instanced3DModel) instances a glTF asset (embedded or external) and provides per-instance transforms and batch IDs.
+[Instanced 3D Model](../Instanced3DModel) instances a glTF asset (embedded or external) and provides per-instance transforms and batch IDs.
 
 * The `RTC_CENTER` can be added to the translation component of the root node of the glTF asset.
 * glTF can leverage GPU instancing with the [EXT_mesh_gpu_instancing](https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Vendor/EXT_mesh_gpu_instancing/README.md) extension.
@@ -117,7 +117,7 @@ This section describes how legacy tile formats can be converted into equivalent 
 
 ### Point Cloud (pnts)
 
-[Point Cloud](../../specification/TileFormats/PointCloud) can be represented as a glTF using the primitive mode `0` (`POINTS`).
+[Point Cloud](../PointCloud) can be represented as a glTF using the primitive mode `0` (`POINTS`).
 
 * The `RTC_CENTER` can be added to the translation component of the root node of the glTF asset.
 * Feature table properties like `POSITION`, `COLOR`, and `NORMAL` may be stored as glTF attributes.
@@ -129,4 +129,4 @@ This section describes how legacy tile formats can be converted into equivalent 
 
 ### Composite (cmpt)
 
-All inner contents of a [Composite](../../specification/TileFormats/Composite) may be combined into the same glTF as separate nodes, meshes, or primitives, at the tileset author's discretion. Alternatively, a tile may have [multiple contents](../../#multiple-contents).
+All inner contents of a [Composite](../Composite) may be combined into the same glTF as separate nodes, meshes, or primitives, at the tileset author's discretion. Alternatively, a tile may have [multiple contents](../../#multiple-contents).
