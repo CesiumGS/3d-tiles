@@ -76,11 +76,6 @@ Acknowledgements:
   - [Metadata](#metadata)
     - [Metadata Schema](#metadata-schema)
     - [Assigning Metadata](#assigning-metadata)
-      - [Tileset Properties](#tileset-properties)
-      - [Tile Properties](#tile-properties)
-      - [Content Group Properties](#content-group-properties)
-      - [Content Properties](#content-properties)
-      - [Content Feature Properties](#content-feature-properties)
     - [Metadata Statistics](#metadata-statistics)
   - [Specifying extensions and application specific extras](#specifying-extensions-and-application-specific-extras)
 - [Tile format specifications](#tile-format-specifications)
@@ -789,9 +784,9 @@ Metadata enables additional use cases and functionality for the format:
 
 The metadata can be associated with elements of a tileset at various levels of granularity:
 
-* **Tileset** - The tileset as a whole may be associated with global metadata, such as the year of publication.
-* **Tile** - Tiles may be individually associated with more specific metadata, such as the timestamp when a tile was last updated or the maximum height of the tile.
-* **Groups** - Tile contents may be organized into groups (see: [Groups](#content-groups)) with shared metadata.
+* **Tileset** - The tileset as a whole may be associated with global metadata. Common examples might include year of collection, author details, or other general context for the tileset contents.
+* **Tile** - Tiles may be individually associated with more specific metadata. This may be the timestamp when a tile was last updated or the maximum height of the tile, or spatial hints to optimize traversal algorithms.
+* **Groups** - Tile contents may be organized into groups (see: [Groups](#content-groups)) with shared metadata. Each group definition represents a metadata entity that can be assigned to the tile contents by specifying the index within this list as the `group` property of the content. This is useful for working with collections of contents as layers, e.g. to manage visibility or visual styling. 
 * **Content** - Tile contents may be individually associated with more specific metadata, such as a list of attribution strings.
 * **Features** glTF 2.0 assets with feature metadata can be included as tile contents. The [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) extension allows associating metadata with vertices or texels. 
 
@@ -799,7 +794,7 @@ The figure below shows the relationship between these entities, and examples of 
 
 <img src="figures/3d-tiles-metadata-granularities.png"  alt="Metadata Granularity" width="600">
 
-Concepts and terminology used throughout this section refer to the [3D Metadata Specification](Metadata/README.md), which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
+Although they are defined independently, the metadata structure in 3D Tiles and in the `EXT_structural_metadata` extension both conform to the [3D Metadata Specification](Metadata/README.md) and build upon the [Reference Implementation of the 3D Metadata Specification](Metadata/ReferenceImplementation/README.md). Concepts and terminology used here refer to the 3D Metadata Specification, which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
 
 #### Metadata Schema
 
@@ -873,31 +868,6 @@ The common structure of metadata entities that appear in a tileset is defined in
 
 Most property values are encoded as JSON within the entity. One notable exception is metadata assigned to implicit tiles and contents, stored in a more compact binary form. See [Implicit Tiling](ImplicitTiling/README.md).
 
-##### Tileset Properties
-
-Properties assigned to tilesets provide metadata about the tileset as a whole. Common examples might include year of collection, author details, or other general context for the tileset contents.
-
-##### Tile Properties
-
-Property values may be assigned to individual tiles, including (for example) spatial hints to optimize traversal algorithms. 
-
-##### Content Group Properties
-
-Tiles may contain more than one content, or multiple tiles may reference content sharing the same metadata. In these cases, metadata assigned to the tile would be inadequate or inefficient for describing tile contents. Therefore, content can be organized into collections, or "groups", and metadata may be associated with each group. Groups are useful for supporting metadata on only a subset of a tile's content, or for working with collections of contents as layers, e.g. to manage visibility or visual styling.
-
-The tileset must define a list of available groups, if any, under its `groups` property. Each group definition represents a metadata entity that can be assigned to the tile contents by specifying the index within this list as the `group` property of the content. 
-
-##### Content Properties
-
-Property values may be assigned to individual tile contents, including (for example) attribution strings. 
-
-##### Content Feature Properties
-
-Certain kinds of tile content may contain meaningful subcomponents ("features"), which may themselves be associated with metadata through more granular properties. One example of how metadata can be assigned to these subcomponents is the [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) glTF 2.0 extension.
-
-While defined independently, the metadata structure in 3D Tiles and in the `EXT_structural_metadata` extension both conform to the [3D Metadata Specification](Metadata/README.md) and build upon the [Reference Implementation of the 3D Metadata Specification](Metadata/ReferenceImplementation/README.md). 
-
-
 #### Metadata Statistics
 
 Statistics provide aggregate information about the distribution of property values, summarized over all instances of a metadata class within a tileset. For example, statistics may include the minimum/maximum values of a numeric property, or the number of occurrences for specific enum values.
@@ -905,7 +875,6 @@ Statistics provide aggregate information about the distribution of property valu
 These summary statistics allow applications to analyze or display metadata, e.g. with the [declarative styling language](Styling), without first having to process the complete dataset to identify bounds for color ramps and histograms. Statistics are provided on a per-class basis, so that applications can provide styling or context based on the tileset as a whole, while only needing to download and process a subset of its tiles.
 
 <img src="figures/3d-tiles-metadata-statistics.png"  alt="Metadata Granularity" width="600">
-
 
 The statistics are stored in the top-level `statistics` object of the tileset. The structure of this statistics object is defined in [statistics.schema.json](schema/Statistics/statistics.schema.json). The statistics are defined for each metadata class, including the following elements:
 
