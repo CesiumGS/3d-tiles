@@ -145,7 +145,7 @@ For `box` bounding volumes:
 | `y` | Along the `+y` axis of the bounding box |
 | `z` | Along the `+z` axis of the bounding box |
 
-<img src="figures/box-coordinates.jpg" width="780" />
+<img src="figures/box-coordinates.png" width="780" />
 
 For `region` bounding volumes:
 
@@ -165,7 +165,7 @@ Template URIs must include the variables `{level}`, `{x}`, `{y}`. Template URIs 
 
 Template URIs, when given as relative paths, are resolved relative to the tileset JSON file.
 
-<img src="figures/template-uri.jpg" width="1020" />
+<img src="figures/template-uri.png" width="1020" />
 
 ## Subtrees
 
@@ -173,11 +173,11 @@ In order to support sparse datasets, additional information is needed to indicat
 
 **Subtrees** are fixed size sections of the tileset tree used for storing availability. The tileset is partitioned into subtrees to bound the size of each availability buffer for optimal network transfer and caching. The `subtreeLevels` property defines the number of levels in each subtree. The subdivision scheme determines the number of children per tile.
 
-![subtree anatomy](figures/subtree-anatomy.jpg)
+![subtree anatomy](figures/subtree-anatomy.png)
 
 After partitioning a tileset into subtrees, the result is a tree of subtrees.
 
-![Tree of subtrees](figures/subtree-tree.jpg)
+![Tree of subtrees](figures/subtree-tree.png)
 
 ### Availability
 
@@ -194,7 +194,7 @@ To form the 1D bitstream, the tiles are ordered with the following rules:
 * Within each level of the subtree, the tiles are ordered using the [Morton Z-order curve](https://en.wikipedia.org/wiki/Z-order_curve)
 * The bits for each level are concatenated into a single bitstream
 
-![Availability Ordering](figures/availability-ordering.jpg)
+![Availability Ordering](figures/availability-ordering.png)
 
 In the diagram above, colored cells represent 1 bits, grey cells represent 0 bits.
 
@@ -216,7 +216,7 @@ Tile availability has the following restrictions:
 * If a non-root tile's availability is 1, its parent tile's availability must also be 1. 
 * A subtree must have at least one available tile. 
 
-![Tile Availability](figures/tile-availability.jpg)
+![Tile Availability](figures/tile-availability.png)
 
 #### Content Availability
 
@@ -227,7 +227,7 @@ Content availability has the following restrictions:
 * If content availability is 1 its corresponding tile availability must also be 1. Otherwise, it would be possible to specify content files that are not reachable by the tiles of the tileset. 
 * If content availability is 0 and its corresponding tile availability is 1 then the tile is considered to be an empty tile.
 
-![Content Availability](figures/content-availability.jpg)
+![Content Availability](figures/content-availability.png)
 
 #### Child Subtree Availability
 
@@ -235,7 +235,7 @@ Child subtree availability determines which subtrees are reachable from the deep
 
 Unlike tile and content availability, which store bits for every level in the subtree, child subtree availability stores bits for nodes one level deeper than the deepest level of the subtree, and represent the root nodes of child subtrees. This is used to determine which other subtrees are reachable before requesting tiles. If availability is 0 for all child subtrees, then the tileset does not subdivide further.
 
-![Child Subtree Availability](figures/child-subtree-availability.jpg)
+![Child Subtree Availability](figures/child-subtree-availability.png)
 
 ### Metadata
 
@@ -603,7 +603,7 @@ The subtree binary format is an alternative to the JSON file format that allows 
 
 The binary subtree format is little-endian and consists of a 24-byte header and a variable length payload:
 
-![Subtree Binary Format](figures/binary-subtree.jpg)
+![Subtree Binary Format](figures/binary-subtree.png)
 
 Header fields:
 
@@ -696,7 +696,7 @@ In binary, a tile's global Morton index is the complete path from the implicit r
 tile.globalMortonIndex = concatBits(subtreeRoot.globalMortonIndex, tile.localMortonIndex)
 ```
 
-<img src="figures/global-to-local-morton.jpg" width="500" />
+<img src="figures/global-to-local-morton.png" width="500" />
 
 Similarly, the global level of a tile is the length of the path from the implicit root tile to the tile. This is the sum of the subtree root tile's global level and the tile's local level relative to the subtree root tile:
 
@@ -704,7 +704,7 @@ Similarly, the global level of a tile is the length of the path from the implici
 tile.globalLevel = subtreeRoot.globalLevel + tile.localLevel
 ```
 
-<img src="figures/global-to-local-levels.jpg" width="500" />
+<img src="figures/global-to-local-levels.png" width="500" />
 
 `(x, y, z)` coordinates follow the same pattern as Morton indices. The only difference is that the concatenation of bits happens component-wise. That is:
 
@@ -716,7 +716,7 @@ tile.globalY = concatBits(subtreeRoot.globalY, tile.localY)
 tile.globalZ = concatBits(subtreeRoot.globalZ, tile.localZ)
 ```
 
-![Global to local XY coordinates](figures/global-to-local-xy.jpg)
+![Global to local XY coordinates](figures/global-to-local-xy.png)
 
 <!-- omit in toc -->
 ### Finding Parent and Child Tiles
@@ -737,4 +737,4 @@ Where:
 * `childIndex` is an integer in the range `[0, N)` that is the index of the child tile relative to the parent.
 * `childX`, `childY`, and `childZ` are single bits that represent which half of the parent's bounding volume the child is in in each direction.
 
-![Parent and child coordinates](figures/parent-and-child-coordinates.jpg)
+![Parent and child coordinates](figures/parent-and-child-coordinates.png)
