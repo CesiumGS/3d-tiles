@@ -74,7 +74,7 @@ The body section immediately follows the header section and is composed of three
 The Feature Table contains values for `i3dm` semantics used to create instanced models.
 More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
-See [Property reference](#property-reference) for the `i3dm` feature table schema reference. The full JSON schema can be found in [i3dm.featureTable.schema.json](../../schema/i3dm.featureTable.schema.json).
+See [Property reference](#property-reference) for the `i3dm` feature table schema reference. The full JSON schema can be found in [i3dm.featureTable.schema.json](../../schema/TileFormats/i3dm.featureTable.schema.json).
 
 ### Semantics
 
@@ -466,7 +466,7 @@ The datatype of components in the property.
 
 An object defining a global 3-component numeric property value for all features.
 
-* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+* **JSON schema**: [`featureTable.schema.json`](../../schema/TileFormats/featureTable.schema.json)
 
 ---------------------------------------
 <a name="reference-globalpropertyinteger"></a>
@@ -474,7 +474,7 @@ An object defining a global 3-component numeric property value for all features.
 
 An object defining a global integer property value for all features.
 
-* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+* **JSON schema**: [`featureTable.schema.json`](../../schema/TileFormats/featureTable.schema.json)
 
 ---------------------------------------
 <a name="reference-globalpropertyboolean"></a>
@@ -482,7 +482,7 @@ An object defining a global integer property value for all features.
 
 An object defining a global boolean property value for all features.
 
-* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+* **JSON schema**: [`featureTable.schema.json`](../../schema/TileFormats/featureTable.schema.json)
 
 ---------------------------------------
 <a name="reference-property"></a>
@@ -490,5 +490,5 @@ An object defining a global boolean property value for all features.
 
 A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
 
-* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+* **JSON schema**: [`featureTable.schema.json`](../../schema/TileFormats/featureTable.schema.json)
 

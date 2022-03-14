@@ -267,5 +267,5 @@ Specifies if the property is a scalar or vector.
 
 A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
 
-* **JSON schema**: [`batchTable.schema.json`](../../schema/batchTable.schema.json)
+* **JSON schema**: [`batchTable.schema.json`](../../schema/TileFormats/batchTable.schema.json)
 

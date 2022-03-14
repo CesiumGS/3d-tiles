@@ -46,7 +46,7 @@ Feature Table values can be represented in the JSON header in two different ways
    * Some semantics allow for overriding the implicit component type. These cases are specified in each tile format, e.g., `"BATCH_ID" : { "byteOffset" : 24, "componentType" : "UNSIGNED_BYTE"}`.
 The only valid properties in the JSON header are the defined semantics by the tile format and optional `extras` and `extensions` properties.  Application-specific data should be stored in the Batch Table.
 
-See [Property reference](#property-reference) for the full JSON header schema reference. The full JSON schema can be found in [featureTable.schema.json](../../schema/featureTable.schema.json).
+See [Property reference](#property-reference) for the full JSON header schema reference. The full JSON schema can be found in [featureTable.schema.json](../../schema/TileFormats/featureTable.schema.json).
 
 ### Binary body
 
@@ -158,4 +158,4 @@ The datatype of components in the property.
 
 A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
 
-* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+* **JSON schema**: [`featureTable.schema.json`](../../schema/TileFormats/featureTable.schema.json)
