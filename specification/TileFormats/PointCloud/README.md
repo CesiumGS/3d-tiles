@@ -69,7 +69,7 @@ The body section immediately follows the header section, and is composed of a `F
 Contains per-tile and per-point values that define where and how to render points.
 More information is available in the [Feature Table specification](../FeatureTable/README.md).
 
-See [Property reference](#property-reference) for the `pnts` feature table schema reference. The full JSON schema can be found in [pnts.featureTable.schema.json](../../schema/pnts.featureTable.schema.json).
+See [Property reference](#property-reference) for the `pnts` feature table schema reference. The full JSON schema can be found in [pnts.featureTable.schema.json](../../schema/TileFormats/pnts.featureTable.schema.json).
 
 ### Semantics
 
@@ -545,7 +545,7 @@ The datatype of components in the property.
 
 An object defining a global 3-component numeric property value for all features.
 
-* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+* **JSON schema**: [`featureTable.schema.json`](../../schema/TileFormats/featureTable.schema.json)
 
 
 
@@ -555,7 +555,7 @@ An object defining a global 3-component numeric property value for all features.
 
 An object defining a global 4-component numeric property value for all features.
 
-* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+* **JSON schema**: [`featureTable.schema.json`](../../schema/TileFormats/featureTable.schema.json)
 
 
 
@@ -565,7 +565,7 @@ An object defining a global 4-component numeric property value for all features.
 
 An object defining a global integer property value for all features.
 
-* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+* **JSON schema**: [`featureTable.schema.json`](../../schema/TileFormats/featureTable.schema.json)
 
 
 ---------------------------------------
@@ -574,4 +574,4 @@ An object defining a global integer property value for all features.
 
 A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.
 
-* **JSON schema**: [`featureTable.schema.json`](../../schema/featureTable.schema.json)
+* **JSON schema**: [`featureTable.schema.json`](../../schema/TileFormats/featureTable.schema.json)

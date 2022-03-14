@@ -34,7 +34,7 @@ Validating against the schema does not prove full compliance with the 3D Tiles s
 ### Example
 
 1. Install : `npm install ajv-cli -g`
-2. Validate : `ajv -s schema/i3dm.featureTable.schema.json -r schema/featureTable.schema.json -d examples/i3dm.featureTable.json`
+2. Validate : `ajv -s schema/TileFormats/i3dm.featureTable.schema.json -r schema/TileFormats/featureTable.schema.json -d examples/i3dm.featureTable.json`
 
 * The `-s` flag points to the schema you want to use for validation. 
 * Multiple `-r` flags includes any external dependencies for the schema.
