@@ -1,8 +1,22 @@
+### ⚠️ `3DTILES_draco_point_compression` was deprecated in 3D Tiles 1.1. See [`pnts` migration guide](../../specification/TileFormats/glTF/#point-cloud-pnts). ⚠️
+
 # 3DTILES_draco_point_compression Extension
 
 ## Contributors
 
 * Sean Lilley, [@lilleyse](https://github.com/lilleyse)
+
+## Status
+
+Complete
+
+## Dependencies
+
+Written against the 3D Tiles 1.0 specification.
+
+## Optional vs. Required
+
+This extension is required, meaning it must be placed in both the `extensionsUsed` and `extensionsRequired` lists in the tileset JSON.
 
 ## Contents
 
@@ -151,6 +165,7 @@ _This section is non-normative._
 
 ---------------------------------------
 <a name="reference-3dtiles_draco_point_compression-feature-table-extension"></a>
+<!-- omit in toc -->
 ## 3DTILES_draco_point_compression Feature Table extension
 
 Specifies the compressed Feature Table properties and the location of the compressed data in the Feature Table binary.
@@ -163,6 +178,7 @@ Specifies the compressed Feature Table properties and the location of the compre
 |**byteOffset**|`number`|A zero-based offset relative to the start of the Feature Table binary at which the compressed data starts.| :white_check_mark: Yes|
 |**byteLength**|`number`|The length, in bytes, of the compressed data.| :white_check_mark: Yes|
 
+<!-- omit in toc -->
 ### properties :white_check_mark:
 
 Defines the properties stored in the compressed data. Each property is associated with a unique ID. This ID is used to identify the property within
@@ -172,6 +188,7 @@ the compressed data. No two properties in the Feature Table and Batch Table may 
 * **Required**: Yes
 * **Type of each property**: `number`
 
+<!-- omit in toc -->
 ### byteOffset :white_check_mark:
 
 A zero-based offset relative to the start of the Feature Table binary at which the compressed data starts.
@@ -180,6 +197,7 @@ A zero-based offset relative to the start of the Feature Table binary at which t
 * **Required**: Yes
 * **Minimum**: ` >= 0`
 
+<!-- omit in toc -->
 ### byteLength :white_check_mark:
 
 The length, in bytes, of the compressed data.
@@ -190,6 +208,7 @@ The length, in bytes, of the compressed data.
 
 ---------------------------------------
 <a name="reference-3dtiles_draco_point_compression-batch-table-extension"></a>
+<!-- omit in toc -->
 ## 3DTILES_draco_point_compression Batch Table extension
 
 Specifies the compressed Batch Table properties.
@@ -200,6 +219,7 @@ Specifies the compressed Batch Table properties.
 |---|----|-----------|--------|
 |**properties**|`object`|Defines the properties stored in the compressed data. Each property is associated with a unique ID. This ID is used to identify the property within the compressed data. No two properties in the Feature Table and Batch Table may use the same ID.| :white_check_mark: Yes|
 
+<!-- omit in toc -->
 ### properties :white_check_mark:
 
 Defines the properties stored in the compressed data. Each property is associated with a unique ID. This ID is used to identify the property within the compressed data. No two properties in the Feature Table and Batch Table may use the same ID.

@@ -1,3 +1,5 @@
+### ⚠️ Batch Table was deprecated in 3D Tiles 1.1. See [glTF migration guide](../glTF/#appendix-a-migration-from-legacy-tile-formats). ⚠️
+
 # Batch Table
 
 ## Contents

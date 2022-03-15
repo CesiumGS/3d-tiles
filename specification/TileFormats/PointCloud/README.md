@@ -1,34 +1,38 @@
+### ⚠️ Point Cloud was deprecated in 3D Tiles 1.1. See [`pnts` migration guide](../glTF/#point-cloud-pnts). ⚠️
+
+<!-- omit in toc -->
 # Point Cloud
 
+<!-- omit in toc -->
 ## Contents
 
-* [Overview](#overview)
-* [Layout](#layout)
-    * [Padding](#padding)
-* [Header](#header)
-* [Feature Table](#feature-table)
-    * [Semantics](#semantics)
-        * [Point semantics](#point-semantics)
-        * [Global semantics](#global-semantics)
-    * [Point positions](#point-positions)
-        * [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
-        * [RTC_CENTER](#rtc_center)
-        * [Quantized positions](#quantized-positions)
-    * [Point colors](#point-colors)
-    * [Point normals](#point-normals)
-        * [Oct-encoded normal vectors](#oct-encoded-normal-vectors)
-    * [Batched points](#batched-points)
-    * [Examples](#examples)
-        * [Positions only](#positions-only)
-        * [Positions and colors](#positions-and-colors)
-        * [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)
-        * [Batched points](#batched-points)
-        * [Per-point properties](#per-point-properties)
-* [Batch Table](#batch-table)
-* [Extensions](#extensions)
-* [File extension and MIME type](#file-extension-and-mime-type)
-* [Implementation example](#implementation-example)
-* [Property reference](#property-reference)
+- [Overview](#overview)
+- [Layout](#layout)
+  - [Padding](#padding)
+- [Header](#header)
+- [Feature Table](#feature-table)
+  - [Semantics](#semantics)
+    - [Point semantics](#point-semantics)
+    - [Global semantics](#global-semantics)
+  - [Point positions](#point-positions)
+    - [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
+    - [RTC_CENTER](#rtc_center)
+    - [Quantized positions](#quantized-positions)
+  - [Point colors](#point-colors)
+  - [Point normals](#point-normals)
+    - [Oct-encoded normal vectors](#oct-encoded-normal-vectors)
+  - [Batched points](#batched-points)
+  - [Examples](#examples)
+    - [Positions only](#positions-only)
+    - [Positions and colors](#positions-and-colors)
+    - [Quantized positions and oct-encoded normals](#quantized-positions-and-oct-encoded-normals)
+    - [Batched points](#batched-points-1)
+    - [Per-point properties](#per-point-properties)
+- [Batch Table](#batch-table)
+- [Extensions](#extensions)
+- [File extension and MIME type](#file-extension-and-mime-type)
+- [Implementation example](#implementation-example)
+- [Property reference](#property-reference)
 
 ## Overview
 
@@ -357,6 +361,7 @@ Code for reading the header can be found in [`PointCloud3DModelTileContent.js`](
 
 ---------------------------------------
 <a name="reference-point-cloud-feature-table"></a>
+<!-- omit in toc -->
 ### Point Cloud Feature Table
 
 A set of Point Cloud semantics that contains values defining the position and appearance properties for points in a tile.
@@ -385,6 +390,7 @@ A set of Point Cloud semantics that contains values defining the position and ap
 Additional properties are allowed.
 
 * **Type of each property**: [`Property`](#reference-property)
+<!-- omit in toc -->
 #### PointCloudFeatureTable.extensions
 
 Dictionary object with extension-specific objects.
@@ -393,13 +399,14 @@ Dictionary object with extension-specific objects.
 * **Required**: No
 * **Type of each property**: Extension
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.extras
 
 Application-specific data.
 
 * **Type**: `any`
 * **Required**: No
-
+<!-- omit in toc -->
 #### PointCloudFeatureTable.POSITION
 
 A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -407,6 +414,7 @@ A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the re
 * **Type**: `object`
 * **Required**: No
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.POSITION_QUANTIZED
 
 A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -414,6 +422,7 @@ A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the re
 * **Type**: `object`
 * **Required**: No
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.RGBA
 
 A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -421,6 +430,7 @@ A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the re
 * **Type**: `object`
 * **Required**: No
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.RGB
 
 A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -428,6 +438,7 @@ A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the re
 * **Type**: `object`
 * **Required**: No
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.RGB565
 
 A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -435,6 +446,7 @@ A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the re
 * **Type**: `object`
 * **Required**: No
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.NORMAL
 
 A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -442,6 +454,7 @@ A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the re
 * **Type**: `object`
 * **Required**: No
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.NORMAL_OCT16P
 
 A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -449,6 +462,7 @@ A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the re
 * **Type**: `object`
 * **Required**: No
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.BATCH_ID
 
 A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -456,6 +470,7 @@ A [`BinaryBodyReference`](#reference-binarybodyreference) object defining the re
 * **Type**: `object`
 * **Required**: No
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.POINTS_LENGTH :white_check_mark:
 
 A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining an integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -463,6 +478,7 @@ A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining an
 * **Type**: `object`, `number` `[1]`, `number`
 * **Required**: Yes
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.RTC_CENTER
 
 A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -470,6 +486,7 @@ A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defin
 * **Type**: `object`, `number` `[3]`
 * **Required**: No
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.QUANTIZED_VOLUME_OFFSET
 
 A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -477,6 +494,7 @@ A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defin
 * **Type**: `object`, `number` `[3]`
 * **Required**: No
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.QUANTIZED_VOLUME_SCALE
 
 A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defining a 3-component numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -484,6 +502,7 @@ A [`GlobalPropertyCartesian3`](#reference-globalpropertycartesian3) object defin
 * **Type**: `object`, `number` `[3]`
 * **Required**: No
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.CONSTANT_RGBA
 
 A [`GlobalPropertyCartesian4`](#reference-globalpropertycartesian4) object defining a 4-component numeric property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -491,6 +510,7 @@ A [`GlobalPropertyCartesian4`](#reference-globalpropertycartesian4) object defin
 * **Type**: `object`, `number` `[4]`
 * **Required**: No
 
+<!-- omit in toc -->
 #### PointCloudFeatureTable.BATCH_LENGTH
 
 A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining an integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).
@@ -501,6 +521,7 @@ A [`GlobalPropertyInteger`](#reference-globalpropertyinteger) object defining an
 
 ---------------------------------------
 <a name="reference-binarybodyreference"></a>
+<!-- omit in toc -->
 ### BinaryBodyReference
 
 An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
@@ -514,6 +535,7 @@ An object defining the reference to a section of the binary body of the features
 
 Additional properties are allowed.
 
+<!-- omit in toc -->
 #### BinaryBodyReference.byteOffset :white_check_mark:
 
 The offset into the buffer in bytes.
@@ -522,6 +544,7 @@ The offset into the buffer in bytes.
 * **Required**: Yes
 * **Minimum**: ` >= 0`
 
+<!-- omit in toc -->
 #### BinaryBodyReference.componentType
 
 The datatype of components in the property.
@@ -541,6 +564,7 @@ The datatype of components in the property.
 
 ---------------------------------------
 <a name="reference-globalpropertycartesian3"></a>
+<!-- omit in toc -->
 ### GlobalPropertyCartesian3
 
 An object defining a global 3-component numeric property value for all features.
@@ -551,6 +575,7 @@ An object defining a global 3-component numeric property value for all features.
 
 ---------------------------------------
 <a name="reference-globalpropertycartesian4"></a>
+<!-- omit in toc -->
 ### GlobalPropertyCartesian4
 
 An object defining a global 4-component numeric property value for all features.
@@ -561,6 +586,7 @@ An object defining a global 4-component numeric property value for all features.
 
 ---------------------------------------
 <a name="reference-globalpropertyinteger"></a>
+<!-- omit in toc -->
 ### GlobalPropertyInteger
 
 An object defining a global integer property value for all features.
@@ -570,6 +596,7 @@ An object defining a global integer property value for all features.
 
 ---------------------------------------
 <a name="reference-property"></a>
+<!-- omit in toc -->
 ### Property
 
 A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a [`BinaryBodyReference`](#reference-binarybodyreference) object.

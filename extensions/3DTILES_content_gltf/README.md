@@ -1,3 +1,5 @@
+### ⚠️ `3DTILES_content_gltf` has been promoted to core in 3D Tiles 1.1. See [glTF Tile Format](../../specification/TileFormats/glTF/). ⚠️
+
 # 3DTILES_content_gltf
 
 ## Contributors
@@ -10,7 +12,7 @@
 
 ## Status
 
-Draft
+Complete
 
 ## Dependencies
 

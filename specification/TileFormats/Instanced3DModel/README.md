@@ -1,3 +1,5 @@
+### ⚠️ Instanced 3D Model was deprecated in 3D Tiles 1.1. See [`i3dm` migration guide](../glTF/#instanced-3d-model-i3dm). ⚠️
+
 # Instanced 3D Model
 
 ## Contents

@@ -1,3 +1,5 @@
+### ⚠️ `3DTILES_implicit_tiling` has been promoted to core in 3D Tiles 1.1. See [Implicit Tiling](../../specification/ImplicitTiling/). ⚠️
+
 <!-- omit in toc -->
 # 3DTILES_implicit_tiling
 
@@ -18,7 +20,7 @@
 <!-- omit in toc -->
 ## Status
 
-Draft
+Complete
 
 <!-- omit in toc -->
 ## Dependencies
