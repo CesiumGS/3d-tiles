@@ -6,7 +6,7 @@
     "description": "A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "additionalProperties": {
@@ -19,7 +19,7 @@
             "description": "An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
             "allOf": [
                 {
-                    "$ref": "tilesetProperty.schema.json"
+                    "$ref": "rootProperty.schema.json"
                 }
             ],
             "properties": {
@@ -150,7 +150,7 @@
                     "type": "object",
                     "allOf": [
                         {
-                            "$ref": "tilesetProperty.schema.json"
+                            "$ref": "rootProperty.schema.json"
                         }
                     ],
                     "properties": {
@@ -184,7 +184,7 @@
                     "type": "object",
                     "allOf": [
                         {
-                            "$ref": "tilesetProperty.schema.json"
+                            "$ref": "rootProperty.schema.json"
                         }
                     ],
                     "properties": {

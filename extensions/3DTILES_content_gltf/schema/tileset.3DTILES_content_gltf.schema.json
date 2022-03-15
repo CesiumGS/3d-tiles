@@ -6,7 +6,7 @@
     "description": "3D Tiles extension that allows a tileset to use glTF models directly as tile content.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {

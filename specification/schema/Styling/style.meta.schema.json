@@ -6,7 +6,7 @@
     "description": "A series of property names and the `expression` to evaluate for the value of that property.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "additionalProperties": {

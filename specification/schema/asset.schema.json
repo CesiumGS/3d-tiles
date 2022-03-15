@@ -6,7 +6,7 @@
     "description": "Metadata about the entire tileset.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {

@@ -6,7 +6,7 @@
     "description": "Specifies the compressed Batch Table properties.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {

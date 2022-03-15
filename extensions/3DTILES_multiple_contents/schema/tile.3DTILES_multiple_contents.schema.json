@@ -6,7 +6,7 @@
     "description": "Extends a tile to have multiple contents. When this extension is used the tile's `content` property must be omitted.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {

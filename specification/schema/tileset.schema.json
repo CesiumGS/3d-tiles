@@ -6,7 +6,7 @@
     "description": "A 3D Tiles tileset.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {

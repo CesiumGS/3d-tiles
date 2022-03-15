@@ -6,7 +6,7 @@
     "description": "A class containing a set of properties.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {

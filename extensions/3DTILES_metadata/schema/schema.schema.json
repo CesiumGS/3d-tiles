@@ -6,7 +6,7 @@
     "description": "An object defining classes and enums.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {

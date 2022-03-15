@@ -6,7 +6,7 @@
     "description": "3D Tiles extension for S2 bounding volumes.",
     "allOf": [
         {
-            "$ref": "tilesetProperty.schema.json"
+            "$ref": "rootProperty.schema.json"
         }
     ],
     "properties": {
