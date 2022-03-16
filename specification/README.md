@@ -175,7 +175,7 @@ Tiles consist of metadata used to determine if a tile is rendered, a reference t
 
 A tile can be associated with renderable content. A tile can either have a single `tile.content` object, or multiple content objects, stored in a `tile.contents` array. The latter allows for flexible tileset structures: for example, a single tile may contain multiple representations of the same geometry data.
 
-The `content.uri` of each content object refers to the tile's binary content in one of the tile formats that are defined in the [Tile format specifications](#tile-format-specifications)), or another tileset JSON to create a tileset of tilesets (see [External tilesets](#external-tilesets)). 
+The `content.uri` of each content object refers to the tile's content in one of the tile formats that are defined in the [Tile format specifications](#tile-format-specifications)), or another tileset JSON to create a tileset of tilesets (see [External tilesets](#external-tilesets)). 
 
 The `content.group` property assigns the content to a group. Contents of different tiles or the contents of a single tile can be assigned to groups in order to categorize the content. Additionally, each group can be associated with [Metadata](#metadata). 
 
