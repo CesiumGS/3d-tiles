@@ -1,4 +1,4 @@
-### ⚠️ Batched 3D Model was deprecated in 3D Tiles 1.1. See [`b3dm` migration guide](../glTF/#batched-3d-model-b3dm). ⚠️
+### ⚠️ Batched 3D Model was deprecated in 3D Tiles 1.1. See [`b3dm` migration guide](../glTF/README.md#batched-3d-model-b3dm). ⚠️
 
 # Batched 3D Model
 

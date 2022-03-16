@@ -1,4 +1,4 @@
-### ⚠️ Batch Table was deprecated in 3D Tiles 1.1. See [glTF migration guide](../glTF/#appendix-a-migration-from-legacy-tile-formats). ⚠️
+### ⚠️ Batch Table was deprecated in 3D Tiles 1.1. See [glTF migration guide](../glTF/README.md#appendix-a-migration-from-legacy-tile-formats). ⚠️
 
 # Batch Table
 
@@ -80,7 +80,7 @@ displayName[1] = 'Another building name';
 yearBuilt[1] = 2015;
 address[1] = {street : 'Main Street', houseNumber : '2'};
 ```
-See [Property reference](#property-reference) for the full JSON header schema reference. The full JSON schema can be found in [batchTable.schema.json](../../schema/batchTable.schema.json).
+See [Property reference](#property-reference) for the full JSON header schema reference. The full JSON schema can be found in [batchTable.schema.json](../../schema/TileFormats/batchTable.schema.json).
 
 ### Binary body
 

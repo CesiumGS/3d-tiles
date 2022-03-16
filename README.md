@@ -38,9 +38,9 @@ Please provide spec feedback by [submitting issues](https://github.com/CesiumGS/
 
 [3D Tiles Next](./next) is a set of new capabilities for the future of 3D Tiles. Provided as draft extensions to the [3D Tiles 1.0](../specification) specification, these features may be incorporated into 3D Tiles 2.0 in the future.
 
-- [Tile Content](./next#tile-content): glTF 2.0 assets may be used directly as tile content, without intermediate formats, improving interoperability with 3D content and tooling ecosystems. Tiles may reference multiple contents — for organization, styling, and filtering — and contents may be collected into groups similar to map layers in mapping applications.
-- [Implicit Tiling](./next#implicit-tiling): Common subdivision schemes and spatial index patterns may be declared without listing bounding volumes exhaustively. Reduces tileset size, and enables new optimizations including faster traversal, raycasting, random access, and spatial queries.
-- [Metadata](./next#metadata): Metadata in 3D Tiles gains more expressiveness and flexibility, with a well-defined type system, new encoding options (e.g. JSON or binary), and a range of granularity options. Metadata may be associated with high-level objects like tilesets, tiles, or tile content groups, or with individual vertices and texels on glTF 2.0 geometry.
+- [Tile Content](./next/README.md#tile-content): glTF 2.0 assets may be used directly as tile content, without intermediate formats, improving interoperability with 3D content and tooling ecosystems. Tiles may reference multiple contents — for organization, styling, and filtering — and contents may be collected into groups similar to map layers in mapping applications.
+- [Implicit Tiling](./next/README.md#implicit-tiling): Common subdivision schemes and spatial index patterns may be declared without listing bounding volumes exhaustively. Reduces tileset size, and enables new optimizations including faster traversal, raycasting, random access, and spatial queries.
+- [Metadata](./next/README.md#metadata): Metadata in 3D Tiles gains more expressiveness and flexibility, with a well-defined type system, new encoding options (e.g. JSON or binary), and a range of granularity options. Metadata may be associated with high-level objects like tilesets, tiles, or tile content groups, or with individual vertices and texels on glTF 2.0 geometry.
 
 A curated list of resources for developers can be found on the [3D Tiles Next Resources](./next/RESOURCES.md) page.
 

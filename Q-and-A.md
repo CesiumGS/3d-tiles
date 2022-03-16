@@ -91,7 +91,7 @@ See [#15](https://github.com/CesiumGS/3d-tiles/issues/15).
 
 #### How are cracks between tiles with vector data handled?
 
-Unlike 2D, in 3D, we expect adjacent tiles to be from different LODs so, for example, in the distance, lower resolution tiles are used.  Adjacent tiles from different LODs can lead to an artifact called _cracking_ where there are gaps between tiles.  For terrain, this is generally handled by dropping _skirts_ slightly angled outward around each tile to fill the gap.  For 3D buildings, this is handled by extending the tile boundary to fully include buildings on the edge; [see Quadtrees](./specification/README.md#Quadtrees).  For vector data, this is an open research problem that we need to solve.  This could involve boundary-aware simplification or runtime stitching.
+Unlike 2D, in 3D, we expect adjacent tiles to be from different LODs so, for example, in the distance, lower resolution tiles are used.  Adjacent tiles from different LODs can lead to an artifact called _cracking_ where there are gaps between tiles.  For terrain, this is generally handled by dropping _skirts_ slightly angled outward around each tile to fill the gap.  For 3D buildings, this is handled by extending the tile boundary to fully include buildings on the edge; [see Quadtrees](./specification/README.md#quadtrees).  For vector data, this is an open research problem that we need to solve.  This could involve boundary-aware simplification or runtime stitching.
 
 #### When using replacement refinement, can multiple children be combined into one request?
 

@@ -1,4 +1,4 @@
-### ⚠️ Composite was deprecated in 3D Tiles 1.1. See [`cpmt` migration guide](../glTF/#composite-cmpt). ⚠️
+### ⚠️ Composite was deprecated in 3D Tiles 1.1. See [`cpmt` migration guide](../glTF/README.md#composite-cmpt). ⚠️
 
 <!-- omit in toc -->
 # Composite
