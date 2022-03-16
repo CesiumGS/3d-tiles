@@ -2,7 +2,10 @@
 
 The [3D Metadata Specification](../../README.md) defines [schemas](../../README.md#schemas) as a description of the structure of metadata, consisting of classes with different properties, and enum types. The following is the description of a JSON-based representation of such a schema and its elements. It is used as the basis for defining the metadata structure in the following implementations:
 
-* [3D Tiles Metadata](TODO) - Assigns metadata to tilesets, tiles, groups, and contents in a 3D Tiles tileset. The schema is associated with the tileset. Instances of these classes - referred to as metadata entities - can be associated with elements of the tileset on each granularity level. 
+* [3D Tiles Metadata](../../../README.md#metadata) - Assigns metadata to tilesets, tiles, groups, and contents in a 3D Tiles 1.1 tileset. The schema is associated with the tileset. Instances of these classes - referred to as metadata entities - can be associated with elements of the tileset on each granularity level. 
+* [`3DTILES_metadata`](../../../../extensions/3DTILES_metadata/) - An extension for 3D Tiles 1.0 that assigns metadata to tilesets, tiles, and contents
+
+
 * [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) — Assigns metadata to vertices, texels, and features in a glTF asset. The schema is stored in the top-level extension object. Mesh primitives can be associated with instances of the metadata classes. 
 
 The full JSON schema definition for this implementation can be found in [the Schema directory of the specification](../../../schema/Schema/).

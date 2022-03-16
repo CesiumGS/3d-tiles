@@ -121,7 +121,7 @@ This section describes how legacy tile formats can be converted into equivalent 
 
 * The `RTC_CENTER` can be added to the translation component of the root node of the glTF asset.
 * Feature table properties like `POSITION`, `COLOR`, and `NORMAL` may be stored as glTF attributes.
-* [`EXT_meshopt_compression`](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/EXT_meshopt_compression) and [`KHR_mesh_quantization`](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_mesh_quantization) may be used for point cloud compression. [`3DTILES_draco_point_compression`](../3DTILES_draco_point_compression) is not directly supported in glTF because [`KHR_draco_mesh_compression`](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_draco_mesh_compression) only supports triangle meshes.
+* [`EXT_meshopt_compression`](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/EXT_meshopt_compression) and [`KHR_mesh_quantization`](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_mesh_quantization) may be used for point cloud compression. [`3DTILES_draco_point_compression`](../../../extensions/3DTILES_draco_point_compression/) is not directly supported in glTF because [`KHR_draco_mesh_compression`](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_draco_mesh_compression) only supports triangle meshes.
 * Batch IDs and Batch Tables can be represented using [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features) and [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata).
 * `CONSTANT_RGBA` is not directly supported in glTF, but can be achieved with materials or per-point colors.
 
@@ -129,4 +129,4 @@ This section describes how legacy tile formats can be converted into equivalent 
 
 ### Composite (cmpt)
 
-All inner contents of a [Composite](../Composite) may be combined into the same glTF as separate nodes, meshes, or primitives, at the tileset author's discretion. Alternatively, a tile may have [multiple contents](../../#multiple-contents).
+All inner contents of a [Composite](../Composite) may be combined into the same glTF as separate nodes, meshes, or primitives, at the tileset author's discretion. Alternatively, a tile may have [multiple contents](../../README.md#tile-content).

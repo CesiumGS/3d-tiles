@@ -2,9 +2,7 @@
 
 # 3D Tiles Next
 
-## Overview
-
-**3D Tiles Next** is a set of new capabilities for the future of 3D Tiles. Provided as draft extensions to the [3D Tiles 1.0](../specification) specification, these features may be incorporated into 3D Tiles 2.0 in the future.
+> **Note:** ⚠️ **3D Tiles Next** is a set of draft extensions to the [3D Tiles 1.0](../specification) specification. These extensions have become part of the core specification in 3D Tiles 1.1. Please refer to the [main 3D Tiles 1.1 specification](../specification/README.md) for the latest information about 3D Tiles 1.1 ⚠️
 
 ## Tile Content
 
@@ -15,7 +13,7 @@ _**Overview:** glTF 2.0 assets may be used directly as tile content, without int
 | <img src="figures/content-gltf.png" width="600px" alt="Tileset with glTF content"> | [`3DTILES_content_gltf`](../extensions/3DTILES_content_gltf) (3D Tiles 1.0 extension) <br> Allows references to glTF models (`.gltf`, `.glb`) directly in `tile.content`, without intermediate formats. Provides easier integration with a wider ecosystem of software producing glTF assets. |
 | <img src="figures/multiple-contents.png" width="600px" alt="Tileset with multiple contents"> | [`3DTILES_multiple_contents`](../extensions/3DTILES_multiple_contents) (3D Tiles 1.0 extension) <br> Allows storing more than one content model per tile, and in effect, per single volume of space. Contents can be organized in various ways — e.g. as map layers or arbitrary groupings — which becomes particularly useful when combined with content group metadata defined by `3DTILES_metadata`. |
 
-glTF content is the future of 3D Tiles, and may be used in place of 3D Tiles 1.0 internal formats (`.b3dm`, `.i3dm`, `.pnts`) in the future. Those internal formats remain available, but glTF offers forward-compatibility with a wider ecosystem of 3D content tools, and with any current and future extensions developed for the glTF format. For technical details on switching to glTF tile content, see the developer [migration guide](../extensions/3DTILES_content_gltf/MIGRATION_GUIDE.md) provided with `3DTILES_content_gltf`.
+glTF content is the future of 3D Tiles, and may be used in place of 3D Tiles 1.0 internal formats (`.b3dm`, `.i3dm`, `.pnts`) in the future. Those internal formats remain available, but glTF offers forward-compatibility with a wider ecosystem of 3D content tools, and with any current and future extensions developed for the glTF format. For technical details on switching to glTF tile content, see the developer [migration guide](../specification/TileFormats/glTF/README.md#appendix-a-migration-from-legacy-tile-formats).
 
 ## Implicit Tiling
 

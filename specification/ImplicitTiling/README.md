@@ -78,7 +78,7 @@ The following constraints apply to implicit root tiles:
   
   * The tile must omit the `children` property
   * The tile must omit the `metadata` property
-  * The `content.uri` must not point to an [external tileset](../#external-tilesets)
+  * The `content.uri` must not point to an [external tileset](../README.md#external-tilesets)
   * The `content` must omit the `boundingVolume` property
 
 ## Subdivision Scheme
@@ -127,7 +127,7 @@ Implicit tiling only requires defining the subdivision scheme, refinement strate
 > 
 > Let the extent of the root bounding volume along one dimension *d* be *(min<sub>d</sub>, max<sub>d</sub>)*. The number of bounding volumes along that dimension for a given level  is *2<sup>level</sup>*. The size of each bounding volume at this level, along dimension *d*, is *size<sub>d</sub> = (max<sub>d</sub> - min<sub>d</sub>) / 2<sup>level</sup>*. The extent of the bounding volume of a child can then be computed directly as *(min<sub>d</sub> + size<sub>d</sub> * i, min<sub>d</sub> + size<sub>d</sub> * (i + 1))*, where *i* is the index of the child in dimension *d*. 
 
-The computed tile `boundingVolume` and `geometricError` can be overridden with [tile metadata](#tile-metadata), if desired. Content bounding volumes are not computed automatically but they may be provided by [content metadata](#content-metadata). Tile and content bounding volumes must maintain [spatial coherence](../#bounding-volume-spatial-coherence).
+The computed tile `boundingVolume` and `geometricError` can be overridden with [tile metadata](#tile-metadata), if desired. Content bounding volumes are not computed automatically but they may be provided by [content metadata](#content-metadata). Tile and content bounding volumes must maintain [spatial coherence](../README.md#bounding-volume-spatial-coherence).
 
 ## Tile Coordinates
 
@@ -268,7 +268,7 @@ Subtrees may also store metadata for tile content. Content metadata exists only 
 
 Content bounding volumes are not computed automatically by implicit tiling but may be provided by properties with semantics `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, `CONTENT_BOUNDING_SPHERE`, `CONTENT_MINIMUM_HEIGHT`, and `CONTENT_MAXIMUM_HEIGHT`.
 
-If the tile content is assigned to a [`group`](TODO) then all contents in the implicit tree are assigned to that group.
+If the tile content is assigned to a [`group`](../../specification/README.md#tile-content) then all contents in the implicit tree are assigned to that group.
 
 #### Subtree Metadata
 
@@ -302,7 +302,7 @@ Content availability (`contentAvailability`) is an array of content availability
 
 Availability may be represented either as a bitstream or a constant value. `bitstream` is an integer index that identifies the buffer view containing the availability bistream. `constant` is an integer indicating whether all of the elements are available (`1`) or all are unavailable (`0`). `availableCount` is an integer indicating how many `1` bits exist in the availability bitstream.
 
-Availability bitstreams are packed in binary using the format described in the [Booleans](../Metadata#booleans) section of the 3D Metadata Specification.
+Availability bitstreams are packed in binary using the format described in the [Booleans](../Metadata/README.md#booleans) section of the 3D Metadata Specification.
 
 > **Example:** The JSON description of a subtree where each tile is available, but not all tiles have content, and not all child subtrees are available:
 > 

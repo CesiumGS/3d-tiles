@@ -111,7 +111,7 @@ The following constraints apply to implicit root tiles:
   
   * The tile must omit the `children` property
   * The tile must not have the `3DTILES_metadata` extension
-  * The `content.uri` must not point to an [external tileset](../../specification#external-tilesets)
+  * The `content.uri` must not point to an [external tileset](../../specification/README.md#external-tilesets)
   * The `content` must not have an associated `boundingVolume` property
 
 ## Subdivision Scheme
@@ -160,7 +160,7 @@ Implicit tiling only requires defining the subdivision scheme, refinement strate
 > 
 > Let the extent of the root bounding volume along one dimension *d* be *(min<sub>d</sub>, max<sub>d</sub>)*. The number of bounding volumes along that dimension for a given level  is *2<sup>level</sup>*. The size of each bounding volume at this level, along dimension *d*, is *size<sub>d</sub> = (max<sub>d</sub> - min<sub>d</sub>) / 2<sup>level</sup>*. The extent of the bounding volume of a child can then be computed directly as *(min<sub>d</sub> + size<sub>d</sub> * i, min<sub>d</sub> + size<sub>d</sub> * (i + 1))*, where *i* is the index of the child in dimension *d*. 
 
-The computed tile `boundingVolume` and `geometricError` can be overridden with [tile metadata](#tile-metadata), if desired. Content bounding volumes are not computed automatically but they may be provided by [content metadata](#content-metadata). Tile and content bounding volumes must maintain [spatial coherence](../../specification/#bounding-volume-spatial-coherence).
+The computed tile `boundingVolume` and `geometricError` can be overridden with [tile metadata](#tile-metadata), if desired. Content bounding volumes are not computed automatically but they may be provided by [content metadata](#content-metadata). Tile and content bounding volumes must maintain [spatial coherence](../../specification/README.md#bounding-volume-spatial-coherence).
 
 ## Tile Coordinates
 
@@ -301,7 +301,7 @@ Subtrees may also store metadata for tile content. Content metadata exists only 
 
 Content bounding volumes are not computed automatically by `3DTILES_implicit_tiling` but may be provided by properties with semantics `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, `CONTENT_BOUNDING_SPHERE`, `CONTENT_MINIMUM_HEIGHT`, and `CONTENT_MAXIMUM_HEIGHT`.
 
-If the tile content is assigned a [`group`](../3DTILES_metadata#content-group-properties) — such as with the `3DTILES_metadata` extension — all contents in the implicit tree are assigned to that group.
+If the tile content is assigned a [`group`](../3DTILES_metadata/README.md#content-group-properties) — such as with the `3DTILES_metadata` extension — all contents in the implicit tree are assigned to that group.
 
 #### Subtree Metadata
 
@@ -333,7 +333,7 @@ Content availability (`contentAvailability`) is an array of content availability
 
 Availability may be represented either as a bitstream or a constant value. `bitstream` is an integer index that identifies the buffer view containing the availability bistream. `constant` is an integer indicating whether all of the elements are available (`1`) or all are unavailable (`0`). `availableCount` is an integer indicating how many `1` bits exist in the availability bitstream.
 
-Availability bitstreams are packed in binary using the format described in the [Booleans](../../specification/Metadata#booleans) section of the 3D Metadata Specification.
+Availability bitstreams are packed in binary using the format described in the [Booleans](../../specification/Metadata/README.md#booleans) section of the 3D Metadata Specification.
 
 > **Example:** The JSON description of a subtree where each tile is available, but not all tiles have content, and not all child subtrees are available:
 > 
@@ -393,7 +393,7 @@ Subtree metadata (`subtreeMetadata`) is encoded in JSON according to the [JSON F
 
 Binary property values are stored in a **property table**. A property table must specify its class (`class`), which refers to a class ID in the `3DTILES_metadata` extension of root tileset JSON, a dictionary of properties (`properties`), where each key is a property ID correspond to a class property and each value is the index of the buffer view containing property values, and a count (`count`) for the number of elements in the property table. The property table may provide value arrays for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
 
-A property may override the [`minimum` and `maximum` values](../../specification/Metadata#minimum-and-maximum-values) and the [`offset` and `scale`](../../specification/Metadata#offset-and-scale) from the property definition in the class, to account for the actual range of values that is stored in the property table.
+A property may override the [`minimum` and `maximum` values](../../specification/Metadata/README.md#minimum-and-maximum-values) and the [`offset` and `scale`](../../specification/Metadata/README.md#offset-and-scale) from the property definition in the class, to account for the actual range of values that is stored in the property table.
 
 Array offsets (`arrayOffsets`) is required for variable-length arrays and string offsets (`stringOffsets`) is required for strings. For variable-length arrays of strings, both are required. `arrayOffsetType` describes the storage type for array offsets and `stringOffsetType` describes the storage type for string offsets. Allowed types are `UINT8`, `UINT16`, `UINT32`, and `UINT64`. The default is `UINT32`.
 

@@ -1,4 +1,4 @@
-### ⚠️ Point Cloud was deprecated in 3D Tiles 1.1. See [`pnts` migration guide](../glTF/#point-cloud-pnts). ⚠️
+### ⚠️ Point Cloud was deprecated in 3D Tiles 1.1. See [`pnts` migration guide](../glTF/README.md#point-cloud-pnts). ⚠️
 
 <!-- omit in toc -->
 # Point Cloud
