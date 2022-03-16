@@ -50,6 +50,7 @@ Acknowledgements:
 - [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
 - [Concepts](#concepts)
   - [Tiles](#tiles)
+    - [Tile Content](#tile-content)
     - [Geometric error](#geometric-error)
     - [Refinement](#refinement)
       - [Replacement](#replacement)
@@ -58,11 +59,11 @@ Acknowledgements:
       - [Region](#region)
       - [Box](#box)
       - [Sphere](#sphere)
+      - [Content Bounding Volume](#content-bounding-volume)
     - [Viewer request volume](#viewer-request-volume)
     - [Transforms](#transforms)
       - [Tile transforms](#tile-transforms)
       - [glTF transforms](#gltf-transforms)
-    - [Multiple contents](#multiple-contents)
     - [Tile JSON](#tile-json)
   - [Tileset JSON](#tileset-json)
     - [External tilesets](#external-tilesets)
@@ -170,6 +171,20 @@ The [region](#region) bounding volume specifies bounds using a geographic coordi
 
 Tiles consist of metadata used to determine if a tile is rendered, a reference to the renderable content, and an array of any children tiles.
 
+#### Tile Content
+
+A tile can be associated with renderable content. A tile can either have a single `tile.content` object, or multiple content objects, stored in a `tile.contents` array. The latter allows for flexible tileset structures: for example, a single tile may contain multiple representations of the same geometry data, one as a triangle mesh and one as a point cloud:
+
+![](figures/multiple-contents-geometry.png)
+
+The `content.uri` of each content object refers to the tile's binary content in one of the tile formats that are defined in the [Tile format specifications](#tile-format-specifications)), or another tileset JSON to create a tileset of tilesets (see [External tilesets](#external-tilesets)). 
+
+The `content.group` property assigns the content to a group. Contents of different tiles or the contents of a single tile can be assigned to groups in order to categorize the content. Additionally, each group can be associated with [Metadata](#metadata). This allows applications to perform styling or filtering based on the group that the content belongs to: 
+
+![](figures/filtering-groups.jpg)
+
+Each content can be associated with a bounding volume. While the `tile.boundingVolume` is a bounding volume encloses _all_ contents of the tile, each individual `content.boundingVolume` is a tightly fit bounding volume enclosing just the respective content. More details about the role of tile- and content bounding volumes are given in the [bounding volume](#bounding-volumes) section.
+
 #### Geometric error
 
 Tiles are structured into a tree incorporating _Hierarchical Level of Detail_ (HLOD) so that at runtime a client implementation will need to determine if a tile is sufficiently detailed for rendering and if the content of tiles should be successively refined by children tiles of higher resolution. An implementation will consider a maximum allowed _Screen-Space Error_ (SSE), the error measured in pixels.
@@ -264,6 +279,15 @@ The `boundingVolume.sphere` property is an array of four numbers that define a b
   ]
 }
 ```
+
+##### Content Bounding Volume
+
+The bounding volume can be given for each tile, via the `tile.boundingVolume` property. Additionally, it is possible to specify the bounding volume for each [tile content](#tile-content) individually. The `content.boundingVolume` may be a more tight-fitting bounding volume. This enables tight view frustum culling, excluding from rendering any content not in the volume of what is potentially in view. When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
+
+The screenshot below shows the bounding volumes for the root tile for Canary Wharf. The `tile.boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
+
+![](figures/contentsBox.png)
+
 
 <!-- omit in toc -->
 ##### Extensions
@@ -458,42 +482,6 @@ function computeTransform(tile, transformToRoot) {
 }
 ```
 
-#### Multiple contents
-
-A tile may have multiple contents. This allows more flexible tileset structures: for example, a single tile may contain multiple representations of the same geometry data, one as a triangle mesh and one as a point cloud:
-
-![](figures/multiple-contents-geometry.png)
-
-The contents can also be arranged into groups, and these groups can be associated with [group metadata](#content-group-properties) metadata. This allows applications to perform styling or filtering based on the group that the content belongs to, similar to map layers in mapping applications.
-
-```json
-{
-  "root": {
-    "refine": "ADD",
-    "geometricError": 0.0,
-    "boundingVolume": {
-      "region": [-1.707, 0.543, -1.706, 0.544, 203.895, 253.113]
-    },
-    "contents": [
-      {
-        "uri": "buildings.glb",
-        "group": 0
-      },
-      {
-        "uri": "trees.glb",
-        "group": 1
-      },
-      {
-        "uri": "cars.glb",
-        "group": 2
-      }
-    ]
-  }
-}
-```
-
-![](figures/filtering-groups.jpg)
-
 #### Tile JSON
 
 A tile JSON object consists of the following properties.
@@ -541,19 +529,37 @@ The optional `viewerRequestVolume` property (not shown above) defines a volume, 
 
 The `refine` property is a string that is either `"REPLACE"` for replacement refinement or `"ADD"` for additive refinement, see [Refinement](#refinement). It is required for the root tile of a tileset; it is optional for all other tiles. A tileset can use any combination of additive and replacement refinement. When the `refine` property is omitted, it is inherited from the parent tile.
 
-The `content` property is an object that contains metadata about the tile's renderable content. `content.uri` is a uri that points to the tile's binary content (see [Tile format specifications](#tile-format-specifications)), or another tileset JSON to create a tileset of tileset (see [External tilesets](#external-tilesets)).
+The `content` property is an object that describes the [tile content](#tile-content). A file extension is not required for `content.uri`. A content's [tile format](#tile-format-specifications) can be identified by the `magic` field in its header, or else as an external tileset if the content is JSON.
 
-A file extension is not required for `content.uri`. A content's [tile format](#tile-format-specifications) can be identified by the `magic` field in its header, or else as an external tileset if the content is JSON.
+The `content.boundingVolume` property defines an optional [bounding volume](#bounding-volumes) similar to the top-level `tile.boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's content. 
 
-The `content.boundingVolume` property defines an optional [bounding volume](#bounding-volumes) similar to the top-level `boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's content. `boundingVolume` provides spatial coherence and `content.boundingVolume` enables tight view frustum culling, excluding from rendering any content not in the volume of what is potentially in view. When it is not defined, the tile's bounding volume is still used for culling (see [Grids](#grids)).
-
-The screenshot below shows the bounding volumes for the root tile for Canary Wharf. `boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
-
-![](figures/contentsBox.png)
-
-The `content.group` property (not shown above) assigns the content to a group. The value is an index into the array of `groups`. See the [Multiple Contents](#multiple-contents) section.
-
-The `contents` property (not shown above) is an array containing one or more contents. `contents` and `content` are mutually exclusive. When a tile has a single content it should use `content` for backwards compatibility with engines that only support 3D Tiles 1.0. See the [Multiple Contents](#multiple-contents) section.
+It is also possible to define multiple contents for a tile: The `contents` property (not shown above) is an array containing one or more contents. `contents` and `content` are mutually exclusive. When a tile has a single content it should use `content` for backwards compatibility with engines that only support 3D Tiles 1.0. Contents can also be arranged into groups, using the `content.group` property:
+```json
+{
+  "root": {
+    "refine": "ADD",
+    "geometricError": 0.0,
+    "boundingVolume": {
+      "region": [-1.707, 0.543, -1.706, 0.544, 203.895, 253.113]
+    },
+    "contents": [
+      {
+        "uri": "buildings.glb",
+        "group": 0
+      },
+      {
+        "uri": "trees.glb",
+        "group": 1
+      },
+      {
+        "uri": "cars.glb",
+        "group": 2
+      }
+    ]
+  }
+}
+```
+These groups can be associated with group metadata: The value of the `content.group` property is an index into the array of `groups` that are defined in a top-level array of the tileset. Each element of this array is a metadata entity, as defined in the [metadata](#metadata) section.
 
 The optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transforms) section.
 
@@ -786,7 +792,7 @@ The metadata can be associated with elements of a tileset at various levels of g
 
 * **Tileset** - The tileset as a whole may be associated with global metadata. Common examples might include year of collection, author details, or other general context for the tileset contents.
 * **Tile** - Tiles may be individually associated with more specific metadata. This may be the timestamp when a tile was last updated or the maximum height of the tile, or spatial hints to optimize traversal algorithms.
-* **Groups** - Tile contents may be organized into groups (see: [Groups](#content-groups)) with shared metadata. Each group definition represents a metadata entity that can be assigned to the tile contents by specifying the index within this list as the `group` property of the content. This is useful for working with collections of contents as layers, e.g. to manage visibility or visual styling. 
+* **Groups** - Tile contents may be organized into groups. Each group definition represents a metadata entity that can be assigned to the tile contents by specifying the index within this list as the `group` property of the content. This is useful for working with collections of contents as layers, e.g. to manage visibility or visual styling. 
 * **Content** - Tile contents may be individually associated with more specific metadata, such as a list of attribution strings.
 * **Features** glTF 2.0 assets with feature metadata can be included as tile contents. The [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) extension allows associating metadata with vertices or texels. 
 
