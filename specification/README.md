@@ -173,15 +173,11 @@ Tiles consist of metadata used to determine if a tile is rendered, a reference t
 
 #### Tile Content
 
-A tile can be associated with renderable content. A tile can either have a single `tile.content` object, or multiple content objects, stored in a `tile.contents` array. The latter allows for flexible tileset structures: for example, a single tile may contain multiple representations of the same geometry data, one as a triangle mesh and one as a point cloud:
-
-![](figures/multiple-contents-geometry.png)
+A tile can be associated with renderable content. A tile can either have a single `tile.content` object, or multiple content objects, stored in a `tile.contents` array. The latter allows for flexible tileset structures: for example, a single tile may contain multiple representations of the same geometry data.
 
 The `content.uri` of each content object refers to the tile's binary content in one of the tile formats that are defined in the [Tile format specifications](#tile-format-specifications)), or another tileset JSON to create a tileset of tilesets (see [External tilesets](#external-tilesets)). 
 
-The `content.group` property assigns the content to a group. Contents of different tiles or the contents of a single tile can be assigned to groups in order to categorize the content. Additionally, each group can be associated with [Metadata](#metadata). This allows applications to perform styling or filtering based on the group that the content belongs to: 
-
-![](figures/filtering-groups.jpg)
+The `content.group` property assigns the content to a group. Contents of different tiles or the contents of a single tile can be assigned to groups in order to categorize the content. Additionally, each group can be associated with [Metadata](#metadata). 
 
 Each content can be associated with a bounding volume. While the `tile.boundingVolume` is a bounding volume encloses _all_ contents of the tile, each individual `content.boundingVolume` is a tightly fit bounding volume enclosing just the respective content. More details about the role of tile- and content bounding volumes are given in the [bounding volume](#bounding-volumes) section.
 
@@ -533,7 +529,11 @@ The `content` property is an object that describes the [tile content](#tile-cont
 
 The `content.boundingVolume` property defines an optional [bounding volume](#bounding-volumes) similar to the top-level `tile.boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's content. 
 
-It is also possible to define multiple contents for a tile: The `contents` property (not shown above) is an array containing one or more contents. `contents` and `content` are mutually exclusive. When a tile has a single content it should use `content` for backwards compatibility with engines that only support 3D Tiles 1.0. Contents can also be arranged into groups, using the `content.group` property:
+It is also possible to define multiple contents for a tile: The `contents` property (not shown above) is an array containing one or more contents. `contents` and `content` are mutually exclusive. When a tile has a single content it should use `content` for backwards compatibility with engines that only support 3D Tiles 1.0. Multiple contents allow for different representations of the tile content &mdash; for example, one as a triangle mesh and one as a point cloud:
+
+![](figures/multiple-contents-geometry.png)
+
+Contents can also be arranged into groups, using the `content.group` property:
 ```json
 {
   "root": {
@@ -559,7 +559,9 @@ It is also possible to define multiple contents for a tile: The `contents` prope
   }
 }
 ```
-These groups can be associated with group metadata: The value of the `content.group` property is an index into the array of `groups` that are defined in a top-level array of the tileset. Each element of this array is a metadata entity, as defined in the [metadata](#metadata) section.
+These groups can be associated with group metadata: The value of the `content.group` property is an index into the array of `groups` that are defined in a top-level array of the tileset. Each element of this array is a metadata entity, as defined in the [metadata](#metadata) section. This allows applications to perform styling or filtering based on the group that the content belongs to: 
+
+![](figures/filtering-groups.jpg)
 
 The optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the [Tile transform](#tile-transforms) section.
 
