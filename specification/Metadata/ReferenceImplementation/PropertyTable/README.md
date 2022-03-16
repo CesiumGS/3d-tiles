@@ -2,7 +2,7 @@
 
 The [3D Metadata Specification](../../README.md) defines schemas as a description of the structure of metadata, and different storage formats for the metadata. One form of storing metadata is that of a [Binary Table Format](../../README.md#binary-table-format), where the data is stored in a binary representation of a table. Each column of such a table represents one of the properties of a class. Each row represents a single entity conforming to the class. The following is the description of such a binary table format, referred to as **property table**. It is used as the basis for defining the metadata storage in the following implementations:
 
-* [3D Tiles Metadata Implicit Tilesets](TODO) - Assigns metadata to tilesets, tiles, groups, and contents in a 3D Tiles tileset. A property table is defined for subtrees of an implicit tile hierarchy, and stores metadata that is associated with the nodes of such a subtree.
+* [3D Tiles Metadata Implicit Tilesets](../../../ImplicitTiling) - Assigns metadata to tilesets, tiles, groups, and contents in a 3D Tiles tileset. A property table is defined for subtrees of an implicit tile hierarchy, and stores metadata that is associated with the nodes of such a subtree.
 * [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) — Assigns metadata to vertices, texels, and features in a glTF asset. A property table is defined in the top-level extension object. The property values are stored in standard glTF buffer views.
 
 The full JSON schema definition for this implementation can be found in [the PropertyTable directory of the specification](../../../schema/PropertyTable/).
@@ -42,7 +42,8 @@ The property table may provide value arrays for only a subset of the properties 
 
 Each property definition in a property table represents one column of the table. This column data is stored in binary form, using the encoding defined in the [Binary Table Format](../../README.md#binary-table-format) section of the 3D Metadata Specification. The actual data is stored in a binary buffer, and the property refers to a section of this buffer that is called a _buffer view_. 
 
-* In the [3D Tiles Metadata](TODO) implementation, a buffer view is defined as part of [subtrees in implicit tilesets](../../../ImplicitTiling/README.md#buffers-and-buffer-views).
+- In the [3D Tiles Metadata](../../../README.md#metadata) implementation, a buffer view is defined as part of [subtrees in implicit tilesets](../../../ImplicitTiling/README.md#buffers-and-buffer-views).
+- In the [`3DTILES_metadata`](../../../../extensions/3DTILES_metadata/) extension, a buffer view is defined as part of [subtrees the `3DTILES_implicit_tiling` extension](../../../../extensions/3DTILES_implicit_tiling/README.md#buffers-and-buffer-views).
 - In the [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata), a buffer view is a standard glTF buffer view. 
 
 The exact structure of each property entry depends on the [property type](../../README.md#property):

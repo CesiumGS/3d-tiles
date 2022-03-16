@@ -69,7 +69,8 @@ Many domains benefit from structured metadata — typical examples include histo
 
 The specification defines core concepts to be used by multiple 3D formats, and is language and format agnostic. This document defines concepts with purpose and terminology, but does not impose a particular schema or serialization format for implementation. For use of the format outside of abstract conceptual definitions, see:
 
-* [3D Tiles Metadata](TODO) - Assigns metadata to tilesets, tiles, and contents
+* [3D Tiles Metadata](../../specification/README.md#metadata) - Assigns metadata to tilesets, tiles, and contents in 3D Tiles 1.1
+* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata/) - An extension for 3D Tiles 1.0 that assigns metadata to tilesets, tiles, and contents
 * [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) (glTF 2.0) —  Assigns metadata to vertices, texels, and features in a glTF asset
 
 The specification does not enumerate or define the semantic meanings of metadata, and assumes that separate specifications will define semantics for their particular application or domain. One example is the [3D Metadata Semantic Reference](./Semantics/) which defines built-in semantics for 3D Tiles and glTF. Identifiers for externally-defined semantics can be stored within the 3D Metadata Specification.

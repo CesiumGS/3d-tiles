@@ -268,7 +268,7 @@ Subtrees may also store metadata for tile content. Content metadata exists only 
 
 Content bounding volumes are not computed automatically by implicit tiling but may be provided by properties with semantics `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, `CONTENT_BOUNDING_SPHERE`, `CONTENT_MINIMUM_HEIGHT`, and `CONTENT_MAXIMUM_HEIGHT`.
 
-If the tile content is assigned to a [`group`](TODO) then all contents in the implicit tree are assigned to that group.
+If the tile content is assigned to a [`group`](../../specification/README.md#tile-content) then all contents in the implicit tree are assigned to that group.
 
 #### Subtree Metadata
 

@@ -8,6 +8,7 @@ This document defines a reference implementation of the concepts defined in the 
 
 These serialization formats are used as a common basis for different implementations of the 3D Metadata Specification:
 
-* [3D Tiles Metadata](TODO) - Assigns metadata to tilesets, tiles, and contents
+* [3D Tiles Metadata](../../README.md#metadata) - Assigns metadata to tilesets, tiles, and contents in 3D Tiles 1.1
+* [`3DTILES_metadata`](../../../extensions/3DTILES_metadata/) - An extension for 3D Tiles 1.0 that assigns metadata to tilesets, tiles, and contents
 * [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) (glTF 2.0) —  Assigns metadata to vertices, texels, and features in a glTF asset
 
