@@ -1,5 +1,7 @@
 ## 3D Tiles Next Resources
 
+> **Note:** ⚠️ **3D Tiles Next** is a set of draft extensions to the 3D Tiles 1.0 specification. These extensions have become part of the core specification in 3D Tiles 1.1. Please refer to the [main 3D Tiles 1.1 specification](../specification/README.md) for the latest information about 3D Tiles 1.1 ⚠️
+
 **Introduction**
 
 * [**Introducing 3D Tiles Next, Streaming Geospatial to the Metaverse**](https://cesium.com/blog/2021/11/10/introducing-3d-tiles-next/) - the announcement of the publication of the 3D Tiles Next specification, summarizing the technical goals and application areas

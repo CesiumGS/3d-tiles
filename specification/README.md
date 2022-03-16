@@ -965,7 +965,7 @@ Tileset authors may define their own additional statistics, like `_mode` in the 
 
 ### Specifying extensions and application specific extras
 
-3D Tiles defines extensions to allow the base specification to have extensibility for new features, as well as extras to allow for application specific metadata.
+3D Tiles defines extensions to allow the base specification to have extensibility for new features.
 
 <!-- omit in toc -->
 #### Extensions

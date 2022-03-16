@@ -29,7 +29,7 @@ No, 3D Tiles is a general spec for streaming massive heterogeneous 3D geospatial
 
 [glTF](https://www.khronos.org/gltf) is an open standard for 3D models from Khronos (the same group that does WebGL and COLLADA).  CesiumJS uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter.  We recommend using glTF in CesiumJS for individual assets, e.g., an aircraft, a character, or a 3D building.
 
-We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive.  Given that glTF is optimized for rendering, that CesiumJS has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles often use glTF for tile content. Tiles may reference glTF models directly — with [`3DTILES_content_gltf`](./extensions/3DTILES_content_gltf) — or glTF models may be embedded in other tile formats such as [Batched 3D Model](./specification/TileFormats/Batched3DModel/README.md).
+We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive. Given that glTF is optimized for rendering, that CesiumJS has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles often use glTF for tile content. Tiles may reference glTF models directly, using the [glTF Tile Format](./specification/TileFormats/glTF/README.md).
 
 Taking this approach allows us to improve CesiumJS, glTF, and 3D Tiles at the same time. As new features and compression methods arrive in glTF, they benefit 3D models in CesiumJS, the glTF ecosystem, and 3D Tiles.
 
@@ -111,4 +111,4 @@ See [#11](https://github.com/CesiumGS/3d-tiles/issues/11).
 
 #### What compressed texture formats does 3D Tiles use?
 
-3D Tiles reference glTF tile content ([`3DTILES_content_gltf`](./extensions/3DTILES_content_gltf)), and the glTF format officially supports PNG, JPEG, and KTX2 / Basis Universal compressed textures ([`KHR_texture_basisu`](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_basisu)). Additional texture compression methods may be added to glTF in the future, as [glTF extensions](https://github.com/KhronosGroup/glTF/tree/main/extensions). Texture compression is generally applied offline, as it is often prohibitively expensive to do in JavaScript and Web Workers.
+3D Tiles reference glTF content via the [glTF Tile Format](./specification/TileFormats/glTF/README.md), and the glTF format officially supports PNG, JPEG, and KTX2 / Basis Universal compressed textures ([`KHR_texture_basisu`](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_basisu)). Additional texture compression methods may be added to glTF in the future, as [glTF extensions](https://github.com/KhronosGroup/glTF/tree/main/extensions). Texture compression is generally applied offline, as it is often prohibitively expensive to do in JavaScript and Web Workers.

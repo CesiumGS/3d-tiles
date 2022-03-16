@@ -2,9 +2,7 @@
 
 # 3D Tiles Next
 
-## Overview
-
-**3D Tiles Next** is a set of new capabilities for the future of 3D Tiles. Provided as draft extensions to the [3D Tiles 1.0](../specification) specification, these features may be incorporated into 3D Tiles 2.0 in the future.
+> **Note:** ⚠️ **3D Tiles Next** is a set of draft extensions to the [3D Tiles 1.0](../specification) specification. These extensions have become part of the core specification in 3D Tiles 1.1. Please refer to the [main 3D Tiles 1.1 specification](../specification/README.md) for the latest information about 3D Tiles 1.1 ⚠️
 
 ## Tile Content
 

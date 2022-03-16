@@ -1,6 +1,8 @@
 
 # 3D Tiles Next Reference Card
 
+> **Note:** ⚠️ **3D Tiles Next** is a set of draft extensions to the 3D Tiles 1.0 specification. These extensions have become part of the core specification in 3D Tiles 1.1. Please refer to the [main 3D Tiles 1.1 specification](../specification/README.md) for the latest information about 3D Tiles 1.1 ⚠️
+
 [![Reference Card pages](../figures/3d-tiles-next-reference-card-pages-combined-3x2.jpg)](../3d-tiles-next-reference-card.pdf)
 
 The [**3D Tiles Next Reference Card**](../3d-tiles-next-reference-card.pdf) is an overview of the new extensions that are introduced with 3D Tiles Next.
