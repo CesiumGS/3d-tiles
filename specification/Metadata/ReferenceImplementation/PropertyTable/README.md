@@ -86,4 +86,4 @@ Each buffer view `byteOffset` must be aligned to a multiple of the size of the [
 For the `arrayOffsets` and `stringOffsets` buffer views, the property can also define the `arrayOffsetType` and `stringOffsetType`, which describe the
 storage type for array- and string offsets, respectively. Allowed types are `UINT8`, `UINT16`, `UINT32`, and `UINT64`. The default is `UINT32`.
 
-A property may override the [`minimum` and `maximum` values](../Metadata#minimum-and-maximum-values) and the [`offset` and `scale`](../Metadata#offset-and-scale) from the property definition in the class, to account for the actual range of values that is stored in the property table.
+A property may override the [`minimum` and `maximum` values](../../README.md#minimum-and-maximum-values) and the [`offset` and `scale`](../../README.md#offset-and-scale) from the property definition in the class, to account for the actual range of values that is stored in the property table.

@@ -92,7 +92,7 @@ Metadata in 3D Tiles enables additional use cases and functionality for the form
 
 ### Overview
 
-[*Properties*](#class-property) describe attributes or characteristics of an *Entity* (tileset, tile, group, or content). [*Classes*](#class), provided by [*Schemas*](#schema), are templates defining the data types and meanings of properties. Each entity is a single instance of that class with specific values. Additionally, [*Statistics*](#statistics) may provide aggregate information about the distribution of property values within a particular class, and [*Semantics*](#semantics) may define usage and meaning of particular properties.
+[*Properties*](#class-property) describe attributes or characteristics of an *Entity* (tileset, tile, group, or content). [*Classes*](#class), provided by [*Schemas*](#schema), are templates defining the data types and meanings of properties. Each entity is a single instance of that class with specific values. Additionally, [*Statistics*](#statistics) may provide aggregate information about the distribution of property values within a particular class, and [*Semantics*](../../specification/Metadata/Semantics/README.md) may define usage and meaning of particular properties.
 
 ### Schema
 
@@ -241,7 +241,7 @@ Set of categorical types, defined as `(name, value)` pairs. Enum properties use 
 
 Enums are defined as entries in the `schema.enums` dictionary, indexed by enum ID. Enum IDs must be [identifiers](../../specification/Metadata/README.md#identifiers) as defined in the 3D Metadata Specification.
 
-> **Example:** A "quality" enum defining quality level of data within a tile. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: [3D Metadata → No Data Values](../../specification/Metadata#required-properties-and-no-data-values)) may be helpful to identify missing data.
+> **Example:** A "quality" enum defining quality level of data within a tile. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: [3D Metadata → No Data Values](../../specification/Metadata/README.md#required-properties-no-data-values-and-default-values)) may be helpful to identify missing data.
 >
 > ```jsonc
 > {
@@ -371,7 +371,7 @@ While [classes](#class) within a schema define the data types and meanings of pr
 
 Each property value assigned must be defined by a class property with the same property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
 
-Most property values are encoded as JSON within the entity. One notable exception is metadata assigned to implicit tiles and contents, stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/#metadata).
+Most property values are encoded as JSON within the entity. One notable exception is metadata assigned to implicit tiles and contents, stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/README.md#metadata).
 
 ### Tileset Properties
 
@@ -433,7 +433,7 @@ Property values may be assigned to individual tiles, including (for example) spa
 
 A `3DTILES_metadata` extension on a tile object must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
 
-Metadata assigned to implicit tiles is stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/#metadata).
+Metadata assigned to implicit tiles is stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/README.md#metadata).
 
 > **Example:**
 >
@@ -564,7 +564,7 @@ Property values may be assigned to individual tile contents, including (for exam
 
 A `3DTILES_metadata` extension on a content object must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
 
-Metadata assigned to implicit tile content is stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/#metadata).
+Metadata assigned to implicit tile content is stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/README.md#metadata).
 
 > **Example:**
 >
