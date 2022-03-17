@@ -24,7 +24,7 @@ No, 3D Tiles is an open standard for streaming massive heterogeneous 3D geospati
 
 #### What is the relationship between 3D Tiles and glTF?
 
-[glTF](https://www.khronos.org/gltf) is an open standard for 3D models from Khronos (the same group that does WebGL and COLLADA). CesiumJS uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF spec and open-source COLLADA2GLTF converter. We recommend using glTF in CesiumJS for individual assets, e.g., an aircraft, a character, or a 3D building.
+[glTF](https://www.khronos.org/gltf) is an open standard for 3D models from Khronos (the same group that does WebGL and COLLADA). CesiumJS uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF specification and open-source COLLADA2GLTF converter. We recommend using glTF in CesiumJS for individual assets, e.g., an aircraft, a character, or a 3D building.
 
 We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive. Given that glTF is optimized for rendering, that CesiumJS has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles often use glTF for tile content. Tiles may reference glTF models directly, using the [glTF Tile Format](./specification/TileFormats/glTF/README.md).
 
