@@ -109,17 +109,10 @@
         "boundingVolume",
         "geometricError"
     ],
-    "oneOf": [
-        {
-            "required": [
-                "content"
-            ]
-        },
-        {
-            "required": [
-                "contents"
-            ]
-        },
-        {}
-    ]
+    "not": {
+        "required": [
+            "content",
+            "contents"
+        ]
+    }
 }
