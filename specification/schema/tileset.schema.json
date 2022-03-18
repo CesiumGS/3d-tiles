@@ -94,22 +94,10 @@
         "geometricError",
         "root"
     ],
-    "oneOf": [
-        {
-            "description": "External schema, if any.",
-            "not": {
-                "required": [
-                    "schema"
-                ]
-            }
-        },
-        {
-            "description": "Internal schema, if any.",
-            "not": {
-                "required": [
-                    "schemaUri"
-                ]
-            }
-        }
-    ]
+    "not": {
+        "required": [
+            "schema",
+            "schemaUri"
+        ]
+    }
 }
