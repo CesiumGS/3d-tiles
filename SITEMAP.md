@@ -44,9 +44,6 @@
   - [3D Tiles Metadata](/extensions/3DTILES_metadata/README.md)
   - [Multiple Contents](/extensions/3DTILES_multiple_contents/README.md)
 
-
-[JSON Examples](/examples/)
-
 [3D Tiles Next](/next/README.md)
 - [3D Tiles Next Reference Card](/next/reference-card/README.md)
 

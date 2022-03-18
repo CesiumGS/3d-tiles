@@ -575,7 +575,7 @@ See [Property reference](#property-reference) for the tile JSON schema reference
 
 3D Tiles uses one main tileset JSON file as the entry point to define a tileset. Both entry and external tileset JSON files are not required to follow a specific naming convention.
 
-Here is a subset of the tileset JSON used for Canary Wharf (also see the complete file, [`tileset.json`](../examples/tileset.json)):
+Here is a subset of the tileset JSON used for Canary Wharf:
 ```json
 {
   "asset" : {

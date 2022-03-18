@@ -53,7 +53,7 @@ The [**3D Tiles Next Reference Card**](3d-tiles-next-reference-card.pdf) is an o
 
 3D Tiles Next is an open specification, and contributions and feedback are encouraged. Over the next several months, our focus on 3D Tiles Next is to solidify the draft specifications and continue to facilitate ecosystem growth, keeping specification design pragmatic based on implementation experience.
 
-Issues and pull requests are welcome on this repository. Please see our guidelines for contributing in [CONTRIBUTING.md](../CONTRIBUTING.md).
+Issues and pull requests are welcome on this repository.
 
 ## Logo
 
