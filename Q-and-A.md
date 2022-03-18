@@ -38,7 +38,7 @@ The general case runtime editing of geometry on a building, vector data, etc., a
 
 #### Will 3D Tiles replace KML?
 
-In many cases, yes. KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web. 3D Tiles is built for the web and optimized for streaming. It uses true HLOD and does not need to triangulate polygons on the client side. The [Cesium ion](https://cesium.com/ion/) platform allows uploading many different file formats, including KML, and convert them into 3D Tiles for efficient streaming. 
+In many cases, yes. KML regions and network links are a clunky approach to streaming massive 3D geospatial datasets on the web. 3D Tiles is built for the web and optimized for streaming. It uses true HLOD and does not need to triangulate polygons on the client side.
 
 ### Technical Q&A
 
