@@ -25,17 +25,5 @@ The [common](common) directory contains common definitions that are used by all 
 
 ## Usage
 
-> **NOTE:** This section will have to be updated with further details about the usage of `ajv-cli`, and further examples.
+A JSON object can be validated against the schema using a JSON schema validator such as [Ajv JSON schema validator](https://github.com/ajv-validator/ajv), which supports JSON Schema 2020-12. A command-line tool is available on npm as [ajv-cli](https://www.npmjs.com/package/ajv-cli). Validating against the schema does not prove full compliance with the 3D Tiles specification since not all requirements can be represented with JSON schema.
 
-A JSON object can be validated against the schema using a JSON schema validator such as [Ajv JSON schema validator](https://github.com/ajv-validator/ajv), which supports JSON Schema 2020-12.  A command-line tool is available on npm as [ajv-cli](https://www.npmjs.com/package/ajv-cli).
-
-Validating against the schema does not prove full compliance with the 3D Tiles specification since not all requirements can be represented with JSON schema.  For full compliance validation, see [3d-tiles-validator](https://github.com/CesiumGS/3d-tiles-validator/).
-
-### Example
-
-1. Install : `npm install ajv-cli -g`
-2. Validate : `ajv -s schema/TileFormats/i3dm.featureTable.schema.json -r schema/TileFormats/featureTable.schema.json -d examples/i3dm.featureTable.json`
-
-* The `-s` flag points to the schema you want to use for validation. 
-* Multiple `-r` flags includes any external dependencies for the schema.
-* The `-d` flag points to the JSON to validate.

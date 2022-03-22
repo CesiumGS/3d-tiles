@@ -1,27 +1,62 @@
 ## 3D Tiles Resources
 
-* [**Introducing 3D Tiles**](https://cesium.com/blog/2015/08/10/introducing-3d-tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
-* [**3D Tiles Reference Card**](./3d-tiles-reference-card.pdf) - an approachable and concise guide to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles into runtime engines.
-* [**The Next Generation of 3D Tiles**](https://cesium.com/blog/2017/07/12/the-next-generation-of-3d-tiles/) - future plans for 3D Tiles.
-* [**3D Tiles Q&A**](./Q-and-A.md)
+- 3D Tiles 1.0:
+  - [**Introducing 3D Tiles**](https://cesium.com/blog/2015/08/10/introducing-3d-tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
+  - [**3D Tiles Reference Card**](./3d-tiles-reference-card.pdf) - an approachable and concise guide to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles into runtime engines.
+  - [**The Next Generation of 3D Tiles**](https://cesium.com/blog/2017/07/12/the-next-generation-of-3d-tiles/) - future plans for 3D Tiles.
 
-**Selected Talks**
-   * _3D Tiles in Action_ ([pdf](https://cesium.com/presentations/files/3DTilesInAction.pdf)) at FOSS4G 2017.
-   * _Point Clouds with 3D Tiles_ ([pdf](https://cesium.com/presentations/files/PointCloudsWith3DTiles.pdf)) at the OGC Technical Committee Meeting (June 2017).
-   * _The Open Cesium 3D Tiles Specification: Bringing Massive Geospatial 3D Scenes to the Web_ ([pptx](https://cesium.com/presentations/files/Web3D-2016-3DTilesTutorial.pptx), [example tilesets](https://github.com/CesiumGS/3d-tiles-samples)) at Web3D 2016.  90-minute technical tutorial.
-   * _3D Tiles: Beyond 2D Tiling_ ([pdf](https://cesium.com/presentations/files/FOSS4GNA2016/3DTiles.pdf), [video](https://www.youtube.com/watch?v=I1vYCrMKKEE)) at FOSS4G NA 2016.
-   * _3D Tiles motivation and ecosystem update_ ([pdf](https://cesium.com/presentations/files/3D-Tiles-OGC-DC.pdf)) at the OGC Technical Committee Meeting (March 2016).
-   * _3D Tiles intro_ ([pdf](https://cesium.com/presentations/files/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
+- [**3D Tiles Q&A**](./Q-and-A.md)
 
-**Selected Articles**
-   * [Millimeter Precision Point Clouds with Cesium and 3D Tiles](https://cesium.com/blog/2018/06/27/millimeter-precision-point-clouds/). June 2018
-   * [OneSky Using Cesium / 3D Tiles For Volumetric Airspace Visualization](https://cesium.com/blog/2018/04/13/onesky-3dtiles/). April 2018.
-   * [Cesium's Participation in OGC Testbed 13](https://cesium.com/blog/2018/02/06/citygml-testbed-13/). February 2018.
-   * [Aerometrex and 3D Tiles](https://cesium.com/blog/2017/07/26/aerometrex-melbourne/). July 2017.
-   * [Skipping Levels of Detail](https://cesium.com/blog/2017/05/05/skipping-levels-of-detail/). May 2017.
-   * [Infrastructure Visualisation using 3D Tiles](https://cesium.com/blog/2017/04/12/site-see-3d-tiles/). April 2017.
-   * [Optimizing Spatial Subdivisions in Practice](https://cesium.com/blog/2017/04/04/spatial-subdivision-in-practice/). April 2017.
-   * [Optimizing Subdivisions in Spatial Data Structures](https://cesium.com/blog/2017/03/30/spatial-subdivision/). March 2017.
-   * [What's new in 3D Tiles?](https://cesium.com/blog/2017/03/29/whats-new-in-3d-tiles/) March 2017.
-   * [Streaming 3D Capture Data using 3D Tiles](https://cesium.com/blog/2017/03/06/3d-scans/). March 2017.
-   * [Visualizing Massive Models using 3D Tiles](https://cesium.com/blog/2017/02/21/massive-models/). February 2017.
+### Implementations
+
+- [CesiumJS](https://github.com/CesiumGS/cesium)
+- [cesium-native](https://github.com/CesiumGS/cesium-native)
+
+### General Developer Resources
+
+- [The 3D Tiles Specification](specification/) - The full specification of 3D Tiles
+- [3D Tiles Samples](https://github.com/CesiumGS/3d-tiles-samples) - Sample tilesets that show basic features of 3D Tiles, serving as test- and demo cases for implementations of the 3D Tiles standard
+
+### Selected Talks
+
+- _Introducing 3D Tiles Next_, at Web3D Conference 2021. [Video and slides](https://cesium.com/learn/presentations/#web3d-conference-2021)
+- _3D Tiles in Action_ ([pdf](https://cesium.com/presentations/files/3DTilesInAction.pdf)) at FOSS4G 2017.
+- _Point Clouds with 3D Tiles_ ([pdf](https://cesium.com/presentations/files/PointCloudsWith3DTiles.pdf)) at the OGC Technical Committee Meeting (June 2017).
+- _The Open Cesium 3D Tiles Specification: Bringing Massive Geospatial 3D Scenes to the Web_ ([pptx](https://cesium.com/presentations/files/Web3D-2016-3DTilesTutorial.pptx), [example tilesets](https://github.com/CesiumGS/3d-tiles-samples)) at Web3D 2016.  90-minute technical tutorial.
+- _3D Tiles: Beyond 2D Tiling_ ([pdf](https://cesium.com/presentations/files/FOSS4GNA2016/3DTiles.pdf), [video](https://www.youtube.com/watch?v=I1vYCrMKKEE)) at FOSS4G NA 2016.
+- _3D Tiles motivation and ecosystem update_ ([pdf](https://cesium.com/presentations/files/3D-Tiles-OGC-DC.pdf)) at the OGC Technical Committee Meeting (March 2016).
+- _3D Tiles intro_ ([pdf](https://cesium.com/presentations/files/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
+
+### Selected Articles
+
+- [Millimeter Precision Point Clouds with Cesium and 3D Tiles](https://cesium.com/blog/2018/06/27/millimeter-precision-point-clouds/). June 2018
+- [OneSky Using Cesium / 3D Tiles For Volumetric Airspace Visualization](https://cesium.com/blog/2018/04/13/onesky-3dtiles/). April 2018.
+- [Cesium's Participation in OGC Testbed 13](https://cesium.com/blog/2018/02/06/citygml-testbed-13/). February 2018.
+- [Aerometrex and 3D Tiles](https://cesium.com/blog/2017/07/26/aerometrex-melbourne/). July 2017.
+- [Skipping Levels of Detail](https://cesium.com/blog/2017/05/05/skipping-levels-of-detail/). May 2017.
+- [Infrastructure Visualisation using 3D Tiles](https://cesium.com/blog/2017/04/12/site-see-3d-tiles/). April 2017.
+- [Optimizing Spatial Subdivisions in Practice](https://cesium.com/blog/2017/04/04/spatial-subdivision-in-practice/). April 2017.
+- [Optimizing Subdivisions in Spatial Data Structures](https://cesium.com/blog/2017/03/30/spatial-subdivision/). March 2017.
+- [What's new in 3D Tiles?](https://cesium.com/blog/2017/03/29/whats-new-in-3d-tiles/) March 2017.
+- [Streaming 3D Capture Data using 3D Tiles](https://cesium.com/blog/2017/03/06/3d-scans/). March 2017.
+- [Visualizing Massive Models using 3D Tiles](https://cesium.com/blog/2017/02/21/massive-models/). February 2017.
+
+
+
+---
+
+### 3D Tiles Next Resources
+
+3D Tiles Next is set of draft extensions that became part of 3D Tiles 1.0
+
+- [**Introducing 3D Tiles Next, Streaming Geospatial to the Metaverse**](https://cesium.com/blog/2021/11/10/introducing-3d-tiles-next/) - the announcement of the publication of the 3D Tiles Next specification, summarizing the technical goals and application areas
+- [**3D Tiles Next Reference Card**](./3d-tiles-next-reference-card.pdf) - a guide to learning about the new concepts that have been introduced with 3D Tiles Next
+
+#### Demos
+
+- Demos that have been published based on the experimental 3D Tiles Next support in the [CesiumJS 1.87.1 Release:](https://github.com/CesiumGS/cesium/blob/main/CHANGES.md#1871---2021-11-09)
+
+  - [Photogrammetry Classification Demo](https://demos.cesium.com/ferry-building)
+  - [Property Textures Demo](https://demos.cesium.com/owt-uncertainty)
+  - [S2 Base Globe Demo](https://demos.cesium.com/owt-globe)
+  - [CDB Yemen Demo](https://demos.cesium.com/cdb-yemen)

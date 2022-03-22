@@ -2,7 +2,7 @@
 
 # 3D Tiles Next
 
-> **Note:** ⚠️ **3D Tiles Next** is a set of draft extensions to the [3D Tiles 1.0](../specification) specification. These extensions have become part of the core specification in 3D Tiles 1.1. Please refer to the [main 3D Tiles 1.1 specification](../specification/README.md) for the latest information about 3D Tiles 1.1 ⚠️
+> **Note:** ⚠️ **3D Tiles Next** is a set of draft extensions to the 3D Tiles 1.0 specification. These extensions have become part of the core specification in 3D Tiles 1.1. Please refer to the [main 3D Tiles 1.1 specification](../specification/README.md) for the latest information about 3D Tiles 1.1 ⚠️
 
 ## Tile Content
 
@@ -53,7 +53,7 @@ The [**3D Tiles Next Reference Card**](3d-tiles-next-reference-card.pdf) is an o
 
 3D Tiles Next is an open specification, and contributions and feedback are encouraged. Over the next several months, our focus on 3D Tiles Next is to solidify the draft specifications and continue to facilitate ecosystem growth, keeping specification design pragmatic based on implementation experience.
 
-Issues and pull requests are welcome on this repository. Please see our guidelines for contributing in [CONTRIBUTING.md](../CONTRIBUTING.md).
+Issues and pull requests are welcome on this repository.
 
 ## Logo
 
