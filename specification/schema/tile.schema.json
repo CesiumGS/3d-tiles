@@ -78,19 +78,11 @@
             "minItems": 1
         },
         "metadata": {
-            "allOf": [
-                {
-                    "$ref": "metadataEntity.schema.json"
-                }
-            ],
+            "$ref": "metadataEntity.schema.json",
             "description": "A metadata entity that is associated with this tile."
         },
         "implicitTiling": {
-            "allOf": [
-                {
-                    "$ref": "tile.implicitTiling.schema.json"
-                }
-            ],
+            "$ref": "tile.implicitTiling.schema.json",
             "description": "An object that describes the implicit subdivision of this tile."
         },
         "children": {

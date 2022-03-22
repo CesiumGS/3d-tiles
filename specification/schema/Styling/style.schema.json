@@ -42,11 +42,7 @@
             "default": "color('#FFFFFF')"
         },
         "meta": {
-            "allOf": [
-                {
-                    "$ref": "style.meta.schema.json"
-                }
-            ],
+            "$ref": "style.meta.schema.json",
             "description": "A `meta` object which determines the values of non-visual properties of the feature."
         },
         "extensions": {},
