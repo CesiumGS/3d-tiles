@@ -3,7 +3,7 @@
     "$id": "propertyTable.property.schema.json",
     "title": "Property Table Property",
     "type": "object",
-    "description": "An array of binary property values.",
+    "description": "An array of binary property values. This represents one column of a property table, and contains one value of a certain property for each metadata entity.",
     "allOf": [
         {
             "$ref": "rootProperty.schema.json"

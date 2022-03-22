@@ -65,13 +65,13 @@
             ]
         },
         "content": {
-            "description": "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling.",
+            "description": "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. When this is defined, then `contents` must be undefined.",
             "$ref": "content.schema.json",
             "deprecated": true
         },
         "contents": {
             "type": "array",
-            "description": "An array of contents.",
+            "description": "An array of contents. When this is defined, then `content` must be undefined.",
             "items": {
                 "$ref": "content.schema.json"
             },
@@ -83,7 +83,7 @@
                     "$ref": "metadataEntity.schema.json"
                 }
             ],
-            "description": "Tile metadata."
+            "description": "A metadata entity that is associated with this tile."
         },
         "implicitTiling": {
             "allOf": [
@@ -91,7 +91,7 @@
                     "$ref": "tile.implicitTiling.schema.json"
                 }
             ],
-            "description": "Implicit tiling."
+            "description": "An object that describes the implicit subdivision of this tile."
         },
         "children": {
             "type": "array",

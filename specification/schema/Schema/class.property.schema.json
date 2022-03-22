@@ -3,7 +3,7 @@
     "$id": "class.property.schema.json",
     "title": "Class Property",
     "type": "object",
-    "description": "A class property.",
+    "description": "A single property of a metadata class.",
     "allOf": [
         {
             "$ref": "rootProperty.schema.json"
@@ -108,7 +108,7 @@
         "count": {
             "type": "integer",
             "minimum": 2,
-            "description": "The number of array elements. May only be defined when `array` is true."
+            "description": "The number of array elements. May only be defined when `array` is `true`."
         },
         "normalized": {
             "type": "boolean",

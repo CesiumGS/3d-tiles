@@ -24,7 +24,7 @@
                     "$ref": "metadataEntity.schema.json"
                 }
             ],
-            "description": "Content metadata."
+            "description": "Metadata that is associated with this content."
         },
         "group": {
             "type": "integer",

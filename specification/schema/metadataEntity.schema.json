@@ -12,7 +12,7 @@
     "properties": {
         "class": {
             "type": "string",
-            "description": "The class that property values conform to. The value must be a class ID declared in the `classes` dictionary."
+            "description": "The class that property values conform to. The value must be a class ID declared in the `classes` dictionary of the metadata schema."
         },
         "properties": {
             "type": "object",
