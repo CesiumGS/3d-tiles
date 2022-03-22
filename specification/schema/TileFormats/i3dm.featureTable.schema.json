@@ -4,6 +4,7 @@
     "title": "Instanced 3D Model Feature Table",
     "type": "object",
     "description": "A set of Instanced 3D Model semantics that contains values defining the position and appearance properties for instanced models in a tile.",
+    "deprecated" : true,
     "allOf": [
         {
             "$ref": "featureTable.schema.json"
