@@ -4,7 +4,7 @@
     "title": "Batched 3D Model Feature Table",
     "type": "object",
     "description": "A set of Batched 3D Model semantics that contain additional information about features in a tile.",
-    "deprecated" : true,
+    "deprecated": true,
     "allOf": [
         {
             "$ref": "featureTable.schema.json"

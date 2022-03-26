@@ -4,7 +4,7 @@
     "title": "Batch Table",
     "type": "object",
     "description": "A set of properties defining application-specific metadata for features in a tile.",
-    "deprecated" : true,
+    "deprecated": true,
     "allOf": [
         {
             "$ref": "rootProperty.schema.json"

@@ -4,7 +4,7 @@
     "title": "Point Cloud Feature Table",
     "type": "object",
     "description": "A set of Point Cloud semantics that contains values defining the position and appearance properties for points in a tile.",
-    "deprecated" : true,
+    "deprecated": true,
     "allOf": [
         {
             "$ref": "featureTable.schema.json"

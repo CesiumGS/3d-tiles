@@ -4,7 +4,7 @@
     "title": "Feature Table",
     "type": "object",
     "description": "A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.",
-    "deprecated" : true,
+    "deprecated": true,
     "allOf": [
         {
             "$ref": "rootProperty.schema.json"
