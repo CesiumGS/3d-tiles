@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "subtreeMetadata.schema.json",
     "title": "Subtree Metadata",
-    "type": "object",
+    "$ref": "subtreeProperty.schema.json",
     "description": "An object containing a reference to a class from a metadata schema, and property values that conform to the properties of that class.",
-    "allOf": [
-        {
-            "$ref": "subtreeProperty.schema.json"
-        }
-    ],
     "properties": {
         "class": {
             "type": "string",

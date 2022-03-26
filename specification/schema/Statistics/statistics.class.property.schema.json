@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "statistics.class.property.schema.json",
     "title": "Property Statistics",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "Statistics about property values.",
-    "allOf": [
-        {
-            "$ref": "rootProperty.schema.json"
-        }
-    ],
     "properties": {
         "min": {
             "$ref": "definitions.schema.json#/definitions/numericValue",

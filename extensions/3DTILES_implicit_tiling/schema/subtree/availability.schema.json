@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "availability.schema.json",
     "title": "Availability",
-    "type": "object",
+    "$ref": "subtreeProperty.schema.json",
     "description": "An object describing the availability of a set of elements.",
-    "allOf": [
-        {
-            "$ref": "subtreeProperty.schema.json"
-        }
-    ],
     "properties": {
         "bitstream": {
             "description": "Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the [3D Metadata specification](../../specification/Metadata). If an element is available, its bit is 1, and if it is unavailable, its bit is 0.",

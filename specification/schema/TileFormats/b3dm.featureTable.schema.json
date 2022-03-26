@@ -12,20 +12,12 @@
         {
             "properties": {
                 "BATCH_LENGTH": {
-                    "description": "A `GlobalPropertyInteger` object defining an integer property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).",
-                    "allOf": [
-                        {
-                            "$ref": "featureTable.schema.json#/definitions/globalPropertyInteger"
-                        }
-                    ]
+                    "$ref": "featureTable.schema.json#/definitions/globalPropertyInteger",
+                    "description": "A `GlobalPropertyInteger` object defining an integer property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics)."
                 },
                 "RTC_CENTER": {
-                    "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics).",
-                    "allOf": [
-                        {
-                            "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3"
-                        }
-                    ]
+                    "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3",
+                    "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Batched3DModel/README.md#semantics)."
                 },
                 "extensions": {},
                 "extras": {}

@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "style.meta.schema.json",
     "title": "Meta",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "A series of property names and the `expression` to evaluate for the value of that property.",
-    "allOf": [
-        {
-            "$ref": "rootProperty.schema.json"
-        }
-    ],
     "additionalProperties": {
         "$ref": "style.expression.schema.json"
     }

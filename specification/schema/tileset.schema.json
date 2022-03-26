@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tileset.schema.json",
     "title": "Tileset",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "A 3D Tiles tileset.",
-    "allOf": [
-        {
-            "$ref": "rootProperty.schema.json"
-        }
-    ],
     "properties": {
         "asset": {
             "description": "Metadata about the entire tileset.",
@@ -23,11 +18,7 @@
             "deprecated": true
         },
         "schema": {
-            "allOf": [
-                {
-                    "$ref": "schema.schema.json"
-                }
-            ],
+            "$ref": "schema.schema.json",
             "description": "An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` must be undefined."
         },
         "schemaUri": {
@@ -36,11 +27,7 @@
             "format": "iri-reference"
         },
         "statistics": {
-            "allOf": [
-                {
-                    "$ref": "statistics.schema.json"
-                }
-            ],
+            "$ref": "statistics.schema.json",
             "description": "An object containing statistics about metadata entities."
         },
         "groups": {
@@ -52,11 +39,7 @@
             "minItems": 1
         },
         "metadata": {
-            "allOf": [
-                {
-                    "$ref": "metadataEntity.schema.json"
-                }
-            ],
+            "$ref": "metadataEntity.schema.json",
             "description": "A metadata entity that is associated with this tileset."
         },
         "geometricError": {

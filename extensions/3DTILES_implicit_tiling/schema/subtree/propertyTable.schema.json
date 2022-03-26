@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "propertyTable.schema.json",
     "title": "Property Table",
-    "type": "object",
+    "$ref": "subtreeProperty.schema.json",
     "description": "Properties conforming to a class, organized as property values stored in binary columnar arrays.",
-    "allOf": [
-        {
-            "$ref": "subtreeProperty.schema.json"
-        }
-    ],
     "properties": {
         "name": {
             "type": "string",

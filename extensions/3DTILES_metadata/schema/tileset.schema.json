@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tilesetMetadata.schema.json",
     "title": "Tileset Metadata",
-    "type": "object",
+    "$ref": "metadataEntity.schema.json",
     "description": "An object containing metadata about the tileset.",
-    "allOf": [
-        {
-            "$ref": "metadataEntity.schema.json"
-        }
-    ],
     "properties": {
         "class": {},
         "properties": {},

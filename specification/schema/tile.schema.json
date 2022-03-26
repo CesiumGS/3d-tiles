@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tile.schema.json",
     "title": "Tile",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "A tile in a 3D Tiles tileset.",
-    "allOf": [
-        {
-            "$ref": "rootProperty.schema.json"
-        }
-    ],
     "properties": {
         "boundingVolume": {
             "description": "The bounding volume that encloses the tile.",

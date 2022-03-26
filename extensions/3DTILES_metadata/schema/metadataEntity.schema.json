@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "metadataEntity.schema.json",
     "title": "Metadata Entity",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "An object containing a reference to a class from a metadata schema, and property values that conform to the properties of that class.",
-    "allOf": [
-        {
-            "$ref": "rootProperty.schema.json"
-        }
-    ],
     "properties": {
         "class": {
             "type": "string",
