@@ -66,8 +66,7 @@
         },
         "content": {
             "description": "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. When this is defined, then `contents` must be undefined.",
-            "$ref": "content.schema.json",
-            "deprecated": true
+            "$ref": "content.schema.json"
         },
         "contents": {
             "type": "array",
