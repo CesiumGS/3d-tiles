@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "buffer.schema.json",
     "title": "Buffer",
-    "type": "object",
+    "$ref": "subtreeProperty.schema.json",
     "description": "A buffer is a binary blob. It is either the binary chunk of the subtree file, or an external buffer referenced by a URI.",
-    "allOf": [
-        {
-            "$ref": "subtreeProperty.schema.json"
-        }
-    ],
     "properties": {
         "uri": {
             "type": "string",
@@ -24,9 +19,7 @@
             "type": "string",
             "minLength": 1,
             "description": "The name of the buffer."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "byteLength"

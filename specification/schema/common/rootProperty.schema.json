@@ -3,6 +3,7 @@
     "$id": "rootProperty.schema.json",
     "title": "Root Property",
     "type": "object",
+    "description": "A basis for storing extensions and extras.",
     "properties": {
         "extensions": {
             "$ref": "extension.schema.json"

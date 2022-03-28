@@ -2,20 +2,6 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "group.schema.json",
     "title": "Group Metadata",
-    "type": "object",
-    "description": "An object containing metadata about a group.",
-    "allOf": [
-        {
-            "$ref": "metadataEntity.schema.json"
-        }
-    ],
-    "properties": {
-        "class": {},
-        "properties": {},
-        "extensions": {},
-        "extras": {}
-    },
-    "required": [
-        "id"
-    ]
+    "$ref": "metadataEntity.schema.json",
+    "description": "An object containing metadata about a group."
 }

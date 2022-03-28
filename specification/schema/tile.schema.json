@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tile.schema.json",
     "title": "Tile",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "A tile in a 3D Tiles tileset.",
-    "allOf": [
-        {
-            "$ref": "rootProperty.schema.json"
-        }
-    ],
     "properties": {
         "boundingVolume": {
             "description": "The bounding volume that encloses the tile.",
@@ -65,33 +60,24 @@
             ]
         },
         "content": {
-            "description": "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling.",
-            "$ref": "content.schema.json",
-            "deprecated": true
+            "description": "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. When this is defined, then `contents` must be undefined.",
+            "$ref": "content.schema.json"
         },
         "contents": {
             "type": "array",
-            "description": "An array of contents.",
+            "description": "An array of contents. When this is defined, then `content` must be undefined.",
             "items": {
                 "$ref": "content.schema.json"
             },
             "minItems": 1
         },
         "metadata": {
-            "allOf": [
-                {
-                    "$ref": "metadataEntity.schema.json"
-                }
-            ],
-            "description": "Tile metadata."
+            "$ref": "metadataEntity.schema.json",
+            "description": "A metadata entity that is associated with this tile."
         },
         "implicitTiling": {
-            "allOf": [
-                {
-                    "$ref": "tile.implicitTiling.schema.json"
-                }
-            ],
-            "description": "Implicit tiling."
+            "$ref": "tile.implicitTiling.schema.json",
+            "description": "An object that describes the implicit subdivision of this tile."
         },
         "children": {
             "type": "array",
@@ -101,9 +87,7 @@
             },
             "uniqueItems": true,
             "minItems": 1
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "boundingVolume",

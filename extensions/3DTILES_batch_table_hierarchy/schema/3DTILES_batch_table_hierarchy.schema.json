@@ -2,23 +2,13 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "3DTILES_batch_table_hierarchy.schema.json",
     "title": "3DTILES_batch_table_hierarchy extension",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "3D Tiles extension for representing metadata hierarchies.",
-    "allOf": [
-        {
-            "$ref": "rootProperty.schema.json"
-        }
-    ],
     "properties": {
         "classes": {
             "type": "array",
             "items": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "rootProperty.schema.json"
-                    }
-                ],
+                "$ref": "rootProperty.schema.json",
                 "properties": {
                     "name": {
                         "type": "string"
@@ -32,9 +22,7 @@
                         "additionalProperties": {
                             "$ref": "#/definitions/property"
                         }
-                    },
-                    "extensions": {},
-                    "extras": {}
+                    }
                 },
                 "required": [
                     "name",
@@ -55,18 +43,11 @@
         },
         "parentIds": {
             "$ref": "#/definitions/integerProperty"
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "definitions": {
         "binaryBodyReference": {
-            "type": "object",
-            "allOf": [
-                {
-                    "$ref": "rootProperty.schema.json"
-                }
-            ],
+            "$ref": "rootProperty.schema.json",
             "properties": {
                 "byteOffset": {
                     "type": "integer",
@@ -121,9 +102,7 @@
                             "type": "string"
                         }
                     ]
-                },
-                "extensions": {},
-                "extras": {}
+                }
             },
             "required": [
                 "byteOffset",
@@ -149,12 +128,7 @@
             }
         },
         "integerBinaryBodyReference": {
-            "type": "object",
-            "allOf": [
-                {
-                    "$ref": "rootProperty.schema.json"
-                }
-            ],
+            "$ref": "rootProperty.schema.json",
             "properties": {
                 "byteOffset": {
                     "type": "integer",
@@ -175,9 +149,7 @@
                             "type": "string"
                         }
                     ]
-                },
-                "extensions": {},
-                "extras": {}
+                }
             },
             "required": [
                 "byteOffset"

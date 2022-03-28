@@ -2,26 +2,17 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "featureTable.schema.json",
     "title": "Feature Table",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.",
-    "allOf": [
-        {
-            "$ref": "rootProperty.schema.json"
-        }
-    ],
+    "deprecated": true,
     "additionalProperties": {
         "$ref": "#/definitions/property"
     },
     "definitions": {
         "binaryBodyReference": {
             "title": "BinaryBodyReference",
-            "type": "object",
+            "$ref": "rootProperty.schema.json",
             "description": "An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
-            "allOf": [
-                {
-                    "$ref": "rootProperty.schema.json"
-                }
-            ],
             "properties": {
                 "byteOffset": {
                     "type": "integer",
@@ -59,9 +50,7 @@
                             "type": "string"
                         }
                     ]
-                },
-                "extensions": {},
-                "extras": {}
+                }
             },
             "required": [
                 "byteOffset"
@@ -147,20 +136,13 @@
             "description": "An object defining a global 3-component numeric property values for all features.",
             "oneOf": [
                 {
-                    "type": "object",
-                    "allOf": [
-                        {
-                            "$ref": "rootProperty.schema.json"
-                        }
-                    ],
+                    "$ref": "rootProperty.schema.json",
                     "properties": {
                         "byteOffset": {
                             "type": "integer",
                             "description": "The offset into the buffer in bytes.",
                             "minimum": 0
-                        },
-                        "extensions": {},
-                        "extras": {}
+                        }
                     },
                     "required": [
                         "byteOffset"
@@ -181,20 +163,13 @@
             "description": "An object defining a global 4-component numeric property values for all features.",
             "oneOf": [
                 {
-                    "type": "object",
-                    "allOf": [
-                        {
-                            "$ref": "rootProperty.schema.json"
-                        }
-                    ],
+                    "$ref": "rootProperty.schema.json",
                     "properties": {
                         "byteOffset": {
                             "type": "integer",
                             "description": "The offset into the buffer in bytes.",
                             "minimum": 0
-                        },
-                        "extensions": {},
-                        "extras": {}
+                        }
                     },
                     "required": [
                         "byteOffset"

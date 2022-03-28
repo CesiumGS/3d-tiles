@@ -2,20 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tileset.3DTILES_metadata.schema.json",
     "title": "3DTILES_metadata 3D Tiles extension",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "3D Tiles extension that defines metadata for a tileset.",
-    "allOf": [
-        {
-            "$ref": "rootProperty.schema.json"
-        }
-    ],
     "properties": {
         "schema": {
-            "allOf": [
-                {
-                    "$ref": "schema.schema.json"
-                }
-            ],
+            "$ref": "schema.schema.json",
             "description": "An object defining classes and enums."
         },
         "schemaUri": {
@@ -24,11 +15,7 @@
             "format": "iri-reference"
         },
         "statistics": {
-            "allOf": [
-                {
-                    "$ref": "statistics.schema.json"
-                }
-            ],
+            "$ref": "statistics.schema.json",
             "description": "An object containing statistics about entities."
         },
         "groups": {
@@ -40,15 +27,9 @@
             "minItems": 1
         },
         "tileset": {
-            "allOf": [
-                {
-                    "$ref": "tileset.schema.json"
-                }
-            ],
+            "$ref": "tileset.schema.json",
             "description": "An object containing metadata about the tileset."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "oneOf": [
         {

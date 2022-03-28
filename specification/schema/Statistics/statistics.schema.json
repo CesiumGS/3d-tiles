@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "statistics.schema.json",
     "title": "Statistics",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "Statistics about entities.",
-    "allOf": [
-        {
-            "$ref": "rootProperty.schema.json"
-        }
-    ],
     "properties": {
         "classes": {
             "type": "object",
@@ -17,8 +12,6 @@
             "additionalProperties": {
                 "$ref": "statistics.class.schema.json"
             }
-        },
-        "extensions": {},
-        "extras": {}
+        }
     }
 }

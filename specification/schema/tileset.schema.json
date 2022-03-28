@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tileset.schema.json",
     "title": "Tileset",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "A 3D Tiles tileset.",
-    "allOf": [
-        {
-            "$ref": "rootProperty.schema.json"
-        }
-    ],
     "properties": {
         "asset": {
             "description": "Metadata about the entire tileset.",
@@ -23,41 +18,29 @@
             "deprecated": true
         },
         "schema": {
-            "allOf": [
-                {
-                    "$ref": "schema.schema.json"
-                }
-            ],
-            "description": "An object defining classes and enums."
+            "$ref": "schema.schema.json",
+            "description": "An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` must be undefined."
         },
         "schemaUri": {
             "type": "string",
-            "description": "The URI (or IRI) of the external schema file.",
+            "description": "The URI (or IRI) of the external schema file. When this is defined, then `schema` must be undefined.",
             "format": "iri-reference"
         },
         "statistics": {
-            "allOf": [
-                {
-                    "$ref": "statistics.schema.json"
-                }
-            ],
-            "description": "An object containing statistics about entities."
+            "$ref": "statistics.schema.json",
+            "description": "An object containing statistics about metadata entities."
         },
         "groups": {
             "type": "array",
-            "description": "An array of groups.",
+            "description": "An array of groups that tile content may belong to. Each element of this array is a metadata entity that describes the group. The tile content `group` property is an index into this array.",
             "items": {
                 "$ref": "group.schema.json"
             },
             "minItems": 1
         },
         "metadata": {
-            "allOf": [
-                {
-                    "$ref": "metadataEntity.schema.json"
-                }
-            ],
-            "description": "Tileset metadata."            
+            "$ref": "metadataEntity.schema.json",
+            "description": "A metadata entity that is associated with this tileset."
         },
         "geometricError": {
             "type": "number",
@@ -85,9 +68,7 @@
             },
             "uniqueItems": true,
             "minItems": 1
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "asset",

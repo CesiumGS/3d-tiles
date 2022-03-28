@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "3DTILES_draco_point_compression.batchTable.schema.json",
     "title": "3DTILES_draco_point_compression Batch Table extension",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "Specifies the compressed Batch Table properties.",
-    "allOf": [
-        {
-            "$ref": "rootProperty.schema.json"
-        }
-    ],
     "properties": {
         "properties": {
             "type": "object",
@@ -18,9 +13,7 @@
                 "type": "integer",
                 "minimum": 0
             }
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "properties"
