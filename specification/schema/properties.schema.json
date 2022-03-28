@@ -12,9 +12,7 @@
         "minimum": {
             "type": "number",
             "description": "The minimum value of this property of all the features in the tileset."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "maximum",

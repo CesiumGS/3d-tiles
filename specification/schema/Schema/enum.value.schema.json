@@ -18,9 +18,7 @@
         "value": {
             "type": "integer",
             "description": "The integer enum value."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "name",

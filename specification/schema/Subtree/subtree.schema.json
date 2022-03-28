@@ -62,9 +62,7 @@
         "subtreeMetadata": {
             "$ref": "metadataEntity.schema.json",
             "description": "Subtree metadata encoded in JSON."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "tileAvailability",

@@ -39,8 +39,6 @@
         "meta": {
             "$ref": "style.meta.schema.json",
             "description": "A `meta` object which determines the values of non-visual properties of the feature."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     }
 }

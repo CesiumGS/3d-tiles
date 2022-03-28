@@ -143,9 +143,7 @@
             "type": "string",
             "minLength": 1,
             "description": "An identifier that describes how this property should be interpreted. The semantic cannot be used by other properties in the class."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "type"

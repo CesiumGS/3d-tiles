@@ -50,9 +50,7 @@
                             "type": "string"
                         }
                     ]
-                },
-                "extensions": {},
-                "extras": {}
+                }
             },
             "required": [
                 "byteOffset"
@@ -144,9 +142,7 @@
                             "type": "integer",
                             "description": "The offset into the buffer in bytes.",
                             "minimum": 0
-                        },
-                        "extensions": {},
-                        "extras": {}
+                        }
                     },
                     "required": [
                         "byteOffset"
@@ -173,9 +169,7 @@
                             "type": "integer",
                             "description": "The offset into the buffer in bytes.",
                             "minimum": 0
-                        },
-                        "extensions": {},
-                        "extras": {}
+                        }
                     },
                     "required": [
                         "byteOffset"

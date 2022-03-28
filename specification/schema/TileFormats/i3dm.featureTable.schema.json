@@ -61,9 +61,7 @@
         "EAST_NORTH_UP": {
             "description": "A `GlobalPropertyBoolean` object defining a boolean property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
             "$ref": "featureTable.schema.json#/definitions/globalPropertyBoolean"
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "oneOf": [
         {

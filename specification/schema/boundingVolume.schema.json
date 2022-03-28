@@ -32,8 +32,6 @@
             },
             "minItems": 4,
             "maxItems": 4
-        },
-        "extensions": {},
-        "extras": {}
+        }
     }
 }

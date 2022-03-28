@@ -61,9 +61,7 @@
         "BATCH_LENGTH": {
             "description": "A `GlobalPropertyInteger` object defining an integer property for all points. See the corresponding property semantic in [Semantics](/specification/TileFormats/PointCloud/README.md#semantics).",
             "$ref": "featureTable.schema.json#/definitions/globalPropertyInteger"
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "anyOf": [
         {

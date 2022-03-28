@@ -16,8 +16,6 @@
             ],
             "description": "A `number expression` or `conditions` property which determines the size of the points in pixels.",
             "default": 1.0
-        },
-        "extensions": {},
-        "extras": {}
+        }
     }
 }

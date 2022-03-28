@@ -26,9 +26,7 @@
             "additionalProperties": {
                 "$ref": "propertyTable.property.schema.json"
             }
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "class",
