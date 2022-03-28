@@ -32,9 +32,7 @@
                     "type": "integer"
                 }
             ]
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "oneOf": [
         {

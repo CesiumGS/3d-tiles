@@ -77,9 +77,7 @@
         "min": {
             "$ref": "definitions.schema.json#/definitions/numericValue",
             "description": "Minimum value present in the property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "values"

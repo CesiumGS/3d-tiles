@@ -16,9 +16,7 @@
         "maximumHeight": {
             "type": "number",
             "description": "The maximum height of the tile, specified in meters above (or below) the WGS84 ellipsoid."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "token",

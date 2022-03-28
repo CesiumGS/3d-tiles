@@ -3,11 +3,5 @@
     "$id": "tilesetMetadata.schema.json",
     "title": "Tileset Metadata",
     "$ref": "metadataEntity.schema.json",
-    "description": "An object containing metadata about the tileset.",
-    "properties": {
-        "class": {},
-        "properties": {},
-        "extensions": {},
-        "extras": {}
-    }
+    "description": "An object containing metadata about the tileset."
 }

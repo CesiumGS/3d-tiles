@@ -16,9 +16,7 @@
             "additionalProperties": {
                 "$ref": "definitions.schema.json#/definitions/anyValue"
             }
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "class"

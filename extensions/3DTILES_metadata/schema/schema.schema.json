@@ -40,9 +40,7 @@
             "additionalProperties": {
                 "$ref": "enum.schema.json"
             }
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "id"

@@ -32,9 +32,7 @@
         "subtrees": {
             "$ref": "subtrees.schema.json",
             "description": "An object describing the location of subtree files."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "subdivisionScheme",

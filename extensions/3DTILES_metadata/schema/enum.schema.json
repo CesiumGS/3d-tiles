@@ -55,9 +55,7 @@
                 "$ref": "enum.value.schema.json"
             },
             "minItems": 1
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "values"

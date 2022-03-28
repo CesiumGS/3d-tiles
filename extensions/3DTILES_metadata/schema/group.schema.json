@@ -3,14 +3,5 @@
     "$id": "group.schema.json",
     "title": "Group Metadata",
     "$ref": "metadataEntity.schema.json",
-    "description": "An object containing metadata about a group.",
-    "properties": {
-        "class": {},
-        "properties": {},
-        "extensions": {},
-        "extras": {}
-    },
-    "required": [
-        "id"
-    ]
+    "description": "An object containing metadata about a group."
 }

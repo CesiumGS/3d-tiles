@@ -22,9 +22,7 @@
                         "additionalProperties": {
                             "$ref": "#/definitions/property"
                         }
-                    },
-                    "extensions": {},
-                    "extras": {}
+                    }
                 },
                 "required": [
                     "name",
@@ -45,9 +43,7 @@
         },
         "parentIds": {
             "$ref": "#/definitions/integerProperty"
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "definitions": {
         "binaryBodyReference": {
@@ -106,9 +102,7 @@
                             "type": "string"
                         }
                     ]
-                },
-                "extensions": {},
-                "extras": {}
+                }
             },
             "required": [
                 "byteOffset",
@@ -155,9 +149,7 @@
                             "type": "string"
                         }
                     ]
-                },
-                "extensions": {},
-                "extras": {}
+                }
             },
             "required": [
                 "byteOffset"

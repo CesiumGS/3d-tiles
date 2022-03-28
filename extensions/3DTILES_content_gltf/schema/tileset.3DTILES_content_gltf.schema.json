@@ -20,8 +20,6 @@
                 "type": "string"
             },
             "minItems": 1
-        },
-        "extensions": {},
-        "extras": {}
+        }
     }
 }

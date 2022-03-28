@@ -17,8 +17,6 @@
             "additionalProperties": {
                 "$ref": "statistics.class.property.schema.json"
             }
-        },
-        "extensions": {},
-        "extras": {}
+        }
     }
 }

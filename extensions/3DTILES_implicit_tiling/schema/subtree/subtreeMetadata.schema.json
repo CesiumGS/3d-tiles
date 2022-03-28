@@ -44,9 +44,7 @@
                     }
                 ]
             }
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "class"

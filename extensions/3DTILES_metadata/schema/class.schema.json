@@ -22,8 +22,6 @@
             "additionalProperties": {
                 "$ref": "class.property.schema.json"
             }
-        },
-        "extensions": {},
-        "extras": {}
+        }
     }
 }

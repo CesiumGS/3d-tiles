@@ -12,9 +12,7 @@
                 "$ref": "content.schema.json"
             },
             "minItems": 1
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "content"

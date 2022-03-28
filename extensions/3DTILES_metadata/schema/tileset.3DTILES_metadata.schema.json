@@ -29,9 +29,7 @@
         "tileset": {
             "$ref": "tileset.schema.json",
             "description": "An object containing metadata about the tileset."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "oneOf": [
         {

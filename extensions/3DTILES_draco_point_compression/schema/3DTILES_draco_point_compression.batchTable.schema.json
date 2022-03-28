@@ -13,9 +13,7 @@
                 "type": "integer",
                 "minimum": 0
             }
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "properties"

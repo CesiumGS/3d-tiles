@@ -23,9 +23,7 @@
             "type": "integer",
             "description": "The length, in bytes, of the compressed data.",
             "minimum": 0
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "properties",
