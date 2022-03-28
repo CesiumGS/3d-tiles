@@ -140,8 +140,11 @@ Explicit file extensions are optional. Valid implementations may ignore it and i
 3D Tiles has the following restrictions on JSON formatting and encoding.
 
   1. JSON must use UTF-8 encoding without BOM.
-  2. All strings defined in this spec (properties names, enums) use only ASCII charset and must be written as plain text.
-  3. Names (keys) within JSON objects must be unique, i.e., duplicate keys aren't allowed.
+  2. All strings defined in this spec (properties names, enums) use only ASCII charset and must be written as plain text, without JSON escaping.
+  3. Non-ASCII characters that appear as property _values_ in JSON may be escaped.
+  4. Names (keys) within JSON objects must be unique, i.e., duplicate keys aren't allowed.
+  5. Some properties are defined as integers in the schema. Such values may be stored as decimals with a zero fractional part or by using exponent notation, as defined in [RFC 8259, Section 6](https://www.rfc-editor.org/rfc/rfc8259.html#section-6). 
+
 
 ## URIs
 
