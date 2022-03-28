@@ -164,9 +164,11 @@ All angles are in radians.
 
 3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. A tileset's global coordinate system will often be in a [WGS 84](https://epsg.org/ellipsoid_7030/WGS-84.html) Earth-centered, Earth-fixed (ECEF) reference frame ([EPSG 4978](http://spatialreference.org/ref/epsg/4978/)), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
+The CRS of a tileset may be defined explicitly, as part of the [tileset metadata](#metadata). The metadata for the tileset can contain a property that has the [`TILESET_CRS_GEOCENTRIC` semantic](./Metadata/Semantics/README.md#tileset-semantics), which is a string that represents the EPSG Geodetic Parameter Dataset identifier. 
+
 An additional [tile transform](#tile-transforms) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
 
-The [region](#region) bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically [EPSG 4979](http://spatialreference.org/ref/epsg/4979/).
+The [region](#region) bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically, [EPSG 4979](http://spatialreference.org/ref/epsg/4979/). The reference ellipsoid is assumed to be the same as the reference ellipsoid of the tileset. 
 
 ## Concepts
 
