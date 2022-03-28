@@ -148,7 +148,7 @@ This is suitable for instanced models such as trees whose orientation is always 
 
 #### RTC_CENTER
 
-Positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position and all instance positions are treated as relative to this value.
+Positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position and all instance positions are treated as relative to this value. See [Coordinate System](#coordinate-system) for the effect that this property has on the transform. 
 
 #### Quantized positions
 
@@ -262,6 +262,15 @@ When the glTF field contains a URI, then this URI may point to a [relative exter
 
 By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See [glTF transforms
 ](../../README.md#gltf-transforms) for more details.
+
+When the [`RTC_CENTER`](#rtccenter) is defined in the feature table of an Instanced 3D Model, the computation of the [tile transform](../../README.md#tile-transforms) is done as follows:
+
+1. [glTF node hierarchy transformations](#gltf-node-hierarchy)
+2. [glTF _y_-up to _z_-up transform](#y-up-to-z-up)
+3. The per-instance positions and scales, as defined in the feature table of the Instanced 3D Model. 
+4. The transform for the `RTC_CENTER`, which is used to translate model vertices
+5. [Tile transform](#tile-transforms)
+
 
 ## File extension and MIME type
 

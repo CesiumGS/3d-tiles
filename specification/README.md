@@ -404,10 +404,7 @@ More broadly the order of transformations is:
 
 1. [glTF node hierarchy transformations](#gltf-node-hierarchy)
 2. [glTF _y_-up to _z_-up transform](#y-up-to-z-up)
-3. Any tile format specific transforms.
-   * [Batched 3D Model](TileFormats/Batched3DModel) Feature Table may define `RTC_CENTER` which is used to translate model vertices.
-   * [Instanced 3D Model](TileFormats/Instanced3DModel) Feature Table defines per-instance position, normals, and scales. These are used to create per-instance 4x4 affine transform matrices that are applied to each instance.
-4. [Tile transform](#tile-transforms)
+3. [Tile transform](#tile-transforms)
 
 > **Implementation note:** when working with source data that is inherently _z_-up, such as data in WGS 84 coordinates or in a local _z_-up coordinate system, a common workflow is:
 > * Mesh data, including positions and normals, are not modified - they remain _z_-up.
@@ -439,17 +436,13 @@ The computed transform for each tile is:
 * `T3`: `[T0][T1][T3]`
 * `T4`: `[T0][T1][T4]`
 
-The positions and normals in a tile's content may also have tile-specific transformations applied to them _before_ the tile's `transform` (before indicates post-multiplying for affine transformations). Some examples are:
-* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy and coordinate system. `tile.transform` is applied after these transforms are resolved. See [glTF transforms](#gltf-transforms).
-* `i3dm`'s Feature Table defines per-instance position, normals, and scales. These are used to create per-instance 4x4 affine transform matrices that are applied to each instance before `tile.transform`.
-* Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm` and `pnts`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
+The full computed transforms, taking into account the [glTF _y_-up to _z_-up transform](#y-up-to-z-up) and [glTF Transforms](#gltf-transforms) are
 
-Therefore, the full computed transforms for the above example are:
 * `TO`: `[T0]`
 * `T1`: `[T0][T1]`
-* `T2`: `[T0][T2][pnts-specific transform, including RTC_CENTER (if defined)]`
-* `T3`: `[T0][T1][T3][b3dm-specific transform, including RTC_CENTER (if defined), coordinate system transform, and glTF node hierarchy]`
-* `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance transform, coordinate system transform, and glTF node hierarchy]`
+* `T2`: `[T0][T2][glTF y-up to z-up][glTF transform]`
+* `T3`: `[T0][T1][T3][glTF y-up to z-up][glTF transform]`
+* `T4`: `[T0][T1][T4][glTF y-up to z-up][glTF transform]`
 
 <!-- omit in toc -->
 ##### Implementation example
