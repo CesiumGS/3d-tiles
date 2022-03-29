@@ -81,7 +81,6 @@ Acknowledgements:
   - [Specifying extensions and application specific extras](#specifying-extensions-and-application-specific-extras)
 - [Tile format specifications](#tile-format-specifications)
 - [Declarative styling specification](#declarative-styling-specification)
-- [Version History](#version-history)
 - [License](#license)
 
 ## Introduction
@@ -1094,22 +1093,6 @@ The following example colors features with a height above 90 as red and the othe
 ```
 
 For complete details, see the [Declarative Styling](./Styling/) specification.
-
-
-## Version History
-
-- [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/1.0) _(2018-12-14)_, approved as the [3D Tiles Specification 1.0](http://docs.opengeospatial.org/cs/18-053r2/18-053r2.html) by the Open Geospatial Consortium  
-- [3D Tiles 1.1](https://github.com/CesiumGS/3d-tiles)
-  - Additions:
-    - Support for structured Metadata that can be associated with tilesets, tiles, tile content, and tile content groups
-    - Directly support glTF assets as tile contents
-    - Support for multiple tile contents
-    - Support for implicit tiling schemes
-  - Deprecations:
-    - The original tile formats (b3dm, i3dm, pnts, and cmpt) are deprecated in favor of glTF content
-    - The `tileset.properties` are deprecated, in favor of the more versatile metadata support
-
-
 
 ## License
 

@@ -55,6 +55,20 @@ The [**3D Tiles Reference Card**](./3d-tiles-reference-card.pdf) is an approacha
 
 This guide augments the fully detailed 3D Tiles specification with coverage of key concepts to help developers jumpstart adopting 3D Tiles.
 
+## Version History
+
+- [3D Tiles 1.0](https://github.com/CesiumGS/3d-tiles/tree/1.0): The [3D Tiles Specification 1.0](http://docs.opengeospatial.org/cs/18-053r2/18-053r2.html) was submitted to the Open Geospatial Consortium (OGC), and approved as an OGC Community Standard _(2018-12-14)_
+- [3D Tiles 1.1](https://github.com/CesiumGS/3d-tiles)
+  - Additions:
+    - Support for structured metadata that can be associated with tilesets, tiles, tile content, and tile content groups
+    - Directly support glTF assets as tile contents
+    - Support for multiple tile contents
+    - Support for implicit tiling schemes
+  - Deprecations:
+    - The original tile formats (b3dm, i3dm, pnts, and cmpt) are deprecated in favor of glTF content
+    - The `tileset.properties` are deprecated, in favor of the more versatile metadata support
+
+
 ## Contributing
 
 3D Tiles is an open specification and contributions including specification fixes, new tile formats, and extensions are encouraged. Issues and pull requests are welcome on this repository.
