@@ -1,4 +1,4 @@
-![](figures/3DTiles_dark_color_small.png#gh-dark-mode-only)![](figures/Ce3DTiles_light_color_small.png#gh-light-mode-only)
+![](figures/3DTiles_dark_color_small.png#gh-dark-mode-only)![](figures/3DTiles_light_color_small.png#gh-light-mode-only)
 
 # 3D Tiles
 [https://cesium.com/](https://cesium.com/)

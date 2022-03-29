@@ -3,7 +3,7 @@
 
 **Version 1.1**
 
-![](../figures/3DTiles_dark_color_small.png#gh-dark-mode-only)![](../figures/Ce3DTiles_light_color_small.png#gh-light-mode-only)
+![](../figures/3DTiles_dark_color_small.png#gh-dark-mode-only)![](../figures/3DTiles_light_color_small.png#gh-light-mode-only)
 
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
 
