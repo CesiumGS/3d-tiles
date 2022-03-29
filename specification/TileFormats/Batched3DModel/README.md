@@ -142,10 +142,10 @@ By default embedded glTFs use a right handed coordinate system where the _y_-axi
 
 Vertex positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position that all vertex positions are relative to after the coordinate system transform and glTF node hierarchy transforms have been applied. Specifically, when the `RTC_CENTER` is defined in the feature table of a Batched 3D Model, the computation of the [tile transform](../../README.md#tile-transforms) is done as follows:
 
-1. [glTF node hierarchy transformations](#gltf-node-hierarchy)
-2. [glTF _y_-up to _z_-up transform](#y-up-to-z-up)
+1. [glTF node hierarchy transformations](../../README.md#gltf-node-hierarchy)
+2. [glTF _y_-up to _z_-up transform](../../README.md#y-up-to-z-up)
 3. The transform for the `RTC_CENTER`, which is used to translate model vertices
-4. [Tile transform](#tile-transforms)
+4. [Tile transform](../../README.md#tile-transforms)
 
 
 
