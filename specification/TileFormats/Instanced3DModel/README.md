@@ -166,6 +166,8 @@ Quantized positions can be mapped to local space using the following formula:
 
 `POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE / 65535.0 + QUANTIZED_VOLUME_OFFSET`
 
+Compressed attributes should be decompressed before any other transforms are applied.
+
 ### Instance scaling
 
 Scaling can be applied to instances using the `SCALE` and `SCALE_NON_UNIFORM` semantics.

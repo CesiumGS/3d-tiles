@@ -140,6 +140,8 @@ Quantized positions can be mapped to local space using the following formula:
 
 `POSITION = POSITION_QUANTIZED * QUANTIZED_VOLUME_SCALE / 65535.0 + QUANTIZED_VOLUME_OFFSET`
 
+Compressed attributes should be decompressed before any other transforms are applied.
+
 ### Point colors
 
 If more than one color semantic is defined, the precedence order is `RGBA`, `RGB`, `RGB565`, then `CONSTANT_RGBA`. For example, if a tile's Feature Table contains both `RGBA` and `CONSTANT_RGBA` properties, the runtime would render with per-point colors using `RGBA`.
@@ -159,6 +161,8 @@ Oct-encoding is described in [*A Survey of Efficient Representations of Independ
 
 > An implementation for encoding and decoding these unit vectors can be found in CesiumJS's [AttributeCompression](https://github.com/CesiumGS/cesium/blob/main/Source/Core/AttributeCompression.js)
 module.
+
+Compressed attributes should be decompressed before any other transforms are applied.
 
 ### Batched points
 
