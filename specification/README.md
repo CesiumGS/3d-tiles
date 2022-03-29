@@ -3,7 +3,7 @@
 
 **Version 1.1**
 
-<p align="center"><img src="../figures/Cesium3DTiles.png" /></p>
+![](../figures/3DTiles_light_color_small.png#gh-dark-mode-only)![](../figures/3DTiles_dark_color_small.png#gh-light-mode-only)
 
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
 
@@ -140,8 +140,11 @@ Explicit file extensions are optional. Valid implementations may ignore it and i
 3D Tiles has the following restrictions on JSON formatting and encoding.
 
   1. JSON must use UTF-8 encoding without BOM.
-  2. All strings defined in this spec (properties names, enums) use only ASCII charset and must be written as plain text.
-  3. Names (keys) within JSON objects must be unique, i.e., duplicate keys aren't allowed.
+  2. All strings defined in this spec (properties names, enums) use only ASCII charset and must be written as plain text, without JSON escaping.
+  3. Non-ASCII characters that appear as property _values_ in JSON may be escaped.
+  4. Names (keys) within JSON objects must be unique, i.e., duplicate keys aren't allowed.
+  5. Some properties are defined as integers in the schema. Such values may be stored as decimals with a zero fractional part or by using exponent notation, as defined in [RFC 8259, Section 6](https://www.rfc-editor.org/rfc/rfc8259.html#section-6). 
+
 
 ## URIs
 
@@ -161,9 +164,11 @@ All angles are in radians.
 
 3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. A tileset's global coordinate system will often be in a [WGS 84](https://epsg.org/ellipsoid_7030/WGS-84.html) Earth-centered, Earth-fixed (ECEF) reference frame ([EPSG 4978](http://spatialreference.org/ref/epsg/4978/)), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
+The CRS of a tileset may be defined explicitly, as part of the [tileset metadata](#metadata). The metadata for the tileset can contain a property that has the [`TILESET_CRS_GEOCENTRIC` semantic](./Metadata/Semantics/README.md#tileset-semantics), which is a string that represents the EPSG Geodetic Parameter Dataset identifier. 
+
 An additional [tile transform](#tile-transforms) may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
 
-The [region](#region) bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically [EPSG 4979](http://spatialreference.org/ref/epsg/4979/).
+The [region](#region) bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically, [EPSG 4979](http://spatialreference.org/ref/epsg/4979/). The reference ellipsoid is assumed to be the same as the reference ellipsoid of the tileset. 
 
 ## Concepts
 
@@ -399,10 +404,7 @@ More broadly the order of transformations is:
 
 1. [glTF node hierarchy transformations](#gltf-node-hierarchy)
 2. [glTF _y_-up to _z_-up transform](#y-up-to-z-up)
-3. Any tile format specific transforms.
-   * [Batched 3D Model](TileFormats/Batched3DModel) Feature Table may define `RTC_CENTER` which is used to translate model vertices.
-   * [Instanced 3D Model](TileFormats/Instanced3DModel) Feature Table defines per-instance position, normals, and scales. These are used to create per-instance 4x4 affine transform matrices that are applied to each instance.
-4. [Tile transform](#tile-transforms)
+3. [Tile transform](#tile-transforms)
 
 > **Implementation note:** when working with source data that is inherently _z_-up, such as data in WGS 84 coordinates or in a local _z_-up coordinate system, a common workflow is:
 > * Mesh data, including positions and normals, are not modified - they remain _z_-up.
@@ -434,17 +436,13 @@ The computed transform for each tile is:
 * `T3`: `[T0][T1][T3]`
 * `T4`: `[T0][T1][T4]`
 
-The positions and normals in a tile's content may also have tile-specific transformations applied to them _before_ the tile's `transform` (before indicates post-multiplying for affine transformations). Some examples are:
-* `b3dm` and `i3dm` tiles embed glTF, which defines its own node hierarchy and coordinate system. `tile.transform` is applied after these transforms are resolved. See [glTF transforms](#gltf-transforms).
-* `i3dm`'s Feature Table defines per-instance position, normals, and scales. These are used to create per-instance 4x4 affine transform matrices that are applied to each instance before `tile.transform`.
-* Compressed attributes, such as `POSITION_QUANTIZED` in the Feature Tables for `i3dm` and `pnts`, and `NORMAL_OCT16P` in `pnts` should be decompressed before any other transforms.
+The full computed transforms, taking into account the [glTF _y_-up to _z_-up transform](#y-up-to-z-up) and [glTF Transforms](#gltf-transforms) are
 
-Therefore, the full computed transforms for the above example are:
 * `TO`: `[T0]`
 * `T1`: `[T0][T1]`
-* `T2`: `[T0][T2][pnts-specific transform, including RTC_CENTER (if defined)]`
-* `T3`: `[T0][T1][T3][b3dm-specific transform, including RTC_CENTER (if defined), coordinate system transform, and glTF node hierarchy]`
-* `T4`: `[T0][T1][T4][i3dm-specific transform, including per-instance transform, coordinate system transform, and glTF node hierarchy]`
+* `T2`: `[T0][T2][glTF y-up to z-up][glTF transform]`
+* `T3`: `[T0][T1][T3][glTF y-up to z-up][glTF transform]`
+* `T4`: `[T0][T1][T4][glTF y-up to z-up][glTF transform]`
 
 <!-- omit in toc -->
 ##### Implementation example

@@ -140,7 +140,14 @@ When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`
 
 By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See [glTF transforms](../../README.md#gltf-transforms) for more details.
 
-Vertex positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position that all vertex positions are relative to after the coordinate system transform and glTF node hierarchy transforms have been applied.
+Vertex positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position that all vertex positions are relative to after the coordinate system transform and glTF node hierarchy transforms have been applied. Specifically, when the `RTC_CENTER` is defined in the feature table of a Batched 3D Model, the computation of the [tile transform](../../README.md#tile-transforms) is done as follows:
+
+1. [glTF node hierarchy transformations](../../README.md#gltf-node-hierarchy)
+2. [glTF _y_-up to _z_-up transform](../../README.md#y-up-to-z-up)
+3. The transform for the `RTC_CENTER`, which is used to translate model vertices
+4. [Tile transform](../../README.md#tile-transforms)
+
+
 
 ## File extension and MIME type
 
