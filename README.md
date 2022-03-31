@@ -45,7 +45,7 @@ Please provide specification feedback by [submitting issues](https://github.com/
 | [Safe FME](https://hub.safe.com/packages/safe/cesiumion) | Desktop application for transforming data. The `CesiumIonConnector` converts data to 3D Tiles via Cesium ion. |
 | [Bentley ContextCapture](https://www.bentley.com/en/products/product-line/reality-modeling-software/contextcapture) | Desktop application for converting photographs and/or point clouds to 3D Tiles. |
 
-See the [3D Tiles Ecosystem](./ECOSYSTEM.md) for examples of who's using 3D Tiles.
+The [3D Tiles Resources](./RESOURCES.md) page contains further tools and applications for working with 3D Tiles.
 
 ## 3D Tiles Reference Card
 
