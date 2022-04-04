@@ -44,21 +44,36 @@
 - [Bentley ContextCapture](https://www.bentley.com/en/products/product-line/reality-modeling-software/contextcapture) - A desktop application for converting photographs and/or point clouds to 3D Tiles.
 - [Bentley MicroStation](https://www.bentley.com/en/products/brands/microstation) - A CAD application that can export data in the 3D Tiles format
 - [osm-cesium-3d-tiles](https://github.com/kiselev-dv/osm-cesium-3d-tiles) - A tool for converting OSM buildings to Cesium 3d tiles
+- [OpenDroneMap](https://www.opendronemap.org/) - Solutions for  collecting, processing, analyzing and displaying aerial data, with support for 3D Tiles. 
+- [Agisoft Metashape](https://www.agisoft.com/) - Photogrammetry models can directly be uploaded to Cesium ion, converted into the 3D Tiles format, and shared and combined with other 3D- and imagery data.
+- [nFrames](https://www.nframes.com/) - The SURE software system is an application for 3D reconstruction from images that can export the results as 3D Tiles data sets.
+- [Melown Vadstena](https://www.melowntech.com/products/vadstena/) - A software that can process drone-based close-range imagery and low-overlap nadir imagery, to create 3D models that can be exported in the 3D Tiles format.
+- [py3dtilers](https://github.com/VCityTeam/py3dtilers) - A tool and library for building 3D Tiles tilesets from OBJ, GeoJSON, IFC or CityGML input data. 
+- [py3dtiles](https://github.com/Oslandia/py3dtiles) _(discontinued)_ - A tool and library for manipulating 3D Tiles, including the creation of 3D Tiles point clouds from LAS and XYZ files.
+- [cesium-point-cloud-generator](https://github.com/tum-gis/cesium-point-cloud-generator) - A tool for the generation of point cloud visualization datasets in the 3D Tiles format.
+
+
+
 
 ### Data Providers
 
 - [Maxar](https://www.maxar.com/) - Vricon, a Maxar Company, offers massive, highly detailed 3D Models in 3D Tiles format as part of their [Precision3D Data Suite](https://resources.maxar.com/precision3d-data-suite), in close [cooperation with Cesium](https://cesium.com/industries/mission-support/usg-work-from-home/)
+- [Aerometrex](https://aerometrex.com/) - Aerometrex offers geographically accurate high-resolution models in the 3D Tiles format. See [this Cesium blog post](https://cesium.com/blog/2017/07/26/aerometrex-melbourne/) for examples of Aerometrex data rendered in Cesium. 
+- [Nearmap](https://www.nearmap.com/us/en) - Nearmap manages a library of large-scale 3D content that can be exported in 3D Tiles. Read more about their support in this [blog post about streaming 3D models](https://www.nearmap.com/us/en/aerial-view-blog/cesium-3d-tiles-helping-cities-stream-3d-models).
+
+
 
 
 ### Selected Talks
 
+- _Rendering the World with 3D Tiles_, a guest lecture at Drexel University (February 2022) [Slides](https://cesium.com/learn/presentations/#rendering-the-world-with-3d-tiles)
 - _Introducing 3D Tiles Next_, at Web3D Conference 2021. [Video and slides](https://cesium.com/learn/presentations/#web3d-conference-2021)
-- _3D Tiles in Action_ ([pdf](https://cesium.com/presentations/files/3DTilesInAction.pdf)) at FOSS4G 2017.
-- _Point Clouds with 3D Tiles_ ([pdf](https://cesium.com/presentations/files/PointCloudsWith3DTiles.pdf)) at the OGC Technical Committee Meeting (June 2017).
-- _The Open Cesium 3D Tiles Specification: Bringing Massive Geospatial 3D Scenes to the Web_ ([pptx](https://cesium.com/presentations/files/Web3D-2016-3DTilesTutorial.pptx), [example tilesets](https://github.com/CesiumGS/3d-tiles-samples)) at Web3D 2016.  90-minute technical tutorial.
-- _3D Tiles: Beyond 2D Tiling_ ([pdf](https://cesium.com/presentations/files/FOSS4GNA2016/3DTiles.pdf), [video](https://www.youtube.com/watch?v=I1vYCrMKKEE)) at FOSS4G NA 2016.
-- _3D Tiles motivation and ecosystem update_ ([pdf](https://cesium.com/presentations/files/3D-Tiles-OGC-DC.pdf)) at the OGC Technical Committee Meeting (March 2016).
-- _3D Tiles intro_ ([pdf](https://cesium.com/presentations/files/SIGGRAPH2015/Cesium3DTiles.pdf)) at the Cesium BOF at SIGGRAPH 2015.
+- _3D Tiles in Action_, at FOSS4G 2017. [Slides](https://cesium.com/learn/presentations/#3d-tiles-in-action-2017)
+- _Point Clouds with 3D Tiles_, at the OGC Technical Committee Meeting (June 2018). [Slides](https://cesium.com/learn/presentations/#ogc-tc-meeting-2018)
+- _The Open Cesium 3D Tiles Specification: Bringing Massive Geospatial 3D Scenes to the Web_, at Web3D 2016. [Slides](https://cesium.com/learn/presentations/#3d-tiles-web3d-2016)
+- _3D Tiles: Beyond 2D Tiling_, at FOSS4G NA 2016. [Slides and Video](https://cesium.com/learn/presentations/#3d-tiles-foss4g-2016)
+- _3D Tiles motivation and ecosystem update_, at the OGC Technical Committee Meeting (March 2016). [Slides](https://cesium.com/learn/presentations/#ogc-3d-tiles-2016)
+- _3D Tiles intro_, at the Cesium BOF at SIGGRAPH 2015. [Slides](https://cesium.com/learn/presentations/#virtual-globes-using-webgl-and-cesium-2015)
 
 ### Selected Articles
 
