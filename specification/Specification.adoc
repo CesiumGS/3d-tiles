@@ -1,9 +1,9 @@
-// omit in toc
+
 = 3D Tiles Format Specification
 
 *Version 1.1*
 
-image:../figures/3DTiles_light_color_small.png#gh-dark-mode-only[]image:../figures/3DTiles_dark_color_small.png#gh-light-mode-only[]
+image:../figures/3DTiles_dark_color_small.png[]
 
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
 
@@ -40,7 +40,7 @@ Acknowledgements:
 * Pano Voudouris
 * Dave Wesloh
 
-// omit in toc
+
 
 == Contents
 
@@ -201,7 +201,7 @@ Tiles are structured into a tree incorporating _Hierarchical Level of Detail_ (H
 
 A tile's geometric error defines the selection metric for that tile. Its value is a nonnegative number that specifies the error, in meters, of the tile's simplified representation of its source geometry. Generally, the root tile will have the largest geometric error, and each successive level of children will have a smaller geometric error than its parent, with leaf tiles having a geometric error of or close to 0.
 
-In a client implementation, geometric error is used with other screen space metrics&mdash;e.g., distance from the tile to the camera, screen size, and resolution&mdash; to calculate the SSE introduced if this tile is rendered and its children are not. If the introduced SSE exceeds the maximum allowed, then the tile is refined and its children are considered for rendering.
+In a client implementation, geometric error is used with other screen space metrics -- e.g., distance from the tile to the camera, screen size, and resolution --  to calculate the SSE introduced if this tile is rendered and its children are not. If the introduced SSE exceeds the maximum allowed, then the tile is refined and its children are considered for rendering.
 
 The geometric error is formulated based on a metric like point density, mesh or texture decimation, or another factor specific to that tileset. In general, a higher geometric error means a tile will be refined more aggressively, and children tiles will be loaded and rendered sooner.
 
@@ -221,8 +221,8 @@ If a tile uses replacement refinement, when refined it renders its children in p
 |===
 | Parent Tile | Refined
 
-| image:figures/replacement_1.jpg[]
-| image:figures/replacement_2.jpg[]
+| image:figures/replacement_1.jpg[pdfwidth=40%]
+| image:figures/replacement_2.jpg[pdfwidth=40%]
 |===
 
 ===== Additive
@@ -233,8 +233,8 @@ If a tile uses additive refinement, when refined it renders itself and its child
 |===
 | Parent Tile | Refined
 
-| image:figures/additive_1.jpg[]
-| image:figures/additive_2.jpg[]
+| image:figures/additive_1.jpg[pdfwidth=40%]
+| image:figures/additive_2.jpg[pdfwidth=40%]
 |===
 
 ==== Bounding volumes
@@ -245,9 +245,9 @@ A bounding volume defines the spatial extent enclosing a tile or a tile's conten
 |===
 | Bounding box | Bounding sphere | Bounding region
 
-| image:figures/BoundingBox.jpg[Bounding Box]
-| image:figures/BoundingSphere.jpg[Bounding Sphere]
-| image:figures/BoundingRegion.jpg[Bounding Region]
+| image:figures/BoundingBox.jpg[pdfwidth=30%]
+| image:figures/BoundingSphere.jpg[pdfwidth=30%]
+| image:figures/BoundingRegion.jpg[pdfwidth=30%]
 |===
 
 ===== Region
@@ -315,7 +315,7 @@ The screenshot below shows the bounding volumes for the root tile for Canary Wha
 image:figures/contentsBox.png[] +
 (Building data from http://www.cybercity3d.com/[CyberCity3D]. Imagery data from https://www.microsoft.com/maps/[Bing Maps])
 
-// omit in toc
+
 
 ===== Extensions
 
@@ -378,9 +378,9 @@ For more on request volumes, see the https://github.com/CesiumGS/3d-tiles-sample
 
 ===== Tile transforms
 
-To support local coordinate systems&mdash;e.g., so a building tileset inside a city tileset can be defined in its own coordinate system, and a point cloud tileset inside the building could, again, be defined in its own coordinate system&mdash;each tile has an optional `transform` property.
+To support local coordinate systems -- e.g., so a building tileset inside a city tileset can be defined in its own coordinate system, and a point cloud tileset inside the building could, again, be defined in its own coordinate system -- each tile has an optional `transform` property.
 
-The `transform` property is a 4x4 affine transformation matrix, stored in column-major order, that transforms from the tile's local coordinate system to the parent tile's coordinate system&mdash;or the tileset's coordinate system in the case of the root tile.
+The `transform` property is a 4x4 affine transformation matrix, stored in column-major order, that transforms from the tile's local coordinate system to the parent tile's coordinate system -- or the tileset's coordinate system in the case of the root tile.
 
 The `transform` property applies to
 
@@ -411,17 +411,17 @@ The transformation from each tile's local coordinate system to the tileset's glo
 
 glTF defines its own node hierarchy and uses a _y_-up coordinate system. Any transforms specific to a tile format and the `tile.transform` property are applied after these transforms are resolved.
 
-// omit in toc
+
 
 ====== glTF node hierarchy
 
 First, glTF node hierarchy transforms are applied according to the https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#transformations[glTF specification].
 
-// omit in toc
+
 
 ====== _y_-up to _z_-up
 
-Next, for consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by &pi;/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
+Next, for consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by π/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
 
 [,json]
 ----
@@ -460,7 +460,7 @@ Example glTF root node:
 ----
 ____
 
-// omit in toc
+
 
 ===== Example
 
@@ -484,7 +484,7 @@ The full computed transforms, taking into account the <<y-up-to-z-up,glTF _y_-up
 * `T3`: `[T0][T1][T3][glTF y-up to z-up][glTF transform]`
 * `T4`: `[T0][T1][T4][glTF y-up to z-up][glTF transform]`
 
-// omit in toc
+
 
 ===== Implementation example
 
@@ -573,7 +573,7 @@ The `content` property is an object that describes the <<tile-content,tile conte
 
 The `content.boundingVolume` property defines an optional <<bounding-volumes,bounding volume>> similar to the top-level `tile.boundingVolume` property. But unlike the top-level `boundingVolume` property, `content.boundingVolume` is a tightly fit bounding volume enclosing just the tile's content.
 
-It is also possible to define multiple contents for a tile: The `contents` property (not shown above) is an array containing one or more contents. `contents` and `content` are mutually exclusive. When a tile has a single content it should use `content` for backwards compatibility with engines that only support 3D Tiles 1.0. Multiple contents allow for different representations of the tile content &mdash; for example, one as a triangle mesh and one as a point cloud:
+It is also possible to define multiple contents for a tile: The `contents` property (not shown above) is an array containing one or more contents. `contents` and `content` are mutually exclusive. When a tile has a single content it should use `content` for backwards compatibility with engines that only support 3D Tiles 1.0. Multiple contents allow for different representations of the tile content --  for example, one as a triangle mesh and one as a point cloud:
 
 image::figures/multiple-contents-geometry.png[]
 
@@ -1040,7 +1040,7 @@ ____
 
 3D Tiles defines extensions to allow the base specification to have extensibility for new features.
 
-// omit in toc
+
 
 ==== Extensions
 
@@ -1093,7 +1093,7 @@ All extensions used in a tileset or any descendant external tilesets must be lis
 
 All extensions required to load and render a tileset or any descendant external tilesets must also be listed in the entry tileset JSON in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` must also exist in `extensionsUsed`.
 
-// omit in toc
+
 
 ==== Extras
 
