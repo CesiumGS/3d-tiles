@@ -289,7 +289,7 @@ The screenshot below shows the bounding volumes for the root tile for Canary Wha
 
 <p align="center">
   <img src="figures/contentsBox.png" /><br />
-  <sup>(Building data from <a href="http://www.cybercity3d.com/" target="_blank">CyberCity3D</a>. Imagery data from <a href="https://www.microsoft.com/maps/" target="_blank">Bing Maps</a>)<sup>
+  (Building data from <a href="http://www.cybercity3d.com/" target="_blank">CyberCity3D</a>. Imagery data from <a href="https://www.microsoft.com/maps/" target="_blank">Bing Maps</a>)
 </p>
 
 
@@ -693,7 +693,7 @@ For example, here is the root tile and its children for Canary Wharf. Note the b
 
 <p align="center">
   <img src="figures/nonUniformQuadtree.png" /><br />
-  <sup>(Building data from <a href="http://www.cybercity3d.com/" target="_blank">CyberCity3D</a>. Imagery data from <a href="https://www.microsoft.com/maps/" target="_blank">Bing Maps</a>)<sup>
+  (Building data from <a href="http://www.cybercity3d.com/" target="_blank">CyberCity3D</a>. Imagery data from <a href="https://www.microsoft.com/maps/" target="_blank">Bing Maps</a>)
 </p>
 
 3D Tiles also enable other quadtree variations such as [loose quadtrees](http://www.tulrich.com/geekstuff/partitioning.html), where child tiles overlap but spatial coherence is still preserved, i.e., a parent tile completely encloses all of its children. This approach can be useful to avoid splitting features, such as 3D models, across tiles.
@@ -707,7 +707,7 @@ Below, the green buildings are in the left child and the purple buildings are in
 
 <p align="center">
   <img src="figures/looseQuadtree.png" /><br />
-  <sup>(Building data from <a href="http://www.cybercity3d.com/" target="_blank">CyberCity3D</a>. Imagery data from <a href="https://www.microsoft.com/maps/" target="_blank">Bing Maps</a>)<sup>
+  Building data from <a href="http://www.cybercity3d.com/" target="_blank">CyberCity3D</a>. Imagery data from <a href="https://www.microsoft.com/maps/" target="_blank">Bing Maps</a>
 </p>
 
 ##### K-d trees
@@ -743,7 +743,7 @@ An octree extends a quadtree by using three orthogonal splitting planes to subdi
 
 <p align="center">
   <img src="figures/grid.png" /><br />
-  <sup>(Building data from <a href="http://www.cybercity3d.com/" target="_blank">CyberCity3D</a>. Imagery data from <a href="https://www.microsoft.com/maps/" target="_blank">Bing Maps</a>)<sup>
+  (Building data from <a href="http://www.cybercity3d.com/" target="_blank">CyberCity3D</a>. Imagery data from <a href="https://www.microsoft.com/maps/" target="_blank">Bing Maps</a>)
 </p>
 
 3D Tiles takes advantage of empty tiles: those tiles that have a bounding volume, but no content. Since a tile's `content` property does not need to be defined, empty non-leaf tiles can be used to accelerate non-uniform grids with hierarchical culling. This essentially creates a quadtree or octree without hierarchical levels of detail (HLOD).
