@@ -6,7 +6,7 @@ Cesium
 
 toc::[]
 
-:leveloffset: 1
+:leveloffset: +1
 
 = 3D Tiles Format Specification
 
@@ -16,22 +16,12 @@ image:../figures/3DTiles_dark_color_small.png[]
 
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
 
-
 include::README.adoc[]
 include::ImplicitTiling\README.adoc[]
 include::Metadata\README.adoc[]
-include::Metadata\ReferenceImplementation\README.adoc[]
-include::Metadata\ReferenceImplementation\PropertyTable\README.adoc[]
-include::Metadata\ReferenceImplementation\Schema\README.adoc[]
-include::Metadata\Semantics\README.adoc[]
 include::schema\README.adoc[]
-include::Styling\README.adoc[]
 include::TileFormats\README.adoc[]
-include::TileFormats\Batched3DModel\README.adoc[]
-include::TileFormats\BatchTable\README.adoc[]
-include::TileFormats\Composite\README.adoc[]
-include::TileFormats\FeatureTable\README.adoc[]
-include::TileFormats\glTF\README.adoc[]
-include::TileFormats\Instanced3DModel\README.adoc[]
-include::TileFormats\PointCloud\README.adoc[]
 
+:leveloffset: -1
+
+include::APPENDIX.adoc[]

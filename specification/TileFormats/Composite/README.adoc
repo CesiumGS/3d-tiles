@@ -1,12 +1,7 @@
-:doctype: book
-
-=== ⚠️ Composite was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#composite-cmpt[`cpmt` migration guide]. ⚠️
-
-
 
 = Composite
 
-
+WARNING: Composite was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#composite-cmpt[`cpmt` migration guide].
 
 == Contents
 

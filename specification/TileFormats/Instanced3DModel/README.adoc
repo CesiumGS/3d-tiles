@@ -1,34 +1,6 @@
-:doctype: book
-
-=== ⚠️ Instanced 3D Model was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#instanced-3d-model-i3dm[`i3dm` migration guide]. ⚠️
-
 = Instanced 3D Model
 
-== Contents
-
-* <<overview,Overview>>
-* <<layout,Layout>>
- ** <<padding,Padding>>
-* <<header,Header>>
-* <<feature-table,Feature Table>>
- ** <<semantics,Semantics>>
-  *** <<instance-semantics,Instance semantics>>
-  *** <<global-semantics,Global semantics>>
- ** <<instance-orientation,Instance orientation>>
-  *** <<oct-encoded-normal-vectors,Oct-encoded normal vectors>>
-  *** <<default-orientation,Default orientation>>
- ** <<instance-position,Instance position>>
-  *** <<rtc_center,RTC_CENTER>>
-  *** <<quantized-positions,Quantized positions>>
- ** <<instance-scaling,Instance scaling>>
- ** <<examples,Examples>>
-  *** <<positions-only,Positions only>>
-  *** <<quantized-positions-and-oct-encoded-normals,Quantized positions and oct-encoded normals>>
-* <<batch-table,Batch Table>>
-* <<gltf,glTF>>
- ** <<coordinate-system,Coordinate system>>
-* <<file-extension-and-mime-type,File extension and MIME type>>
-* <<property-reference,Property reference>>
+WARNING: Instanced 3D Model was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#instanced-3d-model-i3dm[`i3dm` migration guide].
 
 == Overview
 

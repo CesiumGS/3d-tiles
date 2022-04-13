@@ -1,8 +1,7 @@
-:doctype: book
-
-=== ⚠️ Batch Table was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#appendix-a-migration-from-legacy-tile-formats[glTF migration guide]. ⚠️
 
 = Batch Table
+
+WARNING:  Batch Table was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#appendix-a-migration-from-legacy-tile-formats[glTF migration guide].
 
 == Contents
 

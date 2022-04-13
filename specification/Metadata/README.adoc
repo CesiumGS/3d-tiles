@@ -1,67 +1,5 @@
 
 = 3D Metadata Specification
-:pp: {plus}{plus}
-
-
-
-== Contents
-
-* <<overview,Overview>>
-* <<concepts,Concepts>>
-* <<schemas,Schemas>>
- ** <<schema,Schema>>
-  *** <<id,ID>>
-  *** <<version,Version>>
-  *** <<name,Name>>
-  *** <<description,Description>>
-  *** <<enums,Enums>>
-  *** <<classes,Classes>>
- ** <<enum,Enum>>
-  *** <<id-1,ID>>
-  *** <<name-1,Name>>
-  *** <<description-1,Description>>
-  *** <<values,Values>>
- ** <<class,Class>>
-  *** <<id-2,ID>>
-  *** <<name-2,Name>>
-  *** <<description-2,Description>>
-  *** <<properties,Properties>>
- ** <<property,Property>>
-  *** <<overview-1,Overview>>
-  *** <<id-3,ID>>
-  *** <<name-3,Name>>
-  *** <<description-3,Description>>
-  *** <<semantic,Semantic>>
-  *** <<type,Type>>
-  *** <<component-type,Component Type>>
-  *** <<enum-type,Enum Type>>
-  *** <<arrays,Arrays>>
-  *** <<normalized-values,Normalized Values>>
-  *** <<offset-and-scale,Offset and Scale>>
-  *** <<minimum-and-maximum-values,Minimum and Maximum Values>>
-  *** <<required-properties-no-data-values-and-default-values,Required Properties, No Data Values, and Default Values>>
-  *** <<property-values-structure,Property Values Structure>>
-* <<storage-formats,Storage Formats>>
- ** <<overview-2,Overview>>
- ** <<binary-table-format,Binary Table Format>>
-  *** <<overview-3,Overview>>
-  *** <<scalars,Scalars>>
-  *** <<vectors,Vectors>>
-  *** <<matrices,Matrices>>
-  *** <<booleans,Booleans>>
-  *** <<strings,Strings>>
-  *** <<enums-1,Enums>>
-  *** <<fixed-length-arrays,Fixed-Length Arrays>>
-  *** <<variable-length-arrays,Variable-Length Arrays>>
- ** <<json-format,JSON Format>>
-  *** <<overview-4,Overview>>
-  *** <<scalars-1,Scalars>>
-  *** <<vectors-1,Vectors>>
-  *** <<matrices-1,Matrices>>
-  *** <<booleans-1,Booleans>>
-  *** <<strings-1,Strings>>
-  *** <<enums-2,Enums>>
-  *** <<arrays-1,Arrays>>
 
 == Overview
 
@@ -94,9 +32,7 @@ ____
 Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines two possible <<storage-formats,storage formats>>.
 
 
-
-[discrete]
-==== Identifiers
+=== Identifiers
 
 Throughout this specification, IDs (identifiers) are strings that match the regular expression `+^[a-zA-Z_][a-zA-Z0-9_]*$+`: Strings that consist of upper- or lowercase letters, digits, or underscores, starting with either a letter or an underscore. These strings should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name` for the structures that support dedicated names.
 
@@ -816,3 +752,13 @@ Enums are encoded as JSON strings using the name of the enum value rather than t
 ==== Arrays
 
 Arrays are encoded as JSON arrays, where each element is encoded according to the `type`. When a count is specified, the length of the JSON array must match the count. Otherwise, for variable-length arrays, the JSON array may be any length, including zero-length.
+
+
+:leveloffset: +1
+
+include::Semantics\README.adoc[]
+include::ReferenceImplementation\README.adoc[]
+include::ReferenceImplementation\PropertyTable\README.adoc[]
+include::ReferenceImplementation\Schema\README.adoc[]
+
+:leveloffset: -1

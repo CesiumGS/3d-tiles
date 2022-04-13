@@ -1,4 +1,3 @@
-
 == Introduction
 
 3D Tiles is designed for streaming and rendering massive 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds. It defines a hierarchical data structure and a set of tile formats which deliver renderable content. 3D Tiles does not define explicit rules for visualization of the content; a client may visualize 3D Tiles data however it sees fit.
@@ -1088,55 +1087,6 @@ The following example colors features with a height above 90 as red and the othe
 ----
 
 For complete details, see the link:./Styling/[Declarative Styling] specification.
-
-
-[appendix]
-== Acknowledgements
-
-Editors:
-
-* Patrick Cozzi, https://twitter.com/pjcozzi[@pjcozzi], link:mailto:patrick@cesium.com[patrick@cesium.com]
-* Sean Lilley, https://twitter.com/lilleyse[@lilleyse], link:mailto:sean@cesium.com[sean@cesium.com]
-* Gabby Getz, https://twitter.com/gabbygetz[@gabbygetz], link:mailto:gabby@cesium.com[gabby@cesium.com]
-
-Acknowledgements:
-
-* Matt Amato, https://twitter.com/matt_amato[@matt_amato]
-* Erik Andersson, https://github.com/e-andersson[@e-andersson]
-* Dan Bagnell, https://github.com/bagnell[@bagnell]
-* Ray Bentley
-* Jannes Bolling, https://github.com/jbo023[@jbo023]
-* Dylan Brown, http://www.github.com/Dylan-Brown[@Dylan-Brown]
-* Sarah Chow, https://cesium.com/team/SarahChow/[cesium.com/team/SarahChow]
-* Paul Connelly
-* Volker Coors
-* Tom Fili, https://twitter.com/CesiumFili[@CesiumFili]
-* Leesa Fini, http://www.github.com/LeesaFini[@LeesaFini]
-* Ralf Gutbell
-* Frederic Houbie
-* Christopher Mitchell, Ph.D., https://github.com/KermMartian[@KermMartian]
-* Claus Nagel
-* Jean-Philippe Pons
-* Carl Reed
-* Kevin Ring, http://www.kotachrome.com/kevin/[www.kotachrome.com/kevin]
-* Scott Simmons
-* Rob Taglang, https://github.com/lasalvavida[@lasalvavida]
-* Stan Tillman
-* Piero Toffanin, https://github.com/pierotofy[@pierotofy]
-* Pano Voudouris
-* Dave Wesloh
-
-[appendix]
-== License
-
-Copyright 2016 - 2022 Cesium GS, Inc.
-
-This Specification is licensed under a http://creativecommons.org/licenses/by/4.0/[Creative Commons Attribution 4.0 International License (CC BY 4.0)].
-
-The companies listed above have granted the Open Geospatial Consortium (OGC) a nonexclusive, royalty-free, paid up, worldwide license to copy and distribute this document and to modify this document and distribute copies of the modified version under a Attribution 4.0 International (CC BY 4.0) license.
-
-Some parts of this Specification are purely informative and do not define requirements necessary for compliance and so are outside the Scope of this Specification. These parts of the Specification are marked as being non-normative, or identified as *Implementation Notes*.
-
 
 
 

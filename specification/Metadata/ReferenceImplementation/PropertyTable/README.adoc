@@ -1,3 +1,4 @@
+
 = Property Table Implementation
 
 The xref:../../README.adoc[3D Metadata Specification] defines schemas as a description of the structure of metadata, and different storage formats for the metadata. One form of storing metadata is that of a link:../../README.md#binary-table-format[Binary Table Format], where the data is stored in a binary representation of a table. Each column of such a table represents one of the properties of a class. Each row represents a single entity conforming to the class. The following is the description of such a binary table format, referred to as *property table*. It is used as the basis for defining the metadata storage in the following implementations:
@@ -7,8 +8,7 @@ The xref:../../README.adoc[3D Metadata Specification] defines schemas as a descr
 
 The full JSON schema definition for this implementation can be found in link:../../../schema/PropertyTable/[the PropertyTable directory of the specification].
 
-[discrete]
-=== Property Tables
+== Property Tables
 
 _Defined in link:../../../schema/PropertyTable/propertyTable.schema.json[propertyTable.schema.json]._
 
@@ -40,8 +40,7 @@ ____
 ----
 ____
 
-[discrete]
-=== Property Table Properties
+== Property Table Properties
 
 _Defined in link:../../../schema/PropertyTable/propertyTable.property.schema.json[propertyTable.property.schema.json]._
 

@@ -1,25 +1,7 @@
-:doctype: book
-
-=== ⚠️ Batched 3D Model was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#batched-3d-model-b3dm[`b3dm` migration guide]. ⚠️
 
 = Batched 3D Model
 
-== Contents
-
-* <<overview,Overview>>
-* <<layout,Layout>>
- ** <<padding,Padding>>
-* <<header,Header>>
-* <<feature-table,Feature Table>>
- ** <<semantics,Semantics>>
-  *** <<feature-semantics,Feature semantics>>
-  *** <<global-semantics,Global semantics>>
-* <<batch-table,Batch Table>>
-* <<binary-gltf,Binary glTF>>
- ** <<coordinate-system,Coordinate system>>
-* <<file-extension-and-mime-type,File extension and MIME type>>
-* <<implementation-example,Implementation example>>
-* <<property-reference,Property reference>>
+WARNING: Batched 3D Model was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#batched-3d-model-b3dm[`b3dm` migration guide].
 
 == Overview
 

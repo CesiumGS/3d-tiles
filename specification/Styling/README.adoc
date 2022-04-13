@@ -1,36 +1,6 @@
 
 = Styling
 
-
-
-== Contents
-
-* <<overview,Overview>>
-* <<concepts,Concepts>>
- ** <<styling-features,Styling features>>
- ** <<conditions,Conditions>>
- ** <<defining-variables,Defining variables>>
- ** <<meta-property,Meta property>>
-* <<expressions,Expressions>>
- ** <<semantics,Semantics>>
- ** <<operators,Operators>>
- ** <<types,Types>>
-  *** <<number,Number>>
-  *** <<string,String>>
-  *** <<vector,Vector>>
-  *** <<color,Color>>
-  *** <<regexp,RegExp>>
- ** <<operator-rules,Operator rules>>
- ** <<type-conversions,Type conversions>>
- ** <<string-conversions,String conversions>>
- ** <<constants,Constants>>
- ** <<variables,Variables>>
- ** <<built-in-functions,Built-in functions>>
- ** <<notes,Notes>>
-* <<point-cloud,Point Cloud>>
-* <<file-extension-and-mime-type,File extension and MIME type>>
-* <<property-reference,Property reference>>
-
 == Overview
 
 3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate the display of a feature, for example `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's xref:../TileFormats/BatchTable/README.adoc[Batch Table].

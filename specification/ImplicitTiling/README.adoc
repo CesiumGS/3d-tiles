@@ -1,28 +1,6 @@
 
 = Implicit Tiling
 
-
-
-== Contents
-
-* <<overview,Overview>>
-* <<implicit-root-tile,Implicit Root Tile>>
-* <<subdivision-scheme,Subdivision Scheme>>
-* <<tile-coordinates,Tile Coordinates>>
-* <<template-uris,Template URIs>>
-* <<subtrees,Subtrees>>
- ** <<availability,Availability>>
-  *** <<tile-availability,Tile Availability>>
-  *** <<content-availability,Content Availability>>
-  *** <<child-subtree-availability,Child Subtree Availability>>
- ** <<metadata,Metadata>>
-  *** <<tile-metadata,Tile Metadata>>
-  *** <<content-metadata,Content Metadata>>
-  *** <<subtree-metadata,Subtree Metadata>>
-* <<subtree-json-format,Subtree JSON Format>>
-* <<subtree-binary-format,Subtree Binary Format>>
-* <<appendix-a-availability-indexing,Appendix A: Availability Indexing>>
-
 == Overview
 
 Implicit tiling defines a concise representation of quadtrees and octrees in 3D Tiles. This regular pattern allows for random access of tiles based on their tile coordinates which enables accelerated spatial queries, new traversal algorithms, and efficient updates of tile content, among other use cases.
@@ -330,10 +308,7 @@ _Defined in link:../schema/subtree/subtree.schema.json[subtree.schema.json]._
 
 A *subtree file* is a JSON file that contains availability and metadata information for a single subtree. A subtree may reference external files containing binary data. An alternative <<subtree-binary-format,Binary Format>> allows the JSON and binary data to be embedded into a single binary file.
 
-
-
-[discrete]
-==== Buffers and Buffer Views
+=== Buffers and Buffer Views
 
 The xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property table] defines the storage of metadata in a binary form based on _buffer views_ that are parts of a _buffer_.
 

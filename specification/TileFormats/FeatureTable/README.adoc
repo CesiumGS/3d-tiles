@@ -1,18 +1,7 @@
-:doctype: book
-
-=== ⚠️ Feature Table was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#appendix-a-migration-from-legacy-tile-formats[glTF migration guide]. ⚠️
 
 = Feature Table
 
-== Contents
-
-* <<overview,Overview>>
-* <<layout,Layout>>
- ** <<padding,Padding>>
- ** <<json-header,JSON header>>
- ** <<binary-body,Binary body>>
-* <<implementation-example,Implementation example>>
-* <<property-reference,Property reference>>
+WARNING: Feature Table was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#appendix-a-migration-from-legacy-tile-formats[glTF migration guide].
 
 == Overview
 

@@ -1,42 +1,6 @@
-:doctype: book
-
-=== ⚠️ Point Cloud was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#point-cloud-pnts[`pnts` migration guide]. ⚠️
-
-
-
 = Point Cloud
 
-
-
-== Contents
-
-* <<overview,Overview>>
-* <<layout,Layout>>
- ** <<padding,Padding>>
-* <<header,Header>>
-* <<feature-table,Feature Table>>
- ** <<semantics,Semantics>>
-  *** <<point-semantics,Point semantics>>
-  *** <<global-semantics,Global semantics>>
- ** <<point-positions,Point positions>>
-  *** <<coordinate-reference-system-crs,Coordinate reference system (CRS)>>
-  *** <<rtc_center,RTC_CENTER>>
-  *** <<quantized-positions,Quantized positions>>
- ** <<point-colors,Point colors>>
- ** <<point-normals,Point normals>>
-  *** <<oct-encoded-normal-vectors,Oct-encoded normal vectors>>
- ** <<batched-points,Batched points>>
- ** <<examples,Examples>>
-  *** <<positions-only,Positions only>>
-  *** <<positions-and-colors,Positions and colors>>
-  *** <<quantized-positions-and-oct-encoded-normals,Quantized positions and oct-encoded normals>>
-  *** <<batched-points-1,Batched points>>
-  *** <<per-point-properties,Per-point properties>>
-* <<batch-table,Batch Table>>
-* <<extensions,Extensions>>
-* <<file-extension-and-mime-type,File extension and MIME type>>
-* <<implementation-example,Implementation example>>
-* <<property-reference,Property reference>>
+WARNING: Point Cloud was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#point-cloud-pnts[`pnts` migration guide].
 
 == Overview
 

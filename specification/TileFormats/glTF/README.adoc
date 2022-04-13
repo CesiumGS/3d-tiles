@@ -1,27 +1,6 @@
 
 = glTF
 
-
-
-== Contents
-
-* <<overview,Overview>>
-* <<use-cases,Use Cases>>
- ** <<3d-models,3D Models>>
- ** <<point-clouds,Point Clouds>>
- ** <<instancing,Instancing>>
-* <<feature-identification,Feature Identification>>
-* <<metadata,Metadata>>
-* <<compression,Compression>>
- ** <<geometry-compression,Geometry Compression>>
- ** <<texture-compression,Texture Compression>>
-* <<file-extensions-and-media-types,File Extensions and Media Types>>
-* <<appendix-a-migration-from-legacy-tile-formats,Appendix A: Migration From Legacy Tile Formats>>
- ** <<batched-3d-model-b3dm,Batched 3D Model (b3dm)>>
- ** <<instanced-3d-model-i3dm,Instanced 3D Model (i3dm)>>
- ** <<point-cloud-pnts,Point Cloud (pnts)>>
- ** <<composite-cmpt,Composite (cmpt)>>
-
 == Overview
 
 https://github.com/KhronosGroup/glTF[glTF 2.0] is the primary tile format for 3D Tiles. glTF is an open specification designed for the efficient transmission and loading of 3D content. A glTF asset includes geometry and texture information for a single tile, and may be extended to include metadata, model instancing, and compression. glTF may be used for a wide variety of 3D content including:
