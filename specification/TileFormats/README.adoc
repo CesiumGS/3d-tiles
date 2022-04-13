@@ -1,0 +1,27 @@
+== 3D Tiles Tile Formats
+
+The link:../README.md#tile-content[tile content] in a 3D Tiles tileset represents the renderable content of a tile. It is referred to with the `content.uri` of the tile JSON.
+
+The primary tile format in 3D Tiles 1.1 is the link:glTF/[glTF Tile Format]. It is built on https://github.com/KhronosGroup/glTF[glTF 2.0] and allows modeling many different use cases and different forms of renderable content in 3D Tiles.
+
+=== Legacy Tile Formats
+
+The following tile formats have been part of 3D Tiles 1.0, and have been superseded by the link:glTF/[glTF Tile Format].
+
+|===
+| Legacy Format | Uses
+
+| link:Batched3DModel/[Batched 3D Model (`b3dm`)]
+| Heterogeneous 3D models
+
+| link:Instanced3DModel/[Instanced 3D Model (`i3dm`)]
+| 3D model instances
+
+| link:PointCloud/[Point Cloud (`pnts`)]
+| Massive number of points
+
+| link:Composite/[Composite (`cmpt`)]
+| Concatenate tiles of different formats into one tile
+|===
+
+See the link:glTF/README.md#appendix-a-migration-from-legacy-tile-formats[migration guide] for further information about how these use cases can be modeled based on the glTF tile format.
