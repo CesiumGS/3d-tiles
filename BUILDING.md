@@ -10,6 +10,7 @@
 - Install the Ruby interpreter, 2.3 or later, from http://www.ruby-lang.org/
 - Install Asciidoctor: `gem install asciidoctor`
 - In order to be able to generate PDF output: `gem install asciidoctor-pdf`
+- Install some rogue software: `gem install rouge` - no worries, that's the syntax highlighter...
 - A VSCode plugin for AsciiDoc syntax highlighting and preview: https://marketplace.visualstudio.com/items?itemName=asciidoctor.asciidoctor-vscode
 
 

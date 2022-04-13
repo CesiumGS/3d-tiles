@@ -3,6 +3,8 @@ Cesium
 :toc2:
 :toclevels: 2
 :sectnums:
+:source-highlighter: rouge
+:rouge-style: github
 
 toc::[]
 
@@ -20,6 +22,7 @@ include::README.adoc[]
 include::ImplicitTiling\README.adoc[]
 include::Metadata\README.adoc[]
 include::schema\README.adoc[]
+include::Styling\README.adoc[]
 include::TileFormats\README.adoc[]
 
 :leveloffset: -1
