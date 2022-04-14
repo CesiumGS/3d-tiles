@@ -125,7 +125,7 @@ Note that a vertex can't belong to more than one model; in that case, the vertex
 
 The `batchId` parameter is specified in a glTF mesh https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#reference-primitive[primitive] by providing the `_BATCHID` attribute semantic, along with the index of the `batchId` https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessors[accessor]. For example,
 
-[,JSON]
+[source,json]
 ----
 "primitives": [
     {
@@ -136,7 +136,7 @@ The `batchId` parameter is specified in a glTF mesh https://github.com/KhronosGr
 ]
 ----
 
-[,JSON]
+[source,json]
 ----
 {
     "accessors": [

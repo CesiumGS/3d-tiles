@@ -13,7 +13,7 @@ Styles are defined with JSON and expressions written in a small subset of JavaSc
 
 The following example assigns a color based on building height.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "${Area} > 0",
@@ -37,7 +37,7 @@ Visual properties available for styling features are the `show` property, the as
 
 The following style assigns the default show and color properties to each feature:
 
-[,json]
+[source,json]
 ----
 {
     "show" : "true",
@@ -47,7 +47,7 @@ The following style assigns the default show and color properties to each featur
 
 Instead of showing all features, `show` can be an expression dependent on a feature's properties, for example, the following expression will show only features in the 19341 zip code:
 
-[,json]
+[source,json]
 ----
 {
     "show" : "${ZipCode} === '19341'"
@@ -56,7 +56,7 @@ Instead of showing all features, `show` can be an expression dependent on a feat
 
 `show` can also be used for more complex queries; for example, here a compound condition and regular expression are used to show only features whose county starts with `'Chest'` and whose year built is greater than or equal to 1970:
 
-[,json]
+[source,json]
 ----
 {
     "show" : "(regExp('^Chest').test(${County})) && (${YearBuilt} >= 1970)"
@@ -65,7 +65,7 @@ Instead of showing all features, `show` can be an expression dependent on a feat
 
 Colors can also be defined by expressions dependent on a feature's properties. For example, the following expression colors features with a temperature above 90 as red and the others as white:
 
-[,json]
+[source,json]
 ----
 {
     "color" : "(${Temperature} > 90) ? color('red') : color('white')"
@@ -74,7 +74,7 @@ Colors can also be defined by expressions dependent on a feature's properties. F
 
 The color's alpha component defines the feature's opacity. For example, the following sets the feature's RGB color components from the feature's properties and makes features with volume greater than 100 transparent:
 
-[,json]
+[source,json]
 ----
 {
    "color" : "rgba(${red}, ${green}, ${blue}, (${volume} > 100 ? 0.5 : 1.0))"
@@ -87,7 +87,7 @@ In addition to a string containing an expression, `color` and `show` can be an a
 
 For example, the following expression maps an ID property to colors. Conditions are evaluated in order, so if `+${id}+` is not `'1'` or `'2'`, the `"true"` condition returns white. If no conditions are met, the color of the feature will be `undefined`:
 
-[,json]
+[source,json]
 ----
 {
     "color" : {
@@ -102,7 +102,7 @@ For example, the following expression maps an ID property to colors. Conditions 
 
 The next example shows how to use conditions to create a color ramp using intervals with an inclusive lower bound and exclusive upper bound:
 
-[,json]
+[source,json]
 ----
 "color" : {
     "conditions" : [
@@ -118,7 +118,7 @@ The next example shows how to use conditions to create a color ramp using interv
 
 Since conditions are evaluated in order, the above can be written more concisely as the following:
 
-[,json]
+[source,json]
 ----
 "color" : {
     "conditions" : [
@@ -136,7 +136,7 @@ Since conditions are evaluated in order, the above can be written more concisely
 
 Commonly used expressions may be stored in a `defines` object with a variable name as a key. If a variable references the name of a defined expression, it is replaced with the result of the referenced evaluated expression:
 
-[,json]
+[source,json]
 ----
 {
     "defines" : {
@@ -156,7 +156,7 @@ Commonly used expressions may be stored in a `defines` object with a variable na
 
 A define expression may not reference other defines; however, it may reference feature properties with the same name. In the style below a feature of height 150 gets the color red:
 
-[,json]
+[source,json]
 ----
 {
     "defines" : {
@@ -175,7 +175,7 @@ A define expression may not reference other defines; however, it may reference f
 
 Non-visual properties of a feature can be defined using the `meta` property. For example, the following sets a `description` meta property to a string containing the feature name:
 
-[,json]
+[source,json]
 ----
 {
     "meta" : {
@@ -186,7 +186,7 @@ Non-visual properties of a feature can be defined using the `meta` property. For
 
 A meta property expression can evaluate to any type. For example:
 
-[,json]
+[source,json]
 ----
 {
     "meta" : {
@@ -411,7 +411,7 @@ Regular expressions support these functions:
 
 For example:
 
-[,json]
+[source,json]
 ----
 {
     "Name" : "Building 1"
@@ -523,7 +523,7 @@ The following constants are supported by the styling language:
 
 The mathematical constant PI, which represents a circle's circumference divided by its diameter, approximately `3.14159`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "cos(${Angle} + Math.PI) < 0"
@@ -536,7 +536,7 @@ The mathematical constant PI, which represents a circle's circumference divided 
 
 Euler's constant and the base of the natural logarithm, approximately `2.71828`.
 
-[,json]
+[source,json]
 ----
 {
     "color" : "color() * pow(Math.E / 2.0, ${Temperature})"
@@ -566,7 +566,7 @@ Variables may be any of the supported native JavaScript types:
 
 For example:
 
-[,json]
+[source,json]
 ----
 {
     "enabled" : true,
@@ -607,7 +607,7 @@ vec4(${temperature})
 
 Dot or bracket notation is used to access feature subproperties. For example:
 
-[,json]
+[source,json]
 ----
 {
     "address" : {
@@ -629,7 +629,7 @@ Bracket notation supports only string literals.
 
 Top-level properties can be accessed with bracket notation by explicitly using the `feature` keyword. For example:
 
-[,json]
+[source,json]
 ----
 {
     "address.street" : "Maple Street",
@@ -648,7 +648,7 @@ ${feature['address.street']} === `Maple Street`
 
 To access a feature named `feature`, use the variable `+${feature}+`. This is equivalent to accessing `${feature.feature}`
 
-[,json]
+[source,json]
 ----
 {
     "feature" : "building"
@@ -662,7 +662,7 @@ ${feature.feature} === `building`
 
 Variables can also be substituted inside strings defined with backticks, for example:
 
-[,json]
+[source,json]
 ----
 {
     "order" : 1,
@@ -676,7 +676,7 @@ Variables can also be substituted inside strings defined with backticks, for exa
 
 Bracket notation is used to access feature subproperties or arrays.  For example:
 
-[,json]
+[source,json]
 ----
 {
     "temperatures" : {
@@ -742,7 +742,7 @@ abs(x : vec4) : vec4
 
 Returns the absolute value of `x`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "abs(${temperature}) > 20.0"
@@ -762,7 +762,7 @@ sqrt(x : vec4) : vec4
 
 Returns the square root of `x` when `x >= 0`. Returns `NaN` when `x < 0`.
 
-[,json]
+[source,json]
 ----
 {
     "color" : {
@@ -787,7 +787,7 @@ cos(angle : vec4) : vec4
 
 Returns the cosine of `angle` in radians.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "cos(${Angle}) > 0.0"
@@ -807,7 +807,7 @@ sin(angle : vec4) : vec4
 
 Returns the sine of `angle` in radians.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "sin(${Angle}) > 0.0"
@@ -827,7 +827,7 @@ tan(angle : vec4) : vec4
 
 Returns the tangent of `angle` in radians.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "tan(${Angle}) > 0.0"
@@ -847,7 +847,7 @@ acos(angle : vec4) : vec4
 
 Returns the arccosine of `angle` in radians.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "acos(${Angle}) > 0.0"
@@ -867,7 +867,7 @@ asin(angle : vec4) : vec4
 
 Returns the arcsine of `angle` in radians.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "asin(${Angle}) > 0.0"
@@ -887,7 +887,7 @@ atan(angle : vec4) : vec4
 
 Returns the arctangent of `angle` in radians.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "atan(${Angle}) > 0.0"
@@ -907,7 +907,7 @@ atan2(y : vec4, x : vec4) : vec4
 
 Returns the arctangent of the quotient of `y` and `x`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "atan2(${GridY}, ${GridX}) > 0.0"
@@ -927,7 +927,7 @@ radians(angle : vec4) : vec4
 
 Converts `angle` from degrees to radians.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "radians(${Angle}) > 0.5"
@@ -947,7 +947,7 @@ degrees(angle : vec4) : vec4
 
 Converts `angle` from radians to degrees.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "degrees(${Angle}) > 45.0"
@@ -967,7 +967,7 @@ sign(x : vec4) : vec4
 
 Returns 1.0 when `x` is positive, 0.0 when `x` is zero, and -1.0 when `x` is negative.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "sign(${Temperature}) * sign(${Velocity}) === 1.0"
@@ -987,7 +987,7 @@ floor(x : vec4) : vec4
 
 Returns the nearest integer less than or equal to `x`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "floor(${Position}) === 0"
@@ -1007,7 +1007,7 @@ ceil(x : vec4) : vec4
 
 Returns the nearest integer greater than or equal to `x`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "ceil(${Position}) === 1"
@@ -1027,7 +1027,7 @@ round(x : vec4) : vec4
 
 Returns the nearest integer to `x`. A number with a fraction of 0.5 will round in an implementation-defined direction.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "round(${Position}) === 1"
@@ -1047,7 +1047,7 @@ exp(x : vec4) : vec4
 
 Returns `e` to the power of `x`, where `e` is Euler's constant, approximately `2.71828`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "exp(${Density}) > 1.0"
@@ -1067,7 +1067,7 @@ log(x : vec4) : vec4
 
 Returns the natural logarithm (base `e`) of `x`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "log(${Density}) > 1.0"
@@ -1087,7 +1087,7 @@ exp2(x : vec4) : vec4
 
 Returns 2 to the power of `x`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "exp2(${Density}) > 1.0"
@@ -1107,7 +1107,7 @@ log2(x : vec4) : vec4
 
 Returns the base 2 logarithm of `x`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "log2(${Density}) > 1.0"
@@ -1127,7 +1127,7 @@ fract(x : vec4) : vec4
 
 Returns the fractional part of `x`. Equivalent to `x - floor(x)`.
 
-[,json]
+[source,json]
 ----
 {
     "color" : "color() * fract(${Density})"
@@ -1147,7 +1147,7 @@ pow(base : vec4, exponent : vec4) : vec4
 
 Returns `base` raised to the power of `exponent`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "pow(${Density}, ${Temperature}) > 1.0"
@@ -1174,7 +1174,7 @@ min(x : vec4, y : Number) : vec4
 
 Returns the smaller of `x` and `y`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "min(${Width}, ${Height}) > 10.0"
@@ -1201,7 +1201,7 @@ max(x : vec4, y : Number) : vec4
 
 Returns the larger of `x` and `y`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "max(${Width}, ${Height}) > 10.0"
@@ -1228,7 +1228,7 @@ clamp(x : vec4,  min : Number, max : Number) : vec4
 
 Constrains `x` to lie between `min` and `max`.
 
-[,json]
+[source,json]
 ----
 {
     "color" : "color() * clamp(${temperature}, 0.1, 0.2)"
@@ -1255,7 +1255,7 @@ mix(x : vec4,  y : vec4, a : Number) : vec4
 
 Computes the linear interpolation of `x` and `y`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "mix(20.0, ${Angle}, 0.5) > 25.0"
@@ -1275,7 +1275,7 @@ length(x : vec4) : vec4
 
 Computes the length of vector `x`, i.e., the square root of the sum of the squared components. If `x` is a number, `length` returns `x`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "length(${Dimensions}) > 10.0"
@@ -1295,7 +1295,7 @@ distance(x : vec4, y : vec4) : vec4
 
 Computes the distance between two points `x` and `y`, i.e., `length(x - y)`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "distance(${BottomRight}, ${UpperLeft}) > 50.0"
@@ -1315,7 +1315,7 @@ normalize(x : vec4) : vec4
 
 Returns a vector with length 1.0 that is parallel to `x`. When `x` is a number, `normalize` returns 1.0.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "normalize(${RightVector}, ${UpVector}) > 0.5"
@@ -1335,7 +1335,7 @@ dot(x : vec4, y : vec4) : vec4
 
 Computes the dot product of `x` and `y`.
 
-[,json]
+[source,json]
 ----
 {
     "show" : "dot(${RightVector}, ${UpVector}) > 0.5"
@@ -1352,7 +1352,7 @@ cross(x : vec3, y : vec3) : vec3
 
 Computes the cross product of `x` and `y`. This function only accepts `vec3` arguments.
 
-[,json]
+[source,json]
 ----
 {
     "color" : "vec4(cross(${RightVector}, ${UpVector}), 1.0)"
@@ -1367,7 +1367,7 @@ Comments are not supported.
 
 A xref:../TileFormats/PointCloud/README.adoc[Point Cloud] is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a Point Cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
 
-[,json]
+[source,json]
 ----
 {
     "color" : "color('red')",
@@ -1386,7 +1386,7 @@ Point Cloud styles may also reference semantics from the link:../TileFormats/Poi
 
 For example:
 
-[,json]
+[source,json]
 ----
 {
     "color" : "${COLOR} * color('red')'",

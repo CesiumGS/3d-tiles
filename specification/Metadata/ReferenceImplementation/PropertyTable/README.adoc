@@ -23,7 +23,7 @@ The property table may provide value arrays for only a subset of the properties 
 ____
 *Example:* A `tree_survey_2021-09-29` property table, implementing the `tree` class defined in the link:../Schema/[Schema] examples. The table contains observations for 10 trees. Details about the class properties will be given in later examples.
 
-[,jsonc]
+[source,json]
 ----
 "schema": { ... },
 "propertyTables": [{
@@ -61,7 +61,7 @@ For variable-length arrays of strings, both the `stringOffsets` and the `arrayOf
 ____
 *Example:* The property table from the previous example, with details about the binary storage of the property values
 
-[,jsonc]
+[source,json]
 ----
 {
   "propertyTables": [{

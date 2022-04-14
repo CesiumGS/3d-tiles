@@ -232,7 +232,7 @@ These examples show how to generate JSON and binary buffers for the Feature Tabl
 
 This minimal example has four points on the corners of a unit length square:
 
-[,javascript]
+[source,javascript]
 ----
 var featureTableJSON = {
     POINTS_LENGTH : 4,
@@ -253,7 +253,7 @@ var featureTableBinary = new Buffer(new Float32Array([
 
 The following example has four points (red, green, blue, and yellow) above the globe. Their positions are defined relative to center:
 
-[,javascript]
+[source,javascript]
 ----
 var featureTableJSON = {
     POINTS_LENGTH : 4,
@@ -287,7 +287,7 @@ var featureTableBinary = Buffer.concat([positionBinary, colorBinary]);
 
 In this example, the four points will have normals pointing up `[0.0, 1.0, 0.0]` in oct-encoded format, and they will be placed on the corners of a quantized volume that spans from `-250.0` to `250.0` units in the `x` and `z` directions:
 
-[,javascript]
+[source,javascript]
 ----
 var featureTableJSON = {
     POINTS_LENGTH : 4,
@@ -322,7 +322,7 @@ var featureTableBinary = Buffer.concat([positionQuantizedBinary, normalOct16PBin
 
 In this example, the first two points have a `batchId` of 0, and the next two points have a `batchId` of 1. Note that the Batch Table only has two names:
 
-[,javascript]
+[source,javascript]
 ----
 var featureTableJSON = {
     POINTS_LENGTH : 4,
@@ -361,7 +361,7 @@ var batchTableJSON = {
 
 In this example, each of the 4 points will have metadata stored in the Batch Table JSON and binary.
 
-[,javascript]
+[source,javascript]
 ----
 var featureTableJSON = {
     POINTS_LENGTH : 4,

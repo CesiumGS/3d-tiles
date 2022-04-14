@@ -55,7 +55,7 @@ _This section is non-normative_
 
 The following example accesses the position property using the `POSITION` semantic, which has a `float32[3]` data type:
 
-[,javascript]
+[source,javascript]
 ----
 var byteOffset = featureTableJSON.POSITION.byteOffset;
 

@@ -19,7 +19,7 @@ _A point cloud organized into a sparse octree. Data source: Trimble_
 
 An `implicitTiling` object may be added to any tile in the tileset JSON. Such a tile is called an *implicit root tile*, to distinguish it from the root tile of the tileset JSON.
 
-[,json]
+[source,json]
 ----
 {
   "root": {
@@ -335,7 +335,7 @@ Availability bitstreams are packed in binary using the format described in the l
 ____
 *Example:* The JSON description of a subtree where each tile is available, but not all tiles have content, and not all child subtrees are available:
 
-[,json]
+[source,json]
 ----
 {
   "buffers": [
@@ -394,7 +394,7 @@ ____
 
 _Schema in the root tileset JSON_
 
-[,json]
+[source,json]
 ----
 {
   "schema": {
@@ -453,7 +453,7 @@ _Schema in the root tileset JSON_
 
 _Subtree JSON_
 
-[,json]
+[source,json]
 ----
 {
   "buffers": [
@@ -559,7 +559,7 @@ ____
 
 _Implicit root tile_
 
-[,json]
+[source,json]
 ----
 {
   "root": {
@@ -590,7 +590,7 @@ _Implicit root tile_
 
 _Subtree JSON_
 
-[,json]
+[source,json]
 ----
 {
   "propertyTables": [

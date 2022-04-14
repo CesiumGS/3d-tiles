@@ -3,16 +3,6 @@
 
 WARNING: Composite was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#composite-cmpt[`cpmt` migration guide].
 
-== Contents
-
-* <<overview,Overview>>
-* <<layout,Layout>>
- ** <<padding,Padding>>
-* <<header,Header>>
-* <<inner-tiles,Inner tiles>>
-* <<file-extension-and-mime-type,File extension and MIME type>>
-* <<implementation-examples,Implementation examples>>
-
 == Overview
 
 The _Composite_ tile format enables concatenating tiles of different formats into one tile.

@@ -3,17 +3,6 @@
 
 WARNING:  Batch Table was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#appendix-a-migration-from-legacy-tile-formats[glTF migration guide].
 
-== Contents
-
-* <<overview,Overview>>
-* <<layout,Layout>>
- ** <<padding,Padding>>
- ** <<json-header,JSON header>>
- ** <<binary-body,Binary body>>
-* <<extensions,Extensions>>
-* <<implementation-example,Implementation example>>
-* <<property-reference,Property reference>>
-
 == Overview
 
 A _Batch Table_ is a component of a tile's binary body and contains per-feature application-specific properties in a tile. These properties are queried at runtime for declarative styling and any application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, geographic coordinates, and database primary keys.
@@ -61,7 +50,7 @@ ____
 
 A `batchId` is used to access elements in each array and extract the corresponding properties. For example, the following Batch Table has properties for a batch of two features:
 
-[,json]
+[source,json]
 ----
 {
     "id" : ["unique id", "another unique id"],
@@ -73,7 +62,7 @@ A `batchId` is used to access elements in each array and extract the correspondi
 
 The properties for the feature with `batchId = 0` are
 
-[,javascript]
+[source,javascript]
 ----
 id[0] = 'unique id';
 displayName[0] = 'Building name';
@@ -83,7 +72,7 @@ address[0] = {street : 'Main Street', houseNumber : '1'};
 
 The properties for `batchId = 1` are
 
-[,javascript]
+[source,javascript]
 ----
 id[1] = 'another unique id';
 displayName[1] = 'Another building name';
@@ -159,7 +148,7 @@ _This section is non-normative_
 
 The following examples access the `"height"` and `"geographic"` values respectively given the following Batch Table JSON with `batchLength` of 10:
 
-[,json]
+[source,json]
 ----
 {
     "height" : {
@@ -177,7 +166,7 @@ The following examples access the `"height"` and `"geographic"` values respectiv
 
 To get the `"height"` values:
 
-[,javascript]
+[source,javascript]
 ----
 var height = batchTableJSON.height;
 var byteOffset = height.byteOffset;
@@ -191,7 +180,7 @@ var heightOfFeature = heightArray[batchId];
 
 To get the `"geographic"` values:
 
-[,javascript]
+[source,javascript]
 ----
 var geographic = batchTableJSON.geographic;
 var byteOffset = geographic.byteOffset;
