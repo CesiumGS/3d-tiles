@@ -1,4 +1,3 @@
-
 [#implicittiling-implicit-tiling]
 = Implicit Tiling
 
@@ -13,7 +12,7 @@ In order to support sparse datasets, *availability* data determines which tiles 
 
 An `implicitTiling` object may be added to any tile in the tileset JSON. The object defines how the tile is subdivided and where to locate content resources. It may be added to multiple tiles to create more complex subdivision schemes.
 
-image::ImplicitTiling/figures/sparse-octree.png[,700]
+image::figures/sparse-octree.png[,700]
 
 _A point cloud organized into a sparse octree. Data source: Trimble_
 

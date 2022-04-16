@@ -495,7 +495,7 @@ ____
 
 The binary table format is similar to a database table where entities are rows and properties are columns. Each column represents one of the properties of the class. Each row represents a single entity conforming to the class.
 
-image::Metadata/figures/table-format.png[Table Format,1000px]
+image::figures/table-format.png[Table Format,1000px]
 
 The rows of a table are addressed by an integer index called an *entity ID*. Entity IDs are always numbered `+0, 1, ..., N - 1+` where `N` is the number of rows in the table.
 
@@ -585,7 +585,7 @@ The data type used for offsets is defined by a *string offset type*, which may b
 ____
 *Example:* Three UTF-8 strings, binary-encoded in a buffer.
 
-image::Metadata/figures/unicode-strings.png[String property example]
+image::figures/unicode-strings.png[String property example]
 ____
 
 [#metadata-enums-1]
@@ -626,13 +626,13 @@ Each expression in the table above defines an index into the underlying property
 ____
 *Example:* Five variable-length arrays of UINT8 components, binary-encoded in a buffer. The associated property definition would be `type = "SCALAR"`, `componentType = "UINT8"`, and `array = true`.
 
-image::Metadata/figures/array-of-ints.png[Variable-length array,640px]
+image::figures/array-of-ints.png[Variable-length array,640px]
 ____
 
 ____
 *Example:* Two variable-length arrays of strings, binary-encoded in a buffer. The associated property definition would be `type = "STRING"` and `array = true` (variable-length). Observe that the last element of the array offset buffer points to the last element of the string offset buffer. This is because the last valid string offset is the next-to-last element of the string offset buffer.
 
-image::Metadata/figures/array-of-strings.png[Variable-length array of string]
+image::figures/array-of-strings.png[Variable-length array of string]
 ____
 
 [#metadata-json-format]
@@ -811,12 +811,3 @@ Enums are encoded as JSON strings using the name of the enum value rather than t
 
 Arrays are encoded as JSON arrays, where each element is encoded according to the `type`. When a count is specified, the length of the JSON array must match the count. Otherwise, for variable-length arrays, the JSON array may be any length, including zero-length.
 
-
-:leveloffset: +1
-
-include::Semantics\README.adoc[]
-include::ReferenceImplementation\README.adoc[]
-include::ReferenceImplementation\PropertyTable\README.adoc[]
-include::ReferenceImplementation\Schema\README.adoc[]
-
-:leveloffset: -1

@@ -28,15 +28,3 @@ The following tile formats have been part of 3D Tiles 1.0, and have been superse
 |===
 
 See the link:glTF/README.md#appendix-a-migration-from-legacy-tile-formats[migration guide] for further information about how these use cases can be modeled based on the glTF tile format.
-
-:leveloffset: +1
-
-include::Batched3DModel\README.adoc[]
-include::BatchTable\README.adoc[]
-include::Composite\README.adoc[]
-include::FeatureTable\README.adoc[]
-include::glTF\README.adoc[]
-include::Instanced3DModel\README.adoc[]
-include::PointCloud\README.adoc[]
-
-:leveloffset: -1
