@@ -1,4 +1,5 @@
 
+[#metadata-referenceimplementation-3d-metadata-reference-implementation]
 = 3D Metadata Reference Implementation
 
 This document defines a reference implementation of the concepts defined in the link:../[3D Metadata Specification]. The 3D Metadata Specification itself defines a standard format for structured metadata in 3D content in a way that is language- and format agnostic. The reference implementation described here is an implementation of these concepts:

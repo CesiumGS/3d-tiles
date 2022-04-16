@@ -1,7 +1,9 @@
+[#tileformats-instanced3dmodel-instanced-3d-model]
 = Instanced 3D Model
 
 WARNING: Instanced 3D Model was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#instanced-3d-model-i3dm[`i3dm` migration guide].
 
+[#tileformats-instanced3dmodel-overview]
 == Overview
 
 _Instanced 3D Model_ is a tile format for efficient streaming and rendering of a large number of models, called _instances_, with slight variations.  In the simplest case, the same tree model, for example, may be located--or _instanced_--in several places.  Each instance references the same model and has per-instance properties, such as position.  Using the core 3D Tiles spec language, each instance is a _feature_.
@@ -18,12 +20,14 @@ ____
 *Implementation Note:* Instanced 3D Model maps well to the https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/[ANGLE_instanced_arrays] extension for efficient rendering with WebGL.
 ____
 
+[#tileformats-instanced3dmodel-layout]
 == Layout
 
 A tile is composed of a header section immediately followed by a binary body. The following figure shows the Instanced 3D Model layout (dashes indicate optional fields):
 
 image::TileFormats/Instanced3DModel/figures/header-layout.png[header layout]
 
+[#tileformats-instanced3dmodel-padding]
 === Padding
 
 A tile's `byteLength` must be aligned to an 8-byte boundary. The contained link:../FeatureTable/README.md#padding[Feature Table] and link:../BatchTable/README.md#padding[Batch Table] must conform to their respective padding requirement.
@@ -32,6 +36,7 @@ The <<gltf,binary glTF>> (if present) must start and end on an 8-byte boundary s
 
 Otherwise, if the glTF field is a UTF-8 string, it must be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the tile, which must be removed at runtime before requesting the glTF asset.
 
+[#tileformats-instanced3dmodel-header]
 == Header
 
 The 32-byte header contains the following fields:
@@ -74,6 +79,7 @@ The 32-byte header contains the following fields:
 
 The body section immediately follows the header section and is composed of three fields: `Feature Table`, `Batch Table`, and `glTF`.
 
+[#tileformats-instanced3dmodel-feature-table]
 == Feature Table
 
 The Feature Table contains values for `i3dm` semantics used to create instanced models.
@@ -81,8 +87,10 @@ More information is available in the xref:../FeatureTable/README.adoc[Feature Ta
 
 See <<property-reference,Property reference>> for the `i3dm` feature table schema reference. The full JSON schema can be found in link:../../schema/TileFormats/i3dm.featureTable.schema.json[i3dm.featureTable.schema.json].
 
+[#tileformats-instanced3dmodel-semantics]
 === Semantics
 
+[#tileformats-instanced3dmodel-instance-semantics]
 ==== Instance semantics
 
 These semantics map to an array of feature values that are used to create instances. The length of these arrays must be the same for all semantics and is equal to the number of instances.
@@ -142,6 +150,7 @@ If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` ar
 | :red_circle: No.
 |===
 
+[#tileformats-instanced3dmodel-global-semantics]
 ==== Global semantics
 
 These semantics define global properties for all instances.
@@ -177,6 +186,7 @@ These semantics define global properties for all instances.
 
 Examples using these semantics can be found in the <<examples,examples section>>.
 
+[#tileformats-instanced3dmodel-instance-orientation]
 === Instance orientation
 
 An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. The orientation will be transformed by the link:../../README.md#tile-transforms[tile transform].
@@ -190,6 +200,7 @@ image::TileFormats/Instanced3DModel/figures/box-standard-basis.png[box standard 
 A box transformed into a rotated basis
 image::TileFormats/Instanced3DModel/figures/box-rotated-basis.png[box rotated basis]
 
+[#tileformats-instanced3dmodel-oct-encoded-normal-vectors]
 ==== Oct-encoded normal vectors
 
 If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientation may be stored as oct-encoded normals in `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P`.
@@ -200,19 +211,23 @@ An implementation for encoding and decoding these unit vectors can be found in C
 module.
 ____
 
+[#tileformats-instanced3dmodel-default-orientation]
 ==== Default orientation
 
 If `NORMAL_UP` and `NORMAL_RIGHT` or `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P` are not present, the instance will not have a custom orientation. If `EAST_NORTH_UP` is `true`, the instance is assumed to be on the `WGS84` ellipsoid and its orientation will default to the `east/north/up` reference frame at its cartographic position.
 This is suitable for instanced models such as trees whose orientation is always facing up from their position on the ellipsoid's surface.
 
+[#tileformats-instanced3dmodel-instance-position]
 === Instance position
 
 `POSITION` defines the location for an instance before any tile transforms are applied.
 
+[#tileformats-instanced3dmodel-rtc_center]
 ==== RTC_CENTER
 
 Positions may be defined relative-to-center for high-precision rendering, see http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm[Precisions, Precisions]. If defined, `RTC_CENTER` specifies the center position and all instance positions are treated as relative to this value. See <<coordinate-system,Coordinate System>> for the effect that this property has on the transform.
 
+[#tileformats-instanced3dmodel-quantized-positions]
 ==== Quantized positions
 
 If `POSITION` is not defined for an instance, its position may be stored in `POSITION_QUANTIZED`, which defines the instance position relative to the quantized volume.
@@ -231,15 +246,18 @@ Quantized positions can be mapped to local space using the following formula:
 
 Compressed attributes should be decompressed before any other transforms are applied.
 
+[#tileformats-instanced3dmodel-instance-scaling]
 === Instance scaling
 
 Scaling can be applied to instances using the `SCALE` and `SCALE_NON_UNIFORM` semantics.
 `SCALE` applies a uniform scale along all axes, and `SCALE_NON_UNIFORM` applies scaling to the `x`, `y`, and `z` axes independently.
 
+[#tileformats-instanced3dmodel-examples]
 === Examples
 
 These examples show how to generate JSON and binary buffers for the Feature Table.
 
+[#tileformats-instanced3dmodel-positions-only]
 ==== Positions only
 
 In this minimal example, we place four instances on the corners of a unit length square with the default orientation:
@@ -261,6 +279,7 @@ var featureTableBinary = new Buffer(new Float32Array([
 ]).buffer);
 ----
 
+[#tileformats-instanced3dmodel-quantized-positions-and-oct-encoded-normals]
 ==== Quantized positions and oct-encoded normals
 
 In this example, the four instances will be placed with an orientation `up` of `[0.0, 1.0, 0.0]` and `right` of `[1.0, 0.0, 0.0]` in oct-encoded format
@@ -307,10 +326,12 @@ var normalRightOct32PBinary = new Buffer(new Uint16Array([
 var featureTableBinary = Buffer.concat([positionQuantizedBinary, normalUpOct32PBinary, normalRightOct32PBinary]);
 ----
 
+[#tileformats-instanced3dmodel-batch-table]
 == Batch Table
 
 Contains metadata organized by `batchId` that can be used for declarative styling. See the xref:../BatchTable/README.adoc[Batch Table] reference for more information.
 
+[#tileformats-instanced3dmodel-gltf]
 == glTF
 
 Instanced 3D Model embeds https://github.com/KhronosGroup/glTF/tree/master/specification/2.0[glTF 2.0] containing model geometry and texture information.
@@ -324,6 +345,7 @@ The glTF asset to be instanced is stored after the Feature Table and Batch Table
 
 When the glTF field contains a URI, then this URI may point to a https://tools.ietf.org/html/rfc3986#section-4.2[relative external reference (RFC3986)]. When the URI is relative, its base is always relative to the referring `.i3dm` file. Client implementations are required to support relative external references. Optionally, client implementations may support other schemes (such as `http://`). All URIs must be valid and resolvable.
 
+[#tileformats-instanced3dmodel-coordinate-system]
 === Coordinate system
 
 By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See link:../../README.md#gltf-transforms[glTF transforms] for more details.
@@ -336,12 +358,14 @@ When the <<rtc-center,`RTC_CENTER`>> is defined in the feature table of an Insta
 . The transform for the `RTC_CENTER`, which is used to translate model vertices
 . link:../../README.md#tile-transforms[Tile transform]
 
+[#tileformats-instanced3dmodel-file-extension-and-mime-type]
 == File extension and MIME type
 
 Instanced 3D models tiles use the `.i3dm` extension and `application/octet-stream` MIME type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
+[#tileformats-instanced3dmodel-property-reference]
 == Property reference
 
 * <<reference-instanced-3d-model-feature-table,`Instanced 3D Model Feature Table`>>
@@ -355,6 +379,7 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 
 +++<a name="reference-instanced-3d-model-feature-table">++++++</a>+++
 
+[#tileformats-instanced3dmodel-instanced-3d-model-feature-table]
 === Instanced 3D Model Feature Table
 
 A set of Instanced 3D Model semantics that contains values defining the position and appearance properties for instanced models in a tile.
@@ -449,6 +474,7 @@ Additional properties are allowed.
 
 * *Type of each property*: <<reference-property,`Property`>>
 +
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetableextensions]
 ==== Instanced3DModelFeatureTable.extensions
 
 Dictionary object with extension-specific objects.
@@ -457,6 +483,7 @@ Dictionary object with extension-specific objects.
 * *Required*: No
 * *Type of each property*: Extension
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetableextras]
 ==== Instanced3DModelFeatureTable.extras
 
 Application-specific data.
@@ -464,6 +491,7 @@ Application-specific data.
 * *Type*: `any`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetableposition]
 ==== Instanced3DModelFeatureTable.POSITION
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -471,6 +499,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 * *Type*: `object`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetableposition_quantized]
 ==== Instanced3DModelFeatureTable.POSITION_QUANTIZED
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -478,6 +507,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 * *Type*: `object`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetablenormal_up]
 ==== Instanced3DModelFeatureTable.NORMAL_UP
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -485,6 +515,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 * *Type*: `object`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetablenormal_right]
 ==== Instanced3DModelFeatureTable.NORMAL_RIGHT
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -492,6 +523,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 * *Type*: `object`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetablenormal_up_oct32p]
 ==== Instanced3DModelFeatureTable.NORMAL_UP_OCT32P
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -499,6 +531,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 * *Type*: `object`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetablenormal_right_oct32p]
 ==== Instanced3DModelFeatureTable.NORMAL_RIGHT_OCT32P
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -506,6 +539,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 * *Type*: `object`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetablescale]
 ==== Instanced3DModelFeatureTable.SCALE
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -513,6 +547,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 * *Type*: `object`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetablescale_non_uniform]
 ==== Instanced3DModelFeatureTable.SCALE_NON_UNIFORM
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -520,6 +555,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 * *Type*: `object`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetablebatch_id]
 ==== Instanced3DModelFeatureTable.BATCH_ID
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -527,6 +563,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 * *Type*: `object`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetableinstances_length-white_check_mark]
 ==== Instanced3DModelFeatureTable.INSTANCES_LENGTH :white_check_mark:
 
 A <<reference-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all features. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -534,6 +571,7 @@ A <<reference-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an
 * *Type*: `object`, `number` `[1]`, `number`
 * *Required*: Yes
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetablertc_center]
 ==== Instanced3DModelFeatureTable.RTC_CENTER
 
 A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all features. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -541,6 +579,7 @@ A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defin
 * *Type*: `object`, `number` `[3]`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetablequantized_volume_offset]
 ==== Instanced3DModelFeatureTable.QUANTIZED_VOLUME_OFFSET
 
 A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all features. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -548,6 +587,7 @@ A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defin
 * *Type*: `object`, `number` `[3]`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetablequantized_volume_scale]
 ==== Instanced3DModelFeatureTable.QUANTIZED_VOLUME_SCALE
 
 A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all features. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -555,6 +595,7 @@ A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defin
 * *Type*: `object`, `number` `[3]`
 * *Required*: No
 
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetableeast_north_up]
 ==== Instanced3DModelFeatureTable.EAST_NORTH_UP
 
 A <<reference-globalpropertyboolean,`GlobalPropertyBoolean`>> object defining a boolean property for all features. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
@@ -566,6 +607,7 @@ A <<reference-globalpropertyboolean,`GlobalPropertyBoolean`>> object defining a 
 
 +++<a name="reference-binarybodyreference">++++++</a>+++
 
+[#tileformats-instanced3dmodel-binarybodyreference]
 === BinaryBodyReference
 
 An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
@@ -588,6 +630,7 @@ An object defining the reference to a section of the binary body of the features
 
 Additional properties are allowed.
 
+[#tileformats-instanced3dmodel-binarybodyreferencebyteoffset-white_check_mark]
 ==== BinaryBodyReference.byteOffset :white_check_mark:
 
 The offset into the buffer in bytes.
@@ -596,6 +639,7 @@ The offset into the buffer in bytes.
 * *Required*: Yes
 * *Minimum*: ` >= 0`
 
+[#tileformats-instanced3dmodel-binarybodyreferencecomponenttype]
 ==== BinaryBodyReference.componentType
 
 The datatype of components in the property.
@@ -616,6 +660,7 @@ The datatype of components in the property.
 
 +++<a name="reference-globalpropertycartesian3">++++++</a>+++
 
+[#tileformats-instanced3dmodel-globalpropertycartesian3]
 === GlobalPropertyCartesian3
 
 An object defining a global 3-component numeric property value for all features.
@@ -626,6 +671,7 @@ An object defining a global 3-component numeric property value for all features.
 
 +++<a name="reference-globalpropertyinteger">++++++</a>+++
 
+[#tileformats-instanced3dmodel-globalpropertyinteger]
 === GlobalPropertyInteger
 
 An object defining a global integer property value for all features.
@@ -636,6 +682,7 @@ An object defining a global integer property value for all features.
 
 +++<a name="reference-globalpropertyboolean">++++++</a>+++
 
+[#tileformats-instanced3dmodel-globalpropertyboolean]
 === GlobalPropertyBoolean
 
 An object defining a global boolean property value for all features.
@@ -646,6 +693,7 @@ An object defining a global boolean property value for all features.
 
 +++<a name="reference-property">++++++</a>+++
 
+[#tileformats-instanced3dmodel-property]
 === Property
 
 A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a <<reference-binarybodyreference,`BinaryBodyReference`>> object.

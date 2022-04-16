@@ -1,4 +1,5 @@
 
+[#metadata-referenceimplementation-schema-schema-implementation]
 = Schema Implementation
 
 The xref:../../README.adoc[3D Metadata Specification] defines link:../../README.md#schemas[schemas] as a description of the structure of metadata, consisting of classes with different properties, and enum types. The following is the description of a JSON-based representation of such a schema and its elements. It is used as the basis for defining the metadata structure in the following implementations:
@@ -9,6 +10,7 @@ The xref:../../README.adoc[3D Metadata Specification] defines link:../../README.
 
 The full JSON schema definition for this implementation can be found in link:../../../schema/Schema/[the Schema directory of the specification].
 
+[#metadata-referenceimplementation-schema-schema]
 == Schema
 
 _Defined in link:../../../schema/Schema/schema.schema.json[schema.schema.json]._
@@ -32,6 +34,7 @@ ____
 ----
 ____
 
+[#metadata-referenceimplementation-schema-class]
 === Class
 
 _Defined in link:../../../schema/Schema/class.schema.json[class.schema.json]._
@@ -64,6 +67,7 @@ ____
 ----
 ____
 
+[#metadata-referenceimplementation-schema-class-property]
 === Class Property
 
 _Defined in link:../../../schema/Schema/class.property.schema.json[class.property.schema.json]._
@@ -114,6 +118,7 @@ ____
 ----
 ____
 
+[#metadata-referenceimplementation-schema-enum]
 === Enum
 
 _Defined in link:../../../schema/Schema/enum.schema.json[enum.schema.json]._
@@ -123,7 +128,7 @@ A set of categorical types, defined as `(name, value)` pairs. Enum properties us
 Enums are defined as entries in the `schema.enums` dictionary, indexed by an enum ID. Enum IDs must be link:../../README.md#identifiers[identifiers] as defined in the 3D Metadata Specification.
 
 ____
-*Example:* A "Species" enum defining types of trees. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: link:../../README.md#required-properties-no-data-values-and-default-values[3D Metadata → No Data Values]) may be helpful to identify missing data.
+*Example:* A "Species" enum defining types of trees. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: link:../../README.md#required-properties-no-data-values-and-default-values[3D Metadata ? No Data Values]) may be helpful to identify missing data.
 
 [source,json]
 ----
@@ -146,6 +151,7 @@ ____
 ----
 ____
 
+[#metadata-referenceimplementation-schema-enum-value]
 === Enum Value
 
 _Defined in link:../../../schema/Schema/enum.value.schema.json[enum.value.schema.json]._

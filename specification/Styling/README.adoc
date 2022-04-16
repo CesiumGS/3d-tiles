@@ -1,6 +1,8 @@
 
+[#styling-styling]
 = Styling
 
+[#styling-overview]
 == Overview
 
 3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate the display of a feature, for example `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's xref:../TileFormats/BatchTable/README.adoc[Batch Table].
@@ -29,8 +31,10 @@ The following example assigns a color based on building height.
 
 image::Styling/figures/example.png[]
 
+[#styling-concepts]
 == Concepts
 
+[#styling-styling-features]
 === Styling features
 
 Visual properties available for styling features are the `show` property, the assigned expression of which will evaluate to a boolean that determines if the feature is visible, and the `color` property, the assigned expression of which will evaluate to a `Color` object (RGB and translucency) which determines the displayed color of a feature.
@@ -81,6 +85,7 @@ The color's alpha component defines the feature's opacity. For example, the foll
 }
 ----
 
+[#styling-conditions]
 === Conditions
 
 In addition to a string containing an expression, `color` and `show` can be an array defining a series of conditions (similar to `+if...else+` statements).  Conditions can, for example, be used to make color maps and color ramps with any type of inclusive/exclusive intervals.
@@ -132,6 +137,7 @@ Since conditions are evaluated in order, the above can be written more concisely
 }
 ----
 
+[#styling-defining-variables]
 === Defining variables
 
 Commonly used expressions may be stored in a `defines` object with a variable name as a key. If a variable references the name of a defined expression, it is replaced with the result of the referenced evaluated expression:
@@ -171,6 +177,7 @@ A define expression may not reference other defines; however, it may reference f
 }
 ----
 
+[#styling-meta-property]
 === Meta property
 
 Non-visual properties of a feature can be defined using the `meta` property. For example, the following sets a `description` meta property to a string containing the feature name:
@@ -196,6 +203,7 @@ A meta property expression can evaluate to any type. For example:
 }
 ----
 
+[#styling-expressions]
 == Expressions
 
 The language for expressions is a small subset of JavaScript (http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf[EMCAScript 5]), plus native vector and regular expression types and access to tileset feature properties in the form of readonly variables.
@@ -204,6 +212,7 @@ ____
 *Implementation Note:* CesiumJS uses the http://jsep.from.so/[jsep] JavaScript expression parser library to parse style expressions into an https://en.wikipedia.org/wiki/Abstract_syntax_tree[abstract syntax tree (AST)].
 ____
 
+[#styling-semantics]
 === Semantics
 
 Dot notation is used to access properties by name, e.g., `building.name`.
@@ -212,6 +221,7 @@ Bracket notation (`[]`) is also used to access properties, e.g., `building['name
 
 Functions are called with parenthesis (`()`) and comma-separated arguments, e.g., (`isNaN(0.0)`, `color('cyan', 0.5)`).
 
+[#styling-operators]
 === Operators
 
 The following operators are supported with the same semantics and precedence as JavaScript.
@@ -228,6 +238,7 @@ Logical `||` and `&&` implement short-circuiting; `true || expression` does not 
 
 Similarly, `true ? leftExpression : rightExpression` only executes the left expression, and `false ? leftExpression : rightExpression` only executes the right expression.
 
+[#styling-types]
 === Types
 
 The following types are supported:
@@ -259,6 +270,7 @@ Example expressions for different types include the following:
 * `color('#00FFFF')`
 * `+regExp('^Chest'))+`
 
+[#styling-number]
 ==== Number
 
 As in JavaScript, numbers can be `NaN` or `Infinity`.  The following test functions are supported:
@@ -266,16 +278,19 @@ As in JavaScript, numbers can be `NaN` or `Infinity`.  The following test functi
 * `isNaN(testValue : Number) : Boolean`
 * `isFinite(testValue : Number) : Boolean`
 
+[#styling-string]
 ==== String
 
 Strings are encoded in UTF-8.
 
+[#styling-vector]
 ==== Vector
 
 The styling language includes 2, 3, and 4 component floating-point vector types: `vec2`, `vec3`, and `vec4`. Vector constructors share the same rules as GLSL:
 
 
 
+[#styling-vec2]
 ===== vec2
 
 * `vec2(xy : Number)` - initialize each component with the number
@@ -286,6 +301,7 @@ The styling language includes 2, 3, and 4 component floating-point vector types:
 
 
 
+[#styling-vec3]
 ===== vec3
 
 * `vec3(xyz : Number)` - initialize each component with the number
@@ -297,6 +313,7 @@ The styling language includes 2, 3, and 4 component floating-point vector types:
 
 
 
+[#styling-vec4]
 ===== vec4
 
 * `vec4(xyzw : Number)` - initialize each component with the number
@@ -310,6 +327,7 @@ The styling language includes 2, 3, and 4 component floating-point vector types:
 
 
 
+[#styling-vector-usage]
 ===== Vector usage
 
 `vec2` components may be accessed with
@@ -342,6 +360,7 @@ Vectors support the following binary operators by performing component-wise oper
 
 `vec2`, `vec3`, and `vec4` do not expose any other functions or a `prototype` object.
 
+[#styling-color]
 ==== Color
 
 Colors are implemented as `vec4` and are created with one of the following functions:
@@ -387,6 +406,7 @@ For example:
 * `color('red').toString()` evaluates to `(1.0, 0.0, 0.0, 1.0)`
 * `color('red') * vec4(0.5)` is equivalent to `vec4(0.5, 0.0, 0.0, 0.5)`
 
+[#styling-regexp]
 ==== RegExp
 
 Regular expressions are created with the following functions, which behave like the JavaScript https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp[`RegExp`] constructor:
@@ -442,6 +462,7 @@ regExp('a') !~ 'bcd'
 'bcd' !~ regExp('a')
 ----
 
+[#styling-operator-rules]
 === Operator rules
 
 * Unary operators `+` and `-` operate only on number and vector expressions.
@@ -470,6 +491,7 @@ regExp('a') !~ 'bcd'
 * Binary `regExp` operators `=~` and `!~` require one argument to be a string expression and the other to be a `RegExp` expression.
 * Ternary operator `? :` conditional argument must be a boolean expression.
 
+[#styling-type-conversions]
 === Type conversions
 
 Explicit conversions between primitive types are handled with `Boolean`, `Number`, and `String` functions.
@@ -492,6 +514,7 @@ These are essentially casts, not constructor functions.
 
 The styling language does not allow for implicit type conversions, unless stated above. Expressions like `vec3(1.0) === vec4(1.0)` and `"5" < 6` are not valid.
 
+[#styling-string-conversions]
 === String conversions
 
 `vec2`, `vec3`, `vec4`, and `RegExp` expressions are converted to strings using their `toString` methods. All other types follow JavaScript conventions.
@@ -510,6 +533,7 @@ The styling language does not allow for implicit type conversions, unless stated
 * `vec4(1, 2, 3, 4)` - `"(1, 2, 3, 4)"`
 * `RegExp('a')` - `"/a/"`
 
+[#styling-constants]
 === Constants
 
 The following constants are supported by the styling language:
@@ -519,6 +543,7 @@ The following constants are supported by the styling language:
 
 
 
+[#styling-pi]
 ==== PI
 
 The mathematical constant PI, which represents a circle's circumference divided by its diameter, approximately `3.14159`.
@@ -532,6 +557,7 @@ The mathematical constant PI, which represents a circle's circumference divided 
 
 
 
+[#styling-e]
 ==== E
 
 Euler's constant and the base of the natural logarithm, approximately `2.71828`.
@@ -543,6 +569,7 @@ Euler's constant and the base of the natural logarithm, approximately `2.71828`.
 }
 ----
 
+[#styling-variables]
 === Variables
 
 Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 (http://www.ecma-international.org/ecma-262/6.0/[ECMAScript 2015]) template literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name. Variable names are encoded in UTF-8. `feature` is implicit and can be omitted in most cases. If the identifier contains non-alphanumeric characters, such as `:`, `-`, `#`, or spaces, the `${feature['identifier']}` form should be used.
@@ -692,6 +719,7 @@ ${temperatures.values[0]} === 70
 ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and temperatures.values[0]
 ----
 
+[#styling-built-in-functions]
 === Built-in functions
 
 The following built-in functions are supported by the styling language:
@@ -731,6 +759,7 @@ Many of the built-in functions take either scalars or vectors as arguments. For 
 
 
 
+[#styling-abs]
 ==== abs
 
 ----
@@ -751,6 +780,7 @@ Returns the absolute value of `x`.
 
 
 
+[#styling-sqrt]
 ==== sqrt
 
 ----
@@ -776,6 +806,7 @@ Returns the square root of `x` when `x >= 0`. Returns `NaN` when `x < 0`.
 
 
 
+[#styling-cos]
 ==== cos
 
 ----
@@ -796,6 +827,7 @@ Returns the cosine of `angle` in radians.
 
 
 
+[#styling-sin]
 ==== sin
 
 ----
@@ -816,6 +848,7 @@ Returns the sine of `angle` in radians.
 
 
 
+[#styling-tan]
 ==== tan
 
 ----
@@ -836,6 +869,7 @@ Returns the tangent of `angle` in radians.
 
 
 
+[#styling-acos]
 ==== acos
 
 ----
@@ -856,6 +890,7 @@ Returns the arccosine of `angle` in radians.
 
 
 
+[#styling-asin]
 ==== asin
 
 ----
@@ -876,6 +911,7 @@ Returns the arcsine of `angle` in radians.
 
 
 
+[#styling-atan]
 ==== atan
 
 ----
@@ -896,6 +932,7 @@ Returns the arctangent of `angle` in radians.
 
 
 
+[#styling-atan2]
 ==== atan2
 
 ----
@@ -916,6 +953,7 @@ Returns the arctangent of the quotient of `y` and `x`.
 
 
 
+[#styling-radians]
 ==== radians
 
 ----
@@ -936,6 +974,7 @@ Converts `angle` from degrees to radians.
 
 
 
+[#styling-degrees]
 ==== degrees
 
 ----
@@ -956,6 +995,7 @@ Converts `angle` from radians to degrees.
 
 
 
+[#styling-sign]
 ==== sign
 
 ----
@@ -976,6 +1016,7 @@ Returns 1.0 when `x` is positive, 0.0 when `x` is zero, and -1.0 when `x` is neg
 
 
 
+[#styling-floor]
 ==== floor
 
 ----
@@ -996,6 +1037,7 @@ Returns the nearest integer less than or equal to `x`.
 
 
 
+[#styling-ceil]
 ==== ceil
 
 ----
@@ -1016,6 +1058,7 @@ Returns the nearest integer greater than or equal to `x`.
 
 
 
+[#styling-round]
 ==== round
 
 ----
@@ -1036,6 +1079,7 @@ Returns the nearest integer to `x`. A number with a fraction of 0.5 will round i
 
 
 
+[#styling-exp]
 ==== exp
 
 ----
@@ -1056,6 +1100,7 @@ Returns `e` to the power of `x`, where `e` is Euler's constant, approximately `2
 
 
 
+[#styling-log]
 ==== log
 
 ----
@@ -1076,6 +1121,7 @@ Returns the natural logarithm (base `e`) of `x`.
 
 
 
+[#styling-exp2]
 ==== exp2
 
 ----
@@ -1096,6 +1142,7 @@ Returns 2 to the power of `x`.
 
 
 
+[#styling-log2]
 ==== log2
 
 ----
@@ -1116,6 +1163,7 @@ Returns the base 2 logarithm of `x`.
 
 
 
+[#styling-fract]
 ==== fract
 
 ----
@@ -1136,6 +1184,7 @@ Returns the fractional part of `x`. Equivalent to `x - floor(x)`.
 
 
 
+[#styling-pow]
 ==== pow
 
 ----
@@ -1156,6 +1205,7 @@ Returns `base` raised to the power of `exponent`.
 
 
 
+[#styling-min]
 ==== min
 
 ----
@@ -1183,6 +1233,7 @@ Returns the smaller of `x` and `y`.
 
 
 
+[#styling-max]
 ==== max
 
 ----
@@ -1210,6 +1261,7 @@ Returns the larger of `x` and `y`.
 
 
 
+[#styling-clamp]
 ==== clamp
 
 ----
@@ -1237,6 +1289,7 @@ Constrains `x` to lie between `min` and `max`.
 
 
 
+[#styling-mix]
 ==== mix
 
 ----
@@ -1264,6 +1317,7 @@ Computes the linear interpolation of `x` and `y`.
 
 
 
+[#styling-length]
 ==== length
 
 ----
@@ -1284,6 +1338,7 @@ Computes the length of vector `x`, i.e., the square root of the sum of the squar
 
 
 
+[#styling-distance]
 ==== distance
 
 ----
@@ -1304,6 +1359,7 @@ Computes the distance between two points `x` and `y`, i.e., `length(x - y)`.
 
 
 
+[#styling-normalize]
 ==== normalize
 
 ----
@@ -1324,6 +1380,7 @@ Returns a vector with length 1.0 that is parallel to `x`. When `x` is a number, 
 
 
 
+[#styling-dot]
 ==== dot
 
 ----
@@ -1344,6 +1401,7 @@ Computes the dot product of `x` and `y`.
 
 
 
+[#styling-cross]
 ==== cross
 
 ----
@@ -1359,10 +1417,12 @@ Computes the cross product of `x` and `y`. This function only accepts `vec3` arg
 }
 ----
 
+[#styling-notes]
 === Notes
 
 Comments are not supported.
 
+[#styling-point-cloud]
 == Point Cloud
 
 A xref:../TileFormats/PointCloud/README.adoc[Point Cloud] is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a Point Cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
@@ -1407,10 +1467,12 @@ ____
 * Array index out of bounds
 ____
 
+[#styling-file-extension-and-mime-type]
 == File extension and MIME type
 
 Tileset styles use the `.json` extension and the `application/json` mime type.
 
+[#styling-property-reference]
 == Property reference
 
 * <<reference-style,`style`>>
@@ -1428,6 +1490,7 @@ Tileset styles use the `.json` extension and the `application/json` mime type.
 +++<a name="reference-style">++++++</a>+++
 
 
+[#styling-style]
 === style
 
 A 3D Tiles style.
@@ -1460,6 +1523,7 @@ A 3D Tiles style.
 
 
 
+[#styling-styledefines]
 ==== style.defines
 
 A dictionary object of <<reference-expression,`expression`>> strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
@@ -1470,6 +1534,7 @@ A dictionary object of <<reference-expression,`expression`>> strings mapped to a
 
 
 
+[#styling-styleshow]
 ==== style.show
 
 A <<reference-boolean-expression,`boolean expression`>> or <<reference-conditions,`conditions`>> property which determines if a feature should be shown.
@@ -1479,6 +1544,7 @@ A <<reference-boolean-expression,`boolean expression`>> or <<reference-condition
 
 
 
+[#styling-stylecolor]
 ==== style.color
 
 A <<reference-color-expression,`color expression`>> or <<reference-conditions,`conditions`>> property which determines the color blended with the feature's intrinsic color.
@@ -1488,6 +1554,7 @@ A <<reference-color-expression,`color expression`>> or <<reference-conditions,`c
 
 
 
+[#styling-stylemeta]
 ==== style.meta
 
 A <<reference-meta,`meta`>> object which determines the values of non-visual properties of the feature.
@@ -1501,6 +1568,7 @@ A <<reference-meta,`meta`>> object which determines the values of non-visual pro
 +++<a name="reference-boolean-expression">++++++</a>+++
 
 
+[#styling-boolean-expression]
 === boolean expression
 
 A boolean or string with a 3D Tiles style expression that evaluates to a boolean. See link:/specification/Styling/README.md#expressions[Expressions].
@@ -1512,6 +1580,7 @@ A boolean or string with a 3D Tiles style expression that evaluates to a boolean
 +++<a name="reference-color-expression">++++++</a>+++
 
 
+[#styling-color-expression]
 === color expression
 
 3D Tiles style <<reference-expression,`expression`>> that evaluates to a Color. See link:/specification/Styling/README.md#expressions[Expressions].
@@ -1523,6 +1592,7 @@ A boolean or string with a 3D Tiles style expression that evaluates to a boolean
 +++<a name="reference-conditions">++++++</a>+++
 
 
+[#styling-conditions-1]
 === conditions
 
 A series of conditions evaluated in order, like a series of if...else statements that result in an expression being evaluated.
@@ -1540,6 +1610,7 @@ A series of conditions evaluated in order, like a series of if...else statements
 
 
 
+[#styling-conditionsconditions]
 ==== conditions.conditions
 
 A series of boolean conditions evaluated in order.  For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned.  Result expressions must all be the same type.  If no condition evaluates to true, the result is `undefined`.  When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.
@@ -1552,6 +1623,7 @@ A series of boolean conditions evaluated in order.  For the first one that evalu
 +++<a name="reference-condition">++++++</a>+++
 
 
+[#styling-condition]
 === condition
 
 An <<reference-expression,`expression`>> evaluated as the result of a condition being true. An array of two expressions. If the first expression is evaluated and the result is `true`, then the second expression is evaluated and returned as the result of the condition.
@@ -1563,6 +1635,7 @@ An <<reference-expression,`expression`>> evaluated as the result of a condition 
 +++<a name="reference-expression">++++++</a>+++
 
 
+[#styling-expression]
 === expression
 
 A valid 3D Tiles style expression. See link:/specification/Styling/README.md#expressions[Expressions].
@@ -1574,6 +1647,7 @@ A valid 3D Tiles style expression. See link:/specification/Styling/README.md#exp
 +++<a name="reference-meta">++++++</a>+++
 
 
+[#styling-meta]
 === meta
 
 A series of property names and the <<reference-expression,`expression`>> to evaluate for the value of that property.
@@ -1587,6 +1661,7 @@ Additional properties are allowed.
 +++<a name="reference-number-expression">++++++</a>+++
 
 
+[#styling-number-expression]
 === number expression
 
 3D Tiles style expression that evaluates to a number. See link:/specification/Styling/README.md#expressions[Expressions].
@@ -1598,6 +1673,7 @@ Additional properties are allowed.
 +++<a name="reference-point-cloud-style">++++++</a>+++
 
 
+[#styling-point-cloud-style]
 === Point Cloud Style
 
 A 3D Tiles style with additional properties for Point Clouds.
@@ -1635,6 +1711,7 @@ A 3D Tiles style with additional properties for Point Clouds.
 
 
 
+[#styling-pointcloudstyledefines]
 ==== PointCloudStyle.defines
 
 A dictionary object of <<reference-expression,`expression`>> strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
@@ -1645,6 +1722,7 @@ A dictionary object of <<reference-expression,`expression`>> strings mapped to a
 
 
 
+[#styling-pointcloudstyleshow]
 ==== PointCloudStyle.show
 
 A <<reference-boolean-expression,`boolean expression`>> or <<reference-conditions,`conditions`>> property which determines if a feature should be shown.
@@ -1654,6 +1732,7 @@ A <<reference-boolean-expression,`boolean expression`>> or <<reference-condition
 
 
 
+[#styling-pointcloudstylecolor]
 ==== PointCloudStyle.color
 
 A <<reference-color-expression,`color expression`>> or <<reference-conditions,`conditions`>> property which determines the color blended with the feature's intrinsic color.
@@ -1663,6 +1742,7 @@ A <<reference-color-expression,`color expression`>> or <<reference-conditions,`c
 
 
 
+[#styling-pointcloudstylemeta]
 ==== PointCloudStyle.meta
 
 A <<reference-meta,`meta`>> object which determines the values of non-visual properties of the feature.
@@ -1673,6 +1753,7 @@ A <<reference-meta,`meta`>> object which determines the values of non-visual pro
 
 
 
+[#styling-pointcloudstylepointsize]
 ==== PointCloudStyle.pointSize
 
 A <<reference-number-expression,`number expression`>> or <<reference-conditions,`conditions`>> property which determines the size of the points in pixels.

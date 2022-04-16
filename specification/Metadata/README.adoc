@@ -1,6 +1,8 @@
 
+[#metadata-3d-metadata-specification]
 = 3D Metadata Specification
 
+[#metadata-overview]
 == Overview
 
 The 3D Metadata Specification defines a standard format for structured metadata in 3D content. Metadata -- represented as entities and properties -- may be closely associated with parts of 3D content, with data representations appropriate for large, distributed datasets. For the most detailed use cases, properties allow vertex- and texel-level associations; higher-level property associations are also supported.
@@ -15,6 +17,7 @@ The specification defines core concepts to be used by multiple 3D formats, and i
 
 The specification does not enumerate or define the semantic meanings of metadata, and assumes that separate specifications will define semantics for their particular application or domain. One example is the link:./Semantics/[3D Metadata Semantic Reference] which defines built-in semantics for 3D Tiles and glTF. Identifiers for externally-defined semantics can be stored within the 3D Metadata Specification.
 
+[#metadata-concepts]
 == Concepts
 
 This specification defines metadata schemas and methods for encoding metadata.
@@ -32,22 +35,27 @@ ____
 Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines two possible <<storage-formats,storage formats>>.
 
 
+[#metadata-identifiers]
 === Identifiers
 
 Throughout this specification, IDs (identifiers) are strings that match the regular expression `+^[a-zA-Z_][a-zA-Z0-9_]*$+`: Strings that consist of upper- or lowercase letters, digits, or underscores, starting with either a letter or an underscore. These strings should be camel case strings that are human-readable (wherever possible). When IDs subject to these restrictions are not sufficiently clear for human readers, applications should also provide a `name` for the structures that support dedicated names.
 
+[#metadata-schemas]
 == Schemas
 
+[#metadata-schema]
 === Schema
 
 A schema defines the organization and types of metadata used in 3D content, represented as a set of classes and enums. Class definitions are referenced by entities whose metadata conforms to the class definition. This provides a consistent and machine-readable structure for all entities in a dataset.
 
 Components of a schema are listed below, and implementations may define additional components.
 
+[#metadata-id]
 ==== ID
 
 IDs (`id`) are unique <<identifiers,identifiers>> for a schema.
 
+[#metadata-version]
 ==== Version
 
 Schema version (`version`) is an application-specific identifier for a given schema revision. Version must be a string, and should be syntactically compatible with https://semver.org/[SemVer].
@@ -58,24 +66,29 @@ ____
 *Example:* Valid semantic versions include strings like `0.1.2`, `1.2.3`, and `1.2.3-alpha`.
 ____
 
+[#metadata-name]
 ==== Name
 
 Names (`name`) provide a human-readable label for a schema, and are not required to be unique. Names must be valid Unicode strings, and should be written in natural language.
 
+[#metadata-description]
 ==== Description
 
 Descriptions (`description`) provide a human-readable explanation of a schema, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings.
 
+[#metadata-enums]
 ==== Enums
 
 Unordered set of <<enum,enums>>.
 
+[#metadata-classes]
 ==== Classes
 
 Unordered set of <<class,classes>>.
 
 '''
 
+[#metadata-enum]
 === Enum
 
 An enum consists of a set of named values, represented as `(string, integer)` pairs. Each enum is identified by a unique ID.
@@ -105,48 +118,59 @@ ____
 |===
 ____
 
+[#metadata-id-1]
 ==== ID
 
 IDs (`id`) are unique <<identifiers,identifiers>> for an enum within a schema.
 
+[#metadata-name-1]
 ==== Name
 
 Names (`name`) provide a human-readable label for an enum, and are not required to be unique within a schema. Names must be valid Unicode strings, and should be written in natural language.
 
+[#metadata-description-1]
 ==== Description
 
 Descriptions (`description`) provide a human-readable explanation of an enum, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings.
 
+[#metadata-values]
 ==== Values
 
 An enum consists of a set of named values, represented as `(string, integer)` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the <<component-type,Component Type>> section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. Duplicate names or values within the same enum are not allowed.
 
 '''
 
+[#metadata-class]
 === Class
 
 Classes represent categories of similar entities, and are defined by a collection of one or more properties shared by the entities of a class. Each class has a unique ID within the schema, and each property has a unique ID within the class, to be used for references within the schema and externally.
 
+[#metadata-id-2]
 ==== ID
 
 IDs (`id`) are unique <<identifiers,identifiers>> for a class within a schema.
 
+[#metadata-name-2]
 ==== Name
 
 Names (`name`) provide a human-readable label for a class, and are not required to be unique within a schema. Names must be valid Unicode strings, and should be written in natural language.
 
+[#metadata-description-2]
 ==== Description
 
 Descriptions (`description`) provide a human-readable explanation of a class, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings.
 
+[#metadata-properties]
 ==== Properties
 
 Unordered set of <<property,properties>>.
 
 '''
 
+[#metadata-property]
 === Property
 
+[#metadata-overview-1]
 ==== Overview
 
 Properties describe the type and structure of values that may be associated with entities of a class. Entities may omit values for a property, unless the property is required. Entities must not contain values other than those defined by the properties of their class.
@@ -186,22 +210,26 @@ ____
 |===
 ____
 
+[#metadata-id-3]
 ==== ID
 
 IDs (`id`) are unique <<identifiers,identifiers>> for a property within a class.
 
+[#metadata-name-3]
 ==== Name
 
 Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid Unicode strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a <<semantic,semantic>>.
 
 ____
-*Example:* A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to <<identifiers,identifiers>>, use of helpful property names is essential for clarity in many languages.
+*Example:* A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "???". Because IDs are restricted to <<identifiers,identifiers>>, use of helpful property names is essential for clarity in many languages.
 ____
 
+[#metadata-description-3]
 ==== Description
 
 Descriptions (`description`) provide a human-readable explanation of a property, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings. To provide a machine-readable semantic meaning, a property must also define a <<semantic,semantic>>.
 
+[#metadata-semantic]
 ==== Semantic
 
 Property IDs, names, and descriptions do not have an inherent meaning. To provide a machine-readable meaning, properties may be assigned a semantic identifier string (`semantic`), indicating how the property's content should be interpreted. Semantic identifiers may be defined by the link:./Semantics/[3D Metadata Semantic Reference] or by external semantic references, and may be application-specific. Identifiers should be uppercase, with underscores as word separators.
@@ -210,6 +238,7 @@ ____
 *Example:* Semantic definitions might include temperature in degrees Celsius (e.g. `TEMPERATURE_DEGREES_CELSIUS`), time in milliseconds (e.g. `TIME_MILLISECONDS`), or mean squared error (e.g. `MEAN_SQUARED_ERROR`). These examples are only illustrative.
 ____
 
+[#metadata-type]
 ==== Type
 
 A property's type (`type`) describes the structure of the value given for each entity.
@@ -248,6 +277,7 @@ A property's type (`type`) describes the structure of the value given for each e
 | An enumerated type
 |===
 
+[#metadata-component-type]
 ==== Component Type
 
 Scalar, vector, and matrix types comprise of numeric components. Each component is an instance of the property's component type (`componentType`), with the following component types supported:
@@ -292,14 +322,17 @@ ____
 *Implementation Note:* Developers of authoring tools should be aware that many JSON implementations support only numeric values that can be represented as IEEE-754 double precision floating point numbers. Floating point numbers should be representable as double precision IEEE-754 floats when encoded in JSON. When those numbers represent property values (such as `noData`, `min`, or `max`) having lower precision (e.g. single-precision float, 8-bit integer, or 16-bit integer), the values should be rounded to the same precision in JSON to avoid any potential mismatches. Numeric property values encoded in binary storage are unaffected by these limitations of JSON implementations.
 ____
 
+[#metadata-enum-type]
 ==== Enum Type
 
 <<enums,Enum properties>> are denoted by `ENUM`. An enum property must additionally provide the ID of the specific enum it uses, referred to as its enum type (`enumType`).
 
+[#metadata-arrays]
 ==== Arrays
 
 A property can be declared to be a fixed- and variable-length array, consisting of elements of the given type. For fixed-length arrays, a count (`count`) denotes the number of elements in each array, and must be greater than or equal to 2. Variable-length arrays do not define a count and may have any length, including zero.
 
+[#metadata-normalized-values]
 ==== Normalized Values
 
 Normalized properties (`normalized`) provide a compact alternative to larger floating-point types. Normalized values are stored as integers, but when accessed are transformed to floating-point according to the following equations:
@@ -346,6 +379,7 @@ ____
 *Implementation Note:* Depending on the implementation and the chosen integer type, there may be some loss of precision in values after denormalization. For example, if the implementation uses 32-bit floating point variables to represent the value of a normalized 32-bit integer, there are only 23 bits in the mantissa of the float, and lower bits will be truncated by denormalization. Client implementations should use higher precision floats when appropriate for correctly representing the result.
 ____
 
+[#metadata-offset-and-scale]
 ==== Offset and Scale
 
 A property may declare an offset (`offset`) and scale (`scale`) to apply to property values. This is useful when mapping property values to a different range.
@@ -366,6 +400,7 @@ ____
 
 When the `offset` for a property is not given, then is is assumed to be `0` for each component of the respective type. When the `scale` value of a property is not given, then it is assumed to be `1` for each component of the respective type. _Instances_ of the class that defines the respective property can override the offset- and scale factors, to account for the actual range of property values that are provided by the instance.
 
+[#metadata-minimum-and-maximum-values]
 ==== Minimum and Maximum Values
 
 Properties may specify a minimum (`min`) and maximum (`max`) value. Minimum and maximum values represent component-wise bounds of the valid range of values for a property. Both values are _inclusive_, meaning that they denote the smallest and largest allowed value, respectively.
@@ -382,6 +417,7 @@ ____
 
 Property values outside the `[minimum, maximum]` range are not allowed, with the exception of `noData` values.
 
+[#metadata-required-properties-no-data-values-and-default-values]
 ==== Required Properties, No Data Values, and Default Values
 
 When associated property values must exist for all entities of a class, a property is considered required (`required`).
@@ -404,7 +440,7 @@ ____
 
 | height
 | `FLOAT32`
-| ✓
+| ?
 |
 
 | species
@@ -414,11 +450,12 @@ ____
 
 | leafColor
 | `STRING`
-| ✓
+| ?
 |
 |===
 ____
 
+[#metadata-property-values-structure]
 ==== Property Values Structure
 
 Property values that appear as part of the class definition are the offset, scale, minimum, maximum, default values and no-data values. The structure of these values inside the class definition depends on the type of the property. For `SCALAR` (non-array) types, they are single values. For all other cases, they are arrays:
@@ -431,8 +468,10 @@ Property values that appear as part of the class definition are the offset, scal
 
 For `noData` values and numeric values that are not `normalized`, the type of the innermost elements of these arrays corresponds to the `componentType`. For numeric values that are `normalized`, the innermost elements are floating-point values.
 
+[#metadata-storage-formats]
 == Storage Formats
 
+[#metadata-overview-2]
 === Overview
 
 Schemas provide templates for entities, but creating an entity requires specific property values and storage. This section covers two storage formats for entity metadata:
@@ -448,8 +487,10 @@ ____
 *Implementation note:* Any specification that references 3D Metadata must state explicitly which storage formats are supported, or define its own serialization. For example, the https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] glTF extension implements the binary table format described below, and defines an additional image-based format for per-texel metadata.
 ____
 
+[#metadata-binary-table-format]
 === Binary Table Format
 
+[#metadata-overview-3]
 ==== Overview
 
 The binary table format is similar to a database table where entities are rows and properties are columns. Each column represents one of the properties of the class. Each row represents a single entity conforming to the class.
@@ -464,6 +505,7 @@ Binary encoding is efficient for runtime use, and scalable to large quantities o
 
 Property values are binary-encoded according to their data type, in little-endian format. Values are tightly packed: there is no padding between values.
 
+[#metadata-scalars]
 ==== Scalars
 
 A scalar value is encoded based on the `componentType`. Multiple values are packed tightly in the same buffer. The following data types are supported:
@@ -502,14 +544,17 @@ A scalar value is encoded based on the `componentType`. Multiple values are pack
 | 64-bit IEEE floating point number
 |===
 
+[#metadata-vectors]
 ==== Vectors
 
 Vector components are tightly packed and encoded based on the `componentType`.
 
+[#metadata-matrices]
 ==== Matrices
 
 Matrix components are tightly packed in column-major order and encoded based on the `componentType`.
 
+[#metadata-booleans]
 ==== Booleans
 
 A boolean value is encoded as a single bit, either 0 (`false`) or 1 (`true`). Multiple boolean values are packed tightly in the same buffer. These buffers of tightly-packed bits are sometimes referred to as bitstreams.
@@ -528,6 +573,7 @@ value = bitValue == 1
 ----
 ____
 
+[#metadata-strings]
 ==== Strings
 
 A string value is a UTF-8 encoded byte sequence. Multiple strings are packed tightly in the same buffer.
@@ -542,14 +588,17 @@ ____
 image::Metadata/figures/unicode-strings.png[String property example]
 ____
 
+[#metadata-enums-1]
 ==== Enums
 
 Enums are encoded as integer values according to the enum value type (see <<enums,Enums>>). Any integer data type supported for <<scalars,Scalars>> may be used for enum values.
 
+[#metadata-fixed-length-arrays]
 ==== Fixed-Length Arrays
 
 A fixed-length array value is encoded as a tightly packed array of `count` elements, where each element is encoded according to the `type`.
 
+[#metadata-variable-length-arrays]
 ==== Variable-Length Arrays
 
 Variable-length arrays use an additional *array offset* buffer. The `i-th` value in the array offset buffer is an element index -- not a byte offset -- identifying the beginning of the `i-th` array. String values within an array may have inconsistent lengths, requiring both array offset and *string offset* buffers (see: <<strings,Strings>>).
@@ -586,8 +635,10 @@ ____
 image::Metadata/figures/array-of-strings.png[Variable-length array of string]
 ____
 
+[#metadata-json-format]
 === JSON Format
 
+[#metadata-overview-4]
 ==== Overview
 
 JSON encoding is useful for storing a small number of entities in human readable form.
@@ -623,7 +674,7 @@ _A class, "basicClass", composed of ten properties. `stringArrayProperty` count 
 | `false`
 |
 |
-| ✓
+| ?
 
 | integerProperty
 | `SCALAR`
@@ -631,7 +682,7 @@ _A class, "basicClass", composed of ten properties. `stringArrayProperty` count 
 | `false`
 |
 |
-| ✓
+| ?
 
 | vectorProperty
 | `VEC2`
@@ -639,7 +690,7 @@ _A class, "basicClass", composed of ten properties. `stringArrayProperty` count 
 | `false`
 |
 |
-| ✓
+| ?
 
 | floatArrayProperty
 | `SCALAR`
@@ -647,7 +698,7 @@ _A class, "basicClass", composed of ten properties. `stringArrayProperty` count 
 | `true`
 | 3
 |
-| ✓
+| ?
 
 | vectorArrayProperty
 | `VEC2`
@@ -655,7 +706,7 @@ _A class, "basicClass", composed of ten properties. `stringArrayProperty` count 
 | `true`
 | 2
 |
-| ✓
+| ?
 
 | booleanProperty
 | `BOOLEAN`
@@ -663,7 +714,7 @@ _A class, "basicClass", composed of ten properties. `stringArrayProperty` count 
 | `false`
 |
 |
-| ✓
+| ?
 
 | stringProperty
 | `STRING`
@@ -671,7 +722,7 @@ _A class, "basicClass", composed of ten properties. `stringArrayProperty` count 
 | `false`
 |
 |
-| ✓
+| ?
 
 | enumProperty
 | `ENUM`
@@ -679,7 +730,7 @@ _A class, "basicClass", composed of ten properties. `stringArrayProperty` count 
 | `false`
 |
 | `basicEnum`
-| ✓
+| ?
 
 | stringArrayProperty
 | `STRING`
@@ -687,7 +738,7 @@ _A class, "basicClass", composed of ten properties. `stringArrayProperty` count 
 | `true`
 |
 |
-| ✓
+| ?
 
 | optionalProperty
 | `STRING`
@@ -714,13 +765,14 @@ _A single entity encoded in JSON. Note that the optional property is omitted in 
       "booleanProperty": true,
       "stringProperty": "x123",
       "enumProperty": "Enum B",
-      "stringArrayProperty": ["abc", "12345", "おはようございます"]
+      "stringArrayProperty": ["abc", "12345", "?????????"]
     }
   }
 }
 ----
 ____
 
+[#metadata-scalars-1]
 ==== Scalars
 
 All component types (`INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, `UINT64`, `FLOAT32`, and `FLOAT64`) are encoded as JSON numbers. Floating point values must be representable as IEEE floating point numbers.
@@ -729,26 +781,32 @@ ____
 *Implementation Note:* For numeric types the size in bits is made explicit. Even though JSON only has a single `number` type for all integers and floating point numbers, the application that consumes the JSON may make a distinction. For example, C and C{pp} have several different integer types such as `uint8_t`, `uint32_t`. The application is responsible for interpreting the metadata using the type specified in the property definition.
 ____
 
+[#metadata-vectors-1]
 ==== Vectors
 
 Vectors are encoded as a JSON array of numbers.
 
+[#metadata-matrices-1]
 ==== Matrices
 
 Matrices are encoded as a JSON array of numbers in column-major order.
 
+[#metadata-booleans-1]
 ==== Booleans
 
 Booleans are encoded as a JSON boolean, either `true` or `false`.
 
+[#metadata-strings-1]
 ==== Strings
 
 Strings are encoded as JSON strings.
 
+[#metadata-enums-2]
 ==== Enums
 
 Enums are encoded as JSON strings using the name of the enum value rather than the integer value. Therefore the enum value type, if specified, is ignored for the JSON encoding.
 
+[#metadata-arrays-1]
 ==== Arrays
 
 Arrays are encoded as JSON arrays, where each element is encoded according to the `type`. When a count is specified, the length of the JSON array must match the count. Otherwise, for variable-length arrays, the JSON array may be any length, including zero-length.

@@ -1,8 +1,10 @@
 
+[#tileformats-featuretable-feature-table]
 = Feature Table
 
 WARNING: Feature Table was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#appendix-a-migration-from-legacy-tile-formats[glTF migration guide].
 
+[#tileformats-featuretable-overview]
 == Overview
 
 A _Feature Table_ is a component of a tile's binary body and describes position and appearance properties required to render each feature in a tile. The xref:../BatchTable/README.adoc[Batch Table], on the other hand, contains per-feature application-specific properties not necessarily used for rendering.
@@ -11,6 +13,7 @@ A Feature Table is used by tile formats like xref:../Batched3DModel/README.adoc[
 
 Per-feature properties are defined using tile format-specific semantics defined in each tile format's specification.  For example, for _Instanced 3D Model_, `SCALE_NON_UNIFORM` defines the non-uniform scale applied to each 3D model instance.
 
+[#tileformats-featuretable-layout]
 == Layout
 
 A Feature Table is composed of two parts: a JSON header and an optional binary body in little endian. The JSON property names are tile format-specific semantics, and their values can either be defined directly in the JSON, or refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body. The following figure shows the Feature Table layout:
@@ -19,6 +22,7 @@ image::TileFormats/FeatureTable/figures/feature-table-layout.png[feature table l
 
 When a tile format includes a Feature Table, the Feature Table immediately follows the tile's header.  The header will also contain `featureTableJSONByteLength` and `featureTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the Feature Table.
 
+[#tileformats-featuretable-padding]
 === Padding
 
 The JSON header must end on an 8-byte boundary within the containing tile binary. The JSON header must be padded with trailing Space characters (`0x20`) to satisfy this requirement.
@@ -27,6 +31,7 @@ The binary body must start and end on an 8-byte boundary within the containing t
 
 Binary properties must start at a byte offset that is a multiple of the size in bytes of the property's implicit component type. For example, a property with the implicit component type `FLOAT` has 4 bytes per element, and therefore must start at an offset that is a multiple of `4`. Preceding binary properties must be padded with additional bytes, of any value, to satisfy this requirement.
 
+[#tileformats-featuretable-json-header]
 === JSON header
 
 Feature Table values can be represented in the JSON header in two different ways:
@@ -41,6 +46,7 @@ The only valid properties in the JSON header are the defined semantics by the ti
 
 See <<property-reference,Property reference>> for the full JSON header schema reference. The full JSON schema can be found in link:../../schema/TileFormats/featureTable.schema.json[featureTable.schema.json].
 
+[#tileformats-featuretable-binary-body]
 === Binary body
 
 When the JSON header includes a reference to the binary, the provided `byteOffset` is used to index into the data. The following figure shows indexing into the Feature Table binary body:
@@ -49,6 +55,7 @@ image::TileFormats/FeatureTable/figures/feature-table-binary-index.png[feature t
 
 Values can be retrieved using the number of features, `featuresLength`; the desired feature id, `featureId`; and the data type (component type and number of components) for the feature semantic.
 
+[#tileformats-featuretable-implementation-example]
 == Implementation example
 
 _This section is non-normative_
@@ -65,6 +72,7 @@ var position = positionArray.subarray(featureId * 3, featureId * 3 + 3); // Usin
 
 Code for reading the Feature Table can be found in https://github.com/CesiumGS/cesium/blob/main/Source/Scene/Cesium3DTileFeatureTable.js[`Cesium3DTileFeatureTable.js`] in the CesiumJS implementation of 3D Tiles.
 
+[#tileformats-featuretable-property-reference]
 == Property reference
 
 * <<reference-feature-table,`Feature Table`>>
@@ -75,6 +83,7 @@ Code for reading the Feature Table can be found in https://github.com/CesiumGS/c
 
 +++<a name="reference-feature-table">++++++</a>+++
 
+[#tileformats-featuretable-feature-table-1]
 === Feature Table
 
 A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.
@@ -99,6 +108,7 @@ Additional properties are allowed.
 
 * *Type of each property*: <<reference-property,`Property`>>
 +
+[#tileformats-featuretable-featuretableextensions]
 ==== FeatureTable.extensions
 
 Dictionary object with extension-specific objects.
@@ -107,6 +117,7 @@ Dictionary object with extension-specific objects.
 * *Required*: No
 * *Type of each property*: Extension
 
+[#tileformats-featuretable-featuretableextras]
 ==== FeatureTable.extras
 
 Application-specific data.
@@ -118,6 +129,7 @@ Application-specific data.
 
 +++<a name="reference-binarybodyreference">++++++</a>+++
 
+[#tileformats-featuretable-binarybodyreference]
 === BinaryBodyReference
 
 An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
@@ -140,6 +152,7 @@ An object defining the reference to a section of the binary body of the features
 
 Additional properties are allowed.
 
+[#tileformats-featuretable-binarybodyreferencebyteoffset-white_check_mark]
 ==== BinaryBodyReference.byteOffset :white_check_mark:
 
 The offset into the buffer in bytes.
@@ -148,6 +161,7 @@ The offset into the buffer in bytes.
 * *Required*: Yes
 * *Minimum*: ` >= 0`
 
+[#tileformats-featuretable-binarybodyreferencecomponenttype]
 ==== BinaryBodyReference.componentType
 
 The datatype of components in the property.
@@ -168,6 +182,7 @@ The datatype of components in the property.
 
 +++<a name="reference-property">++++++</a>+++
 
+[#tileformats-featuretable-property]
 === Property
 
 A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a <<reference-binarybodyreference,`BinaryBodyReference`>> object.

@@ -1,5 +1,6 @@
 
 [appendix]
+[#core-acknowledgements]
 == Acknowledgements
 
 Editors:
@@ -36,6 +37,7 @@ Acknowledgements:
 * Dave Wesloh
 
 [appendix]
+[#core-license]
 == License
 
 Copyright 2016 - 2022 Cesium GS, Inc.

@@ -1,10 +1,12 @@
 
+[#tileformats-tile-formats]
 = Tile Formats
 
 The link:../README.md#tile-content[tile content] in a 3D Tiles tileset represents the renderable content of a tile. It is referred to with the `content.uri` of the tile JSON.
 
 The primary tile format in 3D Tiles 1.1 is the link:glTF/[glTF Tile Format]. It is built on https://github.com/KhronosGroup/glTF[glTF 2.0] and allows modeling many different use cases and different forms of renderable content in 3D Tiles.
 
+[#tileformats-legacy-tile-formats]
 == Legacy Tile Formats
 
 The following tile formats have been part of 3D Tiles 1.0, and have been superseded by the link:glTF/[glTF Tile Format].

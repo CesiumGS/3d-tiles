@@ -1,6 +1,8 @@
 
+[#implicittiling-implicit-tiling]
 = Implicit Tiling
 
+[#implicittiling-overview]
 == Overview
 
 Implicit tiling defines a concise representation of quadtrees and octrees in 3D Tiles. This regular pattern allows for random access of tiles based on their tile coordinates which enables accelerated spatial queries, new traversal algorithms, and efficient updates of tile content, among other use cases.
@@ -15,6 +17,7 @@ image::ImplicitTiling/figures/sparse-octree.png[,700]
 
 _A point cloud organized into a sparse octree. Data source: Trimble_
 
+[#implicittiling-implicit-root-tile]
 == Implicit Root Tile
 
 An `implicitTiling` object may be added to any tile in the tileset JSON. Such a tile is called an *implicit root tile*, to distinguish it from the root tile of the tileset JSON.
@@ -70,6 +73,7 @@ The following constraints apply to implicit root tiles:
 * The `content.uri` must not point to an link:../README.md#external-tilesets[external tileset]
 * The `content` must omit the `boundingVolume` property
 
+[#implicittiling-subdivision-scheme]
 == Subdivision Scheme
 
 A *subdivision scheme* is a recursive pattern for dividing a bounding volume of a tile into smaller children tiles that take up the same space.
@@ -110,6 +114,7 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 
 
 
+[#implicittiling-subdivision-rules]
 === Subdivision Rules
 
 Implicit tiling only requires defining the subdivision scheme, refinement strategy, bounding volume, and geometric error at the implicit root tile. For descendant tiles, these properties are computed automatically, based on the following rules:
@@ -140,6 +145,7 @@ ____
 
 The computed tile `boundingVolume` and `geometricError` can be overridden with <<tile-metadata,tile metadata>>, if desired. Content bounding volumes are not computed automatically but they may be provided by <<content-metadata,content metadata>>. Tile and content bounding volumes must maintain link:../README.md#bounding-volume-spatial-coherence[spatial coherence].
 
+[#implicittiling-tile-coordinates]
 == Tile Coordinates
 
 *Tile coordinates* are a tuple of integers that uniquely identify a tile. Tile coordinates are either `(level, x, y)` for quadtrees or `(level, x, y, z)` for octrees. All tile coordinates are 0-indexed.
@@ -182,6 +188,7 @@ For `region` bounding volumes:
 
 image::ImplicitTiling/figures/region-coordinates.jpg[,700]
 
+[#implicittiling-template-uris]
 == Template URIs
 
 A *Template URI* is a URI pattern used to refer to tiles by their tile coordinates.
@@ -192,6 +199,7 @@ Template URIs, when given as relative paths, are resolved relative to the tilese
 
 image::ImplicitTiling/figures/template-uri.png[,1020]
 
+[#implicittiling-subtrees]
 == Subtrees
 
 In order to support sparse datasets, additional information is needed to indicate which tiles or contents exist. This is called *availability*.
@@ -204,6 +212,7 @@ After partitioning a tileset into subtrees, the result is a tree of subtrees.
 
 image::ImplicitTiling/figures/subtree-tree.png[Tree of subtrees]
 
+[#implicittiling-availability]
 === Availability
 
 Each subtree contains tile availability, content availability, and child subtree availability.
@@ -232,6 +241,7 @@ Storing tiles in Morton order provides these benefits:
 
 For more detailed information about working with Morton indices and availability bitstreams, see <<appendix-a-availability-indexing,Appendix A: Availability Indexing>>.
 
+[#implicittiling-tile-availability]
 ==== Tile Availability
 
 Tile availability determines which tiles exist in a subtree.
@@ -243,6 +253,7 @@ Tile availability has the following restrictions:
 
 image::ImplicitTiling/figures/tile-availability.png[Tile Availability]
 
+[#implicittiling-content-availability]
 ==== Content Availability
 
 Content availability determines which tiles have a content resource. The content resource is located using the `content.uri` template URI. If there are no tiles with a content resource, `tile.content` must be omitted.
@@ -254,6 +265,7 @@ Content availability has the following restrictions:
 
 image::ImplicitTiling/figures/content-availability.png[Content Availability]
 
+[#implicittiling-child-subtree-availability]
 ==== Child Subtree Availability
 
 Child subtree availability determines which subtrees are reachable from the deepest level of this subtree. This links subtrees together to form a tree.
@@ -262,6 +274,7 @@ Unlike tile and content availability, which store bits for every level in the su
 
 image::ImplicitTiling/figures/child-subtree-availability.png[Child Subtree Availability]
 
+[#implicittiling-metadata]
 === Metadata
 
 Subtrees may store metadata at multiple granularities.
@@ -270,6 +283,7 @@ Subtrees may store metadata at multiple granularities.
 * *Content metadata* - metadata for available content in the subtree
 * *Subtree metadata* - metadata about the subtree as a whole
 
+[#implicittiling-tile-metadata]
 ==== Tile Metadata
 
 When tiles are listed explicitly within a tileset, each tile's metadata is also embedded explicitly within the tile definition. When the tile hierarchy is _implicit_, as enabled by implicit tiling, tiles are not listed exhaustively and metadata cannot be directly embedded in tile definitions. To support metadata for tiles within implicit tiling schemes, property values for all available tiles in a subtree are encoded in a xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property table]. The binary representation is particularly efficient for larger datasets with many tiles.
@@ -290,6 +304,7 @@ ____
 
 The `TILE_GEOMETRIC_ERROR` semantic allows tiles to provide a geometric error that overrides the implicitly computed geometric error.
 
+[#implicittiling-content-metadata]
 ==== Content Metadata
 
 Subtrees may also store metadata for tile content. Content metadata exists only for available content and is tightly packed by increasing tile index. Binary property values are encoded in a compact link:../Metadata/README.md#binary-table-format[_Binary Table Format_] defined by the 3D Metadata Specification and are stored in a xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property table]. If the implicit root tile has multiple contents then content metadata is stored in multiple property tables.
@@ -298,16 +313,19 @@ Content bounding volumes are not computed automatically by implicit tiling but m
 
 If the tile content is assigned to a link:../../specification/README.md#tile-content[`group`] then all contents in the implicit tree are assigned to that group.
 
+[#implicittiling-subtree-metadata]
 ==== Subtree Metadata
 
 Properties assigned to subtrees provide metadata about the subtree as a whole. Subtree metadata is encoded in JSON according to the link:../Metadata/README.md#json-format[JSON Format] specification.
 
+[#implicittiling-subtree-json-format]
 == Subtree JSON Format
 
 _Defined in link:../schema/subtree/subtree.schema.json[subtree.schema.json]._
 
 A *subtree file* is a JSON file that contains availability and metadata information for a single subtree. A subtree may reference external files containing binary data. An alternative <<subtree-binary-format,Binary Format>> allows the JSON and binary data to be embedded into a single binary file.
 
+[#implicittiling-buffers-and-buffer-views]
 === Buffers and Buffer Views
 
 The xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property table] defines the storage of metadata in a binary form based on _buffer views_ that are parts of a _buffer_.
@@ -322,6 +340,7 @@ For efficient memory access, the `byteOffset` of a buffer view must be aligned t
 
 
 
+[#implicittiling-availability-1]
 === Availability
 
 Tile availability (`tileAvailability`) and child subtree availability (`childSubtreeAvailability`) must always be provided for a subtree.
@@ -383,6 +402,7 @@ ____
 
 
 
+[#implicittiling-metadata-1]
 === Metadata
 
 Subtrees may store metadata at multiple granularities. `tileMetadata` is a property table containing metadata for available tiles. `contentMetadata` is an array of property tables containing metadata for available content. If the implicit root tile has a single content this array will have one element; if the tile has multiple contents then this array will have multiple elements. If the implicit root tile does not have content then `contentMetadata` must be omitted.
@@ -550,6 +570,7 @@ ____
 
 
 
+[#implicittiling-multiple-contents]
 === Multiple Contents
 
 When the implicit root tile has multiple contents then `contentAvailability` and `contentMetadata` are provided for each content layer.
@@ -641,6 +662,7 @@ _Subtree JSON_
 ----
 ____
 
+[#implicittiling-subtree-binary-format]
 == Subtree Binary Format
 
 The subtree binary format is an alternative to the JSON file format that allows the JSON and binary data to be embedded into a single binary file.
@@ -680,10 +702,12 @@ Each chunk must be padded so it ends on an 8-byte boundary:
 * The JSON chunk must be padded with trailing `Space` chars (`0x20`)
 * If it exists, the binary chunk must be padded with trailing zeros (`0x00`)
 
+[#implicittiling-appendix-a-availability-indexing]
 == Appendix A: Availability Indexing
 
 
 
+[#implicittiling-converting-from-tile-coordinates-to-morton-index]
 === Converting from Tile Coordinates to Morton Index
 
 A https://en.wikipedia.org/wiki/Z-order_curve[Morton index] is computed by interleaving the bits of the `(x, y)` or `(x, y, z)` coordinates of a tile. Specifically:
@@ -710,6 +734,7 @@ image::ImplicitTiling/figures/morton-indexing.png[Morton Order]
 
 
 
+[#implicittiling-availability-bitstream-lengths]
 === Availability Bitstream Lengths
 
 |===
@@ -738,6 +763,7 @@ lengthBytes = ceil(lengthBits / 8)
 
 
 
+[#implicittiling-accessing-availability-bits]
 === Accessing Availability Bits
 
 For tile availability and content availability, the Morton index only determines the ordering within a single level of the subtree. Since the availability bitstream stores bits for every level of the subtree, a level offset must be computed.
@@ -763,6 +789,7 @@ index of the desired child subtree relative to the root of the current subtree.
 
 
 
+[#implicittiling-global-and-local-tile-coordinates]
 === Global and Local Tile Coordinates
 
 When working with tile coordinates, it is important to consider which tile the coordinates are relative to. There are two main types used in implicit tiling:
@@ -802,6 +829,7 @@ image::ImplicitTiling/figures/global-to-local-xy.png[Global to local XY coordina
 
 
 
+[#implicittiling-finding-parent-and-child-tiles]
 === Finding Parent and Child Tiles
 
 The coordinates of a parent or child tile can also be computed with bitwise operations on the Morton index. The following formulas apply for both local and global coordinates.

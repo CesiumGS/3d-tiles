@@ -1,7 +1,9 @@
+[#tileformats-pointcloud-point-cloud]
 = Point Cloud
 
 WARNING: Point Cloud was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#point-cloud-pnts[`pnts` migration guide].
 
+[#tileformats-pointcloud-overview]
 == Overview
 
 The _Point Cloud_ tile format enables efficient streaming of massive point clouds for 3D visualization. Each point is defined by a position and by optional properties used to define its appearance, such as color and normal, as well as optional properties that define application-specific metadata.
@@ -10,16 +12,19 @@ Using 3D Tiles terminology, each point is a _feature_.
 
 A Point Cloud tile is a binary blob in little endian.
 
+[#tileformats-pointcloud-layout]
 == Layout
 
 A tile is composed of a header section immediately followed by a body section. The following figure shows the Point Cloud layout (dashes indicate optional fields):
 
 image::TileFormats/PointCloud/figures/layout.png[]
 
+[#tileformats-pointcloud-padding]
 === Padding
 
 A tile's `byteLength` must be aligned to an 8-byte boundary. The contained link:../FeatureTable/README.md#padding[Feature Table] and link:../BatchTable/README.md#padding[Batch Table] must conform to their respective padding requirement.
 
+[#tileformats-pointcloud-header]
 == Header
 
 The 28-byte header contains the following fields:
@@ -58,6 +63,7 @@ The 28-byte header contains the following fields:
 
 The body section immediately follows the header section, and is composed of a `Feature Table` and `Batch Table`.
 
+[#tileformats-pointcloud-feature-table]
 == Feature Table
 
 Contains per-tile and per-point values that define where and how to render points.
@@ -65,8 +71,10 @@ More information is available in the xref:../FeatureTable/README.adoc[Feature Ta
 
 See <<property-reference,Property reference>> for the `pnts` feature table schema reference. The full JSON schema can be found in link:../../schema/TileFormats/pnts.featureTable.schema.json[pnts.featureTable.schema.json].
 
+[#tileformats-pointcloud-semantics]
 === Semantics
 
+[#tileformats-pointcloud-point-semantics]
 ==== Point semantics
 
 These semantics map to an array of feature values that define each point. The length of these arrays must be the same for all semantics and is equal to the number of points.
@@ -120,6 +128,7 @@ If both `NORMAL` and `NORMAL_OCT16P` are defined for a point, the higher precisi
 | :red_circle: No.
 |===
 
+[#tileformats-pointcloud-global-semantics]
 ==== Global semantics
 
 These semantics define global properties for all points.
@@ -160,18 +169,22 @@ These semantics define global properties for all points.
 
 Examples using these semantics can be found in the <<examples,examples section>> below.
 
+[#tileformats-pointcloud-point-positions]
 === Point positions
 
 `POSITION` defines the position for a point before any tileset transforms are applied.
 
+[#tileformats-pointcloud-coordinate-reference-system-crs]
 ==== Coordinate reference system (CRS)
 
 3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (also see link:../../README.md#coordinate-reference-system-crs[coordinate reference system]).
 
+[#tileformats-pointcloud-rtc_center]
 ==== RTC_CENTER
 
 Positions may be defined relative-to-center for high-precision rendering, see http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm[Precisions, Precisions]. If defined, `RTC_CENTER` specifies the center position and all point positions are treated as relative to this value.
 
+[#tileformats-pointcloud-quantized-positions]
 ==== Quantized positions
 
 If `POSITION` is not defined, positions may be stored in `POSITION_QUANTIZED`, which defines point positions relative to the quantized volume.
@@ -190,6 +203,7 @@ Quantized positions can be mapped to local space using the following formula:
 
 Compressed attributes should be decompressed before any other transforms are applied.
 
+[#tileformats-pointcloud-point-colors]
 === Point colors
 
 If more than one color semantic is defined, the precedence order is `RGBA`, `RGB`, `RGB565`, then `CONSTANT_RGBA`. For example, if a tile's Feature Table contains both `RGBA` and `CONSTANT_RGBA` properties, the runtime would render with per-point colors using `RGBA`.
@@ -198,11 +212,13 @@ If no color semantics are defined, the runtime is free to color points using an 
 
 In any case, xref:../../Styling/README.adoc[3D Tiles Styling] may be used to change the final rendered color and other visual properties at runtime.
 
+[#tileformats-pointcloud-point-normals]
 === Point normals
 
 Per-point normals are an optional property that can help improve the visual quality of points by enabling lighting, hidden surface removal, and other rendering techniques.
 The normals will be transformed using the inverse transpose of the tileset transform.
 
+[#tileformats-pointcloud-oct-encoded-normal-vectors]
 ==== Oct-encoded normal vectors
 
 Oct-encoding is described in http://jcgt.org/published/0003/02/01/[_A Survey of Efficient Representations of Independent Unit Vectors_]. Oct-encoded values are stored in unsigned, unnormalized range (`[0, 255]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
@@ -214,6 +230,7 @@ ____
 
 Compressed attributes should be decompressed before any other transforms are applied.
 
+[#tileformats-pointcloud-batched-points]
 === Batched points
 
 Points that make up distinct features of the Point Cloud may be batched together using the `BATCH_ID` semantic. For example, the points that make up a door in a house would all be assigned the same `BATCH_ID`, whereas points that make up a window would be assigned a different `BATCH_ID`.
@@ -222,12 +239,14 @@ This is useful for per-object picking and storing application-specific metadata 
 The `BATCH_ID` semantic may have a `componentType` of `UNSIGNED_BYTE`, `UNSIGNED_SHORT`, or `UNSIGNED_INT`. When `componentType` is not present, `UNSIGNED_SHORT` is used.
 The global semantic `BATCH_LENGTH` defines the number of unique `batchId` values, similar to the `batchLength` field in the xref:../Batched3DModel/README.adoc[Batched 3D Model] header.
 
+[#tileformats-pointcloud-examples]
 === Examples
 
 _This section is non-normative_
 
 These examples show how to generate JSON and binary buffers for the Feature Table.
 
+[#tileformats-pointcloud-positions-only]
 ==== Positions only
 
 This minimal example has four points on the corners of a unit length square:
@@ -249,6 +268,7 @@ var featureTableBinary = new Buffer(new Float32Array([
 ]).buffer);
 ----
 
+[#tileformats-pointcloud-positions-and-colors]
 ==== Positions and colors
 
 The following example has four points (red, green, blue, and yellow) above the globe. Their positions are defined relative to center:
@@ -283,6 +303,7 @@ var colorBinary = new Buffer(new Uint8Array([
 var featureTableBinary = Buffer.concat([positionBinary, colorBinary]);
 ----
 
+[#tileformats-pointcloud-quantized-positions-and-oct-encoded-normals]
 ==== Quantized positions and oct-encoded normals
 
 In this example, the four points will have normals pointing up `[0.0, 1.0, 0.0]` in oct-encoded format, and they will be placed on the corners of a quantized volume that spans from `-250.0` to `250.0` units in the `x` and `z` directions:
@@ -318,6 +339,7 @@ var normalOct16PBinary = new Buffer(new Uint8Array([
 var featureTableBinary = Buffer.concat([positionQuantizedBinary, normalOct16PBinary]);
 ----
 
+[#tileformats-pointcloud-batched-points-1]
 ==== Batched points
 
 In this example, the first two points have a `batchId` of 0, and the next two points have a `batchId` of 1. Note that the Batch Table only has two names:
@@ -357,6 +379,7 @@ var batchTableJSON = {
 };
 ----
 
+[#tileformats-pointcloud-per-point-properties]
 ==== Per-point properties
 
 In this example, each of the 4 points will have metadata stored in the Batch Table JSON and binary.
@@ -382,6 +405,7 @@ var batchTableJSON = {
 };
 ----
 
+[#tileformats-pointcloud-batch-table]
 == Batch Table
 
 The _Batch Table_ contains application-specific metadata, indexable by `batchId`, that can be used for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request.
@@ -391,24 +415,28 @@ The _Batch Table_ contains application-specific metadata, indexable by `batchId`
 
 See the xref:../BatchTable/README.adoc[Batch Table] reference for more information.
 
+[#tileformats-pointcloud-extensions]
 == Extensions
 
 The following extensions can be applied to a Point Cloud tile.
 
 * link:../../../extensions/3DTILES_draco_point_compression/[3DTILES_draco_point_compression]
 
+[#tileformats-pointcloud-file-extension-and-mime-type]
 == File extension and MIME type
 
 Point cloud tiles use the `.pnts` extension and `application/octet-stream` MIME type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
+[#tileformats-pointcloud-implementation-example]
 == Implementation example
 
 _This section is non-normative_
 
 Code for reading the header can be found in https://github.com/CesiumGS/cesium/blob/main/Source/Scene/PointCloud3DTileContent.js[`PointCloud3DModelTileContent.js`] in the CesiumJS implementation of 3D Tiles.
 
+[#tileformats-pointcloud-property-reference]
 == Property reference
 
 * <<reference-point-cloud-feature-table,`Point Cloud Feature Table`>>
@@ -423,6 +451,7 @@ Code for reading the header can be found in https://github.com/CesiumGS/cesium/b
 +++<a name="reference-point-cloud-feature-table">++++++</a>+++
 
 
+[#tileformats-pointcloud-point-cloud-feature-table]
 === Point Cloud Feature Table
 
 A set of Point Cloud semantics that contains values defining the position and appearance properties for points in a tile.
@@ -518,6 +547,7 @@ Additional properties are allowed.
 * *Type of each property*: <<reference-property,`Property`>>
 
 +
+[#tileformats-pointcloud-pointcloudfeaturetableextensions]
 ==== PointCloudFeatureTable.extensions
 
 Dictionary object with extension-specific objects.
@@ -528,6 +558,7 @@ Dictionary object with extension-specific objects.
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetableextras]
 ==== PointCloudFeatureTable.extras
 
 Application-specific data.
@@ -536,6 +567,7 @@ Application-specific data.
 * *Required*: No
 
 +
+[#tileformats-pointcloud-pointcloudfeaturetableposition]
 ==== PointCloudFeatureTable.POSITION
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -545,6 +577,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetableposition_quantized]
 ==== PointCloudFeatureTable.POSITION_QUANTIZED
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -554,6 +587,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetablergba]
 ==== PointCloudFeatureTable.RGBA
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -563,6 +597,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetablergb]
 ==== PointCloudFeatureTable.RGB
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -572,6 +607,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetablergb565]
 ==== PointCloudFeatureTable.RGB565
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -581,6 +617,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetablenormal]
 ==== PointCloudFeatureTable.NORMAL
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -590,6 +627,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetablenormal_oct16p]
 ==== PointCloudFeatureTable.NORMAL_OCT16P
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -599,6 +637,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetablebatch_id]
 ==== PointCloudFeatureTable.BATCH_ID
 
 A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -608,6 +647,7 @@ A <<reference-binarybodyreference,`BinaryBodyReference`>> object defining the re
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetablepoints_length-white_check_mark]
 ==== PointCloudFeatureTable.POINTS_LENGTH :white_check_mark:
 
 A <<reference-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all points. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -617,6 +657,7 @@ A <<reference-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetablertc_center]
 ==== PointCloudFeatureTable.RTC_CENTER
 
 A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all points. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -626,6 +667,7 @@ A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defin
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetablequantized_volume_offset]
 ==== PointCloudFeatureTable.QUANTIZED_VOLUME_OFFSET
 
 A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all points. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -635,6 +677,7 @@ A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defin
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetablequantized_volume_scale]
 ==== PointCloudFeatureTable.QUANTIZED_VOLUME_SCALE
 
 A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all points. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -644,6 +687,7 @@ A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defin
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetableconstant_rgba]
 ==== PointCloudFeatureTable.CONSTANT_RGBA
 
 A <<reference-globalpropertycartesian4,`GlobalPropertyCartesian4`>> object defining a 4-component numeric property for all points. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -653,6 +697,7 @@ A <<reference-globalpropertycartesian4,`GlobalPropertyCartesian4`>> object defin
 
 
 
+[#tileformats-pointcloud-pointcloudfeaturetablebatch_length]
 ==== PointCloudFeatureTable.BATCH_LENGTH
 
 A <<reference-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all points. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
@@ -665,6 +710,7 @@ A <<reference-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an
 +++<a name="reference-binarybodyreference">++++++</a>+++
 
 
+[#tileformats-pointcloud-binarybodyreference]
 === BinaryBodyReference
 
 An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
@@ -689,6 +735,7 @@ Additional properties are allowed.
 
 
 
+[#tileformats-pointcloud-binarybodyreferencebyteoffset-white_check_mark]
 ==== BinaryBodyReference.byteOffset :white_check_mark:
 
 The offset into the buffer in bytes.
@@ -699,6 +746,7 @@ The offset into the buffer in bytes.
 
 
 
+[#tileformats-pointcloud-binarybodyreferencecomponenttype]
 ==== BinaryBodyReference.componentType
 
 The datatype of components in the property.
@@ -720,6 +768,7 @@ The datatype of components in the property.
 +++<a name="reference-globalpropertycartesian3">++++++</a>+++
 
 
+[#tileformats-pointcloud-globalpropertycartesian3]
 === GlobalPropertyCartesian3
 
 An object defining a global 3-component numeric property value for all features.
@@ -731,6 +780,7 @@ An object defining a global 3-component numeric property value for all features.
 +++<a name="reference-globalpropertycartesian4">++++++</a>+++
 
 
+[#tileformats-pointcloud-globalpropertycartesian4]
 === GlobalPropertyCartesian4
 
 An object defining a global 4-component numeric property value for all features.
@@ -742,6 +792,7 @@ An object defining a global 4-component numeric property value for all features.
 +++<a name="reference-globalpropertyinteger">++++++</a>+++
 
 
+[#tileformats-pointcloud-globalpropertyinteger]
 === GlobalPropertyInteger
 
 An object defining a global integer property value for all features.
@@ -753,6 +804,7 @@ An object defining a global integer property value for all features.
 +++<a name="reference-property">++++++</a>+++
 
 
+[#tileformats-pointcloud-property]
 === Property
 
 A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a <<reference-binarybodyreference,`BinaryBodyReference`>> object.
