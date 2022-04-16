@@ -1,5 +1,6 @@
 = 3D Tiles Specification
-Cesium
+Cesium GS, Inc
+v1.1.0
 :toc2:
 :toclevels: 2
 :sectnums:
@@ -21,7 +22,6 @@ This document describes the specification for 3D Tiles, an open standard for str
 include::README.adoc[]
 include::ImplicitTiling\README.adoc[]
 include::Metadata\README.adoc[]
-include::schema\README.adoc[]
 include::Styling\README.adoc[]
 include::TileFormats\README.adoc[]
 

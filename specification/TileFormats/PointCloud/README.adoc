@@ -14,7 +14,7 @@ A Point Cloud tile is a binary blob in little endian.
 
 A tile is composed of a header section immediately followed by a body section. The following figure shows the Point Cloud layout (dashes indicate optional fields):
 
-image::figures/layout.png[]
+image::TileFormats/PointCloud/figures/layout.png[]
 
 === Padding
 
@@ -179,7 +179,7 @@ If neither `POSITION` nor `POSITION_QUANTIZED` is defined, the tile does not nee
 
 A quantized volume is defined by `offset` and `scale` to map quantized positions to a position in local space. The following figure shows a quantized volume based on `offset` and `scale`:
 
-image::figures/quantized-volume.png[quantized volume]
+image::TileFormats/PointCloud/figures/quantized-volume.png[quantized volume]
 
 `offset` is stored in the global semantic `QUANTIZED_VOLUME_OFFSET`, and `scale` is stored in the global semantic `QUANTIZED_VOLUME_SCALE`.
 If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.

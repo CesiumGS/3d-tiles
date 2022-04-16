@@ -27,7 +27,7 @@ The following example assigns a color based on building height.
 }
 ----
 
-image::./figures/example.png[]
+image::Styling/figures/example.png[]
 
 == Concepts
 

@@ -22,7 +22,7 @@ ____
 
 A tile is composed of a header section immediately followed by a binary body. The following figure shows the Instanced 3D Model layout (dashes indicate optional fields):
 
-image::figures/header-layout.png[header layout]
+image::TileFormats/Instanced3DModel/figures/header-layout.png[header layout]
 
 === Padding
 
@@ -185,10 +185,10 @@ The `x` vector in the standard basis maps to the `right` vector in the transform
 The `z` vector would map to a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
 
 A box in the standard basis:
-image:figures/box-standard-basis.png[box standard basis]
+image::TileFormats/Instanced3DModel/figures/box-standard-basis.png[box standard basis]
 
 A box transformed into a rotated basis
-image:figures/box-rotated-basis.png[box rotated basis]
+image::TileFormats/Instanced3DModel/figures/box-rotated-basis.png[box rotated basis]
 
 ==== Oct-encoded normal vectors
 
@@ -220,7 +220,7 @@ If neither `POSITION` or `POSITION_QUANTIZED` are defined, the instance will not
 
 A quantized volume is defined by `offset` and `scale` to map quantized positions into local space, as shown in the following figure:
 
-image::figures/quantized-volume.png[quantized volume]
+image::TileFormats/Instanced3DModel/figures/quantized-volume.png[quantized volume]
 
 `offset` is stored in the global semantic `QUANTIZED_VOLUME_OFFSET`, and `scale` is stored in the global semantic `QUANTIZED_VOLUME_SCALE`.
 If those global semantics are not defined, `POSITION_QUANTIZED` cannot be used.

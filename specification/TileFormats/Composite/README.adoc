@@ -17,7 +17,7 @@ A Composite tile is a binary blob in little endian.
 
 Composite layout (dashes indicate optional fields):
 
-image::figures/layout.png[]
+image::TileFormats/Composite/figures/layout.png[]
 
 === Padding
 

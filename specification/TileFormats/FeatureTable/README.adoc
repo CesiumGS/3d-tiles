@@ -15,7 +15,7 @@ Per-feature properties are defined using tile format-specific semantics defined 
 
 A Feature Table is composed of two parts: a JSON header and an optional binary body in little endian. The JSON property names are tile format-specific semantics, and their values can either be defined directly in the JSON, or refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body. The following figure shows the Feature Table layout:
 
-image::figures/feature-table-layout.png[feature table layout]
+image::TileFormats/FeatureTable/figures/feature-table-layout.png[feature table layout]
 
 When a tile format includes a Feature Table, the Feature Table immediately follows the tile's header.  The header will also contain `featureTableJSONByteLength` and `featureTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the Feature Table.
 
@@ -45,7 +45,7 @@ See <<property-reference,Property reference>> for the full JSON header schema re
 
 When the JSON header includes a reference to the binary, the provided `byteOffset` is used to index into the data. The following figure shows indexing into the Feature Table binary body:
 
-image::figures/feature-table-binary-index.png[feature table binary index]
+image::TileFormats/FeatureTable/figures/feature-table-binary-index.png[feature table binary index]
 
 Values can be retrieved using the number of features, `featuresLength`; the desired feature id, `featureId`; and the data type (component type and number of components) for the feature semantic.
 

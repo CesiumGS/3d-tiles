@@ -19,46 +19,46 @@ glTF provides flexibilty for a wide range of mesh and material configurations, a
 |===
 | Photogrammetry | 3D Buildings
 
-| image:figures/glTF-photogrammetry.png[pdfwidth=40%]_San Francisco photogrammetry model from Aerometrex in O3DE_
-| image:figures/glTF-3d-buildings.png[pdfwidth=40%]_3D buildings from swisstopo in CesiumJS_
+| image:TileFormats/glTF/figures/glTF-photogrammetry.png[pdfwidth=40%]_San Francisco photogrammetry model from Aerometrex in O3DE_
+| image:TileFormats/glTF/figures/glTF-3d-buildings.png[pdfwidth=40%]_3D buildings from swisstopo in CesiumJS_
 |===
 
 === Point Clouds
 
 glTF supports point clouds with the `0` (`POINTS`) primitive mode. Points can have positions, colors, normals, and custom attributes as specified in the `primitive.attributes` field.
 
-image:figures/glTF-point-cloud.png[point-cloud]
+image::TileFormats/glTF/figures/glTF-point-cloud.png[point-cloud]
 _40 billion point cloud from the City of Montreal with ASPRS classification codes (https://donnees.montreal.ca/license-en[CC-BY 4.0])_
 
 When using the https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] extension points can be assigned feature IDs and these features can have associated metadata.
 
-image:figures/point-cloud-layers.png[Point Cloud Features]
+image::TileFormats/glTF/figures/point-cloud-layers.png[Point Cloud Features]
 _A point cloud with two property tables, one storing metadata for groups of points and the other storing metadata for individual points_
 
 === Instancing
 
 glTF can leverage GPU instancing with the https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Vendor/EXT_mesh_gpu_instancing/README.md[`EXT_mesh_gpu_instancing`] extension. Instances can be given unique translations, rotations, scales, and other per-instance attributes.
 
-image:figures/glTF-instancing.jpg[instancing]
+image::TileFormats/glTF/figures/glTF-instancing.jpg[instancing]
 _Instanced tree models in Philadelphia from OpenTreeMap_
 
 When using the https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features[`EXT_instance_features`] extension instances can be assigned feature IDs and these features can have associated metadata.
 
-image:figures/multi-instance-metadata.png[Model Instance Features]
+image::TileFormats/glTF/figures/multi-instance-metadata.png[Model Instance Features]
 _Instanced tree models where trees are assigned to groups with a per-instance feature ID attribute. One feature table stores per-group metadata and the other stores per-tree metadata._
 
 == Feature Identification
 
 https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] provides a means of assigning identifiers to geometry and subcomponents of geometry within a glTF 2.0 asset. Feature IDs can de assigned to vertices or texels. https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features[`EXT_instance_features`] allows feature IDs to be assigned to individial instances.
 
-image:figures/glTF-feature-identification.png[Per-texel features]
+image::TileFormats/glTF/figures/glTF-feature-identification.png[Per-texel features]
 _Street level photogrammetry of San Francisco Ferry Building from Aerometrex. Left: per-texel colors showing the feature classification, e.g., roof, sky roof, windows, window frames, and AC units . Right: classification is used to determine rendering material properties, e.g., make the windows translucent._
 
 == Metadata
 
 https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] stores metadata at per-vertex, per-texel, and per-feature granularity and uses the type system defined in the link:../../Metadata[3D Metadata Specification]. This metadata can be used for visualization and analysis.
 
-image::figures/glTF-metadata.png[metadata]
+image::TileFormats/glTF/figures/glTF-metadata.png[metadata]
 
 == Compression
 
@@ -91,7 +91,7 @@ link:../Batched3DModel[Batched 3D Model] is a wrapper around a binary glTF that 
 * The https://github.com/CesiumGS/3d-tiles/tree/main/specification/TileFormats/Batched3DModel#coordinate-system[`RTC_CENTER`] can be added to the translation component of the root node of the glTF asset.
 * Batch IDs and Batch Tables can be represented using https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`].
 
-image::figures/migration-b3dm.png[b3dm]
+image::TileFormats/glTF/figures/migration-b3dm.png[b3dm]
 
 === Instanced 3D Model (i3dm)
 
@@ -102,7 +102,7 @@ link:../Instanced3DModel[Instanced 3D Model] instances a glTF asset (embedded or
 * Batch IDs and Batch Tables can be represented using https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features[`EXT_instance_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`].
 * `EAST_NORTH_UP` is not directly supported, but can be represented using per-instance rotations.
 
-image::figures/migration-i3dm.png[i3dm]
+image::TileFormats/glTF/figures/migration-i3dm.png[i3dm]
 
 === Point Cloud (pnts)
 
@@ -114,7 +114,7 @@ link:../PointCloud[Point Cloud] can be represented as a glTF using the primitive
 * Batch IDs and Batch Tables can be represented using https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`].
 * `CONSTANT_RGBA` is not directly supported in glTF, but can be achieved with materials or per-point colors.
 
-image::figures/migration-pnts.png[pnts]
+image::TileFormats/glTF/figures/migration-pnts.png[pnts]
 
 === Composite (cmpt)
 

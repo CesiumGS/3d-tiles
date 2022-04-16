@@ -15,7 +15,7 @@ A Batched 3D Model tile is a binary blob in little endian.
 
 A tile is composed of two sections: a header immediately followed by a body. The following figure shows the Batched 3D Model layout (dashes indicate optional fields):
 
-image::figures/layout.png[]
+image::TileFormats/Batched3DModel/figures/layout.png[]
 
 === Padding
 
