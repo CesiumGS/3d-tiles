@@ -111,47 +111,47 @@ If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` ar
 | `POSITION`
 | `float32[3]`
 | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the instance.
-| :white_check_mark: Yes, unless `POSITION_QUANTIZED` is defined.
+| Yes, unless `POSITION_QUANTIZED` is defined.
 
 | `POSITION_QUANTIZED`
 | `uint16[3]`
 | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the instance.
-| :white_check_mark: Yes, unless `POSITION` is defined.
+| Yes, unless `POSITION` is defined.
 
 | `NORMAL_UP`
 | `float32[3]`
 | A unit vector defining the `up` direction for the orientation of the instance.
-| :red_circle: No, unless `NORMAL_RIGHT` is defined.
+| No, unless `NORMAL_RIGHT` is defined.
 
 | `NORMAL_RIGHT`
 | `float32[3]`
 | A unit vector defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`.
-| :red_circle: No, unless `NORMAL_UP` is defined.
+| No, unless `NORMAL_UP` is defined.
 
 | `NORMAL_UP_OCT32P`
 | `uint16[2]`
 | An oct-encoded unit vector with 32-bits of precision defining the `up` direction for the orientation of the instance.
-| :red_circle: No, unless `NORMAL_RIGHT_OCT32P` is defined.
+| No, unless `NORMAL_RIGHT_OCT32P` is defined.
 
 | `NORMAL_RIGHT_OCT32P`
 | `uint16[2]`
 | An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`.
-| :red_circle: No, unless `NORMAL_UP_OCT32P` is defined.
+| No, unless `NORMAL_UP_OCT32P` is defined.
 
 | `SCALE`
 | `float32`
 | A number defining a scale to apply to all axes of the instance.
-| :red_circle: No.
+| No.
 
 | `SCALE_NON_UNIFORM`
 | `float32[3]`
 | A 3-component array of numbers defining the scale to apply to the `x`, `y`, and `z` axes of the instance.
-| :red_circle: No.
+| No.
 
 | `BATCH_ID`
 | `uint8`, `uint16` (default), or `uint32`
 | The `batchId` of the instance that can be used to retrieve metadata from the `Batch Table`.
-| :red_circle: No.
+| No.
 |===
 
 [#tileformats-instanced3dmodel-global-semantics]
@@ -165,27 +165,27 @@ These semantics define global properties for all instances.
 | `INSTANCES_LENGTH`
 | `uint32`
 | The number of instances to generate. The length of each array value for an instance semantic should be equal to this.
-| :white_check_mark: Yes.
+| Yes.
 
 | `RTC_CENTER`
 | `float32[3]`
 | A 3-component array of numbers defining the center position when instance positions are defined relative-to-center.
-| :red_circle: No.
+| No.
 
 | `QUANTIZED_VOLUME_OFFSET`
 | `float32[3]`
 | A 3-component array of numbers defining the offset for the quantized volume.
-| :red_circle: No, unless `POSITION_QUANTIZED` is defined.
+| No, unless `POSITION_QUANTIZED` is defined.
 
 | `QUANTIZED_VOLUME_SCALE`
 | `float32[3]`
 | A 3-component array of numbers defining the scale for the quantized volume.
-| :red_circle: No, unless `POSITION_QUANTIZED` is defined.
+| No, unless `POSITION_QUANTIZED` is defined.
 
 | `EAST_NORTH_UP`
 | `boolean`
 | When `true` and per-instance orientation is not defined, each instance will default to the `east/north/up` reference frame's orientation on the `WGS84` ellipsoid.
-| :red_circle: No.
+| No.
 |===
 
 Examples using these semantics can be found in the <<tileformats-instanced3dmodel-examples,examples section>>.
@@ -451,7 +451,7 @@ A set of Instanced 3D Model semantics that contains values defining the position
 | *INSTANCES_LENGTH*
 | `object`, `number` `[1]`, `number`
 | A <<tileformats-instanced3dmodel-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all features. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
-| :white_check_mark: Yes
+| Yes
 
 | *RTC_CENTER*
 | `object`, `number` `[3]`
@@ -567,8 +567,8 @@ A <<tileformats-instanced3dmodel-binarybodyreference,`BinaryBodyReference`>> obj
 * *Type*: `object`
 * *Required*: No
 
-[#tileformats-instanced3dmodel-instanced3dmodelfeaturetableinstances_length-white_check_mark]
-==== Instanced3DModelFeatureTable.INSTANCES_LENGTH :white_check_mark:
+[#tileformats-instanced3dmodel-instanced3dmodelfeaturetableinstances_length]
+==== Instanced3DModelFeatureTable.INSTANCES_LENGTH 
 
 A <<tileformats-instanced3dmodel-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all features. See the corresponding property semantic in link:/specification/TileFormats/Instanced3DModel/README.md#semantics[Semantics].
 
@@ -622,7 +622,7 @@ An object defining the reference to a section of the binary body of the features
 | *byteOffset*
 | `number`
 | The offset into the buffer in bytes.
-| :white_check_mark: Yes
+| Yes
 
 | *componentType*
 | `string`
@@ -632,8 +632,8 @@ An object defining the reference to a section of the binary body of the features
 
 Additional properties are allowed.
 
-[#tileformats-instanced3dmodel-binarybodyreferencebyteoffset-white_check_mark]
-==== BinaryBodyReference.byteOffset :white_check_mark:
+[#tileformats-instanced3dmodel-binarybodyreferencebyteoffset]
+==== BinaryBodyReference.byteOffset 
 
 The offset into the buffer in bytes.
 

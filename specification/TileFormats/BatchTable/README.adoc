@@ -272,23 +272,23 @@ An object defining the reference to a section of the binary body of the batch ta
 | *byteOffset*
 | `number`
 | The offset into the buffer in bytes.
-| :white_check_mark: Yes
+| Yes
 
 | *componentType*
 | `string`
 | The datatype of components in the property.
-| :white_check_mark: Yes
+| Yes
 
 | *type*
 | `string`
 | Specifies if the property is a scalar or vector.
-| :white_check_mark: Yes
+| Yes
 |===
 
 Additional properties are allowed.
 
-[#tileformats-batchtable-binarybodyreferencebyteoffset-white_check_mark]
-==== BinaryBodyReference.byteOffset :white_check_mark:
+[#tileformats-batchtable-binarybodyreferencebyteoffset]
+==== BinaryBodyReference.byteOffset 
 
 The offset into the buffer in bytes.
 
@@ -296,8 +296,8 @@ The offset into the buffer in bytes.
 * *Required*: Yes
 * *Minimum*: ` >= 0`
 
-[#tileformats-batchtable-binarybodyreferencecomponenttype-white_check_mark]
-==== BinaryBodyReference.componentType :white_check_mark:
+[#tileformats-batchtable-binarybodyreferencecomponenttype]
+==== BinaryBodyReference.componentType 
 
 The datatype of components in the property.
 
@@ -313,8 +313,8 @@ The datatype of components in the property.
  ** `"FLOAT"`
  ** `"DOUBLE"`
 
-[#tileformats-batchtable-binarybodyreferencetype-white_check_mark]
-==== BinaryBodyReference.type :white_check_mark:
+[#tileformats-batchtable-binarybodyreferencetype]
+==== BinaryBodyReference.type 
 
 Specifies if the property is a scalar or vector.
 

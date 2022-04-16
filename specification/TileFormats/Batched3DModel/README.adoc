@@ -94,12 +94,12 @@ These semantics define global properties for all features.
 | `BATCH_LENGTH`
 | `uint32`
 | The number of distinguishable models, also called features, in the batch. If the Binary glTF does not have a `batchId` attribute, this field _must_ be `0`.
-| :white_check_mark: Yes.
+| Yes.
 
 | `RTC_CENTER`
 | `float32[3]`
 | A 3-component array of numbers defining the center position when positions are defined relative-to-center, (see <<tileformats-batched3dmodel-coordinate-system,Coordinate system>>).
-| :red_circle: No.
+| No.
 |===
 
 [#tileformats-batched3dmodel-batch-table]
@@ -230,7 +230,7 @@ A set of Batched 3D Model semantics that contain additional information about fe
 | *BATCH_LENGTH*
 | `object`, `number` `[1]`, `number`
 | A <<tileformats-batched3dmodel-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all features. See the corresponding property semantic in link:/specification/TileFormats/Batched3DModel/README.md#semantics[Semantics].
-| :white_check_mark: Yes
+| Yes
 
 | *RTC_CENTER*
 | `object`, `number` `[3]`
@@ -259,8 +259,8 @@ Application-specific data.
 * *Type*: `any`
 * *Required*: No
 
-[#tileformats-batched3dmodel-batched3dmodelfeaturetablebatch_length-white_check_mark]
-==== Batched3DModelFeatureTable.BATCH_LENGTH :white_check_mark:
+[#tileformats-batched3dmodel-batched3dmodelfeaturetablebatch_length]
+==== Batched3DModelFeatureTable.BATCH_LENGTH 
 
 A <<tileformats-batched3dmodel-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all features. See the corresponding property semantic in link:/specification/TileFormats/Batched3DModel/README.md#semantics[Semantics].
 
@@ -290,7 +290,7 @@ An object defining the reference to a section of the binary body of the features
 | *byteOffset*
 | `number`
 | The offset into the buffer in bytes.
-| :white_check_mark: Yes
+| Yes
 
 | *componentType*
 | `string`
@@ -300,8 +300,8 @@ An object defining the reference to a section of the binary body of the features
 
 Additional properties are allowed.
 
-[#tileformats-batched3dmodel-binarybodyreferencebyteoffset-white_check_mark]
-==== BinaryBodyReference.byteOffset :white_check_mark:
+[#tileformats-batched3dmodel-binarybodyreferencebyteoffset]
+==== BinaryBodyReference.byteOffset 
 
 The offset into the buffer in bytes.
 

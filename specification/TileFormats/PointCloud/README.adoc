@@ -90,42 +90,42 @@ If both `NORMAL` and `NORMAL_OCT16P` are defined for a point, the higher precisi
 | `POSITION`
 | `float32[3]`
 | A 3-component array of numbers containing `x`, `y`, and `z` Cartesian coordinates for the position of the point.
-| :white_check_mark: Yes, unless `POSITION_QUANTIZED` is defined.
+| Yes, unless `POSITION_QUANTIZED` is defined.
 
 | `POSITION_QUANTIZED`
 | `uint16[3]`
 | A 3-component array of numbers containing `x`, `y`, and `z` in quantized Cartesian coordinates for the position of the point.
-| :white_check_mark: Yes, unless `POSITION` is defined.
+| Yes, unless `POSITION` is defined.
 
 | `RGBA`
 | `uint8[4]`
 | A 4-component array of values containing the `RGBA` color of the point.
-| :red_circle: No.
+| No.
 
 | `RGB`
 | `uint8[3]`
 | A 3-component array of values containing the `RGB` color of the point.
-| :red_circle: No.
+| No.
 
 | `RGB565`
 | `uint16`
 | A lossy compressed color format that packs the `RGB` color into 16 bits, providing 5 bits for red, 6 bits for green, and 5 bits for blue.
-| :red_circle: No.
+| No.
 
 | `NORMAL`
 | `float32[3]`
 | A unit vector defining the normal of the point.
-| :red_circle: No.
+| No.
 
 | `NORMAL_OCT16P`
 | `uint8[2]`
 | An oct-encoded unit vector with 16 bits of precision defining the normal of the point.
-| :red_circle: No.
+| No.
 
 | `BATCH_ID`
 | `uint8`, `uint16` (default), or `uint32`
 | The `batchId` of the point that can be used to retrieve metadata from the `Batch Table`.
-| :red_circle: No.
+| No.
 |===
 
 [#tileformats-pointcloud-global-semantics]
@@ -139,32 +139,32 @@ These semantics define global properties for all points.
 | `POINTS_LENGTH`
 | `uint32`
 | The number of points to render. The length of each array value for a point semantic should be equal to this.
-| :white_check_mark: Yes.
+| Yes.
 
 | `RTC_CENTER`
 | `float32[3]`
 | A 3-component array of numbers defining the center position when point positions are defined relative-to-center.
-| :red_circle: No.
+| No.
 
 | `QUANTIZED_VOLUME_OFFSET`
 | `float32[3]`
 | A 3-component array of numbers defining the offset for the quantized volume.
-| :red_circle: No, unless `POSITION_QUANTIZED` is defined.
+| No, unless `POSITION_QUANTIZED` is defined.
 
 | `QUANTIZED_VOLUME_SCALE`
 | `float32[3]`
 | A 3-component array of numbers defining the scale for the quantized volume.
-| :red_circle: No, unless `POSITION_QUANTIZED` is defined.
+| No, unless `POSITION_QUANTIZED` is defined.
 
 | `CONSTANT_RGBA`
 | `uint8[4]`
 | A 4-component array of values defining a constant `RGBA` color for all points in the tile.
-| :red_circle: No.
+| No.
 
 | `BATCH_LENGTH`
 | `uint32`
 | The number of unique `BATCH_ID` values.
-| :red_circle: No, unless `BATCH_ID` is defined.
+| No, unless `BATCH_ID` is defined.
 |===
 
 Examples using these semantics can be found in the <<tileformats-pointcloud-examples,examples section>> below.
@@ -514,7 +514,7 @@ A set of Point Cloud semantics that contains values defining the position and ap
 | *POINTS_LENGTH*
 | `object`, `number` `[1]`, `number`
 | A <<tileformats-pointcloud-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all points. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
-| :white_check_mark: Yes
+| Yes
 
 | *RTC_CENTER*
 | `object`, `number` `[3]`
@@ -647,8 +647,8 @@ A <<tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object de
 
 
 
-[#tileformats-pointcloud-pointcloudfeaturetablepoints_length-white_check_mark]
-==== PointCloudFeatureTable.POINTS_LENGTH :white_check_mark:
+[#tileformats-pointcloud-pointcloudfeaturetablepoints_length]
+==== PointCloudFeatureTable.POINTS_LENGTH 
 
 A <<tileformats-pointcloud-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all points. See the corresponding property semantic in link:/specification/TileFormats/PointCloud/README.md#semantics[Semantics].
 
@@ -721,7 +721,7 @@ An object defining the reference to a section of the binary body of the features
 | *byteOffset*
 | `number`
 | The offset into the buffer in bytes.
-| :white_check_mark: Yes
+| Yes
 
 | *componentType*
 | `string`
@@ -733,8 +733,8 @@ Additional properties are allowed.
 
 
 
-[#tileformats-pointcloud-binarybodyreferencebyteoffset-white_check_mark]
-==== BinaryBodyReference.byteOffset :white_check_mark:
+[#tileformats-pointcloud-binarybodyreferencebyteoffset]
+==== BinaryBodyReference.byteOffset 
 
 The offset into the buffer in bytes.
 

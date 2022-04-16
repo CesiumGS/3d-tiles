@@ -138,7 +138,7 @@ An object defining the reference to a section of the binary body of the features
 | *byteOffset*
 | `number`
 | The offset into the buffer in bytes.
-| :white_check_mark: Yes
+| Yes
 
 | *componentType*
 | `string`
@@ -148,8 +148,8 @@ An object defining the reference to a section of the binary body of the features
 
 Additional properties are allowed.
 
-[#tileformats-featuretable-binarybodyreferencebyteoffset-white_check_mark]
-==== BinaryBodyReference.byteOffset :white_check_mark:
+[#tileformats-featuretable-binarybodyreferencebyteoffset]
+==== BinaryBodyReference.byteOffset 
 
 The offset into the buffer in bytes.
 
