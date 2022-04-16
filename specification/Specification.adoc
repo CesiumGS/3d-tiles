@@ -16,36 +16,6 @@ This document describes the specification for 3D Tiles, an open standard for str
 = 3D Tiles Format Specification
 include::README.adoc[]
 
-:imagesdir: ImplicitTiling
-include::ImplicitTiling/README.adoc[]
-
-
-
-:imagesdir: Metadata
-include::Metadata/README.adoc[]
-
-
-:leveloffset: +1
-
-:imagesdir: Metadata/Semantics
-include::Metadata/Semantics/README.adoc[]
-
-:imagesdir: Metadata/ReferenceImplementation
-include::Metadata/ReferenceImplementation/README.adoc[]
-
-:imagesdir: Metadata/ReferenceImplementation/PropertyTable
-include::Metadata/ReferenceImplementation/PropertyTable/README.adoc[]
-
-:imagesdir: Metadata/ReferenceImplementation/Schema
-include::Metadata/ReferenceImplementation/Schema/README.adoc[]
-
-:leveloffset: -1
-
-
-:imagesdir: Styling
-include::Styling/README.adoc[]
-
-
 
 :imagesdir: TileFormats
 include::TileFormats/README.adoc[]
@@ -76,8 +46,30 @@ include::TileFormats/Composite/README.adoc[]
 :leveloffset: -1
 
 
+:imagesdir: ImplicitTiling
+include::ImplicitTiling/README.adoc[]
+
+
+
+:imagesdir: Styling
+include::Styling/README.adoc[]
+
+
+
+:imagesdir: Metadata
+include::Metadata/README.adoc[]
+
+:leveloffset: +1
+
+:imagesdir: Metadata/Semantics
+include::Metadata/Semantics/README.adoc[]
+
+:leveloffset: -1
+
 
 :leveloffset: -1
 
 :imagesdir: 
 include::APPENDIX.adoc[]
+
+

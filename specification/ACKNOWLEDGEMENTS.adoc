@@ -1,0 +1,34 @@
+= Acknowledgements
+
+Editors:
+
+* Patrick Cozzi, https://twitter.com/pjcozzi[@pjcozzi], link:mailto:patrick@cesium.com[patrick@cesium.com]
+* Sean Lilley, https://twitter.com/lilleyse[@lilleyse], link:mailto:sean@cesium.com[sean@cesium.com]
+* Gabby Getz, https://twitter.com/gabbygetz[@gabbygetz], link:mailto:gabby@cesium.com[gabby@cesium.com]
+
+Acknowledgements:
+
+* Matt Amato, https://twitter.com/matt_amato[@matt_amato]
+* Erik Andersson, https://github.com/e-andersson[@e-andersson]
+* Dan Bagnell, https://github.com/bagnell[@bagnell]
+* Ray Bentley
+* Jannes Bolling, https://github.com/jbo023[@jbo023]
+* Dylan Brown, http://www.github.com/Dylan-Brown[@Dylan-Brown]
+* Sarah Chow, https://cesium.com/team/SarahChow/[cesium.com/team/SarahChow]
+* Paul Connelly
+* Volker Coors
+* Tom Fili, https://twitter.com/CesiumFili[@CesiumFili]
+* Leesa Fini, http://www.github.com/LeesaFini[@LeesaFini]
+* Ralf Gutbell
+* Frederic Houbie
+* Christopher Mitchell, Ph.D., https://github.com/KermMartian[@KermMartian]
+* Claus Nagel
+* Jean-Philippe Pons
+* Carl Reed
+* Kevin Ring, http://www.kotachrome.com/kevin/[www.kotachrome.com/kevin]
+* Scott Simmons
+* Rob Taglang, https://github.com/lasalvavida[@lasalvavida]
+* Stan Tillman
+* Piero Toffanin, https://github.com/pierotofy[@pierotofy]
+* Pano Voudouris
+* Dave Wesloh
