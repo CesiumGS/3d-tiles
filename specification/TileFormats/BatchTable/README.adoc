@@ -85,7 +85,7 @@ yearBuilt[1] = 2015;
 address[1] = {street : 'Main Street', houseNumber : '2'};
 ----
 
-See <<property-reference,Property reference>> for the full JSON header schema reference. The full JSON schema can be found in link:../../schema/TileFormats/batchTable.schema.json[batchTable.schema.json].
+See <<tileformats-batchtable-property-reference,Property reference>> for the full JSON header schema reference. The full JSON schema can be found in link:../../schema/TileFormats/batchTable.schema.json[batchTable.schema.json].
 
 [#tileformats-batchtable-binary-body]
 === Binary body
@@ -207,13 +207,11 @@ Code for reading the Batch Table can be found in https://github.com/CesiumGS/ces
 [#tileformats-batchtable-property-reference]
 == Property reference
 
-* <<reference-batch-table,`Batch Table`>>
-* <<reference-binarybodyreference,`BinaryBodyReference`>>
-* <<reference-property,`Property`>>
+* <<tileformats-batchtable-batch-table,`Batch Table`>>
+* <<tileformats-batchtable-reference-binarybodyreference,`BinaryBodyReference`>>
+* <<tileformats-batchtable-reference-property,`Property`>>
 
 '''
-
-+++<a name="reference-batch-table">++++++</a>+++
 
 [#tileformats-batchtable-batch-table-1]
 === Batch Table
@@ -238,7 +236,7 @@ A set of properties defining application-specific metadata for features in a til
 
 Additional properties are allowed.
 
-* *Type of each property*: <<reference-property,`Property`>>
+* *Type of each property*: <<tileformats-batchtable-property,`Property`>>
 +
 [#tileformats-batchtable-batchtableextensions]
 ==== BatchTable.extensions
@@ -258,8 +256,6 @@ Application-specific data.
 * *Required*: No
 
 '''
-
-+++<a name="reference-binarybodyreference">++++++</a>+++
 
 [#tileformats-batchtable-binarybodyreference]
 === BinaryBodyReference
@@ -330,11 +326,9 @@ Specifies if the property is a scalar or vector.
 
 '''
 
-+++<a name="reference-property">++++++</a>+++
-
 [#tileformats-batchtable-property]
 === Property
 
-A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a <<reference-binarybodyreference,`BinaryBodyReference`>> object.
+A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a <<tileformats-batchtable-binarybodyreference,`BinaryBodyReference`>> object.
 
 * *JSON schema*: link:../../schema/TileFormats/batchTable.schema.json[`batchTable.schema.json`]

@@ -25,7 +25,7 @@ image::TileFormats/Batched3DModel/figures/layout.png[]
 
 A tile's `byteLength` must be aligned to an 8-byte boundary. The contained link:../FeatureTable/README.md#padding[Feature Table] and link:../BatchTable/README.md#padding[Batch Table] must conform to their respective padding requirement.
 
-The <<binary-gltf,binary glTF>> must start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
+The <<tileformats-batched3dmodel-binary-gltf,binary glTF>> must start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
 [#tileformats-batched3dmodel-header]
 == Header
@@ -73,7 +73,7 @@ Contains values for `b3dm` semantics.
 
 More information is available in the xref:../FeatureTable/README.adoc[Feature Table specification].
 
-See <<property-reference,Property reference>> for the `b3dm` feature table schema reference. The full JSON schema can be found in link:../../schema/TileFormats/b3dm.featureTable.schema.json[b3dm.featureTable.schema.json].
+See <<tileformats-batched3dmodel-property-reference,Property reference>> for the `b3dm` feature table schema reference. The full JSON schema can be found in link:../../schema/TileFormats/b3dm.featureTable.schema.json[b3dm.featureTable.schema.json].
 
 [#tileformats-batched3dmodel-semantics]
 === Semantics
@@ -98,7 +98,7 @@ These semantics define global properties for all features.
 
 | `RTC_CENTER`
 | `float32[3]`
-| A 3-component array of numbers defining the center position when positions are defined relative-to-center, (see <<coordinate-system,Coordinate system>>).
+| A 3-component array of numbers defining the center position when positions are defined relative-to-center, (see <<tileformats-batched3dmodel-coordinate-system,Coordinate system>>).
 | :red_circle: No.
 |===
 
@@ -199,15 +199,13 @@ in the CesiumJS implementation of 3D Tiles.
 [#tileformats-batched3dmodel-property-reference]
 === Property reference
 
-* <<reference-batched-3d-model-feature-table,`Batched 3D Model Feature Table`>>
- ** <<reference-binarybodyreference,`BinaryBodyReference`>>
- ** <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>>
- ** <<reference-globalpropertyinteger,`GlobalPropertyInteger`>>
- ** <<reference-property,`Property`>>
+* <<tileformats-batched3dmodel-batched-3d-model-feature-table,`Batched 3D Model Feature Table`>>
+ ** <<tileformats-batched3dmodel-binarybodyreference,`BinaryBodyReference`>>
+ ** <<tileformats-batched3dmodel-globalpropertycartesian3,`GlobalPropertyCartesian3`>>
+ ** <<tileformats-batched3dmodel-globalpropertyinteger,`GlobalPropertyInteger`>>
+ ** <<tileformats-batched3dmodel-property,`Property`>>
 
 '''
-
-+++<a name="reference-batched-3d-model-feature-table">++++++</a>+++
 
 [#tileformats-batched3dmodel-batched-3d-model-feature-table]
 === Batched 3D Model Feature Table
@@ -231,18 +229,18 @@ A set of Batched 3D Model semantics that contain additional information about fe
 
 | *BATCH_LENGTH*
 | `object`, `number` `[1]`, `number`
-| A <<reference-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all features. See the corresponding property semantic in link:/specification/TileFormats/Batched3DModel/README.md#semantics[Semantics].
+| A <<tileformats-batched3dmodel-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all features. See the corresponding property semantic in link:/specification/TileFormats/Batched3DModel/README.md#semantics[Semantics].
 | :white_check_mark: Yes
 
 | *RTC_CENTER*
 | `object`, `number` `[3]`
-| A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all features. See the corresponding property semantic in link:/specification/TileFormats/Batched3DModel/README.md#semantics[Semantics].
+| A <<tileformats-batched3dmodel-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all features. See the corresponding property semantic in link:/specification/TileFormats/Batched3DModel/README.md#semantics[Semantics].
 | No
 |===
 
 Additional properties are allowed.
 
-* *Type of each property*: <<reference-property,`Property`>>
+* *Type of each property*: <<tileformats-batched3dmodel-property,`Property`>>
 +
 [#tileformats-batched3dmodel-batched3dmodelfeaturetableextensions]
 ==== Batched3DModelFeatureTable.extensions
@@ -264,7 +262,7 @@ Application-specific data.
 [#tileformats-batched3dmodel-batched3dmodelfeaturetablebatch_length-white_check_mark]
 ==== Batched3DModelFeatureTable.BATCH_LENGTH :white_check_mark:
 
-A <<reference-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all features. See the corresponding property semantic in link:/specification/TileFormats/Batched3DModel/README.md#semantics[Semantics].
+A <<tileformats-batched3dmodel-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all features. See the corresponding property semantic in link:/specification/TileFormats/Batched3DModel/README.md#semantics[Semantics].
 
 * *Type*: `object`, `number` `[1]`, `number`
 * *Required*: Yes
@@ -272,14 +270,12 @@ A <<reference-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an
 [#tileformats-batched3dmodel-batched3dmodelfeaturetablertc_center]
 ==== Batched3DModelFeatureTable.RTC_CENTER
 
-A <<reference-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all features. See the corresponding property semantic in link:/specification/TileFormats/Batched3DModel/README.md#semantics[Semantics].
+A <<tileformats-batched3dmodel-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all features. See the corresponding property semantic in link:/specification/TileFormats/Batched3DModel/README.md#semantics[Semantics].
 
 * *Type*: `object`, `number` `[3]`
 * *Required*: No
 
 '''
-
-+++<a name="reference-binarybodyreference">++++++</a>+++
 
 [#tileformats-batched3dmodel-binarybodyreference]
 === BinaryBodyReference
@@ -332,8 +328,6 @@ The datatype of components in the property.
 
 '''
 
-+++<a name="reference-globalpropertycartesian3">++++++</a>+++
-
 [#tileformats-batched3dmodel-globalpropertycartesian3]
 === GlobalPropertyCartesian3
 
@@ -342,8 +336,6 @@ An object defining a global 3-component numeric property value for all features.
 * *JSON schema*: link:../../schema/TileFormats/featureTable.schema.json[`featureTable.schema.json`]
 
 '''
-
-+++<a name="reference-globalpropertyinteger">++++++</a>+++
 
 [#tileformats-batched3dmodel-globalpropertyinteger]
 === GlobalPropertyInteger
@@ -354,11 +346,9 @@ An object defining a global integer property value for all features.
 
 '''
 
-+++<a name="reference-property">++++++</a>+++
-
 [#tileformats-batched3dmodel-property]
 === Property
 
-A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a <<reference-binarybodyreference,`BinaryBodyReference`>> object.
+A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a <<tileformats-batched3dmodel-binarybodyreference,`BinaryBodyReference`>> object.
 
 * *JSON schema*: link:../../schema/TileFormats/featureTable.schema.json[`featureTable.schema.json`]

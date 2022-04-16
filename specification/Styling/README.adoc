@@ -254,7 +254,7 @@ The following types are supported:
 * `vec4`
 * `RegExp`
 
-All of the types except `vec2`, `vec3`, `vec4`, and `RegExp` have the same syntax and runtime behavior as JavaScript.  `vec2`, `vec3`, and `vec4` are derived from GLSL vectors and behave similarly to JavaScript `Object` (see the <<vector,Vector section>>).  Colors derive from https://www.w3.org/TR/css3-color/[CSS3 Colors] and are implemented as `vec4`. `RegExp` is derived from JavaScript and described in the <<regexp,RegExp section>>.
+All of the types except `vec2`, `vec3`, `vec4`, and `RegExp` have the same syntax and runtime behavior as JavaScript.  `vec2`, `vec3`, and `vec4` are derived from GLSL vectors and behave similarly to JavaScript `Object` (see the <<styling-vector,Vector section>>).  Colors derive from https://www.w3.org/TR/css3-color/[CSS3 Colors] and are implemented as `vec4`. `RegExp` is derived from JavaScript and described in the <<styling-regexp,RegExp section>>.
 
 Example expressions for different types include the following:
 
@@ -472,7 +472,7 @@ regExp('a') !~ 'bcd'
 * Binary operator `+` operates on the following expressions:
  ** Number expressions
  ** Vector expressions of the same type
- ** If at least one expressions is a string, the other expression is converted to a string following <<string-conversions,String Conversions>>, and the operation returns a concatenated string, e.g. `"name" + 10` evaluates to `"name10"`
+ ** If at least one expressions is a string, the other expression is converted to a string following <<styling-string-conversions,String Conversions>>, and the operation returns a concatenated string, e.g. `"name" + 10` evaluates to `"name10"`
 * Binary operator `-` operates on the following expressions:
  ** Number expressions
  ** Vector expressions of the same type
@@ -508,7 +508,7 @@ Number('1') === 1
 String(1) === '1'
 ----
 
-`Boolean` and `Number` follow JavaScript conventions. `String` follows <<string-conversions,String Conversions>>.
+`Boolean` and `Number` follow JavaScript conventions. `String` follows <<styling-string-conversions,String Conversions>>.
 
 These are essentially casts, not constructor functions.
 
@@ -538,8 +538,8 @@ The styling language does not allow for implicit type conversions, unless stated
 
 The following constants are supported by the styling language:
 
-* <<pi,`Math.PI`>>
-* <<e,`Math.E`>>
+* <<styling-pi,`Math.PI`>>
+* <<styling-e,`Math.E`>>
 
 
 
@@ -724,36 +724,36 @@ ${temperatures['values'][0]} === 70 // Same as (temperatures[values])[0] and tem
 
 The following built-in functions are supported by the styling language:
 
-* <<abs,`abs`>>
-* <<sqrt,`sqrt`>>
-* <<cos,`cos`>>
-* <<sin,`sin`>>
-* <<tan,`tan`>>
-* <<acos,`acos`>>
-* <<asin,`asin`>>
-* <<atan,`atan`>>
-* <<atan2,`atan2`>>
-* <<radians,`radians`>>
-* <<degrees,`degrees`>>
-* <<sign,`sign`>>
-* <<floor,`floor`>>
-* <<ceil,`ceil`>>
-* <<round,`round`>>
-* <<exp,`exp`>>
-* <<log,`log`>>
-* <<exp2,`exp2`>>
-* <<log2,`log2`>>
-* <<fract,`fract`>>
-* <<pow,`pow`>>
-* <<min,`min`>>
-* <<max,`max`>>
-* <<clamp,`clamp`>>
-* <<mix,`mix`>>
-* <<length,`length`>>
-* <<distance,`distance`>>
-* <<normalize,`normalize`>>
-* <<dot,`dot`>>
-* <<cross,`cross`>>
+* <<styling-abs,`abs`>>
+* <<styling-sqrt,`sqrt`>>
+* <<styling-cos,`cos`>>
+* <<styling-sin,`sin`>>
+* <<styling-tan,`tan`>>
+* <<styling-acos,`acos`>>
+* <<styling-asin,`asin`>>
+* <<styling-atan,`atan`>>
+* <<styling-atan2,`atan2`>>
+* <<styling-radians,`radians`>>
+* <<styling-degrees,`degrees`>>
+* <<styling-sign,`sign`>>
+* <<styling-floor,`floor`>>
+* <<styling-ceil,`ceil`>>
+* <<styling-round,`round`>>
+* <<styling-exp,`exp`>>
+* <<styling-log,`log`>>
+* <<styling-exp2,`exp2`>>
+* <<styling-log2,`log2`>>
+* <<styling-fract,`fract`>>
+* <<styling-pow,`pow`>>
+* <<styling-min,`min`>>
+* <<styling-max,`max`>>
+* <<styling-clamp,`clamp`>>
+* <<styling-mix,`mix`>>
+* <<styling-length,`length`>>
+* <<styling-distance,`distance`>>
+* <<styling-normalize,`normalize`>>
+* <<styling-dot,`dot`>>
+* <<styling-cross,`cross`>>
 
 Many of the built-in functions take either scalars or vectors as arguments. For vector arguments the function is applied component-wise and the resulting vector is returned.
 
@@ -1475,20 +1475,17 @@ Tileset styles use the `.json` extension and the `application/json` mime type.
 [#styling-property-reference]
 == Property reference
 
-* <<reference-style,`style`>>
- ** <<reference-boolean-expression,`boolean expression`>>
- ** <<reference-color-expression,`color expression`>>
- ** <<reference-conditions,`conditions`>>
-  *** <<reference-condition,`condition`>>
- ** <<reference-expression,`expression`>>
- ** <<reference-meta,`meta`>>
- ** <<reference-number-expression,`number expression`>>
-* <<reference-point-cloud-style,`Point Cloud Style`>>
+* <<styling-style,`style`>>
+ ** <<styling-boolean-expression,`boolean expression`>>
+ ** <<styling-color-expression,`color expression`>>
+ ** <<styling-conditions,`conditions`>>
+  *** <<styling-condition,`condition`>>
+ ** <<styling-expression,`expression`>>
+ ** <<styling-meta,`meta`>>
+ ** <<styling-number-expression,`number expression`>>
+* <<styling-point-cloud-style,`Point Cloud Style`>>
 
 '''
-
-+++<a name="reference-style">++++++</a>+++
-
 
 [#styling-style]
 === style
@@ -1502,22 +1499,22 @@ A 3D Tiles style.
 
 | *defines*
 | `object`
-| A dictionary object of <<reference-expression,`expression`>> strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
+| A dictionary object of <<styling-expression,`expression`>> strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
 | No
 
 | *show*
 | `boolean`, `string`, `object`
-| A <<reference-boolean-expression,`boolean expression`>> or <<reference-conditions,`conditions`>> property which determines if a feature should be shown.
+| A <<styling-boolean-expression,`boolean expression`>> or <<styling-conditions,`conditions`>> property which determines if a feature should be shown.
 | No, default: `true`
 
 | *color*
 | `string`, `object`
-| A <<reference-color-expression,`color expression`>> or <<reference-conditions,`conditions`>> property which determines the color blended with the feature's intrinsic color.
+| A <<styling-color-expression,`color expression`>> or <<styling-conditions,`conditions`>> property which determines the color blended with the feature's intrinsic color.
 | No, default: `color('#FFFFFF')`
 
 | *meta*
 | `object`
-| A <<reference-meta,`meta`>> object which determines the values of non-visual properties of the feature.
+| A <<styling-meta,`meta`>> object which determines the values of non-visual properties of the feature.
 | No
 |===
 
@@ -1526,7 +1523,7 @@ A 3D Tiles style.
 [#styling-styledefines]
 ==== style.defines
 
-A dictionary object of <<reference-expression,`expression`>> strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
+A dictionary object of <<styling-expression,`expression`>> strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
 
 * *Type*: `object`
 * *Required*: No
@@ -1537,7 +1534,7 @@ A dictionary object of <<reference-expression,`expression`>> strings mapped to a
 [#styling-styleshow]
 ==== style.show
 
-A <<reference-boolean-expression,`boolean expression`>> or <<reference-conditions,`conditions`>> property which determines if a feature should be shown.
+A <<styling-boolean-expression,`boolean expression`>> or <<styling-conditions,`conditions`>> property which determines if a feature should be shown.
 
 * *Type*: `boolean`, `string`, `object`
 * *Required*: No, default: `true`
@@ -1547,7 +1544,7 @@ A <<reference-boolean-expression,`boolean expression`>> or <<reference-condition
 [#styling-stylecolor]
 ==== style.color
 
-A <<reference-color-expression,`color expression`>> or <<reference-conditions,`conditions`>> property which determines the color blended with the feature's intrinsic color.
+A <<styling-color-expression,`color expression`>> or <<styling-conditions,`conditions`>> property which determines the color blended with the feature's intrinsic color.
 
 * *Type*: `string`, `object`
 * *Required*: No, default: `color('#FFFFFF')`
@@ -1557,15 +1554,13 @@ A <<reference-color-expression,`color expression`>> or <<reference-conditions,`c
 [#styling-stylemeta]
 ==== style.meta
 
-A <<reference-meta,`meta`>> object which determines the values of non-visual properties of the feature.
+A <<styling-meta,`meta`>> object which determines the values of non-visual properties of the feature.
 
 * *Type*: `object`
 * *Required*: No
 * *Type of each property*: `string`
 
 '''
-
-+++<a name="reference-boolean-expression">++++++</a>+++
 
 
 [#styling-boolean-expression]
@@ -1577,19 +1572,14 @@ A boolean or string with a 3D Tiles style expression that evaluates to a boolean
 
 '''
 
-+++<a name="reference-color-expression">++++++</a>+++
-
-
 [#styling-color-expression]
 === color expression
 
-3D Tiles style <<reference-expression,`expression`>> that evaluates to a Color. See link:/specification/Styling/README.md#expressions[Expressions].
+3D Tiles style <<styling-expression,`expression`>> that evaluates to a Color. See link:/specification/Styling/README.md#expressions[Expressions].
 
 * *JSON schema*: link:../schema/Styling/style.colorExpression.schema.json[`style.colorExpression.schema.json`]
 
 '''
-
-+++<a name="reference-conditions">++++++</a>+++
 
 
 [#styling-conditions-1]
@@ -1620,19 +1610,15 @@ A series of boolean conditions evaluated in order.  For the first one that evalu
 
 '''
 
-+++<a name="reference-condition">++++++</a>+++
-
 
 [#styling-condition]
 === condition
 
-An <<reference-expression,`expression`>> evaluated as the result of a condition being true. An array of two expressions. If the first expression is evaluated and the result is `true`, then the second expression is evaluated and returned as the result of the condition.
+An <<styling-expression,`expression`>> evaluated as the result of a condition being true. An array of two expressions. If the first expression is evaluated and the result is `true`, then the second expression is evaluated and returned as the result of the condition.
 
 * *JSON schema*: link:../schema/Styling/style.conditions.condition.schema.json[`style.conditions.condition.schema.json`]
 
 '''
-
-+++<a name="reference-expression">++++++</a>+++
 
 
 [#styling-expression]
@@ -1644,21 +1630,17 @@ A valid 3D Tiles style expression. See link:/specification/Styling/README.md#exp
 
 '''
 
-+++<a name="reference-meta">++++++</a>+++
-
 
 [#styling-meta]
 === meta
 
-A series of property names and the <<reference-expression,`expression`>> to evaluate for the value of that property.
+A series of property names and the <<styling-expression,`expression`>> to evaluate for the value of that property.
 
 Additional properties are allowed.
 
-* *Type of each property*: <<reference-expression,`expression`>>
+* *Type of each property*: <<styling-expression,`expression`>>
 
 '''
-
-+++<a name="reference-number-expression">++++++</a>+++
 
 
 [#styling-number-expression]
@@ -1669,8 +1651,6 @@ Additional properties are allowed.
 * *JSON schema*: link:../schema/Styling/style.numberExpression.schema.json[`style.numberExpression.schema.json`]
 
 '''
-
-+++<a name="reference-point-cloud-style">++++++</a>+++
 
 
 [#styling-point-cloud-style]
@@ -1685,27 +1665,27 @@ A 3D Tiles style with additional properties for Point Clouds.
 
 | *defines*
 | `object`
-| A dictionary object of <<reference-expression,`expression`>> strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
+| A dictionary object of <<styling-expression,`expression`>> strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
 | No
 
 | *show*
 | `boolean`, `string`, `object`
-| A <<reference-boolean-expression,`boolean expression`>> or <<reference-conditions,`conditions`>> property which determines if a feature should be shown.
+| A <<styling-boolean-expression,`boolean expression`>> or <<styling-conditions,`conditions`>> property which determines if a feature should be shown.
 | No, default: `true`
 
 | *color*
 | `string`, `object`
-| A <<reference-color-expression,`color expression`>> or <<reference-conditions,`conditions`>> property which determines the color blended with the feature's intrinsic color.
+| A <<styling-color-expression,`color expression`>> or <<styling-conditions,`conditions`>> property which determines the color blended with the feature's intrinsic color.
 | No, default: `color('#FFFFFF')`
 
 | *meta*
 | `object`
-| A <<reference-meta,`meta`>> object which determines the values of non-visual properties of the feature.
+| A <<styling-meta,`meta`>> object which determines the values of non-visual properties of the feature.
 | No
 
 | *pointSize*
 | `number`, `string`, `object`
-| A <<reference-number-expression,`number expression`>> or <<reference-conditions,`conditions`>> property which determines the size of the points in pixels.
+| A <<styling-number-expression,`number expression`>> or <<styling-conditions,`conditions`>> property which determines the size of the points in pixels.
 | No, default: `1`
 |===
 
@@ -1714,7 +1694,7 @@ A 3D Tiles style with additional properties for Point Clouds.
 [#styling-pointcloudstyledefines]
 ==== PointCloudStyle.defines
 
-A dictionary object of <<reference-expression,`expression`>> strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
+A dictionary object of <<styling-expression,`expression`>> strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression.
 
 * *Type*: `object`
 * *Required*: No
@@ -1725,7 +1705,7 @@ A dictionary object of <<reference-expression,`expression`>> strings mapped to a
 [#styling-pointcloudstyleshow]
 ==== PointCloudStyle.show
 
-A <<reference-boolean-expression,`boolean expression`>> or <<reference-conditions,`conditions`>> property which determines if a feature should be shown.
+A <<styling-boolean-expression,`boolean expression`>> or <<styling-conditions,`conditions`>> property which determines if a feature should be shown.
 
 * *Type*: `boolean`, `string`, `object`
 * *Required*: No, default: `true`
@@ -1735,7 +1715,7 @@ A <<reference-boolean-expression,`boolean expression`>> or <<reference-condition
 [#styling-pointcloudstylecolor]
 ==== PointCloudStyle.color
 
-A <<reference-color-expression,`color expression`>> or <<reference-conditions,`conditions`>> property which determines the color blended with the feature's intrinsic color.
+A <<styling-color-expression,`color expression`>> or <<styling-conditions,`conditions`>> property which determines the color blended with the feature's intrinsic color.
 
 * *Type*: `string`, `object`
 * *Required*: No, default: `color('#FFFFFF')`
@@ -1745,7 +1725,7 @@ A <<reference-color-expression,`color expression`>> or <<reference-conditions,`c
 [#styling-pointcloudstylemeta]
 ==== PointCloudStyle.meta
 
-A <<reference-meta,`meta`>> object which determines the values of non-visual properties of the feature.
+A <<styling-meta,`meta`>> object which determines the values of non-visual properties of the feature.
 
 * *Type*: `object`
 * *Required*: No
@@ -1756,7 +1736,7 @@ A <<reference-meta,`meta`>> object which determines the values of non-visual pro
 [#styling-pointcloudstylepointsize]
 ==== PointCloudStyle.pointSize
 
-A <<reference-number-expression,`number expression`>> or <<reference-conditions,`conditions`>> property which determines the size of the points in pixels.
+A <<styling-number-expression,`number expression`>> or <<styling-conditions,`conditions`>> property which determines the size of the points in pixels.
 
 * *Type*: `number`, `string`, `object`
 * *Required*: No, default: `1`

@@ -52,7 +52,7 @@ The `implicitTiling` object has the following properties:
 | Property | Description
 
 | `subdivisionScheme`
-| Either `QUADTREE` or `OCTREE`. See <<subdivision-scheme,Subdivision scheme>>.
+| Either `QUADTREE` or `OCTREE`. See <<implicittiling-subdivision-scheme,Subdivision scheme>>.
 
 | `availableLevels`
 | How many levels there are in the tree with available tiles.
@@ -61,10 +61,10 @@ The `implicitTiling` object has the following properties:
 | How many levels there are in each subtree.
 
 | `subtrees`
-| Template URI for subtree files. See <<subtrees,Subtrees>>.
+| Template URI for subtree files. See <<implicittiling-subtrees,Subtrees>>.
 |===
 
-<<template-uris,Template URIs>> are used for locating subtree files as well as tile contents. For content, the template URI is specified in the tile's `content.uri` property.
+<<implicittiling-template-uris,Template URIs>> are used for locating subtree files as well as tile contents. For content, the template URI is specified in the tile's `content.uri` property.
 
 The following constraints apply to implicit root tiles:
 
@@ -143,7 +143,7 @@ In order to maintain numerical stability during this subdivision process, the ac
 Let the extent of the root bounding volume along one dimension _d_ be _(min~d~, max~d~)_. The number of bounding volumes along that dimension for a given level  is _2^level^_. The size of each bounding volume at this level, along dimension _d_, is _size~d~ = (max~d~ - min~d~) / 2^level^_. The extent of the bounding volume of a child can then be computed directly as _(min~d~ + size~d~ * i, min~d~ + size~d~ * (i + 1))_, where _i_ is the index of the child in dimension _d_.
 ____
 
-The computed tile `boundingVolume` and `geometricError` can be overridden with <<tile-metadata,tile metadata>>, if desired. Content bounding volumes are not computed automatically but they may be provided by <<content-metadata,content metadata>>. Tile and content bounding volumes must maintain link:../README.md#bounding-volume-spatial-coherence[spatial coherence].
+The computed tile `boundingVolume` and `geometricError` can be overridden with <<implicittiling-tile-metadata,tile metadata>>, if desired. Content bounding volumes are not computed automatically but they may be provided by <<implicittiling-content-metadata,content metadata>>. Tile and content bounding volumes must maintain link:../README.md#bounding-volume-spatial-coherence[spatial coherence].
 
 [#implicittiling-tile-coordinates]
 == Tile Coordinates
@@ -239,7 +239,7 @@ Storing tiles in Morton order provides these benefits:
 * Locality of reference - Consecutive tiles are near to each other in 3D space.
 * Better Compression - Locality of reference leads to better compression of availability bitstreams.
 
-For more detailed information about working with Morton indices and availability bitstreams, see <<appendix-a-availability-indexing,Appendix A: Availability Indexing>>.
+For more detailed information about working with Morton indices and availability bitstreams, see <<implicittiling-appendix-a-availability-indexing,Appendix A: Availability Indexing>>.
 
 [#implicittiling-tile-availability]
 ==== Tile Availability
@@ -288,7 +288,7 @@ Subtrees may store metadata at multiple granularities.
 
 When tiles are listed explicitly within a tileset, each tile's metadata is also embedded explicitly within the tile definition. When the tile hierarchy is _implicit_, as enabled by implicit tiling, tiles are not listed exhaustively and metadata cannot be directly embedded in tile definitions. To support metadata for tiles within implicit tiling schemes, property values for all available tiles in a subtree are encoded in a xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property table]. The binary representation is particularly efficient for larger datasets with many tiles.
 
-Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the <<availability,Availability Ordering>>. Each available tile must have a value -- representation of missing values within a tile is possible only with the `noData` indicator defined by the link:../Metadata/README.md#binary-table-format[_Binary Table Format_] specification.
+Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the <<implicittiling-availability,Availability Ordering>>. Each available tile must have a value -- representation of missing values within a tile is possible only with the `noData` indicator defined by the link:../Metadata/README.md#binary-table-format[_Binary Table Format_] specification.
 
 ____
 *Implementation note:* To determine the index into a property value array for a particular tile, count the number of available tiles occurring before that index, according to the tile Availability Ordering. If `i` available tiles occur before a particular tile, that tile's property values are stored at index `i` of each property value array. These indices may be precomputed for all available tiles, as a single pass over the subtree availability buffer.
@@ -323,7 +323,7 @@ Properties assigned to subtrees provide metadata about the subtree as a whole. S
 
 _Defined in link:../schema/subtree/subtree.schema.json[subtree.schema.json]._
 
-A *subtree file* is a JSON file that contains availability and metadata information for a single subtree. A subtree may reference external files containing binary data. An alternative <<subtree-binary-format,Binary Format>> allows the JSON and binary data to be embedded into a single binary file.
+A *subtree file* is a JSON file that contains availability and metadata information for a single subtree. A subtree may reference external files containing binary data. An alternative <<implicittiling-subtree-binary-format,Binary Format>> allows the JSON and binary data to be embedded into a single binary file.
 
 [#implicittiling-buffers-and-buffer-views]
 === Buffers and Buffer Views
@@ -332,7 +332,7 @@ The xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property 
 
 A *buffer* is a binary blob. Each buffer has a `uri` that refers to an external file containing buffer data and a `byteLength` describing the buffer size in bytes. Relative paths are relative to the subtree file. Data URIs are not allowed.
 
-In the <<subtree-binary-format,Binary Format>> the first buffer may instead refer to the binary chunk of the subtree file, in which case the `uri` property must be undefined. This buffer is referred to as the _internal buffer_.
+In the <<implicittiling-subtree-binary-format,Binary Format>> the first buffer may instead refer to the binary chunk of the subtree file, in which case the `uri` property must be undefined. This buffer is referred to as the _internal buffer_.
 
 A *buffer view* is a contiguous subset of a buffer. A buffer view's `buffer` property is an integer index to identify the buffer. A buffer view has a `byteOffset` and a `byteLength` to describe the range of bytes within the buffer. The `byteLength` does not include any padding. There may be multiple buffer views referencing a single buffer.
 

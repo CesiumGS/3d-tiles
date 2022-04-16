@@ -44,7 +44,7 @@ Feature Table values can be represented in the JSON header in two different ways
  ** Some semantics allow for overriding the implicit component type. These cases are specified in each tile format, e.g., `"BATCH_ID" : { "byteOffset" : 24, "componentType" : "UNSIGNED_BYTE"}`.
 The only valid properties in the JSON header are the defined semantics by the tile format and optional `extras` and `extensions` properties.  Application-specific data should be stored in the Batch Table.
 
-See <<property-reference,Property reference>> for the full JSON header schema reference. The full JSON schema can be found in link:../../schema/TileFormats/featureTable.schema.json[featureTable.schema.json].
+See <<tileformats-featuretable-property-reference,Property reference>> for the full JSON header schema reference. The full JSON schema can be found in link:../../schema/TileFormats/featureTable.schema.json[featureTable.schema.json].
 
 [#tileformats-featuretable-binary-body]
 === Binary body
@@ -75,13 +75,11 @@ Code for reading the Feature Table can be found in https://github.com/CesiumGS/c
 [#tileformats-featuretable-property-reference]
 == Property reference
 
-* <<reference-feature-table,`Feature Table`>>
- ** <<reference-binarybodyreference,`BinaryBodyReference`>>
- ** <<reference-property,`Property`>>
+* <<tileformats-featuretable-feature-table-1,`Feature Table`>>
+ ** <<tileformats-featuretable-binarybodyreference,`BinaryBodyReference`>>
+ ** <<tileformats-featuretable-property,`Property`>>
 
 '''
-
-+++<a name="reference-feature-table">++++++</a>+++
 
 [#tileformats-featuretable-feature-table-1]
 === Feature Table
@@ -106,7 +104,7 @@ A set of semantics containing per-tile and per-feature values defining the posit
 
 Additional properties are allowed.
 
-* *Type of each property*: <<reference-property,`Property`>>
+* *Type of each property*: <<tileformats-featuretable-property,`Property`>>
 +
 [#tileformats-featuretable-featuretableextensions]
 ==== FeatureTable.extensions
@@ -126,8 +124,6 @@ Application-specific data.
 * *Required*: No
 
 '''
-
-+++<a name="reference-binarybodyreference">++++++</a>+++
 
 [#tileformats-featuretable-binarybodyreference]
 === BinaryBodyReference
@@ -180,11 +176,9 @@ The datatype of components in the property.
 
 '''
 
-+++<a name="reference-property">++++++</a>+++
-
 [#tileformats-featuretable-property]
 === Property
 
-A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a <<reference-binarybodyreference,`BinaryBodyReference`>> object.
+A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a <<tileformats-featuretable-binarybodyreference,`BinaryBodyReference`>> object.
 
 * *JSON schema*: link:../../schema/TileFormats/featureTable.schema.json[`featureTable.schema.json`]

@@ -32,7 +32,7 @@ ____
 
 *Metadata*, as used throughout this specification, refers to any association of 3D content with entities and properties, such that entities represent meaningful units within an overall structure. Other common definitions of metadata, particularly in relation to filesystems or networking as opposed to 3D content, remain outside the scope of the document.
 
-Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines two possible <<storage-formats,storage formats>>.
+Property values are stored with flexible representations to allow compact transmission and efficient lookups. This specification defines two possible <<metadata-storage-formats,storage formats>>.
 
 
 [#metadata-identifiers]
@@ -53,7 +53,7 @@ Components of a schema are listed below, and implementations may define addition
 [#metadata-id]
 ==== ID
 
-IDs (`id`) are unique <<identifiers,identifiers>> for a schema.
+IDs (`id`) are unique <<metadata-metadata-identifiers,identifiers>> for a schema.
 
 [#metadata-version]
 ==== Version
@@ -79,12 +79,12 @@ Descriptions (`description`) provide a human-readable explanation of a schema, i
 [#metadata-enums]
 ==== Enums
 
-Unordered set of <<enum,enums>>.
+Unordered set of <<metadata-metadata-enum,enums>>.
 
 [#metadata-classes]
 ==== Classes
 
-Unordered set of <<class,classes>>.
+Unordered set of <<metadata-metadata-class,classes>>.
 
 '''
 
@@ -121,7 +121,7 @@ ____
 [#metadata-id-1]
 ==== ID
 
-IDs (`id`) are unique <<identifiers,identifiers>> for an enum within a schema.
+IDs (`id`) are unique <<metadata-identifiers,identifiers>> for an enum within a schema.
 
 [#metadata-name-1]
 ==== Name
@@ -136,7 +136,7 @@ Descriptions (`description`) provide a human-readable explanation of an enum, it
 [#metadata-values]
 ==== Values
 
-An enum consists of a set of named values, represented as `(string, integer)` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the <<component-type,Component Type>> section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. Duplicate names or values within the same enum are not allowed.
+An enum consists of a set of named values, represented as `(string, integer)` pairs. The following enum value types are supported: `INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, and `UINT64`. See the <<metadata-component-type,Component Type>> section for definitions of each. Smaller enum types limit the range of possible enum values, and allow more efficient binary encoding. Duplicate names or values within the same enum are not allowed.
 
 '''
 
@@ -148,7 +148,7 @@ Classes represent categories of similar entities, and are defined by a collectio
 [#metadata-id-2]
 ==== ID
 
-IDs (`id`) are unique <<identifiers,identifiers>> for a class within a schema.
+IDs (`id`) are unique <<metadata-identifiers,identifiers>> for a class within a schema.
 
 [#metadata-name-2]
 ==== Name
@@ -163,7 +163,7 @@ Descriptions (`description`) provide a human-readable explanation of a class, it
 [#metadata-properties]
 ==== Properties
 
-Unordered set of <<property,properties>>.
+Unordered set of <<metadata-property,properties>>.
 
 '''
 
@@ -213,21 +213,21 @@ ____
 [#metadata-id-3]
 ==== ID
 
-IDs (`id`) are unique <<identifiers,identifiers>> for a property within a class.
+IDs (`id`) are unique <<metadata-identifiers,identifiers>> for a property within a class.
 
 [#metadata-name-3]
 ==== Name
 
-Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid Unicode strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a <<semantic,semantic>>.
+Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid Unicode strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a <<metadata-semantic,semantic>>.
 
 ____
-*Example:* A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "???". Because IDs are restricted to <<identifiers,identifiers>>, use of helpful property names is essential for clarity in many languages.
+*Example:* A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "???". Because IDs are restricted to <<metadata-identifiers,identifiers>>, use of helpful property names is essential for clarity in many languages.
 ____
 
 [#metadata-description-3]
 ==== Description
 
-Descriptions (`description`) provide a human-readable explanation of a property, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings. To provide a machine-readable semantic meaning, a property must also define a <<semantic,semantic>>.
+Descriptions (`description`) provide a human-readable explanation of a property, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings. To provide a machine-readable semantic meaning, a property must also define a <<metadata-semantic,semantic>>.
 
 [#metadata-semantic]
 ==== Semantic
@@ -325,7 +325,7 @@ ____
 [#metadata-enum-type]
 ==== Enum Type
 
-<<enums,Enum properties>> are denoted by `ENUM`. An enum property must additionally provide the ID of the specific enum it uses, referred to as its enum type (`enumType`).
+<<metadata-enums,Enum properties>> are denoted by `ENUM`. An enum property must additionally provide the ID of the specific enum it uses, referred to as its enum type (`enumType`).
 
 [#metadata-arrays]
 ==== Arrays
@@ -384,7 +384,7 @@ ____
 
 A property may declare an offset (`offset`) and scale (`scale`) to apply to property values. This is useful when mapping property values to a different range.
 
-The `offset` and `scale` can be defined for types that either have a floating-point `componentType`, or when `normalized` is set to `true`. This applies to `SCALAR`, `VECN`, and `MATN` types, and to fixed-length arrays of these types. The structure of `offset` and `scale` is explained in the <<property-values-structure,Property Values Structure>> section.
+The `offset` and `scale` can be defined for types that either have a floating-point `componentType`, or when `normalized` is set to `true`. This applies to `SCALAR`, `VECN`, and `MATN` types, and to fixed-length arrays of these types. The structure of `offset` and `scale` is explained in the <<metadata-property-values-structure,Property Values Structure>> section.
 
 The following equation is used to transform the original property value into the actual value that is used by the client:
 
@@ -395,7 +395,7 @@ These operations are applied component-wise, both for array elements and for vec
 The transformation that is described here allows arbitrary source value ranges to be mapped to arbitrary target value ranges, by first computing the `float` value for the original `normalized` value, and then mapping that floating point range to the desired target range.
 
 ____
-*Implementation Note*: The result of transforming a `normalized` integer value into a floating point value may be lossy, as described in the <<normalized-values,section about Normalized Values>>. Depending on the range of property values, the values of `offset` and `scale`, and the floating point precision that is used in the client implementation, the computation may cause low-significance bits to be truncated from the final result. Client implementations should retain as much precision as reasonably possible.
+*Implementation Note*: The result of transforming a `normalized` integer value into a floating point value may be lossy, as described in the <<metadata-normalized-values,section about Normalized Values>>. Depending on the range of property values, the values of `offset` and `scale`, and the floating point precision that is used in the client implementation, the computation may cause low-significance bits to be truncated from the final result. Client implementations should retain as much precision as reasonably possible.
 ____
 
 When the `offset` for a property is not given, then is is assumed to be `0` for each component of the respective type. When the `scale` value of a property is not given, then it is assumed to be `1` for each component of the respective type. _Instances_ of the class that defines the respective property can override the offset- and scale factors, to account for the actual range of property values that are provided by the instance.
@@ -405,7 +405,7 @@ When the `offset` for a property is not given, then is is assumed to be `0` for 
 
 Properties may specify a minimum (`min`) and maximum (`max`) value. Minimum and maximum values represent component-wise bounds of the valid range of values for a property. Both values are _inclusive_, meaning that they denote the smallest and largest allowed value, respectively.
 
-The `min` and `max` value can be defined for `SCALAR`, `VECN`, and `MATN` types with numeric component types, and for fixed-length arrays of these types. The structure of `min` and `max` is explained in the <<property-values-structure,Property Values Structure>> section.
+The `min` and `max` value can be defined for `SCALAR`, `VECN`, and `MATN` types with numeric component types, and for fixed-length arrays of these types. The structure of `min` and `max` is explained in the <<metadata-property-values-structure,Property Values Structure>> section.
 
 For properties that are `normalized`, the component type of `min` and `max` is a floating point type. Their values represent the bounds of the final, transformed property values. This includes the normalization and `offset`- or `scale` computations, as well as other transforms or constraints that are not part of the class definition itself: A `normalized` unsigned value is in the range [0.0, 1.0] after the normalization has been applied, but [`min`, `max`] may specify a different value range.
 
@@ -424,11 +424,11 @@ When associated property values must exist for all entities of a class, a proper
 
 Individual elements in an array or individual components in a vector or matrix cannot be marked as required; only the property itself can be marked as required.
 
-Properties may optionally specify a No Data value (`noData`, or "sentinel value") to be used when property values do not exist. A `noData` value may be provided for any `type` except `BOOLEAN`. For `ENUM` types, a `noData` value should contain the name of the enum value as a string, rather than its integer value. The structure of the `noData` value is explained in the <<property-values-structure,Property Values Structure>> section.
+Properties may optionally specify a No Data value (`noData`, or "sentinel value") to be used when property values do not exist. A `noData` value may be provided for any `type` except `BOOLEAN`. For `ENUM` types, a `noData` value should contain the name of the enum value as a string, rather than its integer value. The structure of the `noData` value is explained in the <<metadata-property-values-structure,Property Values Structure>> section.
 
-A `noData` value is especially useful when only some entities in a property table are missing property values (see <<binary-table-format,Binary Table Format>>). Otherwise if all entities are missing property values the column may be omitted from the table and a `noData` value need not be provided. Entities encoded in the <<json-format,JSON Format>> may omit the property instead of providing a `noData` value. `noData` values and omitted properties are functionally equivalent.
+A `noData` value is especially useful when only some entities in a property table are missing property values (see <<metadata-binary-table-format,Binary Table Format>>). Otherwise if all entities are missing property values the column may be omitted from the table and a `noData` value need not be provided. Entities encoded in the <<metadata-json-format,JSON Format>> may omit the property instead of providing a `noData` value. `noData` values and omitted properties are functionally equivalent.
 
-A default value (`default`) may be provided for missing property values. For `ENUM` types, a `default` value should contain the name of the enum value as a string, rather than its integer value. For all other cases, the structure of the `default` value is explained in the <<property-values-structure,Property Values Structure>> section.
+A default value (`default`) may be provided for missing property values. For `ENUM` types, a `default` value should contain the name of the enum value as a string, rather than its integer value. For all other cases, the structure of the `default` value is explained in the <<metadata-property-values-structure,Property Values Structure>> section.
 
 If a default value is not provided, the behavior when encountering missing property values is implementation-defined.
 
@@ -591,7 +591,7 @@ ____
 [#metadata-enums-1]
 ==== Enums
 
-Enums are encoded as integer values according to the enum value type (see <<enums,Enums>>). Any integer data type supported for <<scalars,Scalars>> may be used for enum values.
+Enums are encoded as integer values according to the enum value type (see <<metadata-enums,Enums>>). Any integer data type supported for <<metadata-scalars,Scalars>> may be used for enum values.
 
 [#metadata-fixed-length-arrays]
 ==== Fixed-Length Arrays
@@ -601,7 +601,7 @@ A fixed-length array value is encoded as a tightly packed array of `count` eleme
 [#metadata-variable-length-arrays]
 ==== Variable-Length Arrays
 
-Variable-length arrays use an additional *array offset* buffer. The `i-th` value in the array offset buffer is an element index -- not a byte offset -- identifying the beginning of the `i-th` array. String values within an array may have inconsistent lengths, requiring both array offset and *string offset* buffers (see: <<strings,Strings>>).
+Variable-length arrays use an additional *array offset* buffer. The `i-th` value in the array offset buffer is an element index -- not a byte offset -- identifying the beginning of the `i-th` array. String values within an array may have inconsistent lengths, requiring both array offset and *string offset* buffers (see: <<metadata-strings,Strings>>).
 
 The data type used for offsets is defined by an *array offset type*, which may be `UINT8`, `UINT16`, `UINT32`, or `UINT64`.
 
