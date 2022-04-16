@@ -17,8 +17,10 @@ _Defined in link:../../../schema/Schema/schema.schema.json[schema.schema.json]._
 
 A schema defines a set of classes and enums. Classes serve as templates for entities. They provide a list of properties and the type information for those properties. Enums define the allowable values for enum properties.
 
-____
-*Example:* Schema with a `tree` class, and a `speciesEnum` enum that defines different species of trees. Later examples show how these structures in more detail.
+[NOTE]
+.Example
+====
+Schema with a `tree` class, and a `speciesEnum` enum that defines different species of trees. Later examples show how these structures in more detail.
 
 [source,jsonc]
 ----
@@ -32,7 +34,7 @@ ____
   }
 }
 ----
-____
+====
 
 [#metadata-referenceimplementation-schema-class]
 === Class
@@ -43,8 +45,10 @@ A class is a template for metadata entities. Classes provide a list of property 
 
 Classes are defined as entries in the `schema.classes` dictionary, indexed by class ID. Class IDs must be link:../../README.md#identifiers[identifiers] as defined in the 3D Metadata Specification.
 
-____
-*Example:* A "Tree" class, which might describe a table of tree measurements taken in a park. Property definitions are abbreviated here, and introduced in the next section.
+[NOTE]
+.Example
+====
+A "Tree" class, which might describe a table of tree measurements taken in a park. Property definitions are abbreviated here, and introduced in the next section.
 
 [source,json]
 ----
@@ -65,7 +69,7 @@ ____
   }
 }
 ----
-____
+====
 
 [#metadata-referenceimplementation-schema-class-property]
 === Class Property
@@ -76,8 +80,10 @@ Class properties are defined abstractly in a class. The class is instantiated wi
 
 Class properties are defined as entries in the `class.properties` dictionary, indexed by property ID. Property IDs must be link:../../README.md#identifiers[identifiers] as defined in the 3D Metadata Specification.
 
-____
-*Example:* A "Tree" class, which might describe a table of tree measurements taken in a park. Properties include species, age, height, and diameter of each tree.
+[NOTE]
+.Example
+====
+A "Tree" class, which might describe a table of tree measurements taken in a park. Properties include species, age, height, and diameter of each tree.
 
 [source,json]
 ----
@@ -116,7 +122,7 @@ ____
   }
 }
 ----
-____
+====
 
 [#metadata-referenceimplementation-schema-enum]
 === Enum
@@ -127,8 +133,10 @@ A set of categorical types, defined as `(name, value)` pairs. Enum properties us
 
 Enums are defined as entries in the `schema.enums` dictionary, indexed by an enum ID. Enum IDs must be link:../../README.md#identifiers[identifiers] as defined in the 3D Metadata Specification.
 
-____
-*Example:* A "Species" enum defining types of trees. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: link:../../README.md#required-properties-no-data-values-and-default-values[3D Metadata ? No Data Values]) may be helpful to identify missing data.
+[NOTE]
+.Example
+====
+A "Species" enum defining types of trees. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: link:../../README.md#required-properties-no-data-values-and-default-values[3D Metadata ? No Data Values]) may be helpful to identify missing data.
 
 [source,json]
 ----
@@ -149,7 +157,7 @@ ____
   }
 }
 ----
-____
+====
 
 [#metadata-referenceimplementation-schema-enum-value]
 === Enum Value

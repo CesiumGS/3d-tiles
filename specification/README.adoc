@@ -804,8 +804,10 @@ The Metadata schema defines the structure of the metadata. It contains a definit
 
 Schemas may be embedded in tilesets with the `schema` property, or referenced externally by the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same schema to avoid duplication.
 
-____
-*Example:* Schema with a `building` class having three properties, "height", "owners", and "buildingType". The "buildingType" property refers to the `buildingType` enum as its data type, also defined in the schema. Later examples show how entities declare their class and supply values for their properties.
+[NOTE]
+.Example
+====
+Schema with a `building` class having three properties, "height", "owners", and "buildingType". The "buildingType" property refers to the `buildingType` enum as its data type, also defined in the schema. Later examples show how entities declare their class and supply values for their properties.
 
 [source,json]
 ----
@@ -842,10 +844,12 @@ ____
   }
 }
 ----
-____
+====
 
-____
-*Example:* External schema referenced by a URI.
+[NOTE]
+.Example
+====
+External schema referenced by a URI.
 
 [source,json]
 ----
@@ -853,7 +857,7 @@ ____
   "schemaUri": "https://example.com/metadata/buildings/1.0/schema.json"
 }
 ----
-____
+====
 
 [#core-assigning-metadata]
 ==== Assigning Metadata
@@ -862,8 +866,10 @@ While classes within a schema define the data types and meanings of properties, 
 
 The common structure of metadata entities that appear in a tileset is defined in https://github.com/CesiumGS/3d-tiles/blob/main/specification/schema/metadataEntity.schema.json[metadataEntity.schema.json]. Each metadata entity contains the name of the class that it is an instance of, as well as a dictionary of property values that correspond to the properties of that class. Each property value assigned must be defined by a class property with the same property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
 
-____
-*Example:* A metadata entity for the `building` class presented earlier. Such an entity could be assigned to a tileset, a tile, or tile content, by storing it as their respective `metadata` property.
+[NOTE]
+.Example
+====
+A metadata entity for the `building` class presented earlier. Such an entity could be assigned to a tileset, a tile, or tile content, by storing it as their respective `metadata` property.
 
 [source,json]
 ----
@@ -876,7 +882,7 @@ ____
     }
   }
 ----
-____
+====
 
 Most property values are encoded as JSON within the entity. One notable exception is metadata assigned to implicit tiles and contents, stored in a more compact binary form. See xref:ImplicitTiling/README.adoc[Implicit Tiling].
 
@@ -934,8 +940,10 @@ Properties may include the following built-in statistics:
 
 Tileset authors may define their own additional statistics, like `_mode` in the example below. Application-specific statistics should use an underscore prefix (`_*`) and lowerCamelCase for consistency and to avoid conflicting with future built-in statistics.
 
-____
-*Example:* Definition of a "building" class, with three properties. Summary statistics provide a minimum, maximum, and (application-specific) "_mode" for the numerical "height" property. The enum "buildingType" property is summarized by the number of distinct enum value occurrences.
+[NOTE]
+.Example
+====
+Definition of a "building" class, with three properties. Summary statistics provide a minimum, maximum, and (application-specific) "_mode" for the numerical "height" property. The enum "buildingType" property is summarized by the number of distinct enum value occurrences.
 
 [source,json]
 ----
@@ -994,7 +1002,7 @@ ____
   }
 }
 ----
-____
+====
 
 [#core-specifying-extensions-and-application-specific-extras]
 === Specifying extensions and application specific extras

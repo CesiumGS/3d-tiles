@@ -223,10 +223,12 @@ The normals will be transformed using the inverse transpose of the tileset trans
 
 Oct-encoding is described in http://jcgt.org/published/0003/02/01/[_A Survey of Efficient Representations of Independent Unit Vectors_]. Oct-encoded values are stored in unsigned, unnormalized range (`[0, 255]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
 
-____
+[NOTE]
+.Implementation Note
+====
 An implementation for encoding and decoding these unit vectors can be found in CesiumJS's https://github.com/CesiumGS/cesium/blob/main/Source/Core/AttributeCompression.js[AttributeCompression]
 module.
-____
+====
 
 Compressed attributes should be decompressed before any other transforms are applied.
 

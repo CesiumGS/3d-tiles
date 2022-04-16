@@ -64,9 +64,11 @@ Schema version (`version`) is an application-specific identifier for a given sch
 
 When a schema has multiple versions, the `(id, version)` pair uniquely identifies a particular schema and revision.
 
-____
-*Example:* Valid semantic versions include strings like `0.1.2`, `1.2.3`, and `1.2.3-alpha`.
-____
+[NOTE]
+.Example
+====
+Valid semantic versions include strings like `0.1.2`, `1.2.3`, and `1.2.3-alpha`.
+====
 
 [#metadata-name]
 ==== Name
@@ -95,8 +97,10 @@ Unordered set of <<metadata-class,classes>>.
 
 An enum consists of a set of named values, represented as `(string, integer)` pairs. Each enum is identified by a unique ID.
 
-____
-*Example:* A "species" enum with three possible tree species, as well as an "Unknown" value.
+[NOTE]
+.Example
+====
+A "species" enum with three possible tree species, as well as an "Unknown" value.
 
 * *ID:* "species"
 * *Name:* "Species"
@@ -118,7 +122,7 @@ ____
 | `"Unknown"`
 | `-1`
 |===
-____
+====
 
 [#metadata-id-1]
 ==== ID
@@ -177,8 +181,10 @@ Unordered set of <<metadata-property,properties>>.
 
 Properties describe the type and structure of values that may be associated with entities of a class. Entities may omit values for a property, unless the property is required. Entities must not contain values other than those defined by the properties of their class.
 
-____
-*Example:* The following example shows the basics of how classes describe the types of metadata. A `building` class describes the heights of various buildings in a dataset. Likewise, the `tree` class describes trees that have a height, species, and leaf color.
+[NOTE]
+.Example
+====
+The following example shows the basics of how classes describe the types of metadata. A `building` class describes the heights of various buildings in a dataset. Likewise, the `tree` class describes trees that have a height, species, and leaf color.
 
 *building*
 
@@ -210,7 +216,7 @@ ____
 |
 |
 |===
-____
+====
 
 [#metadata-id-3]
 ==== ID
@@ -222,9 +228,11 @@ IDs (`id`) are unique <<metadata-identifiers,identifiers>> for a property within
 
 Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid Unicode strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a <<metadata-semantic,semantic>>.
 
-____
-*Example:* A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "???". Because IDs are restricted to <<metadata-identifiers,identifiers>>, use of helpful property names is essential for clarity in many languages.
-____
+[NOTE]
+.Example
+====
+A typical ID / Name pair, in English, would be `localTemperature` and `"Local Temperature"`. In Japanese, the name might be represented as "きおん". Because IDs are restricted to <<metadata-identifiers,identifiers>>, use of helpful property names is essential for clarity in many languages.
+====
 
 [#metadata-description-3]
 ==== Description
@@ -236,9 +244,11 @@ Descriptions (`description`) provide a human-readable explanation of a property,
 
 Property IDs, names, and descriptions do not have an inherent meaning. To provide a machine-readable meaning, properties may be assigned a semantic identifier string (`semantic`), indicating how the property's content should be interpreted. Semantic identifiers may be defined by the link:./Semantics/[3D Metadata Semantic Reference] or by external semantic references, and may be application-specific. Identifiers should be uppercase, with underscores as word separators.
 
-____
-*Example:* Semantic definitions might include temperature in degrees Celsius (e.g. `TEMPERATURE_DEGREES_CELSIUS`), time in milliseconds (e.g. `TIME_MILLISECONDS`), or mean squared error (e.g. `MEAN_SQUARED_ERROR`). These examples are only illustrative.
-____
+[NOTE]
+.Example
+====
+Semantic definitions might include temperature in degrees Celsius (e.g. `TEMPERATURE_DEGREES_CELSIUS`), time in milliseconds (e.g. `TIME_MILLISECONDS`), or mean squared error (e.g. `MEAN_SQUARED_ERROR`). These examples are only illustrative.
+====
 
 [#metadata-type]
 ==== Type
@@ -419,9 +429,11 @@ For properties that are `normalized`, the component type of `min` and `max` is a
 
 For all other properties, the component type of `min` and `max` matches the `componentType` of the property, and the values are the bounds of the original property values.
 
-____
-*Example:* A property storing GPS coordinates might define a range of `[-180, 180]` degrees for longitude values and `[-90, 90]` degrees for latitude values.
-____
+[NOTE]
+.Example
+====
+A property storing GPS coordinates might define a range of `[-180, 180]` degrees for longitude values and `[-90, 90]` degrees for latitude values.
+====
 
 Property values outside the `[minimum, maximum]` range are not allowed, with the exception of `noData` values.
 
@@ -440,8 +452,10 @@ A default value (`default`) may be provided for missing property values. For `EN
 
 If a default value is not provided, the behavior when encountering missing property values is implementation-defined.
 
-____
-*Example:* In the example below, a "tree" class is defined with `noData` indicating a specific enum value to be interpreted as missing data.
+[NOTE]
+.Example
+====
+In the example below, a "tree" class is defined with `noData` indicating a specific enum value to be interpreted as missing data.
 
 |===
 | property | componentType | required | noData
@@ -461,7 +475,7 @@ ____
 | ?
 |
 |===
-____
+====
 
 [#metadata-property-values-structure]
 ==== Property Values Structure
@@ -594,11 +608,13 @@ Because string lengths may vary, a *string offset* buffer is used to identify st
 
 The data type used for offsets is defined by a *string offset type*, which may be `UINT8`, `UINT16`, `UINT32`, or `UINT64`.
 
-____
-*Example:* Three UTF-8 strings, binary-encoded in a buffer.
+[NOTE]
+.Example
+====
+Three UTF-8 strings, binary-encoded in a buffer.
 
 image::figures/unicode-strings.png[String property example]
-____
+====
 
 [#metadata-enums-1]
 ==== Enums
@@ -635,17 +651,21 @@ For each case below, the offset of an array element `i` within its binary storag
 
 Each expression in the table above defines an index into the underlying property array. For a property array of `SCALAR` elements with `FLOAT32` component type, index `3` corresponds to byte offset `3 * sizeof(FLOAT32)`. For a property array of `VEC4` elements with `FLOAT32` component type, index `3` corresponds to byte offset `3 * 4 * sizeof(FLOAT32) = 48`. For an array of `BOOLEAN` elements, offset `3` would correspond to _bit_ offset `3`.
 
-____
-*Example:* Five variable-length arrays of UINT8 components, binary-encoded in a buffer. The associated property definition would be `type = "SCALAR"`, `componentType = "UINT8"`, and `array = true`.
+[NOTE]
+.Example
+====
+Five variable-length arrays of UINT8 components, binary-encoded in a buffer. The associated property definition would be `type = "SCALAR"`, `componentType = "UINT8"`, and `array = true`.
 
 image::figures/array-of-ints.png[Variable-length array,640px]
-____
+====
 
-____
-*Example:* Two variable-length arrays of strings, binary-encoded in a buffer. The associated property definition would be `type = "STRING"` and `array = true` (variable-length). Observe that the last element of the array offset buffer points to the last element of the string offset buffer. This is because the last valid string offset is the next-to-last element of the string offset buffer.
+[NOTE]
+.Example
+====
+Two variable-length arrays of strings, binary-encoded in a buffer. The associated property definition would be `type = "STRING"` and `array = true` (variable-length). Observe that the last element of the array offset buffer points to the last element of the string offset buffer. This is because the last valid string offset is the next-to-last element of the string offset buffer.
 
 image::figures/array-of-strings.png[Variable-length array of string]
-____
+====
 
 [#metadata-json-format]
 === JSON Format
@@ -657,8 +677,10 @@ JSON encoding is useful for storing a small number of entities in human readable
 
 Each entity is represented as a JSON object with its `class` identified by a string ID. Property values are defined in a key/value `properties` dictionary, having property IDs as its keys. Property values are encoded as corresponding JSON types: numeric types are represented as `number`, booleans as `boolean`, strings as `string`, enums as `string`, vectors and matrices as `array` of `number`, and arrays as `array` of the containing type.
 
-____
-*Example:* The following example demonstrates usage for both fixed- and variable-length arrays:
+[NOTE]
+.Example
+====
+The following example demonstrates usage for both fixed- and variable-length arrays:
 
 _An enum, "basicEnum", composed of three `(name: value)` pairs:_
 
@@ -782,7 +804,7 @@ _A single entity encoded in JSON. Note that the optional property is omitted in 
   }
 }
 ----
-____
+====
 
 [#metadata-scalars-1]
 ==== Scalars

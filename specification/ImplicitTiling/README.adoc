@@ -297,11 +297,13 @@ To determine the index into a property value array for a particular tile, count 
 
 Tile properties can have link:../Metadata/Semantics[Semantics] which define how property values should be interpreted. In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, `TILE_BOUNDING_SPHERE`, `TILE_MINIMUM_HEIGHT`, and `TILE_MAXIMUM_HEIGHT` semantics each define a more specific bounding volume for a tile than is implicitly calculated from implicit tiling. If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
 
-____
-*Example:* The following diagram shows how tile height semantics may be used to define tighter bounding regions for an implicit tileset: The overall height of the bounding region of the whole tileset is 320. The bounding regions for the child tiles will be computed by splitting the bounding regions of the respective parent tile at its center. By default, the height will remain constant. By storing the _actual_ height of the contents in the respective region, and providing it as the `TILE_MAXIMUM_HEIGHT` for each available tile, it is possible to define the tightest-fitting bounding region for each level.
+[NOTE]
+.Example
+====
+The following diagram shows how tile height semantics may be used to define tighter bounding regions for an implicit tileset: The overall height of the bounding region of the whole tileset is 320. The bounding regions for the child tiles will be computed by splitting the bounding regions of the respective parent tile at its center. By default, the height will remain constant. By storing the _actual_ height of the contents in the respective region, and providing it as the `TILE_MAXIMUM_HEIGHT` for each available tile, it is possible to define the tightest-fitting bounding region for each level.
 
 image::figures/tile-height-semantics.png[,600]
-____
+====
 
 The `TILE_GEOMETRIC_ERROR` semantic allows tiles to provide a geometric error that overrides the implicitly computed geometric error.
 
@@ -352,8 +354,10 @@ Availability may be represented either as a bitstream or a constant value. `bits
 
 Availability bitstreams are packed in binary using the format described in the link:../Metadata/README.md#booleans[Booleans] section of the 3D Metadata Specification.
 
-____
-*Example:* The JSON description of a subtree where each tile is available, but not all tiles have content, and not all child subtrees are available:
+[NOTE]
+.Example
+====
+The JSON description of a subtree where each tile is available, but not all tiles have content, and not all child subtrees are available:
 
 [source,json]
 ----
@@ -399,7 +403,7 @@ The tile availability can be encoded by setting `tileAvailability.constant` to `
 Only some tiles have content, and `contentAvailability.bufferView` indicates where the bitstream for the content availability is stored: The `bufferView` with index 0 refers to the `buffer` with index 0. This buffer does not have a `uri` property, and therefore refers to the _internal_ buffer that is stored directly in the binary chunk of the subtree binary file. The `byteOffset` and `byteLength` indicate that the content availability bitstream is stored in the bytes `+[0...11)+` of the internal buffer.
 
 Some child subtrees exist, so `childSubtreeAvailability.bufferView` refers to another bitstream. The `bufferView` with index 1 refers to the buffer with index `1`. This buffer has a `uri` property, indicating that this second bitstream is stored in an external binary file.
-____
+====
 
 
 
@@ -410,8 +414,10 @@ Subtrees may store metadata at multiple granularities. `tileMetadata` is a prope
 
 Subtree metadata (`subtreeMetadata`) is encoded in JSON according to the link:../Metadata/README.md#json-format[JSON Format] specification.
 
-____
-*Example:* The same JSON description of a subtree extended with tile, content, and subtree metadata. The subtree JSON refers to a class ID in the root tileset schema. Tile and content metadata is stored in xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property tables]; subtree metadata is encoded directly in JSON.
+[NOTE]
+.Example
+====
+The same JSON description of a subtree extended with tile, content, and subtree metadata. The subtree JSON refers to a class ID in the root tileset schema. Tile and content metadata is stored in xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property tables]; subtree metadata is encoded directly in JSON.
 
 _Schema in the root tileset JSON_
 
@@ -567,7 +573,7 @@ _Subtree JSON_
   }
 }
 ----
-____
+====
 
 
 
@@ -576,8 +582,10 @@ ____
 
 When the implicit root tile has multiple contents then `contentAvailability` and `contentMetadata` are provided for each content layer.
 
-____
-*Example:* JSON description of a subtree with multiple contents. In this example all tiles are available, all building contents are available, and only some tree contents are available.
+[NOTE]
+.Example
+====
+JSON description of a subtree with multiple contents. In this example all tiles are available, all building contents are available, and only some tree contents are available.
 
 _Implicit root tile_
 
@@ -661,7 +669,7 @@ _Subtree JSON_
   "contentMetadata": [0, 1]
 }
 ----
-____
+====
 
 [#implicittiling-subtree-binary-format]
 == Subtree Binary Format

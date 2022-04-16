@@ -22,8 +22,10 @@ A property table must specify the following elements:
 
 The property table may provide value arrays for only a subset of the properties of its class, but class properties that are marked `required: true` in the schema must not be omitted.
 
-____
-*Example:* A `tree_survey_2021-09-29` property table, implementing the `tree` class defined in the link:../Schema/[Schema] examples. The table contains observations for 10 trees. Details about the class properties will be given in later examples.
+[NOTE]
+.Example
+====
+A `tree_survey_2021-09-29` property table, implementing the `tree` class defined in the link:../Schema/[Schema] examples. The table contains observations for 10 trees. Details about the class properties will be given in later examples.
 
 [source,json]
 ----
@@ -40,7 +42,7 @@ ____
   }
 }]
 ----
-____
+====
 
 [#metadata-referenceimplementation-propertytable-property-table-properties]
 == Property Table Properties
@@ -61,8 +63,10 @@ The exact structure of each property entry depends on the link:../../README.md#p
 
 For variable-length arrays of strings, both the `stringOffsets` and the `arrayOffsets` are required.
 
-____
-*Example:* The property table from the previous example, with details about the binary storage of the property values
+[NOTE]
+.Example
+====
+The property table from the previous example, with details about the binary storage of the property values
 
 [source,json]
 ----
@@ -87,7 +91,7 @@ ____
   }]
 }
 ----
-____
+====
 
 Each buffer view `byteOffset` must be aligned to a multiple of the size of the link:../../README.md#component-type[`componentType`] of the respective property.
 
