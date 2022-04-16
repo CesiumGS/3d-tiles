@@ -49,9 +49,11 @@ Batch Table values can be represented in the JSON header in two different ways:
 
 The Batch Table JSON is a `UTF-8` string containing JSON.
 
-____
-*Implementation Note:* In JavaScript, the Batch Table JSON can be extracted from an `ArrayBuffer` using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
-____
+[NOTE]
+.Implementation Note
+====
+In JavaScript, the Batch Table JSON can be extracted from an `ArrayBuffer` using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
+====
 
 A `batchId` is used to access elements in each array and extract the corresponding properties. For example, the following Batch Table has properties for a batch of two features:
 

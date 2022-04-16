@@ -12,13 +12,17 @@ In addition to trees, Instanced 3D Model is useful for exterior features such as
 
 An Instanced 3D Model tile is a binary blob in little endian.
 
-____
-*Implementation Note:* A xref:../Composite/README.adoc[Composite] tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights by combing two Instanced 3D Model tiles.
-____
+[NOTE]
+.Implementation Note
+====
+A xref:../Composite/README.adoc[Composite] tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights by combing two Instanced 3D Model tiles.
+====
 
-____
-*Implementation Note:* Instanced 3D Model maps well to the https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/[ANGLE_instanced_arrays] extension for efficient rendering with WebGL.
-____
+[NOTE]
+.Implementation Note
+====
+Instanced 3D Model maps well to the https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/[ANGLE_instanced_arrays] extension for efficient rendering with WebGL.
+====
 
 [#tileformats-instanced3dmodel-layout]
 == Layout

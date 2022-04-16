@@ -7,19 +7,13 @@ v1.1.0
 :source-highlighter: rouge
 :rouge-style: github
 
-toc::[]
-
-:leveloffset: +1
-
-= 3D Tiles Format Specification
-
-*Version 1.1*
-
 image:../figures/3DTiles_dark_color_small.png[]
 
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
 
+:leveloffset: +1
 
+= 3D Tiles Format Specification
 include::README.adoc[]
 
 :imagesdir: ImplicitTiling

@@ -208,9 +208,11 @@ A meta property expression can evaluate to any type. For example:
 
 The language for expressions is a small subset of JavaScript (http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf[EMCAScript 5]), plus native vector and regular expression types and access to tileset feature properties in the form of readonly variables.
 
-____
-*Implementation Note:* CesiumJS uses the http://jsep.from.so/[jsep] JavaScript expression parser library to parse style expressions into an https://en.wikipedia.org/wiki/Abstract_syntax_tree[abstract syntax tree (AST)].
-____
+[NOTE]
+.Implementation Note
+====
+CesiumJS uses the http://jsep.from.so/[jsep] JavaScript expression parser library to parse style expressions into an https://en.wikipedia.org/wiki/Abstract_syntax_tree[abstract syntax tree (AST)].
+====
 
 [#styling-semantics]
 === Semantics
@@ -1455,8 +1457,10 @@ For example:
 }
 ----
 
-____
-*Implementation Note:* Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Some of these features include:
+[NOTE]
+.Implementation Note
+====
+Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Some of these features include:
 
 * Evaluation of `isNaN` and `isFinite` (GLSL 2.0+ supports `isnan` and `isinf` for these functions respectively)
 * The types `null` and `undefined`
@@ -1465,7 +1469,7 @@ ____
 * Arrays of lengths other than 2, 3, or 4
 * Mismatched type comparisons (e.g. `1.0 === false`)
 * Array index out of bounds
-____
+====
 
 [#styling-file-extension-and-mime-type]
 == File extension and MIME type

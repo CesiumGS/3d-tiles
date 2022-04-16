@@ -91,9 +91,11 @@ ____
 
 Each buffer view `byteOffset` must be aligned to a multiple of the size of the link:../../README.md#component-type[`componentType`] of the respective property.
 
-____
-*Implementation note:* Authoring tools may choose to align all buffer views to 8-byte boundaries for consistency, but client implementations should only depend on 8-byte alignment for buffer views containing 64-bit component types.
-____
+[NOTE]
+.Implementation Note
+====
+Authoring tools may choose to align all buffer views to 8-byte boundaries for consistency, but client implementations should only depend on 8-byte alignment for buffer views containing 64-bit component types.
+====
 
 For the `arrayOffsets` and `stringOffsets` buffer views, the property can also define the `arrayOffsetType` and `stringOffsetType`, which describe the
 storage type for array- and string offsets, respectively. Allowed types are `UINT8`, `UINT16`, `UINT32`, and `UINT64`. The default is `UINT32`.
