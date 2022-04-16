@@ -2,7 +2,7 @@
 [#tileformats-composite-composite]
 = Composite
 
-WARNING: Composite was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#composite-cmpt[`cpmt` migration guide].
+WARNING: Composite was deprecated in 3D Tiles 1.1. See See xref:TileFormats/glTF/README.adoc#tileformats-gltf-composite-cmpt[`cmpt` migration guide].
 
 [#tileformats-composite-overview]
 == Overview

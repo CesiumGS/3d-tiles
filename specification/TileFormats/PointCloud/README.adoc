@@ -1,7 +1,7 @@
 [#tileformats-pointcloud-point-cloud]
 = Point Cloud
 
-WARNING: Point Cloud was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#point-cloud-pnts[`pnts` migration guide].
+WARNING: Point Cloud was deprecated in 3D Tiles 1.1. See See xref:TileFormats/glTF/README.adoc#tileformats-gltf-point-cloud-pnts[`pnts` migration guide].
 
 [#tileformats-pointcloud-overview]
 == Overview

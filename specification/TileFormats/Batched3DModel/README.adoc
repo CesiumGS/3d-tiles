@@ -2,7 +2,7 @@
 [#tileformats-batched3dmodel-batched-3d-model]
 = Batched 3D Model
 
-WARNING: Batched 3D Model was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#batched-3d-model-b3dm[`b3dm` migration guide].
+WARNING: Batched 3D Model was deprecated in 3D Tiles 1.1. See xref:TileFormats/glTF/README.adoc#tileformats-gltf-batched-3d-model-b3dm[`b3dm` migration guide].
 
 [#tileformats-batched3dmodel-overview]
 == Overview

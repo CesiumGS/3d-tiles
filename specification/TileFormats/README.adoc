@@ -9,22 +9,22 @@ The primary tile format in 3D Tiles 1.1 is the link:glTF/[glTF Tile Format]. It 
 [#tileformats-legacy-tile-formats]
 == Legacy Tile Formats
 
-The following tile formats have been part of 3D Tiles 1.0, and have been superseded by the link:glTF/[glTF Tile Format].
+The following tile formats have been part of 3D Tiles 1.0, and have been superseded by the See xref:TileFormats/glTF/README.adoc#tileformats-gltf-gltf[glTF Tile Format].
 
 |===
 | Legacy Format | Uses
 
-| link:Batched3DModel/[Batched 3D Model (`b3dm`)]
+| xref:TileFormats/Batched3DModel/README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model (`b3dm`)] 
 | Heterogeneous 3D models
 
-| link:Instanced3DModel/[Instanced 3D Model (`i3dm`)]
+| xref:TileFormats/Instanced3DModel/README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model (`i3dm`)]
 | 3D model instances
 
-| link:PointCloud/[Point Cloud (`pnts`)]
+| xref:TileFormats/PointCloud/README.adoc#tileformats-pointcloud-point-cloud[Point Cloud (`pnts`)]
 | Massive number of points
 
-| link:Composite/[Composite (`cmpt`)]
+| xref:TileFormats/Composite/README.adoc#tileformats-composite-composite[Composite (`cmpt`)]
 | Concatenate tiles of different formats into one tile
 |===
 
-See the link:glTF/README.md#appendix-a-migration-from-legacy-tile-formats[migration guide] for further information about how these use cases can be modeled based on the glTF tile format.
+See the See xref:TileFormats/glTF/README.adoc#tileformats-gltf-appendix-a-migration-from-legacy-tile-formats[migration guide]. for further information about how these use cases can be modeled based on the glTF tile format.
