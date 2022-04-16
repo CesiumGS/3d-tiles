@@ -55,7 +55,7 @@ Components of a schema are listed below, and implementations may define addition
 [#metadata-id]
 ==== ID
 
-IDs (`id`) are unique <<metadata-metadata-identifiers,identifiers>> for a schema.
+IDs (`id`) are unique <<metadata-identifiers,identifiers>> for a schema.
 
 [#metadata-version]
 ==== Version
@@ -81,12 +81,12 @@ Descriptions (`description`) provide a human-readable explanation of a schema, i
 [#metadata-enums]
 ==== Enums
 
-Unordered set of <<metadata-metadata-enum,enums>>.
+Unordered set of <<metadata-enum,enums>>.
 
 [#metadata-classes]
 ==== Classes
 
-Unordered set of <<metadata-metadata-class,classes>>.
+Unordered set of <<metadata-class,classes>>.
 
 '''
 

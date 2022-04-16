@@ -210,8 +210,8 @@ Code for reading the Batch Table can be found in https://github.com/CesiumGS/ces
 == Property reference
 
 * <<tileformats-batchtable-batch-table,`Batch Table`>>
-* <<tileformats-batchtable-reference-binarybodyreference,`BinaryBodyReference`>>
-* <<tileformats-batchtable-reference-property,`Property`>>
+* <<tileformats-batchtable-binarybodyreference,`BinaryBodyReference`>>
+* <<tileformats-batchtable-property,`Property`>>
 
 '''
 

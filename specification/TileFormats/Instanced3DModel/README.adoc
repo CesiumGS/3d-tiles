@@ -354,7 +354,7 @@ When the glTF field contains a URI, then this URI may point to a https://tools.i
 
 By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See link:../../README.md#gltf-transforms[glTF transforms] for more details.
 
-When the <<tileformats-instanced3dmodel-rtc-center,`RTC_CENTER`>> is defined in the feature table of an Instanced 3D Model, the computation of the link:../../README.md#tile-transforms[tile transform] is done as follows:
+When the <<tileformats-instanced3dmodel-rtc_center,`RTC_CENTER`>> is defined in the feature table of an Instanced 3D Model, the computation of the link:../../README.md#tile-transforms[tile transform] is done as follows:
 
 . link:../../README.md#gltf-node-hierarchy[glTF node hierarchy transformations]
 . link:../../README.md#y-up-to-z-up[glTF _y_-up to _z_-up transform]

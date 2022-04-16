@@ -11,7 +11,7 @@ https://github.com/KhronosGroup/glTF[glTF 2.0] is the primary tile format for 3D
 * 3D model instances. E.g. trees, windmills, bolts
 * Massive point clouds
 
-See link:./TileFormats/glTF/[glTF Tile Format] for more details.
+See xref:TileFormats/glTF/README.adoc[glTF Tile Format] for more details.
 
 Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
 
@@ -356,7 +356,7 @@ First, glTF node hierarchy transforms are applied according to the https://githu
 
 
 
-[#core-_y_-up-to-_z_-up]
+[#core-y-up-to-z-up]
 ====== _y_-up to _z_-up
 
 Next, for consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by ?/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
