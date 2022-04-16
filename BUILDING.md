@@ -9,12 +9,28 @@
 
 - Install the Ruby interpreter, 2.3 or later, from http://www.ruby-lang.org/
 - Install Asciidoctor: `gem install asciidoctor`
-- In order to be able to generate PDF output: `gem install asciidoctor-pdf`
-- Install some rogue software: `gem install rouge` - no worries, that's the syntax highlighter...
+- In order to be able to generate PDF output: `gem install asciidhlighter...- Install some rogue software: `gem install rouge` - no worries, that's the syntax highlighter...
+
 - A VSCode plugin for AsciiDoc syntax highlighting and preview: https://marketplace.visualstudio.com/items?itemName=asciidoctor.asciidoctor-vscode
 
+### Generating HTML and PDF with AsciiDoc
+
+- Generating HTML:
+  - `asciidoctor Specification.adoc -o Specification-1.1.0.html`
+- Generating PDF:
+  - `asciidoctor-pdf -a scripts=cjk -a pdf-theme=default-with-fallback-font Specification.adoc -o Specification-1.1.0.pdf`
+  
+- Note: The last call is derived from https://github.com/asciidoctor/asciidoctor-pdf/issues/1472#issuecomment-571936233 and handles Japanese characters. Without them, the call could just be `asciidoctor -r asciidoctor-pdf -b pdf Specification.adoc -o Specification-1.1.0.pdf`
+
+- Note: If the call does not appear to do anything, neither generate a PDF nor print an error message, make sure you typed `asciidoctor` and not just `asciidoc`
+
+
+
+---
 
 ### Generating AsciiDoc from Markdown
+
+The following are some notes for the process of converting the original markdown into AsciiDoc. 
 
 The bulk work of generating a first version of the AsciiDoc specification can be done by auto-converting the existing Markdown files to AsciiDoc with a tool called 'kramdown':
 
@@ -46,15 +62,6 @@ The bulk work of generating a first version of the AsciiDoc specification can be
   insert a sensible width for the table cell, like
   `image:figures/replacement_1.jpg[pdfwidth=40%]`
   or try to find another workaround. See https://github.com/asciidoctor/asciidoctor-pdf/issues/830#issuecomment-568169214 
-
-### Generating HTML and PDF with AsciiDoc
-
-- Generating HTML:
-  - `asciidoctor Specification.adoc -o Specification-1.1.0.html`
-- Generating PDF:
-  - `asciidoctor -r asciidoctor-pdf -b pdf Specification.adoc -o Specification-1.1.0.pdf`
-
-- Note: If the call does not appear to do anything, neither generate a PDF nor print an error message, make sure you typed `asciidoctor` and not just `asciidoc` - the latter seems to be some outdated Python version of some AsciiDoc processor or so, whatever...
 
 ---
 
