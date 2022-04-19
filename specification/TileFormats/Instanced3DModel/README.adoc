@@ -1,7 +1,7 @@
 [#tileformats-instanced3dmodel-instanced-3d-model]
 = Instanced 3D Model
 
-WARNING: Instanced 3D Model was deprecated in 3D Tiles 1.1. See See xref:TileFormats/glTF/README.adoc#tileformats-gltf-instanced-3d-model-i3dm[`i3dm` migration guide].
+WARNING: Instanced 3D Model was deprecated in 3D Tiles 1.1. See xref:TileFormats/glTF/README.adoc#tileformats-gltf-instanced-3d-model-i3dm[`i3dm` migration guide].
 
 [#tileformats-instanced3dmodel-overview]
 == Overview
