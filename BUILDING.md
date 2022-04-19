@@ -74,3 +74,6 @@ The bulk work of generating a first version of the AsciiDoc specification can be
   > Imagine if writing documentation was as simple as writing an email. It **can** be. 
 - Consider using the docker container from https://github.com/KhronosGroup/Vulkan-Docs/blob/15d807ce4839d8feb523ca5c133a42a2aa448ade/BUILD.adoc , **iff** this works and makes sense for non-Khronos documentation...
 
+### Notes
+
+For wetzel, use commit d7707c7e315abc78eb231d67fd4fe0fcaa3e7576

@@ -2,6 +2,14 @@
 :leveloffset: +1
 
 [appendix]
+:imagesdir: Styling
+include::Styling/README.adoc[]
+
+[appendix]
+:imagesdir: ImplicitTiling
+include::ImplicitTiling/AVAILABILITY.adoc[]
+
+[appendix]
 :imagesdir: Metadata/ReferenceImplementation
 include::Metadata/ReferenceImplementation/README.adoc[]
 
@@ -14,10 +22,6 @@ include::Metadata/ReferenceImplementation/PropertyTable/README.adoc[]
 include::Metadata/ReferenceImplementation/Schema/README.adoc[]
 
 :leveloffset: -1
-
-[appendix]
-:imagesdir: ImplicitTiling
-include::ImplicitTiling/AVAILABILITY.adoc[]
 
 [appendix]
 include::ACKNOWLEDGEMENTS.adoc[]

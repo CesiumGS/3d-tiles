@@ -50,12 +50,6 @@ include::TileFormats/Composite/README.adoc[]
 include::ImplicitTiling/README.adoc[]
 
 
-
-:imagesdir: Styling
-include::Styling/README.adoc[]
-
-
-
 :imagesdir: Metadata
 include::Metadata/README.adoc[]
 
