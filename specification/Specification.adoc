@@ -49,17 +49,11 @@ include::TileFormats/Composite/README.adoc[]
 :imagesdir: ImplicitTiling
 include::ImplicitTiling/README.adoc[]
 
-
 :imagesdir: Metadata
 include::Metadata/README.adoc[]
 
-:leveloffset: +1
-
-:imagesdir: Metadata/Semantics
-include::Metadata/Semantics/README.adoc[]
-
-:leveloffset: -1
-
+:imagesdir: Styling
+include::Styling/README.adoc[]
 
 :leveloffset: -1
 
