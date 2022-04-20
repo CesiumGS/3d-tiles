@@ -6,5 +6,5 @@
         "number",
         "string"
     ],
-    "description": "3D Tiles style expression that evaluates to a number. See [Expressions](/specification/Styling/README.md#expressions)."
+    "description": "3D Tiles style expression that evaluates to a number. Details are described in the 3D Tiles Styling specification."
 }
