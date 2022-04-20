@@ -3,5 +3,5 @@
     "$id": "style.colorExpression.schema.json",
     "title": "Color Expression",
     "type": "string",
-    "description": "3D Tiles style `expression` that evaluates to a Color. See [Expressions](/specification/Styling/README.md#expressions)."
+    "description": "3D Tiles style `expression` that evaluates to a Color. Details are described in the 3D Tiles Styling specification."
 }
