@@ -7,59 +7,59 @@
     "deprecated": true,
     "properties": {
         "POSITION": {
-            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
         },
         "POSITION_QUANTIZED": {
-            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
         },
         "NORMAL_UP": {
-            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
         },
         "NORMAL_RIGHT": {
-            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
         },
         "NORMAL_UP_OCT32P": {
-            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
         },
         "NORMAL_RIGHT_OCT32P": {
-            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
         },
         "SCALE": {
-            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
         },
         "SCALE_NON_UNIFORM": {
-            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
         },
         "BATCH_ID": {
-            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
         },
         "INSTANCES_LENGTH": {
-            "description": "A `GlobalPropertyInteger` object defining an integer property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `GlobalPropertyInteger` object defining an integer property for all features. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/globalPropertyInteger"
         },
         "RTC_CENTER": {
-            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3"
         },
         "QUANTIZED_VOLUME_OFFSET": {
-            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3"
         },
         "QUANTIZED_VOLUME_SCALE": {
-            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3"
         },
         "EAST_NORTH_UP": {
-            "description": "A `GlobalPropertyBoolean` object defining a boolean property for all features. See the corresponding property semantic in [Semantics](/specification/TileFormats/Instanced3DModel/README.md#semantics).",
+            "description": "A `GlobalPropertyBoolean` object defining a boolean property for all features. Details about this property are described in the 3D Tiles specification.",
             "$ref": "featureTable.schema.json#/definitions/globalPropertyBoolean"
         }
     },

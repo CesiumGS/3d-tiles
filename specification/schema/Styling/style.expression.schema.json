@@ -3,5 +3,5 @@
     "$id": "style.expression.schema.json",
     "title": "Expression",
     "type": "string",
-    "description": "A valid 3D Tiles style expression. See [Expressions](/specification/Styling/README.md#expressions)."
+    "description": "A valid 3D Tiles style expression. Details are described in the 3D Tiles Styling specification."
 }
