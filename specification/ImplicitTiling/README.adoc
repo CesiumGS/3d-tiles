@@ -3,12 +3,14 @@ ifdef::env-github[]
 :url-specification-metadata: {url-specification}Metadata/
 :url-specification-metadata-semantics: {url-specification-metadata}Semantics/
 :url-specification-metadata-referenceimplementation-propertytable: {url-specification-metadata}ReferenceImplementation/PropertyTable/
+:url-availability: AVAILABILITY.adoc
 endif::[]
 ifndef::env-github[]
 :url-specification: 
 :url-specification-metadata: 
 :url-specification-metadata-semantics:
 :url-specification-metadata-referenceimplementation-propertytable:
+:url-availability:
 endif::[]
 
 [#implicittiling-implicit-tiling]
@@ -251,7 +253,7 @@ Storing tiles in Morton order provides these benefits:
 * Locality of reference - Consecutive tiles are near to each other in 3D space.
 * Better Compression - Locality of reference leads to better compression of availability bitstreams.
 
-For more detailed information about working with Morton indices and availability bitstreams, see xref:AVAILABILITY.adoc#implicittiling-availability-indexing[Availability Indexing].
+For more detailed information about working with Morton indices and availability bitstreams, see xref:{url-availability}#implicittiling-availability-indexing[Availability Indexing].
 
 [#implicittiling-tile-availability]
 ==== Tile Availability
