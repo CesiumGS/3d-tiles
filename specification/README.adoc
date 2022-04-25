@@ -560,7 +560,7 @@ The optional `implicitTiling` property (not shown above) defines how the tile is
 
 The `children` property is an array of objects that define child tiles. Each child tile's content is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`. For leaf tiles, the length of this array is zero, and `children` may not be defined. See the <<core-tileset-json,Tileset JSON>> section below.
 
-The full JSON schema can be found in https://github.com/CesiumGS/3d-tiles/blob/main/specification/schema/tile.schema.json[`tile.schema.json`].
+The full JSON schema can be found in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/tile.schema.json[`tile.schema.json`].
 
 [#core-tileset-json]
 === Tileset JSON
@@ -864,7 +864,7 @@ External schema referenced by a URI.
 
 While classes within a schema define the data types and meanings of properties, properties do not take on particular values until a metadata is assigned (i.e. the class is "instantiated") as a particular metadata entity within the 3D Tiles hierarchy.
 
-The common structure of metadata entities that appear in a tileset is defined in https://github.com/CesiumGS/3d-tiles/blob/main/specification/schema/metadataEntity.schema.json[metadataEntity.schema.json]. Each metadata entity contains the name of the class that it is an instance of, as well as a dictionary of property values that correspond to the properties of that class. Each property value assigned must be defined by a class property with the same property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
+The common structure of metadata entities that appear in a tileset is defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/metadataEntity.schema.json[metadataEntity.schema.json]. Each metadata entity contains the name of the class that it is an instance of, as well as a dictionary of property values that correspond to the properties of that class. Each property value assigned must be defined by a class property with the same property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
 
 [NOTE]
 .Example
@@ -895,7 +895,7 @@ These summary statistics allow applications to analyze or display metadata, e.g.
 
 image::figures/3d-tiles-metadata-statistics.png[Metadata Granularity,600]
 
-The statistics are stored in the top-level `statistics` object of the tileset. The structure of this statistics object is defined in xref:schema/Statistics/statistics.schema.json[statistics.schema.json]. The statistics are defined for each metadata class, including the following elements:
+The statistics are stored in the top-level `statistics` object of the tileset. The structure of this statistics object is defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Statistics/statistics.schema.json[statistics.schema.json]. The statistics are defined for each metadata class, including the following elements:
 
 * `count` is the number of entities of a class occurring within the tileset
 * `properties` contains summary statistics about properties of a class occurring within the tileset
@@ -1097,7 +1097,7 @@ The `extras` property allows application specific metadata to be added to any 3D
 }
 ----
 
-The full JSON schema can be found in https://github.com/CesiumGS/3d-tiles/blob/main/specification/schema/tileset.schema.json[`tileset.schema.json`].
+The full JSON schema can be found in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/tileset.schema.json[`tileset.schema.json`].
 
 [#core-tile-format-specifications]
 == Tile format specifications
