@@ -82,7 +82,7 @@ The following constraints apply to implicit root tiles:
 
 * The tile must omit the `children` property
 * The tile must omit the `metadata` property
-* The `content.uri` must not point to an xref:README.adoc#core-external-tilesets[external tileset]
+* The `content.uri` must not point to an xref:{url-specification}README.adoc#core-external-tilesets[external tileset]
 * The `content` must omit the `boundingVolume` property
 
 [#implicittiling-subdivision-scheme]
