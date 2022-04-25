@@ -89,7 +89,7 @@ For a `region` bounding volume, `x`, `y`, and `z` refer to `longitude`, `latitud
 
 Sphere bounding volumes are disallowed, as these cannot be divided into a quadtree or octree.
 
-For subdivision of S2 bounding volumes refer to link:../../extensions/3DTILES_bounding_volume_S2/README.md#implicit-subdivision[3DTILES_bounding_volume_S2].
+For subdivision of S2 bounding volumes refer to link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md#implicit-subdivision[3DTILES_bounding_volume_S2].
 
 The following diagrams illustrate the subdivision in the bounding volume types supported by 3D Tiles:
 
@@ -142,7 +142,7 @@ In order to maintain numerical stability during this subdivision process, the ac
 Let the extent of the root bounding volume along one dimension _d_ be _(min~d~, max~d~)_. The number of bounding volumes along that dimension for a given level  is _2^level^_. The size of each bounding volume at this level, along dimension _d_, is _size~d~ = (max~d~ - min~d~) / 2^level^_. The extent of the bounding volume of a child can then be computed directly as _(min~d~ + size~d~ * i, min~d~ + size~d~ * (i + 1))_, where _i_ is the index of the child in dimension _d_.
 ====
 
-The computed tile `boundingVolume` and `geometricError` can be overridden with <<implicittiling-tile-metadata,tile metadata>>, if desired. Content bounding volumes are not computed automatically but they may be provided by <<implicittiling-content-metadata,content metadata>>. Tile and content bounding volumes must maintain link:../README.md#bounding-volume-spatial-coherence[spatial coherence].
+The computed tile `boundingVolume` and `geometricError` can be overridden with <<implicittiling-tile-metadata,tile metadata>>, if desired. Content bounding volumes are not computed automatically but they may be provided by <<implicittiling-content-metadata,content metadata>>. Tile and content bounding volumes must maintain xref:../README.md#core-bounding-volume-spatial-coherence[spatial coherence].
 
 [#implicittiling-tile-coordinates]
 == Tile Coordinates
@@ -287,7 +287,7 @@ Subtrees may store metadata at multiple granularities.
 
 When tiles are listed explicitly within a tileset, each tile's metadata is also embedded explicitly within the tile definition. When the tile hierarchy is _implicit_, as enabled by implicit tiling, tiles are not listed exhaustively and metadata cannot be directly embedded in tile definitions. To support metadata for tiles within implicit tiling schemes, property values for all available tiles in a subtree are encoded in a xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property table]. The binary representation is particularly efficient for larger datasets with many tiles.
 
-Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the <<implicittiling-availability,Availability Ordering>>. Each available tile must have a value -- representation of missing values within a tile is possible only with the `noData` indicator defined by the link:../Metadata/README.md#binary-table-format[_Binary Table Format_] specification.
+Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the <<implicittiling-availability,Availability Ordering>>. Each available tile must have a value -- representation of missing values within a tile is possible only with the `noData` indicator defined by the xref:../Metadata/README.adoc#metadata-binary-table-format[_Binary Table Format_] specification.
 
 [NOTE]
 .Implementation Note
@@ -295,7 +295,7 @@ Tile metadata exists only for available tiles and is tightly packed by an increa
 To determine the index into a property value array for a particular tile, count the number of available tiles occurring before that index, according to the tile Availability Ordering. If `i` available tiles occur before a particular tile, that tile's property values are stored at index `i` of each property value array. These indices may be precomputed for all available tiles, as a single pass over the subtree availability buffer.
 ====
 
-Tile properties can have link:../Metadata/Semantics[Semantics] which define how property values should be interpreted. In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, `TILE_BOUNDING_SPHERE`, `TILE_MINIMUM_HEIGHT`, and `TILE_MAXIMUM_HEIGHT` semantics each define a more specific bounding volume for a tile than is implicitly calculated from implicit tiling. If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
+Tile properties can have xref:../Metadata/Semantics/README.adoc[Semantics] which define how property values should be interpreted. In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, `TILE_BOUNDING_SPHERE`, `TILE_MINIMUM_HEIGHT`, and `TILE_MAXIMUM_HEIGHT` semantics each define a more specific bounding volume for a tile than is implicitly calculated from implicit tiling. If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
 
 [NOTE]
 .Example
@@ -310,7 +310,7 @@ The `TILE_GEOMETRIC_ERROR` semantic allows tiles to provide a geometric error th
 [#implicittiling-content-metadata]
 ==== Content Metadata
 
-Subtrees may also store metadata for tile content. Content metadata exists only for available content and is tightly packed by increasing tile index. Binary property values are encoded in a compact link:../Metadata/README.md#binary-table-format[_Binary Table Format_] defined by the 3D Metadata Specification and are stored in a xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property table]. If the implicit root tile has multiple contents then content metadata is stored in multiple property tables.
+Subtrees may also store metadata for tile content. Content metadata exists only for available content and is tightly packed by increasing tile index. Binary property values are encoded in a compact xref:Metadata/README.adoc#metadata-binary-table-format[_Binary Table Format_] defined by the 3D Metadata Specification and are stored in a xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc#metadata-referenceimplementation-propertytable-property-table-implementation[property table]. If the implicit root tile has multiple contents then content metadata is stored in multiple property tables.
 
 Content bounding volumes are not computed automatically by implicit tiling but may be provided by properties with semantics `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, `CONTENT_BOUNDING_SPHERE`, `CONTENT_MINIMUM_HEIGHT`, and `CONTENT_MAXIMUM_HEIGHT`.
 
