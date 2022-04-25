@@ -20,6 +20,10 @@ include::Metadata/ReferenceImplementation/Schema/README.adoc[]
 :leveloffset: -1
 
 [appendix]
+:imagesdir: Metadata/Semantics
+include::Metadata/Semantics/README.adoc[]
+
+[appendix]
 include::ACKNOWLEDGEMENTS.adoc[]
 
 [appendix]
