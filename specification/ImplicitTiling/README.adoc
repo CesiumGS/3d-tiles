@@ -1,8 +1,14 @@
 ifdef::env-github[]
-:url-metadata: ../Metadata/
+:url-specification: ../
+:url-specification-metadata: {url-specification}Metadata/
+:url-specification-metadata-semantics: {url-specification-metadata}Semantics/
+:url-specification-metadata-referenceimplementation-propertytable: {url-specification-metadata}ReferenceImplementation/PropertyTable/
 endif::[]
 ifndef::env-github[]
-:url-metadata:
+:url-specification: 
+:url-specification-metadata: 
+:url-specification-metadata-semantics:
+:url-specification-metadata-referenceimplementation-propertytable:
 endif::[]
 
 [#implicittiling-implicit-tiling]
@@ -292,9 +298,9 @@ Subtrees may store metadata at multiple granularities.
 [#implicittiling-tile-metadata]
 ==== Tile Metadata
 
-When tiles are listed explicitly within a tileset, each tile's metadata is also embedded explicitly within the tile definition. When the tile hierarchy is _implicit_, as enabled by implicit tiling, tiles are not listed exhaustively and metadata cannot be directly embedded in tile definitions. To support metadata for tiles within implicit tiling schemes, property values for all available tiles in a subtree are encoded in a xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property table]. The binary representation is particularly efficient for larger datasets with many tiles.
+When tiles are listed explicitly within a tileset, each tile's metadata is also embedded explicitly within the tile definition. When the tile hierarchy is _implicit_, as enabled by implicit tiling, tiles are not listed exhaustively and metadata cannot be directly embedded in tile definitions. To support metadata for tiles within implicit tiling schemes, property values for all available tiles in a subtree are encoded in a xref:{url-specification-metadata-referenceimplementation-propertytable}README.adoc#metadata-referenceimplementation-propertytable-property-table-implementation[property table]. The binary representation is particularly efficient for larger datasets with many tiles.
 
-Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the <<implicittiling-availability,Availability Ordering>>. Each available tile must have a value -- representation of missing values within a tile is possible only with the `noData` indicator defined by the xref:{url-metadata}README.adoc#metadata-binary-table-format[_Binary Table Format_] specification.
+Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the <<implicittiling-availability,Availability Ordering>>. Each available tile must have a value -- representation of missing values within a tile is possible only with the `noData` indicator defined by the xref:{url-specification-metadata}README.adoc#metadata-binary-table-format[_Binary Table Format_] specification.
 
 [NOTE]
 .Implementation Note
@@ -302,7 +308,7 @@ Tile metadata exists only for available tiles and is tightly packed by an increa
 To determine the index into a property value array for a particular tile, count the number of available tiles occurring before that index, according to the tile Availability Ordering. If `i` available tiles occur before a particular tile, that tile's property values are stored at index `i` of each property value array. These indices may be precomputed for all available tiles, as a single pass over the subtree availability buffer.
 ====
 
-Tile properties can have xref:../Metadata/Semantics/README.adoc[Semantics] which define how property values should be interpreted. In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, `TILE_BOUNDING_SPHERE`, `TILE_MINIMUM_HEIGHT`, and `TILE_MAXIMUM_HEIGHT` semantics each define a more specific bounding volume for a tile than is implicitly calculated from implicit tiling. If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
+Tile properties can have xref:{url-specification-metadata-semantics}README.adoc#metadata-semantics-3d-metadata-semantic-reference[Semantics] which define how property values should be interpreted. In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, `TILE_BOUNDING_SPHERE`, `TILE_MINIMUM_HEIGHT`, and `TILE_MAXIMUM_HEIGHT` semantics each define a more specific bounding volume for a tile than is implicitly calculated from implicit tiling. If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
 
 [NOTE]
 .Example
@@ -317,16 +323,16 @@ The `TILE_GEOMETRIC_ERROR` semantic allows tiles to provide a geometric error th
 [#implicittiling-content-metadata]
 ==== Content Metadata
 
-Subtrees may also store metadata for tile content. Content metadata exists only for available content and is tightly packed by increasing tile index. Binary property values are encoded in a compact xref:../Metadata/README.adoc#metadata-binary-table-format[_Binary Table Format_] defined by the 3D Metadata Specification and are stored in a xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc#metadata-referenceimplementation-propertytable-property-table-implementation[property table]. If the implicit root tile has multiple contents then content metadata is stored in multiple property tables.
+Subtrees may also store metadata for tile content. Content metadata exists only for available content and is tightly packed by increasing tile index. Binary property values are encoded in a compact xref:{url-specification-metadata}README.adoc#metadata-binary-table-format[_Binary Table Format_] defined by the 3D Metadata Specification and are stored in a xref:{url-specification-metadata-referenceimplementation-propertytable}README.adoc#metadata-referenceimplementation-propertytable-property-table-implementation[property table]. If the implicit root tile has multiple contents then content metadata is stored in multiple property tables.
 
 Content bounding volumes are not computed automatically by implicit tiling but may be provided by properties with semantics `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, `CONTENT_BOUNDING_SPHERE`, `CONTENT_MINIMUM_HEIGHT`, and `CONTENT_MAXIMUM_HEIGHT`.
 
-If the tile content is assigned to a link:../../specification/README.md#tile-content[`group`] then all contents in the implicit tree are assigned to that group.
+If the tile content is assigned to a xref:{url-specification}README.adoc#core-tile-content[`group`] then all contents in the implicit tree are assigned to that group.
 
 [#implicittiling-subtree-metadata]
 ==== Subtree Metadata
 
-Properties assigned to subtrees provide metadata about the subtree as a whole. Subtree metadata is encoded in JSON according to the link:../Metadata/README.md#json-format[JSON Format] specification.
+Properties assigned to subtrees provide metadata about the subtree as a whole. Subtree metadata is encoded in JSON according to the xref:{url-specification-metadata}README.adoc#metadata-json-format[JSON Format] specification.
 
 [#implicittiling-subtree-json-format]
 == Subtree JSON Format
@@ -338,7 +344,7 @@ A *subtree file* is a JSON file that contains availability and metadata informat
 [#implicittiling-buffers-and-buffer-views]
 === Buffers and Buffer Views
 
-The xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property table] defines the storage of metadata in a binary form based on _buffer views_ that are parts of a _buffer_.
+The xref:{url-specification-metadata-referenceimplementation-propertytable}README.adoc#metadata-referenceimplementation-propertytable-property-table-implementation[property table] defines the storage of metadata in a binary form based on _buffer views_ that are parts of a _buffer_.
 
 A *buffer* is a binary blob. Each buffer has a `uri` that refers to an external file containing buffer data and a `byteLength` describing the buffer size in bytes. Relative paths are relative to the subtree file. Data URIs are not allowed.
 
@@ -359,7 +365,7 @@ Content availability (`contentAvailability`) is an array of content availability
 
 Availability may be represented either as a bitstream or a constant value. `bitstream` is an integer index that identifies the buffer view containing the availability bistream. `constant` is an integer indicating whether all of the elements are available (`1`) or all are unavailable (`0`). `availableCount` is an integer indicating how many `1` bits exist in the availability bitstream.
 
-Availability bitstreams are packed in binary using the format described in the link:../Metadata/README.md#booleans[Booleans] section of the 3D Metadata Specification.
+Availability bitstreams are packed in binary using the format described in the xref:{url-specification-metadata}README.adoc#metadata-booleans[Booleans] section of the 3D Metadata Specification.
 
 [NOTE]
 .Example
@@ -419,12 +425,12 @@ Some child subtrees exist, so `childSubtreeAvailability.bufferView` refers to an
 
 Subtrees may store metadata at multiple granularities. `tileMetadata` is a property table containing metadata for available tiles. `contentMetadata` is an array of property tables containing metadata for available content. If the implicit root tile has a single content this array will have one element; if the tile has multiple contents then this array will have multiple elements. If the implicit root tile does not have content then `contentMetadata` must be omitted.
 
-Subtree metadata (`subtreeMetadata`) is encoded in JSON according to the link:../Metadata/README.md#json-format[JSON Format] specification.
+Subtree metadata (`subtreeMetadata`) is encoded in JSON according to the xref:{url-specification-metadata}README.adoc#metadata-json-format[JSON Format] specification.
 
 [NOTE]
 .Example
 ====
-The same JSON description of a subtree extended with tile, content, and subtree metadata. The subtree JSON refers to a class ID in the root tileset schema. Tile and content metadata is stored in xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property tables]; subtree metadata is encoded directly in JSON.
+The same JSON description of a subtree extended with tile, content, and subtree metadata. The subtree JSON refers to a class ID in the root tileset schema. Tile and content metadata is stored in xref:{url-specification-metadata-referenceimplementation-propertytable}README.adoc#metadata-referenceimplementation-propertytable-property-table-implementation[property table]; subtree metadata is encoded directly in JSON.
 
 _Schema in the root tileset JSON_
 
