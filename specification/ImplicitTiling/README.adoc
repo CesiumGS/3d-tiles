@@ -1,3 +1,10 @@
+ifdef::env-github[]
+:url-metadata: ../Metadata/
+endif::[]
+ifndef::env-github[]
+:url-metadata:
+endif::[]
+
 [#implicittiling-implicit-tiling]
 = Implicit Tiling
 
@@ -287,7 +294,7 @@ Subtrees may store metadata at multiple granularities.
 
 When tiles are listed explicitly within a tileset, each tile's metadata is also embedded explicitly within the tile definition. When the tile hierarchy is _implicit_, as enabled by implicit tiling, tiles are not listed exhaustively and metadata cannot be directly embedded in tile definitions. To support metadata for tiles within implicit tiling schemes, property values for all available tiles in a subtree are encoded in a xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc[property table]. The binary representation is particularly efficient for larger datasets with many tiles.
 
-Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the <<implicittiling-availability,Availability Ordering>>. Each available tile must have a value -- representation of missing values within a tile is possible only with the `noData` indicator defined by the xref:../Metadata/README.adoc#metadata-binary-table-format[_Binary Table Format_] specification.
+Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the <<implicittiling-availability,Availability Ordering>>. Each available tile must have a value -- representation of missing values within a tile is possible only with the `noData` indicator defined by the xref:{url-metadata}README.adoc#metadata-binary-table-format[_Binary Table Format_] specification.
 
 [NOTE]
 .Implementation Note
