@@ -310,7 +310,7 @@ The `TILE_GEOMETRIC_ERROR` semantic allows tiles to provide a geometric error th
 [#implicittiling-content-metadata]
 ==== Content Metadata
 
-Subtrees may also store metadata for tile content. Content metadata exists only for available content and is tightly packed by increasing tile index. Binary property values are encoded in a compact xref:Metadata/README.adoc#metadata-binary-table-format[_Binary Table Format_] defined by the 3D Metadata Specification and are stored in a xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc#metadata-referenceimplementation-propertytable-property-table-implementation[property table]. If the implicit root tile has multiple contents then content metadata is stored in multiple property tables.
+Subtrees may also store metadata for tile content. Content metadata exists only for available content and is tightly packed by increasing tile index. Binary property values are encoded in a compact xref:../Metadata/README.adoc#metadata-binary-table-format[_Binary Table Format_] defined by the 3D Metadata Specification and are stored in a xref:../Metadata/ReferenceImplementation/PropertyTable/README.adoc#metadata-referenceimplementation-propertytable-property-table-implementation[property table]. If the implicit root tile has multiple contents then content metadata is stored in multiple property tables.
 
 Content bounding volumes are not computed automatically by implicit tiling but may be provided by properties with semantics `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, `CONTENT_BOUNDING_SPHERE`, `CONTENT_MINIMUM_HEIGHT`, and `CONTENT_MAXIMUM_HEIGHT`.
 
