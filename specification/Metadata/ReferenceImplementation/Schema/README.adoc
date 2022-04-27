@@ -2,11 +2,21 @@
 [#metadata-referenceimplementation-schema-schema-implementation]
 = Schema Implementation
 
-The xref:../../README.adoc[3D Metadata Specification] defines link:../../README.md#schemas[schemas] as a description of the structure of metadata, consisting of classes with different properties, and enum types. The following is the description of a JSON-based representation of such a schema and its elements. It is used as the basis for defining the metadata structure in the following implementations:
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../../
+:url-specification-metadata: {url-specification}Metadata/
+endif::[]
+ifndef::env-github[]
+:url-specification-implicittiling:
+:url-specification-metadata:
+endif::[]
 
-* link:../../../README.md#metadata[3D Tiles Metadata] - Assigns metadata to tilesets, tiles, groups, and contents in a 3D Tiles 1.1 tileset. The schema is associated with the tileset. Instances of these classes - referred to as metadata entities - can be associated with elements of the tileset on each granularity level.
-* link:../../../../extensions/3DTILES_metadata/[`3DTILES_metadata`] - An extension for 3D Tiles 1.0 that assigns metadata to tilesets, tiles, and contents
-* https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] -- Assigns metadata to vertices, texels, and features in a glTF asset. The schema is stored in the top-level extension object. Mesh primitives can be associated with instances of the metadata classes.
+The xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification] defines xref:{url-specification-metadata}README.adoc#metadata-schemas[schemas] as a description of the structure of metadata, consisting of classes with different properties, and enum types. The following is the description of a JSON-based representation of such a schema and its elements. It is used as the basis for defining the metadata structure in the following implementations:
+
+* xref:{url-specification-implicittiling}README.adoc#implicittiling-timplicit-tiling[3D Tiles Metadata Implicit Tilesets] - Assigns metadata to tilesets, tiles, groups, and contents in a 3D Tiles tileset. A property table is defined for subtrees of an implicit tile hierarchy, and stores metadata that is associated with the nodes of such a subtree.
+* https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] -- Assigns metadata to vertices, texels, and features in a glTF asset. A property table is defined in the top-level extension object. The property values are stored in standard glTF buffer views.
 
 The full JSON schema definition for this implementation can be found in link:../../../schema/Schema/[the Schema directory of the specification].
 
@@ -43,7 +53,7 @@ _Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specificati
 
 A class is a template for metadata entities. Classes provide a list of property definitions. Every entity must be associated with a class, and the entity's properties must conform to the class's property definitions. Entities whose properties conform to a class are considered instances of that class.
 
-Classes are defined as entries in the `schema.classes` dictionary, indexed by class ID. Class IDs must be link:../../README.md#identifiers[identifiers] as defined in the 3D Metadata Specification.
+Classes are defined as entries in the `schema.classes` dictionary, indexed by class ID. Class IDs must be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
 
 [NOTE]
 .Example
@@ -76,9 +86,9 @@ A "Tree" class, which might describe a table of tree measurements taken in a par
 
 _Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/class.property.schema.json[class.property.schema.json]._
 
-Class properties are defined abstractly in a class. The class is instantiated with specific values conforming to these properties. Class properties support a rich variety of data types. Details about the supported types can be found in the link:../../README.md#property[3D Metadata Specification].
+Class properties are defined abstractly in a class. The class is instantiated with specific values conforming to these properties. Class properties support a rich variety of data types. Details about the supported types can be found in the xref:{url-specification-metadata}README.adoc#metadata-property[3D Metadata Specification].
 
-Class properties are defined as entries in the `class.properties` dictionary, indexed by property ID. Property IDs must be link:../../README.md#identifiers[identifiers] as defined in the 3D Metadata Specification.
+Class properties are defined as entries in the `class.properties` dictionary, indexed by property ID. Property IDs must be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
 
 [NOTE]
 .Example
@@ -131,12 +141,12 @@ _Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specificati
 
 A set of categorical types, defined as `(name, value)` pairs. Enum properties use an enum as their type.
 
-Enums are defined as entries in the `schema.enums` dictionary, indexed by an enum ID. Enum IDs must be link:../../README.md#identifiers[identifiers] as defined in the 3D Metadata Specification.
+Enums are defined as entries in the `schema.enums` dictionary, indexed by an enum ID. Enum IDs must be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
 
 [NOTE]
 .Example
 ====
-A "Species" enum defining types of trees. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: link:../../README.md#required-properties-no-data-values-and-default-values[3D Metadata ? No Data Values]) may be helpful to identify missing data.
+A "Species" enum defining types of trees. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: xref:{url-specification-metadata}README.adoc#metadata-required-properties-no-data-values-and-default-values[3D Metadata - No Data Values]) may be helpful to identify missing data.
 
 [source,json]
 ----
