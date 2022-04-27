@@ -1,7 +1,7 @@
 // Definitions of the deirectory structure to ensure that relative
 // links between ADOC files in sibling directories can be resolved.
 ifdef::env-github[]
-ifndef::url-specification[:url-specification: ./]
+//ifndef::url-specification[:url-specification: ./]
 :url-specification-implicittiling: {url-specification}ImplicitTiling/
 :url-specification-implicittiling-availability: {url-specification-implicittiling}/AVAILABILITY.adoc
 :url-specification-metadata: {url-specification}Metadata/
