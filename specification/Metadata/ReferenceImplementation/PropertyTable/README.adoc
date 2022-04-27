@@ -5,7 +5,7 @@
 // Definitions of the directory structure to ensure that relative
 // links between ADOC files in sibling directories can be resolved.
 ifdef::env-github[]
-:url-specification: ../
+:url-specification: ../../
 :url-specification-implicittiling: {url-specification}ImplicitTiling/
 :url-specification-metadata: {url-specification}Metadata/
 :url-specification-metadata-referenceimplementation-schema: {url-specification-metadata-referenceimplementation}Schema/
