@@ -1443,7 +1443,7 @@ Comments are not supported.
 [#styling-point-cloud]
 == Point Cloud
 
-A xref:../TileFormats/PointCloud/README.adoc[Point Cloud] is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a Point Cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
+A xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud] is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a Point Cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
 
 [source,json]
 ----
