@@ -13,6 +13,7 @@ ifdef::env-github[]
 :url-specification-metadata-referenceimplementation-propertytable: {url-specification-metadata-referenceimplementation}PropertyTable/
 endif::[]
 ifndef::env-github[]
+:url-specification:
 :url-specification-implicittiling:
 :url-specification-implicittiling-availability:
 :url-specification-metadata:
@@ -162,7 +163,7 @@ In order to maintain numerical stability during this subdivision process, the ac
 Let the extent of the root bounding volume along one dimension _d_ be _(min~d~, max~d~)_. The number of bounding volumes along that dimension for a given level  is _2^level^_. The size of each bounding volume at this level, along dimension _d_, is _size~d~ = (max~d~ - min~d~) / 2^level^_. The extent of the bounding volume of a child can then be computed directly as _(min~d~ + size~d~ * i, min~d~ + size~d~ * (i + 1))_, where _i_ is the index of the child in dimension _d_.
 ====
 
-The computed tile `boundingVolume` and `geometricError` can be overridden with <<implicittiling-tile-metadata,tile metadata>>, if desired. Content bounding volumes are not computed automatically but they may be provided by <<implicittiling-content-metadata,content metadata>>. Tile and content bounding volumes must maintain xref:../README.md#core-bounding-volume-spatial-coherence[spatial coherence].
+The computed tile `boundingVolume` and `geometricError` can be overridden with <<implicittiling-tile-metadata,tile metadata>>, if desired. Content bounding volumes are not computed automatically but they may be provided by <<implicittiling-content-metadata,content metadata>>. Tile and content bounding volumes must maintain xref:{url-specification}README.adoc#core-bounding-volume-spatial-coherence[spatial coherence].
 
 [#implicittiling-tile-coordinates]
 == Tile Coordinates
