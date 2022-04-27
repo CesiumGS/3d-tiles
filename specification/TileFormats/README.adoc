@@ -2,9 +2,31 @@
 [#tileformats-tile-formats]
 = Tile Formats
 
-The link:../README.md#tile-content[tile content] in a 3D Tiles tileset represents the renderable content of a tile. It is referred to with the `content.uri` of the tile JSON.
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
+:url-specification-tileformats-composite: {url-specification-tileformats}Composite/
+:url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-instanced3dmodel: {url-specification-tileformats}Instanced3DModel/
+:url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batched3dmodel:
+:url-specification-tileformats-composite:
+:url-specification-tileformats-gltf:
+:url-specification-tileformats-instanced3dmodel:
+:url-specification-tileformats-pointcloud:
+endif::[]
 
-The primary tile format in 3D Tiles 1.1 is the link:glTF/[glTF Tile Format]. It is built on https://github.com/KhronosGroup/glTF[glTF 2.0] and allows modeling many different use cases and different forms of renderable content in 3D Tiles.
+
+The xref{url-specification}README.adoc#core-tile-content[tile content] in a 3D Tiles tileset represents the renderable content of a tile. It is referred to with the `content.uri` of the tile JSON.
+
+The primary tile format in 3D Tiles 1.1 is the xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[glTF Tile Format]. It is built on https://github.com/KhronosGroup/glTF[glTF 2.0] and allows modeling many different use cases and different forms of renderable content in 3D Tiles.
 
 [#tileformats-legacy-tile-formats]
 == Legacy Tile Formats
@@ -14,17 +36,17 @@ The following tile formats have been part of 3D Tiles 1.0, and have been superse
 |===
 | Legacy Format | Uses
 
-| xref:TileFormats/Batched3DModel/README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model (`b3dm`)] 
+| xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model (`b3dm`)] 
 | Heterogeneous 3D models
 
-| xref:TileFormats/Instanced3DModel/README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model (`i3dm`)]
+| xref:{url-specification-tileformats-instanced3dmodel}README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model (`i3dm`)]
 | 3D model instances
 
-| xref:TileFormats/PointCloud/README.adoc#tileformats-pointcloud-point-cloud[Point Cloud (`pnts`)]
+| xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud (`pnts`)]
 | Massive number of points
 
-| xref:TileFormats/Composite/README.adoc#tileformats-composite-composite[Composite (`cmpt`)]
+| xref:{url-specification-tileformats-composite}README.adoc#README.adoc#tileformats-composite-composite[Composite (`cmpt`)]
 | Concatenate tiles of different formats into one tile
 |===
 
-See the See xref:TileFormats/glTF/README.adoc#tileformats-gltf-appendix-a-migration-from-legacy-tile-formats[migration guide]. for further information about how these use cases can be modeled based on the glTF tile format.
+See the See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-appendix-a-migration-from-legacy-tile-formats[migration guide]. for further information about how these use cases can be modeled based on the glTF tile format.

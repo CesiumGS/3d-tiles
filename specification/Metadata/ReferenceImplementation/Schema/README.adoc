@@ -9,7 +9,7 @@ ifdef::env-github[]
 :url-specification-metadata: {url-specification}Metadata/
 endif::[]
 ifndef::env-github[]
-:url-specification-implicittiling:
+:url-specification:
 :url-specification-metadata:
 endif::[]
 
