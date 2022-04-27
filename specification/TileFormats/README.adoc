@@ -31,7 +31,7 @@ The primary tile format in 3D Tiles 1.1 is the xref:{url-specification-tileforma
 [#tileformats-legacy-tile-formats]
 == Legacy Tile Formats
 
-The following tile formats have been part of 3D Tiles 1.0, and have been superseded by the See xref:TileFormats/glTF/README.adoc#tileformats-gltf-gltf[glTF Tile Format].
+The following tile formats have been part of 3D Tiles 1.0, and have been superseded by the xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[glTF Tile Format].
 
 |===
 | Legacy Format | Uses
