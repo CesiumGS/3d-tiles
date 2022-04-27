@@ -2,6 +2,19 @@
 [#metadata-3d-metadata-specification]
 = 3D Metadata Specification
 
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-metadata: {url-specification}Metadata/
+:url-specification-metadata-semantics: {url-specification-metadata}Semantics/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-metadata:
+:url-specification-metadata-semantics:
+endif::[]
+
 [#metadata-overview]
 == Overview
 
@@ -11,11 +24,11 @@ Many domains benefit from structured metadata -- typical examples include histor
 
 The specification defines core concepts to be used by multiple 3D formats, and is language and format agnostic. This document defines concepts with purpose and terminology, but does not impose a particular schema or serialization format for implementation. For use of the format outside of abstract conceptual definitions, see:
 
-* link:../../specification/README.md#metadata[3D Tiles Metadata] - Assigns metadata to tilesets, tiles, and contents in 3D Tiles 1.1
-* link:../../../extensions/3DTILES_metadata/[`3DTILES_metadata`] - An extension for 3D Tiles 1.0 that assigns metadata to tilesets, tiles, and contents
+* xref:{url-specification}README.md#metadata[3D Tiles Metadata] - Assigns metadata to tilesets, tiles, and contents in 3D Tiles 1.1
+* link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_metadata[`3DTILES_metadata`] - An extension for 3D Tiles 1.0 that assigns metadata to tilesets, tiles, and contents
 * https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] (glTF 2.0) --  Assigns metadata to vertices, texels, and features in a glTF asset
 
-The specification does not enumerate or define the semantic meanings of metadata, and assumes that separate specifications will define semantics for their particular application or domain. One example is the link:./Semantics/[3D Metadata Semantic Reference] which defines built-in semantics for 3D Tiles and glTF. Identifiers for externally-defined semantics can be stored within the 3D Metadata Specification.
+The specification does not enumerate or define the semantic meanings of metadata, and assumes that separate specifications will define semantics for their particular application or domain. One example is the xref:{url-specification-metadata-semantics}README.adoc#metadata-semantics-3d-metadata-semantic-reference[3D Metadata Semantic Reference] which defines built-in semantics for 3D Tiles and glTF. Identifiers for externally-defined semantics can be stored within the 3D Metadata Specification.
 
 [#metadata-concepts]
 == Concepts
@@ -242,7 +255,7 @@ Descriptions (`description`) provide a human-readable explanation of a property,
 [#metadata-semantic]
 ==== Semantic
 
-Property IDs, names, and descriptions do not have an inherent meaning. To provide a machine-readable meaning, properties may be assigned a semantic identifier string (`semantic`), indicating how the property's content should be interpreted. Semantic identifiers may be defined by the link:./Semantics/[3D Metadata Semantic Reference] or by external semantic references, and may be application-specific. Identifiers should be uppercase, with underscores as word separators.
+Property IDs, names, and descriptions do not have an inherent meaning. To provide a machine-readable meaning, properties may be assigned a semantic identifier string (`semantic`), indicating how the property's content should be interpreted. Semantic identifiers may be defined by the xref:{url-specification-metadata-semantics}README.adoc#metadata-semantics-3d-metadata-semantic-reference[3D Metadata Semantic Reference] or by external semantic references, and may be application-specific. Identifiers should be uppercase, with underscores as word separators.
 
 [NOTE]
 .Example
