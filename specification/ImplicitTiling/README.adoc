@@ -5,7 +5,13 @@
 
 include::../directories.adoc[]
 
-//:url-specification-metadata-referenceimplementation-propertytable: ../Metadata/ReferenceImplementation/PropertyTable/
+ifdef::this-is-a-test[]
+The test is defined. The value:
+{this-is-a-test}
+endif::[]
+ifndef::this-is-a-test[]
+The test is not defined. So. What now?
+endif::[]
 
 [#implicittiling-overview]
 == Overview
