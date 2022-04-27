@@ -1,16 +1,24 @@
 [#implicittiling-implicit-tiling]
 = Implicit Tiling
 
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
 :url-specification: ../
-
-include::../directories.adoc[]
-
-ifdef::this-is-a-test[]
-The test is defined. The value:
-{this-is-a-test}
+:url-specification-implicittiling: {url-specification}ImplicitTiling/
+:url-specification-implicittiling-availability: {url-specification-implicittiling}/AVAILABILITY.adoc
+:url-specification-metadata: {url-specification}Metadata/
+:url-specification-metadata-semantics: {url-specification-metadata}Semantics/
+:url-specification-metadata-referenceimplementation: {url-specification-metadata}ReferenceImplementation/
+:url-specification-metadata-referenceimplementation-propertytable: {url-specification-metadata-referenceimplementation}PropertyTable/
 endif::[]
-ifndef::this-is-a-test[]
-The test is not defined. So. What now?
+ifndef::env-github[]
+:url-specification-implicittiling:
+:url-specification-implicittiling-availability:
+:url-specification-metadata:
+:url-specification-metadata-semantics:
+:url-specification-metadata-referenceimplementation:
+:url-specification-metadata-referenceimplementation-propertytable:
 endif::[]
 
 [#implicittiling-overview]
