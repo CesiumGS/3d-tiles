@@ -1,6 +1,19 @@
 [#metadata-semantics-3d-metadata-semantic-reference]
 = 3D Metadata Semantic Reference
 
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-implicittiling: {url-specification}ImplicitTiling/
+:url-specification-metadata: {url-specification}Metadata/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-implicittiling:
+:url-specification-metadata:
+endif::[]
+
 [#metadata-semantics-overview]
 [discrete]
 == Overview
@@ -13,8 +26,8 @@ Each semantic is defined in terms of its meaning, and the datatypes it may assum
 
 For use of semantics, see:
 
-* link:../../README.md#metadata[3D Tiles Metadata] - Assigns metadata to tilesets, tiles, and contents in 3D Tiles 1.1
-* link:../../../extensions/3DTILES_metadata/[`3DTILES_metadata`] - An extension for 3D Tiles 1.0 that assigns metadata to tilesets, tiles, and contents
+* xref:{url-specification}README.md#core-metadata[3D Tiles Metadata] - Assigns metadata to tilesets, tiles, and contents in 3D Tiles 1.1
+* link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_metadata[`3DTILES_metadata`] - An extension for 3D Tiles 1.0 that assigns metadata to tilesets, tiles, and contents
 * https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] (glTF 2.0) --  Assigns metadata to vertices, texels, and features in a glTF asset
 
 [#metadata-semantics-general]
@@ -25,7 +38,7 @@ For use of semantics, see:
 [discrete]
 === Overview
 
-Throughout this section, the term "entity" refers to any conceptual object with which a property value (as defined in the link:../[3D Metadata Specification]) may be associated. Examples of entities include tilesets, tiles, and tile contents in 3D Tiles, or groups of vertices and texels in glTF 2.0 assets. Additional types of entities may be defined by other specifications or applications.
+Throughout this section, the term "entity" refers to any conceptual object with which a property value (as defined in the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification]) may be associated. Examples of entities include tilesets, tiles, and tile contents in 3D Tiles, or groups of vertices and texels in glTF 2.0 assets. Additional types of entities may be defined by other specifications or applications.
 
 [#metadata-semantics-general-semantics]
 [discrete]
@@ -108,11 +121,11 @@ Units for all linear distances are meters, and all angles are radians.
 - ``"UNKNOWN"`` - CRS is unknown
 ``region`` bounding volumes are assumed to use the same reference ellipsoid as the geocentric coordinate reference system specified here. +
  +
-For more details on coordinate reference systems in 3D Tiles, see link:../../README.md#coordinate-reference-system-crs[Coordinate Reference System (CRS)].
+For more details on coordinate reference systems in 3D Tiles, see xref:{url-specification}README.adoc#core-coordinate-reference-system-crs[Coordinate Reference System (CRS)].
 
 | `TILESET_CRS_COORDINATE_EPOCH`
 | - Type: `STRING`
-| The coordinate epoch for coordinates that are referenced to a dynamic CRS such as WGS 84. Coordinates include glTF vertex positions after transforms have been applied -- see https://github.com/CesiumGS/3d-tiles/tree/main/specification#gltf-transforms[glTF transforms]. Expressed as a decimal year (e.g. `"2019.81"`). See http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#128[WKT representation of coordinate epoch and coordinate metadata] for more details.
+| The coordinate epoch for coordinates that are referenced to a dynamic CRS such as WGS 84. Coordinates include glTF vertex positions after transforms have been applied -- see xref:{url-specification}README.adoc#core-gltf-transforms[glTF transforms]. Expressed as a decimal year (e.g. `"2019.81"`). See http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#128[WKT representation of coordinate epoch and coordinate metadata] for more details.
 |===
 
 [#metadata-semantics-tile]
@@ -123,11 +136,11 @@ For more details on coordinate reference systems in 3D Tiles, see link:../../REA
 [discrete]
 ==== Overview
 
-`TILE_*` semantics provide meaning for properties associated with a particular tile, and should take precedence over equivalent metadata on parent objects, as well as over values derived from subdivision schemes in link:../../ImplicitTiling/[Implicit Tiling].
+`TILE_*` semantics provide meaning for properties associated with a particular tile, and should take precedence over equivalent metadata on parent objects, as well as over values derived from subdivision schemes in xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-tiling[Implicit Tiling].
 
-If property values are missing, either because the property is omitted or the property table contains `noData` values, the original tile properties are used, such as those explicitly defined in tileset JSON or implicitly computed from subdivision schemes in link:../../ImplicitTiling/[Implicit Tiling].
+If property values are missing, either because the property is omitted or the property table contains `noData` values, the original tile properties are used, such as those explicitly defined in tileset JSON or implicitly computed from subdivision schemes in xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-tiling[Implicit Tiling].
 
-In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_SPHERE` semantics each define a more specific bounding volume for a tile than is implicitly calculated from link:../../ImplicitTiling/[Implicit Tiling]. If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
+In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_SPHERE` semantics each define a more specific bounding volume for a tile than is implicitly calculated from xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-tiling[Implicit Tiling]. If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
 
 [#metadata-semantics-tile-semantics]
 [discrete]
@@ -142,7 +155,7 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 - Component type: `FLOAT32` or `FLOAT64` + 
 - Array: `true` + 
 - Count: `12` + 
-| The bounding volume of the tile, expressed as a link:../../../specification/README.md#box[box]. Equivalent to `tile.boundingVolume.box`.
+| The bounding volume of the tile, expressed as a xref:{url-specification}README.adoc#core-box[box]. Equivalent to `tile.boundingVolume.box`.
 
 | `TILE_BOUNDING_REGION`
 | 
@@ -150,7 +163,7 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 - Component type: `FLOAT64` +
 - Array: `true` +
 - Count: `6` +
-| The bounding volume of the tile, expressed as a link:../../../specification/README.md#region[region]. Equivalent to `tile.boundingVolume.region`.
+| The bounding volume of the tile, expressed as a xref:{url-specification}README.adoc#core-region[region]. Equivalent to `tile.boundingVolume.region`.
 
 | `TILE_BOUNDING_SPHERE`
 | 
@@ -158,25 +171,25 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 - Component type: `FLOAT32` or `FLOAT64` + 
 - Array: `true` + 
 - Count: `4` + 
-| The bounding volume of the tile, expressed as a link:../../../specification/README.md#sphere[sphere]. Equivalent to `tile.boundingVolume.sphere`.
+| The bounding volume of the tile, expressed as a xref:{url-specification}README.adoc#core-sphere[sphere]. Equivalent to `tile.boundingVolume.sphere`.
 
 | `TILE_BOUNDING_S2_CELL`
 | 
 - Type: `SCALAR` +
 - Component type: `UINT64` +
-| The bounding volume of the tile, expressed as an link:../../../extensions/3DTILES_bounding_volume_S2/README.md#cell-ids[S2 Cell ID] using the 64-bit representation instead of the hexadecimal representation. Only applicable to link:../../../extensions/3DTILES_bounding_volume_S2[3DTILES_bounding_volume_S2].
+| The bounding volume of the tile, expressed as an link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md#cell-ids[S2 Cell ID] using the 64-bit representation instead of the hexadecimal representation. Only applicable to link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
 
 | `TILE_MINIMUM_HEIGHT`
 | 
 - Type: `SCALAR` +
 - Component type: `FLOAT32` or `FLOAT64` +
-| The minimum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to minimum height component of link:../../../extensions/3DTILES_bounding_volume_S2[`3DTILES_bounding_volume_S2`].
+| The minimum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to minimum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
 
 | `TILE_MAXIMUM_HEIGHT`
 | 
 - Type: `SCALAR` +
 - Component type: `FLOAT32` or `FLOAT64` +
-| The maximum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to maximum height component of link:../../../extensions/3DTILES_bounding_volume_S2[`3DTILES_bounding_volume_S2`].
+| The maximum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to maximum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
 
 | `TILE_HORIZON_OCCLUSION_POINT`^1^
 | 
@@ -230,7 +243,7 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 - Component type: `FLOAT32` or `FLOAT64` +
 - Array: `true` +
 - Count: `12` +
-| The bounding volume of the content of a tile, expressed as a link:../../../specification/README.md#box[box]. Equivalent to `tile.content.boundingVolume.box`.
+| The bounding volume of the content of a tile, expressed as a xref:{url-specification}README.adoc#core-box[box]. Equivalent to `tile.content.boundingVolume.box`.
 
 | `CONTENT_BOUNDING_REGION`
 | 
@@ -238,7 +251,7 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 - Component type: `FLOAT64` +
 - Array: `true` +
 - Count: `6` +
-| The bounding volume of the content of a tile, expressed as a link:../../../specification/README.md#region[region]. Equivalent to `tile.content.boundingVolume.region`.
+| The bounding volume of the content of a tile, expressed as a xref:{url-specification}README.adoc#core-region[region]. Equivalent to `tile.content.boundingVolume.region`.
 
 | `CONTENT_BOUNDING_SPHERE`
 | 
@@ -246,25 +259,25 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 - Component type: `FLOAT32` or `FLOAT64` +
 - Array: `true` +
 - Count: `4` +
-| The bounding volume of the content of a tile, expressed as a link:../../../specification/README.md#sphere[sphere]. Equivalent to `tile.content.boundingVolume.sphere`.
+| The bounding volume of the content of a tile, expressed as a xref:{url-specification}README.adoc#core-sphere[sphere]. Equivalent to `tile.content.boundingVolume.sphere`.
 
 | `CONTENT_BOUNDING_S2_CELL`
 | 
 - Type: `SCALAR` +
 - Component type: `UINT64` +
-| The bounding volume of the content of a tile, expressed as an link:../../../extensions/3DTILES_bounding_volume_S2/README.md#cell-ids[S2 Cell ID] using the 64-bit representation instead of the hexadecimal representation. Only applicable to link:../../../extensions/3DTILES_bounding_volume_S2[3DTILES_bounding_volume_S2].
+| The bounding volume of the content of a tile, expressed as an link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md#cell-ids[S2 Cell ID] using the 64-bit representation instead of the hexadecimal representation. Only applicable to link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
 
 | `CONTENT_MINIMUM_HEIGHT`
 | 
 - Type: `SCALAR` +
 - Component type: `FLOAT32` or `FLOAT64` +
-| The minimum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to minimum height component of link:../../../extensions/3DTILES_bounding_volume_S2[`3DTILES_bounding_volume_S2`].
+| The minimum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to minimum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
 
 | `CONTENT_MAXIMUM_HEIGHT`
 | 
 - Type: `SCALAR` +
 - Component type: `FLOAT32` or `FLOAT64` +
-| The maximum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to maximum height component of link:../../../extensions/3DTILES_bounding_volume_S2[`3DTILES_bounding_volume_S2`].
+| The maximum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to maximum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
 
 | ~`CONTENT_HORIZON_OCCLUSION_POINT`~^1^
 | 

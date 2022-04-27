@@ -20,6 +20,7 @@ ifdef::env-github[]
 :url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
 endif::[]
 ifndef::env-github[]
+:url-specification:
 :url-specification-implicittiling:
 :url-specification-implicittiling-availability:
 :url-specification-metadata:
