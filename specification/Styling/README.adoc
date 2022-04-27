@@ -21,7 +21,7 @@ endif::[]
 [#styling-overview]
 == Overview
 
-3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate the display of a feature, for example `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's xref:../TileFormats/BatchTable/README.adoc[Batch Table].
+3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate the display of a feature, for example `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-batch-table[Batch Table].
 
 A style may be applied to a tile that doesn't contain features, in which case the tile is treated as an implicit single feature without properties.
 
