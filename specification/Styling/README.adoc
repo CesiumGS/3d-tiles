@@ -2,6 +2,22 @@
 [#styling-styling]
 = Styling
 
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
+:url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batchtable:
+:url-specification-tileformats-pointcloud:
+endif::[]
+
+
 [#styling-overview]
 == Overview
 
@@ -612,7 +628,7 @@ ${order} === 1
 ${name} === 'Feature name'
 ----
 
-Additionally, variables originating from vector properties stored in the link:../TileFormats/BatchTable/README.md#binary-body[Batch Table binary] are treated as vector types:
+Additionally, variables originating from vector properties stored in the xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-binary-body[Batch Table binary] are treated as vector types:
 
 |===
 | `componentType` | variable type
@@ -1439,7 +1455,7 @@ A xref:../TileFormats/PointCloud/README.adoc[Point Cloud] is a collection of poi
 
 Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`. A `pointSize` of `1.0` must be supported.
 
-Point Cloud styles may also reference semantics from the link:../TileFormats/PointCloud/README.md#feature-table[Feature Table] including position, color, and normal to allow for more flexible styling of the source data.
+Point Cloud styles may also reference semantics from the xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-feature-table[Feature Table] including position, color, and normal to allow for more flexible styling of the source data.
 
 * `+${POSITION}+` is a `vec3` storing the xyz Cartesian coordinates of the point before the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `+${POSITION}+` refers to the position after the `QUANTIZED_VOLUME_SCALE` is applied, but before `QUANTIZED_VOLUME_OFFSET` is applied.
 * `+${POSITION_ABSOLUTE}+` is a `vec3` storing the xyz Cartesian coordinates of the point after the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `+${POSITION_ABSOLUTE}+` refers to the position after the `QUANTIZED_VOLUME_SCALE`, `QUANTIZED_VOLUME_OFFSET`, and tile transform are applied.
