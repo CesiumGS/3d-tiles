@@ -6,15 +6,17 @@
 // links between ADOC files in sibling directories can be resolved.
 ifdef::env-github[]
 :url-specification: ../../
+:url-specification-metadata: {url-specification}Metadata/
 endif::[]
 ifndef::env-github[]
 :url-specification:
+:url-specification-metadata:
 endif::[]
 
-This document defines a reference implementation of the concepts defined in the link:../[3D Metadata Specification]. The 3D Metadata Specification itself defines a standard format for structured metadata in 3D content in a way that is language- and format agnostic. The reference implementation described here is an implementation of these concepts:
+This document defines a reference implementation of the concepts defined in the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification]. The 3D Metadata Specification itself defines a standard format for structured metadata in 3D content in a way that is language- and format agnostic. The reference implementation described here is an implementation of these concepts:
 
-* The link:Schema[Schema] is a JSON-based representation of link:../README.md#schemas[3D Metadata Schemas] that describe the structure and types of metadata
-* The link:PropertyTable[PropertyTable] one form of a link:../README.md#binary-table-format[Binary Table Format]. It is a JSON-based description of how large amounts of metadata can be stored compactly in a binary form.
+* The xref:Schema/README.adoc[Schema] is a JSON-based representation of xref:{url-specification-metadata}README.adoc#metadata-schemas[3D Metadata Schemas] that describe the structure and types of metadata
+* The xref:PropertyTable/README.adoc[PropertyTable] is one form of a xref:{url-specification-metadata}README.adoc#metadata-binary-table-format[Binary Table Format]. It is a JSON-based description of how large amounts of metadata can be stored compactly in a binary form.
 
 These serialization formats are used as a common basis for different implementations of the 3D Metadata Specification:
 
