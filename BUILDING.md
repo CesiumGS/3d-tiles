@@ -60,7 +60,7 @@ The bulk work of generating a first version of the AsciiDoc specification can be
 - In all images that appear in tables, like
   `image:figures/replacement_1.jpg[]`,
   insert a sensible width for the table cell, like
-  `image:figures/replacement_1.jpg[pdfwidth=40%]`
+  `image:figures/replacement_1.jpg[pdfwidth=1.5in]`
   or try to find another workaround. See https://github.com/asciidoctor/asciidoctor-pdf/issues/830#issuecomment-568169214 
 
 ---
