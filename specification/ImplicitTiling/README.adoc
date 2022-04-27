@@ -112,18 +112,18 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 |===
 | Root Box | Quadtree | Octree
 
-| image:figures/box.png[pdfwidth=30%]
-| image:figures/box-quadtree.png[pdfwidth=30%]
-| image:figures/box-octree.png[pdfwidth=30%]
+| image:figures/box.png[pdfwidth=1.5in]
+| image:figures/box-quadtree.png[pdfwidth=1.5in]
+| image:figures/box-octree.png[pdfwidth=1.5in]
 |===
 
 [cols="^,^,^"]
 |===
 | Root Region | Quadtree | Octree
 
-| image:figures/region.png[pdfwidth=30%]
-| image:figures/region-quadtree.png[pdfwidth=30%]
-| image:figures/region-octree.png[pdfwidth=30%]
+| image:figures/region.png[pdfwidth=1.5in]
+| image:figures/region-quadtree.png[pdfwidth=1.5in]
+| image:figures/region-octree.png[pdfwidth=1.5in]
 |===
 
 
