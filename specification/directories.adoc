@@ -7,7 +7,7 @@ ifdef::env-github[]
 :url-specification-metadata: {url-specification}Metadata/
 :url-specification-metadata-semantics: {url-specification-metadata}Semantics/
 :url-specification-metadata-referenceimplementation: {url-specification-metadata}ReferenceImplementation/
-:url-specification-metadata-referenceimplementation-propertytable: {url-specification-metadata-referenceimplementation}PropertyTable/
+:url-specification-metadata-referenceimplementation-propertytable: ../Metadata/ReferenceImplementation/PropertyTable/
 :url-specification-metadata-referenceimplementation-schema: {url-specification-metadata-referenceimplementation}Schema/
 :url-specification-styling: {url-specification}Styling/
 :url-specification-tileformats: {url-specification}TileFormats/

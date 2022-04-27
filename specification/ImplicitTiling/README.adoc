@@ -5,7 +5,7 @@
 
 include::../directories.adoc[]
 
-:url-specification-metadata-referenceimplementation-propertytable: ../Metadata/ReferenceImplementation/PropertyTable/
+//:url-specification-metadata-referenceimplementation-propertytable: ../Metadata/ReferenceImplementation/PropertyTable/
 
 [#implicittiling-overview]
 == Overview
