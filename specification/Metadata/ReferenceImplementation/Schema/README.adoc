@@ -1,5 +1,6 @@
 
 [#metadata-referenceimplementation-schema-schema-implementation]
+[discrete]
 = Schema Implementation
 
 // Definitions of the directory structure to ensure that relative
@@ -21,6 +22,7 @@ The xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specificat
 The full JSON schema definition for this implementation can be found in link:../../../schema/Schema/[the Schema directory of the specification].
 
 [#metadata-referenceimplementation-schema-schema]
+[discrete]
 == Schema
 
 _Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/schema.schema.json[schema.schema.json]._
@@ -47,6 +49,7 @@ Schema with a `tree` class, and a `speciesEnum` enum that defines different spec
 ====
 
 [#metadata-referenceimplementation-schema-class]
+[discrete]
 === Class
 
 _Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/class.schema.json[class.schema.json]._
@@ -82,6 +85,7 @@ A "Tree" class, which might describe a table of tree measurements taken in a par
 ====
 
 [#metadata-referenceimplementation-schema-class-property]
+[discrete]
 === Class Property
 
 _Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/class.property.schema.json[class.property.schema.json]._
@@ -135,6 +139,7 @@ A "Tree" class, which might describe a table of tree measurements taken in a par
 ====
 
 [#metadata-referenceimplementation-schema-enum]
+[discrete]
 === Enum
 
 _Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/enum.schema.json[enum.schema.json]._
@@ -170,6 +175,7 @@ A "Species" enum defining types of trees. An "Unspecified" enum value is optiona
 ====
 
 [#metadata-referenceimplementation-schema-enum-value]
+[discrete]
 === Enum Value
 
 _Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/enum.value.schema.json[enum.value.schema.json]._

@@ -49,4 +49,4 @@ The following tile formats have been part of 3D Tiles 1.0, and have been superse
 | Concatenate tiles of different formats into one tile
 |===
 
-See the See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-appendix-a-migration-from-legacy-tile-formats[migration guide]. for further information about how these use cases can be modeled based on the glTF tile format.
+See the See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-a-migration-from-legacy-tile-formats[migration guide]. for further information about how these use cases can be modeled based on the glTF tile format.

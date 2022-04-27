@@ -2,6 +2,10 @@
 :leveloffset: +1
 
 [appendix]
+:imagesdir: TileFormats/glTF
+include::TileFormats/glTF/MIGRATION.adoc[]
+
+[appendix]
 :imagesdir: ImplicitTiling
 include::ImplicitTiling/AVAILABILITY.adoc[]
 
