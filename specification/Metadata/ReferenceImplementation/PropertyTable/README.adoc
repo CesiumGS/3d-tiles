@@ -8,12 +8,14 @@ ifdef::env-github[]
 :url-specification: ../../../
 :url-specification-implicittiling: {url-specification}ImplicitTiling/
 :url-specification-metadata: {url-specification}Metadata/
+:url-specification-metadata-referenceimplementation: {url-specification-metadata}ReferenceImplementation/
 :url-specification-metadata-referenceimplementation-schema: {url-specification-metadata-referenceimplementation}Schema/
 endif::[]
 ifndef::env-github[]
 :url-specification-implicittiling:
 :url-specification-metadata:
-:url-specification-metadata-referenceimplementation-schema: {url-specification-metadata-referenceimplementation}Schema/
+:url-specification-metadata-referenceimplementation:
+:url-specification-metadata-referenceimplementation-schema:
 endif::[]
 
 
