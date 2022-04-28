@@ -9,7 +9,11 @@
 
 - Install the Ruby interpreter, 2.3 or later, from http://www.ruby-lang.org/
 - Install Asciidoctor: `gem install asciidoctor`
-- In order to be able to generate PDF output: `gem install asciidhlighter...- Install some rogue software: `gem install rouge` - no worries, that's the syntax highlighter...
+- In order to be able to generate PDF output: `gem install asciidoctor-pdf`
+- Install some rogue software: `gem install rouge` - no worries, that's the syntax highlighter...
+- In order go create compressed PDF files:
+  - Install ghostscript from https://www.ghostscript.com/
+  - Install the Ruby ghostscript gem: `gem install rghost`
 
 - A VSCode plugin for AsciiDoc syntax highlighting and preview: https://marketplace.visualstudio.com/items?itemName=asciidoctor.asciidoctor-vscode
 
@@ -20,11 +24,21 @@
 - Generating PDF:
   - `asciidoctor-pdf -a scripts=cjk -a pdf-theme=default-with-fallback-font Specification.adoc -o Specification-1.1.0.pdf`
   
-- Note: The last call is derived from https://github.com/asciidoctor/asciidoctor-pdf/issues/1472#issuecomment-571936233 and handles Japanese characters. Without them, the call could just be `asciidoctor -r asciidoctor-pdf -b pdf Specification.adoc -o Specification-1.1.0.pdf`
+- Note: The last call is derived from https://asciidoctor.org/docs/asciidoctor-pdf/#support-for-non-latin-languages and handles Japanese characters. Without them, the call could just be `asciidoctor -r asciidoctor-pdf -b pdf Specification.adoc -o Specification-1.1.0.pdf`
 
 - Note: If the call does not appear to do anything, neither generate a PDF nor print an error message, make sure you typed `asciidoctor` and not just `asciidoc`
 
+- Optimizing the resulting PDF:
+  - On windows, call 
+  
+    `set GS=C:\Program Files\gs\gs9.56.1\bin\gswin64.exe`
+  - Afterwards, call
+   
+    `asciidoctor-pdf-optimize --quality screen Specification-1.1.0.pdf`  
 
+    (this will overwrite the given file!)
+
+   Afterwards, the links will not work. See https://bugs.ghostscript.com/show_bug.cgi?id=699830 and the linked ones.
 
 ---
 
