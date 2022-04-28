@@ -2,7 +2,31 @@
 [#tileformats-batchtable-batch-table]
 = Batch Table
 
-WARNING:  Batch Table was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#appendix-a-migration-from-legacy-tile-formats[glTF migration guide].
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
+:url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
+:url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
+:url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-instanced3dmodel: {url-specification-tileformats}Instanced3DModel/
+:url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batched3dmodel:
+:url-specification-tileformats-batchtable:
+:url-specification-tileformats-featuretable:
+:url-specification-tileformats-gltf:
+:url-specification-tileformats-instanced3dmodel:
+:url-specification-tileformats-pointcloud:
+endif::[]
+
+
+WARNING:  Batch Table was deprecated in 3D Tiles 1.1. See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-migration-from-legacy-tile-formats[glTF migration guide].
 
 [#tileformats-batchtable-overview]
 == Overview
@@ -11,9 +35,9 @@ A _Batch Table_ is a component of a tile's binary body and contains per-feature 
 
 A Batch Table is used by the following tile formats:
 
-* xref:../Batched3DModel/README.adoc[Batched 3D Model] (b3dm)
-* xref:../Instanced3DModel/README.adoc[Instanced 3D Model] (i3dm)
-* xref:../PointCloud/README.adoc[Point Cloud] (pnts)
+* xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model] (b3dm)
+* xref:{url-specification-tileformats-instanced3dmodel}README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model] (i3dm)
+* xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud] (pnts)
 
 [#tileformats-batchtable-layout]
 == Layout
@@ -147,7 +171,7 @@ The following tables can be used to compute the byte size of a property.
 
 The following extensions can be applied to a Batch Table.
 
-* link:../../../extensions/3DTILES_batch_table_hierarchy/[3DTILES_batch_table_hierarchy]
+* link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_batch_table_hierarchy/README.md[`3DTILES_batch_table_hierarchy`]
 
 [#tileformats-batchtable-implementation-example]
 == Implementation example

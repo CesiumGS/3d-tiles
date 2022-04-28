@@ -1,4 +1,4 @@
-[#tileformats-gltf-a-migration-from-legacy-tile-formats]
+[#tileformats-gltf-migration-from-legacy-tile-formats]
 = Migration From Legacy Tile Formats
 
 This section describes how legacy tile formats can be converted into equivalent glTF content.

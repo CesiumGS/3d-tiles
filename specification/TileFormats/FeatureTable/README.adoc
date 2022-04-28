@@ -2,14 +2,35 @@
 [#tileformats-featuretable-feature-table]
 = Feature Table
 
-WARNING: Feature Table was deprecated in 3D Tiles 1.1. See link:../glTF/README.md#appendix-a-migration-from-legacy-tile-formats[glTF migration guide].
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
+:url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
+:url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
+:url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batched3dmodel:
+:url-specification-tileformats-batchtable:
+:url-specification-tileformats-featuretable:
+:url-specification-tileformats-gltf:
+:url-specification-tileformats-pointcloud:
+endif::[]
+
+WARNING: Feature Table was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-migration-from-legacy-tile-formats[glTF migration guide].
 
 [#tileformats-featuretable-overview]
 == Overview
 
-A _Feature Table_ is a component of a tile's binary body and describes position and appearance properties required to render each feature in a tile. The xref:../BatchTable/README.adoc[Batch Table], on the other hand, contains per-feature application-specific properties not necessarily used for rendering.
+A _Feature Table_ is a component of a tile's binary body and describes position and appearance properties required to render each feature in a tile. The xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-batch-table[Batch Table], on the other hand, contains per-feature application-specific properties not necessarily used for rendering.
 
-A Feature Table is used by tile formats like xref:../Batched3DModel/README.adoc[Batched 3D Model] (b3dm) where each model is a feature, and xref:../PointCloud/README.adoc[Point Cloud] (pnts) where each point is a feature.
+A Feature Table is used by tile formats like xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model] (b3dm) where each model is a feature, and xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud] (pnts) where each point is a feature.
 
 Per-feature properties are defined using tile format-specific semantics defined in each tile format's specification.  For example, for _Instanced 3D Model_, `SCALE_NON_UNIFORM` defines the non-uniform scale applied to each 3D model instance.
 
@@ -68,5 +89,5 @@ var positionArray = new Float32Array(featureTableBinary.buffer, byteOffset, feat
 var position = positionArray.subarray(featureId * 3, featureId * 3 + 3); // Using subarray creates a view into the array, and not a new array.
 ----
 
-Code for reading the Feature Table can be found in https://github.com/CesiumGS/cesium/blob/main/Source/Scene/Cesium3DTileFeatureTable.js[`Cesium3DTileFeatureTable.js`] in the CesiumJS implementation of 3D Tiles.
+Code for reading the Feature Table can be found in link:https://github.com/CesiumGS/cesium/blob/main/Source/Scene/Cesium3DTileFeatureTable.js[`Cesium3DTileFeatureTable.js`] in the CesiumJS implementation of 3D Tiles.
 

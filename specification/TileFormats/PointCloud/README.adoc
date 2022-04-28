@@ -1,7 +1,28 @@
 [#tileformats-pointcloud-point-cloud]
 = Point Cloud
 
-WARNING: Point Cloud was deprecated in 3D Tiles 1.1. See xref:TileFormats/glTF/README.adoc#tileformats-gltf-point-cloud-pnts[`pnts` migration guide].
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
+:url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
+:url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
+:url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-styling: {url-specification}Styling/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batched3dmodel:
+:url-specification-tileformats-batchtable:
+:url-specification-tileformats-featuretable:
+:url-specification-tileformats-gltf:
+:url-specification-styling:
+endif::[]
+
+WARNING: Point Cloud was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-point-cloud-pnts[`pnts` migration guide].
 
 [#tileformats-pointcloud-overview]
 == Overview
@@ -22,7 +43,7 @@ image::figures/layout.png[]
 [#tileformats-pointcloud-padding]
 === Padding
 
-A tile's `byteLength` must be aligned to an 8-byte boundary. The contained link:../FeatureTable/README.md#padding[Feature Table] and link:../BatchTable/README.md#padding[Batch Table] must conform to their respective padding requirement.
+A tile's `byteLength` must be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] must conform to their respective padding requirement.
 
 [#tileformats-pointcloud-header]
 == Header
@@ -67,7 +88,7 @@ The body section immediately follows the header section, and is composed of a `F
 == Feature Table
 
 Contains per-tile and per-point values that define where and how to render points.
-More information is available in the xref:../FeatureTable/README.adoc[Feature Table specification].
+More information is available in the xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-feature-table[Feature Table specification].
 
 The full JSON schema can be found in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/TileFormats/pnts.featureTable.schema.json[pnts.featureTable.schema.json].
 
@@ -177,12 +198,12 @@ Examples using these semantics can be found in the <<tileformats-pointcloud-exam
 [#tileformats-pointcloud-coordinate-reference-system-crs]
 ==== Coordinate reference system (CRS)
 
-3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (also see link:../../README.md#coordinate-reference-system-crs[coordinate reference system]).
+3D Tiles local coordinate systems use a right-handed 3-axis (x, y, z) Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems (also see xref:{url-specification}README.adoc#core-coordinate-reference-system-crs[coordinate reference system]).
 
 [#tileformats-pointcloud-rtc_center]
 ==== RTC_CENTER
 
-Positions may be defined relative-to-center for high-precision rendering, see http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm[Precisions, Precisions]. If defined, `RTC_CENTER` specifies the center position and all point positions are treated as relative to this value.
+Positions may be defined relative-to-center for high-precision rendering, see link:http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm[Precisions, Precisions]. If defined, `RTC_CENTER` specifies the center position and all point positions are treated as relative to this value.
 
 [#tileformats-pointcloud-quantized-positions]
 ==== Quantized positions
@@ -210,7 +231,7 @@ If more than one color semantic is defined, the precedence order is `RGBA`, `RGB
 
 If no color semantics are defined, the runtime is free to color points using an application-specific default color.
 
-In any case, xref:../../Styling/README.adoc[3D Tiles Styling] may be used to change the final rendered color and other visual properties at runtime.
+In any case, xref:{url-specification-styling}README.adoc#styling-styling[3D Tiles Styling] may be used to change the final rendered color and other visual properties at runtime.
 
 [#tileformats-pointcloud-point-normals]
 === Point normals
@@ -221,12 +242,12 @@ The normals will be transformed using the inverse transpose of the tileset trans
 [#tileformats-pointcloud-oct-encoded-normal-vectors]
 ==== Oct-encoded normal vectors
 
-Oct-encoding is described in http://jcgt.org/published/0003/02/01/[_A Survey of Efficient Representations of Independent Unit Vectors_]. Oct-encoded values are stored in unsigned, unnormalized range (`[0, 255]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
+Oct-encoding is described in link:http://jcgt.org/published/0003/02/01/[_A Survey of Efficient Representations of Independent Unit Vectors_]. Oct-encoded values are stored in unsigned, unnormalized range (`[0, 255]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
 
 [NOTE]
 .Implementation Note
 ====
-An implementation for encoding and decoding these unit vectors can be found in CesiumJS's https://github.com/CesiumGS/cesium/blob/main/Source/Core/AttributeCompression.js[AttributeCompression]
+An implementation for encoding and decoding these unit vectors can be found in CesiumJS's link:https://github.com/CesiumGS/cesium/blob/main/Source/Core/AttributeCompression.js[AttributeCompression]
 module.
 ====
 
@@ -239,7 +260,7 @@ Points that make up distinct features of the Point Cloud may be batched together
 This is useful for per-object picking and storing application-specific metadata for declarative styling and application-specific use cases such as populating a UI or issuing a REST API request on a per-object instead of per-point basis.
 
 The `BATCH_ID` semantic may have a `componentType` of `UNSIGNED_BYTE`, `UNSIGNED_SHORT`, or `UNSIGNED_INT`. When `componentType` is not present, `UNSIGNED_SHORT` is used.
-The global semantic `BATCH_LENGTH` defines the number of unique `batchId` values, similar to the `batchLength` field in the xref:../Batched3DModel/README.adoc[Batched 3D Model] header.
+The global semantic `BATCH_LENGTH` defines the number of unique `batchId` values, similar to the `batchLength` field in the xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model] header.
 
 [#tileformats-pointcloud-examples]
 === Examples
@@ -415,14 +436,14 @@ The _Batch Table_ contains application-specific metadata, indexable by `batchId`
 * If the `BATCH_ID` semantic is defined, the Batch Table stores metadata for each `batchId`, and the length of the Batch Table arrays will equal `BATCH_LENGTH`.
 * If the `BATCH_ID` semantic is not defined, then the Batch Table stores per-point metadata, and the length of the Batch Table arrays will equal `POINTS_LENGTH`.
 
-See the xref:../BatchTable/README.adoc[Batch Table] reference for more information.
+See the xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-batch-table[Batch Table] reference for more information.
 
 [#tileformats-pointcloud-extensions]
 == Extensions
 
 The following extensions can be applied to a Point Cloud tile.
 
-* link:../../../extensions/3DTILES_draco_point_compression/[3DTILES_draco_point_compression]
+* link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_draco_point_compression/README.md[`3DTILES_draco_point_compression`]
 
 [#tileformats-pointcloud-file-extension-and-mime-type]
 == File extension and MIME type
@@ -436,5 +457,5 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 
 _This section is non-normative_
 
-Code for reading the header can be found in https://github.com/CesiumGS/cesium/blob/main/Source/Scene/PointCloud3DTileContent.js[`PointCloud3DModelTileContent.js`] in the CesiumJS implementation of 3D Tiles.
+Code for reading the header can be found in link:https://github.com/CesiumGS/cesium/blob/main/Source/Scene/PointCloud3DTileContent.js[`PointCloud3DModelTileContent.js`] in the CesiumJS implementation of 3D Tiles.
 

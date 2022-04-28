@@ -45,8 +45,8 @@ The following tile formats have been part of 3D Tiles 1.0, and have been superse
 | xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud (`pnts`)]
 | Massive number of points
 
-| xref:{url-specification-tileformats-composite}README.adoc#README.adoc#tileformats-composite-composite[Composite (`cmpt`)]
+| xref:{url-specification-tileformats-composite}README.adoc#tileformats-composite-composite[Composite (`cmpt`)]
 | Concatenate tiles of different formats into one tile
 |===
 
-See the See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-a-migration-from-legacy-tile-formats[migration guide]. for further information about how these use cases can be modeled based on the glTF tile format.
+See the See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-migration-from-legacy-tile-formats[migration guide]. for further information about how these use cases can be modeled based on the glTF tile format.

@@ -1,7 +1,26 @@
 [#tileformats-instanced3dmodel-instanced-3d-model]
 = Instanced 3D Model
 
-WARNING: Instanced 3D Model was deprecated in 3D Tiles 1.1. See xref:TileFormats/glTF/README.adoc#tileformats-gltf-instanced-3d-model-i3dm[`i3dm` migration guide].
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
+:url-specification-tileformats-composite: {url-specification-tileformats}Composite/
+:url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
+:url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batchtable:
+:url-specification-tileformats-composite:
+:url-specification-tileformats-featuretable:
+:url-specification-tileformats-gltf:
+endif::[]
+
+WARNING: Instanced 3D Model was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-instanced-3d-model-i3dm[`i3dm` migration guide].
 
 [#tileformats-instanced3dmodel-overview]
 == Overview
@@ -15,13 +34,13 @@ An Instanced 3D Model tile is a binary blob in little endian.
 [NOTE]
 .Implementation Note
 ====
-A xref:../Composite/README.adoc[Composite] tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights by combing two Instanced 3D Model tiles.
+A xref:{url-specification-tileformats-composite}README.adoc#tileformats-composite-composite[Composite] tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights by combing two Instanced 3D Model tiles.
 ====
 
 [NOTE]
 .Implementation Note
 ====
-Instanced 3D Model maps well to the https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/[ANGLE_instanced_arrays] extension for efficient rendering with WebGL.
+Instanced 3D Model maps well to the link:https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/README.md[`ANGLE_instanced_arrays`] extension for efficient rendering with WebGL.
 ====
 
 [#tileformats-instanced3dmodel-layout]
@@ -34,7 +53,7 @@ image::figures/header-layout.png[header layout]
 [#tileformats-instanced3dmodel-padding]
 === Padding
 
-A tile's `byteLength` must be aligned to an 8-byte boundary. The contained link:../FeatureTable/README.md#padding[Feature Table] and link:../BatchTable/README.md#padding[Batch Table] must conform to their respective padding requirement.
+A tile's `byteLength` must be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] must conform to their respective padding requirement.
 
 The <<tileformats-instanced3dmodel-gltf,binary glTF>> (if present) must start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
@@ -87,7 +106,7 @@ The body section immediately follows the header section and is composed of three
 == Feature Table
 
 The Feature Table contains values for `i3dm` semantics used to create instanced models.
-More information is available in the xref:../FeatureTable/README.adoc[Feature Table specification].
+More information is available in the xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-feature-table[Feature Table specification].
 
 [#tileformats-instanced3dmodel-semantics]
 === Semantics
@@ -191,7 +210,7 @@ Examples using these semantics can be found in the <<tileformats-instanced3dmode
 [#tileformats-instanced3dmodel-instance-orientation]
 === Instance orientation
 
-An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. The orientation will be transformed by the link:../../README.md#tile-transforms[tile transform].
+An instance's orientation is defined by an orthonormal basis created by an `up` and `right` vector. The orientation will be transformed by the xref:{url-specification}README.adoc#core-tile-transforms[tile transform].
 
 The `x` vector in the standard basis maps to the `right` vector in the transformed basis, and the `y` vector maps to the `up` vector.
 The `z` vector would map to a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
@@ -206,12 +225,12 @@ image::figures/box-rotated-basis.png[box rotated basis]
 ==== Oct-encoded normal vectors
 
 If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientation may be stored as oct-encoded normals in `NORMAL_UP_OCT32P` and `NORMAL_RIGHT_OCT32P`.
-These define `up` and `right` using the oct-encoding described in http://jcgt.org/published/0003/02/01/[_A Survey of Efficient Representations of Independent Unit Vectors_]. Oct-encoded values are stored in unsigned, unnormalized range (`[0, 65535]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
+These define `up` and `right` using the oct-encoding described in link:http://jcgt.org/published/0003/02/01/[_A Survey of Efficient Representations of Independent Unit Vectors_]. Oct-encoded values are stored in unsigned, unnormalized range (`[0, 65535]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
 
 [NOTE]
 .Implementation Note
 ====
-An implementation for encoding and decoding these unit vectors can be found in CesiumJS's https://github.com/CesiumGS/cesium/blob/main/Source/Core/AttributeCompression.js[AttributeCompression]
+An implementation for encoding and decoding these unit vectors can be found in CesiumJS's link:https://github.com/CesiumGS/cesium/blob/main/Source/Core/AttributeCompression.js[AttributeCompression]
 module.
 ====
 
@@ -229,7 +248,7 @@ This is suitable for instanced models such as trees whose orientation is always 
 [#tileformats-instanced3dmodel-rtc_center]
 ==== RTC_CENTER
 
-Positions may be defined relative-to-center for high-precision rendering, see http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm[Precisions, Precisions]. If defined, `RTC_CENTER` specifies the center position and all instance positions are treated as relative to this value. See <<tileformats-instanced3dmodel-coordinate-system,Coordinate System>> for the effect that this property has on the transform.
+Positions may be defined relative-to-center for high-precision rendering, see link:http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm[Precisions, Precisions]. If defined, `RTC_CENTER` specifies the center position and all instance positions are treated as relative to this value. See <<tileformats-instanced3dmodel-coordinate-system,Coordinate System>> for the effect that this property has on the transform.
 
 [#tileformats-instanced3dmodel-quantized-positions]
 ==== Quantized positions
@@ -333,34 +352,34 @@ var featureTableBinary = Buffer.concat([positionQuantizedBinary, normalUpOct32PB
 [#tileformats-instanced3dmodel-batch-table]
 == Batch Table
 
-Contains metadata organized by `batchId` that can be used for declarative styling. See the xref:../BatchTable/README.adoc[Batch Table] reference for more information.
+Contains metadata organized by `batchId` that can be used for declarative styling. See the xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-batch-table[Batch Table] reference for more information.
 
 [#tileformats-instanced3dmodel-gltf]
 == glTF
 
-Instanced 3D Model embeds https://github.com/KhronosGroup/glTF/tree/master/specification/2.0[glTF 2.0] containing model geometry and texture information.
+Instanced 3D Model embeds link:https://github.com/KhronosGroup/glTF/tree/master/specification/2.0[glTF 2.0] containing model geometry and texture information.
 
 The glTF asset to be instanced is stored after the Feature Table and Batch Table. It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
 `header.gltfFormat` determines the format of the glTF field
 
 * When the value of `header.gltfFormat` is `0`, the glTF field is a UTF-8 string, which contains a URI of the glTF or binary glTF model content.
-* When the value of `header.gltfFormat` is `1`, the glTF field is a binary blob containing https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout[binary glTF].
+* When the value of `header.gltfFormat` is `1`, the glTF field is a binary blob containing link:https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#binary-gltf-layout[binary glTF].
 
-When the glTF field contains a URI, then this URI may point to a https://tools.ietf.org/html/rfc3986#section-4.2[relative external reference (RFC3986)]. When the URI is relative, its base is always relative to the referring `.i3dm` file. Client implementations are required to support relative external references. Optionally, client implementations may support other schemes (such as `http://`). All URIs must be valid and resolvable.
+When the glTF field contains a URI, then this URI may point to a link:https://tools.ietf.org/html/rfc3986#section-4.2[relative external reference (RFC3986)]. When the URI is relative, its base is always relative to the referring `.i3dm` file. Client implementations are required to support relative external references. Optionally, client implementations may support other schemes (such as `http://`). All URIs must be valid and resolvable.
 
 [#tileformats-instanced3dmodel-coordinate-system]
 === Coordinate system
 
-By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See link:../../README.md#gltf-transforms[glTF transforms] for more details.
+By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See xref:{url-specification}README.adoc#core-gltf-transforms[glTF transforms] for more details.
 
-When the <<tileformats-instanced3dmodel-rtc_center,`RTC_CENTER`>> is defined in the feature table of an Instanced 3D Model, the computation of the link:../../README.md#tile-transforms[tile transform] is done as follows:
+When the <<tileformats-instanced3dmodel-rtc_center,`RTC_CENTER`>> is defined in the feature table of an Instanced 3D Model, the computation of the xref:{url-specification}README.adoc#core-tile-transforms[tile transform] is done as follows:
 
-. link:../../README.md#gltf-node-hierarchy[glTF node hierarchy transformations]
-. link:../../README.md#y-up-to-z-up[glTF _y_-up to _z_-up transform]
+. xref:{url-specification}README.adoc#core-gltf-node-hierarchy[glTF node hierarchy transformations]
+. xref:{url-specification}README.adoc#core-y-up-to-z-up[glTF _y_-up to _z_-up transform]
 . The per-instance positions and scales, as defined in the feature table of the Instanced 3D Model.
 . The transform for the `RTC_CENTER`, which is used to translate model vertices
-. link:../../README.md#tile-transforms[Tile transform]
+. xref:{url-specification}README.adoc#core-tile-transforms[Tile transform]
 
 [#tileformats-instanced3dmodel-file-extension-and-mime-type]
 == File extension and MIME type

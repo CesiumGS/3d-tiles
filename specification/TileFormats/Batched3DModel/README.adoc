@@ -2,7 +2,27 @@
 [#tileformats-batched3dmodel-batched-3d-model]
 = Batched 3D Model
 
-WARNING: Batched 3D Model was deprecated in 3D Tiles 1.1. See xref:TileFormats/glTF/README.adoc#tileformats-gltf-batched-3d-model-b3dm[`b3dm` migration guide].
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
+:url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
+:url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-styling: {url-specification}Styling/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batchtable:
+:url-specification-tileformats-featuretable:
+:url-specification-tileformats-gltf:
+:url-specification-styling:
+endif::[]
+
+
+WARNING: Batched 3D Model was deprecated in 3D Tiles 1.1. See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-batched-3d-model-b3dm[`b3dm` migration guide].
 
 [#tileformats-batched3dmodel-overview]
 == Overview
@@ -23,7 +43,7 @@ image::figures/layout.png[]
 [#tileformats-batched3dmodel-padding]
 === Padding
 
-A tile's `byteLength` must be aligned to an 8-byte boundary. The contained link:../FeatureTable/README.md#padding[Feature Table] and link:../BatchTable/README.md#padding[Batch Table] must conform to their respective padding requirement.
+A tile's `byteLength` must be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] must conform to their respective padding requirement.
 
 The <<tileformats-batched3dmodel-binary-gltf,binary glTF>> must start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
@@ -71,7 +91,7 @@ The body section immediately follows the header section, and is composed of thre
 
 Contains values for `b3dm` semantics.
 
-More information is available in the xref:../FeatureTable/README.adoc[Feature Table specification].
+More information is available in the xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-feature-table[Feature Table specification].
 
 [#tileformats-batched3dmodel-semantics]
 === Semantics
@@ -103,16 +123,16 @@ These semantics define global properties for all features.
 [#tileformats-batched3dmodel-batch-table]
 == Batch Table
 
-The _Batch Table_ contains per-model application-specific properties, indexable by `batchId`, that can be used for xref:../../Styling/README.adoc[declarative styling] and application-specific use cases such as populating a UI or issuing a REST API request.  In the binary glTF section, each vertex has a numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
+The _Batch Table_ contains per-model application-specific properties, indexable by `batchId`, that can be used for xref:{url-specification-styling}README.adoc#styling-styling[declarative styling] and application-specific use cases such as populating a UI or issuing a REST API request.  In the binary glTF section, each vertex has a numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
 
-See the xref:../BatchTable/README.adoc[Batch Table] reference for more information.
+See the xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-batch-table[Batch Table] reference for more information.
 
 [#tileformats-batched3dmodel-binary-gltf]
 == Binary glTF
 
 Batched 3D Model embeds https://github.com/KhronosGroup/glTF/tree/master/specification/2.0[glTF 2.0] containing model geometry and texture information.
 
-The https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#binary-gltf-layout[binary glTF] immediately follows the Feature Table and Batch Table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
+The https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#binary-gltf-layout[binary glTF] immediately follows the Feature Table and Batch Table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 
 As described above, each vertex has a `batchId` attribute indicating the model to which it belongs.  For example, vertices for a batch with three models may look like this:
 
@@ -132,7 +152,7 @@ normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 
 Note that a vertex can't belong to more than one model; in that case, the vertex needs to be duplicated so the ``batchId``s can be assigned.
 
-The `batchId` parameter is specified in a glTF mesh https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#reference-primitive[primitive] by providing the `_BATCHID` attribute semantic, along with the index of the `batchId` https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessors[accessor]. For example,
+The `batchId` parameter is specified in a glTF link:https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#meshes[mesh primitive] by providing the `_BATCHID` attribute semantic, along with the index of the `batchId` link:https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#accessors[accessor]. For example,
 
 [source,json]
 ----
@@ -169,14 +189,14 @@ When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`
 [#tileformats-batched3dmodel-coordinate-system]
 === Coordinate system
 
-By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See link:../../README.md#gltf-transforms[glTF transforms] for more details.
+By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See xref:{url-specification}README.adoc#core-gltf-transforms[glTF transforms] for more details.
 
-Vertex positions may be defined relative-to-center for high-precision rendering, see http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm[Precisions, Precisions]. If defined, `RTC_CENTER` specifies the center position that all vertex positions are relative to after the coordinate system transform and glTF node hierarchy transforms have been applied. Specifically, when the `RTC_CENTER` is defined in the feature table of a Batched 3D Model, the computation of the link:../../README.md#tile-transforms[tile transform] is done as follows:
+Vertex positions may be defined relative-to-center for high-precision rendering, see http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm[Precisions, Precisions]. If defined, `RTC_CENTER` specifies the center position that all vertex positions are relative to after the coordinate system transform and glTF node hierarchy transforms have been applied. Specifically, when the `RTC_CENTER` is defined in the feature table of a Batched 3D Model, the computation of the xref:{url-specification}README.adoc#core-tile-transforms[tile transform] is done as follows:
 
-. link:../../README.md#gltf-node-hierarchy[glTF node hierarchy transformations]
-. link:../../README.md#y-up-to-z-up[glTF _y_-up to _z_-up transform]
+. xref:{url-specification}README.adoc#core-gltf-node-hierarchy[glTF node hierarchy transformations]
+. xref:{url-specification}README.adoc#core-y-up-to-z-up[glTF _y_-up to _z_-up transform]
 . The transform for the `RTC_CENTER`, which is used to translate model vertices
-. link:../../README.md#tile-transforms[Tile transform]
+. xref:{url-specification}README.adoc#core-tile-transforms[Tile transform]
 
 [#tileformats-batched3dmodel-file-extension-and-mime-type]
 == File extension and MIME type
