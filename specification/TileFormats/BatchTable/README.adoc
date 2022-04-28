@@ -11,6 +11,7 @@ ifdef::env-github[]
 :url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
 :url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
 :url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-gltf-migration: {url-specification-tileformats-gltf}MIGRATION.adoc
 :url-specification-tileformats-instanced3dmodel: {url-specification-tileformats}Instanced3DModel/
 :url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
 endif::[]
@@ -21,12 +22,13 @@ ifndef::env-github[]
 :url-specification-tileformats-batchtable:
 :url-specification-tileformats-featuretable:
 :url-specification-tileformats-gltf:
+:url-specification-tileformats-gltf-migration:
 :url-specification-tileformats-instanced3dmodel:
 :url-specification-tileformats-pointcloud:
 endif::[]
 
 
-WARNING:  Batch Table was deprecated in 3D Tiles 1.1. See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-migration-from-legacy-tile-formats[glTF migration guide].
+WARNING:  Batch Table was deprecated in 3D Tiles 1.1. See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-migration-from-legacy-tile-formats[glTF migration guide].
 
 [#tileformats-batchtable-overview]
 == Overview

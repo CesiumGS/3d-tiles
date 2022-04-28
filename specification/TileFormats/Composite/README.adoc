@@ -7,13 +7,17 @@
 ifdef::env-github[]
 :url-specification: ../../
 :url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-gltf-migration: {url-specification-tileformats-gltf}MIGRATION.adoc
 endif::[]
 ifndef::env-github[]
 :url-specification:
 :url-specification-tileformats:
+:url-specification-tileformats-gltf:
+:url-specification-tileformats-gltf-migration:
 endif::[]
 
-WARNING: Composite was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-composite-cmpt[`cmpt` migration guide].
+WARNING: Composite was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-composite-cmpt[`cmpt` migration guide].
 
 [#tileformats-composite-overview]
 == Overview

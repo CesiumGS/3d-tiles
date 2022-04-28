@@ -11,6 +11,7 @@ ifdef::env-github[]
 :url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
 :url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
 :url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-gltf-migration: {url-specification-tileformats-gltf}MIGRATION.adoc
 :url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
 endif::[]
 ifndef::env-github[]
@@ -20,10 +21,11 @@ ifndef::env-github[]
 :url-specification-tileformats-batchtable:
 :url-specification-tileformats-featuretable:
 :url-specification-tileformats-gltf:
+:url-specification-tileformats-gltf-migration:
 :url-specification-tileformats-pointcloud:
 endif::[]
 
-WARNING: Feature Table was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-migration-from-legacy-tile-formats[glTF migration guide].
+WARNING: Feature Table was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-migration-from-legacy-tile-formats[glTF migration guide].
 
 [#tileformats-featuretable-overview]
 == Overview

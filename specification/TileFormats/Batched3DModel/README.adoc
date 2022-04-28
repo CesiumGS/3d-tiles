@@ -10,6 +10,7 @@ ifdef::env-github[]
 :url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
 :url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
 :url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-gltf-migration: {url-specification-tileformats-gltf}MIGRATION.adoc
 :url-specification-styling: {url-specification}Styling/
 endif::[]
 ifndef::env-github[]
@@ -18,11 +19,12 @@ ifndef::env-github[]
 :url-specification-tileformats-batchtable:
 :url-specification-tileformats-featuretable:
 :url-specification-tileformats-gltf:
+:url-specification-tileformats-gltf-migration:
 :url-specification-styling:
 endif::[]
 
 
-WARNING: Batched 3D Model was deprecated in 3D Tiles 1.1. See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-batched-3d-model-b3dm[`b3dm` migration guide].
+WARNING: Batched 3D Model was deprecated in 3D Tiles 1.1. See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-batched-3d-model-b3dm[`b3dm` migration guide].
 
 [#tileformats-batched3dmodel-overview]
 == Overview

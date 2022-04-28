@@ -10,6 +10,7 @@ ifdef::env-github[]
 :url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
 :url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
 :url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-gltf-migration: {url-specification-tileformats-gltf}MIGRATION.adoc
 :url-specification-styling: {url-specification}Styling/
 endif::[]
 ifndef::env-github[]
@@ -19,10 +20,11 @@ ifndef::env-github[]
 :url-specification-tileformats-batchtable:
 :url-specification-tileformats-featuretable:
 :url-specification-tileformats-gltf:
+:url-specification-tileformats-gltf-migration:
 :url-specification-styling:
 endif::[]
 
-WARNING: Point Cloud was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-point-cloud-pnts[`pnts` migration guide].
+WARNING: Point Cloud was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-point-cloud-pnts[`pnts` migration guide].
 
 [#tileformats-pointcloud-overview]
 == Overview

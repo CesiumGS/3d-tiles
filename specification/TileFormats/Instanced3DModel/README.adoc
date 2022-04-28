@@ -10,6 +10,7 @@ ifdef::env-github[]
 :url-specification-tileformats-composite: {url-specification-tileformats}Composite/
 :url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
 :url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-gltf-migration: {url-specification-tileformats-gltf}MIGRATION.adoc
 endif::[]
 ifndef::env-github[]
 :url-specification:
@@ -18,9 +19,10 @@ ifndef::env-github[]
 :url-specification-tileformats-composite:
 :url-specification-tileformats-featuretable:
 :url-specification-tileformats-gltf:
+:url-specification-tileformats-gltf-migration:
 endif::[]
 
-WARNING: Instanced 3D Model was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-instanced-3d-model-i3dm[`i3dm` migration guide].
+WARNING: Instanced 3D Model was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-instanced-3d-model-i3dm[`i3dm` migration guide].
 
 [#tileformats-instanced3dmodel-overview]
 == Overview
