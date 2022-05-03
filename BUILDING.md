@@ -90,7 +90,7 @@ where `directoryName` is the full directory name in lowercase (with subdirectori
 
 received the ID 
 
-`[#metadata-semantics-overview]`
+`[#metadata-referenceimplementation-overview]`
 
 
 ### Cross-linking between files 
