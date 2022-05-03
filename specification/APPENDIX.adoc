@@ -2,6 +2,9 @@
 :leveloffset: +1
 
 [appendix]
+include::PROPERTY_REFERENCE.adoc[]
+
+[appendix]
 :imagesdir: TileFormats/glTF
 include::TileFormats/glTF/MIGRATION.adoc[]
 

@@ -1,0 +1,185 @@
+= Objects
+* <<reference-tile-boundingvolume,`Bounding Volume`>>
+* <<reference-tile-content,`Content`>>
+** <<reference-tile-metadataentity,`Metadata Entity`>>
+*** <<reference-tile-definitions-definitions-anyvalue,`Any Value`>>
+**** <<reference-tile-definitions-definitions-booleanarray1d,`Boolean 1D Array`>>
+**** <<reference-tile-definitions-definitions-numericvalue,`Numeric Value`>>
+***** <<reference-tile-definitions-definitions-numericarray1d,`Numeric 1D Array`>>
+***** <<reference-tile-definitions-definitions-numericarray2d,`Numeric 2D Array`>>
+**** <<reference-tile-definitions-definitions-stringarray1d,`String 1D Array`>>
+* <<reference-tile-tile-implicittiling,`Implicit tiling`>>
+** <<reference-tile-subtrees,`Subtrees`>>
+*** <<reference-tile-templateuri,`Template URI`>>
+* <<reference-tile-tile,`Tile`>> (root object)
+
+
+'''
+[#reference-tile-definitions-definitions-anyvalue]
+== Any Value
+
+For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `BOOLEAN` this is a boolean. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length array this is an array of `count` elements of the given `type`. For variable-length arrays this is an array of any length of the given `type`.
+
+
+
+'''
+[#reference-tile-definitions-definitions-booleanarray1d]
+== Boolean 1D Array
+
+An array of boolean values
+
+
+
+'''
+[#reference-tile-boundingvolume]
+== Bounding Volume
+
+A bounding volume that encloses a tile or its content. At least one bounding volume property is required. Bounding volumes include `box`, `region`, or `sphere`.
+
+
+
+'''
+[#reference-tile-content]
+== Content
+
+Metadata about the tile's content and a link to the content.
+
+
+
+'''
+[#reference-tile-extension]
+== Extension
+
+Dictionary object with extension-specific objects.
+
+Additional properties are allowed.
+
+* **JSON schema**: link:schema/extension.schema.json[extension.schema.json]
+
+
+
+
+'''
+[#reference-tile-extras]
+== Extras
+
+Application-specific data.
+
+
+
+'''
+[#reference-tile-tile-implicittiling]
+== Implicit tiling
+
+This object allows a tile to be implicitly subdivided. Tile and content availability and metadata is stored in subtrees which are referenced externally.
+
+
+
+'''
+[#reference-tile-metadataentity]
+== Metadata Entity
+
+An object containing a reference to a class from a metadata schema, and property values that conform to the properties of that class.
+
+
+
+'''
+[#reference-tile-definitions-definitions-numericarray1d]
+== Numeric 1D Array
+
+An array of numeric values
+
+
+
+'''
+[#reference-tile-definitions-definitions-numericarray2d]
+== Numeric 2D Array
+
+An array of arrays of numeric values
+
+
+
+'''
+[#reference-tile-definitions-definitions-numericvalue]
+== Numeric Value
+
+For `SCALAR` this is a number. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`.
+
+
+
+'''
+[#reference-tile-rootproperty]
+== Root Property
+
+A basis for storing extensions and extras.
+
+.`Root Property` Properties
+|===
+|   |Type|Description|Required
+
+|**extensions**
+|<<reference-tile-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-tile-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+Additional properties are allowed.
+
+* **JSON schema**: link:schema/rootProperty.schema.json[rootProperty.schema.json]
+
+=== rootProperty.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-tile-extension,`extension`>>
+* **Required**: No
+* **Type of each property**: Extension
+
+=== rootProperty.extras
+
+Application-specific data.
+
+* **Type**: <<reference-tile-extras,`extras`>>
+* **Required**: No
+
+
+
+
+'''
+[#reference-tile-definitions-definitions-stringarray1d]
+== String 1D Array
+
+An array of string values
+
+
+
+'''
+[#reference-tile-subtrees]
+== Subtrees
+
+An object describing the location of subtree files.
+
+
+
+'''
+[#reference-tile-templateuri]
+== Template URI
+
+A URI with embedded expressions that describes the resource that is associated with an implicit tile in an implicit tileset. Allowed expressions are `{level}`, `{x}`, `{y}`, and `{z}`. `{level}` is substituted with the level of the node, `{x}` is substituted with the x index of the node within the level, and `{y}` is substituted with the y index of the node within the level. `{z}` may only be given when the subdivision scheme is `OCTREE`, and it is substituted with the z index of the node within the level.
+
+
+
+'''
+[#reference-tile-tile]
+== Tile
+
+A tile in a 3D Tiles tileset.
+
+
+

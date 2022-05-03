@@ -1,0 +1,13 @@
+= Property References
+
+== Tileset Properties
+include::propertyReferences/PropertiesReference_tileset.adoc[leveloffset=+2]
+
+== Tile Properties
+include::propertyReferences/PropertiesReference_tile.adoc[leveloffset=+2]
+
+== Style Properties
+include::propertyReferences/PropertiesReference_style.adoc[leveloffset=+2]
+
+== Batched 3D Model Feature Table Properties
+include::propertyReferences/PropertiesReference_b3dm_featureTable.adoc[leveloffset=+2]

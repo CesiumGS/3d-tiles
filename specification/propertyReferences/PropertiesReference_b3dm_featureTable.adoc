@@ -1,0 +1,242 @@
+= Objects
+* <<reference-tileformats-batched3dmodel-batched-3d-model-feature-table,`Batched 3D Model Feature Table`>> (root object)
+* <<reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertycartesian3,`GlobalPropertyCartesian3`>>
+* <<reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertyinteger,`GlobalPropertyInteger`>>
+* <<reference-tileformats-batched3dmodel-rootproperty,`Root Property`>>
+** <<reference-tileformats-batched3dmodel-extension,`Extension`>>
+** <<reference-tileformats-batched3dmodel-extras,`Extras`>>
+
+
+'''
+[#reference-tileformats-batched3dmodel-batched-3d-model-feature-table]
+== Batched 3D Model Feature Table
+
+A set of Batched 3D Model semantics that contain additional information about features in a tile.
+
+.`Batched 3D Model Feature Table` Properties
+|===
+|   |Type|Description|Required
+
+|**BATCH_LENGTH**
+|<<reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertyinteger,`featureTable/definitions/globalPropertyInteger`>>
+|A <<reference-tileformats-batched3dmodel-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all features. Details about this property are described in the 3D Tiles specification.
+| &#10003; Yes
+
+|**RTC_CENTER**
+|<<reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertycartesian3,`featureTable/definitions/globalPropertyCartesian3`>>
+|A <<reference-tileformats-batched3dmodel-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all features. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**extensions**
+|<<reference-tileformats-batched3dmodel-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-tileformats-batched3dmodel-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+Additional properties are allowed.
+
+* **JSON schema**: link:schema/b3dm.featureTable.schema.json[b3dm.featureTable.schema.json]
+
+=== Batched 3D Model Feature Table.BATCH_LENGTH
+
+A <<reference-tileformats-batched3dmodel-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all features. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertyinteger,`featureTable/definitions/globalPropertyInteger`>>
+* **Required**:  &#10003; Yes
+
+=== Batched 3D Model Feature Table.RTC_CENTER
+
+A <<reference-tileformats-batched3dmodel-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all features. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertycartesian3,`featureTable/definitions/globalPropertyCartesian3`>>
+* **Required**: No
+
+=== Batched 3D Model Feature Table.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-tileformats-batched3dmodel-extension,`extension`>>
+* **Required**: No
+* **Type of each property**: Extension
+
+=== Batched 3D Model Feature Table.extras
+
+Application-specific data.
+
+* **Type**: <<reference-tileformats-batched3dmodel-extras,`extras`>>
+* **Required**: No
+
+
+
+
+'''
+[#reference-tileformats-batched3dmodel-featuretable-definitions-binarybodyreference]
+== BinaryBodyReference
+
+An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
+
+
+
+'''
+[#reference-tileformats-batched3dmodel-extension]
+== Extension
+
+Dictionary object with extension-specific objects.
+
+Additional properties are allowed.
+
+* **JSON schema**: link:schema/extension.schema.json[extension.schema.json]
+
+
+
+
+'''
+[#reference-tileformats-batched3dmodel-extras]
+== Extras
+
+Application-specific data.
+
+
+
+'''
+[#reference-tileformats-batched3dmodel-featuretable]
+== Feature Table
+
+A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.
+
+.`Feature Table` Properties
+|===
+|   |Type|Description|Required
+
+|**extensions**
+|<<reference-tileformats-batched3dmodel-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-tileformats-batched3dmodel-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+Additional properties are allowed.
+
+* **JSON schema**: link:schema/featureTable.schema.json[featureTable.schema.json]
+
+=== featureTable.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-tileformats-batched3dmodel-extension,`extension`>>
+* **Required**: No
+* **Type of each property**: Extension
+
+=== featureTable.extras
+
+Application-specific data.
+
+* **Type**: <<reference-tileformats-batched3dmodel-extras,`extras`>>
+* **Required**: No
+
+
+
+
+'''
+[#reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertyboolean]
+== GlobalPropertyBoolean
+
+An object defining a global boolean property value for all features.
+
+
+
+'''
+[#reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertycartesian3]
+== GlobalPropertyCartesian3
+
+An object defining a global 3-component numeric property values for all features.
+
+
+
+'''
+[#reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertycartesian4]
+== GlobalPropertyCartesian4
+
+An object defining a global 4-component numeric property values for all features.
+
+
+
+'''
+[#reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertyinteger]
+== GlobalPropertyInteger
+
+An object defining a global integer property value for all features.
+
+
+
+'''
+[#reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertynumber]
+== GlobalPropertyNumber
+
+An object defining a global numeric property value for all features.
+
+
+
+'''
+[#reference-tileformats-batched3dmodel-featuretable-definitions-property]
+== Property
+
+A user-defined property which specifies application-specific metadata in a tile. Values can refer to sections in the binary body with a <<reference-tileformats-batched3dmodel-binarybodyreference,`BinaryBodyReference`>> object. Global values can be also be defined directly in the JSON.
+
+
+
+'''
+[#reference-tileformats-batched3dmodel-rootproperty]
+== Root Property
+
+A basis for storing extensions and extras.
+
+.`Root Property` Properties
+|===
+|   |Type|Description|Required
+
+|**extensions**
+|<<reference-tileformats-batched3dmodel-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-tileformats-batched3dmodel-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+Additional properties are allowed.
+
+* **JSON schema**: link:schema/rootProperty.schema.json[rootProperty.schema.json]
+
+=== rootProperty.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-tileformats-batched3dmodel-extension,`extension`>>
+* **Required**: No
+* **Type of each property**: Extension
+
+=== rootProperty.extras
+
+Application-specific data.
+
+* **Type**: <<reference-tileformats-batched3dmodel-extras,`extras`>>
+* **Required**: No
+
+
+
+
