@@ -1,0 +1,415 @@
+= Objects
+* <<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`BinaryBodyReference`>>
+* <<reference-tileformats-pointcloud-featuretable-definitions-globalpropertycartesian3,`GlobalPropertyCartesian3`>>
+* <<reference-tileformats-pointcloud-featuretable-definitions-globalpropertycartesian4,`GlobalPropertyCartesian4`>>
+* <<reference-tileformats-pointcloud-featuretable-definitions-globalpropertyinteger,`GlobalPropertyInteger`>>
+* <<reference-tileformats-pointcloud-point-cloud-feature-table,`Point Cloud Feature Table`>> (root object)
+
+
+'''
+[#reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference]
+== BinaryBodyReference
+
+An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
+
+.`BinaryBodyReference` Properties
+|===
+|   |Type|Description|Required
+
+|**byteOffset**
+|`integer`
+|The offset into the buffer in bytes.
+| &#10003; Yes
+
+|**componentType**
+|`string`
+|The datatype of components in the property. This is defined only if the semantic allows for overriding the implicit component type. These cases are specified in each tile format.
+|No
+
+|**extensions**
+|<<reference-tileformats-pointcloud-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-tileformats-pointcloud-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-tileformats-pointcloud-schema-featuretable-definitions-binarybodyreference,`featureTable.schema.json`>>
+
+=== featureTable/definitions/binaryBodyReference.byteOffset
+
+The offset into the buffer in bytes.
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: `&gt;= 0`
+
+=== featureTable/definitions/binaryBodyReference.componentType
+
+The datatype of components in the property. This is defined only if the semantic allows for overriding the implicit component type. These cases are specified in each tile format.
+
+* **Type**: `string`
+* **Required**: No
+* **Allowed values**:
+** `"BYTE"`
+** `"UNSIGNED_BYTE"`
+** `"SHORT"`
+** `"UNSIGNED_SHORT"`
+** `"INT"`
+** `"UNSIGNED_INT"`
+** `"FLOAT"`
+** `"DOUBLE"`
+
+=== featureTable/definitions/binaryBodyReference.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-tileformats-pointcloud-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== featureTable/definitions/binaryBodyReference.extras
+
+Application-specific data.
+
+* **Type**: <<reference-tileformats-pointcloud-extras,`extras`>>
+* **Required**: No
+
+
+
+
+'''
+[#reference-tileformats-pointcloud-extension]
+== Extension
+
+Dictionary object with extension-specific objects.
+
+* **Additional properties are allowed.**
+* **Type of additional properties**: `object`
+* **JSON schema**: <<reference-tileformats-pointcloud-schema-extension,`extension.schema.json`>>
+
+
+
+
+'''
+[#reference-tileformats-pointcloud-extras]
+== Extras
+
+Application-specific data.
+
+
+
+'''
+[#reference-tileformats-pointcloud-featuretable]
+== Feature Table
+
+A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.
+
+.`Feature Table` Properties
+|===
+|   |Type|Description|Required
+
+|**extensions**
+|<<reference-tileformats-pointcloud-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-tileformats-pointcloud-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **Type of additional properties**: `featureTable/definitions/property`
+* **JSON schema**: <<reference-tileformats-pointcloud-schema-featuretable,`featureTable.schema.json`>>
+
+=== featureTable.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-tileformats-pointcloud-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== featureTable.extras
+
+Application-specific data.
+
+* **Type**: <<reference-tileformats-pointcloud-extras,`extras`>>
+* **Required**: No
+
+
+
+
+'''
+[#reference-tileformats-pointcloud-featuretable-definitions-globalpropertyboolean]
+== GlobalPropertyBoolean
+
+An object defining a global boolean property value for all features.
+
+
+
+'''
+[#reference-tileformats-pointcloud-featuretable-definitions-globalpropertycartesian3]
+== GlobalPropertyCartesian3
+
+An object defining a global 3-component numeric property values for all features.
+
+
+
+'''
+[#reference-tileformats-pointcloud-featuretable-definitions-globalpropertycartesian4]
+== GlobalPropertyCartesian4
+
+An object defining a global 4-component numeric property values for all features.
+
+
+
+'''
+[#reference-tileformats-pointcloud-featuretable-definitions-globalpropertyinteger]
+== GlobalPropertyInteger
+
+An object defining a global integer property value for all features.
+
+
+
+'''
+[#reference-tileformats-pointcloud-featuretable-definitions-globalpropertynumber]
+== GlobalPropertyNumber
+
+An object defining a global numeric property value for all features.
+
+
+
+'''
+[#reference-tileformats-pointcloud-point-cloud-feature-table]
+== Point Cloud Feature Table
+
+A set of Point Cloud semantics that contains values defining the position and appearance properties for points in a tile.
+
+.`Point Cloud Feature Table` Properties
+|===
+|   |Type|Description|Required
+
+|**POSITION**
+|<<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+|A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**POSITION_QUANTIZED**
+|<<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+|A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**RGBA**
+|<<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+|A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**RGB**
+|<<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+|A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**RGB565**
+|<<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+|A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**NORMAL**
+|<<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+|A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**NORMAL_OCT16P**
+|<<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+|A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**BATCH_ID**
+|<<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+|A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**POINTS_LENGTH**
+|<<reference-tileformats-pointcloud-featuretable-definitions-globalpropertyinteger,`featureTable/definitions/globalPropertyInteger`>>
+|A <<reference-tileformats-pointcloud-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all points. Details about this property are described in the 3D Tiles specification.
+| &#10003; Yes
+
+|**RTC_CENTER**
+|<<reference-tileformats-pointcloud-featuretable-definitions-globalpropertycartesian3,`featureTable/definitions/globalPropertyCartesian3`>>
+|A <<reference-tileformats-pointcloud-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all points. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**QUANTIZED_VOLUME_OFFSET**
+|<<reference-tileformats-pointcloud-featuretable-definitions-globalpropertycartesian3,`featureTable/definitions/globalPropertyCartesian3`>>
+|A <<reference-tileformats-pointcloud-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all points. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**QUANTIZED_VOLUME_SCALE**
+|<<reference-tileformats-pointcloud-featuretable-definitions-globalpropertycartesian3,`featureTable/definitions/globalPropertyCartesian3`>>
+|A <<reference-tileformats-pointcloud-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all points. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**CONSTANT_RGBA**
+|<<reference-tileformats-pointcloud-featuretable-definitions-globalpropertycartesian4,`featureTable/definitions/globalPropertyCartesian4`>>
+|A <<reference-tileformats-pointcloud-globalpropertycartesian4,`GlobalPropertyCartesian4`>> object defining a 4-component numeric property for all points. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**BATCH_LENGTH**
+|<<reference-tileformats-pointcloud-featuretable-definitions-globalpropertyinteger,`featureTable/definitions/globalPropertyInteger`>>
+|A <<reference-tileformats-pointcloud-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all points. Details about this property are described in the 3D Tiles specification.
+|No
+
+|**extensions**
+|<<reference-tileformats-pointcloud-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-tileformats-pointcloud-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **Type of additional properties**: `featureTable/definitions/property`
+* **JSON schema**: <<reference-tileformats-pointcloud-schema-point-cloud-feature-table,`pnts.featureTable.schema.json`>>
+
+=== Point Cloud Feature Table.POSITION
+
+A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.POSITION_QUANTIZED
+
+A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.RGBA
+
+A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.RGB
+
+A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.RGB565
+
+A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.NORMAL
+
+A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.NORMAL_OCT16P
+
+A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.BATCH_ID
+
+A <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-binarybodyreference,`featureTable/definitions/binaryBodyReference`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.POINTS_LENGTH
+
+A <<reference-tileformats-pointcloud-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all points. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-globalpropertyinteger,`featureTable/definitions/globalPropertyInteger`>>
+* **Required**:  &#10003; Yes
+
+=== Point Cloud Feature Table.RTC_CENTER
+
+A <<reference-tileformats-pointcloud-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all points. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-globalpropertycartesian3,`featureTable/definitions/globalPropertyCartesian3`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.QUANTIZED_VOLUME_OFFSET
+
+A <<reference-tileformats-pointcloud-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all points. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-globalpropertycartesian3,`featureTable/definitions/globalPropertyCartesian3`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.QUANTIZED_VOLUME_SCALE
+
+A <<reference-tileformats-pointcloud-globalpropertycartesian3,`GlobalPropertyCartesian3`>> object defining a 3-component numeric property for all points. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-globalpropertycartesian3,`featureTable/definitions/globalPropertyCartesian3`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.CONSTANT_RGBA
+
+A <<reference-tileformats-pointcloud-globalpropertycartesian4,`GlobalPropertyCartesian4`>> object defining a 4-component numeric property for all points. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-globalpropertycartesian4,`featureTable/definitions/globalPropertyCartesian4`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.BATCH_LENGTH
+
+A <<reference-tileformats-pointcloud-globalpropertyinteger,`GlobalPropertyInteger`>> object defining an integer property for all points. Details about this property are described in the 3D Tiles specification.
+
+* **Type**: <<reference-tileformats-pointcloud-featuretable-definitions-globalpropertyinteger,`featureTable/definitions/globalPropertyInteger`>>
+* **Required**: No
+
+=== Point Cloud Feature Table.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-tileformats-pointcloud-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== Point Cloud Feature Table.extras
+
+Application-specific data.
+
+* **Type**: <<reference-tileformats-pointcloud-extras,`extras`>>
+* **Required**: No
+
+
+
+
+'''
+[#reference-tileformats-pointcloud-featuretable-definitions-property]
+== Property
+
+A user-defined property which specifies application-specific metadata in a tile. Values can refer to sections in the binary body with a <<reference-tileformats-pointcloud-binarybodyreference,`BinaryBodyReference`>> object. Global values can be also be defined directly in the JSON.
+
+
+
+
+

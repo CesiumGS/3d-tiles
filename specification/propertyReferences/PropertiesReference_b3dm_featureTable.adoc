@@ -2,9 +2,6 @@
 * <<reference-tileformats-batched3dmodel-batched-3d-model-feature-table,`Batched 3D Model Feature Table`>> (root object)
 * <<reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertycartesian3,`GlobalPropertyCartesian3`>>
 * <<reference-tileformats-batched3dmodel-featuretable-definitions-globalpropertyinteger,`GlobalPropertyInteger`>>
-* <<reference-tileformats-batched3dmodel-rootproperty,`Root Property`>>
-** <<reference-tileformats-batched3dmodel-extension,`Extension`>>
-** <<reference-tileformats-batched3dmodel-extras,`Extras`>>
 
 
 '''
@@ -39,9 +36,9 @@ A set of Batched 3D Model semantics that contain additional information about fe
 
 |===
 
-Additional properties are allowed.
-
-* **JSON schema**: link:schema/b3dm.featureTable.schema.json[b3dm.featureTable.schema.json]
+* **Additional properties are allowed.**
+* **Type of additional properties**: `featureTable/definitions/property`
+* **JSON schema**: <<reference-tileformats-batched3dmodel-schema-batched-3d-model-feature-table,`b3dm.featureTable.schema.json`>>
 
 === Batched 3D Model Feature Table.BATCH_LENGTH
 
@@ -63,7 +60,8 @@ Dictionary object with extension-specific objects.
 
 * **Type**: <<reference-tileformats-batched3dmodel-extension,`extension`>>
 * **Required**: No
-* **Type of each property**: Extension
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
 
 === Batched 3D Model Feature Table.extras
 
@@ -81,6 +79,76 @@ Application-specific data.
 
 An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
 
+.`BinaryBodyReference` Properties
+|===
+|   |Type|Description|Required
+
+|**byteOffset**
+|`integer`
+|The offset into the buffer in bytes.
+| &#10003; Yes
+
+|**componentType**
+|`string`
+|The datatype of components in the property. This is defined only if the semantic allows for overriding the implicit component type. These cases are specified in each tile format.
+|No
+
+|**extensions**
+|<<reference-tileformats-batched3dmodel-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-tileformats-batched3dmodel-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-tileformats-batched3dmodel-schema-featuretable-definitions-binarybodyreference,`featureTable.schema.json`>>
+
+=== featureTable/definitions/binaryBodyReference.byteOffset
+
+The offset into the buffer in bytes.
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: `&gt;= 0`
+
+=== featureTable/definitions/binaryBodyReference.componentType
+
+The datatype of components in the property. This is defined only if the semantic allows for overriding the implicit component type. These cases are specified in each tile format.
+
+* **Type**: `string`
+* **Required**: No
+* **Allowed values**:
+** `"BYTE"`
+** `"UNSIGNED_BYTE"`
+** `"SHORT"`
+** `"UNSIGNED_SHORT"`
+** `"INT"`
+** `"UNSIGNED_INT"`
+** `"FLOAT"`
+** `"DOUBLE"`
+
+=== featureTable/definitions/binaryBodyReference.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-tileformats-batched3dmodel-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== featureTable/definitions/binaryBodyReference.extras
+
+Application-specific data.
+
+* **Type**: <<reference-tileformats-batched3dmodel-extras,`extras`>>
+* **Required**: No
+
+
 
 
 '''
@@ -89,9 +157,9 @@ An object defining the reference to a section of the binary body of the features
 
 Dictionary object with extension-specific objects.
 
-Additional properties are allowed.
-
-* **JSON schema**: link:schema/extension.schema.json[extension.schema.json]
+* **Additional properties are allowed.**
+* **Type of additional properties**: `object`
+* **JSON schema**: <<reference-tileformats-batched3dmodel-schema-extension,`extension.schema.json`>>
 
 
 
@@ -126,9 +194,9 @@ A set of semantics containing per-tile and per-feature values defining the posit
 
 |===
 
-Additional properties are allowed.
-
-* **JSON schema**: link:schema/featureTable.schema.json[featureTable.schema.json]
+* **Additional properties are allowed.**
+* **Type of additional properties**: `featureTable/definitions/property`
+* **JSON schema**: <<reference-tileformats-batched3dmodel-schema-featuretable,`featureTable.schema.json`>>
 
 === featureTable.extensions
 
@@ -136,7 +204,8 @@ Dictionary object with extension-specific objects.
 
 * **Type**: <<reference-tileformats-batched3dmodel-extension,`extension`>>
 * **Required**: No
-* **Type of each property**: Extension
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
 
 === featureTable.extras
 
@@ -194,48 +263,6 @@ An object defining a global numeric property value for all features.
 
 A user-defined property which specifies application-specific metadata in a tile. Values can refer to sections in the binary body with a <<reference-tileformats-batched3dmodel-binarybodyreference,`BinaryBodyReference`>> object. Global values can be also be defined directly in the JSON.
 
-
-
-'''
-[#reference-tileformats-batched3dmodel-rootproperty]
-== Root Property
-
-A basis for storing extensions and extras.
-
-.`Root Property` Properties
-|===
-|   |Type|Description|Required
-
-|**extensions**
-|<<reference-tileformats-batched3dmodel-extension,`extension`>>
-|Dictionary object with extension-specific objects.
-|No
-
-|**extras**
-|<<reference-tileformats-batched3dmodel-extras,`extras`>>
-|Application-specific data.
-|No
-
-|===
-
-Additional properties are allowed.
-
-* **JSON schema**: link:schema/rootProperty.schema.json[rootProperty.schema.json]
-
-=== rootProperty.extensions
-
-Dictionary object with extension-specific objects.
-
-* **Type**: <<reference-tileformats-batched3dmodel-extension,`extension`>>
-* **Required**: No
-* **Type of each property**: Extension
-
-=== rootProperty.extras
-
-Application-specific data.
-
-* **Type**: <<reference-tileformats-batched3dmodel-extras,`extras`>>
-* **Required**: No
 
 
 

@@ -5,6 +5,9 @@
 include::PROPERTY_REFERENCE.adoc[]
 
 [appendix]
+include::PROPERTY_REFERENCE_SCHEMA.adoc[]
+
+[appendix]
 :imagesdir: TileFormats/glTF
 include::TileFormats/glTF/MIGRATION.adoc[]
 

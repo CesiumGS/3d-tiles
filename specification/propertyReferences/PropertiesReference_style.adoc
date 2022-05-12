@@ -5,6 +5,9 @@
 ** <<reference-styling-style-conditions-condition,`Condition`>>
 * <<reference-styling-style-expression,`Expression`>>
 * <<reference-styling-style-meta,`Meta`>>
+* <<reference-styling-rootproperty,`Root Property`>>
+** <<reference-styling-extension,`Extension`>>
+** <<reference-styling-extras,`Extras`>>
 * <<reference-styling-style,`Style`>> (root object)
 
 
@@ -38,6 +41,54 @@ An `expression` evaluated as the result of a condition being true. An array of t
 
 A series of conditions evaluated in order, like a series of if...else statements that result in an expression being evaluated.
 
+.`Conditions` Properties
+|===
+|   |Type|Description|Required
+
+|**conditions**
+|<<reference-styling-array,`array`>> `[]`
+|A series of boolean conditions evaluated in order. For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned. Result expressions must all be the same type. If no condition evaluates to true, the result is <<reference-styling-undefined,`undefined`>>. When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.
+|No
+
+|**extensions**
+|<<reference-styling-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-styling-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-styling-schema-style-conditions,`style.conditions.schema.json`>>
+
+=== style.conditions.conditions
+
+A series of boolean conditions evaluated in order. For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned. Result expressions must all be the same type. If no condition evaluates to true, the result is <<reference-styling-undefined,`undefined`>>. When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.
+
+* **Type**: <<reference-styling-array,`array`>> `[]`
+* **Required**: No
+
+=== style.conditions.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-styling-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== style.conditions.extras
+
+Application-specific data.
+
+* **Type**: <<reference-styling-extras,`extras`>>
+* **Required**: No
+
+
 
 
 '''
@@ -54,9 +105,9 @@ A valid 3D Tiles style expression. Details are described in the 3D Tiles Styling
 
 Dictionary object with extension-specific objects.
 
-Additional properties are allowed.
-
-* **JSON schema**: link:schema/extension.schema.json[extension.schema.json]
+* **Additional properties are allowed.**
+* **Type of additional properties**: `object`
+* **JSON schema**: <<reference-styling-schema-extension,`extension.schema.json`>>
 
 
 
@@ -74,6 +125,43 @@ Application-specific data.
 == Meta
 
 A series of property names and the `expression` to evaluate for the value of that property.
+
+.`Meta` Properties
+|===
+|   |Type|Description|Required
+
+|**extensions**
+|<<reference-styling-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-styling-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **Type of additional properties**: `style.expression`
+* **JSON schema**: <<reference-styling-schema-style-meta,`style.meta.schema.json`>>
+
+=== style.meta.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-styling-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== style.meta.extras
+
+Application-specific data.
+
+* **Type**: <<reference-styling-extras,`extras`>>
+* **Required**: No
+
 
 
 
@@ -99,9 +187,8 @@ A basis for storing extensions and extras.
 
 |===
 
-Additional properties are allowed.
-
-* **JSON schema**: link:schema/rootProperty.schema.json[rootProperty.schema.json]
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-styling-schema-rootproperty,`rootProperty.schema.json`>>
 
 === rootProperty.extensions
 
@@ -109,7 +196,8 @@ Dictionary object with extension-specific objects.
 
 * **Type**: <<reference-styling-extension,`extension`>>
 * **Required**: No
-* **Type of each property**: Extension
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
 
 === rootProperty.extras
 
@@ -163,9 +251,8 @@ A 3D Tiles style.
 
 |===
 
-Additional properties are allowed.
-
-* **JSON schema**: link:schema/style.schema.json[style.schema.json]
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-styling-schema-style,`style.schema.json`>>
 
 === Style.defines
 
@@ -173,6 +260,7 @@ A dictionary object of `expression` strings mapped to a variable name key that m
 
 * **Type**: `object`
 * **Required**: No
+* **Additional properties are allowed.**
 * **Type of each property**: `style.expression`
 
 === Style.show
@@ -195,6 +283,8 @@ A `meta` object which determines the values of non-visual properties of the feat
 
 * **Type**: <<reference-styling-style-meta,`style.meta`>>
 * **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `style.expression`
 
 === Style.extensions
 
@@ -202,7 +292,8 @@ Dictionary object with extension-specific objects.
 
 * **Type**: <<reference-styling-extension,`extension`>>
 * **Required**: No
-* **Type of each property**: Extension
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
 
 === Style.extras
 

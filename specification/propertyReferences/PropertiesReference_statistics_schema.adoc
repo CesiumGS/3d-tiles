@@ -1,0 +1,494 @@
+
+
+'''
+[#reference-statistics-schema-statistics-class]
+== JSON Schema for Class Statistics
+
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "statistics.class.schema.json",
+    "title": "Class Statistics",
+    "$ref": "rootProperty.schema.json",
+    "description": "Statistics about entities that conform to a class.",
+    "properties": {
+        "count": {
+            "type": "integer",
+            "description": "The number of entities that conform to the class.",
+            "minimum": 0
+        },
+        "properties": {
+            "type": "object",
+            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object containing statistics about property values.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "statistics.class.property.schema.json"
+            }
+        }
+    }
+}
+----
+
+
+'''
+[#reference-statistics-schema-extension]
+== JSON Schema for Extension
+
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "extension.schema.json",
+    "title": "Extension",
+    "type": "object",
+    "description": "Dictionary object with extension-specific objects.",
+    "additionalProperties": {
+        "type": "object"
+    }
+}
+----
+
+
+'''
+[#reference-statistics-schema-extras]
+== JSON Schema for Extras
+
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "extras.schema.json",
+    "title": "Extras",
+    "description": "Application-specific data."
+}
+----
+
+
+'''
+[#reference-statistics-schema-definitions-definitions-numericarray1d]
+== JSON Schema for Numeric 1D Array
+
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "definitions.schema.json",
+    "title": "Definitions",
+    "description": "Common definitions used in schema files.",
+    "definitions": {
+        "numericArray1D": {
+            "title": "Numeric 1D Array",
+            "type": "array",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 1,
+            "description": "An array of numeric values"
+        },
+        "numericArray2D": {
+            "title": "Numeric 2D Array",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/numericArray1D"
+            },
+            "minItems": 1,
+            "description": "An array of arrays of numeric values"
+        },
+        "booleanArray1D": {
+            "title": "Boolean 1D Array",
+            "type": "array",
+            "items": {
+                "type": "boolean"
+            },
+            "minItems": 1,
+            "description": "An array of boolean values"
+        },
+        "stringArray1D": {
+            "title": "String 1D Array",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "description": "An array of string values"
+        },
+        "numericValue": {
+            "title": "Numeric Value",
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "$ref": "#/definitions/numericArray1D"
+                },
+                {
+                    "$ref": "#/definitions/numericArray2D"
+                }
+            ],
+            "description": "For `SCALAR` this is a number. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`."
+        },
+        "noDataValue": {
+            "title": "No Data Value",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/numericValue"
+                },
+                {
+                    "type": "string"
+                },
+                {
+                    "$ref": "#/definitions/stringArray1D"
+                }
+            ],
+            "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`."
+        },
+        "anyValue": {
+            "title": "Any Value",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/numericValue"
+                },
+               {
+                    "type": "string"
+                },
+                {
+                    "$ref": "#/definitions/stringArray1D"
+                },
+                {
+                    "type": "boolean"
+                },
+                {
+                    "$ref": "#/definitions/booleanArray1D"
+                }
+            ],
+            "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `BOOLEAN` this is a boolean. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length array this is an array of `count` elements of the given `type`. For variable-length arrays this is an array of any length of the given `type`."
+        }
+    }
+}
+----
+
+
+'''
+[#reference-statistics-schema-definitions-definitions-numericarray2d]
+== JSON Schema for Numeric 2D Array
+
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "definitions.schema.json",
+    "title": "Definitions",
+    "description": "Common definitions used in schema files.",
+    "definitions": {
+        "numericArray1D": {
+            "title": "Numeric 1D Array",
+            "type": "array",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 1,
+            "description": "An array of numeric values"
+        },
+        "numericArray2D": {
+            "title": "Numeric 2D Array",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/numericArray1D"
+            },
+            "minItems": 1,
+            "description": "An array of arrays of numeric values"
+        },
+        "booleanArray1D": {
+            "title": "Boolean 1D Array",
+            "type": "array",
+            "items": {
+                "type": "boolean"
+            },
+            "minItems": 1,
+            "description": "An array of boolean values"
+        },
+        "stringArray1D": {
+            "title": "String 1D Array",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "description": "An array of string values"
+        },
+        "numericValue": {
+            "title": "Numeric Value",
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "$ref": "#/definitions/numericArray1D"
+                },
+                {
+                    "$ref": "#/definitions/numericArray2D"
+                }
+            ],
+            "description": "For `SCALAR` this is a number. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`."
+        },
+        "noDataValue": {
+            "title": "No Data Value",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/numericValue"
+                },
+                {
+                    "type": "string"
+                },
+                {
+                    "$ref": "#/definitions/stringArray1D"
+                }
+            ],
+            "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`."
+        },
+        "anyValue": {
+            "title": "Any Value",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/numericValue"
+                },
+               {
+                    "type": "string"
+                },
+                {
+                    "$ref": "#/definitions/stringArray1D"
+                },
+                {
+                    "type": "boolean"
+                },
+                {
+                    "$ref": "#/definitions/booleanArray1D"
+                }
+            ],
+            "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `BOOLEAN` this is a boolean. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length array this is an array of `count` elements of the given `type`. For variable-length arrays this is an array of any length of the given `type`."
+        }
+    }
+}
+----
+
+
+'''
+[#reference-statistics-schema-definitions-definitions-numericvalue]
+== JSON Schema for Numeric Value
+
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "definitions.schema.json",
+    "title": "Definitions",
+    "description": "Common definitions used in schema files.",
+    "definitions": {
+        "numericArray1D": {
+            "title": "Numeric 1D Array",
+            "type": "array",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 1,
+            "description": "An array of numeric values"
+        },
+        "numericArray2D": {
+            "title": "Numeric 2D Array",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/numericArray1D"
+            },
+            "minItems": 1,
+            "description": "An array of arrays of numeric values"
+        },
+        "booleanArray1D": {
+            "title": "Boolean 1D Array",
+            "type": "array",
+            "items": {
+                "type": "boolean"
+            },
+            "minItems": 1,
+            "description": "An array of boolean values"
+        },
+        "stringArray1D": {
+            "title": "String 1D Array",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "description": "An array of string values"
+        },
+        "numericValue": {
+            "title": "Numeric Value",
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "$ref": "#/definitions/numericArray1D"
+                },
+                {
+                    "$ref": "#/definitions/numericArray2D"
+                }
+            ],
+            "description": "For `SCALAR` this is a number. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`."
+        },
+        "noDataValue": {
+            "title": "No Data Value",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/numericValue"
+                },
+                {
+                    "type": "string"
+                },
+                {
+                    "$ref": "#/definitions/stringArray1D"
+                }
+            ],
+            "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`."
+        },
+        "anyValue": {
+            "title": "Any Value",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/numericValue"
+                },
+               {
+                    "type": "string"
+                },
+                {
+                    "$ref": "#/definitions/stringArray1D"
+                },
+                {
+                    "type": "boolean"
+                },
+                {
+                    "$ref": "#/definitions/booleanArray1D"
+                }
+            ],
+            "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `BOOLEAN` this is a boolean. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length array this is an array of `count` elements of the given `type`. For variable-length arrays this is an array of any length of the given `type`."
+        }
+    }
+}
+----
+
+
+'''
+[#reference-statistics-schema-statistics-class-property]
+== JSON Schema for Property Statistics
+
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "statistics.class.property.schema.json",
+    "title": "Property Statistics",
+    "$ref": "rootProperty.schema.json",
+    "description": "Statistics about property values.",
+    "properties": {
+        "min": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The minimum property value occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "max": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The maximum property value occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "mean": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The arithmetic mean of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the mean of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "median": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The median of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the median of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "standardDeviation": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The standard deviation of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the standard deviation of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "variance": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The variance of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the variance of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "sum": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The sum of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the sum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "occurrences": {
+            "type": "object",
+            "description": "A dictionary, where each key corresponds to an enum `name` and each value is the number of occurrences of that enum. Only applicable when `type` is `ENUM`. For fixed-length arrays, this is an array of component-wise occurrences.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "oneOf": [
+                    {
+                        "type": "integer"
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "minItems": 1
+                    }
+                ]
+            }
+        }
+    }
+}
+----
+
+
+'''
+[#reference-statistics-schema-rootproperty]
+== JSON Schema for Root Property
+
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "rootProperty.schema.json",
+    "title": "Root Property",
+    "type": "object",
+    "description": "A basis for storing extensions and extras.",
+    "properties": {
+        "extensions": {
+            "$ref": "extension.schema.json"
+        },
+        "extras": {
+            "$ref": "extras.schema.json"
+        }
+    }
+}
+----
+
+
+'''
+[#reference-statistics-schema-statistics]
+== JSON Schema for Statistics
+
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "statistics.schema.json",
+    "title": "Statistics",
+    "$ref": "rootProperty.schema.json",
+    "description": "Statistics about entities.",
+    "properties": {
+        "classes": {
+            "type": "object",
+            "description": "A dictionary, where each key corresponds to a class ID in the `classes` dictionary and each value is an object containing statistics about entities that conform to the class.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "statistics.class.schema.json"
+            }
+        }
+    }
+}
+----
+
+

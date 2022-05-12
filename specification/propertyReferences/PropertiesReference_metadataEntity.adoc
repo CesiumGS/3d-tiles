@@ -1,0 +1,93 @@
+= Objects
+* <<reference-metadata-metadata-entity,`Metadata Entity`>> (root object)
+
+
+'''
+[#reference-metadata-extension]
+== Extension
+
+Dictionary object with extension-specific objects.
+
+* **Additional properties are allowed.**
+* **Type of additional properties**: `object`
+* **JSON schema**: <<reference-metadata-schema-extension,`extension.schema.json`>>
+
+
+
+
+'''
+[#reference-metadata-extras]
+== Extras
+
+Application-specific data.
+
+
+
+'''
+[#reference-metadata-metadata-entity]
+== Metadata Entity
+
+An object containing a reference to a class from a metadata schema, and property values that conform to the properties of that class.
+
+.`Metadata Entity` Properties
+|===
+|   |Type|Description|Required
+
+|**class**
+|`string`
+|The class that property values conform to. The value must be a class ID declared in the `classes` dictionary of the metadata schema.
+| &#10003; Yes
+
+|**properties**
+|`object`
+|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties must be included in this dictionary.
+|No
+
+|**extensions**
+|<<reference-metadata-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-metadata-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-metadata-schema-metadata-entity,`metadataEntity.schema.json`>>
+
+=== Metadata Entity.class
+
+The class that property values conform to. The value must be a class ID declared in the `classes` dictionary of the metadata schema.
+
+* **Type**: `string`
+* **Required**:  &#10003; Yes
+
+=== Metadata Entity.properties
+
+A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties must be included in this dictionary.
+
+* **Type**: `object`
+* **Required**: No
+
+=== Metadata Entity.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-metadata-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== Metadata Entity.extras
+
+Application-specific data.
+
+* **Type**: <<reference-metadata-extras,`extras`>>
+* **Required**: No
+
+
+
+

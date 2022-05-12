@@ -1,0 +1,778 @@
+= Objects
+* <<reference-subtree-availability,`Availability`>>
+* <<reference-subtree-buffer,`Buffer`>>
+* <<reference-subtree-bufferview,`Buffer View`>>
+* <<reference-subtree-metadataentity,`Metadata Entity`>>
+* <<reference-subtree-propertytable,`Property Table`>>
+** <<reference-subtree-propertytable-property,`Property`>>
+* <<reference-subtree-subtree,`Subtree`>> (root object)
+
+
+'''
+[#reference-subtree-availability]
+== Availability
+
+An object describing the availability of a set of elements.
+
+.`Availability` Properties
+|===
+|   |Type|Description|Required
+
+|**bitstream**
+|`integer`
+|Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the 3D Metadata specification. If an element is available, its bit is 1, and if it is unavailable, its bit is 0.
+|No
+
+|**availableCount**
+|`integer`
+|A number indicating how many 1 bits exist in the availability bitstream.
+|No
+
+|**constant**
+|`integer`
+|Integer indicating whether all of the elements are available (1) or all are unavailable (0).
+|No
+
+|**extensions**
+|<<reference-subtree-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-subtree-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-subtree-schema-availability,`availability.schema.json`>>
+
+=== availability.bitstream
+
+Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the 3D Metadata specification. If an element is available, its bit is 1, and if it is unavailable, its bit is 0.
+
+* **Type**: `integer`
+* **Required**: No
+* **Minimum**: `&gt;= 0`
+
+=== availability.availableCount
+
+A number indicating how many 1 bits exist in the availability bitstream.
+
+* **Type**: `integer`
+* **Required**: No
+* **Minimum**: `&gt;= 0`
+
+=== availability.constant
+
+Integer indicating whether all of the elements are available (1) or all are unavailable (0).
+
+* **Type**: `integer`
+* **Required**: No
+* **Allowed values**:
+** `0` UNAVAILABLE
+** `1` AVAILABLE
+
+=== availability.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-subtree-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== availability.extras
+
+Application-specific data.
+
+* **Type**: <<reference-subtree-extras,`extras`>>
+* **Required**: No
+
+
+
+
+'''
+[#reference-subtree-buffer]
+== Buffer
+
+A buffer is a binary blob. It is either the binary chunk of the subtree file, or an external buffer referenced by a URI.
+
+.`Buffer` Properties
+|===
+|   |Type|Description|Required
+
+|**uri**
+|`string`
+|The URI (or IRI) of the external schema file. Relative paths are relative to the file containing the buffer JSON. `uri` is required when using the JSON subtree format and not required when using the binary subtree format - when omitted the buffer refers to the binary chunk of the subtree file. Data URIs are not allowed.
+|No
+
+|**byteLength**
+|`integer`
+|The length of the buffer in bytes.
+| &#10003; Yes
+
+|**name**
+|`string`
+|The name of the buffer.
+|No
+
+|**extensions**
+|<<reference-subtree-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-subtree-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-subtree-schema-buffer,`buffer.schema.json`>>
+
+=== buffer.uri
+
+The URI (or IRI) of the external schema file. Relative paths are relative to the file containing the buffer JSON. `uri` is required when using the JSON subtree format and not required when using the binary subtree format - when omitted the buffer refers to the binary chunk of the subtree file. Data URIs are not allowed.
+
+* **Type**: `string`
+* **Required**: No
+* **Format**: iri-reference
+
+=== buffer.byteLength
+
+The length of the buffer in bytes.
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: `&gt;= 1`
+
+=== buffer.name
+
+The name of the buffer.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: &gt;= 1`
+
+=== buffer.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-subtree-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== buffer.extras
+
+Application-specific data.
+
+* **Type**: <<reference-subtree-extras,`extras`>>
+* **Required**: No
+
+
+
+
+'''
+[#reference-subtree-bufferview]
+== Buffer View
+
+A contiguous subset of a buffer
+
+.`Buffer View` Properties
+|===
+|   |Type|Description|Required
+
+|**buffer**
+|`integer`
+|The index of the buffer.
+| &#10003; Yes
+
+|**byteOffset**
+|`integer`
+|The offset into the buffer in bytes.
+| &#10003; Yes
+
+|**byteLength**
+|`integer`
+|The total byte length of the buffer view.
+| &#10003; Yes
+
+|**name**
+|`string`
+|The name of the `bufferView`.
+|No
+
+|**extensions**
+|<<reference-subtree-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-subtree-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-subtree-schema-bufferview,`bufferView.schema.json`>>
+
+=== bufferView.buffer
+
+The index of the buffer.
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: `&gt;= 0`
+
+=== bufferView.byteOffset
+
+The offset into the buffer in bytes.
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: `&gt;= 0`
+
+=== bufferView.byteLength
+
+The total byte length of the buffer view.
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: `&gt;= 1`
+
+=== bufferView.name
+
+The name of the `bufferView`.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: &gt;= 1`
+
+=== bufferView.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-subtree-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== bufferView.extras
+
+Application-specific data.
+
+* **Type**: <<reference-subtree-extras,`extras`>>
+* **Required**: No
+
+
+
+
+'''
+[#reference-subtree-extension]
+== Extension
+
+Dictionary object with extension-specific objects.
+
+* **Additional properties are allowed.**
+* **Type of additional properties**: `object`
+* **JSON schema**: <<reference-subtree-schema-extension,`extension.schema.json`>>
+
+
+
+
+'''
+[#reference-subtree-extras]
+== Extras
+
+Application-specific data.
+
+
+
+'''
+[#reference-subtree-metadataentity]
+== Metadata Entity
+
+An object containing a reference to a class from a metadata schema, and property values that conform to the properties of that class.
+
+.`Metadata Entity` Properties
+|===
+|   |Type|Description|Required
+
+|**class**
+|`string`
+|The class that property values conform to. The value must be a class ID declared in the `classes` dictionary of the metadata schema.
+| &#10003; Yes
+
+|**properties**
+|`object`
+|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties must be included in this dictionary.
+|No
+
+|**extensions**
+|<<reference-subtree-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-subtree-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-subtree-schema-metadataentity,`metadataEntity.schema.json`>>
+
+=== metadataEntity.class
+
+The class that property values conform to. The value must be a class ID declared in the `classes` dictionary of the metadata schema.
+
+* **Type**: `string`
+* **Required**:  &#10003; Yes
+
+=== metadataEntity.properties
+
+A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties must be included in this dictionary.
+
+* **Type**: `object`
+* **Required**: No
+
+=== metadataEntity.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-subtree-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== metadataEntity.extras
+
+Application-specific data.
+
+* **Type**: <<reference-subtree-extras,`extras`>>
+* **Required**: No
+
+
+
+
+'''
+[#reference-subtree-propertytable]
+== Property Table
+
+Properties conforming to a class, organized as property values stored in binary columnar arrays.
+
+.`Property Table` Properties
+|===
+|   |Type|Description|Required
+
+|**name**
+|`string`
+|The name of the property table, e.g. for display purposes.
+|No
+
+|**class**
+|`string`
+|The class that property values conform to. The value must be a class ID declared in the `classes` dictionary.
+| &#10003; Yes
+
+|**count**
+|`integer`
+|The number of elements in each property array.
+| &#10003; Yes
+
+|**properties**
+|`object`
+|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Required properties must be included in this dictionary.
+|No
+
+|**extensions**
+|<<reference-subtree-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-subtree-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-subtree-schema-propertytable,`propertyTable.schema.json`>>
+
+=== propertyTable.name
+
+The name of the property table, e.g. for display purposes.
+
+* **Type**: `string`
+* **Required**: No
+* **Minimum Length**`: &gt;= 1`
+
+=== propertyTable.class
+
+The class that property values conform to. The value must be a class ID declared in the `classes` dictionary.
+
+* **Type**: `string`
+* **Required**:  &#10003; Yes
+
+=== propertyTable.count
+
+The number of elements in each property array.
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: `&gt;= 1`
+
+=== propertyTable.properties
+
+A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Required properties must be included in this dictionary.
+
+* **Type**: `object`
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: <<reference-subtree-propertytable-property,`propertyTable.property`>>
+
+=== propertyTable.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-subtree-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== propertyTable.extras
+
+Application-specific data.
+
+* **Type**: <<reference-subtree-extras,`extras`>>
+* **Required**: No
+
+
+
+
+'''
+[#reference-subtree-propertytable-property]
+== Property Table Property
+
+An array of binary property values. This represents one column of a property table, and contains one value of a certain property for each metadata entity.
+
+.`Property Table Property` Properties
+|===
+|   |Type|Description|Required
+
+|**values**
+|`integer`
+|The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitstream. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is `SCALAR`, `VECN`, or `MATN` the values are stored as the provided `componentType` and the buffer view `byteOffset` must be aligned to a multiple of the `componentType` size. When `type` is `ENUM` values are stored as the enum's `valueType` and the buffer view `byteOffset` must be aligned to a multiple of the `valueType` size. Each enum value in the array must match one of the allowed values in the enum definition. `arrayOffsets` is required for variable-length arrays and `stringOffsets` is required for strings (for variable-length arrays of strings, both are required).
+| &#10003; Yes
+
+|**arrayOffsets**
+|`integer`
+|The index of the buffer view containing offsets for variable-length arrays. The number of offsets is equal to the property table `count` plus one. The offsets represent the start positions of each array, with the last offset representing the position after the last array. The array length is computed using the difference between the subsequent offset and the current offset. If `type` is `STRING` the offsets index into the string offsets array (stored in `stringOffsets`), otherwise they index into the property array (stored in `values`). The data type of these offsets is determined by `arrayOffsetType`. The buffer view `byteOffset` must be aligned to a multiple of the `arrayOffsetType` size.
+|No
+
+|**stringOffsets**
+|`integer`
+|The index of the buffer view containing offsets for strings. The number of offsets is equal to the number of string elements plus one. The offsets represent the byte offsets of each string in the property array (stored in `values`), with the last offset representing the byte offset after the last string. The string byte length is computed using the difference between the subsequent offset and the current offset. The data type of these offsets is determined by `stringOffsetType`. The buffer view `byteOffset` must be aligned to a multiple of the `stringOffsetType` size.
+|No
+
+|**arrayOffsetType**
+|`string`
+|The type of values in `arrayOffsets`.
+|No, default: `"UINT32"`
+
+|**stringOffsetType**
+|`string`
+|The type of values in `stringOffsets`.
+|No, default: `"UINT32"`
+
+|**offset**
+|<<reference-subtree-any,`any`>>
+|An offset to apply to property values. Only applicable when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Overrides the class property's `offset` if both are defined.
+|No
+
+|**scale**
+|<<reference-subtree-any,`any`>>
+|A scale to apply to property values. Only applicable when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Overrides the class property's `scale` if both are defined.
+|No
+
+|**max**
+|<<reference-subtree-any,`any`>>
+|Maximum value present in the property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied.
+|No
+
+|**min**
+|<<reference-subtree-any,`any`>>
+|Minimum value present in the property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied.
+|No
+
+|**extensions**
+|<<reference-subtree-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-subtree-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-subtree-schema-propertytable-property,`propertyTable.property.schema.json`>>
+
+=== propertyTable.property.values
+
+The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitstream. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is `SCALAR`, `VECN`, or `MATN` the values are stored as the provided `componentType` and the buffer view `byteOffset` must be aligned to a multiple of the `componentType` size. When `type` is `ENUM` values are stored as the enum's `valueType` and the buffer view `byteOffset` must be aligned to a multiple of the `valueType` size. Each enum value in the array must match one of the allowed values in the enum definition. `arrayOffsets` is required for variable-length arrays and `stringOffsets` is required for strings (for variable-length arrays of strings, both are required).
+
+* **Type**: `integer`
+* **Required**:  &#10003; Yes
+* **Minimum**: `&gt;= 0`
+
+=== propertyTable.property.arrayOffsets
+
+The index of the buffer view containing offsets for variable-length arrays. The number of offsets is equal to the property table `count` plus one. The offsets represent the start positions of each array, with the last offset representing the position after the last array. The array length is computed using the difference between the subsequent offset and the current offset. If `type` is `STRING` the offsets index into the string offsets array (stored in `stringOffsets`), otherwise they index into the property array (stored in `values`). The data type of these offsets is determined by `arrayOffsetType`. The buffer view `byteOffset` must be aligned to a multiple of the `arrayOffsetType` size.
+
+* **Type**: `integer`
+* **Required**: No
+* **Minimum**: `&gt;= 0`
+
+=== propertyTable.property.stringOffsets
+
+The index of the buffer view containing offsets for strings. The number of offsets is equal to the number of string elements plus one. The offsets represent the byte offsets of each string in the property array (stored in `values`), with the last offset representing the byte offset after the last string. The string byte length is computed using the difference between the subsequent offset and the current offset. The data type of these offsets is determined by `stringOffsetType`. The buffer view `byteOffset` must be aligned to a multiple of the `stringOffsetType` size.
+
+* **Type**: `integer`
+* **Required**: No
+* **Minimum**: `&gt;= 0`
+
+=== propertyTable.property.arrayOffsetType
+
+The type of values in `arrayOffsets`.
+
+* **Type**: `string`
+* **Required**: No, default: `"UINT32"`
+* **Allowed values**:
+** `"UINT8"`
+** `"UINT16"`
+** `"UINT32"`
+** `"UINT64"`
+
+=== propertyTable.property.stringOffsetType
+
+The type of values in `stringOffsets`.
+
+* **Type**: `string`
+* **Required**: No, default: `"UINT32"`
+* **Allowed values**:
+** `"UINT8"`
+** `"UINT16"`
+** `"UINT32"`
+** `"UINT64"`
+
+=== propertyTable.property.offset
+
+An offset to apply to property values. Only applicable when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Overrides the class property's `offset` if both are defined.
+
+* **Type**: <<reference-subtree-any,`any`>>
+* **Required**: No
+
+=== propertyTable.property.scale
+
+A scale to apply to property values. Only applicable when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Overrides the class property's `scale` if both are defined.
+
+* **Type**: <<reference-subtree-any,`any`>>
+* **Required**: No
+
+=== propertyTable.property.max
+
+Maximum value present in the property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied.
+
+* **Type**: <<reference-subtree-any,`any`>>
+* **Required**: No
+
+=== propertyTable.property.min
+
+Minimum value present in the property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied.
+
+* **Type**: <<reference-subtree-any,`any`>>
+* **Required**: No
+
+=== propertyTable.property.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-subtree-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== propertyTable.property.extras
+
+Application-specific data.
+
+* **Type**: <<reference-subtree-extras,`extras`>>
+* **Required**: No
+
+
+
+
+
+
+'''
+[#reference-subtree-subtree]
+== Subtree
+
+An object describing the availability of tiles and content in a subtree, as well as availability of children subtrees. May also store metadata for available tiles and content.
+
+.`Subtree` Properties
+|===
+|   |Type|Description|Required
+
+|**buffers**
+|<<reference-subtree-buffer,`buffer`>> `[1-*]`
+|An array of buffers.
+|No
+
+|**bufferViews**
+|<<reference-subtree-bufferview,`bufferView`>> `[1-*]`
+|An array of buffer views.
+|No
+
+|**propertyTables**
+|<<reference-subtree-propertytable,`propertyTable`>> `[1-*]`
+|An array of property tables.
+|No
+
+|**tileAvailability**
+|<<reference-subtree-availability,`availability`>>
+|The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a buffer view or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability must also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees must have at least one tile.
+| &#10003; Yes
+
+|**contentAvailability**
+|<<reference-subtree-availability,`availability`>> `[1-*]`
+|An array of content availability objects. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by 3DTILES_multiple_contents and 3D Tiles 1.1 - this array will have multiple elements.
+|No
+
+|**childSubtreeAvailability**
+|<<reference-subtree-availability,`availability`>>
+|The availability of children subtrees. The availability bitstream is a 1D boolean array where subtrees are ordered by their Morton index in the level of the tree immediately below the bottom row of the subtree. A child subtree's availability is determined by a single bit, 1 meaning a subtree exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `N^subtreeLevels` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a buffer view or as a constant value that applies to all child subtrees. If availability is 0 for all child subtrees, then the tileset does not subdivide further.
+| &#10003; Yes
+
+|**tileMetadata**
+|`integer`
+|Index of the property table containing tile metadata. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
+|No
+
+|**contentMetadata**
+|`integer` `[1-*]`
+|An array of indexes to property tables containing content metadata. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by EXT_multiple_contents and 3D Tiles 1.1 - this array will have multiple elements. Content metadata only exists for available contents and is tightly packed by increasing tile index. To access individual content metadata, implementations may create a mapping from tile indices to content metadata indices.
+|No
+
+|**subtreeMetadata**
+|<<reference-subtree-metadataentity,`metadataEntity`>>
+|Subtree metadata encoded in JSON.
+|No
+
+|**extensions**
+|<<reference-subtree-extension,`extension`>>
+|Dictionary object with extension-specific objects.
+|No
+
+|**extras**
+|<<reference-subtree-extras,`extras`>>
+|Application-specific data.
+|No
+
+|===
+
+* **Additional properties are allowed.**
+* **JSON schema**: <<reference-subtree-schema-subtree,`subtree.schema.json`>>
+
+=== Subtree.buffers
+
+An array of buffers.
+
+* **Type**: <<reference-subtree-buffer,`buffer`>> `[1-*]`
+* **Required**: No
+
+=== Subtree.bufferViews
+
+An array of buffer views.
+
+* **Type**: <<reference-subtree-bufferview,`bufferView`>> `[1-*]`
+* **Required**: No
+
+=== Subtree.propertyTables
+
+An array of property tables.
+
+* **Type**: <<reference-subtree-propertytable,`propertyTable`>> `[1-*]`
+* **Required**: No
+
+=== Subtree.tileAvailability
+
+The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a buffer view or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability must also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees must have at least one tile.
+
+* **Type**: <<reference-subtree-availability,`availability`>>
+* **Required**:  &#10003; Yes
+
+=== Subtree.contentAvailability
+
+An array of content availability objects. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by 3DTILES_multiple_contents and 3D Tiles 1.1 - this array will have multiple elements.
+
+* **Type**: <<reference-subtree-availability,`availability`>> `[1-*]`
+* **Required**: No
+
+=== Subtree.childSubtreeAvailability
+
+The availability of children subtrees. The availability bitstream is a 1D boolean array where subtrees are ordered by their Morton index in the level of the tree immediately below the bottom row of the subtree. A child subtree's availability is determined by a single bit, 1 meaning a subtree exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `N^subtreeLevels` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a buffer view or as a constant value that applies to all child subtrees. If availability is 0 for all child subtrees, then the tileset does not subdivide further.
+
+* **Type**: <<reference-subtree-availability,`availability`>>
+* **Required**:  &#10003; Yes
+
+=== Subtree.tileMetadata
+
+Index of the property table containing tile metadata. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices.
+
+* **Type**: `integer`
+* **Required**: No
+* **Minimum**: `&gt;= 0`
+
+=== Subtree.contentMetadata
+
+An array of indexes to property tables containing content metadata. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by EXT_multiple_contents and 3D Tiles 1.1 - this array will have multiple elements. Content metadata only exists for available contents and is tightly packed by increasing tile index. To access individual content metadata, implementations may create a mapping from tile indices to content metadata indices.
+
+* **Type**: `integer` `[1-*]`
+** Each element in the array must be greater than or equal to `0`.
+* **Required**: No
+
+=== Subtree.subtreeMetadata
+
+Subtree metadata encoded in JSON.
+
+* **Type**: <<reference-subtree-metadataentity,`metadataEntity`>>
+* **Required**: No
+
+=== Subtree.extensions
+
+Dictionary object with extension-specific objects.
+
+* **Type**: <<reference-subtree-extension,`extension`>>
+* **Required**: No
+* **Additional properties are allowed.**
+* **Type of each property**: `object`
+
+=== Subtree.extras
+
+Application-specific data.
+
+* **Type**: <<reference-subtree-extras,`extras`>>
+* **Required**: No
+
+
