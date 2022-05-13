@@ -42,7 +42,7 @@
 - [Cesium ion](https://cesium.com/platform/cesium-ion/) - Upload and convert content to 3D Tiles. Data can be combined and fused with curated global 3D content including Cesium World Terrain, Bing Maps imagery, and Cesium OSM Buildings. 
 - [cdb-to-3dtiles](https://github.com/CesiumGS/cdb-to-3dtiles) - A tool for converting Open Geospatial Consortium (OGC) CDB datasets into 3D Tiles for efficient streaming and rendering
 - [Safe FME](https://hub.safe.com/packages/safe/cesiumion) - A desktop application for transforming data. The `CesiumIonConnector` converts data to 3D Tiles via Cesium ion.
-- [Bentley ContextCapture](https://www.bentley.com/en/products/product-line/reality-modeling-software/contextcapture) - Desktop photogrammetry software that can export 3D Tiles.
+- [Bentley ContextCapture](https://www.bentley.com/en/products/product-line/reality-modeling-software/contextcapture) - A desktop photogrammetry application for converting photographs and/or point clouds to 3D Tiles.
 - [Bentley MicroStation](https://www.bentley.com/en/products/brands/microstation) - Desktop CAD software that can export 3D Tiles.
 - [osm-cesium-3d-tiles](https://github.com/kiselev-dv/osm-cesium-3d-tiles) - A tool for converting OSM buildings to Cesium 3d tiles
 - [OpenDroneMap](https://www.opendronemap.org/) - Solutions for  collecting, processing, analyzing and displaying aerial data, with support for 3D Tiles. 
