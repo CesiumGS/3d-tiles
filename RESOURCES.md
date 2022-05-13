@@ -127,11 +127,6 @@
 | <a href="https://github.com/iTowns/itowns">iTowns<br/><img src="figures/ecosystem/itowns.jpg"/></a> | A Three.js-based framework for visualizing 3D geospatial data, including 3D Tiles |
 | <a href="https://geopi.pe/">geopipe<br/><img src="figures/ecosystem/geopipe.jpg"/></a> | A platform for digital twins for games, simulation, architecture, with options for efficient visualization in the browser, based on 3D Tiles |
 | <a href="https://data.grandlyon.com/en/">data.grandlyon.com<br/><img src="figures/ecosystem/poulain.jpg"/></a> | A 3D digital clone of Métropole de Lyon, based on 3D Tiles (Cesium blog post: [3D Digital Territory Lab: A Digital Clone of Métropole de Lyon](https://cesium.com/blog/2018/02/05/digital-territory-lab/)) |
-| <a href="https://cesium.com/blog/2018/03/26/cesme-3d-city-model/">Çeşme 3D City Model<br/><i>(no longer available)</i><br/><img src="figures/ecosystem/cesme.jpg"/></a> | 3D city model of Çeşme, based on 3D Tiles (Cesium blog post: [Visualize Turkey's Most Visited Tourist Town with 3D Tiles](https://cesium.com/blog/2018/03/26/cesme-3d-city-model/))
-| <a href="https://cedricpinson.github.io/osgjs-website/">OSGJS<br/><i>(discontinued)</i><br/><img src="figures/ecosystem/osgjs.jpg"/></a> | A WebGL framework based on OpenSceneGraph concepts, with experimental 3D Tiles support |
-| <a href="https://github.com/Oslandia/lopocs">LOPoCS<br/><i>(discontinued)</i><br/><img src="figures/ecosystem/grandlyon.jpg"/></a> | An open source point cloud server written in Python, that can serve point cloud data as 3D Tiles |
-
-
 
 
 
