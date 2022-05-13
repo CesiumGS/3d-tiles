@@ -2,20 +2,19 @@
 
 
 - [**Introducing 3D Tiles**](https://cesium.com/blog/2015/08/10/introducing-3d-tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
+- [**Introducing 3D Tiles Next, Streaming Geospatial to the Metaverse**](https://cesium.com/blog/2021/11/10/introducing-3d-tiles-next/) - the announcement of the 3D Tiles Next specification, summarizing the technical goals and application areas.
 - [**3D Tiles Reference Card**](./3d-tiles-reference-card.pdf) - an approachable and concise guide to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles into runtime engines.
-- [**The Next Generation of 3D Tiles**](https://cesium.com/blog/2017/07/12/the-next-generation-of-3d-tiles/) - future plans for 3D Tiles.
 - [**3D Tiles Q&A**](./Q-and-A.md)
-
 
 ### Viewers
 
 - [CesiumJS](https://cesium.com/cesiumjs/) - An open source JavaScript runtime engine for visualizing 3D Tiles
-- [Cesium For Unreal](https://cesium.com/platform/cesium-for-unreal/) - An open source plugin for the Unreal Engine for visualizing 3D Tiles
+- [Cesium For Unreal](https://cesium.com/platform/cesium-for-unreal/) - An open source plugin for Unreal Engine for visualizing 3D Tiles
 - [Cesium For O3DE](https://cesium.com/platform/cesium-for-o3de/) - An open source plugin for O3DE, the Open 3D Engine, for visualizing 3D Tiles
-- [3DTilesRendererJS](https://github.com/NASA-AMMOS/3DTilesRendererJS) - A renderer for 3D Tiles based on Three.js
+- [3DTilesRendererJS](https://github.com/NASA-AMMOS/3DTilesRendererJS) - A renderer for 3D Tiles based on Three.js, developed by NASA-AMMOS
+- [three-loader-3dtiles](https://github.com/nytimes/three-loader-3dtiles) - A Three.js loader module for loading and visualizing 3D Tiles, developed by NY Times R&D.
 - [3DTilesViewer](https://github.com/ebeaufay/3DTilesViewer) - A viewer for 3D Tiles based on Three.js
 - [mapbox-3dtiles](https://github.com/Geodan/mapbox-3dtiles) - A 3D Tiles viewer, implemented as a Mapbox GL JS custom layer, based on Three.js
-- [three-loader-3dtiles](https://github.com/nytimes/three-loader-3dtiles) - A Three.js loader module for loading and visualizing 3D Tiles
 - [iTowns](https://github.com/iTowns/itowns) - A Three.js-based framework for visualizing 3D geospatial data, including 3D Tiles
 - [Hexagon Geospatial Luciad](https://www.hexagongeospatial.com/) - Tools for converting, processing, optimizing, hosting, and visualizing geospatial data based on 3D Tiles 
 - [AGI STK](https://www.agi.com/products/stk) - A mission engineering software with visualization capabilities based on 3D Tiles
@@ -24,9 +23,8 @@
 
 ### Implementations
 
-- [CesiumJS](https://github.com/CesiumGS/cesium) - The open source JavaScript runtime engine, including an implementation of the 3D Tiles standard
-- [cesium-native](https://github.com/CesiumGS/cesium-native) - The Cesium core library with base classes for the implementation of the 3D Tiles standard
-- [Unity3DTiles](https://github.com/NASA-AMMOS/Unity3DTiles) - An implementation of the 3D Tiles standard for Unity
+- [CesiumJS](https://github.com/CesiumGS/cesium) - An open source JavaScript runtime engine for visualizing 3D Tiles
+- [Cesium Native](https://github.com/CesiumGS/cesium-native) - A set of C++ libraries for 3D geospatial including an engine-agnostic 3D Tiles loader
 - [loaders.gl](https://github.com/visgl/loaders.gl) - A framework for loaders for geospatial data, including 3D Tiles
 
 ### Tools
@@ -41,27 +39,26 @@
 
 ### Generators
 
-- [Cesium ion](https://cesium.com/platform/cesium-ion/) - A platform for creating, hosting and optimizing 3D geospatial data. Own data can be uploaded in many different formats. Cesium ion will convert it into optmized 3D Tiles data that is hosted in the cloud. This data can be combined and fused with curated global 3D content including Cesium World Terrain, Bing Maps imagery, and Cesium OSM Buildings. 
-- [cdb-to-3dtiles](https://github.com/CesiumGS/cdb-to-3dtiles) - A tool for converting Open Geospatial Consortium (OGC) CDB datasets int 3D Tiles for efficient streaming and rendering
+- [Cesium ion](https://cesium.com/platform/cesium-ion/) - Upload and convert content to 3D Tiles. Data can be combined and fused with curated global 3D content including Cesium World Terrain, Bing Maps imagery, and Cesium OSM Buildings. 
+- [cdb-to-3dtiles](https://github.com/CesiumGS/cdb-to-3dtiles) - A tool for converting Open Geospatial Consortium (OGC) CDB datasets into 3D Tiles for efficient streaming and rendering
 - [Safe FME](https://hub.safe.com/packages/safe/cesiumion) - A desktop application for transforming data. The `CesiumIonConnector` converts data to 3D Tiles via Cesium ion.
-- [Bentley ContextCapture](https://www.bentley.com/en/products/product-line/reality-modeling-software/contextcapture) - A desktop application for converting photographs and/or point clouds to 3D Tiles.
-- [Bentley MicroStation](https://www.bentley.com/en/products/brands/microstation) - A CAD application that can export data in the 3D Tiles format
+- [Bentley ContextCapture](https://www.bentley.com/en/products/product-line/reality-modeling-software/contextcapture) - Desktop photogrammetry software that can export 3D Tiles.
+- [Bentley MicroStation](https://www.bentley.com/en/products/brands/microstation) - Desktop CAD software that can export 3D Tiles.
 - [osm-cesium-3d-tiles](https://github.com/kiselev-dv/osm-cesium-3d-tiles) - A tool for converting OSM buildings to Cesium 3d tiles
 - [OpenDroneMap](https://www.opendronemap.org/) - Solutions for  collecting, processing, analyzing and displaying aerial data, with support for 3D Tiles. 
 - [Agisoft Metashape](https://www.agisoft.com/) - Photogrammetry models can directly be uploaded to Cesium ion, converted into the 3D Tiles format, and shared and combined with other 3D- and imagery data.
 - [nFrames](https://www.nframes.com/) - The SURE software system is an application for 3D reconstruction from images that can export the results as 3D Tiles data sets.
 - [Melown Vadstena](https://www.melowntech.com/products/vadstena/) - A software that can process drone-based close-range imagery and low-overlap nadir imagery, to create 3D models that can be exported in the 3D Tiles format.
 - [py3dtilers](https://github.com/VCityTeam/py3dtilers) - A tool and library for building 3D Tiles tilesets from OBJ, GeoJSON, IFC or CityGML input data. 
-- [py3dtiles](https://github.com/Oslandia/py3dtiles) _(discontinued)_ - A tool and library for manipulating 3D Tiles, including the creation of 3D Tiles point clouds from LAS and XYZ files.
-- [cesium-point-cloud-generator](https://github.com/tum-gis/cesium-point-cloud-generator) - A tool for the generation of point cloud visualization datasets in the 3D Tiles format.
 - [gocesiumtiler](https://github.com/mfbonfigli/gocesiumtiler) - A Golang tool to convert point clouds stored as LAS files to Cesium 3D Tiles
 - [Entwine](https://entwine.io/) - A data organization library for massive point clouds, with the option to output 3D Tiles
-- [cesium_pnt_generator](https://github.com/mattshax/cesium_pnt_generator) - A set of prototype scripts to convert LAS data into 3D Tiles
 - [AGI GCS](https://www.agi.com/capabilities/geospatial-content-server) - Geospatial Content Server (GCS) is a hosting platform for 3D geospatial data that optimizes data and converts it into 3D Tiles for efficient streaming and visualization.
 - [Veesus](https://veesus.com/) - Software for editing, visualizing, and serving point clouds in different formats, including 3D Tiles.
 - [Hexagon Geospatial](https://www.hexagongeospatial.com/) - Tools for converting, processing, optimizing, hosting, and visualizing geospatial data based on 3D Tiles 
 - [RhinoTerrain](https://www.rhinoterrain.com/) - Terrain modeling and city builder software with 3D Tiles export
 - [4DMapper](https://4dmapper.com/) - A platform for visualizing, managing and delivering geospatial data, with 3D Tiles export
+- [cesium_pnt_generator](https://github.com/mattshax/cesium_pnt_generator) - A set of prototype scripts to convert LAS data into 3D Tiles
+- [cesium-point-cloud-generator](https://github.com/tum-gis/cesium-point-cloud-generator) - A tool for the generation of point cloud visualization datasets in the 3D Tiles format.
 
 ### Data Providers
 
@@ -75,8 +72,18 @@
 
 ### Selected Talks
 
-- _Rendering the World with 3D Tiles_, a guest lecture at Drexel University (February 2022) [Slides](https://cesium.com/learn/presentations/#rendering-the-world-with-3d-tiles)
+- _3D Tiles Next: Data Performance for the Future of 3D Geospatial_, GEOINT 2022 Lightning Talk. [Slides](https://cesium.com/learn/presentations/#geoint-lightning-talk-2022)
+- _3D Tiles Next: Bringing massive 3D geospatial data to the web_, WebGL meetup April 2022. [Video and slides](TODO)
+- _Rendering the World with 3D Tiles_, a guest lecture at Drexel University (February 2022). [Slides](https://cesium.com/learn/presentations/#rendering-the-world-with-3d-tiles)
 - _Introducing 3D Tiles Next_, at Web3D Conference 2021. [Video and slides](https://cesium.com/learn/presentations/#web3d-conference-2021)
+- _Bridging the Physical and Digital Worlds: Cesium and 3D Tiles for O3DE_, at O3DECon 2021. [Video and slides](https://cesium.com/learn/presentations/#o3decon-presentation)
+- _3D Tiles and Visualization Advancements in STK 11.6_, AGI Webinar May 2019. [Video](https://cesium.com/learn/presentations/#webinar-stk-11.6-2019)
+- _What's New and What's Next for Cesium and 3D Tiles?_, at FOSS4G NA 2019. [Slides](https://cesium.com/learn/presentations/#whats-new-foss4g-na-2019)
+- _3D Tiles with FME_, at SIGGRAPH 2018. [Slides](https://cesium.com/learn/presentations/#siggraph-2018-ceium-bof-safe)
+- _3D Tiles Update - 3DP SWG_, OGC TC Meeting June 2018. [Slides](https://cesium.com/learn/presentations/#ogc-tc-2018-3d-tiles-update)
+- _Massive Point Cloud Visualization with CesiumJS, 3D Tiles, and Cesium ion_, OGC TC Meeting June 2018. [Slides](https://cesium.com/learn/presentations/#ogc-tc-meeting-2018)
+- _Data Fusion With 3D Tiles_, FOSS4G NA 2018. [Slides](https://cesium.com/learn/presentations/#data-fusion-foss4g-na-2018)
+- _CityGML, 3D Tiles and Cesium - A Data Fusion Symphony_, FOSS4G NA 2018. [Slides](https://cesium.com/learn/presentations/#citygml-3d-tiles-and-cesium-2018)
 - _3D Tiles in Action_, at FOSS4G 2017. [Slides](https://cesium.com/learn/presentations/#3d-tiles-in-action-2017)
 - _Point Clouds with 3D Tiles_, at the OGC Technical Committee Meeting (June 2018). [Slides](https://cesium.com/learn/presentations/#ogc-tc-meeting-2018)
 - _The Open Cesium 3D Tiles Specification: Bringing Massive Geospatial 3D Scenes to the Web_, at Web3D 2016. [Slides](https://cesium.com/learn/presentations/#3d-tiles-web3d-2016)
@@ -86,7 +93,12 @@
 
 ### Selected Articles
 
-- [Millimeter Precision Point Clouds with Cesium and 3D Tiles](https://cesium.com/blog/2018/06/27/millimeter-precision-point-clouds/). June 2018
+- [Tour of the new glTF architecture in CesiumJS](TODO). May 2022.
+- [An End-to-End Guide to Photogrammetry with Mobile Devices](https://rd.nytimes.com/projects/an-end-to-end-guide-to-photogrammetry-with-mobile-devices). September 2021.
+- [Create 3D Tiles from KML/COLLADA with Per-Building Data](https://cesium.com/blog/2020/04/09/kml-collada-metadata/). April 2020.
+- [Bring Your Cesium ion 3D Tiles and Bing Imagery in osgEarth](https://cesium.com/blog/2020/04/02/osgearth-supports-cesium-ion-assets/). April 2020.
+- [Taking City Visualization into the Third Dimension with Point Clouds, 3D Tiles, and deck.gl](https://eng.uber.com/3d-tiles-loadersgl/). October 2019.
+- [Millimeter Precision Point Clouds with Cesium and 3D Tiles](https://cesium.com/blog/2018/06/27/millimeter-precision-point-clouds/). June 2018.
 - [OneSky Using Cesium / 3D Tiles For Volumetric Airspace Visualization](https://cesium.com/blog/2018/04/13/onesky-3dtiles/). April 2018.
 - [Cesium's Participation in OGC Testbed 13](https://cesium.com/blog/2018/02/06/citygml-testbed-13/). February 2018.
 - [Aerometrex and 3D Tiles](https://cesium.com/blog/2017/07/26/aerometrex-melbourne/). July 2017.
