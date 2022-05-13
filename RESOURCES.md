@@ -113,7 +113,7 @@
 
 ### Applications and Services Using 3D Tiles
 
-| <div style="width:250px">&nbsp;</div> |  |
+| <div style="width:200px">&nbsp;</div> |  |
 | :--- | :--- |
 | <a href="https://map.geo.admin.ch">Swiss Federal Office of Topography<br/><img src="figures/ecosystem/swisstopo.jpg"/></a> | The Swiss Federal Office of Topography offers a complete topographical map of Switzerland. The 3D view uses 3D Tiles for the terrain- and building models. |
 | <a href="https://www.cybercity3d.com/">CyberCity3D<br/><img src="figures/ecosystem/CC3D.jpg"/></a> | City models for use in smart cities presentations, building analytics and for contextual environmental needs, streamed using 3D Tiles |
