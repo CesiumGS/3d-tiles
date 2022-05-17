@@ -665,11 +665,12 @@ If an external tileset defines `asset.tilesetVersion`, this overrides the value 
 
 As described above, the tree has spatial coherence; each tile has a bounding volume completely enclosing its content, and the content for child tiles are completely inside the parent's bounding volume. This does not imply that a child's bounding volume is completely inside its parent's bounding volume. For example:
 
-image:figures/parentBoundingSphere.jpg[] +
-Bounding sphere for a terrain tile.
+.Bounding sphere for a terrain tile.
+image::figures/parentBoundingSphere.jpg[]
 
-image:figures/childBoundingSphere.jpg[] +
-Bounding spheres for the four child tiles. The children's content is completely inside the parent's bounding volume, but the children's bounding volumes are not since they are not tightly fit.
+.Bounding spheres for the four child tiles. The children's content is completely inside the parent's bounding volume, but the children's bounding volumes are not since they are not tightly fit.
+image::figures/childBoundingSphere.jpg[]
+
 
 [#core-spatial-data-structures]
 ==== Spatial data structures
@@ -687,36 +688,38 @@ Included below is a brief description of how 3D Tiles can represent various spat
 
 A quadtree is created when each tile has four uniformly subdivided children (e.g., using the center latitude and longitude), similar to typical 2D geospatial tiling schemes. Empty child tiles can be omitted.
 
-image:figures/quadtree.png[] +
-Classic quadtree subdivision.
+.Classic quadtree subdivision
+image::figures/quadtree.png[]
 
 3D Tiles enable quadtree variations such as non-uniform subdivision and tight bounding volumes (as opposed to bounding, for example, the full 25% of the parent tile, which is wasteful for sparse datasets).
 
-image:figures/quadtree-tight.png[] +
-Quadtree with tight bounding volumes around each child.
+.Quadtree with tight bounding volumes around each child
+image::figures/quadtree-tight.png[]
 
 For example, here is the root tile and its children for Canary Wharf. Note the bottom left, where the bounding volume does not include the water on the left where no buildings will appear:
 
-image:figures/nonUniformQuadtree.png[] +
-(Building data from http://www.cybercity3d.com/[CyberCity3D]. Imagery data from https://www.microsoft.com/maps/[Bing Maps])
+.Building data from http://www.cybercity3d.com/[CyberCity3D]. Imagery data from https://www.microsoft.com/maps/[Bing Maps] 
+image::figures/nonUniformQuadtree.png[]
 
 3D Tiles also enable other quadtree variations such as http://www.tulrich.com/geekstuff/partitioning.html[loose quadtrees], where child tiles overlap but spatial coherence is still preserved, i.e., a parent tile completely encloses all of its children. This approach can be useful to avoid splitting features, such as 3D models, across tiles.
 
-image:figures/quadtree-overlap.png[] +
-Quadtree with non-uniform and overlapping tiles.
+.Quadtree with non-uniform and overlapping tiles
+image::figures/quadtree-overlap.png[]
 
 Below, the green buildings are in the left child and the purple buildings are in the right child. Note that the tiles overlap so the two green and one purple building in the center are not split.
 
-image:figures/looseQuadtree.png[] +
-Building data from http://www.cybercity3d.com/[CyberCity3D]. Imagery data from https://www.microsoft.com/maps/[Bing Maps]
+.Building data from http://www.cybercity3d.com/[CyberCity3D]. Imagery data from https://www.microsoft.com/maps/[Bing Maps]
+image::figures/looseQuadtree.png[]
+
 
 [#core-k-d-trees]
 ===== K-d trees
 
 A k-d tree is created when each tile has two children separated by a _splitting plane_ parallel to the _x_, _y_, or _z_ axis (or latitude, longitude, height). The split axis is often round-robin rotated as levels increase down the tree, and the splitting plane may be selected using the median split, surface area heuristics, or other approaches.
 
-image:figures/kdtree.png[] +
-Example k-d tree. Note the non-uniform subdivision.
+.Example k-d tree. Note the non-uniform subdivision
+image::figures/kdtree.png[]
+
 
 Note that a k-d tree does not have uniform subdivision like typical 2D geospatial tiling schemes and, therefore, can create a more balanced tree for sparse and non-uniformly distributed datasets.
 
@@ -727,19 +730,21 @@ Note that a k-d tree does not have uniform subdivision like typical 2D geospatia
 
 An octree extends a quadtree by using three orthogonal splitting planes to subdivide a tile into eight children. Like quadtrees, 3D Tiles allows variations to octrees such as non-uniform subdivision, tight bounding volumes, and overlapping children.
 
-image:figures/octree.png[] +
-Traditional octree subdivision.
+.Traditional octree subdivision
+image::figures/octree.png[]
 
-image:figures/pointcloud-octree.png[] +
-Non-uniform octree subdivision for a point cloud using additive refinement. Point Cloud of http://robotics.cs.columbia.edu/~atroccol/ijcv/chappes.html[the Church of St Marie at Chappes, France] by Prof. Peter Allen, Columbia University Robotics Lab. Scanning by Alejandro Troccoli and Matei Ciocarlie.
+.Non-uniform octree subdivision for a point cloud using additive refinement. Point Cloud of http://robotics.cs.columbia.edu/~atroccol/ijcv/chappes.html[the Church of St Marie at Chappes, France] by Prof. Peter Allen, Columbia University Robotics Lab. Scanning by Alejandro Troccoli and Matei Ciocarlie.
+image::figures/pointcloud-octree.png[]
+
 
 [#core-grids]
 ===== Grids
 
 3D Tiles enables uniform, non-uniform, and overlapping grids by supporting an arbitrary number of child tiles. For example, here is a top-down view of a non-uniform overlapping grid of Cambridge:
 
-image:figures/grid.png[] +
-(Building data from http://www.cybercity3d.com/[CyberCity3D]. Imagery data from https://www.microsoft.com/maps/[Bing Maps])
+.Building data from http://www.cybercity3d.com/[CyberCity3D]. Imagery data from https://www.microsoft.com/maps/[Bing Maps]
+image::figures/grid.png[]
+
 
 3D Tiles takes advantage of empty tiles: those tiles that have a bounding volume, but no content. Since a tile's `content` property does not need to be defined, empty non-leaf tiles can be used to accelerate non-uniform grids with hierarchical culling. This essentially creates a quadtree or octree without hierarchical levels of detail (HLOD).
 
@@ -748,8 +753,9 @@ image:figures/grid.png[] +
 
 The bounding volume hierarchy may be defined _explicitly_ -- as shown previously -- which enables a wide variety of spatial data structures. Certain common data structures such as quadtrees and octrees may be defined _implicitly_ without providing bounding volumes for every tile. This regular pattern allows for random access of tiles based on their tile coordinates which enables accelerated spatial queries, new traversal algorithms, and efficient updates of tile content, among other use cases.
 
-image:figures/implicit-tiling-small.png[] +
-Quadtree with tile coordinates.
+.Quadtree with tile coordinates
+image::figures/implicit-tiling-small.png[]
+
 
 In order to support sparse datasets, availability data determines which tiles exist. To support massive datasets, availability is partitioned into fixed-size subtrees. Subtrees may store metadata for available tiles and contents.
 
