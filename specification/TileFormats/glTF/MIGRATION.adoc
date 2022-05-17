@@ -1,13 +1,32 @@
 [#tileformats-gltf-migration-from-legacy-tile-formats]
 = Migration From Legacy Tile Formats
 
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../
+:url-specification-tileformats: {url-specification}Metadata/
+:url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
+:url-specification-tileformats-composite: {url-specification-tileformats}Composite/
+:url-specification-tileformats-instanced3dmodel: {url-specification-tileformats}Instanced3DModel/
+:url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batched3dmodel:
+:url-specification-tileformats-composite:
+:url-specification-tileformats-instanced3dmodel:
+:url-specification-tileformats-pointcloud:
+endif::[]
+
 This section describes how legacy tile formats can be converted into equivalent glTF content.
 
 [#tileformats-gltf-batched-3d-model-b3dm]
 [discrete]
 == Batched 3D Model (b3dm)
 
-link:../Batched3DModel[Batched 3D Model] is a wrapper around a binary glTF that includes additional information in its Feature Table and Batch Table. Batched 3D Model content can be converted into glTF content with the following changes:
+xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model] is a wrapper around a binary glTF that includes additional information in its Feature Table and Batch Table. Batched 3D Model content can be converted into glTF content with the following changes:
 
 * The https://github.com/CesiumGS/3d-tiles/tree/main/specification/TileFormats/Batched3DModel#coordinate-system[`RTC_CENTER`] can be added to the translation component of the root node of the glTF asset.
 * Batch IDs and Batch Tables can be represented using https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`].
@@ -18,7 +37,8 @@ image::figures/migration-b3dm.png[b3dm]
 [discrete]
 == Instanced 3D Model (i3dm)
 
-link:../Instanced3DModel[Instanced 3D Model] instances a glTF asset (embedded or external) and provides per-instance transforms and batch IDs.
+
+xref:{url-specification-tileformats-instanced3dmodel}README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model] instances a glTF asset (embedded or external) and provides per-instance transforms and batch IDs.
 
 * The `RTC_CENTER` can be added to the translation component of the root node of the glTF asset.
 * glTF can leverage GPU instancing with the https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Vendor/EXT_mesh_gpu_instancing/README.md[EXT_mesh_gpu_instancing] extension.
@@ -31,7 +51,7 @@ image::figures/migration-i3dm.png[i3dm]
 [discrete]
 == Point Cloud (pnts)
 
-link:../PointCloud[Point Cloud] can be represented as a glTF using the primitive mode `0` (`POINTS`).
+xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud] can be represented as a glTF using the primitive mode `0` (`POINTS`).
 
 * The `RTC_CENTER` can be added to the translation component of the root node of the glTF asset.
 * Feature table properties like `POSITION`, `COLOR`, and `NORMAL` may be stored as glTF attributes.
@@ -45,4 +65,5 @@ image::figures/migration-pnts.png[pnts]
 [discrete]
 == Composite (cmpt)
 
-All inner contents of a link:../Composite[Composite] may be combined into the same glTF as separate nodes, meshes, or primitives, at the tileset author's discretion. Alternatively, a tile may have link:../../README.md#tile-content[multiple contents].
+All inner contents of a xref:{url-specification-tileformats-composite}README.adoc#tileformats-composite-composite[Composite] may be combined into the same glTF as separate nodes, meshes, or primitives, at the tileset author's discretion. Alternatively, a tile may have xref:{url-specification}README.adoc#core-tile-content[multiple contents].
+
