@@ -29,16 +29,40 @@
 - Note: If the call does not appear to do anything, neither generate a PDF nor print an error message, make sure you typed `asciidoctor` and not just `asciidoc`
 
 - Optimizing the resulting PDF:
-  - On windows, call 
+
+
+  - What should work, but doesn't:
+    - Install Ghostscript
+    - On windows, call 
   
-    `set GS=C:\Program Files\gs\gs9.56.1\bin\gswin64.exe`
-  - Afterwards, call
+      `set GS=C:\Program Files\gs\gs9.56.1\bin\gswin64.exe`
+    - Afterwards, call
    
-    `asciidoctor-pdf-optimize --quality screen Specification-1.1.0.pdf`  
+      `asciidoctor-pdf-optimize --quality screen Specification-1.1.0.pdf`  
 
-    (this will overwrite the given file!)
+      (this will overwrite the given file!)
 
-   Afterwards, the links will not work. See https://bugs.ghostscript.com/show_bug.cgi?id=699830 and the linked ones.
+    Afterwards, the links will not work. See https://bugs.ghostscript.com/show_bug.cgi?id=699830 and the linked ones.
+
+  - What worked for me:
+    - Download GhostScript not later than 9.20 from https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/tag/gs920  
+      - This is the latest version that did not contain the so-called ""bugfix"" from https://bugs.ghostscript.com/show_bug.cgi?id=699830 that apparently caused more harm than good.
+     
+    - Run this:  
+      ```
+      "C:\Program Files\gs\gs9.20\bin\gswin64.exe" ^
+        -dPrinted=false ^
+        -sDEVICE=pdfwrite ^
+        -dCompatibilityLevel=1.4 ^
+        -dPDFSETTINGS=/screen ^
+        -dNOPAUSE ^
+        -dBATCH ^
+        -dDetectDuplicateImages ^
+        -sOutputFile=Specification-1.1.0-compressed.pdf ^
+        Specification-1.1.0.pdf   
+      ```
+      This is a Windows .BAT file. On Linux, replace the `^` with `\`.
+
 
 ---
 
