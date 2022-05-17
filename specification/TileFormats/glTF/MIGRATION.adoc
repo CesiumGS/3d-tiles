@@ -31,6 +31,7 @@ xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batch
 * The https://github.com/CesiumGS/3d-tiles/tree/main/specification/TileFormats/Batched3DModel#coordinate-system[`RTC_CENTER`] can be added to the translation component of the root node of the glTF asset.
 * Batch IDs and Batch Tables can be represented using https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`].
 
+.Batched 3D Models in 3D Tiles 1.0, and the corresponding representation in 3D Tiles 1.1
 image::figures/migration-b3dm.png[b3dm]
 
 [#tileformats-gltf-instanced-3d-model-i3dm]
@@ -45,6 +46,7 @@ xref:{url-specification-tileformats-instanced3dmodel}README.adoc#tileformats-ins
 * Batch IDs and Batch Tables can be represented using https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features[`EXT_instance_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`].
 * `EAST_NORTH_UP` is not directly supported, but can be represented using per-instance rotations.
 
+.Instanced 3D Models in 3D Tiles 1.0, and the corresponding representation in 3D Tiles 1.1
 image::figures/migration-i3dm.png[i3dm]
 
 [#tileformats-gltf-point-cloud-pnts]
@@ -59,6 +61,7 @@ xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointclou
 * Batch IDs and Batch Tables can be represented using https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`].
 * `CONSTANT_RGBA` is not directly supported in glTF, but can be achieved with materials or per-point colors.
 
+.Point Clouds in 3D Tiles 1.0, and the corresponding representation in 3D Tiles 1.1
 image::figures/migration-pnts.png[pnts]
 
 [#tileformats-gltf-composite-cmpt]

@@ -539,7 +539,8 @@ Any specification that references 3D Metadata must state explicitly which storag
 
 The binary table format is similar to a database table where entities are rows and properties are columns. Each column represents one of the properties of the class. Each row represents a single entity conforming to the class.
 
-image::figures/table-format.png[Table Format,1000px]
+.Illustration of metadata that can be stored in a table
+image::figures/table-format.png[Table Format]
 
 The rows of a table are addressed by an integer index called an *entity ID*. Entity IDs are always numbered `+0, 1, ..., N - 1+` where `N` is the number of rows in the table.
 
@@ -634,7 +635,9 @@ The data type used for offsets is defined by a *string offset type*, which may b
 ====
 Three UTF-8 strings, binary-encoded in a buffer.
 
+.Data layout for the buffers storing string metadata
 image::figures/unicode-strings.png[String property example]
+
 ====
 
 [#metadata-enums-1]
@@ -678,7 +681,8 @@ Each expression in the table above defines an index into the underlying property
 ====
 Five variable-length arrays of UINT8 components, binary-encoded in a buffer. The associated property definition would be `type = "SCALAR"`, `componentType = "UINT8"`, and `array = true`.
 
-image::figures/array-of-ints.png[Variable-length array,640px]
+.Data layout for the buffers storing string variable-length arrays
+image::figures/array-of-ints.png[Variable-length array]
 ====
 
 [NOTE]
@@ -686,6 +690,7 @@ image::figures/array-of-ints.png[Variable-length array,640px]
 ====
 Two variable-length arrays of strings, binary-encoded in a buffer. The associated property definition would be `type = "STRING"` and `array = true` (variable-length). Observe that the last element of the array offset buffer points to the last element of the string offset buffer. This is because the last valid string offset is the next-to-last element of the string offset buffer.
 
+.Data layout for the buffers storing string variable-length arrays of strings
 image::figures/array-of-strings.png[Variable-length array of string]
 ====
 

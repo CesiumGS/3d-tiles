@@ -38,6 +38,7 @@ The content references a set of _features_, such as 3D models representing build
 
 Tiles are organized in a tree which incorporates the concept of Hierarchical Level of Detail (HLOD) for optimal rendering of spatial data. Each tile has a _bounding volume_, an object defining a spatial extent completely enclosing its content. The tree has <<core-bounding-volume-spatial-coherence,spatial coherence>>; the content for child tiles are completely inside the parent's bounding volume.
 
+.A tree of tiles
 image::figures/tree.png[]
 
 A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (WMTS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, the tree can be any <<core-spatial-data-structures,spatial data structure>> with spatial coherence, including k-d trees, quadtrees, octrees, and grids. <<core-implicit-tiling,Implicit tiling>> defines a concise representation of quadtrees and octrees.
@@ -183,6 +184,7 @@ A bounding volume defines the spatial extent enclosing a tile or a tile's conten
 
 The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order `[west, south, east, north, minimum height, maximum height]`. Latitudes and longitudes are in the WGS 84 datum as defined in https://epsg.org/crs_4979/WGS-84.html[EPSG 4979] and are in radians. Heights are in meters above (or below) the https://epsg.org/ellipsoid_7030/WGS-84.html[WGS 84 ellipsoid].
 
+.A bounding region
 image::figures/BoundingRegion.jpg[Bounding Region]
 
 [source,json]
@@ -204,6 +206,7 @@ image::figures/BoundingRegion.jpg[Bounding Region]
 
 The `boundingVolume.box` property is an array of 12 numbers that define an oriented bounding box in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the _z_-axis is up. The first three elements define the x, y, and z values for the center of the box. The next three elements (with indices 3, 4, and 5) define the _x_-axis direction and half-length. The next three elements (indices 6, 7, and 8) define the _y_-axis direction and half-length. The last three elements (indices 9, 10, and 11) define the _z_-axis direction and half-length.
 
+.A bounding box
 image::figures/BoundingBox.jpg[Bounding Box]
 
 [source,json]
@@ -223,6 +226,7 @@ image::figures/BoundingBox.jpg[Bounding Box]
 
 The `boundingVolume.sphere` property is an array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the _z_-axis is up. The last element (with index 3) defines the radius in meters.
 
+.A bounding sphere
 image::figures/BoundingSphere.jpg[Bounding Sphere]
 
 [source,json]
@@ -244,8 +248,9 @@ The bounding volume can be given for each tile, via the `tile.boundingVolume` pr
 
 The screenshot below shows the bounding volumes for the root tile for Canary Wharf. The `tile.boundingVolume`, shown in red, encloses the entire area of the tileset; `content.boundingVolume` shown in blue, encloses just the four features (models) in the root tile.
 
-image:figures/contentsBox.png[] +
-(Building data from http://www.cybercity3d.com/[CyberCity3D]. Imagery data from https://www.microsoft.com/maps/[Bing Maps])
+.Bounding volumes for the root tile of a tileset. Building data from http://www.cybercity3d.com/[CyberCity3D]. Imagery data from https://www.microsoft.com/maps/[Bing Maps]
+image::figures/contentsBox.png[]
+
 
 
 
@@ -409,6 +414,7 @@ Example glTF root node:
 
 For an example of the computed transforms (`transformToRoot` in the code above) for a tileset, consider:
 
+.Structure of an example tileset with tiles that contain glTF content
 image::figures/tileTransform.png[]
 
 The computed transform for each tile is:
@@ -470,6 +476,7 @@ function computeTransform(tile, transformToRoot) {
 
 A tile JSON object consists of the following properties.
 
+.Elements of a tile JSON object
 image::figures/tile.png[]
 
 The following example shows one non-leaf tile.
@@ -520,6 +527,7 @@ The `content.boundingVolume` property defines an optional <<core-bounding-volume
 
 It is also possible to define multiple contents for a tile: The `contents` property (not shown above) is an array containing one or more contents. `contents` and `content` are mutually exclusive. When a tile has a single content it should use `content` for backwards compatibility with engines that only support 3D Tiles 1.0. Multiple contents allow for different representations of the tile content -- for example, one as a triangle mesh and one as a point cloud:
 
+.An example of a tile that defines multiple contents
 image::figures/multiple-contents-geometry.png[]
 
 Contents can also be arranged into groups, using the `content.group` property:
@@ -553,6 +561,7 @@ Contents can also be arranged into groups, using the `content.group` property:
 
 These groups can be associated with group metadata: The value of the `content.group` property is an index into the array of `groups` that are defined in a top-level array of the tileset. Each element of this array is a metadata entity, as defined in the <<core-metadata,metadata>> section. This allows applications to perform styling or filtering based on the group that the content belongs to:
 
+.Illustration of rendering options based on content groups
 image::figures/filtering-groups.jpg[]
 
 The optional `transform` property (not shown above) defines a 4x4 affine transformation matrix that transforms the tile's `content`, `boundingVolume`, and `viewerRequestVolume` as described in the <<core-tile-transforms,Tile transform>> section.
@@ -637,14 +646,16 @@ The `tilesetVersion` can be used as a query parameter when requesting content to
 
 To create a tree of trees, a tile's `content.uri` can point to an external tileset (the uri of another tileset JSON file). This enables, for example, storing each city in a tileset and then having a global tileset of tilesets.
 
+.A tileset that refers to other tilesets
 image::figures/tilesets.png[]
 
 When a tile points to an external tileset, the tile:
 
 * Cannot have any children; `tile.children` must be `undefined` or an empty array.
 * Cannot be used to create cycles, for example, by pointing to the same tileset file containing the tile or by pointing to another tileset file that then points back to the initial file containing the tile.
-* Will be transformed by both the tile's `transform` and root tile's `transform`. For example, in the following tileset referencing an external tileset, the computed transform for `T3` is `[T0][T1][T2][T3]`.
+* Will be transformed by both the tile's `transform` and root tile's `transform`. For example, in the following tileset referencing an external tileset, the computed transform for `T3` is `[T0][T1][T2][T3]`. 
 
+.The chain of transforms for a tileset that refers to another tileset
 image::figures/tileTransformExternalTileset.png[]
 
 If an external tileset defines `asset.tilesetVersion`, this overrides the value from the parent tileset. If the external tileset does not define `asset.tilesetVersion`, the value is inherited from the parent tileset (if defined).
@@ -794,6 +805,7 @@ The metadata can be associated with elements of a tileset at various levels of g
 
 The figure below shows the relationship between these entities, and examples of metadata that may be associated with these entities:
 
+.Illustration of the different granularity levels for applying metadata
 image::figures/3d-tiles-metadata-granularities.png[Metadata Granularity,600]
 
 Although they are defined independently, the metadata structure in 3D Tiles and in the `EXT_structural_metadata` extension both conform to the xref:Metadata/README.adoc[3D Metadata Specification] and build upon the xref:Metadata/ReferenceImplementation/README.adoc[Reference Implementation of the 3D Metadata Specification]. Concepts and terminology used here refer to the 3D Metadata Specification, which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
@@ -894,6 +906,7 @@ Statistics provide aggregate information about the distribution of property valu
 
 These summary statistics allow applications to analyze or display metadata, e.g. with the xref:Styling/README.adoc#styling-styling[declarative styling language], without first having to process the complete dataset to identify bounds for color ramps and histograms. Statistics are provided on a per-class basis, so that applications can provide styling or context based on the tileset as a whole, while only needing to download and process a subset of its tiles.
 
+.Illustration of how to use metadata statistics for rendering an analytics
 image::figures/3d-tiles-metadata-statistics.png[Metadata Granularity,600]
 
 The statistics are stored in the top-level `statistics` object of the tileset. The structure of this statistics object is defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Statistics/statistics.schema.json[statistics.schema.json]. The statistics are defined for each metadata class, including the following elements:

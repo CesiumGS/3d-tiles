@@ -45,6 +45,7 @@ The following example assigns a color based on building height.
 }
 ----
 
+.Rendering of buildings with different colors, based on the height of the buildings
 image::figures/example.png[]
 
 [#styling-concepts]

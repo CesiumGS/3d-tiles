@@ -50,6 +50,7 @@ Instanced 3D Model maps well to the link:https://www.khronos.org/registry/webgl/
 
 A tile is composed of a header section immediately followed by a binary body. The following figure shows the Instanced 3D Model layout (dashes indicate optional fields):
 
+.Data layout for Instanced 3D Models
 image::figures/header-layout.png[header layout]
 
 [#tileformats-instanced3dmodel-padding]
@@ -220,10 +221,10 @@ An instance's orientation is defined by an orthonormal basis created by an `up` 
 The `x` vector in the standard basis maps to the `right` vector in the transformed basis, and the `y` vector maps to the `up` vector.
 The `z` vector would map to a `forward` vector, but it is omitted because it will always be the cross product of `right` and `up`.
 
-A box in the standard basis:
+.A box in the standard basis
 image::figures/box-standard-basis.png[box standard basis]
 
-A box transformed into a rotated basis
+.A box transformed into a rotated basis
 image::figures/box-rotated-basis.png[box rotated basis]
 
 [#tileformats-instanced3dmodel-oct-encoded-normal-vectors]
@@ -263,6 +264,7 @@ If neither `POSITION` or `POSITION_QUANTIZED` are defined, the instance will not
 
 A quantized volume is defined by `offset` and `scale` to map quantized positions into local space, as shown in the following figure:
 
+.Illustration of the quantization that is used for the `POSITION_QUANTIZED` semantic
 image::figures/quantized-volume.png[quantized volume]
 
 `offset` is stored in the global semantic `QUANTIZED_VOLUME_OFFSET`, and `scale` is stored in the global semantic `QUANTIZED_VOLUME_SCALE`.

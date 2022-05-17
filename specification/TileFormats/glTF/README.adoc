@@ -45,40 +45,42 @@ _3D buildings from swisstopo in CesiumJS_
 
 glTF supports point clouds with the `0` (`POINTS`) primitive mode. Points can have positions, colors, normals, and custom attributes as specified in the `primitive.attributes` field.
 
+.40 billion point cloud from the City of Montreal with ASPRS classification codes (https://donnees.montreal.ca/license-en[CC-BY 4.0])
 image::figures/glTF-point-cloud.png[point-cloud]
-_40 billion point cloud from the City of Montreal with ASPRS classification codes (https://donnees.montreal.ca/license-en[CC-BY 4.0])_
 
 When using the link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features/README.md[`EXT_mesh_features`] extension points can be assigned feature IDs and these features can have associated metadata.
 
+.A point cloud with two property tables, one storing metadata for groups of points and the other storing metadata for individual points
 image::figures/point-cloud-layers.png[Point Cloud Features]
-_A point cloud with two property tables, one storing metadata for groups of points and the other storing metadata for individual points_
 
 [#tileformats-gltf-instancing]
 === Instancing
 
 glTF can leverage GPU instancing with the link:https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Vendor/EXT_mesh_gpu_instancing/README.md[`EXT_mesh_gpu_instancing`] extension. Instances can be given unique translations, rotations, scales, and other per-instance attributes.
 
+.Instanced tree models in Philadelphia from OpenTreeMap
 image::figures/glTF-instancing.jpg[instancing]
-_Instanced tree models in Philadelphia from OpenTreeMap_
 
 When using the link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features/README.md[`EXT_instance_features`] extension instances can be assigned feature IDs and these features can have associated metadata.
 
+.Instanced tree models where trees are assigned to groups with a per-instance feature ID attribute. One feature table stores per-group metadata and the other stores per-tree metadata
 image::figures/multi-instance-metadata.png[Model Instance Features]
-_Instanced tree models where trees are assigned to groups with a per-instance feature ID attribute. One feature table stores per-group metadata and the other stores per-tree metadata._
 
 [#tileformats-gltf-feature-identification]
 == Feature Identification
 
 link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features/README.md[`EXT_mesh_features`] provides a means of assigning identifiers to geometry and subcomponents of geometry within a glTF 2.0 asset. Feature IDs can de assigned to vertices or texels. link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features/README.md[`EXT_instance_features`] allows feature IDs to be assigned to individial instances.
 
+.Street level photogrammetry of San Francisco Ferry Building from Aerometrex. Left: per-texel colors showing the feature classification, e.g., roof, sky roof, windows, window frames, and AC units . Right: classification is used to determine rendering material properties, e.g., make the windows translucent
 image::figures/glTF-feature-identification.png[Per-texel features]
-_Street level photogrammetry of San Francisco Ferry Building from Aerometrex. Left: per-texel colors showing the feature classification, e.g., roof, sky roof, windows, window frames, and AC units . Right: classification is used to determine rendering material properties, e.g., make the windows translucent._
+
 
 [#tileformats-gltf-metadata]
 == Metadata
 
 link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata/README.md[`EXT_structural_metadata`] stores metadata at per-vertex, per-texel, and per-feature granularity and uses the type system defined in the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification]. This metadata can be used for visualization and analysis.
 
+.An example of metadata associated with glTF models
 image::figures/glTF-metadata.png[metadata]
 
 [#tileformats-gltf-compression]

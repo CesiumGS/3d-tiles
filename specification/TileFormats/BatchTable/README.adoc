@@ -46,6 +46,7 @@ A Batch Table is used by the following tile formats:
 
 A Batch Table is composed of two parts: a JSON header and an optional binary body in little endian. The JSON describes the properties, whose values either can be defined directly in the JSON as an array, or can refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body. The following figure shows the Batch Table layout:
 
+.Data layout of a Batch Table
 image::figures/batch-table-layout.png[batch table layout]
 
 When a tile format includes a Batch Table, the Batch Table immediately follows the tile's Feature Table.
@@ -118,6 +119,7 @@ address[1] = {street : 'Main Street', houseNumber : '2'};
 
 When the JSON header includes a reference to the binary section, the provided `byteOffset` is used to index into the data, as shown in the following figure:
 
+.An example showing how to access the binary body, based on the information from the JSON header
 image::figures/batch-table-binary-index.png[batch table binary index]
 
 Values can be retrieved using the number of features, `batchLength`; the desired batch id, `batchId`; and the `componentType` and `type` defined in the JSON header.

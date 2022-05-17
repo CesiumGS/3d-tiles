@@ -25,6 +25,7 @@ interleaveBits(0b001, 0b010, 0b100) = 0b100010001
 interleaveBits(0b111, 0b000, 0b111) = 0b101101101
 ----
 
+.An example for the computation of the Morton index based on the tile coordinates on three levels of a quadtree
 image::figures/morton-indexing.png[Morton Order]
 
 
@@ -105,6 +106,7 @@ In binary, a tile's global Morton index is the complete path from the implicit r
 tile.globalMortonIndex = concatBits(subtreeRoot.globalMortonIndex, tile.localMortonIndex)
 ----
 
+.Illustration of how to compute the global Morton index of a tile, from the global Morton index of the root of the containing subtree, and the local Morton index of the tile in this subtree
 image::figures/global-to-local-morton.png[,500]
 
 Similarly, the global level of a tile is the length of the path from the implicit root tile to the tile. This is the sum of the subtree root tile's global level and the tile's local level relative to the subtree root tile:
@@ -113,6 +115,7 @@ Similarly, the global level of a tile is the length of the path from the implici
 tile.globalLevel = subtreeRoot.globalLevel + tile.localLevel
 ----
 
+.Illustration of how to compute the global level of a tile, from the glonal level of the root of the containing subtree, and the local level of the tile in this subtree
 image::figures/global-to-local-levels.png[,500]
 
 `(x, y, z)` coordinates follow the same pattern as Morton indices. The only difference is that the concatenation of bits happens component-wise. That is:
@@ -125,6 +128,7 @@ tile.globalY = concatBits(subtreeRoot.globalY, tile.localY)
 tile.globalZ = concatBits(subtreeRoot.globalZ, tile.localZ)
 ----
 
+.Illustration of the computation of the global tile coordinates, from the global coordinates of the containing subtree, and the local coordinates of the tile in this subtree.
 image::figures/global-to-local-xy.png[Global to local XY coordinates]
 
 
@@ -150,4 +154,5 @@ Where:
 * `childIndex` is an integer in the range `[0, N)` that is the index of the child tile relative to the parent.
 * `childX`, `childY`, and `childZ` are single bits that represent which half of the parent's bounding volume the child is in in each direction.
 
+.Illustration of the computation of the coordinates of parent- and child tiles
 image::figures/parent-and-child-coordinates.png[Parent and child coordinates]
