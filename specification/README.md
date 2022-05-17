@@ -818,7 +818,7 @@ Although they are defined independently, the metadata structure in 3D Tiles and 
 
 The Metadata schema defines the structure of the metadata. It contains a definition of the metadata classes, which are templates for the metadata instances, and define the set of properties that each metadata instance has. The metadata schema is stored within a tileset in the form of a JSON representation according to the [Metadata Schema Reference Implementation](Metadata/ReferenceImplementation/Schema/README.md). This reference implementation includes the definition of the JSON schema for the metadata schema. 
 
-Schemas may be embedded in tilesets with the `schema` property, or referenced externally by the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same schema to avoid duplication.
+Schemas may be embedded in tilesets with the `schema` property, or referenced externally by the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same schema to avoid duplication. Any class that is defined in the schema of an [#external-tilesets](external tileset) must also be defined in the top-level tileset schema.
 
 > **Example:** Schema with a `building` class having three properties, "height", "owners", and "buildingType". The "buildingType" property refers to the `buildingType` enum as its data type, also defined in the schema. Later examples show how entities declare their class and supply values for their properties.
 >
