@@ -26,7 +26,7 @@ The xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specificat
 * xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-tiling[3D Tiles Metadata Implicit Tilesets] - Assigns metadata to tilesets, tiles, groups, and contents in a 3D Tiles tileset. A property table is defined for subtrees of an implicit tile hierarchy, and stores metadata that is associated with the nodes of such a subtree.
 * https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] -- Assigns metadata to vertices, texels, and features in a glTF asset. A property table is defined in the top-level extension object. The property values are stored in standard glTF buffer views.
 
-The full JSON schema definition for this implementation can be found in link:../../../schema/PropertyTable/[the PropertyTable directory of the specification].
+The full JSON schema definition for this implementation can be found in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/PropertyTable/[the PropertyTable directory of the specification].
 
 [#metadata-referenceimplementation-propertytable-property-tables]
 [discrete]
