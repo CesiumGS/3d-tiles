@@ -24,7 +24,7 @@ Many domains benefit from structured metadata -- typical examples include histor
 
 The specification defines core concepts to be used by multiple 3D formats, and is language and format agnostic. This document defines concepts with purpose and terminology, but does not impose a particular schema or serialization format for implementation. For use of the format outside of abstract conceptual definitions, see:
 
-* xref:{url-specification}README.md#metadata[3D Tiles Metadata] - Assigns metadata to tilesets, tiles, and contents in 3D Tiles 1.1
+* xref:{url-specification}README.adoc#core-metadata[3D Tiles Metadata] - Assigns metadata to tilesets, tiles, and contents in 3D Tiles 1.1
 * link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_metadata[`3DTILES_metadata`] - An extension for 3D Tiles 1.0 that assigns metadata to tilesets, tiles, and contents
 * https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] (glTF 2.0) --  Assigns metadata to vertices, texels, and features in a glTF asset
 
