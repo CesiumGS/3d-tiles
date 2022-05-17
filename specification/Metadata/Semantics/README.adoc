@@ -44,6 +44,7 @@ Throughout this section, the term "entity" refers to any conceptual object with 
 [discrete]
 === General Semantics
 
+[cols="1,1a,2"]
 |===
 | Semantic | Type | Description
 
@@ -52,24 +53,24 @@ Throughout this section, the term "entity" refers to any conceptual object with 
 | The unique identifier for the entity.
 
 | `NAME`
-| - Type: `STRING`
+| * Type: `STRING`
 | The name of the entity. Names should be human-readable, and do not have to be unique.
 
 | `DESCRIPTION`
-| - Type: `STRING`
+| * Type: `STRING`
 | Description of the entity. Typically at least a phrase, and possibly several sentences or paragraphs.
 
 | `ATTRIBUTION_IDS`
 | 
-- Type: `SCALAR` +
-- Component type: `UINT8`, `UINT16`, `UINT32`, or `UINT64` +
-- Array: `true`
+* Type: `SCALAR`
+* Component type: `UINT8`, `UINT16`, `UINT32`, or `UINT64`
+* Array: `true`
 | List of attribution IDs that index into a global list of attribution strings. This semantic may be assigned to metadata at any level of granularity including tileset, group, subtree, tile, content, feature, vertex, and texel granularity. The global list of attribution strings is located in a tileset or subtree with the property semantic `ATTRIBUTION_STRINGS`. The following precedence order is used to locate the attribution strings: first the containing subtree (if applicable), then the containing external tileset (if applicable), and finally the root tileset.
 
 | `ATTRIBUTION_STRINGS`
 | 
-- Type: `STRING` +
-- Array: `true`
+* Type: `STRING`
+* Array: `true`
 | List of attribution strings. Each string contains information about a data provider or copyright text. Text may include embedded markup languages such as HTML. This semantic may be assigned to metadata at any granularity (wherever `STRING` property values can be encoded). When used in combination with `ATTRIBUTION_IDS` it is assigned to subtrees and tilesets.
 |===
 
@@ -99,28 +100,32 @@ Units for all linear distances are meters, and all angles are radians.
 [discrete]
 ==== Tileset Semantics
 
+[cols="1,1a,2a"]
 |===
 | Semantic | Type | Description
 
 | `TILESET_FEATURE_ID_LABELS`
 | 
-- Type: `STRING` +
-- Array: `true` +
+* Type: `STRING`
+* Array: `true`
 | The union of all the feature ID labels in glTF content using the https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features[`EXT_instance_features`] extensions.
 
 | `TILESET_CRS_GEOCENTRIC`
-| - Type: `STRING`
-| The geocentric coordinate reference system (CRS) of the tileset. Values include, but are not limited to:
-- ``"EPSG:4978"`` - WGS 84 + 
-- ``"EPSG:7656"`` - WGS 84 (G730) +
-- ``"EPSG:7658"`` - WGS 84 (G873) +
-- ``"EPSG:7660"`` - WGS 84 (G1150) +
-- ``"EPSG:7662"`` - WGS 84 (G1674) +
-- ``"EPSG:7664"`` - WGS 84 (G1762) + 
-- ``"EPSG:9753"`` - WGS 84 (G2139) + 
-- ``"UNKNOWN"`` - CRS is unknown
-``region`` bounding volumes are assumed to use the same reference ellipsoid as the geocentric coordinate reference system specified here. +
- +
+| * Type: `STRING`
+| 
+The geocentric coordinate reference system (CRS) of the tileset. Values include, but are not limited to:
+
+* ``"EPSG:4978"`` - WGS 84
+* ``"EPSG:7656"`` - WGS 84 (G730)
+* ``"EPSG:7658"`` - WGS 84 (G873)
+* ``"EPSG:7660"`` - WGS 84 (G1150)
+* ``"EPSG:7662"`` - WGS 84 (G1674)
+* ``"EPSG:7664"`` - WGS 84 (G1762)
+* ``"EPSG:9753"`` - WGS 84 (G2139)
+* ``"UNKNOWN"`` - CRS is unknown
+
+``region`` bounding volumes are assumed to use the same reference ellipsoid as the geocentric coordinate reference system specified here.
+
 For more details on coordinate reference systems in 3D Tiles, see xref:{url-specification}README.adoc#core-coordinate-reference-system-crs[Coordinate Reference System (CRS)].
 
 | `TILESET_CRS_COORDINATE_EPOCH`
@@ -146,73 +151,74 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 [discrete]
 ==== Tile Semantics
 
+[cols="1,1a,2"]
 |===
 | Semantic | Type | Description
 
 | `TILE_BOUNDING_BOX`
 | 
-- Type: `SCALAR` + 
-- Component type: `FLOAT32` or `FLOAT64` + 
-- Array: `true` + 
-- Count: `12` + 
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+* Array: `true`
+* Count: `12`
 | The bounding volume of the tile, expressed as a xref:{url-specification}README.adoc#core-box[box]. Equivalent to `tile.boundingVolume.box`.
 
 | `TILE_BOUNDING_REGION`
 | 
-- Type: `SCALAR` +
-- Component type: `FLOAT64` +
-- Array: `true` +
-- Count: `6` +
+* Type: `SCALAR`
+* Component type: `FLOAT64`
+* Array: `true`
+* Count: `6`
 | The bounding volume of the tile, expressed as a xref:{url-specification}README.adoc#core-region[region]. Equivalent to `tile.boundingVolume.region`.
 
 | `TILE_BOUNDING_SPHERE`
 | 
-- Type: `SCALAR` +
-- Component type: `FLOAT32` or `FLOAT64` + 
-- Array: `true` + 
-- Count: `4` + 
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+* Array: `true`
+* Count: `4`
 | The bounding volume of the tile, expressed as a xref:{url-specification}README.adoc#core-sphere[sphere]. Equivalent to `tile.boundingVolume.sphere`.
 
 | `TILE_BOUNDING_S2_CELL`
 | 
-- Type: `SCALAR` +
-- Component type: `UINT64` +
+* Type: `SCALAR`
+* Component type: `UINT64`
 | The bounding volume of the tile, expressed as an link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md#cell-ids[S2 Cell ID] using the 64-bit representation instead of the hexadecimal representation. Only applicable to link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
 
 | `TILE_MINIMUM_HEIGHT`
 | 
-- Type: `SCALAR` +
-- Component type: `FLOAT32` or `FLOAT64` +
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
 | The minimum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to minimum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
 
 | `TILE_MAXIMUM_HEIGHT`
 | 
-- Type: `SCALAR` +
-- Component type: `FLOAT32` or `FLOAT64` +
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
 | The maximum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to maximum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
 
 | `TILE_HORIZON_OCCLUSION_POINT`^1^
 | 
-- Type: `VEC3` +
-- Component type: `FLOAT32` or `FLOAT64` +
+* Type: `VEC3`
+* Component type: `FLOAT32` or `FLOAT64`
 | The horizon occlusion point of the tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire tile is below the horizon. See https://cesium.com/blog/2013/04/25/horizon-culling/[Horizon Culling] for more information.
 
 | `TILE_GEOMETRIC_ERROR`
 | 
-- Type: `SCALAR` +
-- Component type: `FLOAT32` or `FLOAT64` +
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
 | The geometric error of the tile. Equivalent to `tile.geometricError`.
 
 | `TILE_REFINE`
 | 
-- Type: `SCALAR` +
-- Component type: `UINT8` +
+* Type: `SCALAR`
+* Component type: `UINT8`
 | The tile refinement type. Valid values are `0` (`"ADD"`) and `1` (`"REPLACE"`). Equivalent to `tile.refine`.
 
 | `TILE_TRANSFORM`
 | 
-- Type: `MAT4` +
-- Component type: `FLOAT32` or `FLOAT64` +
+* Type: `MAT4`
+* Component type: `FLOAT32` or `FLOAT64`
 | The tile transform. Equivalent to `tile.transform`.
 |===
 
@@ -234,66 +240,67 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 [discrete]
 ==== Content Semantics
 
+[cols="1,1a,2"]
 |===
 | Semantic | Type | Description
 
 | `CONTENT_BOUNDING_BOX`
 | 
-- Type: `SCALAR` +
-- Component type: `FLOAT32` or `FLOAT64` +
-- Array: `true` +
-- Count: `12` +
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+* Array: `true`
+* Count: `12`
 | The bounding volume of the content of a tile, expressed as a xref:{url-specification}README.adoc#core-box[box]. Equivalent to `tile.content.boundingVolume.box`.
 
 | `CONTENT_BOUNDING_REGION`
 | 
-- Type: `SCALAR` +
-- Component type: `FLOAT64` +
-- Array: `true` +
-- Count: `6` +
+* Type: `SCALAR`
+* Component type: `FLOAT64`
+* Array: `true`
+* Count: `6`
 | The bounding volume of the content of a tile, expressed as a xref:{url-specification}README.adoc#core-region[region]. Equivalent to `tile.content.boundingVolume.region`.
 
 | `CONTENT_BOUNDING_SPHERE`
 | 
-- Type: `SCALAR` +
-- Component type: `FLOAT32` or `FLOAT64` +
-- Array: `true` +
-- Count: `4` +
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+* Array: `true`
+* Count: `4`
 | The bounding volume of the content of a tile, expressed as a xref:{url-specification}README.adoc#core-sphere[sphere]. Equivalent to `tile.content.boundingVolume.sphere`.
 
 | `CONTENT_BOUNDING_S2_CELL`
 | 
-- Type: `SCALAR` +
-- Component type: `UINT64` +
+* Type: `SCALAR`
+* Component type: `UINT64`
 | The bounding volume of the content of a tile, expressed as an link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md#cell-ids[S2 Cell ID] using the 64-bit representation instead of the hexadecimal representation. Only applicable to link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
 
 | `CONTENT_MINIMUM_HEIGHT`
 | 
-- Type: `SCALAR` +
-- Component type: `FLOAT32` or `FLOAT64` +
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
 | The minimum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to minimum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
 
 | `CONTENT_MAXIMUM_HEIGHT`
 | 
-- Type: `SCALAR` +
-- Component type: `FLOAT32` or `FLOAT64` +
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
 | The maximum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to maximum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
 
-| ~`CONTENT_HORIZON_OCCLUSION_POINT`~^1^
+| `CONTENT_HORIZON_OCCLUSION_POINT`^1^
 | 
-- Type: `VEC3` +
-- Component type: `FLOAT32` or `FLOAT64` +
+* Type: `VEC3`
+* Component type: `FLOAT32` or `FLOAT64`
 | The horizon occlusion point of the content of a tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire content is below the horizon. See https://cesium.com/blog/2013/04/25/horizon-culling/[Horizon Culling] for more information.
 
 | `CONTENT_URI`
 | 
-- Type: `STRING` +
+* Type: `STRING`
 | The content uri. Overrides the implicit tile's generated content uri. Equivalent to `tile.content.uri`.
 
 | `CONTENT_GROUP_ID`
 | 
-- Type: `SCALAR` +
-- Component type: `UINT8`, `UINT16`, `UINT32`, or `UINT64` +
+* Type: `SCALAR`
+* Component type: `UINT8`, `UINT16`, `UINT32`, or `UINT64`
 | The content group ID. Equivalent to `tile.content.group`.
 |===
 

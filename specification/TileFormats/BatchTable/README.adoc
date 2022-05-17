@@ -124,6 +124,7 @@ Values can be retrieved using the number of features, `batchLength`; the desired
 
 The following tables can be used to compute the byte size of a property.
 
+[cols="1,1"]
 |===
 | `componentType` | Size in bytes
 
@@ -152,6 +153,7 @@ The following tables can be used to compute the byte size of a property.
 | 8
 |===
 
+[cols="1,1"]
 |===
 | `type` | Number of components
 

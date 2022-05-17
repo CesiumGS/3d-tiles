@@ -15,6 +15,7 @@ See xref:TileFormats/glTF/README.adoc#tileformats-gltf-gltf[glTF Tile Format] fo
 
 Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
 
+[cols="1,2"]
 |===
 | Legacy Format | Uses
 
@@ -146,8 +147,8 @@ If a tile uses replacement refinement, when refined it renders its children in p
 |===
 | Parent Tile | Refined
 
-| image:figures/replacement_1.jpg[pdfwidth=2.0in]
-| image:figures/replacement_2.jpg[pdfwidth=2.0in]
+| image:figures/replacement_1.jpg[pdfwidth=3.0in]
+| image:figures/replacement_2.jpg[pdfwidth=3.0in]
 |===
 
 [#core-additive]
@@ -159,8 +160,8 @@ If a tile uses additive refinement, when refined it renders itself and its child
 |===
 | Parent Tile | Refined
 
-| image:figures/additive_1.jpg[pdfwidth=2.0in]
-| image:figures/additive_2.jpg[pdfwidth=2.0in]
+| image:figures/additive_1.jpg[pdfwidth=3.0in]
+| image:figures/additive_2.jpg[pdfwidth=3.0in]
 |===
 
 [#core-bounding-volumes]
@@ -172,9 +173,9 @@ A bounding volume defines the spatial extent enclosing a tile or a tile's conten
 |===
 | Bounding box | Bounding sphere | Bounding region
 
-| image:figures/BoundingBox.jpg[pdfwidth=1.5in]
-| image:figures/BoundingSphere.jpg[pdfwidth=1.5in]
-| image:figures/BoundingRegion.jpg[pdfwidth=1.5in]
+| image:figures/BoundingBox.jpg[pdfwidth=2.0in]
+| image:figures/BoundingSphere.jpg[pdfwidth=2.0in]
+| image:figures/BoundingRegion.jpg[pdfwidth=2.0in]
 |===
 
 [#core-region]
@@ -902,6 +903,7 @@ The statistics are stored in the top-level `statistics` object of the tileset. T
 
 Properties may include the following built-in statistics:
 
+[cols="~,30%,~"]
 |===
 | Name | Description | Type
 
@@ -1114,6 +1116,7 @@ See xref:TileFormats/glTF/README.adoc#tileformats-gltf-gltf[glTF Tile Format] fo
 
 Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
 
+[cols="1,2"]
 |===
 | Legacy Format | Uses
 

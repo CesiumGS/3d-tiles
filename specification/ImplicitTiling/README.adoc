@@ -68,6 +68,7 @@ An `implicitTiling` object may be added to any tile in the tileset JSON. Such a 
 
 The `implicitTiling` object has the following properties:
 
+[cols="1,2"]
 |===
 | Property | Description
 
@@ -118,18 +119,18 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 |===
 | Root Box | Quadtree | Octree
 
-| image:figures/box.png[pdfwidth=1.5in]
-| image:figures/box-quadtree.png[pdfwidth=1.5in]
-| image:figures/box-octree.png[pdfwidth=1.5in]
+| image:figures/box.png[pdfwidth=2.0in]
+| image:figures/box-quadtree.png[pdfwidth=2.0in]
+| image:figures/box-octree.png[pdfwidth=2.0in]
 |===
 
 [cols="^,^,^"]
 |===
 | Root Region | Quadtree | Octree
 
-| image:figures/region.png[pdfwidth=1.5in]
-| image:figures/region-quadtree.png[pdfwidth=1.5in]
-| image:figures/region-octree.png[pdfwidth=1.5in]
+| image:figures/region.png[pdfwidth=2.0in]
+| image:figures/region-quadtree.png[pdfwidth=2.0in]
+| image:figures/region-octree.png[pdfwidth=2.0in]
 |===
 
 
@@ -139,6 +140,7 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 
 Implicit tiling only requires defining the subdivision scheme, refinement strategy, bounding volume, and geometric error at the implicit root tile. For descendant tiles, these properties are computed automatically, based on the following rules:
 
+[cols="1,2"]
 |===
 | Property | Subdivision Rule
 
@@ -176,6 +178,7 @@ The computed tile `boundingVolume` and `geometricError` can be overridden with <
 
 For `box` bounding volumes:
 
+[cols="1,3"]
 |===
 | Coordinate | Positive Direction
 
@@ -193,6 +196,7 @@ image::figures/box-coordinates.png[,780]
 
 For `region` bounding volumes:
 
+[cols="1,3"]
 |===
 | Coordinate | Positive Direction
 
@@ -703,6 +707,7 @@ image::figures/binary-subtree.png[Subtree Binary Format]
 
 Header fields:
 
+[cols="1,1,1,3"]
 |===
 | Bytes | Field | Type | Description
 
