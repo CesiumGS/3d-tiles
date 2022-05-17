@@ -829,7 +829,7 @@ _A single entity encoded in JSON. Note that the optional property is omitted in 
       "booleanProperty": true,
       "stringProperty": "x123",
       "enumProperty": "Enum B",
-      "stringArrayProperty": ["abc", "12345", "?????????"]
+      "stringArrayProperty": ["abc", "12345", "おはようございます"]
     }
   }
 }
