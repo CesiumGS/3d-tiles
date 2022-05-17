@@ -1,6 +1,41 @@
 [#core-introduction]
 == Introduction
 
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-implicittiling: {url-specification}ImplicitTiling/
+:url-specification-metadata: {url-specification}Metadata/
+:url-specification-metadata-referenceimplementation: {url-specification-metadata}ReferenceImplementation/
+:url-specification-metadata-referenceimplementation-schema: {url-specification-metadata-referenceImplementation]Schema/
+:url-specification-metadata-semantics: {url-specification-metadata}Semantics/
+:url-specification-styling: {url-specification}/Styling
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
+:url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
+:url-specification-tileformats-composite: {url-specification-tileformats}Composite/
+:url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-instanced3dmodel: {url-specification-tileformats}Instanced3DModel/
+:url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-implicittiling:
+:url-specification-metadata:
+:url-specification-metadata-referenceimplementation:
+:url-specification-metadata-referenceimplementation-schema:
+:url-specification-metadata-semantics:
+:url-specification-styling:
+:url-specification-tileformats:
+:url-specification-tileformats-batched3dmodel:
+:url-specification-tileformats-batchtable:
+:url-specification-tileformats-composite:
+:url-specification-tileformats-gltf:
+:url-specification-tileformats-instanced3dmodel:
+:url-specification-tileformats-pointcloud:
+endif::[]
+
 3D Tiles is designed for streaming and rendering massive 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds. It defines a hierarchical data structure and a set of tile formats which deliver renderable content. 3D Tiles does not define explicit rules for visualization of the content; a client may visualize 3D Tiles data however it sees fit.
 
 In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_. A tileset is described by at least one tileset JSON file containing tileset metadata and a tree of tile objects, each of which may reference renderable content.
@@ -11,7 +46,7 @@ https://github.com/KhronosGroup/glTF[glTF 2.0] is the primary tile format for 3D
 * 3D model instances. E.g. trees, windmills, bolts
 * Massive point clouds
 
-See xref:TileFormats/glTF/README.adoc#tileformats-gltf-gltf[glTF Tile Format] for more details.
+See xref:{url-specification-tileformats-gltf}/README.adoc#tileformats-gltf-gltf[glTF Tile Format] for more details.
 
 Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
 
@@ -19,16 +54,16 @@ Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These for
 |===
 | Legacy Format | Uses
 
-| xref:TileFormats/Batched3DModel/README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model (`b3dm`)] 
+| xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model (`b3dm`)]
 | Heterogeneous 3D models
 
-| xref:TileFormats/Instanced3DModel/README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model (`i3dm`)]
+| xref:{url-specification-tileformats-instanced3dmodel}README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model (`i3dm`)] 
 | 3D model instances
 
-| xref:TileFormats/PointCloud/README.adoc#tileformats-pointcloud-point-cloud[Point Cloud (`pnts`)]
+| xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud (`pnts`)] 
 | Massive number of points
 
-| xref:TileFormats/Composite/README.adoc#tileformats-composite-composite[Composite (`cmpt`)]
+| xref:{url-specification-tileformats-composite}README.adoc#tileformats-composite-composite[Composite (`cmpt`)]
 | Concatenate tiles of different formats into one tile
 |===
 
@@ -43,9 +78,9 @@ image::figures/tree.png[]
 
 A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (WMTS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, the tree can be any <<core-spatial-data-structures,spatial data structure>> with spatial coherence, including k-d trees, quadtrees, octrees, and grids. <<core-implicit-tiling,Implicit tiling>> defines a concise representation of quadtrees and octrees.
 
-Application-specific _metadata_ may be provided at multiple granularities within a tileset. Metadata may be associated with high-level entities like tilesets, tiles, contents, or features, or with individual vertices and texels. Metadata conforms to a well-defined type system described by the xref:Metadata/README.adoc#metadata-3d-metadata-specification[3D Metadata Specification], which may be extended with application- or domain-specific semantics.
+Application-specific _metadata_ may be provided at multiple granularities within a tileset. Metadata may be associated with high-level entities like tilesets, tiles, contents, or features, or with individual vertices and texels. Metadata conforms to a well-defined type system described by the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification], which may be extended with application- or domain-specific semantics.
 
-Optionally a xref:Styling/README.adoc#styling-styling[3D Tiles Style], or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
+Optionally a xref:{url-specification-styling}README.adoc#styling-styling[3D Tiles Style], or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
 
 [#core-file-extensions-and-media-types]
 == File Extensions and Media Types
@@ -94,7 +129,7 @@ All angles are in radians.
 
 3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. A tileset's global coordinate system will often be in a https://epsg.org/ellipsoid_7030/WGS-84.html[WGS 84] Earth-centered, Earth-fixed (ECEF) reference frame (http://spatialreference.org/ref/epsg/4978/[EPSG 4978]), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
-The CRS of a tileset may be defined explicitly, as part of the <<core-metadata,tileset metadata>>. The metadata for the tileset can contain a property that has the xref:Metadata/Semantics/README.adoc#metadata-semantics-tileset-semantics[`TILESET_CRS_GEOCENTRIC` semantic], which is a string that represents the EPSG Geodetic Parameter Dataset identifier.
+The CRS of a tileset may be defined explicitly, as part of the <<core-metadata,tileset metadata>>. The metadata for the tileset can contain a property that has the xref:{url-specification-metadata-semantics}README.adoc#metadata-semantics-tileset-semantics[`TILESET_CRS_GEOCENTRIC` semantic], which is a string that represents the EPSG Geodetic Parameter Dataset identifier.
 
 An additional <<core-tile-transforms,tile transform>> may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
 
@@ -635,7 +670,7 @@ The tileset JSON has four top-level properties: `asset`, `properties`, `geometri
 The `tilesetVersion` can be used as a query parameter when requesting content to avoid using outdated content from a cache.
 ====
 
-`properties` is an object containing objects for each per-feature property in the tileset. This tileset JSON snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see xref:TileFormats/BatchedTable/README.adoc#tileformats-batchtable-batch-table[Batch Table]). The name of each object in `properties` matches the name of a per-feature property, and its value defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
+`properties` is an object containing objects for each per-feature property in the tileset. This tileset JSON snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-batch-table[Batch Table]). The name of each object in `properties` matches the name of a per-feature property, and its value defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
 `geometricError` is a nonnegative number that defines the error, in meters, that determines if the tileset is rendered. At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), the error measured in pixels. If the SSE does not exceed a required minimum, the tileset should not be rendered, and none of its tiles should be considered for rendering, see <<core-geometric-error,Geometric error>>.
 
@@ -787,12 +822,12 @@ The following example shows a quadtree defined on the root tile, with template U
 }
 ----
 
-See xref:ImplicitTiling/README.adoc#implicittiling-implicit-tiling[Implicit Tiling] for more details about the `implicitTiling` object structure and the subtree file format.
+See xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-tiling[Implicit Tiling] for more details about the `implicitTiling` object structure and the subtree file format.
 
 [#core-metadata]
 === Metadata
 
-Application-specific _metadata_ may be provided at multiple granularities within a tileset. Metadata may be associated with high-level entities like tilesets, tiles, contents, or features, or with individual vertices and texels. Metadata conforms to a well-defined type system described by the xref:Metadata/README.adoc#metadata-3d-metadata-specification[3D Metadata Specification], which may be extended with application- or domain-specific semantics.
+Application-specific _metadata_ may be provided at multiple granularities within a tileset. Metadata may be associated with high-level entities like tilesets, tiles, contents, or features, or with individual vertices and texels. Metadata conforms to a well-defined type system described by the the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification], which may be extended with application- or domain-specific semantics.
 
 Metadata enables additional use cases and functionality for the format:
 
@@ -814,12 +849,12 @@ The figure below shows the relationship between these entities, and examples of 
 .Illustration of the different granularity levels for applying metadata
 image::figures/3d-tiles-metadata-granularities.png[Metadata Granularity,600]
 
-Although they are defined independently, the metadata structure in 3D Tiles and in the `EXT_structural_metadata` extension both conform to the xref:Metadata/README.adoc[3D Metadata Specification] and build upon the xref:Metadata/ReferenceImplementation/README.adoc[Reference Implementation of the 3D Metadata Specification]. Concepts and terminology used here refer to the 3D Metadata Specification, which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
+Although they are defined independently, the metadata structure in 3D Tiles and in the `EXT_structural_metadata` extension both conform to the the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification] and build upon the xref:{url-specification-metadata-referenceimplementation}README.adoc#metadata-referenceimplementation-3d-metadata-reference-implementation[Reference Implementation of the 3D Metadata Specification]. Concepts and terminology used here refer to the 3D Metadata Specification, which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
 
 [#core-metadata-schema]
 ==== Metadata Schema
 
-The Metadata schema defines the structure of the metadata. It contains a definition of the metadata classes, which are templates for the metadata instances, and define the set of properties that each metadata instance has. The metadata schema is stored within a tileset in the form of a JSON representation according to the xref:Metadata/ReferenceImplementation/Schema/README.adoc[Metadata Schema Reference Implementation]. This reference implementation includes the definition of the JSON schema for the metadata schema.
+The Metadata schema defines the structure of the metadata. It contains a definition of the metadata classes, which are templates for the metadata instances, and define the set of properties that each metadata instance has. The metadata schema is stored within a tileset in the form of a JSON representation according to the xref:{url-specification-metadata-referenceimplementation-schema}README.adoc#metadata-referenceimplementation-schema-schema-implementation[Metadata Schema Reference Implementation]. This reference implementation includes the definition of the JSON schema for the metadata schema.
 
 Schemas may be embedded in tilesets with the `schema` property, or referenced externally by the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same schema to avoid duplication.
 
@@ -903,14 +938,14 @@ A metadata entity for the `building` class presented earlier. Such an entity cou
 ----
 ====
 
-Most property values are encoded as JSON within the entity. One notable exception is metadata assigned to implicit tiles and contents, stored in a more compact binary form. See xref:ImplicitTiling/README.adoc[Implicit Tiling].
+Most property values are encoded as JSON within the entity. One notable exception is metadata assigned to implicit tiles and contents, stored in a more compact binary form. See xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-tiling[Implicit Tiling].
 
 [#core-metadata-statistics]
 ==== Metadata Statistics
 
 Statistics provide aggregate information about the distribution of property values, summarized over all instances of a metadata class within a tileset. For example, statistics may include the minimum/maximum values of a numeric property, or the number of occurrences for specific enum values.
 
-These summary statistics allow applications to analyze or display metadata, e.g. with the xref:Styling/README.adoc#styling-styling[declarative styling language], without first having to process the complete dataset to identify bounds for color ramps and histograms. Statistics are provided on a per-class basis, so that applications can provide styling or context based on the tileset as a whole, while only needing to download and process a subset of its tiles.
+These summary statistics allow applications to analyze or display metadata, e.g. with the xref:{url-specification-styling}README.adoc#styling-styling[declarative styling language], without first having to process the complete dataset to identify bounds for color ramps and histograms. Statistics are provided on a per-class basis, so that applications can provide styling or context based on the tileset as a whole, while only needing to download and process a subset of its tiles.
 
 .Illustration of how to use metadata statistics for rendering an analytics
 image::figures/3d-tiles-metadata-statistics.png[Metadata Granularity,600]
@@ -1131,7 +1166,7 @@ https://github.com/KhronosGroup/glTF[glTF 2.0] is the primary tile format for 3D
 * 3D model instances. E.g. trees, windmills, bolts
 * Massive point clouds
 
-See xref:TileFormats/glTF/README.adoc#tileformats-gltf-gltf[glTF Tile Format] for more details.
+See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[glTF Tile Format] for more details.
 
 Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
 
@@ -1139,16 +1174,16 @@ Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These for
 |===
 | Legacy Format | Uses
 
-| xref:TileFormats/Batched3DModel/README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model (`b3dm`)] 
+| xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model (`b3dm`)]
 | Heterogeneous 3D models
 
-| xref:TileFormats/Instanced3DModel/README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model (`i3dm`)]
+| xref:{url-specification-tileformats-instanced3dmodel}README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model (`i3dm`)] 
 | 3D model instances
 
-| xref:TileFormats/PointCloud/README.adoc#tileformats-pointcloud-point-cloud[Point Cloud (`pnts`)]
+| xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud (`pnts`)] 
 | Massive number of points
 
-| xref:TileFormats/Composite/README.adoc#tileformats-composite-composite[Composite (`cmpt`)]
+| xref:{url-specification-tileformats-composite}README.adoc#tileformats-composite-composite[Composite (`cmpt`)]
 | Concatenate tiles of different formats into one tile
 |===
 
@@ -1168,7 +1203,7 @@ The following example colors features with a height above 90 as red and the othe
 }
 ----
 
-For complete details, see the xref:Styling/README.adoc#styling-styling[Declarative Styling] specification.
+For complete details, see the xref:{url-specification-styling}README.adoc#styling-styling[Declarative Styling] specification.
 
 
 
