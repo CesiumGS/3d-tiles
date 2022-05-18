@@ -20,6 +20,7 @@
 - [AGI STK](https://www.agi.com/products/stk) - A mission engineering software with visualization capabilities based on 3D Tiles
 - [Ecere GNOSIS](http://ecere.ca/) - A GIS visualization SDK with support for 3D Tiles
 - [TerriaJS](https://github.com/TerriaJS/terriajs) - A library for web-based geospatial data explorers, based on CesiumJS, with support for 3D Tiles
+- [GeoSolutions MapStore](https://www.geosolutionsgroup.com/technologies/mapstore/) - A framework for creating, managing and sharing maps with different types of geospatial content, including [support for 3D Tiles](https://www.geosolutionsgroup.com/blog/mapstore-release-2022_01_00/)
 
 ### Implementations
 
