@@ -54,6 +54,7 @@ A curated list of resources for developers can be found on the [3D Tiles Next Re
 | [3D Tiles Samples](https://github.com/CesiumGS/3d-tiles-validator/tree/main/samples-generator) | Open source command-line tools for generating sample 3D Tiles  |
 | [Safe FME](https://hub.safe.com/packages/safe/cesiumion) | Desktop application for transforming data. The `CesiumIonConnector` converts data to 3D Tiles via Cesium ion. |
 | [Bentley ContextCapture](https://www.bentley.com/en/products/product-line/reality-modeling-software/contextcapture) | Desktop application for converting photographs and/or point clouds to 3D Tiles. |
+| [Obj2Tiles](https://github.com/OpenDroneMap/Obj2Tiles) | Open source command-line tool for generating 3D Tiles. Supports Wavefront OBJ (.obj). |
 
 See the [3D Tiles Ecosystem](./ECOSYSTEM.md) for examples of who's using 3D Tiles.
 
