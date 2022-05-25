@@ -2,6 +2,18 @@
 :leveloffset: +1
 
 [appendix]
+= Properties Reference
+:leveloffset: +1
+include::PropertiesReference_3dtiles.adoc[]
+:leveloffset: -1
+
+[appendix]
+= JSON Schema reference
+:leveloffset: +1
+include::PropertiesReference_3dtiles_schema.adoc[]
+:leveloffset: -1
+
+[appendix]
 :imagesdir: TileFormats/glTF
 include::TileFormats/glTF/MIGRATION.adoc[]
 
