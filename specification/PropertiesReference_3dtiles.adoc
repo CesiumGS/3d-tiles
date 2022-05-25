@@ -32,7 +32,7 @@ Metadata about the entire tileset.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-asset,Asset>>
+* **JSON schema**: <<reference-schema-asset,`asset.schema.json`>>
 
 
 == asset.version
@@ -102,7 +102,7 @@ A set of Batched 3D Model semantics that contain additional information about fe
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-b3dm-featuretable,Batched 3D Model Feature Table>>
+* **JSON schema**: <<reference-schema-b3dm-featuretable,`b3dm.featureTable.schema.json`>>
 
 
 == b3dm.featureTable.BATCH_LENGTH
@@ -162,7 +162,7 @@ A set of properties defining application-specific metadata for features in a til
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-batchtable,Batch Table>>
+* **JSON schema**: <<reference-schema-batchtable,`batchTable.schema.json`>>
 
 
 == batchTable.extensions
@@ -239,14 +239,14 @@ The datatype of components in the property.
 * **Type**: `string`
 * **Required**:  &#10003; Yes
 * **Allowed values**:
-** `BYTE`
-** `UNSIGNED_BYTE`
-** `SHORT`
-** `UNSIGNED_SHORT`
-** `INT`
-** `UNSIGNED_INT`
-** `FLOAT`
-** `DOUBLE`
+** `"BYTE"`
+** `"UNSIGNED_BYTE"`
+** `"SHORT"`
+** `"UNSIGNED_SHORT"`
+** `"INT"`
+** `"UNSIGNED_INT"`
+** `"FLOAT"`
+** `"DOUBLE"`
 
 === batchTable.type
 
@@ -255,10 +255,10 @@ Specifies if the property is a scalar or vector.
 * **Type**: `string`
 * **Required**:  &#10003; Yes
 * **Allowed values**:
-** `SCALAR`
-** `VEC2`
-** `VEC3`
-** `VEC4`
+** `"SCALAR"`
+** `"VEC2"`
+** `"VEC3"`
+** `"VEC4"`
 
 === batchTable.extensions
 
@@ -310,17 +310,17 @@ A bounding volume that encloses a tile or its content. At least one bounding vol
 |   |Type|Description|Required
 
 |**box**
-|`number``[12]`
+|`number` `[12]`
 |An array of 12 numbers that define an oriented bounding box. The first three elements define the x, y, and z values for the center of the box. The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length. The next three elements (indices 6, 7, and 8) define the y axis direction and half-length. The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.
 |No
 
 |**region**
-|`number``[6]`
+|`number` `[6]`
 |An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
 |No
 
 |**sphere**
-|`number``[4]`
+|`number` `[4]`
 |An array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere. The last element (with index 3) defines the radius in meters.
 |No
 
@@ -337,28 +337,28 @@ A bounding volume that encloses a tile or its content. At least one bounding vol
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-boundingvolume,Bounding Volume>>
+* **JSON schema**: <<reference-schema-boundingvolume,`boundingVolume.schema.json`>>
 
 
 == boundingVolume.box
 
 An array of 12 numbers that define an oriented bounding box. The first three elements define the x, y, and z values for the center of the box. The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length. The next three elements (indices 6, 7, and 8) define the y axis direction and half-length. The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.
 
-* **Type**: `number``[12]`
+* **Type**: `number` `[12]`
 * **Required**: No
 
 == boundingVolume.region
 
 An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
 
-* **Type**: `number``[6]`
+* **Type**: `number` `[6]`
 * **Required**: No
 
 == boundingVolume.sphere
 
 An array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere. The last element (with index 3) defines the radius in meters.
 
-* **Type**: `number``[4]`
+* **Type**: `number` `[4]`
 * **Required**: No
 
 == boundingVolume.extensions
@@ -419,7 +419,7 @@ A class containing a set of properties.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-class,Class>>
+* **JSON schema**: <<reference-schema-class,`class.schema.json`>>
 
 
 == class.name
@@ -570,7 +570,7 @@ A single property of a metadata class.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-class-property,Class Property>>
+* **JSON schema**: <<reference-schema-class-property,`class.property.schema.json`>>
 
 
 == class.property.name
@@ -596,16 +596,16 @@ The element type.
 * **Type**: `string`
 * **Required**:  &#10003; Yes
 * **Allowed values**:
-** `SCALAR`
-** `VEC2`
-** `VEC3`
-** `VEC4`
-** `MAT2`
-** `MAT3`
-** `MAT4`
-** `STRING`
-** `BOOLEAN`
-** `ENUM`
+** `"SCALAR"`
+** `"VEC2"`
+** `"VEC3"`
+** `"VEC4"`
+** `"MAT2"`
+** `"MAT3"`
+** `"MAT4"`
+** `"STRING"`
+** `"BOOLEAN"`
+** `"ENUM"`
 
 == class.property.componentType
 
@@ -614,16 +614,16 @@ The datatype of the element's components. Only applicable to `SCALAR`, `VECN`, a
 * **Type**: `string`
 * **Required**: No
 * **Allowed values**:
-** `INT8`
-** `UINT8`
-** `INT16`
-** `UINT16`
-** `INT32`
-** `UINT32`
-** `INT64`
-** `UINT64`
-** `FLOAT32`
-** `FLOAT64`
+** `"INT8"`
+** `"UINT8"`
+** `"INT16"`
+** `"UINT16"`
+** `"INT32"`
+** `"UINT32"`
+** `"INT64"`
+** `"UINT64"`
+** `"FLOAT32"`
+** `"FLOAT64"`
 
 == class.property.enumType
 
@@ -774,7 +774,7 @@ Metadata about the tile's content and a link to the content.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-content,Content>>
+* **JSON schema**: <<reference-schema-content,`content.schema.json`>>
 
 
 == content.boundingVolume
@@ -833,7 +833,7 @@ Application-specific data.
 Common definitions used in schema files.
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-definitions,Definitions>>
+* **JSON schema**: <<reference-schema-definitions,`definitions.schema.json`>>
 
 
 
@@ -844,7 +844,7 @@ Common definitions used in schema files.
 
 An array of numeric values
 
-* **Type**: `number``[1-*]`
+* **Type**: `number` `[1-*]`
 * **Minimum items**: 1
 
 * **Additional properties are allowed.**
@@ -857,7 +857,7 @@ An array of numeric values
 
 An array of arrays of numeric values
 
-* **Type**: <<reference-definitions-definitions-numericarray1d,`definitions-definitions-numericArray1D`>>`[1-*]`
+* **Type**: <<reference-definitions-definitions-numericarray1d,`definitions-definitions-numericArray1D`>> `[1-*]`
 * **Minimum items**: 1
 
 * **Additional properties are allowed.**
@@ -870,7 +870,7 @@ An array of arrays of numeric values
 
 An array of boolean values
 
-* **Type**: `boolean``[1-*]`
+* **Type**: `boolean` `[1-*]`
 * **Minimum items**: 1
 
 * **Additional properties are allowed.**
@@ -883,7 +883,7 @@ An array of boolean values
 
 An array of string values
 
-* **Type**: `string``[1-*]`
+* **Type**: `string` `[1-*]`
 * **Minimum items**: 1
 
 * **Additional properties are allowed.**
@@ -971,7 +971,7 @@ An object defining the values of an enum.
 |No, default: `UINT16`
 
 |**values**
-|<<reference-enum-value,`enum.value`>>`[1-*]`
+|<<reference-enum-value,`enum.value`>> `[1-*]`
 |An array of enum values. Duplicate names or duplicate integer values are not allowed.
 | &#10003; Yes
 
@@ -988,7 +988,7 @@ An object defining the values of an enum.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-enum,Enum>>
+* **JSON schema**: <<reference-schema-enum,`enum.schema.json`>>
 
 
 == enum.name
@@ -1014,20 +1014,20 @@ The type of the integer enum value.
 * **Type**: `string`
 * **Required**: No, default: `UINT16`
 * **Allowed values**:
-** `INT8`
-** `UINT8`
-** `INT16`
-** `UINT16`
-** `INT32`
-** `UINT32`
-** `INT64`
-** `UINT64`
+** `"INT8"`
+** `"UINT8"`
+** `"INT16"`
+** `"UINT16"`
+** `"INT32"`
+** `"UINT32"`
+** `"INT64"`
+** `"UINT64"`
 
 == enum.values
 
 An array of enum values. Duplicate names or duplicate integer values are not allowed.
 
-* **Type**: <<reference-enum-value,`enum.value`>>`[1-*]`
+* **Type**: <<reference-enum-value,`enum.value`>> `[1-*]`
 * **Required**:  &#10003; Yes
 
 == enum.extensions
@@ -1088,7 +1088,7 @@ An enum value.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-enum-value,Enum value>>
+* **JSON schema**: <<reference-schema-enum-value,`enum.value.schema.json`>>
 
 
 == enum.value.name
@@ -1141,7 +1141,7 @@ Application-specific data.
 Dictionary object with extension-specific objects.
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-extension,Extension>>
+* **JSON schema**: <<reference-schema-extension,`extension.schema.json`>>
 
 
 
@@ -1155,7 +1155,7 @@ Dictionary object with extension-specific objects.
 Application-specific data.
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-extras,Extras>>
+* **JSON schema**: <<reference-schema-extras,`extras.schema.json`>>
 
 
 
@@ -1185,7 +1185,7 @@ A set of semantics containing per-tile and per-feature values defining the posit
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-featuretable,Feature Table>>
+* **JSON schema**: <<reference-schema-featuretable,`featureTable.schema.json`>>
 
 
 == featureTable.extensions
@@ -1257,14 +1257,14 @@ The datatype of components in the property. This is defined only if the semantic
 * **Type**: `string`
 * **Required**: No
 * **Allowed values**:
-** `BYTE`
-** `UNSIGNED_BYTE`
-** `SHORT`
-** `UNSIGNED_SHORT`
-** `INT`
-** `UNSIGNED_INT`
-** `FLOAT`
-** `DOUBLE`
+** `"BYTE"`
+** `"UNSIGNED_BYTE"`
+** `"SHORT"`
+** `"UNSIGNED_SHORT"`
+** `"INT"`
+** `"UNSIGNED_INT"`
+** `"FLOAT"`
+** `"DOUBLE"`
 
 === featureTable.extensions
 
@@ -1338,7 +1338,7 @@ An object defining a global numeric property value for all features.
 
 An object defining a global 3-component numeric property values for all features.
 
-* **Type**: One of <<reference-rootproperty,`rootProperty`>>, `number``[3]`
+* **Type**: One of <<reference-rootproperty,`rootProperty`>>, `number` `[3]`
 
 * **Additional properties are allowed.**
 
@@ -1350,7 +1350,7 @@ An object defining a global 3-component numeric property values for all features
 
 An object defining a global 4-component numeric property values for all features.
 
-* **Type**: One of <<reference-rootproperty,`rootProperty`>>, `number``[4]`
+* **Type**: One of <<reference-rootproperty,`rootProperty`>>, `number` `[4]`
 
 * **Additional properties are allowed.**
 
@@ -1408,7 +1408,7 @@ An object containing metadata about a group.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-group,Group Metadata>>
+* **JSON schema**: <<reference-schema-group,`group.schema.json`>>
 
 
 == group.class
@@ -1540,7 +1540,7 @@ A set of Instanced 3D Model semantics that contains values defining the position
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-i3dm-featuretable,Instanced 3D Model Feature Table>>
+* **JSON schema**: <<reference-schema-i3dm-featuretable,`i3dm.featureTable.schema.json`>>
 
 
 == i3dm.featureTable.POSITION
@@ -1694,7 +1694,7 @@ An object containing a reference to a class from a metadata schema, and property
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-metadataentity,Metadata Entity>>
+* **JSON schema**: <<reference-schema-metadataentity,`metadataEntity.schema.json`>>
 
 
 == metadataEntity.class
@@ -1826,7 +1826,7 @@ A set of Point Cloud semantics that contains values defining the position and ap
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-pnts-featuretable,Point Cloud Feature Table>>
+* **JSON schema**: <<reference-schema-pnts-featuretable,`pnts.featureTable.schema.json`>>
 
 
 == pnts.featureTable.POSITION
@@ -1980,7 +1980,7 @@ A dictionary object of metadata about per-feature properties.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-properties,Properties>>
+* **JSON schema**: <<reference-schema-properties,`properties.schema.json`>>
 
 
 == properties.maximum
@@ -2040,7 +2040,7 @@ A basis for storing extensions and extras.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-rootproperty,Root Property>>
+* **JSON schema**: <<reference-schema-rootproperty,`rootProperty.schema.json`>>
 
 
 == rootProperty.extensions
@@ -2116,7 +2116,7 @@ An object defining classes and enums.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-schema,Schema>>
+* **JSON schema**: <<reference-schema-schema,`schema.schema.json`>>
 
 
 == schema.id
@@ -2217,7 +2217,7 @@ Statistics about entities.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-statistics,Statistics>>
+* **JSON schema**: <<reference-schema-statistics,`statistics.schema.json`>>
 
 
 == statistics.classes
@@ -2282,7 +2282,7 @@ Statistics about entities that conform to a class.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-statistics-class,Class Statistics>>
+* **JSON schema**: <<reference-schema-statistics-class,`statistics.class.schema.json`>>
 
 
 == statistics.class.count
@@ -2385,7 +2385,7 @@ Statistics about property values.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-statistics-class-property,Property Statistics>>
+* **JSON schema**: <<reference-schema-statistics-class-property,`statistics.class.property.schema.json`>>
 
 
 == statistics.class.property.min
@@ -2509,7 +2509,7 @@ A 3D Tiles style.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-style,Style>>
+* **JSON schema**: <<reference-schema-style,`style.schema.json`>>
 
 
 == style.defines
@@ -2571,7 +2571,7 @@ Application-specific data.
 A boolean or string with a 3D Tiles style expression that evaluates to a boolean. Details are described in the 3D Tiles Styling specification.
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-style-booleanexpression,Boolean Expression>>
+* **JSON schema**: <<reference-schema-style-booleanexpression,`style.booleanExpression.schema.json`>>
 
 
 
@@ -2585,7 +2585,7 @@ A boolean or string with a 3D Tiles style expression that evaluates to a boolean
 3D Tiles style `expression` that evaluates to a Color. Details are described in the 3D Tiles Styling specification.
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-style-colorexpression,Color Expression>>
+* **JSON schema**: <<reference-schema-style-colorexpression,`style.colorExpression.schema.json`>>
 
 
 
@@ -2603,7 +2603,7 @@ A series of conditions evaluated in order, like a series of if...else statements
 |   |Type|Description|Required
 
 |**conditions**
-|<<reference-style-conditions-condition,`style.conditions.condition`>>`[]`
+|<<reference-style-conditions-condition,`style.conditions.condition`>> `[]`
 |A series of boolean conditions evaluated in order. For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned. Result expressions must all be the same type. If no condition evaluates to true, the result is `undefined`. When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.
 |No
 
@@ -2620,14 +2620,14 @@ A series of conditions evaluated in order, like a series of if...else statements
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-style-conditions,Conditions>>
+* **JSON schema**: <<reference-schema-style-conditions,`style.conditions.schema.json`>>
 
 
 == style.conditions.conditions
 
 A series of boolean conditions evaluated in order. For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned. Result expressions must all be the same type. If no condition evaluates to true, the result is `undefined`. When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.
 
-* **Type**: <<reference-style-conditions-condition,`style.conditions.condition`>>`[]`
+* **Type**: <<reference-style-conditions-condition,`style.conditions.condition`>> `[]`
 * **Required**: No
 
 == style.conditions.extensions
@@ -2657,7 +2657,7 @@ Application-specific data.
 An `expression` evaluated as the result of a condition being true. An array of two expressions. If the first expression is evaluated and the result is `true`, then the second expression is evaluated and returned as the result of the condition.
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-style-conditions-condition,Condition>>
+* **JSON schema**: <<reference-schema-style-conditions-condition,`style.conditions.condition.schema.json`>>
 
 
 
@@ -2671,7 +2671,7 @@ An `expression` evaluated as the result of a condition being true. An array of t
 A valid 3D Tiles style expression. Details are described in the 3D Tiles Styling specification.
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-style-expression,Expression>>
+* **JSON schema**: <<reference-schema-style-expression,`style.expression.schema.json`>>
 
 
 
@@ -2701,7 +2701,7 @@ A series of property names and the `expression` to evaluate for the value of tha
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-style-meta,Meta>>
+* **JSON schema**: <<reference-schema-style-meta,`style.meta.schema.json`>>
 
 
 == style.meta.extensions
@@ -2752,7 +2752,7 @@ An object describing the location of subtree files.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-subtrees,Subtrees>>
+* **JSON schema**: <<reference-schema-subtrees,`subtrees.schema.json`>>
 
 
 == subtrees.uri
@@ -2789,7 +2789,7 @@ Application-specific data.
 A URI with embedded expressions that describes the resource that is associated with an implicit tile in an implicit tileset. Allowed expressions are `{level}`, `{x}`, `{y}`, and `{z}`. `{level}` is substituted with the level of the node, `{x}` is substituted with the x index of the node within the level, and `{y}` is substituted with the y index of the node within the level. `{z}` may only be given when the subdivision scheme is `OCTREE`, and it is substituted with the z index of the node within the level.
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-templateuri,Template URI>>
+* **JSON schema**: <<reference-schema-templateuri,`templateUri.schema.json`>>
 
 
 
@@ -2827,7 +2827,7 @@ A tile in a 3D Tiles tileset.
 |No
 
 |**transform**
-|`number``[16]`
+|`number` `[16]`
 |A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system. `transform` does not apply to any volume property when the volume is a region, defined in EPSG:4979 coordinates. `transform` scales the `geometricError` by the maximum scaling factor from the matrix.
 |No, default: `[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]`
 
@@ -2837,7 +2837,7 @@ A tile in a 3D Tiles tileset.
 |No
 
 |**contents**
-|<<reference-content,`content`>>`[1-*]`
+|<<reference-content,`content`>> `[1-*]`
 |An array of contents. When this is defined, then `content` must be undefined.
 |No
 
@@ -2852,7 +2852,7 @@ A tile in a 3D Tiles tileset.
 |No
 
 |**children**
-|<<reference-tile,`tile`>>`[1-*]`
+|<<reference-tile,`tile`>> `[1-*]`
 |An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.
 |No
 
@@ -2869,7 +2869,7 @@ A tile in a 3D Tiles tileset.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-tile,Tile>>
+* **JSON schema**: <<reference-schema-tile,`tile.schema.json`>>
 
 
 == tile.boundingVolume
@@ -2901,14 +2901,14 @@ Specifies if additive or replacement refinement is used when traversing the tile
 * **Type**: `string`
 * **Required**: No
 * **Allowed values**:
-** `ADD`
-** `REPLACE`
+** `"ADD"`
+** `"REPLACE"`
 
 == tile.transform
 
 A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system. `transform` does not apply to any volume property when the volume is a region, defined in EPSG:4979 coordinates. `transform` scales the `geometricError` by the maximum scaling factor from the matrix.
 
-* **Type**: `number``[16]`
+* **Type**: `number` `[16]`
 * **Required**: No, default: `[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]`
 
 == tile.content
@@ -2922,7 +2922,7 @@ Metadata about the tile's content and a link to the content. When this is omitte
 
 An array of contents. When this is defined, then `content` must be undefined.
 
-* **Type**: <<reference-content,`content`>>`[1-*]`
+* **Type**: <<reference-content,`content`>> `[1-*]`
 * **Required**: No
 
 == tile.metadata
@@ -2943,7 +2943,7 @@ An object that describes the implicit subdivision of this tile.
 
 An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.
 
-* **Type**: <<reference-tile,`tile`>>`[1-*]`
+* **Type**: <<reference-tile,`tile`>> `[1-*]`
 ** Each element in the array must be unique.
 * **Required**: No
 
@@ -3010,7 +3010,7 @@ This object allows a tile to be implicitly subdivided. Tile and content availabi
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-tile-implicittiling,Implicit tiling>>
+* **JSON schema**: <<reference-schema-tile-implicittiling,`tile.implicitTiling.schema.json`>>
 
 
 == tile.implicitTiling.subdivisionScheme
@@ -3020,8 +3020,8 @@ A string describing the subdivision scheme used within the tileset.
 * **Type**: `string`
 * **Required**:  &#10003; Yes
 * **Allowed values**:
-** `QUADTREE`
-** `OCTREE`
+** `"QUADTREE"`
+** `"OCTREE"`
 
 == tile.implicitTiling.subtreeLevels
 
@@ -3102,7 +3102,7 @@ A 3D Tiles tileset.
 |No
 
 |**groups**
-|<<reference-group,`group`>>`[1-*]`
+|<<reference-group,`group`>> `[1-*]`
 |An array of groups that tile content may belong to. Each element of this array is a metadata entity that describes the group. The tile content `group` property is an index into this array.
 |No
 
@@ -3122,12 +3122,12 @@ A 3D Tiles tileset.
 | &#10003; Yes
 
 |**extensionsUsed**
-|`string``[1-*]`
+|`string` `[1-*]`
 |Names of 3D Tiles extensions used somewhere in this tileset.
 |No
 
 |**extensionsRequired**
-|`string``[1-*]`
+|`string` `[1-*]`
 |Names of 3D Tiles extensions required to properly load this tileset.
 |No
 
@@ -3144,7 +3144,7 @@ A 3D Tiles tileset.
 |===
 
 * **Additional properties are allowed.**
-* **JSON schema**: <<reference-schema-tileset,Tileset>>
+* **JSON schema**: <<reference-schema-tileset,`tileset.schema.json`>>
 
 
 == tileset.asset
@@ -3189,7 +3189,7 @@ An object containing statistics about metadata entities.
 
 An array of groups that tile content may belong to. Each element of this array is a metadata entity that describes the group. The tile content `group` property is an index into this array.
 
-* **Type**: <<reference-group,`group`>>`[1-*]`
+* **Type**: <<reference-group,`group`>> `[1-*]`
 * **Required**: No
 
 == tileset.metadata
@@ -3218,7 +3218,7 @@ The root tile.
 
 Names of 3D Tiles extensions used somewhere in this tileset.
 
-* **Type**: `string``[1-*]`
+* **Type**: `string` `[1-*]`
 ** Each element in the array must be unique.
 * **Required**: No
 
@@ -3226,7 +3226,7 @@ Names of 3D Tiles extensions used somewhere in this tileset.
 
 Names of 3D Tiles extensions required to properly load this tileset.
 
-* **Type**: `string``[1-*]`
+* **Type**: `string` `[1-*]`
 ** Each element in the array must be unique.
 * **Required**: No
 
