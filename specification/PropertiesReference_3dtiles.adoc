@@ -185,7 +185,7 @@ Application-specific data.
 == **`Batch Table` Definitions**
 
 [#reference-batchtable-definitions-binarybodyreference]
-=== batchTable#/definitions/binaryBodyReference
+=== batchTable-definitions-binaryBodyReference
 
 An object defining the reference to a section of the binary body of the batch table where the property values are stored if not defined directly in the JSON.
 
@@ -224,7 +224,7 @@ An object defining the reference to a section of the binary body of the batch ta
 
 * **Additional properties are allowed.**
 
-=== batchTable.byteOffset
+=== batchTable-definitions-binaryBodyReference.byteOffset
 
 The offset into the buffer in bytes.
 
@@ -232,7 +232,7 @@ The offset into the buffer in bytes.
 * **Required**:  &#10003; Yes
 * **Minimum**: `&gt;= 0`
 
-=== batchTable.componentType
+=== batchTable-definitions-binaryBodyReference.componentType
 
 The datatype of components in the property.
 
@@ -248,7 +248,7 @@ The datatype of components in the property.
 ** `"FLOAT"`
 ** `"DOUBLE"`
 
-=== batchTable.type
+=== batchTable-definitions-binaryBodyReference.type
 
 Specifies if the property is a scalar or vector.
 
@@ -260,7 +260,7 @@ Specifies if the property is a scalar or vector.
 ** `"VEC3"`
 ** `"VEC4"`
 
-=== batchTable.extensions
+=== batchTable-definitions-binaryBodyReference.extensions
 
 Dictionary object with extension-specific objects.
 
@@ -269,7 +269,7 @@ Dictionary object with extension-specific objects.
 * **Additional properties are allowed.**
 * **Type of each property**: `object`
 
-=== batchTable.extras
+=== batchTable-definitions-binaryBodyReference.extras
 
 Application-specific data.
 
@@ -280,7 +280,7 @@ Application-specific data.
 
 
 [#reference-batchtable-definitions-property]
-=== batchTable#/definitions/property
+=== batchTable-definitions-property
 
 A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a `BinaryBodyReference` object.
 
@@ -444,6 +444,7 @@ A dictionary, where each key is a property ID and each value is an object defini
 
 * **Type**: `object`
 * **Required**: No
+* **Minimum number of properties:** `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-class-property,`class.property`>>
 
@@ -783,6 +784,7 @@ An optional bounding volume that tightly encloses tile content. tile.boundingVol
 
 * **Type**: <<reference-boundingvolume,`boundingVolume`>>
 * **Required**: No
+* **Minimum number of properties:** `1`
 
 == content.uri
 
@@ -840,7 +842,7 @@ Common definitions used in schema files.
 == **`Definitions` Definitions**
 
 [#reference-definitions-definitions-numericarray1d]
-=== definitions#/definitions/numericArray1D
+=== definitions-definitions-numericArray1D
 
 An array of numeric values
 
@@ -853,7 +855,7 @@ An array of numeric values
 
 
 [#reference-definitions-definitions-numericarray2d]
-=== definitions#/definitions/numericArray2D
+=== definitions-definitions-numericArray2D
 
 An array of arrays of numeric values
 
@@ -866,7 +868,7 @@ An array of arrays of numeric values
 
 
 [#reference-definitions-definitions-booleanarray1d]
-=== definitions#/definitions/booleanArray1D
+=== definitions-definitions-booleanArray1D
 
 An array of boolean values
 
@@ -879,7 +881,7 @@ An array of boolean values
 
 
 [#reference-definitions-definitions-stringarray1d]
-=== definitions#/definitions/stringArray1D
+=== definitions-definitions-stringArray1D
 
 An array of string values
 
@@ -892,7 +894,7 @@ An array of string values
 
 
 [#reference-definitions-definitions-numericvalue]
-=== definitions#/definitions/numericValue
+=== definitions-definitions-numericValue
 
 For `SCALAR` this is a number. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`.
 
@@ -904,7 +906,7 @@ For `SCALAR` this is a number. For `VECN` this is an array of `N` numbers. For `
 
 
 [#reference-definitions-definitions-nodatavalue]
-=== definitions#/definitions/noDataValue
+=== definitions-definitions-noDataValue
 
 For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`.
 
@@ -916,7 +918,7 @@ For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is
 
 
 [#reference-definitions-definitions-anyvalue]
-=== definitions#/definitions/anyValue
+=== definitions-definitions-anyValue
 
 For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `BOOLEAN` this is a boolean. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length array this is an array of `count` elements of the given `type`. For variable-length arrays this is an array of any length of the given `type`.
 
@@ -1208,7 +1210,7 @@ Application-specific data.
 == **`Feature Table` Definitions**
 
 [#reference-featuretable-definitions-binarybodyreference]
-=== featureTable#/definitions/binaryBodyReference
+=== featureTable-definitions-binaryBodyReference
 
 An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.
 
@@ -1242,7 +1244,7 @@ An object defining the reference to a section of the binary body of the features
 
 * **Additional properties are allowed.**
 
-=== featureTable.byteOffset
+=== featureTable-definitions-binaryBodyReference.byteOffset
 
 The offset into the buffer in bytes.
 
@@ -1250,7 +1252,7 @@ The offset into the buffer in bytes.
 * **Required**:  &#10003; Yes
 * **Minimum**: `&gt;= 0`
 
-=== featureTable.componentType
+=== featureTable-definitions-binaryBodyReference.componentType
 
 The datatype of components in the property. This is defined only if the semantic allows for overriding the implicit component type. These cases are specified in each tile format.
 
@@ -1266,7 +1268,7 @@ The datatype of components in the property. This is defined only if the semantic
 ** `"FLOAT"`
 ** `"DOUBLE"`
 
-=== featureTable.extensions
+=== featureTable-definitions-binaryBodyReference.extensions
 
 Dictionary object with extension-specific objects.
 
@@ -1275,7 +1277,7 @@ Dictionary object with extension-specific objects.
 * **Additional properties are allowed.**
 * **Type of each property**: `object`
 
-=== featureTable.extras
+=== featureTable-definitions-binaryBodyReference.extras
 
 Application-specific data.
 
@@ -1286,7 +1288,7 @@ Application-specific data.
 
 
 [#reference-featuretable-definitions-property]
-=== featureTable#/definitions/property
+=== featureTable-definitions-property
 
 A user-defined property which specifies application-specific metadata in a tile. Values can refer to sections in the binary body with a `BinaryBodyReference` object. Global values can be also be defined directly in the JSON.
 
@@ -1298,7 +1300,7 @@ A user-defined property which specifies application-specific metadata in a tile.
 
 
 [#reference-featuretable-definitions-globalpropertyboolean]
-=== featureTable#/definitions/globalPropertyBoolean
+=== featureTable-definitions-globalPropertyBoolean
 
 An object defining a global boolean property value for all features.
 
@@ -1310,7 +1312,7 @@ An object defining a global boolean property value for all features.
 
 
 [#reference-featuretable-definitions-globalpropertyinteger]
-=== featureTable#/definitions/globalPropertyInteger
+=== featureTable-definitions-globalPropertyInteger
 
 An object defining a global integer property value for all features.
 
@@ -1322,7 +1324,7 @@ An object defining a global integer property value for all features.
 
 
 [#reference-featuretable-definitions-globalpropertynumber]
-=== featureTable#/definitions/globalPropertyNumber
+=== featureTable-definitions-globalPropertyNumber
 
 An object defining a global numeric property value for all features.
 
@@ -1334,7 +1336,7 @@ An object defining a global numeric property value for all features.
 
 
 [#reference-featuretable-definitions-globalpropertycartesian3]
-=== featureTable#/definitions/globalPropertyCartesian3
+=== featureTable-definitions-globalPropertyCartesian3
 
 An object defining a global 3-component numeric property values for all features.
 
@@ -1346,7 +1348,7 @@ An object defining a global 3-component numeric property values for all features
 
 
 [#reference-featuretable-definitions-globalpropertycartesian4]
-=== featureTable#/definitions/globalPropertyCartesian4
+=== featureTable-definitions-globalPropertyCartesian4
 
 An object defining a global 4-component numeric property values for all features.
 
@@ -1424,6 +1426,7 @@ A dictionary, where each key corresponds to a property ID in the class' `propert
 
 * **Type**: `object`
 * **Required**: No
+* **Minimum number of properties:** `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-definitions-definitions-anyvalue,`definitions-definitions-anyValue`>>
 
@@ -1710,6 +1713,7 @@ A dictionary, where each key corresponds to a property ID in the class' `propert
 
 * **Type**: `object`
 * **Required**: No
+* **Minimum number of properties:** `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-definitions-definitions-anyvalue,`definitions-definitions-anyValue`>>
 
@@ -2157,6 +2161,7 @@ A dictionary, where each key is a class ID and each value is an object defining 
 
 * **Type**: `object`
 * **Required**: No
+* **Minimum number of properties:** `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-class,`class`>>
 
@@ -2166,6 +2171,7 @@ A dictionary, where each key is an enum ID and each value is an object defining 
 
 * **Type**: `object`
 * **Required**: No
+* **Minimum number of properties:** `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-enum,`enum`>>
 
@@ -2226,6 +2232,7 @@ A dictionary, where each key corresponds to a class ID in the `classes` dictiona
 
 * **Type**: `object`
 * **Required**: No
+* **Minimum number of properties:** `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-statistics-class,`statistics.class`>>
 
@@ -2299,6 +2306,7 @@ A dictionary, where each key corresponds to a property ID in the class' `propert
 
 * **Type**: `object`
 * **Required**: No
+* **Minimum number of properties:** `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-statistics-class-property,`statistics.class.property`>>
 
@@ -2443,6 +2451,7 @@ A dictionary, where each key corresponds to an enum `name` and each value is the
 
 * **Type**: `object`
 * **Required**: No
+* **Minimum number of properties:** `1`
 * **Additional properties are allowed.**
 * **Type of each property**: `integer`
 
@@ -2878,6 +2887,7 @@ The bounding volume that encloses the tile.
 
 * **Type**: <<reference-boundingvolume,`boundingVolume`>>
 * **Required**:  &#10003; Yes
+* **Minimum number of properties:** `1`
 
 == tile.viewerRequestVolume
 
@@ -2885,6 +2895,7 @@ Optional bounding volume that defines the volume the viewer must be inside of be
 
 * **Type**: <<reference-boundingvolume,`boundingVolume`>>
 * **Required**: No
+* **Minimum number of properties:** `1`
 
 == tile.geometricError
 
@@ -3176,7 +3187,7 @@ The URI (or IRI) of the external schema file. When this is defined, then `schema
 
 * **Type**: `string`
 * **Required**: No
-* **Format**: iri-reference
+* **Format**: `iri-reference`
 
 == tileset.statistics
 
