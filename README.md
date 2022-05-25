@@ -46,16 +46,7 @@ A curated list of resources for developers can be found on the [3D Tiles Next Re
 
 ## 3D Tiles Ecosystem
 
-| Tool | Description |
-| :--- | :--- |
-| [Cesium ion](https://cesium.com/ion/) | Sign up for an account to to upload and convert content to 3D Tiles. Supports: <ul><li>glTF (.gltf, .glb)</li><li>CityGML (.citygml, .xml, .gml)</li><li>KML/COLLADA (.kml, .kmz)</li><li>LASer (.las, .laz)</li><li>COLLADA (.dae)</li><li>Wavefront OBJ (.obj)</li></ul> |
-| [CesiumJS](https://cesium.com/cesiumjs/) | Open source JavaScript runtime engine for visualizing 3D Tiles |
-| [3D Tiles Validator](https://github.com/CesiumGS/3d-tiles-validator/tree/main/validator) | Open source Node.js library and command-line tools for validating 3D Tiles |
-| [3D Tiles Samples](https://github.com/CesiumGS/3d-tiles-validator/tree/main/samples-generator) | Open source command-line tools for generating sample 3D Tiles  |
-| [Safe FME](https://hub.safe.com/packages/safe/cesiumion) | Desktop application for transforming data. The `CesiumIonConnector` converts data to 3D Tiles via Cesium ion. |
-| [Bentley ContextCapture](https://www.bentley.com/en/products/product-line/reality-modeling-software/contextcapture) | Desktop application for converting photographs and/or point clouds to 3D Tiles. |
-
-See the [3D Tiles Ecosystem](./ECOSYSTEM.md) for examples of who's using 3D Tiles.
+The [3D Tiles Resources](./RESOURCES.md) page contains a list of implementations of the 3D Tiles standard, as well as viewers, generators, data providers, and demos. The page also includes developer resources, blog posts, and presentations that explain the concepts and applications of 3D Tiles.
 
 ## 3D Tiles Reference Card
 
