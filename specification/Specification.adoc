@@ -7,7 +7,7 @@ v1.1.0
 :source-highlighter: rouge
 :rouge-style: github
 
-image:../figures/3DTiles_dark_color_small.png[]
+image:figures/3DTiles_dark_color_small.png[]
 
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
 
