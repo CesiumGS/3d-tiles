@@ -1,3 +1,11 @@
+
+// Add the logo and introduction when this is shown on GitHub
+ifdef::env-github[]
+image:figures/3DTiles_dark_color_small.png[]
+
+This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
+endif::[]
+
 [#core-introduction]
 == Introduction
 
