@@ -23,7 +23,7 @@
 * [Batch Table](#batch-table)
 * [glTF](#gltf)
     * [Coordinate system](#coordinate-system)
-* [File extension and MIME type](#file-extension-and-mime-type)
+* [File extension and media type](#file-extension-and-media-type)
 * [Property reference](#property-reference)
 
 ## Overview
@@ -261,9 +261,9 @@ When the glTF field contains a URI, then this URI may point to a [relative exter
 By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See [glTF transforms
 ](../../README.md#gltf-transforms) for more details.
 
-## File extension and MIME type
+## File extension and media type
 
-Instanced 3D models tiles use the `.i3dm` extension and `application/octet-stream` MIME type.
+Instanced 3D models tiles use the `.i3dm` extension and `application/octet-stream` media type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 

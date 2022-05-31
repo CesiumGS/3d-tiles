@@ -41,7 +41,7 @@ Acknowledgements:
 ## Contents
 
 * [Introduction](#introduction)
-* [File extensions and MIME types](#file-extensions-and-mime-types)
+* [File extensions and media types](#file-extensions-and-media-types)
 * [JSON encoding](#json-encoding)
 * [URIs](#uris)
 * [Units](#units)
@@ -102,13 +102,13 @@ A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling
 
 Optionally a [3D Tiles Style](./Styling/), or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
 
-## File extensions and MIME types
+## File extensions and media types
 
-3D Tiles uses the following file extensions and MIME types.
+3D Tiles uses the following file extensions and media types.
 
-* Tileset files use the `.json` extension and the `application/json` MIME type.
-* Tile content files use the file type and MIME format specific to their [tile format specification](#tile-format-specifications).
-* Tileset style files use the `.json` extension and the `application/json` MIME type.
+* Tileset files use the `.json` extension and the `application/json` media type.
+* Tile content files use the file type and media type specific to their [tile format specification](#tile-format-specifications).
+* Tileset style files use the `.json` extension and the `application/json` media type.
 
 Explicit file extensions are optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 

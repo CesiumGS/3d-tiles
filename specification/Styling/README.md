@@ -27,7 +27,7 @@
    * [Built-in functions](#built-in-functions)
    * [Notes](#notes)
 * [Point Cloud](#point-cloud)
-* [File extension and MIME type](#file-extension-and-mime-type)
+* [File extension and media type](#file-extension-and-media-type)
 * [Property reference](#property-reference)
 
 ## Overview
@@ -1255,9 +1255,9 @@ For example:
 > * Mismatched type comparisons (e.g. `1.0 === false`)
 > * Array index out of bounds
 
-## File extension and MIME type
+## File extension and media type
 
-Tileset styles use the `.json` extension and the `application/json` mime type.
+Tileset styles use the `.json` extension and the `application/json` media type.
 
 ## Property reference
 
