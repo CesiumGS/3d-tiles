@@ -30,7 +30,7 @@
     - [Per-point properties](#per-point-properties)
 - [Batch Table](#batch-table)
 - [Extensions](#extensions)
-- [File extension and MIME type](#file-extension-and-mime-type)
+- [File extension and media type](#file-extension-and-media-type)
 - [Implementation example](#implementation-example)
 - [Property reference](#property-reference)
 
@@ -341,9 +341,9 @@ The following extensions can be applied to a Point Cloud tile.
 
 * [3DTILES_draco_point_compression](../../../extensions/3DTILES_draco_point_compression/)
 
-## File extension and MIME type
+## File extension and media type
 
-Point cloud tiles use the `.pnts` extension and `application/octet-stream` MIME type.
+Point cloud tiles use the `.pnts` extension and `application/octet-stream` media type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 

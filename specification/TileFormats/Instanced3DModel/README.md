@@ -25,7 +25,7 @@
 * [Batch Table](#batch-table)
 * [glTF](#gltf)
     * [Coordinate system](#coordinate-system)
-* [File extension and MIME type](#file-extension-and-mime-type)
+* [File extension and media type](#file-extension-and-media-type)
 * [Property reference](#property-reference)
 
 ## Overview
@@ -274,9 +274,9 @@ When the [`RTC_CENTER`](#rtc-center) is defined in the feature table of an Insta
 5. [Tile transform](../../README.md#tile-transforms)
 
 
-## File extension and MIME type
+## File extension and media type
 
-Instanced 3D models tiles use the `.i3dm` extension and `application/octet-stream` MIME type.
+Instanced 3D models tiles use the `.i3dm` extension and `application/octet-stream` media type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
