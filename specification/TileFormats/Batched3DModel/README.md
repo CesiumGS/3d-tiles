@@ -15,7 +15,7 @@
 * [Batch Table](#batch-table)
 * [Binary glTF](#binary-gltf)
    * [Coordinate system](#coordinate-system)
-* [File extension and MIME type](#file-extension-and-mime-type)
+* [File extension and media type](#file-extension-and-media-type)
 * [Implementation example](#implementation-example)
 * [Property reference](#property-reference)
 
@@ -149,9 +149,9 @@ Vertex positions may be defined relative-to-center for high-precision rendering,
 
 
 
-## File extension and MIME type
+## File extension and media type
 
-Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` MIME type.
+Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` media type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
