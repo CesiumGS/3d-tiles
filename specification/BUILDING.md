@@ -59,7 +59,7 @@ The process that worked for me:
     ```
     (This is a Windows .BAT file. On Linux, replace the `^` with `\`)
 
-The main tweaking takes place via the `dPDFSECCTINGS` parameter. The value can be `screen`, `ebook`, `printer`, or `prepress`. The exact effects of these parameters are summarized at https://www.ghostscript.com/doc/9.54.0/VectorDevices.htm#distillerparams 
+The main tweaking takes place via the `dPDFSETTINGS` parameter. The value can be `screen`, `ebook`, `printer`, or `prepress`. The exact effects of these parameters are summarized at https://www.ghostscript.com/doc/9.54.0/VectorDevices.htm#distillerparams
 
 
 ## A note about section IDs
