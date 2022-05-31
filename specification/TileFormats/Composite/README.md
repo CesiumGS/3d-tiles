@@ -11,7 +11,7 @@
   - [Padding](#padding)
 - [Header](#header)
 - [Inner tiles](#inner-tiles)
-- [File extension and MIME type](#file-extension-and-mime-type)
+- [File extension and media type](#file-extension-and-media-type)
 - [Implementation examples](#implementation-examples)
 
 ## Overview
@@ -61,9 +61,9 @@ Inner tile fields are stored tightly packed immediately following the header sec
 
 Refer to the spec for each tile format for more details.
 
-## File extension and MIME type
+## File extension and media type
 
-Composite tiles use the `.cmpt` extension and `application/octet-stream` MIME type.
+Composite tiles use the `.cmpt` extension and `application/octet-stream` media type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
