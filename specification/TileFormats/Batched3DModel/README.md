@@ -13,7 +13,7 @@
 * [Batch Table](#batch-table)
 * [Binary glTF](#binary-gltf)
    * [Coordinate system](#coordinate-system)
-* [File extension and MIME type](#file-extension-and-mime-type)
+* [File extension and media type](#file-extension-and-media-type)
 * [Implementation example](#implementation-example)
 * [Property reference](#property-reference)
 
@@ -140,9 +140,9 @@ By default embedded glTFs use a right handed coordinate system where the _y_-axi
 
 Vertex positions may be defined relative-to-center for high-precision rendering, see [Precisions, Precisions](http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm). If defined, `RTC_CENTER` specifies the center position that all vertex positions are relative to after the coordinate system transform and glTF node hierarchy transforms have been applied.
 
-## File extension and MIME type
+## File extension and media type
 
-Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` MIME type.
+Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` media type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
