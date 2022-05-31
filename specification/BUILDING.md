@@ -3,10 +3,12 @@
 
 - [Building the specification](#building-the-specification)
   - [Asciidoctor setup](#asciidoctor-setup)
+  - [Generating the properties reference](#generating-the-properties-reference)
   - [Generating HTML and PDF with AsciiDoc](#generating-html-and-pdf-with-asciidoc)
   - [Compressing the PDF](#compressing-the-pdf)
-- [A note about section IDs](#a-note-about-section-ids)
-- [Cross-linking between files](#cross-linking-between-files)
+- [Notes for writing AsciiDoc in 3D Tiles](#notes-for-writing-asciidoc-in-3d-tiles)
+  - [A note about section IDs](#a-note-about-section-ids)
+  - [Cross-linking between files](#cross-linking-between-files)
 
 ## Building the specification 
 
@@ -22,6 +24,34 @@ The following is a short summary of the basic process for generating a single HT
 - Install some rogue software: `gem install rouge` - no worries, that's the syntax highlighter...
 
 - A VSCode plugin for AsciiDoc syntax highlighting and preview: https://marketplace.visualstudio.com/items?itemName=asciidoctor.asciidoctor-vscode
+
+### Generating the properties reference
+
+The properties reference in the specification is automatically generated from the JSON schema, using [wetzel](https://github.com/CesiumGS/wetzel). It consists of two files:
+
+- `PropertiesReference_3dtiles.adoc`: The main reference that lists all types that are defined in the JSON schema, and information about the properties of these types
+- `PropertiesReference_3dtiles_schema.adoc`: A document where the actual JSON schema is inlined. The main reference links from each type to the appropriate JSON schema file that is embedded here.
+
+In its original form, wetzel could not handle many of the constructs that are used in the 3D Tiles JSON schema. A state that can be used for generating the properties reference can be found in the [`generate-3dtiles`](https://github.com/javagl/wetzel/tree/generate-3dtiles) branch ([this commit](https://github.com/javagl/wetzel/commit/33e16a01b73e3335404f1e778a0a7fda1e074954) at the time of writing this)
+
+The command line for generating the properties references from this state is
+```
+node bin/wetzel.js ^
+  -a=cqo ^
+  -m=a ^
+  -n ^
+  -E PropertiesReference_3dtiles_schema.adoc ^
+  -S "['../3d-tiles/specification/schema/common', '../3d-tiles/specification/schema/Schema', '../3d-tiles/specification/schema/Statistics']" ^
+  -p "schema" ^
+  -f "reference-" ^
+  -i "['../3d-tiles/specification/schema/common/rootProperty.schema.json', '../3d-tiles/specification/schema/common/definitions.schema.json' ]" ^
+  -o PropertiesReference_3dtiles.adoc ^
+  "[ '../3d-tiles/specification/schema/tileset.schema.json', '../3d-tiles/specification/schema/Styling/style.schema.json', '../3d-tiles/specification/schema/TileFormats/b3dm.featureTable.schema.json', '../3d-tiles/specification/schema/TileFormats/i3dm.featureTable.schema.json', '../3d-tiles/specification/schema/TileFormats/pnts.featureTable.schema.json', '../3d-tiles/specification/schema/TileFormats/batchTable.schema.json' ]" 
+```
+(Note: This is a Windows .BAT file. On Linux, the line connector characters `^` have to replaced with `\`, and it might be necessary to use other string delimiters. In a future version of wetzel, this command line might be moved into a JSON file like `wetzel-config-3dtiles.json`)
+
+The result of this call will be the `PropertiesReference_3dtiles.adoc` and 
+`PropertiesReference_3dtiles_schema.adoc` files that go into the `3d-tiles/specification` directory.
 
 ### Generating HTML and PDF with AsciiDoc
 
@@ -62,7 +92,9 @@ The process that worked for me:
 The main tweaking takes place via the `dPDFSETTINGS` parameter. The value can be `screen`, `ebook`, `printer`, or `prepress`. The exact effects of these parameters are summarized at https://www.ghostscript.com/doc/9.54.0/VectorDevices.htm#distillerparams
 
 
-## A note about section IDs
+## Notes for writing AsciiDoc in 3D Tiles
+
+### A note about section IDs
 
 The automatic naming for `#anchors` based on section titles is different for Markdown and AsciiDoc. While the latter _can_ be configured to some extent, this would still cause problems when generating a single HTML document. While an anchor may be something like `#overview` _locally_ (in the single `.adoc` file viewn on GitHub), the name may be `#overview_7` when creating a single HTML document. Therefore, unique identifiers for the sections have been inserted. These identifiers follow the pattern
 
@@ -77,7 +109,7 @@ received the ID
 `[#metadata-referenceimplementation-overview]`
 
 
-## Cross-linking between files 
+### Cross-linking between files 
 
 Two `adoc` files that are contained in sibling directories cannot trivially link to each other. When there are two files
 
