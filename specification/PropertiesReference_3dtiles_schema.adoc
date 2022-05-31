@@ -157,10 +157,6 @@
 ----
 
 
-
-
-
-
 [#reference-schema-boundingvolume]
 = JSON Schema for Bounding Volume
 
@@ -540,20 +536,6 @@
 ----
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 [#reference-schema-enum]
 = JSON Schema for Enum
 
@@ -887,20 +869,6 @@
     }
 }
 ----
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 [#reference-schema-group]

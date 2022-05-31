@@ -1,5 +1,3 @@
-
-
 [#reference-asset]
 = Asset
 
@@ -162,6 +160,7 @@ A set of properties defining application-specific metadata for features in a til
 |===
 
 * **Additional properties are allowed.**
+* **Type of additional properties**: <<reference-batchtable-definitions-property,`batchTable-definitions-property`>>
 * **JSON schema**: <<reference-schema-batchtable,`batchTable.schema.json`>>
 
 
@@ -238,7 +237,7 @@ The datatype of components in the property.
 
 * **Type**: `string`
 * **Required**:  &#10003; Yes
-* **Allowed values**:
+* **Allowed values**: 
 ** `"BYTE"`
 ** `"UNSIGNED_BYTE"`
 ** `"SHORT"`
@@ -254,7 +253,7 @@ Specifies if the property is a scalar or vector.
 
 * **Type**: `string`
 * **Required**:  &#10003; Yes
-* **Allowed values**:
+* **Allowed values**: 
 ** `"SCALAR"`
 ** `"VEC2"`
 ** `"VEC3"`
@@ -287,10 +286,6 @@ A user-defined property which specifies per-feature application-specific metadat
 * **Type**: One of <<reference-batchtable-definitions-binarybodyreference,`batchTable-definitions-binaryBodyReference`>>, `array`
 
 * **Additional properties are allowed.**
-
-
-
-
 
 
 
@@ -428,7 +423,7 @@ The name of the class, e.g. for display purposes.
 
 * **Type**: `string`
 * **Required**: No
-* **Minimum Length**`: &gt;= 1`
+* **Minimum Length**: `&gt;= 1`
 
 == class.description
 
@@ -436,7 +431,7 @@ The description of the class.
 
 * **Type**: `string`
 * **Required**: No
-* **Minimum Length**`: &gt;= 1`
+* **Minimum Length**: `&gt;= 1`
 
 == class.properties
 
@@ -444,7 +439,7 @@ A dictionary, where each key is a property ID and each value is an object defini
 
 * **Type**: `object`
 * **Required**: No
-* **Minimum number of properties:** `1`
+* **Minimum number of properties**: `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-class-property,`class.property`>>
 
@@ -580,7 +575,7 @@ The name of the property, e.g. for display purposes.
 
 * **Type**: `string`
 * **Required**: No
-* **Minimum Length**`: &gt;= 1`
+* **Minimum Length**: `&gt;= 1`
 
 == class.property.description
 
@@ -588,7 +583,7 @@ The description of the property.
 
 * **Type**: `string`
 * **Required**: No
-* **Minimum Length**`: &gt;= 1`
+* **Minimum Length**: `&gt;= 1`
 
 == class.property.type
 
@@ -596,7 +591,7 @@ The element type.
 
 * **Type**: `string`
 * **Required**:  &#10003; Yes
-* **Allowed values**:
+* **Allowed values**: 
 ** `"SCALAR"`
 ** `"VEC2"`
 ** `"VEC3"`
@@ -614,7 +609,7 @@ The datatype of the element's components. Only applicable to `SCALAR`, `VECN`, a
 
 * **Type**: `string`
 * **Required**: No
-* **Allowed values**:
+* **Allowed values**: 
 ** `"INT8"`
 ** `"UINT8"`
 ** `"INT16"`
@@ -710,7 +705,7 @@ An identifier that describes how this property should be interpreted. The semant
 
 * **Type**: `string`
 * **Required**: No
-* **Minimum Length**`: &gt;= 1`
+* **Minimum Length**: `&gt;= 1`
 
 == class.property.extensions
 
@@ -784,7 +779,7 @@ An optional bounding volume that tightly encloses tile content. tile.boundingVol
 
 * **Type**: <<reference-boundingvolume,`boundingVolume`>>
 * **Required**: No
-* **Minimum number of properties:** `1`
+* **Minimum number of properties**: `1`
 
 == content.uri
 
@@ -934,20 +929,6 @@ For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 [#reference-enum]
 = Enum
 
@@ -999,7 +980,7 @@ The name of the enum, e.g. for display purposes.
 
 * **Type**: `string`
 * **Required**: No
-* **Minimum Length**`: &gt;= 1`
+* **Minimum Length**: `&gt;= 1`
 
 == enum.description
 
@@ -1007,7 +988,7 @@ The description of the enum.
 
 * **Type**: `string`
 * **Required**: No
-* **Minimum Length**`: &gt;= 1`
+* **Minimum Length**: `&gt;= 1`
 
 == enum.valueType
 
@@ -1015,7 +996,7 @@ The type of the integer enum value.
 
 * **Type**: `string`
 * **Required**: No, default: `UINT16`
-* **Allowed values**:
+* **Allowed values**: 
 ** `"INT8"`
 ** `"UINT8"`
 ** `"INT16"`
@@ -1099,7 +1080,7 @@ The name of the enum value.
 
 * **Type**: `string`
 * **Required**:  &#10003; Yes
-* **Minimum Length**`: &gt;= 1`
+* **Minimum Length**: `&gt;= 1`
 
 == enum.value.description
 
@@ -1107,7 +1088,7 @@ The description of the enum value.
 
 * **Type**: `string`
 * **Required**: No
-* **Minimum Length**`: &gt;= 1`
+* **Minimum Length**: `&gt;= 1`
 
 == enum.value.value
 
@@ -1143,6 +1124,7 @@ Application-specific data.
 Dictionary object with extension-specific objects.
 
 * **Additional properties are allowed.**
+* **Type of additional properties**: `object`
 * **JSON schema**: <<reference-schema-extension,`extension.schema.json`>>
 
 
@@ -1187,6 +1169,7 @@ A set of semantics containing per-tile and per-feature values defining the posit
 |===
 
 * **Additional properties are allowed.**
+* **Type of additional properties**: <<reference-featuretable-definitions-property,`featureTable-definitions-property`>>
 * **JSON schema**: <<reference-schema-featuretable,`featureTable.schema.json`>>
 
 
@@ -1258,7 +1241,7 @@ The datatype of components in the property. This is defined only if the semantic
 
 * **Type**: `string`
 * **Required**: No
-* **Allowed values**:
+* **Allowed values**: 
 ** `"BYTE"`
 ** `"UNSIGNED_BYTE"`
 ** `"SHORT"`
@@ -1364,20 +1347,6 @@ An object defining a global 4-component numeric property values for all features
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 [#reference-group]
 = Group Metadata
 
@@ -1426,7 +1395,7 @@ A dictionary, where each key corresponds to a property ID in the class' `propert
 
 * **Type**: `object`
 * **Required**: No
-* **Minimum number of properties:** `1`
+* **Minimum number of properties**: `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-definitions-definitions-anyvalue,`definitions-definitions-anyValue`>>
 
@@ -1713,7 +1682,7 @@ A dictionary, where each key corresponds to a property ID in the class' `propert
 
 * **Type**: `object`
 * **Required**: No
-* **Minimum number of properties:** `1`
+* **Minimum number of properties**: `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-definitions-definitions-anyvalue,`definitions-definitions-anyValue`>>
 
@@ -2137,7 +2106,7 @@ The name of the schema, e.g. for display purposes.
 
 * **Type**: `string`
 * **Required**: No
-* **Minimum Length**`: &gt;= 1`
+* **Minimum Length**: `&gt;= 1`
 
 == schema.description
 
@@ -2145,7 +2114,7 @@ The description of the schema.
 
 * **Type**: `string`
 * **Required**: No
-* **Minimum Length**`: &gt;= 1`
+* **Minimum Length**: `&gt;= 1`
 
 == schema.version
 
@@ -2153,7 +2122,7 @@ Application-specific version of the schema.
 
 * **Type**: `string`
 * **Required**: No
-* **Minimum Length**`: &gt;= 1`
+* **Minimum Length**: `&gt;= 1`
 
 == schema.classes
 
@@ -2161,7 +2130,7 @@ A dictionary, where each key is a class ID and each value is an object defining 
 
 * **Type**: `object`
 * **Required**: No
-* **Minimum number of properties:** `1`
+* **Minimum number of properties**: `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-class,`class`>>
 
@@ -2171,7 +2140,7 @@ A dictionary, where each key is an enum ID and each value is an object defining 
 
 * **Type**: `object`
 * **Required**: No
-* **Minimum number of properties:** `1`
+* **Minimum number of properties**: `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-enum,`enum`>>
 
@@ -2232,7 +2201,7 @@ A dictionary, where each key corresponds to a class ID in the `classes` dictiona
 
 * **Type**: `object`
 * **Required**: No
-* **Minimum number of properties:** `1`
+* **Minimum number of properties**: `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-statistics-class,`statistics.class`>>
 
@@ -2306,7 +2275,7 @@ A dictionary, where each key corresponds to a property ID in the class' `propert
 
 * **Type**: `object`
 * **Required**: No
-* **Minimum number of properties:** `1`
+* **Minimum number of properties**: `1`
 * **Additional properties are allowed.**
 * **Type of each property**: <<reference-statistics-class-property,`statistics.class.property`>>
 
@@ -2451,7 +2420,7 @@ A dictionary, where each key corresponds to an enum `name` and each value is the
 
 * **Type**: `object`
 * **Required**: No
-* **Minimum number of properties:** `1`
+* **Minimum number of properties**: `1`
 * **Additional properties are allowed.**
 * **Type of each property**: `integer`
 
@@ -2710,6 +2679,7 @@ A series of property names and the `expression` to evaluate for the value of tha
 |===
 
 * **Additional properties are allowed.**
+* **Type of additional properties**: <<reference-style-expression,`style.expression`>>
 * **JSON schema**: <<reference-schema-style-meta,`style.meta.schema.json`>>
 
 
@@ -2887,7 +2857,7 @@ The bounding volume that encloses the tile.
 
 * **Type**: <<reference-boundingvolume,`boundingVolume`>>
 * **Required**:  &#10003; Yes
-* **Minimum number of properties:** `1`
+* **Minimum number of properties**: `1`
 
 == tile.viewerRequestVolume
 
@@ -2895,7 +2865,7 @@ Optional bounding volume that defines the volume the viewer must be inside of be
 
 * **Type**: <<reference-boundingvolume,`boundingVolume`>>
 * **Required**: No
-* **Minimum number of properties:** `1`
+* **Minimum number of properties**: `1`
 
 == tile.geometricError
 
@@ -2911,7 +2881,7 @@ Specifies if additive or replacement refinement is used when traversing the tile
 
 * **Type**: `string`
 * **Required**: No
-* **Allowed values**:
+* **Allowed values**: 
 ** `"ADD"`
 ** `"REPLACE"`
 
@@ -3030,7 +3000,7 @@ A string describing the subdivision scheme used within the tileset.
 
 * **Type**: `string`
 * **Required**:  &#10003; Yes
-* **Allowed values**:
+* **Allowed values**: 
 ** `"QUADTREE"`
 ** `"OCTREE"`
 
@@ -3256,6 +3226,8 @@ Application-specific data.
 
 * **Type**: <<reference-extras,`extras`>>
 * **Required**: No
+
+
 
 
 
