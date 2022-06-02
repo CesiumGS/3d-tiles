@@ -74,6 +74,7 @@
 
 ### Selected Talks
 
+- _3D Tiles Next: Bringing Massive 3D Geospatial Data to the Web_, WebGL + WebGPU Meetup (April 2022). [Video and slides](https://cesium.com/learn/presentations/#webg-webgpu-meetup)
 - _3D Tiles Next: Data Performance for the Future of 3D Geospatial_, GEOINT 2022 Lightning Talk. [Slides](https://cesium.com/learn/presentations/#geoint-lightning-talk-2022)
 - _Rendering the World with 3D Tiles_, a guest lecture at Drexel University (February 2022). [Slides](https://cesium.com/learn/presentations/#rendering-the-world-with-3d-tiles)
 - _Introducing 3D Tiles Next_, at Web3D Conference 2021. [Video and slides](https://cesium.com/learn/presentations/#web3d-conference-2021)
@@ -94,6 +95,7 @@
 
 ### Selected Articles
 
+- [Fine Grained Metadata in 3D Tiles Next](https://cesium.com/blog/2022/05/31/fine-grained-metadata-in-3d-tiles-next/). May 2022.
 - [An End-to-End Guide to Photogrammetry with Mobile Devices](https://rd.nytimes.com/projects/an-end-to-end-guide-to-photogrammetry-with-mobile-devices). September 2021.
 - [Create 3D Tiles from KML/COLLADA with Per-Building Data](https://cesium.com/blog/2020/04/09/kml-collada-metadata/). April 2020.
 - [Bring Your Cesium ion 3D Tiles and Bing Imagery in osgEarth](https://cesium.com/blog/2020/04/02/osgearth-supports-cesium-ion-assets/). April 2020.
