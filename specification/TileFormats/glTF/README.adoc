@@ -1,0 +1,109 @@
+
+[#tileformats-gltf-gltf]
+= glTF
+
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../
+:url-specification-metadata: {url-specification}Metadata/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-metadata:
+endif::[]
+
+[#tileformats-gltf-overview]
+== Overview
+
+link:https://github.com/KhronosGroup/glTF[glTF 2.0] is the primary tile format for 3D Tiles. glTF is an open specification designed for the efficient transmission and loading of 3D content. A glTF asset includes geometry and texture information for a single tile, and may be extended to include metadata, model instancing, and compression. glTF may be used for a wide variety of 3D content including:
+
+* Heterogeneous 3D models. E.g. textured terrain and surfaces, 3D building exteriors and interiors, massive models
+* Massive point clouds
+* 3D model instances. E.g. trees, windmills, bolts
+
+[#tileformats-gltf-use-cases]
+== Use Cases
+
+[#tileformats-gltf-3d-models]
+=== 3D Models
+
+glTF provides flexibilty for a wide range of mesh and material configurations, and is well suited for photogrammetry as well as stylized 3D models.
+
+[cols="^,^"]
+|===
+| Photogrammetry | 3D Buildings
+
+| image:figures/glTF-photogrammetry.png[pdfwidth=3.0in] +
+_San Francisco photogrammetry model from Aerometrex in O3DE_
+| image:figures/glTF-3d-buildings.png[pdfwidth=3.0in] +
+_3D buildings from swisstopo in CesiumJS_
+|===
+
+[#tileformats-gltf-point-clouds]
+=== Point Clouds
+
+glTF supports point clouds with the `0` (`POINTS`) primitive mode. Points can have positions, colors, normals, and custom attributes as specified in the `primitive.attributes` field.
+
+.40 billion point cloud from the City of Montreal with ASPRS classification codes (https://donnees.montreal.ca/license-en[CC-BY 4.0])
+image::figures/glTF-point-cloud.png[point-cloud]
+
+When using the link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features/README.md[`EXT_mesh_features`] extension points can be assigned feature IDs and these features can have associated metadata.
+
+.A point cloud with two property tables, one storing metadata for groups of points and the other storing metadata for individual points
+image::figures/point-cloud-layers.png[Point Cloud Features]
+
+[#tileformats-gltf-instancing]
+=== Instancing
+
+glTF can leverage GPU instancing with the link:https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Vendor/EXT_mesh_gpu_instancing/README.md[`EXT_mesh_gpu_instancing`] extension. Instances can be given unique translations, rotations, scales, and other per-instance attributes.
+
+.Instanced tree models in Philadelphia from OpenTreeMap
+image::figures/glTF-instancing.jpg[instancing]
+
+When using the link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features/README.md[`EXT_instance_features`] extension instances can be assigned feature IDs and these features can have associated metadata.
+
+.Instanced tree models where trees are assigned to groups with a per-instance feature ID attribute. One feature table stores per-group metadata and the other stores per-tree metadata
+image::figures/multi-instance-metadata.png[Model Instance Features]
+
+[#tileformats-gltf-feature-identification]
+== Feature Identification
+
+link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features/README.md[`EXT_mesh_features`] provides a means of assigning identifiers to geometry and subcomponents of geometry within a glTF 2.0 asset. Feature IDs can de assigned to vertices or texels. link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features/README.md[`EXT_instance_features`] allows feature IDs to be assigned to individial instances.
+
+.Street level photogrammetry of San Francisco Ferry Building from Aerometrex. Left: per-texel colors showing the feature classification, e.g., roof, sky roof, windows, window frames, and AC units . Right: classification is used to determine rendering material properties, e.g., make the windows translucent
+image::figures/glTF-feature-identification.png[Per-texel features]
+
+
+[#tileformats-gltf-metadata]
+== Metadata
+
+link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata/README.md[`EXT_structural_metadata`] stores metadata at per-vertex, per-texel, and per-feature granularity and uses the type system defined in the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification]. This metadata can be used for visualization and analysis.
+
+.An example of metadata associated with glTF models
+image::figures/glTF-metadata.png[metadata]
+
+[#tileformats-gltf-compression]
+== Compression
+
+glTF has several extensions for geometry and texture compression. These extensions can help reduce file sizes and GPU memory usage.
+
+[#tileformats-gltf-geometry-compression]
+=== Geometry Compression
+
+* link:https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_mesh_quantization/README.md[`KHR_mesh_quantization`]
+* link:https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/EXT_meshopt_compression/README.md[`EXT_meshopt_compression`]
+* link:https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_draco_mesh_compression/README.md[`KHR_draco_mesh_compression`]
+
+[#tileformats-gltf-texture-compression]
+=== Texture Compression
+
+* link:https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_texture_basisu/README.md[`KHR_texture_basisu`]
+
+[#tileformats-gltf-file-extensions-and-media-types]
+== File Extensions and Media Types
+
+See link:https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#file-extensions-and-media-types[glTF File Extensions and Media Types].
+
+An explicit file extension is optional. Valid implementations may ignore it and identify a content's format through other means, such as the `magic` field in the binary glTF header or the presence of an `asset` field in JSON glTF.
+

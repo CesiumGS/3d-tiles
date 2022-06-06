@@ -1,0 +1,97 @@
+
+[#tileformats-featuretable-feature-table]
+= Feature Table
+
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
+:url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
+:url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
+:url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-gltf-migration: {url-specification-tileformats-gltf}MIGRATION.adoc
+:url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batched3dmodel:
+:url-specification-tileformats-batchtable:
+:url-specification-tileformats-featuretable:
+:url-specification-tileformats-gltf:
+:url-specification-tileformats-gltf-migration:
+:url-specification-tileformats-pointcloud:
+endif::[]
+
+WARNING: Feature Table was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-migration-from-legacy-tile-formats[glTF migration guide].
+
+[#tileformats-featuretable-overview]
+== Overview
+
+A _Feature Table_ is a component of a tile's binary body and describes position and appearance properties required to render each feature in a tile. The xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-batch-table[Batch Table], on the other hand, contains per-feature application-specific properties not necessarily used for rendering.
+
+A Feature Table is used by tile formats like xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model] (b3dm) where each model is a feature, and xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud] (pnts) where each point is a feature.
+
+Per-feature properties are defined using tile format-specific semantics defined in each tile format's specification.  For example, for _Instanced 3D Model_, `SCALE_NON_UNIFORM` defines the non-uniform scale applied to each 3D model instance.
+
+[#tileformats-featuretable-layout]
+== Layout
+
+A Feature Table is composed of two parts: a JSON header and an optional binary body in little endian. The JSON property names are tile format-specific semantics, and their values can either be defined directly in the JSON, or refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body. The following figure shows the Feature Table layout:
+
+.Data layout of a Feature Table
+image::figures/feature-table-layout.png[feature table layout]
+
+When a tile format includes a Feature Table, the Feature Table immediately follows the tile's header.  The header will also contain `featureTableJSONByteLength` and `featureTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the Feature Table.
+
+[#tileformats-featuretable-padding]
+=== Padding
+
+The JSON header must end on an 8-byte boundary within the containing tile binary. The JSON header must be padded with trailing Space characters (`0x20`) to satisfy this requirement.
+
+The binary body must start and end on an 8-byte boundary within the containing tile binary. The binary body must be padded with additional bytes, of any value, to satisfy this requirement.
+
+Binary properties must start at a byte offset that is a multiple of the size in bytes of the property's implicit component type. For example, a property with the implicit component type `FLOAT` has 4 bytes per element, and therefore must start at an offset that is a multiple of `4`. Preceding binary properties must be padded with additional bytes, of any value, to satisfy this requirement.
+
+[#tileformats-featuretable-json-header]
+=== JSON header
+
+Feature Table values can be represented in the JSON header in two different ways:
+
+. A single value or object, e.g., `"INSTANCES_LENGTH" : 4`.
+ ** This is used for global semantics like `"INSTANCES_LENGTH"`, which defines the number of model instances in an Instanced 3D Model tile.
+. A reference to data in the binary body, denoted by an object with a `byteOffset` property, e.g., `"SCALE" : { "byteOffset" : 24}`.
+ ** `byteOffset` specifies a zero-based offset relative to the start of the binary body. The value of `byteOffset` must be a multiple of the size in bytes of the property's implicit component type, e.g., the `"POSITION"` property has the component type `FLOAT` (4 bytes), so the value of `byteOffset` must be of a multiple of `4`.
+ ** The semantic defines the allowed data type, e.g., when `"POSITION"` in Instanced 3D Model refers to the binary body, the component type is `FLOAT` and the number of components is `3`.
+ ** Some semantics allow for overriding the implicit component type. These cases are specified in each tile format, e.g., `"BATCH_ID" : { "byteOffset" : 24, "componentType" : "UNSIGNED_BYTE"}`.
+The only valid properties in the JSON header are the defined semantics by the tile format and optional `extras` and `extensions` properties.  Application-specific data should be stored in the Batch Table.
+
+[#tileformats-featuretable-binary-body]
+=== Binary body
+
+When the JSON header includes a reference to the binary, the provided `byteOffset` is used to index into the data. The following figure shows indexing into the Feature Table binary body:
+
+.An example showing how to access the binary body, based on the information from the JSON header
+image::figures/feature-table-binary-index.png[feature table binary index]
+
+Values can be retrieved using the number of features, `featuresLength`; the desired feature id, `featureId`; and the data type (component type and number of components) for the feature semantic.
+
+[#tileformats-featuretable-implementation-example]
+== Implementation example
+
+_This section is non-normative_
+
+The following example accesses the position property using the `POSITION` semantic, which has a `float32[3]` data type:
+
+[source,javascript]
+----
+var byteOffset = featureTableJSON.POSITION.byteOffset;
+
+var positionArray = new Float32Array(featureTableBinary.buffer, byteOffset, featuresLength * 3); // There are three components for each POSITION feature.
+var position = positionArray.subarray(featureId * 3, featureId * 3 + 3); // Using subarray creates a view into the array, and not a new array.
+----
+
+Code for reading the Feature Table can be found in link:https://github.com/CesiumGS/cesium/blob/main/Source/Scene/Cesium3DTileFeatureTable.js[`Cesium3DTileFeatureTable.js`] in the CesiumJS implementation of 3D Tiles.
+

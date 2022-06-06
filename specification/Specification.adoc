@@ -1,0 +1,63 @@
+= 3D Tiles Specification
+Cesium GS, Inc
+v1.1.0
+:toc2:
+:toclevels: 2
+:sectnums:
+:source-highlighter: rouge
+:rouge-style: github
+
+image::figures/3DTiles_dark_color_small.png[]
+
+This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
+
+:leveloffset: +1
+
+= 3D Tiles Format Specification
+include::README.adoc[]
+
+
+:imagesdir: TileFormats
+include::TileFormats/README.adoc[]
+
+:leveloffset: +1
+
+:imagesdir: TileFormats/glTF/
+include::TileFormats/glTF/README.adoc[]
+
+:imagesdir: TileFormats/BatchTable/
+include::TileFormats/BatchTable/README.adoc[]
+
+:imagesdir: TileFormats/FeatureTable/
+include::TileFormats/FeatureTable/README.adoc[]
+
+:imagesdir: TileFormats/Batched3DModel/
+include::TileFormats/Batched3DModel/README.adoc[]
+
+:imagesdir: TileFormats/Instanced3DModel/
+include::TileFormats/Instanced3DModel/README.adoc[]
+
+:imagesdir: TileFormats/PointCloud/
+include::TileFormats/PointCloud/README.adoc[]
+
+:imagesdir: TileFormats/Composite/
+include::TileFormats/Composite/README.adoc[]
+
+:leveloffset: -1
+
+
+:imagesdir: ImplicitTiling
+include::ImplicitTiling/README.adoc[]
+
+:imagesdir: Metadata
+include::Metadata/README.adoc[]
+
+:imagesdir: Styling
+include::Styling/README.adoc[]
+
+:leveloffset: -1
+
+:imagesdir: 
+include::APPENDIX.adoc[]
+
+
