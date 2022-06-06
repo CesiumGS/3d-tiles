@@ -32,7 +32,7 @@ The properties reference in the specification is automatically generated from th
 - `PropertiesReference_3dtiles.adoc`: The main reference that lists all types that are defined in the JSON schema, and information about the properties of these types
 - `PropertiesReference_3dtiles_schema.adoc`: A document where the actual JSON schema is inlined. The main reference links from each type to the appropriate JSON schema file that is embedded here.
 
-In its original form, wetzel could not handle many of the constructs that are used in the 3D Tiles JSON schema. A state that can be used for generating the properties reference can be found in the [`generate-3dtiles`](https://github.com/javagl/wetzel/tree/generate-3dtiles) branch ([this commit](https://github.com/javagl/wetzel/commit/33e16a01b73e3335404f1e778a0a7fda1e074954) at the time of writing this)
+In its original form, wetzel could not handle many of the constructs that are used in the 3D Tiles JSON schema. A state that can be used for generating the properties reference can be found in the [`generate-3dtiles`](https://github.com/CesiumGS/wetzel/tree/generate-3dtiles) branch ([this commit](https://github.com/CesiumGS/wetzel/commit/33e16a01b73e3335404f1e778a0a7fda1e074954) at the time of writing this)
 
 The command line for generating the properties references from this state is
 ```
