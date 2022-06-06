@@ -97,6 +97,7 @@
 
 - [Fine Grained Metadata in 3D Tiles Next](https://cesium.com/blog/2022/05/31/fine-grained-metadata-in-3d-tiles-next/). May 2022.
 - [An End-to-End Guide to Photogrammetry with Mobile Devices](https://rd.nytimes.com/projects/an-end-to-end-guide-to-photogrammetry-with-mobile-devices). September 2021.
+- [Georeferencing 3D models for Cesium](https://medium.com/terria/georeferencing-3d-models-for-cesium-7ccf609ee2ef). May 2020.
 - [Create 3D Tiles from KML/COLLADA with Per-Building Data](https://cesium.com/blog/2020/04/09/kml-collada-metadata/). April 2020.
 - [Bring Your Cesium ion 3D Tiles and Bing Imagery in osgEarth](https://cesium.com/blog/2020/04/02/osgearth-supports-cesium-ion-assets/). April 2020.
 - [Taking City Visualization into the Third Dimension with Point Clouds, 3D Tiles, and deck.gl](https://eng.uber.com/3d-tiles-loadersgl/). October 2019.
