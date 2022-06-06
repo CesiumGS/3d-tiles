@@ -690,16 +690,26 @@
         "$ref": "#/definitions/property"
     },
     "definitions": {
-        "binaryBodyReference": {
-            "title": "BinaryBodyReference",
+        "binaryBodyOffset": {
+            "title": "BinaryBodyOffset",
             "$ref": "rootProperty.schema.json",
-            "description": "An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
+            "description": "An object defining the offset into a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
             "properties": {
                 "byteOffset": {
                     "type": "integer",
                     "description": "The offset into the buffer in bytes.",
                     "minimum": 0
-                },
+                }
+            },
+            "required": [
+                "byteOffset"
+            ]
+        },
+        "binaryBodyReference": {
+            "title": "BinaryBodyReference",
+            "$ref": "#/definitions/binaryBodyOffset",
+            "description": "An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
+            "properties": {
                 "componentType": {
                     "description": "The datatype of components in the property. This is defined only if the semantic allows for overriding the implicit component type. These cases are specified in each tile format.",
                     "anyOf": [
@@ -732,10 +742,7 @@
                         }
                     ]
                 }
-            },
-            "required": [
-                "byteOffset"
-            ]
+            }
         },
         "property": {
             "title": "Property",
@@ -771,17 +778,7 @@
             "description": "An object defining a global integer property value for all features.",
             "oneOf": [
                 {
-                    "type": "object",
-                    "properties": {
-                        "byteOffset": {
-                            "type": "integer",
-                            "description": "The offset into the buffer in bytes.",
-                            "minimum": 0
-                        }
-                    },
-                    "required": [
-                        "byteOffset"
-                    ]
+                    "$ref": "#/definitions/binaryBodyOffset"
                 },
                 {
                     "type": "integer",
@@ -794,17 +791,7 @@
             "description": "An object defining a global numeric property value for all features.",
             "oneOf": [
                 {
-                    "type": "object",
-                    "properties": {
-                        "byteOffset": {
-                            "type": "integer",
-                            "description": "The offset into the buffer in bytes.",
-                            "minimum": 0
-                        }
-                    },
-                    "required": [
-                        "byteOffset"
-                    ]
+                    "$ref": "#/definitions/binaryBodyOffset"
                 },
                 {
                     "type": "number",
@@ -817,17 +804,7 @@
             "description": "An object defining a global 3-component numeric property values for all features.",
             "oneOf": [
                 {
-                    "$ref": "rootProperty.schema.json",
-                    "properties": {
-                        "byteOffset": {
-                            "type": "integer",
-                            "description": "The offset into the buffer in bytes.",
-                            "minimum": 0
-                        }
-                    },
-                    "required": [
-                        "byteOffset"
-                    ]
+                    "$ref": "#/definitions/binaryBodyOffset"
                 },
                 {
                     "type": "array",
@@ -844,17 +821,7 @@
             "description": "An object defining a global 4-component numeric property values for all features.",
             "oneOf": [
                 {
-                    "$ref": "rootProperty.schema.json",
-                    "properties": {
-                        "byteOffset": {
-                            "type": "integer",
-                            "description": "The offset into the buffer in bytes.",
-                            "minimum": 0
-                        }
-                    },
-                    "required": [
-                        "byteOffset"
-                    ]
+                    "$ref": "#/definitions/binaryBodyOffset"
                 },
                 {
                     "type": "array",
