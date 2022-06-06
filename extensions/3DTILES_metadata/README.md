@@ -70,7 +70,7 @@ This extension defines a means of including structured metadata ("properties") i
 
 > **Implementation note:** Certain subcomponents of tile content ("features") may also have associated metadata. See [Content Feature Properties](#content-feature-properties).
 
-Concepts and terminology used throughout this document refer to the [3D Metadata Specification](../../specification/Metadata/README.md), which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
+Concepts and terminology used throughout this document refer to the [3D Metadata Specification](../../specification/Metadata/README.adoc), which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
 
 The figure below shows the relationship between entities (tilesets, tiles, contents, and groups) in 3D Tiles:
 
@@ -92,7 +92,7 @@ Metadata in 3D Tiles enables additional use cases and functionality for the form
 
 ### Overview
 
-[*Properties*](#class-property) describe attributes or characteristics of an *Entity* (tileset, tile, group, or content). [*Classes*](#class), provided by [*Schemas*](#schema), are templates defining the data types and meanings of properties. Each entity is a single instance of that class with specific values. Additionally, [*Statistics*](#statistics) may provide aggregate information about the distribution of property values within a particular class, and [*Semantics*](../../specification/Metadata/Semantics/README.md) may define usage and meaning of particular properties.
+[*Properties*](#class-property) describe attributes or characteristics of an *Entity* (tileset, tile, group, or content). [*Classes*](#class), provided by [*Schemas*](#schema), are templates defining the data types and meanings of properties. Each entity is a single instance of that class with specific values. Additionally, [*Statistics*](#statistics) may provide aggregate information about the distribution of property values within a particular class, and [*Semantics*](../../specification/Metadata/Semantics/README.adoc) may define usage and meaning of particular properties.
 
 ### Schema
 
@@ -161,7 +161,7 @@ Schemas may be embedded in tilesets with the `schema` property, or referenced ex
 
 Template for entities. Classes provide a list of property definitions. Every entity must be associated with a class, and the entity's properties must conform to the class's property definitions. Entities whose properties conform to a class are considered instances of that class.
 
-Classes are defined as entries in the `schema.classes` dictionary, indexed by class ID. Class IDs must be [identifiers](../../specification/Metadata/README.md#identifiers) as defined in the 3D Metadata Specification.
+Classes are defined as entries in the `schema.classes` dictionary, indexed by class ID. Class IDs must be [identifiers](../../specification/Metadata/README.adoc#metadata-identifiers) as defined in the 3D Metadata Specification.
 
 ### Class Property
 
@@ -197,7 +197,7 @@ Allowed values for `componentType`:
 - `"FLOAT32"`
 - `"FLOAT64"`
 
-Class properties are defined as entries in the `class.properties` dictionary, indexed by property ID. Property IDs must be [identifiers](../../specification/Metadata/README.md#identifiers) as defined in the 3D Metadata Specification.
+Class properties are defined as entries in the `class.properties` dictionary, indexed by property ID. Property IDs must be [identifiers](../../specification/Metadata/README.adoc#metadata-identifiers) as defined in the 3D Metadata Specification.
 
 By default, properties do not have any inherent meaning. A property may be assigned a **semantic**, an identifier that describes a property's meaning, for higher-level type information, runtime behavior, or other interpretation. The list of built-in semantics can be found in the [3D Metadata Semantic Reference](../../specification/Metadata/Semantics). Tileset authors may define their own application- or domain-specific semantics separately, and should follow the naming conventions in the Semantic Reference.
 
@@ -239,9 +239,9 @@ By default, properties do not have any inherent meaning. A property may be assig
 
 Set of categorical types, defined as `(name, value)` pairs. Enum properties use an enum as their type.
 
-Enums are defined as entries in the `schema.enums` dictionary, indexed by enum ID. Enum IDs must be [identifiers](../../specification/Metadata/README.md#identifiers) as defined in the 3D Metadata Specification.
+Enums are defined as entries in the `schema.enums` dictionary, indexed by enum ID. Enum IDs must be [identifiers](../../specification/Metadata/README.adoc#metadata-identifiers) as defined in the 3D Metadata Specification.
 
-> **Example:** A "quality" enum defining quality level of data within a tile. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: [3D Metadata → No Data Values](../../specification/Metadata/README.md#required-properties-no-data-values-and-default-values)) may be helpful to identify missing data.
+> **Example:** A "quality" enum defining quality level of data within a tile. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: [3D Metadata → No Data Values](../../specification/Metadata/README.adoc#metadata-required-properties-no-data-values-and-default-values)) may be helpful to identify missing data.
 >
 > ```jsonc
 > {
@@ -379,7 +379,7 @@ Most property values are encoded as JSON within the entity. One notable exceptio
 
 Properties assigned to tilesets provide metadata about the tileset as a whole. Common examples might include year of collection, author details, or other general context for the tileset contents.
 
-The `tileset` object within a tileset's `3DTILES_metadata` extension must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
+The `tileset` object within a tileset's `3DTILES_metadata` extension must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.adoc#metadata-json-format) specification.
 
 > **Example:** The example below defines properties of a tileset, with the tileset being an instance of a "city" class. Required properties "dateFounded" and "population" are given; optional property "country" is omitted.
 >
@@ -431,7 +431,7 @@ The `tileset` object within a tileset's `3DTILES_metadata` extension must specif
 
 Property values may be assigned to individual tiles, including (for example) spatial hints to optimize traversal algorithms. The example below uses the built-in semantic `TILE_MAXIMUM_HEIGHT` from the [3D Metadata Semantic Reference](../../specification/Metadata/Semantics).
 
-A `3DTILES_metadata` extension on a tile object must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
+A `3DTILES_metadata` extension on a tile object must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.adoc#metadata-json-format) specification.
 
 Metadata assigned to implicit tiles is stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/README.md#metadata).
 
@@ -483,7 +483,7 @@ Metadata assigned to implicit tiles is stored in a more compact binary form. See
 
 Tiles may contain more than one content (see: [`3DTILES_multiple_contents`](../3DTILES_multiple_contents)), or multiple tiles may reference content sharing the same metadata. In these cases, metadata assigned to the tile would be inadequate or inefficient for describing tile contents. This extension allows content to be organized into collections, or "groups", and metadata may be associated with each group. Groups are useful for supporting metadata on only a subset of a tile's content, or for working with collections of contents as layers, e.g. to manage visibility or visual styling.
 
-The tileset's root `3DTILES_metadata` extension must define a list of available groups, if any, under its `groups` property. Each group definition must specify its class (`class`) and an identifier (`id`) that uniquely identifies this group in the tileset. Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
+The tileset's root `3DTILES_metadata` extension must define a list of available groups, if any, under its `groups` property. Each group definition must specify its class (`class`) and an identifier (`id`) that uniquely identifies this group in the tileset. Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.adoc#metadata-json-format) specification.
 
 Tile contents are assigned to groups, representing collections of content, by attaching a `3DTILES_metadata` extension to the content object and specifying its `group` property to be the index of the group in the list of groups that was defined for the tileset. Each content entity may be assigned only to a single group, but a single group may have any number of tile contents assigned to it.
 
@@ -562,7 +562,7 @@ Tile contents are assigned to groups, representing collections of content, by at
 
 Property values may be assigned to individual tile contents, including (for example) attribution strings. The example below uses the built-in semantic `ATTRIBUTION_STRING` from the [3D Metadata Semantic Reference](../../specification/Metadata/Semantics).
 
-A `3DTILES_metadata` extension on a content object must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.md#json-format) specification.
+A `3DTILES_metadata` extension on a content object must specify its class (`class`). Within a `properties` dictionary, values for properties are given, encoded as JSON types according to the [JSON Format](../../specification/Metadata/README.adoc#metadata-json-format) specification.
 
 Metadata assigned to implicit tile content is stored in a more compact binary form. See [Implicit Tiling - Metadata](../3DTILES_implicit_tiling/README.md#metadata).
 
@@ -618,7 +618,7 @@ Certain kinds of tile content may contain meaningful subcomponents ("features"),
 
 Assigning properties to tile content is not within the scope of this extension, but may be defined by other specifications. One such example is the glTF extension, [`EXT_mesh_features`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features), which supports definitions of conceptual features within geometry and textures, and [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) for associated metadata. glTF 2.0 assets with feature metadata may be included as tile contents with the [`3DTILES_content_gltf`](../3DTILES_content_gltf) extension.
 
-While `3DTILES_metadata` and `EXT_mesh_features` are defined independently, both conform to the [3D Metadata Specification](../../specification/Metadata/README.md) and share the same representation of metadata as schema and properties.
+While `3DTILES_metadata` and `EXT_mesh_features` are defined independently, both conform to the [3D Metadata Specification](../../specification/Metadata/README.adoc) and share the same representation of metadata as schema and properties.
 
 ## Schema
 

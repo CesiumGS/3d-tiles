@@ -26,7 +26,7 @@ No, 3D Tiles is an open standard for streaming massive heterogeneous 3D geospati
 
 [glTF](https://www.khronos.org/gltf) is an open standard for 3D models from Khronos (the same group that does WebGL and COLLADA). CesiumJS uses glTF as its 3D model format, and the Cesium team contributes heavily to the glTF specification and open-source COLLADA2GLTF converter. We recommend using glTF in CesiumJS for individual assets, e.g., an aircraft, a character, or a 3D building.
 
-We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive. Given that glTF is optimized for rendering, that CesiumJS has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles often use glTF for tile content. Tiles may reference glTF models directly, using the [glTF Tile Format](./specification/TileFormats/glTF/README.md).
+We created 3D Tiles for streaming massive geospatial datasets where a single glTF model would be prohibitive. Given that glTF is optimized for rendering, that CesiumJS has a well-tested glTF loader, and that there are existing conversion tools for glTF, 3D Tiles often use glTF for tile content. Tiles may reference glTF models directly, using the [glTF Tile Format](./specification/TileFormats/glTF/README.adoc).
 
 Taking this approach allows us to improve CesiumJS, glTF, and 3D Tiles at the same time. As new features and compression methods arrive in glTF, they benefit 3D models in CesiumJS, the glTF ecosystem, and 3D Tiles.
 
@@ -46,7 +46,7 @@ In many cases, yes. KML regions and network links are a clunky approach to strea
 
 Geospatial datasets are heterogeneous: 3D buildings are different from terrain, which is different from point clouds, which are different from vector data, and so on.
 
-3D Tiles supports heterogeneous data by allowing different formst of 3D data in a tileset. A tileset may contain tiles for 3D buildings, tiles for instanced 3D trees, and tiles for point clouds. The [glTF Tile Format](./specification/TileFormats/glTF/README.md) serves as a basis for representing these different forms of data: [glTF](https://www.khronos.org/gltf) is an open standard for 3D models and supports a large variety of 3D data, in a form that is optimized for efficient transmission.
+3D Tiles supports heterogeneous data by allowing different formst of 3D data in a tileset. A tileset may contain tiles for 3D buildings, tiles for instanced 3D trees, and tiles for point clouds. The [glTF Tile Format](./specification/TileFormats/glTF/README.adoc) serves as a basis for representing these different forms of data: [glTF](https://www.khronos.org/gltf) is an open standard for 3D models and supports a large variety of 3D data, in a form that is optimized for efficient transmission.
 
 #### How do I request the tiles for Level `n`?
 
@@ -56,12 +56,12 @@ For a tileset with irregular structure, the tile hierarchy can be quickly traver
 
 #### Is screen space error the only metric used to drive refinement?
 
-At runtime, a tile's `geometricError` is used to compute the screen space error (SSE) to drive refinement. Additionally, it is possible to drive the refinement using [metadata ](specification/README.md#metadata) that is associated withe the tile or tile content. For example, points of interest may be better served with on/off distances and a label collision factor computed at runtime. Note that the viewer's height above the ground is rarely a good metric for 3D since 3D supports arbitrary views.
+At runtime, a tile's `geometricError` is used to compute the screen space error (SSE) to drive refinement. Additionally, it is possible to drive the refinement using [metadata ](specification/README.adoc#core-metadata) that is associated withe the tile or tile content. For example, points of interest may be better served with on/off distances and a label collision factor computed at runtime. Note that the viewer's height above the ground is rarely a good metric for 3D since 3D supports arbitrary views.
 
 #### How are cracks between tiles with vector data handled?
 
-Unlike 2D, in 3D, we expect adjacent tiles to be from different LODs so, for example, in the distance, lower resolution tiles are used. Adjacent tiles from different LODs can lead to an artifact called _cracking_ where there are gaps between tiles. For terrain, this is generally handled by dropping _skirts_ slightly angled outward around each tile to fill the gap. For 3D buildings, this is handled by extending the tile boundary to fully include buildings on the edge; [see Quadtrees](./specification/README.md#quadtrees). For vector data, this is an open research problem that we need to solve. This could involve boundary-aware simplification or runtime stitching.
+Unlike 2D, in 3D, we expect adjacent tiles to be from different LODs so, for example, in the distance, lower resolution tiles are used. Adjacent tiles from different LODs can lead to an artifact called _cracking_ where there are gaps between tiles. For terrain, this is generally handled by dropping _skirts_ slightly angled outward around each tile to fill the gap. For 3D buildings, this is handled by extending the tile boundary to fully include buildings on the edge; [see Quadtrees](./specification/README.adoc#core-quadtrees). For vector data, this is an open research problem that we need to solve. This could involve boundary-aware simplification or runtime stitching.
 
 #### What compressed texture formats does 3D Tiles use?
 
-3D Tiles reference glTF content via the [glTF Tile Format](./specification/TileFormats/glTF/README.md), and the glTF format officially supports PNG, JPEG, and KTX2 / Basis Universal compressed textures ([`KHR_texture_basisu`](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_basisu)). Additional texture compression methods may be added to glTF in the future, as [glTF extensions](https://github.com/KhronosGroup/glTF/tree/main/extensions). Texture compression is generally applied offline, as it is often prohibitively expensive to do in JavaScript and Web Workers.
+3D Tiles reference glTF content via the [glTF Tile Format](./specification/TileFormats/glTF/README.adoc), and the glTF format officially supports PNG, JPEG, and KTX2 / Basis Universal compressed textures ([`KHR_texture_basisu`](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_basisu)). Additional texture compression methods may be added to glTF in the future, as [glTF extensions](https://github.com/KhronosGroup/glTF/tree/main/extensions). Texture compression is generally applied offline, as it is often prohibitively expensive to do in JavaScript and Web Workers.
