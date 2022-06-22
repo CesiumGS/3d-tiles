@@ -99,7 +99,7 @@ ifdef::env-github[]
 link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/TileFormats/pnts.featureTable.schema.json[`pnts.featureTable.schema.json`].
 endif::[]
 ifndef::env-github[]
-<<reference-schema-pnts-featuretable,`pnts.featureTable.schema.json`>>._
+<<reference-schema-pnts-featuretable,`pnts.featureTable.schema.json`>>.
 endif::[]
 
 

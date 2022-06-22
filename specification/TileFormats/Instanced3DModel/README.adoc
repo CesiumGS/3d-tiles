@@ -112,6 +112,15 @@ The body section immediately follows the header section and is composed of three
 The Feature Table contains values for `i3dm` semantics used to create instanced models.
 More information is available in the xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-feature-table[Feature Table specification].
 
+The full JSON schema can be found in 
+ifdef::env-github[]
+link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/TileFormats/i3dm.featureTable.schema.json[`i3dm.featureTable.schema.json`].
+endif::[]
+ifndef::env-github[]
+<<reference-schema-i3dm-featuretable,`i3dm.featureTable.schema.json`>>.
+endif::[]
+
+
 [#tileformats-instanced3dmodel-semantics]
 === Semantics
 
