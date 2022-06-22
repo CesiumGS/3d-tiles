@@ -94,7 +94,14 @@ The body section immediately follows the header section, and is composed of a `F
 Contains per-tile and per-point values that define where and how to render points.
 More information is available in the xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-feature-table[Feature Table specification].
 
-The full JSON schema can be found in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/TileFormats/pnts.featureTable.schema.json[pnts.featureTable.schema.json].
+The full JSON schema can be found in 
+ifdef::env-github[]
+link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/TileFormats/pnts.featureTable.schema.json[`pnts.featureTable.schema.json`].
+endif::[]
+ifndef::env-github[]
+<<reference-schema-pnts-featuretable,`pnts.featureTable.schema.json`>>._
+endif::[]
+
 
 [#tileformats-pointcloud-semantics]
 === Semantics

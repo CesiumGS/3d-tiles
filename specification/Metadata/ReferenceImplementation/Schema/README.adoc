@@ -25,7 +25,13 @@ The full JSON schema definition for this implementation can be found in link:htt
 [discrete]
 == Schema
 
-_Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/schema.schema.json[schema.schema.json]._
+_Defined in 
+ifdef::env-github[]
+link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/schema.schema.json[`schema.schema.json`]._
+endif::[]
+ifndef::env-github[]
+<<reference-schema-schema,`schema.schema.json`>>._
+endif::[]
 
 A schema defines a set of classes and enums. Classes serve as templates for entities. They provide a list of properties and the type information for those properties. Enums define the allowable values for enum properties.
 
@@ -52,7 +58,13 @@ Schema with a `tree` class, and a `speciesEnum` enum that defines different spec
 [discrete]
 === Class
 
-_Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/class.schema.json[class.schema.json]._
+_Defined in 
+ifdef::env-github[]
+link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/class.schema.json[`class.schema.json`]._
+endif::[]
+ifndef::env-github[]
+<<reference-schema-class,`class.schema.json`>>._
+endif::[]
 
 A class is a template for metadata entities. Classes provide a list of property definitions. Every entity must be associated with a class, and the entity's properties must conform to the class's property definitions. Entities whose properties conform to a class are considered instances of that class.
 
@@ -88,7 +100,13 @@ A "Tree" class, which might describe a table of tree measurements taken in a par
 [discrete]
 === Class Property
 
-_Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/class.property.schema.json[class.property.schema.json]._
+_Defined in 
+ifdef::env-github[]
+link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/class.property.schema.json[`class.property.schema.json`]._
+endif::[]
+ifndef::env-github[]
+<<reference-schema-class-property,`class.property.schema.json`>>._
+endif::[]
 
 Class properties are defined abstractly in a class. The class is instantiated with specific values conforming to these properties. Class properties support a rich variety of data types. Details about the supported types can be found in the xref:{url-specification-metadata}README.adoc#metadata-property[3D Metadata Specification].
 
@@ -142,7 +160,13 @@ A "Tree" class, which might describe a table of tree measurements taken in a par
 [discrete]
 === Enum
 
-_Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/enum.schema.json[enum.schema.json]._
+_Defined in 
+ifdef::env-github[]
+link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/enum.schema.json[`enum.schema.json`]._
+endif::[]
+ifndef::env-github[]
+<<reference-schema-enum,`enum.schema.json`>>._
+endif::[]
 
 A set of categorical types, defined as `(name, value)` pairs. Enum properties use an enum as their type.
 
@@ -178,7 +202,14 @@ A "Species" enum defining types of trees. An "Unspecified" enum value is optiona
 [discrete]
 === Enum Value
 
-_Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/enum.value.schema.json[enum.value.schema.json]._
+_Defined in 
+ifdef::env-github[]
+link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/enum.value.schema.json[`enum.value.schema.json`]._
+endif::[]
+ifndef::env-github[]
+<<reference-schema-enum-value,`enum.value.schema.json`>>._
+endif::[]
+
 
 Pairs of `(name, value)` entries representing possible values of an enum property.
 
