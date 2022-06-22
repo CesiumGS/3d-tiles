@@ -613,7 +613,16 @@ The optional `implicitTiling` property (not shown above) defines how the tile is
 
 The `children` property is an array of objects that define child tiles. Each child tile's content is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`. For leaf tiles, the length of this array is zero, and `children` may not be defined. See the <<core-tileset-json,Tileset JSON>> section below.
 
-The full JSON schema can be found in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/tile.schema.json[`tile.schema.json`].
+The full JSON schema can be found in 
+ifdef::env-github[]
+link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/tile.schema.json[`tile.schema.json`].
+endif::[]
+ifndef::env-github[]
+<<reference-schema-tile,`tile.schema.json`>>
+endif::[]
+
+
+
 
 [#core-tileset-json]
 === Tileset JSON
