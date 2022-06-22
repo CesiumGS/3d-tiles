@@ -144,7 +144,7 @@ See the xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-b
 [#tileformats-batched3dmodel-binary-gltf]
 == Binary glTF
 
-Batched 3D Model embeds https://github.com/KhronosGroup/glTF/tree/master/specification/2.0[glTF 2.0] containing model geometry and texture information.
+Batched 3D Model embeds https://github.com/KhronosGroup/glTF/tree/main/specification/2.0[glTF 2.0] containing model geometry and texture information.
 
 The https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#binary-gltf-layout[binary glTF] immediately follows the Feature Table and Batch Table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 

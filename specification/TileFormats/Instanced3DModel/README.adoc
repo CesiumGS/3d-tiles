@@ -42,7 +42,7 @@ A xref:{url-specification-tileformats-composite}README.adoc#tileformats-composit
 [NOTE]
 .Implementation Note
 ====
-Instanced 3D Model maps well to the link:https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/README.md[`ANGLE_instanced_arrays`] extension for efficient rendering with WebGL.
+Instanced 3D Model maps well to the link:https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/[`ANGLE_instanced_arrays`] extension for efficient rendering with WebGL.
 ====
 
 [#tileformats-instanced3dmodel-layout]
@@ -373,7 +373,7 @@ Contains metadata organized by `batchId` that can be used for declarative stylin
 [#tileformats-instanced3dmodel-gltf]
 == glTF
 
-Instanced 3D Model embeds link:https://github.com/KhronosGroup/glTF/tree/master/specification/2.0[glTF 2.0] containing model geometry and texture information.
+Instanced 3D Model embeds link:https://github.com/KhronosGroup/glTF/tree/main/specification/2.0[glTF 2.0] containing model geometry and texture information.
 
 The glTF asset to be instanced is stored after the Feature Table and Batch Table. It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
 

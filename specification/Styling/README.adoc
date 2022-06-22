@@ -228,7 +228,7 @@ The language for expressions is a small subset of JavaScript (http://www.ecma-in
 [NOTE]
 .Implementation Note
 ====
-CesiumJS uses the http://jsep.from.so/[jsep] JavaScript expression parser library to parse style expressions into an https://en.wikipedia.org/wiki/Abstract_syntax_tree[abstract syntax tree (AST)].
+CesiumJS uses the https://ericsmekens.github.io/jsep/[jsep] JavaScript expression parser library to parse style expressions into an https://en.wikipedia.org/wiki/Abstract_syntax_tree[abstract syntax tree (AST)].
 ====
 
 [#styling-semantics]
