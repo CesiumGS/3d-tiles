@@ -85,7 +85,7 @@ endif::[]
 Each property definition in a property table represents one column of the table. This column data is stored in binary form, using the encoding defined in the xref:{url-specification-metadata}README.adoc#metadata-binary-table-format[Binary Table Format] section of the 3D Metadata Specification. The actual data is stored in a binary buffer, and the property refers to a section of this buffer that is called a _buffer view_.
 
 * In the xref:{url-specification}README.adoc#core-metadata[3D Tiles Metadata] implementation, a buffer view is defined as part of xref:{url-specification-implicittiling}README.adoc#implicittiling-buffers-and-buffer-views[subtrees in implicit tilesets].
-* In the link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_metadata[`3DTILES_metadata`] extension for 3D Tiles 1.0, a buffer view is defined as part of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_implicit_tiling#buffers-and-buffer-views[subtrees the `3DTILES_implicit_tiling` extension].
+* In the link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_metadata[`3DTILES_metadata`] extension for 3D Tiles 1.0, a buffer view is defined as part of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_implicit_tiling#buffers-and-buffer-views[subtrees in the `3DTILES_implicit_tiling` extension].
 * In the https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`], a buffer view is a standard glTF buffer view.
 
 The exact structure of each property entry depends on the xref:{url-specification-metadata}README.adoc#metadata-property[property type]:

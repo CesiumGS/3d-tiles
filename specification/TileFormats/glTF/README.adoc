@@ -28,7 +28,7 @@ link:https://github.com/KhronosGroup/glTF[glTF 2.0] is the primary tile format f
 [#tileformats-gltf-3d-models]
 === 3D Models
 
-glTF provides flexibilty for a wide range of mesh and material configurations, and is well suited for photogrammetry as well as stylized 3D models.
+glTF provides flexibility for a wide range of mesh and material configurations, and is well suited for photogrammetry as well as stylized 3D models.
 
 [cols="^,^"]
 |===
@@ -56,7 +56,7 @@ image::figures/point-cloud-layers.png[Point Cloud Features]
 [#tileformats-gltf-instancing]
 === Instancing
 
-glTF can leverage GPU instancing with the link:https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Vendor/EXT_mesh_gpu_instancing/README.md[`EXT_mesh_gpu_instancing`] extension. Instances can be given unique translations, rotations, scales, and other per-instance attributes.
+glTF can leverage GPU instancing with the link:https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Vendor/EXT_mesh_gpu_instancing/README.md[`EXT_mesh_gpu_instancing`] extension. Instances can be given unique translations, rotations, scales, and other per-instance attributes.
 
 .Instanced tree models in Philadelphia from OpenTreeMap
 image::figures/glTF-instancing.jpg[instancing]
@@ -69,7 +69,7 @@ image::figures/multi-instance-metadata.png[Model Instance Features]
 [#tileformats-gltf-feature-identification]
 == Feature Identification
 
-link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features/README.md[`EXT_mesh_features`] provides a means of assigning identifiers to geometry and subcomponents of geometry within a glTF 2.0 asset. Feature IDs can de assigned to vertices or texels. link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features/README.md[`EXT_instance_features`] allows feature IDs to be assigned to individial instances.
+link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features/README.md[`EXT_mesh_features`] provides a means of assigning identifiers to geometry and subcomponents of geometry within a glTF 2.0 asset. Feature IDs can de assigned to vertices or texels. link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features/README.md[`EXT_instance_features`] allows feature IDs to be assigned to individual instances.
 
 .Street level photogrammetry of San Francisco Ferry Building from Aerometrex. Left: per-texel colors showing the feature classification, e.g., roof, sky roof, windows, window frames, and AC units . Right: classification is used to determine rendering material properties, e.g., make the windows translucent
 image::figures/glTF-feature-identification.png[Per-texel features]
@@ -91,14 +91,14 @@ glTF has several extensions for geometry and texture compression. These extensio
 [#tileformats-gltf-geometry-compression]
 === Geometry Compression
 
-* link:https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_mesh_quantization/README.md[`KHR_mesh_quantization`]
-* link:https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/EXT_meshopt_compression/README.md[`EXT_meshopt_compression`]
-* link:https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_draco_mesh_compression/README.md[`KHR_draco_mesh_compression`]
+* link:https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_mesh_quantization/README.md[`KHR_mesh_quantization`]
+* link:https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_meshopt_compression/README.md[`EXT_meshopt_compression`]
+* link:https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_draco_mesh_compression/README.md[`KHR_draco_mesh_compression`]
 
 [#tileformats-gltf-texture-compression]
 === Texture Compression
 
-* link:https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_texture_basisu/README.md[`KHR_texture_basisu`]
+* link:https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_texture_basisu/README.md[`KHR_texture_basisu`]
 
 [#tileformats-gltf-file-extensions-and-media-types]
 == File Extensions and Media Types

@@ -54,7 +54,7 @@ https://github.com/KhronosGroup/glTF[glTF 2.0] is the primary tile format for 3D
 * 3D model instances. E.g. trees, windmills, bolts
 * Massive point clouds
 
-See xref:{url-specification-tileformats-gltf}/README.adoc#tileformats-gltf-gltf[glTF Tile Format] for more details.
+See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[glTF Tile Format] for more details.
 
 Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
 
@@ -160,7 +160,7 @@ The `content.uri` of each content object refers to the tile's content in one of 
 
 The `content.group` property assigns the content to a group. Contents of different tiles or the contents of a single tile can be assigned to groups in order to categorize the content. Additionally, each group can be associated with <<core-metadata,Metadata>>.
 
-Each content can be associated with a bounding volume. While the `tile.boundingVolume` is a bounding volume encloses _all_ contents of the tile, each individual `content.boundingVolume` is a tightly fit bounding volume enclosing just the respective content. More details about the role of tile- and content bounding volumes are given in the <<core-bounding-volumes,bounding volume>> section.
+Each content can be associated with a bounding volume. While `tile.boundingVolume` is a bounding volume that encloses _all_ contents of the tile, each individual `content.boundingVolume` is a tightly fit bounding volume enclosing just the respective content. More details about the role of tile- and content bounding volumes are given in the <<core-bounding-volumes,bounding volume>> section.
 
 [#core-geometric-error]
 ==== Geometric error
@@ -354,7 +354,7 @@ The following example has a point cloud inside a building. The point cloud tile'
 }
 ----
 
-For more on request volumes, see the https://github.com/CesiumGS/3d-tiles-samples/tree/main/tilesets/TilesetWithRequestVolume[sample tileset] and https://www.youtube.com/watch?v=PgX756Yzjf4[demo video].
+For more on request volumes, see the https://github.com/CesiumGS/3d-tiles-samples/tree/main/1.0/TilesetWithRequestVolume[sample tileset].
 
 [#core-transforms]
 ==== Transforms
@@ -401,14 +401,14 @@ glTF defines its own node hierarchy and uses a _y_-up coordinate system. Any tra
 [#core-gltf-node-hierarchy]
 ====== glTF node hierarchy
 
-First, glTF node hierarchy transforms are applied according to the https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#transformations[glTF specification].
+First, glTF node hierarchy transforms are applied according to the https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#transformations[glTF specification].
 
 
 
 [#core-y-up-to-z-up]
 ====== _y_-up to _z_-up
 
-Next, for consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by ?/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
+Next, for consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by π/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
 
 [source,json]
 ----
@@ -701,7 +701,7 @@ image::figures/tilesets.png[]
 
 When a tile points to an external tileset, the tile:
 
-* Cannot have any children; `tile.children` must be `undefined` or an empty array.
+* Cannot have any children; `tile.children` must be omitted
 * Cannot be used to create cycles, for example, by pointing to the same tileset file containing the tile or by pointing to another tileset file that then points back to the initial file containing the tile.
 * Will be transformed by both the tile's `transform` and root tile's `transform`. For example, in the following tileset referencing an external tileset, the computed transform for `T3` is `[T0][T1][T2][T3]`. 
 
@@ -864,7 +864,7 @@ The figure below shows the relationship between these entities, and examples of 
 .Illustration of the different granularity levels for applying metadata
 image::figures/3d-tiles-metadata-granularities.png[Metadata Granularity,600]
 
-Although they are defined independently, the metadata structure in 3D Tiles and in the `EXT_structural_metadata` extension both conform to the the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification] and build upon the xref:{url-specification-metadata-referenceimplementation}README.adoc#metadata-referenceimplementation-3d-metadata-reference-implementation[Reference Implementation of the 3D Metadata Specification]. Concepts and terminology used here refer to the 3D Metadata Specification, which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
+Although they are defined independently, the metadata structure in 3D Tiles and in the glTF `EXT_structural_metadata` extension both conform to the the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification] and build upon the xref:{url-specification-metadata-referenceimplementation}README.adoc#metadata-referenceimplementation-3d-metadata-reference-implementation[Reference Implementation of the 3D Metadata Specification]. Concepts and terminology used here refer to the 3D Metadata Specification, which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
 
 [#core-metadata-schema]
 ==== Metadata Schema

@@ -331,7 +331,7 @@ Tile availability (`tileAvailability`) and child subtree availability (`childSub
 
 Content availability (`contentAvailability`) is an array of content availability objects. If the implicit root tile has a single content this array will have one element; if the tile has multiple contents - as supported by `3DTILES_multiple_contents` - this array will have multiple elements. If the implicit root tile does not have content then `contentAvailability` must be omitted.
 
-Availability may be represented either as a bitstream or a constant value. `bitstream` is an integer index that identifies the buffer view containing the availability bistream. `constant` is an integer indicating whether all of the elements are available (`1`) or all are unavailable (`0`). `availableCount` is an integer indicating how many `1` bits exist in the availability bitstream.
+Availability may be represented either as a bitstream or a constant value. `bitstream` is an integer index that identifies the buffer view containing the availability bitstream. `constant` is an integer indicating whether all of the elements are available (`1`) or all are unavailable (`0`). `availableCount` is an integer indicating how many `1` bits exist in the availability bitstream.
 
 Availability bitstreams are packed in binary using the format described in the [Booleans](../../specification/Metadata/README.adoc#metadata-booleans) section of the 3D Metadata Specification.
 
