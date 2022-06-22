@@ -213,7 +213,7 @@ The following example shows the basics of how classes describe the types of meta
 
 *tree*
 
-[cols="1,1,1"]
+[cols="1,1,1,1"]
 |===
 | property | type | componentType | enumType
 

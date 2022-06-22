@@ -361,7 +361,13 @@ Properties assigned to subtrees provide metadata about the subtree as a whole. S
 [#implicittiling-subtree-json-format]
 == Subtree JSON Format
 
-_Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/subtree/subtree.schema.json[subtree.schema.json]._
+_Defined in 
+ifdef::env-github[]
+link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Subtree/subtree.schema.json[`subtree.schema.json`]._
+endif::[]
+ifndef::env-github[]
+<<reference-schema-subtree,`subtree.schema.json`>>._
+endif::[]
 
 A *subtree file* is a JSON file that contains availability and metadata information for a single subtree. A subtree may reference external files containing binary data. An alternative <<implicittiling-subtree-binary-format,Binary Format>> allows the JSON and binary data to be embedded into a single binary file.
 

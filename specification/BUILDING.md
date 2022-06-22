@@ -46,8 +46,8 @@ node bin/wetzel.js ^
   -f "reference-" ^
   -i "['../3d-tiles/specification/schema/common/rootProperty.schema.json', '../3d-tiles/specification/schema/common/definitions.schema.json' ]" ^
   -o PropertiesReference_3dtiles.adoc ^
-  "[ '../3d-tiles/specification/schema/tileset.schema.json', '../3d-tiles/specification/schema/Styling/style.schema.json', '../3d-tiles/specification/schema/TileFormats/b3dm.featureTable.schema.json', '../3d-tiles/specification/schema/TileFormats/i3dm.featureTable.schema.json', '../3d-tiles/specification/schema/TileFormats/pnts.featureTable.schema.json', '../3d-tiles/specification/schema/TileFormats/batchTable.schema.json' ]" 
-```
+  "[ '../3d-tiles/specification/schema/tileset.schema.json', '../3d-tiles/specification/schema/Styling/style.schema.json', '../3d-tiles/specification/schema/TileFormats/b3dm.featureTable.schema.json', '../3d-tiles/specification/schema/TileFormats/i3dm.featureTable.schema.json', '../3d-tiles/specification/schema/TileFormats/pnts.featureTable.schema.json', '../3d-tiles/specification/schema/TileFormats/batchTable.schema.json', '../3d-tiles/specification/schema/Subtree/subtree.schema.json', '../3d-tiles/specification/schema/PropertyTable/propertyTable.schema.json' ]" 
+  ```
 (Note: This is a Windows .BAT file. On Linux, the line connector characters `^` have to replaced with `\`, and it might be necessary to use other string delimiters. In a future version of wetzel, this command line might be moved into a JSON file like `wetzel-config-3dtiles.json`)
 
 The result of this call will be the `PropertiesReference_3dtiles.adoc` and 

@@ -32,7 +32,13 @@ The full JSON schema definition for this implementation can be found in link:htt
 [discrete]
 == Property Tables
 
-_Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/PropertyTable/propertyTable.schema.json[propertyTable.schema.json]._
+_Defined in 
+ifdef::env-github[]
+link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/PropertyTable/propertyTable.schema.json[`propertyTable.schema.json`]._
+endif::[]
+ifndef::env-github[]
+<<reference-schema-propertytable,`propertyTable.schema.json`>>._
+endif::[]
 
 A property table must specify the following elements:
 
@@ -68,7 +74,13 @@ A `tree_survey_2021-09-29` property table, implementing the `tree` class defined
 [discrete]
 == Property Table Properties
 
-_Defined in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/PropertyTable/propertyTable.property.schema.json[propertyTable.property.schema.json]._
+_Defined in 
+ifdef::env-github[]
+link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/PropertyTable/propertyTable.schema.json[`propertyTable.schema.json`]._
+endif::[]
+ifndef::env-github[]
+<<reference-schema-propertytable,`propertyTable.schema.json`>>._
+endif::[]
 
 Each property definition in a property table represents one column of the table. This column data is stored in binary form, using the encoding defined in the xref:{url-specification-metadata}README.adoc#metadata-binary-table-format[Binary Table Format] section of the 3D Metadata Specification. The actual data is stored in a binary buffer, and the property refers to a section of this buffer that is called a _buffer view_.
 

@@ -115,7 +115,7 @@ Similarly, the global level of a tile is the length of the path from the implici
 tile.globalLevel = subtreeRoot.globalLevel + tile.localLevel
 ----
 
-.Illustration of how to compute the global level of a tile, from the glonal level of the root of the containing subtree, and the local level of the tile in this subtree
+.Illustration of how to compute the global level of a tile, from the global level of the root of the containing subtree, and the local level of the tile in this subtree
 image::figures/global-to-local-levels.png[,500]
 
 `(x, y, z)` coordinates follow the same pattern as Morton indices. The only difference is that the concatenation of bits happens component-wise. That is:
