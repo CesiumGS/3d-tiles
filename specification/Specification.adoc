@@ -1,11 +1,65 @@
+//========== EXPERIMENTAL OGC HEADER START
+// NOTES:
+// - The links are dead. Go figure.
+// - The author names are about right, even though they are 
+//   just copied from the 'community_standard' template :-) 
+// - Details (dates, docnumber etc.) still have to be adjusted
 = 3D Tiles Specification
-Cesium GS, Inc
-v1.1.0
-:toc2:
-:toclevels: 2
-:sectnums:
-:source-highlighter: rouge
-:rouge-style: github
+:comment: ### Document type; mandatory. Visit: https://www.metanorma.org/author/ogc/authoring/ for permitted types
+:doctype: community-standard
+:comment: ### Version number; optional. Dot-delimited, preferably with this structure <version number>.<minor version number>.<patch version number>
+:edition: 1.1.0
+:comment: ### Language of the document; mandatory. Specified in two-letter code: "en" for English, "fr" for French
+:language: en
+:comment: ### Document status/stage; mandatory. Visit: https://www.metanorma.org/author/ogc/authoring/ for permitted types
+:status: work-item-draft
+:comment: ### Relevant committee; mandatory. The permitted types are: technical, planning, and strategic-member-advisory
+:committee: technical
+:comment: ### External link referencing the document; optional. If not provided, a default value is created following this structure: "http://www.opengis.net/doc/{abbrevation of doctype}/{abbrev}/{version}",
+:external-id: http://www.opengis.net/docs/CS/3DTiles/1.0
+:comment: ### Internal reference number; mandatory
+:docnumber: 18-053r2
+:comment: ### Date on which the standard was updated; mandatory
+:received-date: 2018-06-04
+:comment: ### Date on which the standard was approved by the issuing authority; mandatory
+:issued-date: 2018-12-14
+:comment: ### Date on which the standard was published; mandatory
+:published-date: 2019-01-31
+:comment: ### Author one
+:fullname: Patrick Cozzi
+:comment: ### Author two
+:fullname_2: Sean Lilley
+:comment: ### Author three
+:fullanme_3: Gabby Getz
+:comment: ### Role of the authors; mandatory
+:role: editor
+:comment: ### Metanorma flavor; mandatory
+:mn-document-class: ogc
+:comment: ### Desired output formats; mandatory
+:mn-output-extensions: html,pdf
+:comment: ### Enable local relaton cache for quick inclusion of prefetched references; optional. For further information, visit: https://www.metanorma.org/author/ref/document-attributes/#caches, https://www.metanorma.org/author/topics/building/reference-lookup/#lookup-result-caching
+:local-cache-only:
+:comment: ### Directory name used as prefix for the location of image files; optional
+:imagesdir: ./
+:comment: ### URI to which the PDF version of this standard is published; optional
+:pdf-uri: ./Specification.pdf
+:comment: ### URI to which the HTML version of this standard is published; optional
+:html-uri: ./Specification.html
+//========== EXPERIMENTAL OGC HEADER END
+
+
+//========== ORIGINAL (non-OGC) HEADER START
+//= 3D Tiles Specification
+//Cesium GS, Inc
+//v1.1.0
+//:toc2:
+//:toclevels: 2
+//:sectnums:
+//:source-highlighter: rouge
+//:rouge-style: github
+//========== ORIGINAL (non-OGC) HEADER END
+
+
 
 image::figures/3DTiles_dark_color_small.png[]
 
