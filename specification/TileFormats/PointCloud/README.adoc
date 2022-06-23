@@ -24,7 +24,7 @@ ifndef::env-github[]
 :url-specification-styling:
 endif::[]
 
-WARNING: Point Cloud was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-point-cloud-pnts[`pnts` migration guide].
+WARNING: Point Cloud was deprecated in 3D Tiles 1.1. See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-point-cloud-pnts[`pnts` migration guide].
 
 [#tileformats-pointcloud-overview]
 == Overview

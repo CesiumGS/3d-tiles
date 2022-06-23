@@ -25,7 +25,7 @@ ifndef::env-github[]
 :url-specification-tileformats-pointcloud:
 endif::[]
 
-WARNING: Feature Table was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-migration-from-legacy-tile-formats[glTF migration guide].
+WARNING: Feature Table was deprecated in 3D Tiles 1.1. See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-migration-from-legacy-tile-formats[glTF migration guide].
 
 [#tileformats-featuretable-overview]
 == Overview
