@@ -40,6 +40,7 @@ A schema defines a set of classes and enums. Classes serve as templates for enti
 ====
 Schema with a `tree` class, and a `speciesEnum` enum that defines different species of trees. Later examples show how these structures in more detail.
 
+[%unnumbered]
 [source,jsonc]
 ----
 {
@@ -75,6 +76,7 @@ Classes are defined as entries in the `schema.classes` dictionary, indexed by cl
 ====
 A "Tree" class, which might describe a table of tree measurements taken in a park. Property definitions are abbreviated here, and introduced in the next section.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -117,6 +119,7 @@ Class properties are defined as entries in the `class.properties` dictionary, in
 ====
 A "Tree" class, which might describe a table of tree measurements taken in a park. Properties include species, age, height, and diameter of each tree.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -177,6 +180,7 @@ Enums are defined as entries in the `schema.enums` dictionary, indexed by an enu
 ====
 A "Species" enum defining types of trees. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: xref:{url-specification-metadata}README.adoc#metadata-required-properties-no-data-values-and-default-values[3D Metadata - No Data Values]) may be helpful to identify missing data.
 
+[%unnumbered]
 [source,json]
 ----
 {

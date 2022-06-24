@@ -42,6 +42,7 @@ image::figures/sparse-octree.png[]
 
 An `implicitTiling` object may be added to any tile in the tileset JSON. Such a tile is called an *implicit root tile*, to distinguish it from the root tile of the tileset JSON.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -402,6 +403,7 @@ Availability bitstreams are packed in binary using the format described in the x
 ====
 The JSON description of a subtree where each tile is available, but not all tiles have content, and not all child subtrees are available:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -464,6 +466,7 @@ The same JSON description of a subtree extended with tile, content, and subtree 
 
 _Schema in the root tileset JSON_
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -523,6 +526,7 @@ _Schema in the root tileset JSON_
 
 _Subtree JSON_
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -632,6 +636,7 @@ JSON description of a subtree with multiple contents. In this example all tiles 
 
 _Implicit root tile_
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -663,6 +668,7 @@ _Implicit root tile_
 
 _Subtree JSON_
 
+[%unnumbered]
 [source,json]
 ----
 {

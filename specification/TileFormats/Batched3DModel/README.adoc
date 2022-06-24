@@ -150,6 +150,8 @@ The https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#binary-gltf-la
 
 As described above, each vertex has a `batchId` attribute indicating the model to which it belongs.  For example, vertices for a batch with three models may look like this:
 
+[%unnumbered]
+[source]
 ----
 batchId:  [0,   0,   0,   ..., 1,   1,   1,   ..., 2,   2,   2,   ...]
 position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
@@ -158,6 +160,8 @@ normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 
 Vertices do not need to be ordered by `batchId`, so the following is also OK:
 
+[%unnumbered]
+[source]
 ----
 batchId:  [0,   1,   2,   ..., 2,   1,   0,   ..., 1,   2,   0,   ...]
 position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
@@ -168,6 +172,7 @@ Note that a vertex can't belong to more than one model; in that case, the vertex
 
 The `batchId` parameter is specified in a glTF link:https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#meshes[mesh primitive] by providing the `_BATCHID` attribute semantic, along with the index of the `batchId` link:https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#accessors[accessor]. For example,
 
+[%unnumbered]
 [source,json]
 ----
 "primitives": [
@@ -179,6 +184,7 @@ The `batchId` parameter is specified in a glTF link:https://www.khronos.org/regi
 ]
 ----
 
+[%unnumbered]
 [source,json]
 ----
 {

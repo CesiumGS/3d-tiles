@@ -815,6 +815,7 @@ _A class, "basicClass", composed of ten properties. `stringArrayProperty` count 
 
 _A single entity encoded in JSON. Note that the optional property is omitted in this example._
 
+[%unnumbered]
 [source,json]
 ----
 {

@@ -7,6 +7,8 @@
 
 A https://en.wikipedia.org/wiki/Z-order_curve[Morton index] is computed by interleaving the bits of the `(x, y)` or `(x, y, z)` coordinates of a tile. Specifically:
 
+[%unnumbered]
+[source]
 ----
 quadtreeMortonIndex = interleaveBits(x, y)
 octreeMortonIndex = interleaveBits(x, y, z)
@@ -14,6 +16,8 @@ octreeMortonIndex = interleaveBits(x, y, z)
 
 For example:
 
+[%unnumbered]
+[source]
 ----
 // Quadtree
 interleaveBits(0b11, 0b00) = 0b0101
@@ -55,6 +59,8 @@ Where `N` is 4 for quadtrees and 8 for octrees.
 
 These lengths are in number of bits in a bitstream. To compute the length of the bitstream in bytes, the following formula is used:
 
+[%unnumbered]
+[source]
 ----
 lengthBytes = ceil(lengthBits / 8)
 ----
@@ -102,6 +108,8 @@ Global coordinates are used for locating any tile in the entire implicit tileset
 
 In binary, a tile's global Morton index is the complete path from the implicit root tile to the tile. This is the concatenation of the path from the implicit root tile to the subtree root tile, followed by the path from the subtree root tile to the tile. This can be expressed with the following equation:
 
+[%unnumbered]
+[source]
 ----
 tile.globalMortonIndex = concatBits(subtreeRoot.globalMortonIndex, tile.localMortonIndex)
 ----
@@ -111,6 +119,8 @@ image::figures/global-to-local-morton.png[,500]
 
 Similarly, the global level of a tile is the length of the path from the implicit root tile to the tile. This is the sum of the subtree root tile's global level and the tile's local level relative to the subtree root tile:
 
+[%unnumbered]
+[source]
 ----
 tile.globalLevel = subtreeRoot.globalLevel + tile.localLevel
 ----
@@ -120,6 +130,8 @@ image::figures/global-to-local-levels.png[,500]
 
 `(x, y, z)` coordinates follow the same pattern as Morton indices. The only difference is that the concatenation of bits happens component-wise. That is:
 
+[%unnumbered]
+[source]
 ----
 tile.globalX = concatBits(subtreeRoot.globalX, tile.localX)
 tile.globalY = concatBits(subtreeRoot.globalY, tile.localY)
@@ -139,6 +151,8 @@ image::figures/global-to-local-xy.png[Global to local XY coordinates]
 
 The coordinates of a parent or child tile can also be computed with bitwise operations on the Morton index. The following formulas apply for both local and global coordinates.
 
+[%unnumbered]
+[source]
 ----
 childTile.level = parentTile.level + 1
 childTile.mortonIndex = concatBits(parentTile.mortonIndex, childIndex)

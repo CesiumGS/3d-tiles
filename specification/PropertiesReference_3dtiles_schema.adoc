@@ -1,6 +1,7 @@
 [#reference-schema-asset]
 = JSON Schema for Asset
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -29,6 +30,7 @@
 [#reference-schema-availability]
 = JSON Schema for Availability
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -86,6 +88,7 @@
 [#reference-schema-b3dm-featuretable]
 = JSON Schema for Batched 3D Model Feature Table
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -115,6 +118,7 @@
 [#reference-schema-batchtable]
 = JSON Schema for Batch Table
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -217,6 +221,7 @@
 [#reference-schema-boundingvolume]
 = JSON Schema for Bounding Volume
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -262,6 +267,7 @@
 [#reference-schema-buffer]
 = JSON Schema for Buffer
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -297,6 +303,7 @@
 [#reference-schema-bufferview]
 = JSON Schema for Buffer View
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -339,6 +346,7 @@
 [#reference-schema-class]
 = JSON Schema for Class
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -374,6 +382,7 @@
 [#reference-schema-class-property]
 = JSON Schema for Class Property
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -533,6 +542,7 @@
 [#reference-schema-content]
 = JSON Schema for Content
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -570,6 +580,7 @@
 [#reference-schema-definitions]
 = JSON Schema for Definitions
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -673,6 +684,7 @@
 [#reference-schema-enum]
 = JSON Schema for Enum
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -744,6 +756,7 @@
 [#reference-schema-enum-value]
 = JSON Schema for Enum value
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -779,6 +792,7 @@
 [#reference-schema-extension]
 = JSON Schema for Extension
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -797,6 +811,7 @@
 [#reference-schema-extras]
 = JSON Schema for Extras
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -811,6 +826,7 @@
 [#reference-schema-featuretable]
 = JSON Schema for Feature Table
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -975,6 +991,7 @@
 [#reference-schema-group]
 = JSON Schema for Group Metadata
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -990,6 +1007,7 @@
 [#reference-schema-i3dm-featuretable]
 = JSON Schema for Instanced 3D Model Feature Table
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1097,6 +1115,7 @@
 [#reference-schema-metadataentity]
 = JSON Schema for Metadata Entity
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1129,6 +1148,7 @@
 [#reference-schema-pnts-featuretable]
 = JSON Schema for Point Cloud Feature Table
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1227,6 +1247,7 @@
 [#reference-schema-properties]
 = JSON Schema for Properties
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1256,6 +1277,7 @@
 [#reference-schema-propertytable]
 = JSON Schema for Property Table
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1299,6 +1321,7 @@
 [#reference-schema-propertytable-property]
 = JSON Schema for Property Table Property
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1392,6 +1415,7 @@
 [#reference-schema-rootproperty]
 = JSON Schema for Root Property
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1415,6 +1439,7 @@
 [#reference-schema-schema]
 = JSON Schema for Schema
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1471,6 +1496,7 @@
 [#reference-schema-statistics]
 = JSON Schema for Statistics
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1496,6 +1522,7 @@
 [#reference-schema-statistics-class]
 = JSON Schema for Class Statistics
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1526,6 +1553,7 @@
 [#reference-schema-statistics-class-property]
 = JSON Schema for Property Statistics
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1590,6 +1618,7 @@
 [#reference-schema-style]
 = JSON Schema for Style
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1642,6 +1671,7 @@
 [#reference-schema-style-booleanexpression]
 = JSON Schema for Boolean Expression
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1660,6 +1690,7 @@
 [#reference-schema-style-colorexpression]
 = JSON Schema for Color Expression
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1675,6 +1706,7 @@
 [#reference-schema-style-conditions]
 = JSON Schema for Conditions
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1699,6 +1731,7 @@
 [#reference-schema-style-conditions-condition]
 = JSON Schema for Condition
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1719,6 +1752,7 @@
 [#reference-schema-style-expression]
 = JSON Schema for Expression
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1734,6 +1768,7 @@
 [#reference-schema-style-meta]
 = JSON Schema for Meta
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1752,6 +1787,7 @@
 [#reference-schema-subtree]
 = JSON Schema for Subtree
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1831,6 +1867,7 @@
 [#reference-schema-subtrees]
 = JSON Schema for Subtrees
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1855,6 +1892,7 @@
 [#reference-schema-templateuri]
 = JSON Schema for Template URI
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1870,6 +1908,7 @@
 [#reference-schema-tile]
 = JSON Schema for Tile
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1980,6 +2019,7 @@
 [#reference-schema-tile-implicittiling]
 = JSON Schema for Implicit tiling
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -2031,6 +2071,7 @@
 [#reference-schema-tileset]
 = JSON Schema for Tileset
 
+[%unnumbered]
 [source,json]
 ----
 {
