@@ -45,6 +45,8 @@
 :pdf-uri: ./Specification.pdf
 :comment: ### URI to which the HTML version of this standard is published; optional
 :html-uri: ./Specification.html
+:submitting-organizations: CesiumGS Inc.
+:keywords: terrain, geospatial, gis, point-cloud, spatial-data, vector-data, photogrammetry, gltf, 3d-models, 3d-tiles
 //========== EXPERIMENTAL OGC HEADER END
 
 
@@ -59,11 +61,23 @@
 //:rouge-style: github
 //========== ORIGINAL (non-OGC) HEADER END
 
+[abstract]
+== Abstract
 
-
+[%unnumbered]
 image::figures/3DTiles_dark_color_small.png[]
 
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
+
+// As required in https://www.metanorma.org/author/ogc/topics/markup/#submitters
+== Submitters
+
+|===
+|Name |Affiliation |OGC member
+
+|FirstName LastName | Affiliation | Yes
+|===
+
 
 :leveloffset: +1
 
