@@ -58,6 +58,7 @@ See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[g
 
 Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
 
+.Legacy tile formats and common uses
 [cols="1,2"]
 |===
 | Legacy Format | Uses
@@ -187,7 +188,8 @@ A refinement type is required for the root tile of a tileset; it is optional for
 
 If a tile uses replacement refinement, when refined it renders its children in place of itself.
 
-[cols="^,^"]
+.A tile and a refined tile using replacement refinement
+[cols="1,1"]
 |===
 | Parent Tile | Refined
 
@@ -200,7 +202,8 @@ If a tile uses replacement refinement, when refined it renders its children in p
 
 If a tile uses additive refinement, when refined it renders itself and its children simultaneously.
 
-[cols="^,^"]
+.A tile and a refined tile using additive refinement
+[cols="1,1"]
 |===
 | Parent Tile | Refined
 
@@ -213,7 +216,8 @@ If a tile uses additive refinement, when refined it renders itself and its child
 
 A bounding volume defines the spatial extent enclosing a tile or a tile's content. To support tight fitting volumes for a variety of datasets such as regularly divided terrain, cities not aligned with a line of latitude or longitude, or arbitrary point clouds, the bounding volume types include an oriented bounding box, a bounding sphere, and a geographic region defined by minimum and maximum latitudes, longitudes, and heights.
 
-[cols="^,^,^"]
+.Different bounding volume types for a tile
+[cols="1,1,1"]
 |===
 | Bounding box | Bounding sphere | Bounding region
 
@@ -1001,7 +1005,8 @@ The statistics are defined for each metadata class, including the following elem
 
 Properties may include the following built-in statistics:
 
-[cols="~,30%,~"]
+.Statistics for metadata
+[cols="2,3,2"]
 |===
 | Name | Description | Type
 
@@ -1225,6 +1230,7 @@ See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[g
 
 Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
 
+.Legacy tile formats and common uses
 [cols="1,2"]
 |===
 | Legacy Format | Uses

@@ -271,6 +271,7 @@ Semantic definitions might include temperature in degrees Celsius (e.g. `TEMPERA
 
 A property's type (`type`) describes the structure of the value given for each entity.
 
+.Types of metadata properties
 [cols="1,3"]
 |===
 | name | type
@@ -311,6 +312,7 @@ A property's type (`type`) describes the structure of the value given for each e
 
 Scalar, vector, and matrix types comprise of numeric components. Each component is an instance of the property's component type (`componentType`), with the following component types supported:
 
+.Component types of metadata properties
 [cols="1,4"]
 |===
 | name | componentType
@@ -369,6 +371,7 @@ A property can be declared to be a fixed- and variable-length array, consisting 
 
 Normalized properties (`normalized`) provide a compact alternative to larger floating-point types. Normalized values are stored as integers, but when accessed are transformed to floating-point according to the following equations:
 
+.Conversion of component types
 [cols="1,3,3"]
 |===
 | componentType | int to float | float to int
@@ -555,6 +558,7 @@ Property values are binary-encoded according to their data type, in little-endia
 
 A scalar value is encoded based on the `componentType`. Multiple values are packed tightly in the same buffer. The following data types are supported:
 
+.Types for scalar metadata values
 [cols="1,4"]
 |===
 | Name | Description
@@ -661,6 +665,7 @@ If there are `N` arrays in the property array, the array offset buffer has `N + 
 
 For each case below, the offset of an array element `i` within its binary storage is expressed in terms of entity ID `id` and element index `i`.
 
+.Offset types for strings and arrays
 [cols="1,1,2"]
 |===
 | Type | Offset type | Offset

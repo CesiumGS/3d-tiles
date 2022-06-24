@@ -55,6 +55,7 @@ The <<tileformats-batched3dmodel-binary-gltf,binary glTF>> must start and end on
 
 The 28-byte header contains the following fields:
 
+.Header fields for Batched 3D Models
 [cols="2,1,3"]
 |===
 | Field name | Data type | Description
@@ -119,6 +120,7 @@ There are currently no per-feature semantics.
 
 These semantics define global properties for all features.
 
+.Global semantics for Batched 3D models
 [cols="2,2,3,1"]
 |===
 | Semantic | Data Type | Description | Required

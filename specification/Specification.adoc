@@ -78,6 +78,8 @@ This document describes the specification for 3D Tiles, an open standard for str
 |FirstName LastName | Affiliation | Yes
 |===
 
+// Terms and Definitions as of https://www.metanorma.org/author/ogc/authoring-guide/terms-definitions/
+include::TERMS_AND_DEFINITIONS.adoc[]
 
 :leveloffset: +1
 
@@ -128,4 +130,11 @@ include::Styling/README.adoc[]
 :imagesdir: 
 include::APPENDIX.adoc[]
 
+// Bibliography as of https://www.metanorma.org/author/ogc/authoring-guide/bibliographic-references/
+[appendix]
+include::BIBLIOGRAPHY.adoc[]
+
+// Revision history as of https://www.metanorma.org/author/ogc/authoring-guide/sections-ogc/#revision-history
+[appendix,obligation="informative"]
+include::REVISION_HISTORY.adoc[]
 

@@ -53,6 +53,7 @@ A tile's `byteLength` must be aligned to an 8-byte boundary. The contained xref:
 
 The 28-byte header contains the following fields:
 
+.Header fields for Point Clouds
 [cols="2,1,3"]
 |===
 | Field name | Data type | Description
@@ -166,6 +167,7 @@ If both `NORMAL` and `NORMAL_OCT16P` are defined for a point, the higher precisi
 
 These semantics define global properties for all points.
 
+.Global semantics for Point Clouds
 [cols="2,2,3,1"]
 |===
 | Semantic | Data Type | Description | Required

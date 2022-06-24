@@ -657,6 +657,7 @@ ${name} === 'Feature name'
 
 Additionally, variables originating from vector properties stored in the xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-binary-body[Batch Table binary] are treated as vector types:
 
+.Vector type variables
 [cols="1,1"]
 |===
 | `componentType` | variable type

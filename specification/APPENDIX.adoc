@@ -39,7 +39,7 @@ include::Metadata/ReferenceImplementation/Schema/README.adoc[]
 :imagesdir: Metadata/Semantics
 include::Metadata/Semantics/README.adoc[]
 
-[appendix]
+[acknowledgements]
 include::ACKNOWLEDGEMENTS.adoc[]
 
 [appendix]

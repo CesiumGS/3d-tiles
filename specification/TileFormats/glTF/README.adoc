@@ -30,7 +30,8 @@ link:https://github.com/KhronosGroup/glTF[glTF 2.0] is the primary tile format f
 
 glTF provides flexibility for a wide range of mesh and material configurations, and is well suited for photogrammetry as well as stylized 3D models.
 
-[cols="^,^"]
+.Different types of models based on glTF
+[cols="1,1"]
 |===
 | Photogrammetry | 3D Buildings
 
