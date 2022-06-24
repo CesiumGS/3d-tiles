@@ -117,6 +117,7 @@ If a semantic has a dependency on another semantic, that semantic must be define
 If both `POSITION` and `POSITION_QUANTIZED` are defined for a point, the higher precision `POSITION` will be used.
 If both `NORMAL` and `NORMAL_OCT16P` are defined for a point, the higher precision `NORMAL` will be used.
 
+.Semantics for instances of a Point Cloud
 [cols="2,2,3,1"]
 |===
 | Semantic | Data Type | Description | Required

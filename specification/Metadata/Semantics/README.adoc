@@ -44,6 +44,7 @@ Throughout this section, the term "entity" refers to any conceptual object with 
 [discrete]
 === General Semantics
 
+.General metadata semantics
 [cols="1,1a,2"]
 |===
 | Semantic | Type | Description
@@ -100,6 +101,7 @@ Units for all linear distances are meters, and all angles are radians.
 [discrete]
 ==== Tileset Semantics
 
+.Tileset metadata semantics
 [cols="1,1a,2a"]
 |===
 | Semantic | Type | Description
@@ -151,6 +153,7 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 [discrete]
 ==== Tile Semantics
 
+.Tile metadata semantics
 [cols="1,1a,2"]
 |===
 | Semantic | Type | Description
@@ -240,6 +243,7 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 [discrete]
 ==== Content Semantics
 
+.Content metadata semantics
 [cols="1,1a,2"]
 |===
 | Semantic | Type | Description

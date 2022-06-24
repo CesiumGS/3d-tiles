@@ -38,6 +38,7 @@ image::figures/morton-indexing.png[Morton Order]
 [discrete]
 == Availability Bitstream Lengths
 
+.Availability bitstream lengths
 [cols="~,~,30%"]
 |===
 | Availability Type | Length (bits) | Description
@@ -75,6 +76,7 @@ For tile availability and content availability, the Morton index only determines
 
 Given the `(level, mortonIndex)` of a tile relative to the subtree root, the index of the corresponding bit can be computed with the following formulas:
 
+.Availability offsets
 [cols="~,~,30%"]
 |===
 | Quantity | Formula | Description

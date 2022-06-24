@@ -136,6 +136,7 @@ If both `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scalin
 If both `POSITION` and `POSITION_QUANTIZED` are defined for an instance, the higher precision `POSITION` will be used.
 If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` are defined for an instance, the higher precision `NORMAL_UP` and `NORMAL_RIGHT` will be used.
 
+.Semantics for instances of an Instanced 3D Model
 [cols="2,2,3,1"]
 |===
 | Semantic | Data Type | Description | Required
