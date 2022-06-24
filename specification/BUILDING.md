@@ -2,8 +2,8 @@
 # Build instructions
 
 - [Building the specification](#building-the-specification)
-  - [Asciidoctor setup](#asciidoctor-setup)
   - [Generating the properties reference](#generating-the-properties-reference)
+  - [Asciidoctor setup](#asciidoctor-setup)
   - [Generating HTML and PDF with AsciiDoc](#generating-html-and-pdf-with-asciidoc)
   - [Compressing the PDF](#compressing-the-pdf)
 - [Notes for writing AsciiDoc in 3D Tiles](#notes-for-writing-asciidoc-in-3d-tiles)
@@ -15,15 +15,6 @@
 The following is a short summary of the basic process for generating a single HTML- or PDF file containing the whole specification.
 
 > Note: This process might be extended in the future, with details about how [wetzel](https://github.com/CesiumGS/wetzel) is used to generate the property reference. Depending on the exact process, the required toolchain might be summarized in a Docker container, similar to [Vulkan](https://github.com/KhronosGroup/Vulkan-Docs/blob/15d807ce4839d8feb523ca5c133a42a2aa448ade/BUILD.adoc), and controlled via a Makefile.
-
-### Asciidoctor setup
-
-- Install the Ruby interpreter, 2.3 or later, from http://www.ruby-lang.org/
-- Install Asciidoctor: `gem install asciidoctor`
-- In order to be able to generate PDF output: `gem install asciidoctor-pdf`
-- Install some rogue software: `gem install rouge` - no worries, that's the syntax highlighter...
-
-- A VSCode plugin for AsciiDoc syntax highlighting and preview: https://marketplace.visualstudio.com/items?itemName=asciidoctor.asciidoctor-vscode
 
 ### Generating the properties reference
 
@@ -53,7 +44,21 @@ node bin/wetzel.js ^
 The result of this call will be the `PropertiesReference_3dtiles.adoc` and 
 `PropertiesReference_3dtiles_schema.adoc` files that go into the `3d-tiles/specification` directory.
 
-### Generating HTML and PDF with AsciiDoc
+
+### Building the specification with Asciidoctor
+
+A plain, default version of the specification document can be created with Asciidoctor, a tool for converting AsciiDoc to HTML or PDF.
+
+#### Asciidoctor setup
+
+- Install the Ruby interpreter, 2.3 or later, from http://www.ruby-lang.org/
+- Install Asciidoctor: `gem install asciidoctor`
+- In order to be able to generate PDF output: `gem install asciidoctor-pdf`
+- Install some rogue software: `gem install rouge` - no worries, that's the syntax highlighter...
+
+- A VSCode plugin for AsciiDoc syntax highlighting and preview: https://marketplace.visualstudio.com/items?itemName=asciidoctor.asciidoctor-vscode
+
+#### Generating HTML and PDF with AsciiDoc
 
 - Generating HTML:
   - `asciidoctor --verbose Specification.adoc --out-file Specification-1.1.0.html`
@@ -64,8 +69,7 @@ The result of this call will be the `PropertiesReference_3dtiles.adoc` and
 
 <sup>If the call does not appear to do anything, neither generate a PDF nor print an error message, make sure you typed `asciidoctor` and not just `asciidoc`</sup>
 
-
-### Compressing the PDF
+#### Compressing the PDF
 
 By default, the PDF file is large, due to the large image files being inserted uncompressed. There are tools for compressing the PDF, including a dedicated `asciidoctor-pdf-optimize` tool, but they have caveats. 
 
@@ -90,6 +94,34 @@ The process that worked for me:
     (This is a Windows .BAT file. On Linux, replace the `^` with `\`)
 
 The main tweaking takes place via the `dPDFSETTINGS` parameter. The value can be `screen`, `ebook`, `printer`, or `prepress`. The exact effects of these parameters are summarized at https://www.ghostscript.com/doc/9.54.0/VectorDevices.htm#distillerparams
+
+### Generating the specification with Metanorma
+
+The OGC Community Standard version of the specification has to be created with Metanorma. Basic information about the toolchain and the template that is used can be found at https://github.com/opengeospatial/templates/tree/master/community_standard .
+
+#### Installing Metanorma locally
+
+Don't. Don't even try.
+
+#### Running Metanorma from its Docker container
+
+1. Install Docker from https://www.docker.com/ 
+2. Pull the latest version of the Metanorma container with
+   ```
+   docker pull metanorma/metanorma:latest
+   ```
+3. In the `specification` directory of this repository, call
+  - Linux:
+     ```
+     docker run -v "$(pwd)":/metanorma -v ${HOME}/.fontist/fonts/:/config/fonts metanorma/metanorma metanorma compile --agree-to-terms -t ogc -x html,pdf Specification.adoc
+     ```
+   - Windows:
+     ```
+     docker run -v ${pwd}:/metanorma -v ${HOME}/.fontist/fonts/:/config/fonts metanorma/metanorma metanorma compile --agree-to-terms -t ogc -x html,pdf Specification.adoc
+     ```
+  TODO Explain what these lines are doing, just to make clear that there is no `rm *` hidden in that...
+
+
 
 
 ## Notes for writing AsciiDoc in 3D Tiles
