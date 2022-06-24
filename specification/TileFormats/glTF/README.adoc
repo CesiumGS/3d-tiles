@@ -46,7 +46,7 @@ _3D buildings from swisstopo in CesiumJS_
 glTF supports point clouds with the `0` (`POINTS`) primitive mode. Points can have positions, colors, normals, and custom attributes as specified in the `primitive.attributes` field.
 
 .40 billion point cloud from the City of Montreal with ASPRS classification codes (https://donnees.montreal.ca/license-en[CC-BY 4.0])
-image::figures/glTF-point-cloud.png[point-cloud]
+image::figures/glTF-point-cloud.jpg[point-cloud]
 
 When using the link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features/README.md[`EXT_mesh_features`] extension points can be assigned feature IDs and these features can have associated metadata.
 
