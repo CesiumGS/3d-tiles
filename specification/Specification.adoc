@@ -1,17 +1,14 @@
 //========== EXPERIMENTAL OGC HEADER START
-// NOTES:
-// - The links are dead. Go figure.
-// - The author names are about right, even though they are 
-//   just copied from the 'community_standard' template :-) 
-// - Details (dates, docnumber etc.) still have to be adjusted
+// Details about the document attributes that are used here can currently 
+// be found at https://www.metanorma.org/author/ogc/authoring-guide/metadata/
 = 3D Tiles Specification
-:comment: ### Document type; mandatory. Visit: https://www.metanorma.org/author/ogc/authoring/ for permitted types
+:comment: ### Document type; mandatory.
 :doctype: community-standard
 :comment: ### Version number; optional. Dot-delimited, preferably with this structure <version number>.<minor version number>.<patch version number>
 :edition: 1.1.0
 :comment: ### Language of the document; mandatory. Specified in two-letter code: "en" for English, "fr" for French
 :language: en
-:comment: ### Document status/stage; mandatory. Visit: https://www.metanorma.org/author/ogc/authoring/ for permitted types
+:comment: ### Document status/stage; mandatory.
 :status: work-item-draft
 :comment: ### Relevant committee; mandatory. The permitted types are: technical, planning, and strategic-member-advisory
 :committee: technical
@@ -25,19 +22,19 @@
 :issued-date: 2018-12-14
 :comment: ### Date on which the standard was published; mandatory
 :published-date: 2019-01-31
-:comment: ### Author one
+:comment: ### Authors
 :fullname: Patrick Cozzi
-:comment: ### Author two
 :fullname_2: Sean Lilley
-:comment: ### Author three
 :fullanme_3: Gabby Getz
 :comment: ### Role of the authors; mandatory
 :role: editor
+:role_2: editor
+:role_3: editor
 :comment: ### Metanorma flavor; mandatory
 :mn-document-class: ogc
 :comment: ### Desired output formats; mandatory
 :mn-output-extensions: html,pdf
-:comment: ### Enable local relaton cache for quick inclusion of prefetched references; optional. For further information, visit: https://www.metanorma.org/author/ref/document-attributes/#caches, https://www.metanorma.org/author/topics/building/reference-lookup/#lookup-result-caching
+:comment: ### Enable local relaton cache for quick inclusion of prefetched references; optional. 
 :local-cache-only:
 :comment: ### Directory name used as prefix for the location of image files; optional
 :imagesdir: ./
@@ -45,6 +42,7 @@
 :pdf-uri: ./Specification.pdf
 :comment: ### URI to which the HTML version of this standard is published; optional
 :html-uri: ./Specification.html
+:comment: ### The submitting organizations (active OGC members) that submitted this document
 :submitting-organizations: CesiumGS Inc.
 :keywords: terrain, geospatial, gis, point-cloud, spatial-data, vector-data, photogrammetry, gltf, 3d-models, 3d-tiles
 //========== EXPERIMENTAL OGC HEADER END
@@ -61,6 +59,25 @@
 //:rouge-style: github
 //========== ORIGINAL (non-OGC) HEADER END
 
+
+
+// The structure of the sections is given at 
+// https://www.metanorma.org/author/ogc/authoring-guide/sections-ogc/
+
+// - Preliminary sections
+//   - Abstract
+//   - Executive Summary (Engineering Reports only)
+//   - Keywords (inserted automatically from the document attributes)
+//   - Preface
+//   - Security Considerations (boilerplate added automatically if omitted)
+//   - Submitting Organizations (inserted from document attributes)
+//   - Submitters
+// - Terms and definitions
+// - References
+// - Content sections
+// - Annex sections
+
+
 [abstract]
 == Abstract
 
@@ -69,7 +86,6 @@ image::figures/3DTiles_dark_color_small.png[]
 
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
 
-// As required in https://www.metanorma.org/author/ogc/topics/markup/#submitters
 == Submitters
 
 |===
@@ -78,8 +94,13 @@ This document describes the specification for 3D Tiles, an open standard for str
 |FirstName LastName | Affiliation | Yes
 |===
 
-// Terms and Definitions as of https://www.metanorma.org/author/ogc/authoring-guide/terms-definitions/
 include::TERMS_AND_DEFINITIONS.adoc[]
+
+include::REFERENCES.adoc[]
+
+
+
+// Content sections:
 
 :leveloffset: +1
 
@@ -127,12 +148,10 @@ include::Styling/README.adoc[]
 
 :leveloffset: -1
 
+// Annex sections
+
 :imagesdir: 
 include::APPENDIX.adoc[]
-
-// Bibliography as of https://www.metanorma.org/author/ogc/authoring-guide/bibliographic-references/
-[appendix]
-include::BIBLIOGRAPHY.adoc[]
 
 // Revision history as of https://www.metanorma.org/author/ogc/authoring-guide/sections-ogc/#revision-history
 [appendix,obligation="informative"]

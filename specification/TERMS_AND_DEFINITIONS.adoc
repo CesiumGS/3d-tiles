@@ -1,7 +1,51 @@
-== Terms and definitions
 
-=== milled rice
-alt:[white rice]
+== Terms and Definitions
 
-{{husked rice}} from which almost all of the bran and embryo have been removed by milling.
+=== Bounding Volume
 
+A closed volume completely containing the union of a set of geometric objects. {blank}footnote:[https://en.wikipedia.org/wiki/Bounding_volume[https://en.wikipedia.org/wiki/Bounding_volume]]
+
+=== Feature
+
+In 3D Tiles, an individual component of a tile, such as a 3D model in a Batched 3D Model or a point in a Point Cloud which contains position, appearance, and metadata properties.
+
+=== Geometric Error
+
+The difference, in meters, of a tile's simplified representation of its source geometry used to calculate the screen space error introduced if a tile's content is rendered and its children's are not.
+
+[[glTF]]
+=== glTF
+
+An API-neutral runtime asset delivery format for 3D assets.
+
+=== Hierarchical Level of Detail (HLOD)
+
+Decreasing the complexity of a 3D representation according to metrics such as object importance or distance from the tile to the observation point or camera position. Generally, higher levels of detail provide greater visual fidelity. {blank}footnote:[https://en.wikipedia.org/wiki/Level_of_detail[https://en.wikipedia.org/wiki/Level_of_detail]]
+
+=== Tile
+
+In 3D Tiles, a subset of a tileset containing a reference to renderable content and the metadata, such as the content's bounding volume, which is used by a client to determine if the content is rendered.
+
+=== Tile Content 
+
+A binary blob containing information necessary to render a tile which is an instance of a specific tile format (Batched 3D Model, Instanced 3D Model, Point Clouds, or Composite).
+
+=== Tile Format
+
+The structure or layout of tile content data, (Batched 3D Model, Instanced 3D Model, Point Clouds, or Composite).
+
+=== Tileset
+
+In 3D Tiles, a collection of 3D Tiles tile instances organized into a spatial data structure and additional metadata, such that the aggregation of these tiles represent some 3D content at various levels of detail.
+
+=== Screen-Space Error (SSE)
+
+The difference, in pixels, of a tile's simplified representation of its source geometry introduced if a tile's content is rendered and its children's are not.
+
+=== Spatial Coherence
+
+The union of all content of the child tiles is completely inside the parent tile's bounding volume
+
+=== Style
+
+A set of expressions to be evaluated which modify how each feature in a tileset is displayed
