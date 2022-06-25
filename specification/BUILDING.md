@@ -1,11 +1,14 @@
 <!-- omit in toc -->
 # Build instructions
-
 - [Building the specification](#building-the-specification)
   - [Generating the properties reference](#generating-the-properties-reference)
-  - [Asciidoctor setup](#asciidoctor-setup)
-  - [Generating HTML and PDF with AsciiDoc](#generating-html-and-pdf-with-asciidoc)
-  - [Compressing the PDF](#compressing-the-pdf)
+  - [Building the specification with Asciidoctor](#building-the-specification-with-asciidoctor)
+    - [Asciidoctor setup](#asciidoctor-setup)
+    - [Generating HTML and PDF with AsciiDoc](#generating-html-and-pdf-with-asciidoc)
+    - [Compressing the PDF](#compressing-the-pdf)
+  - [Generating the specification with Metanorma](#generating-the-specification-with-metanorma)
+    - [Installing Metanorma locally](#installing-metanorma-locally)
+    - [Running Metanorma from its Docker container](#running-metanorma-from-its-docker-container)
 - [Notes for writing AsciiDoc in 3D Tiles](#notes-for-writing-asciidoc-in-3d-tiles)
   - [A note about section IDs](#a-note-about-section-ids)
   - [Cross-linking between files](#cross-linking-between-files)
@@ -97,7 +100,7 @@ The main tweaking takes place via the `dPDFSETTINGS` parameter. The value can be
 
 ### Generating the specification with Metanorma
 
-The OGC Community Standard version of the specification has to be created with Metanorma. Basic information about the toolchain and the template that is used can be found at https://github.com/opengeospatial/templates/tree/master/community_standard .
+The OGC Community Standard version of the specification has to be created with Metanorma. Basic information about the toolchain and the template that is used can be found at https://github.com/opengeospatial/templates/tree/master/community_standard . For reference, the original 3D Tiles 1.0 specification is published at https://github.com/metanorma/mn-samples-ogc/tree/b3bdf688cbaf3822e00b6e3c1076ebf37530b0f6/sources/18-053r2 
 
 #### Installing Metanorma locally
 
@@ -115,14 +118,11 @@ Don't. Don't even try.
      ```
      docker run -v "$(pwd)":/metanorma -v ${HOME}/.fontist/fonts/:/config/fonts metanorma/metanorma metanorma compile --agree-to-terms -t ogc -x html,pdf Specification.adoc
      ```
-   - Windows:
+   - Windows (**only** in PowerShell, not the standard console!):
      ```
      docker run -v ${pwd}:/metanorma -v ${HOME}/.fontist/fonts/:/config/fonts metanorma/metanorma metanorma compile --agree-to-terms -t ogc -x html,pdf Specification.adoc
      ```
   TODO Explain what these lines are doing, just to make clear that there is no `rm *` hidden in that...
-
-
-
 
 ## Notes for writing AsciiDoc in 3D Tiles
 
