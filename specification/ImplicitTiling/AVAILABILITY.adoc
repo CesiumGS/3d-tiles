@@ -2,7 +2,6 @@
 = Availability Indexing
 
 [#implicittiling-converting-from-tile-coordinates-to-morton-index]
-[discrete]
 == Converting from Tile Coordinates to Morton Index
 
 A https://en.wikipedia.org/wiki/Z-order_curve[Morton index] is computed by interleaving the bits of the `(x, y)` or `(x, y, z)` coordinates of a tile. Specifically:
@@ -35,7 +34,6 @@ image::figures/morton-indexing.png[Morton Order]
 
 
 [#implicittiling-availability-bitstream-lengths]
-[discrete]
 == Availability Bitstream Lengths
 
 .Availability bitstream lengths
@@ -69,7 +67,6 @@ lengthBytes = ceil(lengthBits / 8)
 
 
 [#implicittiling-accessing-availability-bits]
-[discrete]
 == Accessing Availability Bits
 
 For tile availability and content availability, the Morton index only determines the ordering within a single level of the subtree. Since the availability bitstream stores bits for every level of the subtree, a level offset must be computed.
@@ -98,7 +95,6 @@ index of the desired child subtree relative to the root of the current subtree.
 
 
 [#implicittiling-global-and-local-tile-coordinates]
-[discrete]
 == Global and Local Tile Coordinates
 
 When working with tile coordinates, it is important to consider which tile the coordinates are relative to. There are two main types used in implicit tiling:
@@ -148,7 +144,6 @@ image::figures/global-to-local-xy.png[Global to local XY coordinates]
 
 
 [#implicittiling-finding-parent-and-child-tiles]
-[discrete]
 == Finding Parent and Child Tiles
 
 The coordinates of a parent or child tile can also be computed with bitwise operations on the Morton index. The following formulas apply for both local and global coordinates.

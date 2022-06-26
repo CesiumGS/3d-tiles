@@ -1,15 +1,19 @@
-[appendix,obligation="informative"]
+[appendix,obligation=informative]
 == Revision history
 
+// NOTE: The 'a|' indicates that the following cell should
+// use AsciiDoc parsing (for bullet point lists etc.)
+
 [%unnumbered]
+[cols="3,2,3,2,6"]
 |===
 |Date |Release |Editor | Primary clauses modified |Description
 
-| 2018-06-04 | 1.0 | Gabby Getz | | Put 3D Tiles specification document into OGC document template
+| 2018-06-04 | 1.0 | Gabby Getz | a| Put 3D Tiles specification document into OGC document template
 
-| 2018-08-03 | 1.0r1 | Gabby Getz | | Respond to public comments
+| 2018-08-03 | 1.0r1 | Gabby Getz | a| Respond to public comments
 
-| 2018-11-16 | 1.0r2 | Gabby Getz | | 
+| 2018-11-16 | 1.0r2 | Gabby Getz | a| 
 * Updated conformance section to include schema references
 * Update preface to address updates to WKT for CRS (OGC12-053r5)
 * Revise Introduction section to clarify conceptual concepts, including tile, tile content, tile formats, features, properties, styles, and the Batch Table and Features Table and how glTF is used in 3D Tiles
@@ -31,10 +35,10 @@
 ** W3C CSS3 Color
 * Change glTF specification from non-normative to normative reference
 
-| 2019-01-21 | TODO | TODO | | 
+| 2019-01-21 | TODO | TODO | a| 
 * Revise internal link formatting
 * TODO
 
-| 2022-06-26 | 1.1.0 | OGC_TODO | all | Updates for 3D Tiles 1.1
+| 2022-06-26 | 1.1.0 | OGC_TODO | all a| Updates for 3D Tiles 1.1
 
 |===

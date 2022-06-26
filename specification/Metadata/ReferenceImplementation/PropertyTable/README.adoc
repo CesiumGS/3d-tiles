@@ -1,6 +1,5 @@
 
 [#metadata-referenceimplementation-propertytable-property-table-implementation]
-[discrete]
 = Property Table Implementation
 
 // Definitions of the directory structure to ensure that relative
@@ -29,7 +28,6 @@ The xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specificat
 The full JSON schema definition for this implementation can be found in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/PropertyTable/[the PropertyTable directory of the specification].
 
 [#metadata-referenceimplementation-propertytable-property-tables]
-[discrete]
 == Property Tables
 
 _Defined in 
@@ -72,7 +70,6 @@ A `tree_survey_2021-09-29` property table, implementing the `tree` class defined
 ====
 
 [#metadata-referenceimplementation-propertytable-property-table-properties]
-[discrete]
 == Property Table Properties
 
 _Defined in 

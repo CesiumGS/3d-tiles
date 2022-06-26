@@ -63,7 +63,6 @@
 
 // The structure of the sections is given at 
 // https://www.metanorma.org/author/ogc/authoring-guide/sections-ogc/
-
 // - Preliminary sections
 //   - Abstract
 //   - Executive Summary (Engineering Reports only)
@@ -76,6 +75,8 @@
 // - References
 // - Content sections
 // - Annex sections
+// The order that is shown there causes style warnings. 
+// The actual order has been adjusted accordingly.
 
 
 [abstract]
@@ -86,6 +87,9 @@ image::figures/3DTiles_dark_color_small.png[]
 
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
 
+[preface]
+include::ACKNOWLEDGEMENTS.adoc[]
+
 == Submitters
 
 |===
@@ -94,10 +98,10 @@ This document describes the specification for 3D Tiles, an open standard for str
 |FirstName LastName | Affiliation | Yes
 |===
 
-include::TERMS_AND_DEFINITIONS.adoc[]
-
+[bibliography]
 include::REFERENCES.adoc[]
 
+include::TERMS_AND_DEFINITIONS.adoc[]
 
 
 // Content sections:
@@ -154,6 +158,6 @@ include::Styling/README.adoc[]
 include::APPENDIX.adoc[]
 
 // Revision history as of https://www.metanorma.org/author/ogc/authoring-guide/sections-ogc/#revision-history
-[appendix,obligation="informative"]
+[appendix,obligation=informative]
 include::REVISION_HISTORY.adoc[]
 

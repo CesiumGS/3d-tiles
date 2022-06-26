@@ -15,7 +15,6 @@ ifndef::env-github[]
 endif::[]
 
 [#metadata-semantics-overview]
-[discrete]
 == Overview
 
 This document provides common definitions of meaning ("semantics") used by metadata properties in 3D Tiles and glTF. Tileset authors may define their own application- or domain-specific semantics separately.
@@ -31,17 +30,14 @@ For use of semantics, see:
 * https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] (glTF 2.0) --  Assigns metadata to vertices, texels, and features in a glTF asset
 
 [#metadata-semantics-general]
-[discrete]
 == General
 
 [#metadata-semantics-overview-1]
-[discrete]
 === Overview
 
 Throughout this section, the term "entity" refers to any conceptual object with which a property value (as defined in the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification]) may be associated. Examples of entities include tilesets, tiles, and tile contents in 3D Tiles, or groups of vertices and texels in glTF 2.0 assets. Additional types of entities may be defined by other specifications or applications.
 
 [#metadata-semantics-general-semantics]
-[discrete]
 === General Semantics
 
 .General metadata semantics
@@ -76,11 +72,9 @@ Throughout this section, the term "entity" refers to any conceptual object with 
 |===
 
 [#metadata-semantics-3d-tiles]
-[discrete]
 == 3D Tiles
 
 [#metadata-semantics-overview-2]
-[discrete]
 === Overview
 
 Semantics for 3D Tiles are assigned in relationship to a tileset, subtree, tile, or tile content, as defined by the 3D Tiles specification. When associated with other types of entities, these semantics may have invalid or undefined meanings.
@@ -88,17 +82,14 @@ Semantics for 3D Tiles are assigned in relationship to a tileset, subtree, tile,
 Units for all linear distances are meters, and all angles are radians.
 
 [#metadata-semantics-tileset]
-[discrete]
 === Tileset
 
 [#metadata-semantics-overview-3]
-[discrete]
 ==== Overview
 
 `TILESET_*` semantics provide meaning for properties associated with a tileset.
 
 [#metadata-semantics-tileset-semantics]
-[discrete]
 ==== Tileset Semantics
 
 .Tileset metadata semantics
@@ -136,11 +127,9 @@ For more details on coordinate reference systems in 3D Tiles, see xref:{url-spec
 |===
 
 [#metadata-semantics-tile]
-[discrete]
 === Tile
 
 [#metadata-semantics-overview-4]
-[discrete]
 ==== Overview
 
 `TILE_*` semantics provide meaning for properties associated with a particular tile, and should take precedence over equivalent metadata on parent objects, as well as over values derived from subdivision schemes in xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-tiling[Implicit Tiling].
@@ -150,7 +139,6 @@ If property values are missing, either because the property is omitted or the pr
 In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_SPHERE` semantics each define a more specific bounding volume for a tile than is implicitly calculated from xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-tiling[Implicit Tiling]. If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
 
 [#metadata-semantics-tile-semantics]
-[discrete]
 ==== Tile Semantics
 
 .Tile metadata semantics
@@ -228,11 +216,9 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 ^1^ `TILE_HORIZON_OCCLUSION_POINT` should account for all content in a tile and its descendants, whereas `CONTENT_HORIZON_OCCLUSION_POINT` should only account for content in a tile. When the two values are equivalent, only `TILE_HORIZON_OCCLUSION_POINT` should be specified.
 
 [#metadata-semantics-content]
-[discrete]
 === Content
 
 [#metadata-semantics-overview-5]
-[discrete]
 ==== Overview
 
 `CONTENT_*` semantics provide meaning for properties associated with the content of a tile, and may be more specific to that content than properties of the containing tile.
@@ -240,7 +226,6 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 `CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, and `CONTENT_BOUNDING_SPHERE` semantics each define a more specific bounding volume for tile contents than the bounding volume of the tile. If more than one of these semantics are available for the same content, clients may select the most appropriate option based on use case and performance requirements.
 
 [#metadata-semantics-content-semantics]
-[discrete]
 ==== Content Semantics
 
 .Content metadata semantics

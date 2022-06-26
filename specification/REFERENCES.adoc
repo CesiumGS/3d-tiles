@@ -1,8 +1,5 @@
 == References
 
-[bibliography]
-=== Normative
-
 * [[[EPSG,EPSG WGS-84-3]]], EPSG: 4979, 2007. http://spatialreference.org/ref/epsg/wgs-84-3/[http://spatialreference.org/ref/epsg/wgs-84-3/]
 
 * [[[IETF_RFC2397,IETF RFC 2397]]], IETF RFC2397: The "data" URL scheme, 1998. https://tools.ietf.org/html/rfc2397[https://tools.ietf.org/html/rfc2397]
