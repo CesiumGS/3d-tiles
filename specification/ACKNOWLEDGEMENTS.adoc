@@ -8,13 +8,12 @@ Editors:
 
 Acknowledgements:
 
-* Newton Allen, https://github.com/newtonallen3[@newtonallen3]
 * Matt Amato, https://twitter.com/matt_amato[@matt_amato]
 * Erik Andersson, https://github.com/e-andersson[@e-andersson]
 * Dan Bagnell, https://github.com/bagnell[@bagnell]
 * Ray Bentley
 * Jannes Bolling, https://github.com/jbo023[@jbo023]
-* Johan Borg, https://se.linkedin.com/in/johan-borg-2aab5114
+* Johan Borg
 * Dylan Brown, http://www.github.com/Dylan-Brown[@Dylan-Brown]
 * Sarah Chow, https://cesium.com/team/SarahChow/[cesium.com/team/SarahChow]
 * Paul Connelly
