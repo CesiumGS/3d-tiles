@@ -39,6 +39,14 @@
 * Revise internal link formatting
 * TODO
 
-| 2022-06-26 | 1.1.0 | OGC_TODO | all a| Updates for 3D Tiles 1.1
+| 2022-06-26 | 1.1.0 | Sean Lilley | all a| 
+* Additions:
+** Support for structured metadata that can be associated with tilesets, tiles, tile content, and tile content groups
+** Directly support glTF assets as tile contents
+** Support for multiple tile contents
+** Support for implicit tiling schemes
+* Deprecations:
+** The original tile formats (b3dm, i3dm, pnts, and cmpt) are deprecated in favor of glTF content
+** The `tileset.properties` are deprecated, in favor of the more versatile metadata support
 
 |===
