@@ -39,8 +39,10 @@ include::Metadata/ReferenceImplementation/Schema/README.adoc[]
 :imagesdir: Metadata/Semantics
 include::Metadata/Semantics/README.adoc[]
 
-[appendix]
-include::LICENSE.adoc[]
+// License information is automatically inserted by Metanorma
+// when generating the OGC version of the specification.
+//[appendix]
+//include::LICENSE.adoc[]
 
 
 :leveloffset: -1
