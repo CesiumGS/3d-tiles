@@ -1,9 +1,21 @@
 
 == Terms and Definitions
 
+=== Availability 
+
+Data specifying which tiles/contents/child subtrees exist within a single subtree of an implicit tileset
+
+=== Bitstream 
+
+A boolean array stored as a sequence of bits rather than bytes.
+
 === Bounding Volume
 
 A closed volume completely containing the union of a set of geometric objects. {blank}footnote:[https://en.wikipedia.org/wiki/Bounding_volume[https://en.wikipedia.org/wiki/Bounding_volume]]
+
+=== Child subtree
+
+A subtree reachable from an available tile in the bottommost row of a subtree of an implicit tileset
 
 === Feature
 
@@ -21,6 +33,38 @@ An API-neutral runtime asset delivery format for 3D assets.
 === Hierarchical Level of Detail (HLOD)
 
 Decreasing the complexity of a 3D representation according to metrics such as object importance or distance from the tile to the observation point or camera position. Generally, higher levels of detail provide greater visual fidelity. {blank}footnote:[https://en.wikipedia.org/wiki/Level_of_detail[https://en.wikipedia.org/wiki/Level_of_detail]]
+
+=== Implicit tiling 
+
+A description of a tileset using recursive subdivision.
+
+=== Implicit root tile 
+
+A tile that contains the `implicitTiling` property, and therefore denotes the root of an implicit tileset.
+
+=== Octree 
+
+A 3D subdivision scheme that divides each bounding volume into 8 smaller bounding volumes along the midpoint of the x, y, and z axes.
+
+=== Quadtree 
+
+A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volumes along the midpoint of the x and y axes.
+
+=== Subtree 
+
+A fixed-size section of the tree of an implicit tileset that contains availability information.
+
+=== Subtree file 
+
+A binary file storing information about a specific subtree of an implicit tileset
+
+=== Subdivision scheme 
+
+A recursive pattern of dividing a parent tile into smaller child tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile with an implicit tileset.
+
+=== Template URI 
+
+A URI pattern containing tile coordinates for directly addressing tiles in an implicit tileset.
 
 === Tile
 
