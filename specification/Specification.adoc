@@ -43,7 +43,7 @@
 :comment: ### URI to which the HTML version of this standard is published; optional
 :html-uri: ./Specification.html
 :comment: ### The submitting organizations (active OGC members) that submitted this document
-:submitting-organizations: CesiumGS Inc.
+:submitting-organizations: Cesium GS Inc.
 :keywords: terrain, geospatial, gis, point-cloud, spatial-data, vector-data, photogrammetry, gltf, 3d-models, 3d-tiles
 //========== EXPERIMENTAL OGC HEADER END
 
@@ -98,7 +98,8 @@ This document describes the specification for 3D Tiles, an open standard for str
 |===
 |Name |Affiliation |OGC member
 
-|FirstName LastName | Affiliation | Yes
+| Patrick Cozzi |  Cesium GS, Inc. | Yes
+| Sean Lilley |  Cesium GS, Inc. | Yes
 |===
 
 
