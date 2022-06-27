@@ -1,3 +1,13 @@
 .DS_Store
 Thumbs.db
 .idea
+
+# Ignore intermediate and output files from metanorma
+/specification/iev
+/specification/relaton
+/specification/Specification.xml
+/specification/Specification.pdf
+/specification/Specification.html
+/specification/Specification.err
+/specification/Specification.html.err
+/specification/Specification.presentation.xml
