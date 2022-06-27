@@ -35,9 +35,9 @@ glTF provides flexibility for a wide range of mesh and material configurations, 
 |===
 | Photogrammetry | 3D Buildings
 
-| image:figures/glTF-photogrammetry.png[pdfwidth=3.0in] +
+| image:figures/glTF-photogrammetry.png[width=400,pdfwidth=3.0in] +
 _San Francisco photogrammetry model from Aerometrex in O3DE_
-| image:figures/glTF-3d-buildings.png[pdfwidth=3.0in] +
+| image:figures/glTF-3d-buildings.png[width=400,pdfwidth=3.0in] +
 _3D buildings from swisstopo in CesiumJS_
 |===
 

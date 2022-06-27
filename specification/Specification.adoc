@@ -25,7 +25,7 @@
 :comment: ### Authors
 :fullname: Patrick Cozzi
 :fullname_2: Sean Lilley
-:fullanme_3: Gabby Getz
+:fullname_3: Gabby Getz
 :comment: ### Role of the authors; mandatory
 :role: editor
 :role_2: editor
@@ -62,7 +62,9 @@
 
 
 // The structure of the sections is given at 
-// https://www.metanorma.org/author/ogc/authoring-guide/sections-ogc/
+// https://www.metanorma.org/author/ogc/authoring-guide/sections-ogc/ and
+// https://www.metanorma.org/author/ogc/authoring-guide/metanorma-adoc/
+// with subtle differences, but should roughly be
 // - Preliminary sections
 //   - Abstract
 //   - Executive Summary (Engineering Reports only)
@@ -71,13 +73,17 @@
 //   - Security Considerations (boilerplate added automatically if omitted)
 //   - Submitting Organizations (inserted from document attributes)
 //   - Submitters
+// - Scope
+// - Normative References
 // - Terms and definitions
-// - References
+// - Conformance
 // - Content sections
 // - Annex sections
-// The order that is shown there causes style warnings. 
-// The actual order has been adjusted accordingly.
+// - Bibliography (Non-normative references)
 
+
+// ===========================================================================
+// Preliminary sections
 
 [abstract]
 == Abstract
@@ -87,9 +93,6 @@ image::figures/3DTiles_dark_color_small.png[]
 
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
 
-[preface]
-include::ACKNOWLEDGEMENTS.adoc[]
-
 == Submitters
 
 |===
@@ -98,13 +101,24 @@ include::ACKNOWLEDGEMENTS.adoc[]
 |FirstName LastName | Affiliation | Yes
 |===
 
+
+// ===========================================================================
+// Non-content sections
+
+== Scope
+include::SCOPE.adoc[]
+
+include::CONFORMANCE.adoc[]
+
 [bibliography]
 include::REFERENCES.adoc[]
 
 include::TERMS_AND_DEFINITIONS.adoc[]
 
 
-// Content sections:
+
+// ===========================================================================
+// Content sections
 
 :leveloffset: +1
 
@@ -152,12 +166,16 @@ include::Styling/README.adoc[]
 
 :leveloffset: -1
 
+
+// ===========================================================================
 // Annex sections
 
 :imagesdir: 
 include::APPENDIX.adoc[]
 
-// Revision history as of https://www.metanorma.org/author/ogc/authoring-guide/sections-ogc/#revision-history
+[appendix]
+include::ACKNOWLEDGEMENTS.adoc[]
+
 [appendix,obligation=informative]
 include::REVISION_HISTORY.adoc[]
 

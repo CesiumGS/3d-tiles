@@ -124,9 +124,9 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 |===
 | Root Box | Quadtree | Octree
 
-| image:figures/box.png[pdfwidth=2.0in]
-| image:figures/box-quadtree.png[pdfwidth=2.0in]
-| image:figures/box-octree.png[pdfwidth=2.0in]
+| image:figures/box.png[width=300,pdfwidth=2.0in]
+| image:figures/box-quadtree.png[width=300,pdfwidth=2.0in]
+| image:figures/box-octree.png[width=300,pdfwidth=2.0in]
 |===
 
 .Subdivision for bounding regions
@@ -134,9 +134,9 @@ The following diagrams illustrate the subdivision in the bounding volume types s
 |===
 | Root Region | Quadtree | Octree
 
-| image:figures/region.png[pdfwidth=2.0in]
-| image:figures/region-quadtree.png[pdfwidth=2.0in]
-| image:figures/region-octree.png[pdfwidth=2.0in]
+| image:figures/region.png[width=300,pdfwidth=2.0in]
+| image:figures/region-quadtree.png[width=300,pdfwidth=2.0in]
+| image:figures/region-octree.png[width=300,pdfwidth=2.0in]
 |===
 
 
