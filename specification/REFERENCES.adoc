@@ -8,7 +8,7 @@
 
 * [[[IETF_RFC3986,IETF RFC 3986]]], IETF RFC3986: IANA Registration for Enumservice 'XMPP', 2007. https://tools.ietf.org/html/rfc4979[https://tools.ietf.org/html/rfc4979]
 
-* [[[Khronos_Group,Khronos Group glTF 2.0 - Runtime 3D Asset Delivery]]], Khronos Group: glTF 2.0 - Runtime 3D Asset Delivery, 2017. https://github.com/KhronosGroup/glTF/blob/master/README.md[https://github.com/KhronosGroup/glTF/blob/master/README.md]
+* [[[Khronos_Group,Khronos Group glTF 2.0]]], Khronos Group: glTF 2.0, 2021. https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html[https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html]
 
 * [[[OGC,OGC 12-063r5]]], OGC: [OGC 12-063r5] Geographic information - Well-known text representation of coordinate reference systems, 2015. http://docs.opengeospatial.org/is/12-063r5/12-063r5.html[http://docs.opengeospatial.org/is/12-063r5/12-063r5.html]
 

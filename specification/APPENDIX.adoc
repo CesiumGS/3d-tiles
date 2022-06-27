@@ -1,7 +1,8 @@
 
 :leveloffset: +1
 
-[appendix]
+[appendix,obligation=normative]
+[#properties-reference]
 = Properties Reference
 :leveloffset: +1
 include::PropertiesReference_3dtiles.adoc[]

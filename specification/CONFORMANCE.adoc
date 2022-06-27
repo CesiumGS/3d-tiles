@@ -1,5 +1,5 @@
 == Conformance
 
-Conformance is relative to the concepts explained in sections 6 to 11, based on the definitions of properties in the xref:APPENDIX.adoc#properties-reference[Properties Reference].
+Conformance is relative to the concepts explained in sections 5 to 11, based on the definitions of properties in the xref:APPENDIX.adoc#properties-reference[Properties Reference].
 
 All figures, examples, notes, and background information are non-normative.
