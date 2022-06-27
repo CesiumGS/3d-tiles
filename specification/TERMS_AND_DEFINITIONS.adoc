@@ -17,6 +17,10 @@ A closed volume completely containing the union of a set of geometric objects. {
 
 A subtree reachable from an available tile in the bottommost row of a subtree of an implicit tileset
 
+=== Entity
+
+An entity, in the context of 3D Tiles metadata, is an instance of a metadata class, populated with property values conforming to a metadata class definition
+
 === Feature
 
 In 3D Tiles, an individual component of a tile, such as a 3D model in a Batched 3D Model or a point in a Point Cloud which contains position, appearance, and metadata properties.
@@ -42,6 +46,18 @@ A description of a tileset using recursive subdivision.
 
 A tile that contains the `implicitTiling` property, and therefore denotes the root of an implicit tileset.
 
+=== Metadata
+
+In the context of 3D Tiles, this term refers to any association of 3D content with entities and properties, such that entities represent meaningful units within an overall structure.
+
+=== Metadata class
+
+The description of the structure of an entity that contains 3D Tiles metadata, consisting of multiple metadata properties
+
+=== Metadata property
+
+An element of a metadata class that defines a name and a type for the corresponding element of a metadata entity.
+
 === Octree 
 
 A 3D subdivision scheme that divides each bounding volume into 8 smaller bounding volumes along the midpoint of the x, y, and z axes.
@@ -49,6 +65,10 @@ A 3D subdivision scheme that divides each bounding volume into 8 smaller boundin
 === Quadtree 
 
 A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volumes along the midpoint of the x and y axes.
+
+=== Schema
+
+A set of metadata classes and enums that define the structure and type of metadata
 
 === Subtree 
 
