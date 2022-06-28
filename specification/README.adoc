@@ -440,7 +440,7 @@ More broadly the order of transformations is:
 . <<core-tile-transforms,Tile transform>>
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 When working with source data that is inherently _z_-up, such as data in WGS 84 coordinates or in a local _z_-up coordinate system, a common workflow is:
 
@@ -495,7 +495,7 @@ The full computed transforms, taking into account the <<core-y-up-to-z-up,glTF _
 [#core-implementation-example]
 ===== Implementation example
 
-_This section is non-normative_
+_This section is informative_
 
 The following JavaScript code shows how to compute this using Cesium's https://github.com/CesiumGS/cesium/blob/main/Source/Core/Matrix4.js[Matrix4] and https://github.com/CesiumGS/cesium/blob/main/Source/Core/Matrix3.js[Matrix3] types.
 
@@ -698,7 +698,7 @@ The tileset JSON has four top-level properties: `asset`, `properties`, `geometri
 
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 The `tilesetVersion` can be used as a query parameter when requesting content to avoid using outdated content from a cache.
 ====

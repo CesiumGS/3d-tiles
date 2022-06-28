@@ -128,7 +128,7 @@ The property table from the previous example, with details about the binary stor
 Each buffer view `byteOffset` must be aligned to a multiple of the size of the xref:{url-specification-metadata}README.adoc#metadata-component-type[`componentType`] of the respective property.
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 Authoring tools may choose to align all buffer views to 8-byte boundaries for consistency, but client implementations should only depend on 8-byte alignment for buffer views containing 64-bit component types.
 ====

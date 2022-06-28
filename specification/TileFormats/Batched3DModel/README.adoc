@@ -230,7 +230,7 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 [#tileformats-batched3dmodel-implementation-example]
 == Implementation example
 
-_This section is non-normative_
+_This section is informative_
 
 Code for reading the header can be found in
 https://github.com/CesiumGS/cesium/blob/main/Source/Scene/Batched3DModel3DTileContent.js[`Batched3DModelTileContent.js`]

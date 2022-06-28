@@ -109,7 +109,7 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 [#tileformats-composite-implementation-examples]
 == Implementation examples
 
-_This section is non-normative_
+_This section is informative_
 
 * link:https://github.com/Geopipe/gltf2glb[Python `packcmpt` tool in gltf2glb toolset] contains code for combining one or more _Batched 3D Model_ or _Instanced 3D Model_ tiles into a single Composite tile file.
 * Code for reading the header can be found in

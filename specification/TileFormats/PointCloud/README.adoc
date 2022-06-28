@@ -262,7 +262,7 @@ The normals will be transformed using the inverse transpose of the tileset trans
 Oct-encoding is described in link:http://jcgt.org/published/0003/02/01/[_A Survey of Efficient Representations of Independent Unit Vectors_]. Oct-encoded values are stored in unsigned, unnormalized range (`[0, 255]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 An implementation for encoding and decoding these unit vectors can be found in CesiumJS's link:https://github.com/CesiumGS/cesium/blob/main/Source/Core/AttributeCompression.js[AttributeCompression]
 module.
@@ -282,7 +282,7 @@ The global semantic `BATCH_LENGTH` defines the number of unique `batchId` values
 [#tileformats-pointcloud-examples]
 === Examples
 
-_This section is non-normative_
+_This section is informative_
 
 These examples show how to generate JSON and binary buffers for the Feature Table.
 
@@ -477,7 +477,7 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 [#tileformats-pointcloud-implementation-example]
 == Implementation example
 
-_This section is non-normative_
+_This section is informative_
 
 Code for reading the header can be found in link:https://github.com/CesiumGS/cesium/blob/main/Source/Scene/PointCloud3DTileContent.js[`PointCloud3DModelTileContent.js`] in the CesiumJS implementation of 3D Tiles.
 

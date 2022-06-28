@@ -165,7 +165,7 @@ Implicit tiling only requires defining the subdivision scheme, refinement strate
 |===
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 In order to maintain numerical stability during this subdivision process, the actual bounding volumes should not be computed progressively by subdividing a non-root tile volume. Instead, the exact bounding volumes should be computed directly for a given level.
 
@@ -333,7 +333,7 @@ When tiles are listed explicitly within a tileset, each tile's metadata is also 
 Tile metadata exists only for available tiles and is tightly packed by an increasing tile index according to the <<implicittiling-availability,Availability Ordering>>. Each available tile must have a value -- representation of missing values within a tile is possible only with the `noData` indicator defined by the xref:{url-specification-metadata}README.adoc#metadata-binary-table-format[_Binary Table Format_] specification.
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 To determine the index into a property value array for a particular tile, count the number of available tiles occurring before that index, according to the tile Availability Ordering. If `i` available tiles occur before a particular tile, that tile's property values are stored at index `i` of each property value array. These indices may be precomputed for all available tiles, as a single pass over the subtree availability buffer.
 ====

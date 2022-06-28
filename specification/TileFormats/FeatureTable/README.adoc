@@ -81,7 +81,7 @@ Values can be retrieved using the number of features, `featuresLength`; the desi
 [#tileformats-featuretable-implementation-example]
 == Implementation example
 
-_This section is non-normative_
+_This section is informative_
 
 The following example accesses the position property using the `POSITION` semantic, which has a `float32[3]` data type:
 

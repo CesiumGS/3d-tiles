@@ -2,5 +2,5 @@
 
 Sections 7 through 11 of this document describe the Objects and Properties required to implement 3D Tiles. Conformance is relative to these elements and as partly expressed via the associated 3D Tiles JSON xref:APPENDIX.adoc#properties-reference[Properties Reference].
 
-All figures, examples, notes, and background information are non-normative.
+All figures, examples, notes, and background information are informative.
 

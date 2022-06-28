@@ -34,13 +34,13 @@ In addition to trees, Instanced 3D Model is useful for exterior features such as
 An Instanced 3D Model tile is a binary blob in little endian.
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 A xref:{url-specification-tileformats-composite}README.adoc#tileformats-composite-composite[Composite] tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights by combing two Instanced 3D Model tiles.
 ====
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 Instanced 3D Model maps well to the link:https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/[`ANGLE_instanced_arrays`] extension for efficient rendering with WebGL.
 ====
@@ -246,7 +246,7 @@ If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientati
 These define `up` and `right` using the oct-encoding described in link:http://jcgt.org/published/0003/02/01/[_A Survey of Efficient Representations of Independent Unit Vectors_]. Oct-encoded values are stored in unsigned, unnormalized range (`[0, 65535]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 An implementation for encoding and decoding these unit vectors can be found in CesiumJS's link:https://github.com/CesiumGS/cesium/blob/main/Source/Core/AttributeCompression.js[AttributeCompression]
 module.

@@ -239,7 +239,7 @@ A meta property expression can evaluate to any type. For example:
 The language for expressions is a small subset of JavaScript (http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf[EMCAScript 5]), plus native vector and regular expression types and access to tileset feature properties in the form of readonly variables.
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 CesiumJS uses the https://ericsmekens.github.io/jsep/[jsep] JavaScript expression parser library to parse style expressions into an https://en.wikipedia.org/wiki/Abstract_syntax_tree[abstract syntax tree (AST)].
 ====
@@ -1620,7 +1620,7 @@ For example:
 ----
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Some of these features include:
 
