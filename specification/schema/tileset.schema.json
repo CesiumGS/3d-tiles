@@ -19,11 +19,11 @@
         },
         "schema": {
             "$ref": "schema.schema.json",
-            "description": "An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` must be undefined."
+            "description": "An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` shall be undefined."
         },
         "schemaUri": {
             "type": "string",
-            "description": "The URI (or IRI) of the external schema file. When this is defined, then `schema` must be undefined.",
+            "description": "The URI (or IRI) of the external schema file. When this is defined, then `schema` shall be undefined.",
             "format": "iri-reference"
         },
         "statistics": {

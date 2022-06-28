@@ -10,7 +10,7 @@
             "$ref": "boundingVolume.schema.json"
         },
         "viewerRequestVolume": {
-            "description": "Optional bounding volume that defines the volume the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.",
+            "description": "Optional bounding volume that defines the volume the viewer shall be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.",
             "$ref": "boundingVolume.schema.json"
         },
         "geometricError": {
@@ -60,12 +60,12 @@
             ]
         },
         "content": {
-            "description": "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. When this is defined, then `contents` must be undefined.",
+            "description": "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. When this is defined, then `contents` shall be undefined.",
             "$ref": "content.schema.json"
         },
         "contents": {
             "type": "array",
-            "description": "An array of contents. When this is defined, then `content` must be undefined.",
+            "description": "An array of contents. When this is defined, then `content` shall be undefined.",
             "items": {
                 "$ref": "content.schema.json"
             },
