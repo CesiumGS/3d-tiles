@@ -11,7 +11,7 @@ A boolean array stored as a sequence of bits rather than bytes.
 
 === Bounding Volume
 
-A closed volume completely containing the union of a set of geometric objects. {blank}footnote:[https://en.wikipedia.org/wiki/Bounding_volume[https://en.wikipedia.org/wiki/Bounding_volume]]
+A closed volume completely containing the union of a set of geometric objects. See https://en.wikipedia.org/wiki/Bounding_volume[Wikipedia: Bounding volume]
 
 === Child subtree
 
@@ -36,7 +36,7 @@ An API-neutral runtime asset delivery format for 3D assets.
 
 === Hierarchical Level of Detail (HLOD)
 
-Decreasing the complexity of a 3D representation according to metrics such as object importance or distance from the tile to the observation point or camera position. Generally, higher levels of detail provide greater visual fidelity. {blank}footnote:[https://en.wikipedia.org/wiki/Level_of_detail[https://en.wikipedia.org/wiki/Level_of_detail]]
+Decreasing the complexity of a 3D representation according to metrics such as object importance or distance from the tile to the observation point or camera position. Generally, higher levels of detail provide greater visual fidelity. See https://en.wikipedia.org/wiki/Level_of_detail[Wikipedia: Level of detail]
 
 === Implicit tiling 
 
@@ -70,6 +70,18 @@ A 2D subdivision scheme that divides each bounding volume into 4 smaller boundin
 
 A set of metadata classes and enums that define the structure and type of metadata
 
+=== Screen-Space Error (SSE)
+
+The difference, in pixels, of a tile's simplified representation of its source geometry introduced if a tile's content is rendered and its children's are not.
+
+=== Spatial Coherence
+
+The union of all content of the child tiles is completely inside the parent tile's bounding volume
+
+=== Style
+
+A set of expressions to be evaluated which modify how each feature in a tileset is displayed
+
 === Subtree 
 
 A fixed-size section of the tree of an implicit tileset that contains availability information.
@@ -102,14 +114,3 @@ The structure or layout of tile content data, (Batched 3D Model, Instanced 3D Mo
 
 In 3D Tiles, a collection of 3D Tiles tile instances organized into a spatial data structure and additional metadata, such that the aggregation of these tiles represent some 3D content at various levels of detail.
 
-=== Screen-Space Error (SSE)
-
-The difference, in pixels, of a tile's simplified representation of its source geometry introduced if a tile's content is rendered and its children's are not.
-
-=== Spatial Coherence
-
-The union of all content of the child tiles is completely inside the parent tile's bounding volume
-
-=== Style
-
-A set of expressions to be evaluated which modify how each feature in a tileset is displayed
