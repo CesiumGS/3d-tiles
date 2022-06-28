@@ -92,11 +92,11 @@ In 3D Tiles, a subset of a tileset containing a reference to renderable content 
 
 === Tile Content 
 
-A binary blob containing information necessary to render a tile which is an instance of a specific tile format (Batched 3D Model, Instanced 3D Model, Point Clouds, or Composite).
+A binary blob containing information necessary to render a tile which is an instance of a specific tile format (Batched 3D Model, Instanced 3D Model, Point Clouds, Composite, or glTF).
 
 === Tile Format
 
-The structure or layout of tile content data, (Batched 3D Model, Instanced 3D Model, Point Clouds, or Composite).
+The structure or layout of tile content data, (Batched 3D Model, Instanced 3D Model, Point Clouds, Composite, or glTF).
 
 === Tileset
 

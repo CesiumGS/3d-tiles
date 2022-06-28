@@ -139,13 +139,13 @@ All angles are in radians.
 [#core-coordinate-reference-system-crs]
 == Coordinate reference system (CRS)
 
-3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. A tileset's global coordinate system will often be in a https://epsg.org/ellipsoid_7030/WGS-84.html[WGS 84] Earth-centered, Earth-fixed (ECEF) reference frame (http://spatialreference.org/ref/epsg/4978/[EPSG 4978]), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
+3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. A tileset's global coordinate system will often be in a https://epsg.org/ellipsoid_7030/WGS-84.html[WGS 84] Earth-centered, Earth-fixed (ECEF) reference frame (https://epsg.org/crs_4978/WGS-84.html[EPSG 4978]), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
 The CRS of a tileset may be defined explicitly, as part of the <<core-metadata,tileset metadata>>. The metadata for the tileset can contain a property that has the xref:{url-specification-metadata-semantics}README.adoc#metadata-semantics-tileset-semantics[`TILESET_CRS_GEOCENTRIC` semantic], which is a string that represents the EPSG Geodetic Parameter Dataset identifier.
 
 An additional <<core-tile-transforms,tile transform>> may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
 
-The <<core-region,region>> bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically, http://spatialreference.org/ref/epsg/4979/[EPSG 4979]. The reference ellipsoid is assumed to be the same as the reference ellipsoid of the tileset.
+The <<core-region,region>> bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically, https://epsg.org/crs_4979/WGS-84.html[EPSG 4979]. The reference ellipsoid is assumed to be the same as the reference ellipsoid of the tileset.
 
 [#core-concepts]
 == Concepts

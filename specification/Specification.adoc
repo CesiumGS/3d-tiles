@@ -13,15 +13,15 @@
 :comment: ### Relevant committee; mandatory. The permitted types are: technical, planning, and strategic-member-advisory
 :committee: technical
 :comment: ### External link referencing the document; optional. If not provided, a default value is created following this structure: "http://www.opengis.net/doc/{abbrevation of doctype}/{abbrev}/{version}",
-:external-id: http://www.opengis.net/docs/CS/3DTiles/1.0
+:external-id: TBD
 :comment: ### Internal reference number; mandatory
-:docnumber: 18-053r2
+:docnumber: TBD
 :comment: ### Date on which the standard was updated; mandatory
-:received-date: 2018-06-04
+:received-date: TBD
 :comment: ### Date on which the standard was approved by the issuing authority; mandatory
-:issued-date: 2018-12-14
+:issued-date: TBD
 :comment: ### Date on which the standard was published; mandatory
-:published-date: 2019-01-31
+:published-date: TBD
 :comment: ### Authors
 :fullname: Patrick Cozzi
 :fullname_2: Sean Lilley
@@ -44,7 +44,7 @@
 :html-uri: ./Specification.html
 :comment: ### The submitting organizations (active OGC members) that submitted this document
 :submitting-organizations: Cesium GS Inc.
-:keywords: terrain, geospatial, gis, point-cloud, spatial-data, vector-data, photogrammetry, gltf, 3d-models, 3d-tiles
+:keywords: terrain, geospatial, gis, point cloud, spatial data, vector data, photogrammetry, gltf, 3d models, 3d tiles, metadata, implicit tiling
 //========== EXPERIMENTAL OGC HEADER END
 
 
@@ -93,6 +93,10 @@ image::figures/3DTiles_dark_color_small.png[]
 
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
 
+== Preface
+
+Bringing techniques from graphics research, the movie industry, and the game industry to 3D geospatial, 3D Tiles defines a spatial data structure and a set of tile formats designed for 3D, and optimized for streaming and rendering.
+
 == Submitters
 
 |===
@@ -102,11 +106,14 @@ This document describes the specification for 3D Tiles, an open standard for str
 | Sean Lilley |  Cesium GS, Inc. | Yes
 |===
 
+== Future Work
+
+The 3D Tiles community anticipates that revisions to this Community Standard will be required to prescribe content appropriate to meet new use cases. These use cases may arise from either (or both) the external user and developer community or from OGC review and comments. Further, future revisions will be driven by any submitted change requests that document community uses cases and requirements.
+
 
 // ===========================================================================
 // Non-content sections
 
-== Scope
 include::SCOPE.adoc[]
 
 include::CONFORMANCE.adoc[]
@@ -116,7 +123,9 @@ include::REFERENCES.adoc[]
 
 include::TERMS_AND_DEFINITIONS.adoc[]
 
+== Conventions
 
+No conventions are specified in this document.
 
 // ===========================================================================
 // Content sections
