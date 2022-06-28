@@ -1633,8 +1633,8 @@ Point cloud styling engines may often use a shader (GLSL) implementation, howeve
 * Array index out of bounds
 ====
 
-[#styling-file-extension-and-mime-type]
-== File extension and MIME type
+[#styling-file-extension-and-media-type]
+== File extension and media type
 
-Tileset styles use the `.json` extension and the `application/json` mime type.
+Tileset styles use the `.json` extension and the `application/json` media type.
 

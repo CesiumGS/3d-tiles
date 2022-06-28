@@ -220,10 +220,10 @@ Vertex positions may be defined relative-to-center for high-precision rendering,
 . The transform for the `RTC_CENTER`, which is used to translate model vertices
 . xref:{url-specification}README.adoc#core-tile-transforms[Tile transform]
 
-[#tileformats-batched3dmodel-file-extension-and-mime-type]
-== File extension and MIME type
+[#tileformats-batched3dmodel-file-extension-and-media-type]
+== File extension and media type
 
-Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` MIME type.
+Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` media type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 

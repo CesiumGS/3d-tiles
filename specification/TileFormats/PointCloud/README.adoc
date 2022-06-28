@@ -467,10 +467,10 @@ The following extensions can be applied to a Point Cloud tile.
 
 * link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_draco_point_compression/README.md[`3DTILES_draco_point_compression`]
 
-[#tileformats-pointcloud-file-extension-and-mime-type]
-== File extension and MIME type
+[#tileformats-pointcloud-file-extension-and-media-type]
+== File extension and media type
 
-Point cloud tiles use the `.pnts` extension and `application/octet-stream` MIME type.
+Point cloud tiles use the `.pnts` extension and `application/octet-stream` media type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
