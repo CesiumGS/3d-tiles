@@ -120,6 +120,7 @@ A "species" enum with three possible tree species, as well as an "Unknown" value
 * *Description:* "Common tree species identified in the study."
 * *Value type:* `INT32`
 
+.Names and values of an example enum
 [cols="1,3"]
 |===
 | name | value
@@ -202,6 +203,7 @@ The following example shows the basics of how classes describe the types of meta
 
 *building*
 
+.Properties and types of a building
 [cols="1,1,1"]
 |===
 | property | type | componentType
@@ -213,6 +215,7 @@ The following example shows the basics of how classes describe the types of meta
 
 *tree*
 
+.Properties and types of a tree
 [cols="1,1,1,1"]
 |===
 | property | type | componentType | enumType
@@ -479,6 +482,7 @@ If a default value is not provided, the behavior when encountering missing prope
 ====
 In the example below, a "tree" class is defined with `noData` indicating a specific enum value to be interpreted as missing data.
 
+.Properties and types of a tree
 [cols="1,1,1,1"]
 |===
 | property | componentType | required | noData
@@ -716,6 +720,7 @@ The following example demonstrates usage for both fixed- and variable-length arr
 
 _An enum, "basicEnum", composed of three `(name: value)` pairs:_
 
+.Names and values of an example enum
 [cols="1,1"]
 |===
 | name | value
@@ -732,6 +737,7 @@ _An enum, "basicEnum", composed of three `(name: value)` pairs:_
 
 _A class, "basicClass", composed of ten properties. `stringArrayProperty` count is undefined and therefore variable-length._
 
+.Properties of an example class
 // Carefully tweaked to fit the page in PDF output:
 [cols="6,3,3,2,2,3,3"]
 |===
