@@ -34,6 +34,7 @@ node bin/wetzel.js ^
   -a=cqo ^
   -m=a ^
   -n ^
+  -k "shall" ^
   -E PropertiesReference_3dtiles_schema.adoc ^
   -S "['../3d-tiles/specification/schema/common', '../3d-tiles/specification/schema/Schema', '../3d-tiles/specification/schema/Statistics']" ^
   -p "schema" ^
