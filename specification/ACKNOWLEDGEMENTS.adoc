@@ -4,10 +4,10 @@ Editors:
 
 * Patrick Cozzi, https://twitter.com/pjcozzi[@pjcozzi], link:mailto:patrick@cesium.com[patrick@cesium.com]
 * Sean Lilley, https://twitter.com/lilleyse[@lilleyse], link:mailto:sean@cesium.com[sean@cesium.com]
-* Gabby Getz, https://twitter.com/gabbygetz[@gabbygetz], link:mailto:gabby@cesium.com[gabby@cesium.com]
 
 Acknowledgements:
 
+* Gabby Getz, https://twitter.com/gabbygetz[@gabbygetz]
 * Matt Amato, https://twitter.com/matt_amato[@matt_amato]
 * Erik Andersson, https://github.com/e-andersson[@e-andersson]
 * Dan Bagnell, https://github.com/bagnell[@bagnell]

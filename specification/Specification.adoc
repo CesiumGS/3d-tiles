@@ -15,7 +15,7 @@
 :comment: ### External link referencing the document; optional. If not provided, a default value is created following this structure: "http://www.opengis.net/doc/{abbrevation of doctype}/{abbrev}/{version}",
 :external-id: TBD
 :comment: ### Internal reference number; mandatory
-:docnumber: TBD
+:docnumber: 22-025
 :comment: ### Date on which the standard was updated; mandatory
 :received-date: TBD
 :comment: ### Date on which the standard was approved by the issuing authority; mandatory
@@ -25,11 +25,9 @@
 :comment: ### Authors
 :fullname: Patrick Cozzi
 :fullname_2: Sean Lilley
-:fullname_3: Gabby Getz
 :comment: ### Role of the authors; mandatory
 :role: editor
 :role_2: editor
-:role_3: editor
 :comment: ### Metanorma flavor; mandatory
 :mn-document-class: ogc
 :comment: ### Desired output formats; mandatory
