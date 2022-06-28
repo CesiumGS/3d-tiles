@@ -17,7 +17,7 @@ ifndef::env-github[]
 :url-specification-tileformats-gltf-migration:
 endif::[]
 
-WARNING: Composite was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-composite-cmpt[`cmpt` migration guide].
+WARNING: Composite was deprecated in 3D Tiles 1.1. See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-composite-cmpt[`cmpt` migration guide].
 
 [#tileformats-composite-overview]
 == Overview

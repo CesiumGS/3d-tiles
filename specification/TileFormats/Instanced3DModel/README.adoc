@@ -22,7 +22,7 @@ ifndef::env-github[]
 :url-specification-tileformats-gltf-migration:
 endif::[]
 
-WARNING: Instanced 3D Model was deprecated in 3D Tiles 1.1. See See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-instanced-3d-model-i3dm[`i3dm` migration guide].
+WARNING: Instanced 3D Model was deprecated in 3D Tiles 1.1. See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-instanced-3d-model-i3dm[`i3dm` migration guide].
 
 [#tileformats-instanced3dmodel-overview]
 == Overview
