@@ -55,11 +55,11 @@ The header will also contain `batchTableJSONByteLength` and `batchTableBinaryByt
 [#tileformats-batchtable-padding]
 === Padding
 
-The JSON header must end on an 8-byte boundary within the containing tile binary. The JSON header must be padded with trailing Space characters (`0x20`) to satisfy this requirement.
+The JSON header shall end on an 8-byte boundary within the containing tile binary. The JSON header shall be padded with trailing Space characters (`0x20`) to satisfy this requirement.
 
-The binary body must start and end on an 8-byte boundary within the containing tile binary. The binary body must be padded with additional bytes, of any value, to satisfy this requirement.
+The binary body shall start and end on an 8-byte boundary within the containing tile binary. The binary body shall be padded with additional bytes, of any value, to satisfy this requirement.
 
-Binary properties must start at a byte offset that is a multiple of the size in bytes of the property's `componentType`. For example, a property with the component type `FLOAT` has 4 bytes per element, and therefore must start at an offset that is a multiple of `4`. Preceding binary properties must be padded with additional bytes, of any value, to satisfy this requirement.
+Binary properties shall start at a byte offset that is a multiple of the size in bytes of the property's `componentType`. For example, a property with the component type `FLOAT` has 4 bytes per element, and therefore shall start at an offset that is a multiple of `4`. Preceding binary properties shall be padded with additional bytes, of any value, to satisfy this requirement.
 
 [#tileformats-batchtable-json-header]
 === JSON header
@@ -70,20 +70,21 @@ Batch Table values can be represented in the JSON header in two different ways:
  ** Array elements can be any valid JSON data type, including objects and arrays.  Elements may be `null`.
  ** The length of each array is equal to `batchLength`, which is specified in each tile format.  This is the number of features in the tile.  For example, `batchLength` may be the number of models in a b3dm tile, the number of instances in a i3dm tile, or the number of points (or number of objects) in a pnts tile.
 . A reference to data in the binary body, denoted by an object with `byteOffset`, `componentType`, and `type` properties,  e.g., `"height" : { "byteOffset" : 24, "componentType" : "FLOAT", "type" : "SCALAR"}`.
- ** `byteOffset` specifies a zero-based offset relative to the start of the binary body. The value of `byteOffset` must be a multiple of the size in bytes of the property's `componentType`, e.g., a property with the component type `FLOAT` must have a `byteOffset` value that is a multiple of `4`.
+ ** `byteOffset` specifies a zero-based offset relative to the start of the binary body. The value of `byteOffset` shall be a multiple of the size in bytes of the property's `componentType`, e.g., a property with the component type `FLOAT` shall have a `byteOffset` value that is a multiple of `4`.
  ** `componentType` is the datatype of components in the attribute. Allowed values are `"BYTE"`, `"UNSIGNED_BYTE"`, `"SHORT"`, `"UNSIGNED_SHORT"`, `"INT"`, `"UNSIGNED_INT"`, `"FLOAT"`, and `"DOUBLE"`.
  ** `type` specifies if the property is a scalar or vector. Allowed values are `"SCALAR"`, `"VEC2"`, `"VEC3"`, and `"VEC4"`.
 
 The Batch Table JSON is a `UTF-8` string containing JSON.
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 In JavaScript, the Batch Table JSON can be extracted from an `ArrayBuffer` using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
 ====
 
 A `batchId` is used to access elements in each array and extract the corresponding properties. For example, the following Batch Table has properties for a batch of two features:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -96,6 +97,7 @@ A `batchId` is used to access elements in each array and extract the correspondi
 
 The properties for the feature with `batchId = 0` are
 
+[%unnumbered]
 [source,javascript]
 ----
 id[0] = 'unique id';
@@ -106,6 +108,7 @@ address[0] = {street : 'Main Street', houseNumber : '1'};
 
 The properties for `batchId = 1` are
 
+[%unnumbered]
 [source,javascript]
 ----
 id[1] = 'another unique id';
@@ -126,6 +129,7 @@ Values can be retrieved using the number of features, `batchLength`; the desired
 
 The following tables can be used to compute the byte size of a property.
 
+.Sizes of component types
 [cols="1,1"]
 |===
 | `componentType` | Size in bytes
@@ -155,6 +159,7 @@ The following tables can be used to compute the byte size of a property.
 | 8
 |===
 
+.Numbers of components for elements
 [cols="1,1"]
 |===
 | `type` | Number of components
@@ -182,10 +187,11 @@ The following extensions can be applied to a Batch Table.
 [#tileformats-batchtable-implementation-example]
 == Implementation example
 
-_This section is non-normative_
+_This section is informative_
 
 The following examples access the `"height"` and `"geographic"` values respectively given the following Batch Table JSON with `batchLength` of 10:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -204,6 +210,7 @@ The following examples access the `"height"` and `"geographic"` values respectiv
 
 To get the `"height"` values:
 
+[%unnumbered]
 [source,javascript]
 ----
 var height = batchTableJSON.height;
@@ -218,6 +225,7 @@ var heightOfFeature = heightArray[batchId];
 
 To get the `"geographic"` values:
 
+[%unnumbered]
 [source,javascript]
 ----
 var geographic = batchTableJSON.geographic;

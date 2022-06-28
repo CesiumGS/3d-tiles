@@ -3,7 +3,7 @@
     "$id": "content.3DTILES_metadata.schema.json",
     "title": "3DTILES_metadata tile content extension",
     "$ref": "metadataEntity.schema.json",
-    "description": "An object containing metadata about content. This extension must not be added to contents of tiles using the `3DTILES_implicit_tiling` extension since content metadata is provided separately in the subtrees.",
+    "description": "An object containing metadata about content. This extension shall not be added to contents of tiles using the `3DTILES_implicit_tiling` extension since content metadata is provided separately in the subtrees.",
     "properties": {
         "group": {
             "type": "integer",

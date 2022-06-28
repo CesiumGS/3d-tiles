@@ -1,6 +1,7 @@
 [#reference-schema-asset]
 = JSON Schema for Asset
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -29,6 +30,7 @@
 [#reference-schema-availability]
 = JSON Schema for Availability
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -86,6 +88,7 @@
 [#reference-schema-b3dm-featuretable]
 = JSON Schema for Batched 3D Model Feature Table
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -115,6 +118,7 @@
 [#reference-schema-batchtable]
 = JSON Schema for Batch Table
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -217,6 +221,7 @@
 [#reference-schema-boundingvolume]
 = JSON Schema for Bounding Volume
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -262,6 +267,7 @@
 [#reference-schema-buffer]
 = JSON Schema for Buffer
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -297,6 +303,7 @@
 [#reference-schema-bufferview]
 = JSON Schema for Buffer View
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -339,6 +346,7 @@
 [#reference-schema-class]
 = JSON Schema for Class
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -360,7 +368,7 @@
         },
         "properties": {
             "type": "object",
-            "description": "A dictionary, where each key is a property ID and each value is an object defining the property. Property IDs must be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.",
+            "description": "A dictionary, where each key is a property ID and each value is an object defining the property. Property IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.",
             "minProperties": 1,
             "additionalProperties": {
                 "$ref": "class.property.schema.json"
@@ -374,6 +382,7 @@
 [#reference-schema-class-property]
 = JSON Schema for Class Property
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -485,7 +494,7 @@
         },
         "normalized": {
             "type": "boolean",
-            "description": "Specifies whether integer values are normalized. Only applicable to `SCALAR`, `VECN`, and `MATN` types with integer component types. For unsigned integer component types, values are normalized between `[0.0, 1.0]`. For signed integer component types, values are normalized between `[-1.0, 1.0]`. For all other component types, this property must be false.",
+            "description": "Specifies whether integer values are normalized. Only applicable to `SCALAR`, `VECN`, and `MATN` types with integer component types. For unsigned integer component types, values are normalized between `[0.0, 1.0]`. For signed integer component types, values are normalized between `[-1.0, 1.0]`. For all other component types, this property shall be false.",
             "default": false
         },
         "offset": {
@@ -506,16 +515,16 @@
         },
         "required": {
             "type": "boolean",
-            "description": "If required, the property must be present in every entity conforming to the class. If not required, individual entities may include `noData` values, or the entire property may be omitted. As a result, `noData` has no effect on a required property. Client implementations may use required properties to make performance optimizations.",
+            "description": "If required, the property shall be present in every entity conforming to the class. If not required, individual entities may include `noData` values, or the entire property may be omitted. As a result, `noData` has no effect on a required property. Client implementations may use required properties to make performance optimizations.",
             "default": false
         },
         "noData": {
             "$ref": "definitions.schema.json#/definitions/noDataValue",
-            "description": "A `noData` value represents missing data — also known as a sentinel value — wherever it appears. `BOOLEAN` properties may not specify `noData` values. This is given as the plain property value, without the transforms from the `normalized`, `offset`, and `scale` properties. Must not be defined if `required` is true."
+            "description": "A `noData` value represents missing data — also known as a sentinel value — wherever it appears. `BOOLEAN` properties may not specify `noData` values. This is given as the plain property value, without the transforms from the `normalized`, `offset`, and `scale` properties. Shall not be defined if `required` is true."
         },
         "default": {
             "$ref": "definitions.schema.json#/definitions/anyValue",
-            "description": "A default value to use when encountering a `noData` value or an omitted property. The value is given in its final form, taking the effect of `normalized`, `offset`, and `scale` properties into account. Must not be defined if `required` is true."
+            "description": "A default value to use when encountering a `noData` value or an omitted property. The value is given in its final form, taking the effect of `normalized`, `offset`, and `scale` properties into account. Shall not be defined if `required` is true."
         },
         "semantic": {
             "type": "string",
@@ -533,6 +542,7 @@
 [#reference-schema-content]
 = JSON Schema for Content
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -570,6 +580,7 @@
 [#reference-schema-definitions]
 = JSON Schema for Definitions
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -642,7 +653,7 @@
                     "$ref": "#/definitions/stringArray1D"
                 }
             ],
-            "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`."
+            "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that shall be a valid enum `name`, not an integer value. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`."
         },
         "anyValue": {
             "title": "Any Value",
@@ -663,7 +674,7 @@
                     "$ref": "#/definitions/booleanArray1D"
                 }
             ],
-            "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `BOOLEAN` this is a boolean. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length array this is an array of `count` elements of the given `type`. For variable-length arrays this is an array of any length of the given `type`."
+            "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that shall be a valid enum `name`, not an integer value. For `BOOLEAN` this is a boolean. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length array this is an array of `count` elements of the given `type`. For variable-length arrays this is an array of any length of the given `type`."
         }
     }
 }
@@ -673,6 +684,7 @@
 [#reference-schema-enum]
 = JSON Schema for Enum
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -744,6 +756,7 @@
 [#reference-schema-enum-value]
 = JSON Schema for Enum value
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -779,6 +792,7 @@
 [#reference-schema-extension]
 = JSON Schema for Extension
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -797,6 +811,7 @@
 [#reference-schema-extras]
 = JSON Schema for Extras
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -811,6 +826,7 @@
 [#reference-schema-featuretable]
 = JSON Schema for Feature Table
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -975,6 +991,7 @@
 [#reference-schema-group]
 = JSON Schema for Group Metadata
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -990,6 +1007,7 @@
 [#reference-schema-i3dm-featuretable]
 = JSON Schema for Instanced 3D Model Feature Table
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1097,6 +1115,7 @@
 [#reference-schema-metadataentity]
 = JSON Schema for Metadata Entity
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1108,11 +1127,11 @@
     "properties": {
         "class": {
             "type": "string",
-            "description": "The class that property values conform to. The value must be a class ID declared in the `classes` dictionary of the metadata schema."
+            "description": "The class that property values conform to. The value shall be a class ID declared in the `classes` dictionary of the metadata schema."
         },
         "properties": {
             "type": "object",
-            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties must be included in this dictionary.",
+            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value shall match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties shall be included in this dictionary.",
             "minProperties": 1,
             "additionalProperties": {
                 "$ref": "definitions.schema.json#/definitions/anyValue"
@@ -1129,6 +1148,7 @@
 [#reference-schema-pnts-featuretable]
 = JSON Schema for Point Cloud Feature Table
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1227,6 +1247,7 @@
 [#reference-schema-properties]
 = JSON Schema for Properties
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1256,6 +1277,7 @@
 [#reference-schema-propertytable]
 = JSON Schema for Property Table
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1272,7 +1294,7 @@
         },
         "class": {
             "type": "string",
-            "description": "The class that property values conform to. The value must be a class ID declared in the `classes` dictionary."
+            "description": "The class that property values conform to. The value shall be a class ID declared in the `classes` dictionary."
         },
         "count": {
             "type": "integer",
@@ -1281,7 +1303,7 @@
         },
         "properties": {
             "type": "object",
-            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Required properties must be included in this dictionary.",
+            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Required properties shall be included in this dictionary.",
             "minProperties": 1,
             "additionalProperties": {
                 "$ref": "propertyTable.property.schema.json"
@@ -1299,6 +1321,7 @@
 [#reference-schema-propertytable-property]
 = JSON Schema for Property Table Property
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1311,17 +1334,17 @@
         "values": {
             "type": "integer",
             "minimum": 0,
-            "description": "The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitstream. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is `SCALAR`, `VECN`, or `MATN` the values are stored as the provided `componentType` and the buffer view `byteOffset` must be aligned to a multiple of the `componentType` size. When `type` is `ENUM` values are stored as the enum's `valueType` and the buffer view `byteOffset` must be aligned to a multiple of the `valueType` size. Each enum value in the array must match one of the allowed values in the enum definition. `arrayOffsets` is required for variable-length arrays and `stringOffsets` is required for strings (for variable-length arrays of strings, both are required)."
+            "description": "The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitstream. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is `SCALAR`, `VECN`, or `MATN` the values are stored as the provided `componentType` and the buffer view `byteOffset` shall be aligned to a multiple of the `componentType` size. When `type` is `ENUM` values are stored as the enum's `valueType` and the buffer view `byteOffset` shall be aligned to a multiple of the `valueType` size. Each enum value in the array shall match one of the allowed values in the enum definition. `arrayOffsets` is required for variable-length arrays and `stringOffsets` is required for strings (for variable-length arrays of strings, both are required)."
         },
         "arrayOffsets": {
             "type": "integer",
             "minimum": 0,
-            "description": "The index of the buffer view containing offsets for variable-length arrays. The number of offsets is equal to the property table `count` plus one. The offsets represent the start positions of each array, with the last offset representing the position after the last array. The array length is computed using the difference between the subsequent offset and the current offset. If `type` is `STRING` the offsets index into the string offsets array (stored in `stringOffsets`), otherwise they index into the property array (stored in `values`). The data type of these offsets is determined by `arrayOffsetType`. The buffer view `byteOffset` must be aligned to a multiple of the `arrayOffsetType` size."
+            "description": "The index of the buffer view containing offsets for variable-length arrays. The number of offsets is equal to the property table `count` plus one. The offsets represent the start positions of each array, with the last offset representing the position after the last array. The array length is computed using the difference between the subsequent offset and the current offset. If `type` is `STRING` the offsets index into the string offsets array (stored in `stringOffsets`), otherwise they index into the property array (stored in `values`). The data type of these offsets is determined by `arrayOffsetType`. The buffer view `byteOffset` shall be aligned to a multiple of the `arrayOffsetType` size."
         },
         "stringOffsets": {
             "type": "integer",
             "minimum": 0,
-            "description": "The index of the buffer view containing offsets for strings. The number of offsets is equal to the number of string elements plus one. The offsets represent the byte offsets of each string in the property array (stored in `values`), with the last offset representing the byte offset after the last string. The string byte length is computed using the difference between the subsequent offset and the current offset. The data type of these offsets is determined by `stringOffsetType`. The buffer view `byteOffset` must be aligned to a multiple of the `stringOffsetType` size."
+            "description": "The index of the buffer view containing offsets for strings. The number of offsets is equal to the number of string elements plus one. The offsets represent the byte offsets of each string in the property array (stored in `values`), with the last offset representing the byte offset after the last string. The string byte length is computed using the difference between the subsequent offset and the current offset. The data type of these offsets is determined by `stringOffsetType`. The buffer view `byteOffset` shall be aligned to a multiple of the `stringOffsetType` size."
         },
         "arrayOffsetType": {
             "description": "The type of values in `arrayOffsets`.",
@@ -1392,6 +1415,7 @@
 [#reference-schema-rootproperty]
 = JSON Schema for Root Property
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1415,6 +1439,7 @@
 [#reference-schema-schema]
 = JSON Schema for Schema
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1427,7 +1452,7 @@
         "id": {
             "type": "string",
             "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$",
-            "description": "Unique identifier for the schema. Schema IDs must be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`."
+            "description": "Unique identifier for the schema. Schema IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`."
         },
         "name": {
             "type": "string",
@@ -1446,7 +1471,7 @@
         },
         "classes": {
             "type": "object",
-            "description": "A dictionary, where each key is a class ID and each value is an object defining the class. Class IDs must be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.",
+            "description": "A dictionary, where each key is a class ID and each value is an object defining the class. Class IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.",
             "minProperties": 1,
             "additionalProperties": {
                 "$ref": "class.schema.json"
@@ -1454,7 +1479,7 @@
         },
         "enums": {
             "type": "object",
-            "description": "A dictionary, where each key is an enum ID and each value is an object defining the values for the enum. Enum IDs must be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.",
+            "description": "A dictionary, where each key is an enum ID and each value is an object defining the values for the enum. Enum IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.",
             "minProperties": 1,
             "additionalProperties": {
                 "$ref": "enum.schema.json"
@@ -1471,6 +1496,7 @@
 [#reference-schema-statistics]
 = JSON Schema for Statistics
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1496,6 +1522,7 @@
 [#reference-schema-statistics-class]
 = JSON Schema for Class Statistics
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1526,6 +1553,7 @@
 [#reference-schema-statistics-class-property]
 = JSON Schema for Property Statistics
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1590,6 +1618,7 @@
 [#reference-schema-style]
 = JSON Schema for Style
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1642,6 +1671,7 @@
 [#reference-schema-style-booleanexpression]
 = JSON Schema for Boolean Expression
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1660,6 +1690,7 @@
 [#reference-schema-style-colorexpression]
 = JSON Schema for Color Expression
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1675,6 +1706,7 @@
 [#reference-schema-style-conditions]
 = JSON Schema for Conditions
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1686,7 +1718,7 @@
     "properties": {
         "conditions": {
             "type": "array",
-            "description": "A series of boolean conditions evaluated in order. For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned. Result expressions must all be the same type. If no condition evaluates to true, the result is `undefined`. When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.",
+            "description": "A series of boolean conditions evaluated in order. For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned. Result expressions shall all be the same type. If no condition evaluates to true, the result is `undefined`. When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.",
             "items": {
                 "$ref": "style.conditions.condition.schema.json"
             }
@@ -1699,6 +1731,7 @@
 [#reference-schema-style-conditions-condition]
 = JSON Schema for Condition
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1719,6 +1752,7 @@
 [#reference-schema-style-expression]
 = JSON Schema for Expression
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1734,6 +1768,7 @@
 [#reference-schema-style-meta]
 = JSON Schema for Meta
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1752,6 +1787,7 @@
 [#reference-schema-subtree]
 = JSON Schema for Subtree
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1787,7 +1823,7 @@
         },
         "tileAvailability": {
             "$ref": "availability.schema.json",
-            "description": "The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a buffer view or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability must also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees must have at least one tile."
+            "description": "The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a buffer view or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability shall also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees shall have at least one tile."
         },
         "contentAvailability": {
             "type": "array",
@@ -1831,6 +1867,7 @@
 [#reference-schema-subtrees]
 = JSON Schema for Subtrees
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1842,7 +1879,7 @@
     "properties": {
         "uri": {
             "$ref": "templateUri.schema.json",
-            "description": "A template URI pointing to subtree files. A subtree is a fixed-depth (defined by `subtreeLevels`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree root's global level, x, and y. For subdivision scheme `OCTREE`, z must also be given. Relative paths are relative to the tileset JSON."
+            "description": "A template URI pointing to subtree files. A subtree is a fixed-depth (defined by `subtreeLevels`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree root's global level, x, and y. For subdivision scheme `OCTREE`, z shall also be given. Relative paths are relative to the tileset JSON."
         }
     },
     "required": [
@@ -1855,6 +1892,7 @@
 [#reference-schema-templateuri]
 = JSON Schema for Template URI
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1870,6 +1908,7 @@
 [#reference-schema-tile]
 = JSON Schema for Tile
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1884,7 +1923,7 @@
             "$ref": "boundingVolume.schema.json"
         },
         "viewerRequestVolume": {
-            "description": "Optional bounding volume that defines the volume the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.",
+            "description": "Optional bounding volume that defines the volume the viewer shall be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.",
             "$ref": "boundingVolume.schema.json"
         },
         "geometricError": {
@@ -1934,12 +1973,12 @@
             ]
         },
         "content": {
-            "description": "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. When this is defined, then `contents` must be undefined.",
+            "description": "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. When this is defined, then `contents` shall be undefined.",
             "$ref": "content.schema.json"
         },
         "contents": {
             "type": "array",
-            "description": "An array of contents. When this is defined, then `content` must be undefined.",
+            "description": "An array of contents. When this is defined, then `content` shall be undefined.",
             "items": {
                 "$ref": "content.schema.json"
             },
@@ -1980,6 +2019,7 @@
 [#reference-schema-tile-implicittiling]
 = JSON Schema for Implicit tiling
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -2031,6 +2071,7 @@
 [#reference-schema-tileset]
 = JSON Schema for Tileset
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -2054,11 +2095,11 @@
         },
         "schema": {
             "$ref": "schema.schema.json",
-            "description": "An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` must be undefined."
+            "description": "An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` shall be undefined."
         },
         "schemaUri": {
             "type": "string",
-            "description": "The URI (or IRI) of the external schema file. When this is defined, then `schema` must be undefined.",
+            "description": "The URI (or IRI) of the external schema file. When this is defined, then `schema` shall be undefined.",
             "format": "iri-reference"
         },
         "statistics": {

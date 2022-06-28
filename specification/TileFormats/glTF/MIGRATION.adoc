@@ -23,7 +23,6 @@ endif::[]
 This section describes how legacy tile formats can be converted into equivalent glTF content.
 
 [#tileformats-gltf-batched-3d-model-b3dm]
-[discrete]
 == Batched 3D Model (b3dm)
 
 xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model] is a wrapper around a binary glTF that includes additional information in its Feature Table and Batch Table. Batched 3D Model content can be converted into glTF content with the following changes:
@@ -35,7 +34,6 @@ xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batch
 image::figures/migration-b3dm.png[b3dm]
 
 [#tileformats-gltf-instanced-3d-model-i3dm]
-[discrete]
 == Instanced 3D Model (i3dm)
 
 
@@ -50,7 +48,6 @@ xref:{url-specification-tileformats-instanced3dmodel}README.adoc#tileformats-ins
 image::figures/migration-i3dm.png[i3dm]
 
 [#tileformats-gltf-point-cloud-pnts]
-[discrete]
 == Point Cloud (pnts)
 
 xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud] can be represented as a glTF using the primitive mode `0` (`POINTS`).
@@ -65,7 +62,6 @@ xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointclou
 image::figures/migration-pnts.png[pnts]
 
 [#tileformats-gltf-composite-cmpt]
-[discrete]
 == Composite (cmpt)
 
 All inner contents of a xref:{url-specification-tileformats-composite}README.adoc#tileformats-composite-composite[Composite] may be combined into the same glTF as separate nodes, meshes, or primitives, at the tileset author's discretion. Alternatively, a tile may have xref:{url-specification}README.adoc#core-tile-content[multiple contents].

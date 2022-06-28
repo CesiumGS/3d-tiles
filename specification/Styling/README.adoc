@@ -31,6 +31,7 @@ Styles are defined with JSON and expressions written in a small subset of JavaSc
 
 The following example assigns a color based on building height.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -58,6 +59,7 @@ Visual properties available for styling features are the `show` property, the as
 
 The following style assigns the default show and color properties to each feature:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -68,6 +70,7 @@ The following style assigns the default show and color properties to each featur
 
 Instead of showing all features, `show` can be an expression dependent on a feature's properties, for example, the following expression will show only features in the 19341 zip code:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -77,6 +80,7 @@ Instead of showing all features, `show` can be an expression dependent on a feat
 
 `show` can also be used for more complex queries; for example, here a compound condition and regular expression are used to show only features whose county starts with `'Chest'` and whose year built is greater than or equal to 1970:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -86,6 +90,7 @@ Instead of showing all features, `show` can be an expression dependent on a feat
 
 Colors can also be defined by expressions dependent on a feature's properties. For example, the following expression colors features with a temperature above 90 as red and the others as white:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -95,6 +100,7 @@ Colors can also be defined by expressions dependent on a feature's properties. F
 
 The color's alpha component defines the feature's opacity. For example, the following sets the feature's RGB color components from the feature's properties and makes features with volume greater than 100 transparent:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -109,6 +115,7 @@ In addition to a string containing an expression, `color` and `show` can be an a
 
 For example, the following expression maps an ID property to colors. Conditions are evaluated in order, so if `+${id}+` is not `'1'` or `'2'`, the `"true"` condition returns white. If no conditions are met, the color of the feature will be `undefined`:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -124,6 +131,7 @@ For example, the following expression maps an ID property to colors. Conditions 
 
 The next example shows how to use conditions to create a color ramp using intervals with an inclusive lower bound and exclusive upper bound:
 
+[%unnumbered]
 [source,json]
 ----
 "color" : {
@@ -140,6 +148,7 @@ The next example shows how to use conditions to create a color ramp using interv
 
 Since conditions are evaluated in order, the above can be written more concisely as the following:
 
+[%unnumbered]
 [source,json]
 ----
 "color" : {
@@ -159,6 +168,7 @@ Since conditions are evaluated in order, the above can be written more concisely
 
 Commonly used expressions may be stored in a `defines` object with a variable name as a key. If a variable references the name of a defined expression, it is replaced with the result of the referenced evaluated expression:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -179,6 +189,7 @@ Commonly used expressions may be stored in a `defines` object with a variable na
 
 A define expression may not reference other defines; however, it may reference feature properties with the same name. In the style below a feature of height 150 gets the color red:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -199,6 +210,7 @@ A define expression may not reference other defines; however, it may reference f
 
 Non-visual properties of a feature can be defined using the `meta` property. For example, the following sets a `description` meta property to a string containing the feature name:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -210,6 +222,7 @@ Non-visual properties of a feature can be defined using the `meta` property. For
 
 A meta property expression can evaluate to any type. For example:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -226,7 +239,7 @@ A meta property expression can evaluate to any type. For example:
 The language for expressions is a small subset of JavaScript (http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf[EMCAScript 5]), plus native vector and regular expression types and access to tileset feature properties in the form of readonly variables.
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 CesiumJS uses the https://ericsmekens.github.io/jsep/[jsep] JavaScript expression parser library to parse style expressions into an https://en.wikipedia.org/wiki/Abstract_syntax_tree[abstract syntax tree (AST)].
 ====
@@ -450,6 +463,7 @@ Regular expressions support these functions:
 
 For example:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -457,6 +471,8 @@ For example:
 }
 ----
 
+[%unnumbered]
+[source,javascript]
 ----
 regExp('a').test('abc') === true
 regExp('a(.)', 'i').exec('Abc') === 'b'
@@ -473,6 +489,8 @@ The operators `=~` and `!~` are overloaded for regular expressions. The `=~` ope
 
 For example, the following expressions all evaluate to true:
 
+[%unnumbered]
+[source,javascript]
 ----
 regExp('a') =~ 'abc'
 'abc' =~ regExp('a')
@@ -508,7 +526,7 @@ regExp('a') !~ 'bcd'
  ** Vector expressions of the same type
 * Binary equality operators `===` and `!==` operate on any expressions. The operation returns `false` if the expression types do not match.
 * Binary `regExp` operators `=~` and `!~` require one argument to be a string expression and the other to be a `RegExp` expression.
-* Ternary operator `? :` conditional argument must be a boolean expression.
+* Ternary operator `? :` conditional argument shall be a boolean expression.
 
 [#styling-type-conversions]
 === Type conversions
@@ -521,6 +539,8 @@ Explicit conversions between primitive types are handled with `Boolean`, `Number
 
 For example:
 
+[%unnumbered]
+[source,javascript]
 ----
 Boolean(1) === true
 Number('1') === 1
@@ -567,6 +587,7 @@ The following constants are supported by the styling language:
 
 The mathematical constant PI, which represents a circle's circumference divided by its diameter, approximately `3.14159`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -581,6 +602,7 @@ The mathematical constant PI, which represents a circle's circumference divided 
 
 Euler's constant and the base of the natural logarithm, approximately `2.71828`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -595,7 +617,8 @@ Variables are used to retrieve the property values of individual features in a t
 
 Variables can be used anywhere a valid expression is accepted, except inside other variable identifiers. For example, the following is not allowed:
 
-----
+[%unnumbered]
+[source]
 ${foo[${bar}]}
 ----
 
@@ -612,6 +635,7 @@ Variables may be any of the supported native JavaScript types:
 
 For example:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -622,6 +646,8 @@ For example:
 }
 ----
 
+[%unnumbered]
+[source]
 ----
 ${enabled} === true
 ${description} === null
@@ -631,6 +657,7 @@ ${name} === 'Feature name'
 
 Additionally, variables originating from vector properties stored in the xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-binary-body[Batch Table binary] are treated as vector types:
 
+.Vector type variables
 [cols="1,1"]
 |===
 | `componentType` | variable type
@@ -647,6 +674,8 @@ Additionally, variables originating from vector properties stored in the xref:{u
 
 Variables can be used to construct colors or vectors. For example:
 
+[%unnumbered]
+[source]
 ----
 rgba(${red}, ${green}, ${blue}, ${alpha})
 vec4(${temperature})
@@ -654,6 +683,7 @@ vec4(${temperature})
 
 Dot or bracket notation is used to access feature subproperties. For example:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -664,6 +694,8 @@ Dot or bracket notation is used to access feature subproperties. For example:
 }
 ----
 
+[%unnumbered]
+[source]
 ----
 ${address.street} === `Example street`
 ${address['street']} === `Example street`
@@ -676,6 +708,7 @@ Bracket notation supports only string literals.
 
 Top-level properties can be accessed with bracket notation by explicitly using the `feature` keyword. For example:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -686,6 +719,8 @@ Top-level properties can be accessed with bracket notation by explicitly using t
 }
 ----
 
+[%unnumbered]
+[source]
 ----
 ${address.street} === `Oak Street`
 ${feature.address.street} === `Oak Street`
@@ -695,6 +730,7 @@ ${feature['address.street']} === `Maple Street`
 
 To access a feature named `feature`, use the variable `+${feature}+`. This is equivalent to accessing `${feature.feature}`
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -702,6 +738,8 @@ To access a feature named `feature`, use the variable `+${feature}+`. This is eq
 }
 ----
 
+[%unnumbered]
+[source]
 ----
 ${feature} === `building`
 ${feature.feature} === `building`
@@ -709,6 +747,7 @@ ${feature.feature} === `building`
 
 Variables can also be substituted inside strings defined with backticks, for example:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -717,12 +756,15 @@ Variables can also be substituted inside strings defined with backticks, for exa
 }
 ----
 
+[%unnumbered]
+[source]
 ----
 `Name is ${name}, order is ${order}`
 ----
 
 Bracket notation is used to access feature subproperties or arrays.  For example:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -733,6 +775,8 @@ Bracket notation is used to access feature subproperties or arrays.  For example
 }
 ----
 
+[%unnumbered]
+[source]
 ----
 ${temperatures['scale']} === 'fahrenheit'
 ${temperatures.values[0]} === 70
@@ -782,6 +826,8 @@ Many of the built-in functions take either scalars or vectors as arguments. For 
 [#styling-abs]
 ==== abs
 
+[%unnumbered]
+[source]
 ----
 abs(x : Number) : Number
 abs(x : vec2) : vec2
@@ -791,6 +837,7 @@ abs(x : vec4) : vec4
 
 Returns the absolute value of `x`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -803,6 +850,8 @@ Returns the absolute value of `x`.
 [#styling-sqrt]
 ==== sqrt
 
+[%unnumbered]
+[source]
 ----
 sqrt(x : Number) : Number
 sqrt(x : vec2) : vec2
@@ -812,6 +861,7 @@ sqrt(x : vec4) : vec4
 
 Returns the square root of `x` when `x >= 0`. Returns `NaN` when `x < 0`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -829,6 +879,8 @@ Returns the square root of `x` when `x >= 0`. Returns `NaN` when `x < 0`.
 [#styling-cos]
 ==== cos
 
+[%unnumbered]
+[source]
 ----
 cos(angle : Number) : Number
 cos(angle : vec2) : vec2
@@ -838,6 +890,7 @@ cos(angle : vec4) : vec4
 
 Returns the cosine of `angle` in radians.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -850,6 +903,8 @@ Returns the cosine of `angle` in radians.
 [#styling-sin]
 ==== sin
 
+[%unnumbered]
+[source]
 ----
 sin(angle : Number) : Number
 sin(angle : vec2) : vec2
@@ -859,6 +914,7 @@ sin(angle : vec4) : vec4
 
 Returns the sine of `angle` in radians.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -871,6 +927,8 @@ Returns the sine of `angle` in radians.
 [#styling-tan]
 ==== tan
 
+[%unnumbered]
+[source]
 ----
 tan(angle : Number) : Number
 tan(angle : vec2) : vec2
@@ -880,6 +938,7 @@ tan(angle : vec4) : vec4
 
 Returns the tangent of `angle` in radians.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -892,6 +951,8 @@ Returns the tangent of `angle` in radians.
 [#styling-acos]
 ==== acos
 
+[%unnumbered]
+[source]
 ----
 acos(angle : Number) : Number
 acos(angle : vec2) : vec2
@@ -901,6 +962,7 @@ acos(angle : vec4) : vec4
 
 Returns the arccosine of `angle` in radians.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -913,6 +975,8 @@ Returns the arccosine of `angle` in radians.
 [#styling-asin]
 ==== asin
 
+[%unnumbered]
+[source]
 ----
 asin(angle : Number) : Number
 asin(angle : vec2) : vec2
@@ -922,6 +986,7 @@ asin(angle : vec4) : vec4
 
 Returns the arcsine of `angle` in radians.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -934,6 +999,8 @@ Returns the arcsine of `angle` in radians.
 [#styling-atan]
 ==== atan
 
+[%unnumbered]
+[source]
 ----
 atan(angle : Number) : Number
 atan(angle : vec2) : vec2
@@ -943,6 +1010,7 @@ atan(angle : vec4) : vec4
 
 Returns the arctangent of `angle` in radians.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -955,6 +1023,8 @@ Returns the arctangent of `angle` in radians.
 [#styling-atan2]
 ==== atan2
 
+[%unnumbered]
+[source]
 ----
 atan2(y : Number, x : Number) : Number
 atan2(y : vec2, x : vec2) : vec2
@@ -964,6 +1034,7 @@ atan2(y : vec4, x : vec4) : vec4
 
 Returns the arctangent of the quotient of `y` and `x`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -976,6 +1047,8 @@ Returns the arctangent of the quotient of `y` and `x`.
 [#styling-radians]
 ==== radians
 
+[%unnumbered]
+[source]
 ----
 radians(angle : Number) : Number
 radians(angle : vec2) : vec2
@@ -985,6 +1058,7 @@ radians(angle : vec4) : vec4
 
 Converts `angle` from degrees to radians.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -997,6 +1071,8 @@ Converts `angle` from degrees to radians.
 [#styling-degrees]
 ==== degrees
 
+[%unnumbered]
+[source]
 ----
 degrees(angle : Number) : Number
 degrees(angle : vec2) : vec2
@@ -1006,6 +1082,7 @@ degrees(angle : vec4) : vec4
 
 Converts `angle` from radians to degrees.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1018,6 +1095,8 @@ Converts `angle` from radians to degrees.
 [#styling-sign]
 ==== sign
 
+[%unnumbered]
+[source]
 ----
 sign(x : Number) : Number
 sign(x : vec2) : vec2
@@ -1027,6 +1106,7 @@ sign(x : vec4) : vec4
 
 Returns 1.0 when `x` is positive, 0.0 when `x` is zero, and -1.0 when `x` is negative.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1039,6 +1119,8 @@ Returns 1.0 when `x` is positive, 0.0 when `x` is zero, and -1.0 when `x` is neg
 [#styling-floor]
 ==== floor
 
+[%unnumbered]
+[source]
 ----
 floor(x : Number) : Number
 floor(x : vec2) : vec2
@@ -1048,6 +1130,7 @@ floor(x : vec4) : vec4
 
 Returns the nearest integer less than or equal to `x`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1060,6 +1143,8 @@ Returns the nearest integer less than or equal to `x`.
 [#styling-ceil]
 ==== ceil
 
+[%unnumbered]
+[source]
 ----
 ceil(x : Number) : Number
 ceil(x : vec2) : vec2
@@ -1069,6 +1154,7 @@ ceil(x : vec4) : vec4
 
 Returns the nearest integer greater than or equal to `x`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1081,6 +1167,8 @@ Returns the nearest integer greater than or equal to `x`.
 [#styling-round]
 ==== round
 
+[%unnumbered]
+[source]
 ----
 round(x : Number) : Number
 round(x : vec2) : vec2
@@ -1090,6 +1178,7 @@ round(x : vec4) : vec4
 
 Returns the nearest integer to `x`. A number with a fraction of 0.5 will round in an implementation-defined direction.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1102,6 +1191,8 @@ Returns the nearest integer to `x`. A number with a fraction of 0.5 will round i
 [#styling-exp]
 ==== exp
 
+[%unnumbered]
+[source]
 ----
 exp(x : Number) : Number
 exp(x : vec2) : vec2
@@ -1111,6 +1202,7 @@ exp(x : vec4) : vec4
 
 Returns `e` to the power of `x`, where `e` is Euler's constant, approximately `2.71828`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1123,6 +1215,8 @@ Returns `e` to the power of `x`, where `e` is Euler's constant, approximately `2
 [#styling-log]
 ==== log
 
+[%unnumbered]
+[source]
 ----
 log(x : Number) : Number
 log(x : vec2) : vec2
@@ -1132,6 +1226,7 @@ log(x : vec4) : vec4
 
 Returns the natural logarithm (base `e`) of `x`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1144,6 +1239,8 @@ Returns the natural logarithm (base `e`) of `x`.
 [#styling-exp2]
 ==== exp2
 
+[%unnumbered]
+[source]
 ----
 exp2(x : Number) : Number
 exp2(x : vec2) : vec2
@@ -1153,6 +1250,7 @@ exp2(x : vec4) : vec4
 
 Returns 2 to the power of `x`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1165,6 +1263,8 @@ Returns 2 to the power of `x`.
 [#styling-log2]
 ==== log2
 
+[%unnumbered]
+[source]
 ----
 log2(x : Number) : Number
 log2(x : vec2) : vec2
@@ -1174,6 +1274,7 @@ log2(x : vec4) : vec4
 
 Returns the base 2 logarithm of `x`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1186,6 +1287,8 @@ Returns the base 2 logarithm of `x`.
 [#styling-fract]
 ==== fract
 
+[%unnumbered]
+[source]
 ----
 fract(x : Number) : Number
 fract(x : vec2) : vec2
@@ -1195,6 +1298,7 @@ fract(x : vec4) : vec4
 
 Returns the fractional part of `x`. Equivalent to `x - floor(x)`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1207,6 +1311,8 @@ Returns the fractional part of `x`. Equivalent to `x - floor(x)`.
 [#styling-pow]
 ==== pow
 
+[%unnumbered]
+[source]
 ----
 pow(base : Number, exponent : Number) : Number
 pow(base : vec2, exponent : vec2) : vec2
@@ -1216,6 +1322,7 @@ pow(base : vec4, exponent : vec4) : vec4
 
 Returns `base` raised to the power of `exponent`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1228,6 +1335,8 @@ Returns `base` raised to the power of `exponent`.
 [#styling-min]
 ==== min
 
+[%unnumbered]
+[source]
 ----
 min(x : Number, y : Number) : Number
 min(x : vec2, y : vec2) : vec2
@@ -1235,6 +1344,8 @@ min(x : vec3, y : vec3) : vec3
 min(x : vec4, y : vec4) : vec4
 ----
 
+[%unnumbered]
+[source]
 ----
 min(x : Number, y : Number) : Number
 min(x : vec2, y : Number) : vec2
@@ -1244,6 +1355,7 @@ min(x : vec4, y : Number) : vec4
 
 Returns the smaller of `x` and `y`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1256,6 +1368,8 @@ Returns the smaller of `x` and `y`.
 [#styling-max]
 ==== max
 
+[%unnumbered]
+[source]
 ----
 max(x : Number, y : Number) : Number
 max(x : vec2, y : vec2) : vec2
@@ -1263,6 +1377,8 @@ max(x : vec3, y : vec3) : vec3
 max(x : vec4, y : vec4) : vec4
 ----
 
+[%unnumbered]
+[source]
 ----
 max(x : Number, y : Number) : Number
 max(x : vec2, y : Number) : vec2
@@ -1272,6 +1388,7 @@ max(x : vec4, y : Number) : vec4
 
 Returns the larger of `x` and `y`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1284,6 +1401,8 @@ Returns the larger of `x` and `y`.
 [#styling-clamp]
 ==== clamp
 
+[%unnumbered]
+[source]
 ----
 clamp(x : Number,  min : Number, max : Number) : Number
 clamp(x : vec2,  min : vec2, max : vec2) : vec2
@@ -1291,6 +1410,8 @@ clamp(x : vec3,  min : vec3, max : vec3) : vec3
 clamp(x : vec4,  min : vec4, max : vec4) : vec4
 ----
 
+[%unnumbered]
+[source]
 ----
 clamp(x : Number,  min : Number, max : Number) : Number
 clamp(x : vec2,  min : Number, max : Number) : vec2
@@ -1300,6 +1421,7 @@ clamp(x : vec4,  min : Number, max : Number) : vec4
 
 Constrains `x` to lie between `min` and `max`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1312,6 +1434,8 @@ Constrains `x` to lie between `min` and `max`.
 [#styling-mix]
 ==== mix
 
+[%unnumbered]
+[source]
 ----
 mix(x : Number,  y : Number, a : Number) : Number
 mix(x : vec2,  y : vec2, a : vec2) : vec2
@@ -1319,6 +1443,8 @@ mix(x : vec3,  y : vec3, a : vec3) : vec3
 mix(x : vec4,  y : vec4, a : vec4) : vec4
 ----
 
+[%unnumbered]
+[source]
 ----
 mix(x : Number,  y : Number, a : Number) : Number
 mix(x : vec2,  y : vec2, a : Number) : vec2
@@ -1328,6 +1454,7 @@ mix(x : vec4,  y : vec4, a : Number) : vec4
 
 Computes the linear interpolation of `x` and `y`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1340,6 +1467,8 @@ Computes the linear interpolation of `x` and `y`.
 [#styling-length]
 ==== length
 
+[%unnumbered]
+[source]
 ----
 length(x : Number) : Number
 length(x : vec2) : vec2
@@ -1349,6 +1478,7 @@ length(x : vec4) : vec4
 
 Computes the length of vector `x`, i.e., the square root of the sum of the squared components. If `x` is a number, `length` returns `x`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1361,6 +1491,8 @@ Computes the length of vector `x`, i.e., the square root of the sum of the squar
 [#styling-distance]
 ==== distance
 
+[%unnumbered]
+[source]
 ----
 distance(x : Number, y : Number) : Number
 distance(x : vec2, y : vec2) : vec2
@@ -1370,6 +1502,7 @@ distance(x : vec4, y : vec4) : vec4
 
 Computes the distance between two points `x` and `y`, i.e., `length(x - y)`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1382,6 +1515,8 @@ Computes the distance between two points `x` and `y`, i.e., `length(x - y)`.
 [#styling-normalize]
 ==== normalize
 
+[%unnumbered]
+[source]
 ----
 normalize(x : Number) : Number
 normalize(x : vec2) : vec2
@@ -1391,6 +1526,7 @@ normalize(x : vec4) : vec4
 
 Returns a vector with length 1.0 that is parallel to `x`. When `x` is a number, `normalize` returns 1.0.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1403,6 +1539,8 @@ Returns a vector with length 1.0 that is parallel to `x`. When `x` is a number, 
 [#styling-dot]
 ==== dot
 
+[%unnumbered]
+[source]
 ----
 dot(x : Number, y : Number) : Number
 dot(x : vec2, y : vec2) : vec2
@@ -1412,6 +1550,7 @@ dot(x : vec4, y : vec4) : vec4
 
 Computes the dot product of `x` and `y`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1424,12 +1563,15 @@ Computes the dot product of `x` and `y`.
 [#styling-cross]
 ==== cross
 
+[%unnumbered]
+[source]
 ----
 cross(x : vec3, y : vec3) : vec3
 ----
 
 Computes the cross product of `x` and `y`. This function only accepts `vec3` arguments.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1447,6 +1589,7 @@ Comments are not supported.
 
 A xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud] is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a Point Cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1455,7 +1598,7 @@ A xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcl
 }
 ----
 
-Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`. A `pointSize` of `1.0` must be supported.
+Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`. A `pointSize` of `1.0` shall be supported.
 
 Point Cloud styles may also reference semantics from the xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-feature-table[Feature Table] including position, color, and normal to allow for more flexible styling of the source data.
 
@@ -1466,6 +1609,7 @@ Point Cloud styles may also reference semantics from the xref:{url-specification
 
 For example:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1476,7 +1620,7 @@ For example:
 ----
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Some of these features include:
 
@@ -1489,8 +1633,8 @@ Point cloud styling engines may often use a shader (GLSL) implementation, howeve
 * Array index out of bounds
 ====
 
-[#styling-file-extension-and-mime-type]
-== File extension and MIME type
+[#styling-file-extension-and-media-type]
+== File extension and media type
 
-Tileset styles use the `.json` extension and the `application/json` mime type.
+Tileset styles use the `.json` extension and the `application/json` media type.
 

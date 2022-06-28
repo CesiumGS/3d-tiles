@@ -46,13 +46,14 @@ image::figures/layout.png[]
 [#tileformats-pointcloud-padding]
 === Padding
 
-A tile's `byteLength` must be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] must conform to their respective padding requirement.
+A tile's `byteLength` shall be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] shall conform to their respective padding requirement.
 
 [#tileformats-pointcloud-header]
 == Header
 
 The 28-byte header contains the following fields:
 
+.Header fields for Point Clouds
 [cols="2,1,3"]
 |===
 | Field name | Data type | Description
@@ -109,13 +110,14 @@ endif::[]
 [#tileformats-pointcloud-point-semantics]
 ==== Point semantics
 
-These semantics map to an array of feature values that define each point. The length of these arrays must be the same for all semantics and is equal to the number of points.
-The value for each point semantic must be a reference to the Feature Table binary body; they cannot be embedded in the Feature Table JSON header.
+These semantics map to an array of feature values that define each point. The length of these arrays shall be the same for all semantics and is equal to the number of points.
+The value for each point semantic shall be a reference to the Feature Table binary body; they cannot be embedded in the Feature Table JSON header.
 
-If a semantic has a dependency on another semantic, that semantic must be defined.
+If a semantic has a dependency on another semantic, that semantic shall be defined.
 If both `POSITION` and `POSITION_QUANTIZED` are defined for a point, the higher precision `POSITION` will be used.
 If both `NORMAL` and `NORMAL_OCT16P` are defined for a point, the higher precision `NORMAL` will be used.
 
+.Semantics for instances of a Point Cloud
 [cols="2,2,3,1"]
 |===
 | Semantic | Data Type | Description | Required
@@ -166,6 +168,7 @@ If both `NORMAL` and `NORMAL_OCT16P` are defined for a point, the higher precisi
 
 These semantics define global properties for all points.
 
+.Global semantics for Point Clouds
 [cols="2,2,3,1"]
 |===
 | Semantic | Data Type | Description | Required
@@ -259,7 +262,7 @@ The normals will be transformed using the inverse transpose of the tileset trans
 Oct-encoding is described in link:http://jcgt.org/published/0003/02/01/[_A Survey of Efficient Representations of Independent Unit Vectors_]. Oct-encoded values are stored in unsigned, unnormalized range (`[0, 255]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 An implementation for encoding and decoding these unit vectors can be found in CesiumJS's link:https://github.com/CesiumGS/cesium/blob/main/Source/Core/AttributeCompression.js[AttributeCompression]
 module.
@@ -279,7 +282,7 @@ The global semantic `BATCH_LENGTH` defines the number of unique `batchId` values
 [#tileformats-pointcloud-examples]
 === Examples
 
-_This section is non-normative_
+_This section is informative_
 
 These examples show how to generate JSON and binary buffers for the Feature Table.
 
@@ -288,6 +291,7 @@ These examples show how to generate JSON and binary buffers for the Feature Tabl
 
 This minimal example has four points on the corners of a unit length square:
 
+[%unnumbered]
 [source,javascript]
 ----
 var featureTableJSON = {
@@ -310,6 +314,7 @@ var featureTableBinary = new Buffer(new Float32Array([
 
 The following example has four points (red, green, blue, and yellow) above the globe. Their positions are defined relative to center:
 
+[%unnumbered]
 [source,javascript]
 ----
 var featureTableJSON = {
@@ -345,6 +350,7 @@ var featureTableBinary = Buffer.concat([positionBinary, colorBinary]);
 
 In this example, the four points will have normals pointing up `[0.0, 1.0, 0.0]` in oct-encoded format, and they will be placed on the corners of a quantized volume that spans from `-250.0` to `250.0` units in the `x` and `z` directions:
 
+[%unnumbered]
 [source,javascript]
 ----
 var featureTableJSON = {
@@ -381,6 +387,7 @@ var featureTableBinary = Buffer.concat([positionQuantizedBinary, normalOct16PBin
 
 In this example, the first two points have a `batchId` of 0, and the next two points have a `batchId` of 1. Note that the Batch Table only has two names:
 
+[%unnumbered]
 [source,javascript]
 ----
 var featureTableJSON = {
@@ -421,6 +428,7 @@ var batchTableJSON = {
 
 In this example, each of the 4 points will have metadata stored in the Batch Table JSON and binary.
 
+[%unnumbered]
 [source,javascript]
 ----
 var featureTableJSON = {
@@ -459,17 +467,17 @@ The following extensions can be applied to a Point Cloud tile.
 
 * link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_draco_point_compression/README.md[`3DTILES_draco_point_compression`]
 
-[#tileformats-pointcloud-file-extension-and-mime-type]
-== File extension and MIME type
+[#tileformats-pointcloud-file-extension-and-media-type]
+== File extension and media type
 
-Point cloud tiles use the `.pnts` extension and `application/octet-stream` MIME type.
+Point cloud tiles use the `.pnts` extension and `application/octet-stream` media type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
 [#tileformats-pointcloud-implementation-example]
 == Implementation example
 
-_This section is non-normative_
+_This section is informative_
 
 Code for reading the header can be found in link:https://github.com/CesiumGS/cesium/blob/main/Source/Scene/PointCloud3DTileContent.js[`PointCloud3DModelTileContent.js`] in the CesiumJS implementation of 3D Tiles.
 

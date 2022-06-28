@@ -1,0 +1,19 @@
+== References
+
+* [[[EPSG_4978,EPSG 4978]]], EPSG: 4978, 2020. https://epsg.org/crs_4978/WGS-84.html[https://epsg.org/crs_4978/WGS-84.html]
+
+* [[[EPSG_4949,EPSG 4979]]], EPSG: 4979, 2020. https://epsg.org/crs_4979/WGS-84.html[https://epsg.org/crs_4979/WGS-84.html]
+
+* [[[IETF_RFC2397,IETF RFC 2397]]], IETF RFC2397: The "data" URL scheme, 1998. https://tools.ietf.org/html/rfc2397[https://tools.ietf.org/html/rfc2397]
+
+* [[[IETF_RFC3629,IETF RFC 3629]]], IETF RFC3629: UTF-8, a transformation format of ISO 10646, 2003. https://tools.ietf.org/html/rfc3629[https://tools.ietf.org/html/rfc3629]
+
+* [[[IETF_RFC3986,IETF RFC 3986]]], IETF RFC3986: IANA Registration for Enumservice 'XMPP', 2007. https://tools.ietf.org/html/rfc4979[https://tools.ietf.org/html/rfc4979]
+
+* [[[IETF_RFC8259,IETF RFC 8259]]], IETF RFC8259: The JavaScript Object Notation (JSON) Data Interchange Format, 2017, https://datatracker.ietf.org/doc/html/rfc8259[https://datatracker.ietf.org/doc/html/rfc8259]
+
+* [[[Khronos_Group,Khronos Group glTF 2.0]]], Khronos Group: glTF 2.0, 2021. https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html[https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html]
+
+* [[[OGC,OGC 18-010r7]]], OGC: [OGC 18-010r7] Geographic information - Well-known text representation of coordinate reference systems, 2019. https://docs.opengeospatial.org/is/18-010r7/18-010r7.html[https://docs.opengeospatial.org/is/18-010r7/18-010r7.html]
+
+* [[[W3C,W3C css-color-3]]], W3C: CSS3 Color, 2018. https://www.w3.org/TR/css-color-3/[https://www.w3.org/TR/css-color-3/]

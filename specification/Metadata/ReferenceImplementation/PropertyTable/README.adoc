@@ -1,6 +1,5 @@
 
 [#metadata-referenceimplementation-propertytable-property-table-implementation]
-[discrete]
 = Property Table Implementation
 
 // Definitions of the directory structure to ensure that relative
@@ -29,7 +28,6 @@ The xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specificat
 The full JSON schema definition for this implementation can be found in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/PropertyTable/[the PropertyTable directory of the specification].
 
 [#metadata-referenceimplementation-propertytable-property-tables]
-[discrete]
 == Property Tables
 
 _Defined in 
@@ -40,19 +38,20 @@ ifndef::env-github[]
 <<reference-schema-propertytable,`propertyTable.schema.json`>>._
 endif::[]
 
-A property table must specify the following elements:
+A property table shall specify the following elements:
 
 * Its class (`class`), which refers to a class ID in a xref:{url-specification-metadata-referenceimplementation-schema}README.adoc#metadata-referenceimplementation-schema-schema[Schema].
 * A dictionary of properties (`properties`), where each entry describes the binary storage of the data for the corresponding class property.
 * A count (`count`) for the number of elements (rows) in the property table.
 
-The property table may provide value arrays for only a subset of the properties of its class, but class properties that are marked `required: true` in the schema must not be omitted.
+The property table may provide value arrays for only a subset of the properties of its class, but class properties that are marked `required: true` in the schema shall not be omitted.
 
 [NOTE]
 .Example
 ====
 A `tree_survey_2021-09-29` property table, implementing the `tree` class defined in the xref:{url-specification-metadata-referenceimplementation-schema}README.adoc#metadata-referenceimplementation-schema-schema[Schema] examples. The table contains observations for 10 trees. Details about the class properties will be given in later examples.
 
+[%unnumbered]
 [source,json]
 ----
 "schema": { ... },
@@ -71,7 +70,6 @@ A `tree_survey_2021-09-29` property table, implementing the `tree` class defined
 ====
 
 [#metadata-referenceimplementation-propertytable-property-table-properties]
-[discrete]
 == Property Table Properties
 
 _Defined in 
@@ -90,9 +88,9 @@ Each property definition in a property table represents one column of the table.
 
 The exact structure of each property entry depends on the xref:{url-specification-metadata}README.adoc#metadata-property[property type]:
 
-* Every property definition must define the `values` that store the raw data of the actual values.
-* Properties that have the `STRING` component type must define the `stringOffsets`, as defined in xref:{url-specification-metadata}README.adoc#metadata-strings[Strings].
-* Properties that are variable-length arrays must define the `arrayOffsets`, as defined in xref:{url-specification-metadata}README.adoc#metadata-arrays[Arrays].
+* Every property definition shall define the `values` that store the raw data of the actual values.
+* Properties that have the `STRING` component type shall define the `stringOffsets`, as defined in xref:{url-specification-metadata}README.adoc#metadata-strings[Strings].
+* Properties that are variable-length arrays shall define the `arrayOffsets`, as defined in xref:{url-specification-metadata}README.adoc#metadata-arrays[Arrays].
 
 For variable-length arrays of strings, both the `stringOffsets` and the `arrayOffsets` are required.
 
@@ -101,6 +99,7 @@ For variable-length arrays of strings, both the `stringOffsets` and the `arrayOf
 ====
 The property table from the previous example, with details about the binary storage of the property values
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -126,10 +125,10 @@ The property table from the previous example, with details about the binary stor
 ----
 ====
 
-Each buffer view `byteOffset` must be aligned to a multiple of the size of the xref:{url-specification-metadata}README.adoc#metadata-component-type[`componentType`] of the respective property.
+Each buffer view `byteOffset` shall be aligned to a multiple of the size of the xref:{url-specification-metadata}README.adoc#metadata-component-type[`componentType`] of the respective property.
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 Authoring tools may choose to align all buffer views to 8-byte boundaries for consistency, but client implementations should only depend on 8-byte alignment for buffer views containing 64-bit component types.
 ====

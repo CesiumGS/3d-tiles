@@ -1,15 +1,133 @@
+//========== EXPERIMENTAL OGC HEADER START
+// Details about the document attributes that are used here can currently 
+// be found at https://www.metanorma.org/author/ogc/authoring-guide/metadata/
 = 3D Tiles Specification
-Cesium GS, Inc
-v1.1.0
-:toc2:
-:toclevels: 2
-:sectnums:
-:source-highlighter: rouge
-:rouge-style: github
+:comment: ### Document type; mandatory.
+:doctype: community-standard
+:comment: ### Version number; optional. Dot-delimited, preferably with this structure <version number>.<minor version number>.<patch version number>
+:edition: 1.1.0
+:comment: ### Language of the document; mandatory. Specified in two-letter code: "en" for English, "fr" for French
+:language: en
+:comment: ### Document status/stage; mandatory.
+:status: work-item-draft
+:comment: ### Relevant committee; mandatory. The permitted types are: technical, planning, and strategic-member-advisory
+:committee: technical
+:comment: ### External link referencing the document; optional. If not provided, a default value is created following this structure: "http://www.opengis.net/doc/{abbrevation of doctype}/{abbrev}/{version}",
+:external-id: TBD
+:comment: ### Internal reference number; mandatory
+:docnumber: 22-025
+:comment: ### Date on which the standard was updated; mandatory
+:received-date: TBD
+:comment: ### Date on which the standard was approved by the issuing authority; mandatory
+:issued-date: TBD
+:comment: ### Date on which the standard was published; mandatory
+:published-date: TBD
+:comment: ### Authors
+:fullname: Patrick Cozzi
+:fullname_2: Sean Lilley
+:comment: ### Role of the authors; mandatory
+:role: editor
+:role_2: editor
+:comment: ### Metanorma flavor; mandatory
+:mn-document-class: ogc
+:comment: ### Desired output formats; mandatory
+:mn-output-extensions: html,pdf
+:comment: ### Enable local relaton cache for quick inclusion of prefetched references; optional. 
+:local-cache-only:
+:comment: ### Directory name used as prefix for the location of image files; optional
+:imagesdir: ./
+:comment: ### URI to which the PDF version of this standard is published; optional
+:pdf-uri: ./Specification.pdf
+:comment: ### URI to which the HTML version of this standard is published; optional
+:html-uri: ./Specification.html
+:comment: ### The submitting organizations (active OGC members) that submitted this document
+:submitting-organizations: Cesium GS Inc.
+:keywords: terrain, geospatial, gis, point cloud, spatial data, vector data, photogrammetry, gltf, 3d models, 3d tiles, metadata, implicit tiling
+//========== EXPERIMENTAL OGC HEADER END
 
+
+//========== ORIGINAL (non-OGC) HEADER START
+//= 3D Tiles Specification
+//Cesium GS, Inc
+//v1.1.0
+//:toc2:
+//:toclevels: 2
+//:sectnums:
+//:source-highlighter: rouge
+//:rouge-style: github
+//========== ORIGINAL (non-OGC) HEADER END
+
+
+
+// The structure of the sections is given at 
+// https://www.metanorma.org/author/ogc/authoring-guide/sections-ogc/ and
+// https://www.metanorma.org/author/ogc/authoring-guide/metanorma-adoc/
+// with subtle differences, but should roughly be
+// - Preliminary sections
+//   - Abstract
+//   - Executive Summary (Engineering Reports only)
+//   - Keywords (inserted automatically from the document attributes)
+//   - Preface
+//   - Security Considerations (boilerplate added automatically if omitted)
+//   - Submitting Organizations (inserted from document attributes)
+//   - Submitters
+// - Scope
+// - Normative References
+// - Terms and definitions
+// - Conformance
+// - Content sections
+// - Annex sections
+// - Bibliography (Non-normative references)
+
+
+// ===========================================================================
+// Preliminary sections
+
+[abstract]
+== Abstract
+
+[%unnumbered]
 image::figures/3DTiles_dark_color_small.png[]
 
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
+
+== Preface
+
+Bringing techniques from graphics research, the movie industry, and the game industry to 3D geospatial, 3D Tiles defines a spatial data structure and a set of tile formats designed for 3D, and optimized for streaming and rendering.
+
+== Submitters
+
+|===
+|Name |Affiliation |OGC member
+
+| Patrick Cozzi |  Cesium GS, Inc. | Yes
+| Sean Lilley |  Cesium GS, Inc. | Yes
+|===
+
+[.preface]
+== Future Work
+
+The 3D Tiles community anticipates that revisions to this Community Standard will be required to prescribe content appropriate to meet new use cases. These use cases may arise from either (or both) the external user and developer community or from OGC review and comments. Further, future revisions will be driven by any submitted change requests that document community uses cases and requirements.
+
+
+// ===========================================================================
+// Non-content sections
+
+include::SCOPE.adoc[]
+
+include::CONFORMANCE.adoc[]
+
+[bibliography]
+include::REFERENCES.adoc[]
+
+include::TERMS_AND_DEFINITIONS.adoc[]
+
+== Conventions
+
+No conventions are specified in this document.
+
+// ===========================================================================
+// Content sections
 
 :leveloffset: +1
 
@@ -57,7 +175,16 @@ include::Styling/README.adoc[]
 
 :leveloffset: -1
 
+
+// ===========================================================================
+// Annex sections
+
 :imagesdir: 
 include::APPENDIX.adoc[]
 
+[appendix]
+include::ACKNOWLEDGEMENTS.adoc[]
+
+[appendix,obligation=informative]
+include::REVISION_HISTORY.adoc[]
 

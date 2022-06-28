@@ -34,13 +34,13 @@ In addition to trees, Instanced 3D Model is useful for exterior features such as
 An Instanced 3D Model tile is a binary blob in little endian.
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 A xref:{url-specification-tileformats-composite}README.adoc#tileformats-composite-composite[Composite] tile can be used to create tiles with different types of instanced models, e.g., trees and traffic lights by combing two Instanced 3D Model tiles.
 ====
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 Instanced 3D Model maps well to the link:https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/[`ANGLE_instanced_arrays`] extension for efficient rendering with WebGL.
 ====
@@ -56,17 +56,18 @@ image::figures/header-layout.png[header layout]
 [#tileformats-instanced3dmodel-padding]
 === Padding
 
-A tile's `byteLength` must be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] must conform to their respective padding requirement.
+A tile's `byteLength` shall be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] shall conform to their respective padding requirement.
 
-The <<tileformats-instanced3dmodel-gltf,binary glTF>> (if present) must start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
+The <<tileformats-instanced3dmodel-gltf,binary glTF>> (if present) shall start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
-Otherwise, if the glTF field is a UTF-8 string, it must be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the tile, which must be removed at runtime before requesting the glTF asset.
+Otherwise, if the glTF field is a UTF-8 string, it shall be padded with trailing Space characters (`0x20`) to satisfy alignment requirements of the tile, which shall be removed at runtime before requesting the glTF asset.
 
 [#tileformats-instanced3dmodel-header]
 == Header
 
 The 32-byte header contains the following fields:
 
+.Header fields for Instanced 3D Models
 [cols="2,1,3"]
 |===
 | Field name | Data type | Description
@@ -127,14 +128,15 @@ endif::[]
 [#tileformats-instanced3dmodel-instance-semantics]
 ==== Instance semantics
 
-These semantics map to an array of feature values that are used to create instances. The length of these arrays must be the same for all semantics and is equal to the number of instances.
-The value for each instance semantic must be a reference to the Feature Table binary body; they cannot be embedded in the Feature Table JSON header.
+These semantics map to an array of feature values that are used to create instances. The length of these arrays shall be the same for all semantics and is equal to the number of instances.
+The value for each instance semantic shall be a reference to the Feature Table binary body; they cannot be embedded in the Feature Table JSON header.
 
-If a semantic has a dependency on another semantic, that semantic must be defined.
+If a semantic has a dependency on another semantic, that semantic shall be defined.
 If both `SCALE` and `SCALE_NON_UNIFORM` are defined for an instance, both scaling operations will be applied.
 If both `POSITION` and `POSITION_QUANTIZED` are defined for an instance, the higher precision `POSITION` will be used.
 If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` are defined for an instance, the higher precision `NORMAL_UP` and `NORMAL_RIGHT` will be used.
 
+.Semantics for instances of an Instanced 3D Model
 [cols="2,2,3,1"]
 |===
 | Semantic | Data Type | Description | Required
@@ -156,7 +158,7 @@ If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` ar
 
 | `NORMAL_RIGHT`
 | `float32[3]`
-| A unit vector defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`.
+| A unit vector defining the `right` direction for the orientation of the instance. Shall be orthogonal to `up`.
 | No, unless `NORMAL_UP` is defined.
 
 | `NORMAL_UP_OCT32P`
@@ -166,7 +168,7 @@ If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` ar
 
 | `NORMAL_RIGHT_OCT32P`
 | `uint16[2]`
-| An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Must be orthogonal to `up`.
+| An oct-encoded unit vector with 32-bits of precision defining the `right` direction for the orientation of the instance. Shall be orthogonal to `up`.
 | No, unless `NORMAL_UP_OCT32P` is defined.
 
 | `SCALE`
@@ -190,6 +192,7 @@ If `NORMAL_UP`, `NORMAL_RIGHT`, `NORMAL_UP_OCT32P`, and `NORMAL_RIGHT_OCT32P` ar
 
 These semantics define global properties for all instances.
 
+.Global semantics for Instanced 3D Models
 [cols="2,2,3,1"]
 |===
 | Semantic | Data Type | Description | Required
@@ -243,7 +246,7 @@ If `NORMAL_UP` and `NORMAL_RIGHT` are not defined for an instance, its orientati
 These define `up` and `right` using the oct-encoding described in link:http://jcgt.org/published/0003/02/01/[_A Survey of Efficient Representations of Independent Unit Vectors_]. Oct-encoded values are stored in unsigned, unnormalized range (`[0, 65535]`) and then mapped to a signed normalized range (`[-1.0, 1.0]`) at runtime.
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 An implementation for encoding and decoding these unit vectors can be found in CesiumJS's link:https://github.com/CesiumGS/cesium/blob/main/Source/Core/AttributeCompression.js[AttributeCompression]
 module.
@@ -301,6 +304,7 @@ These examples show how to generate JSON and binary buffers for the Feature Tabl
 
 In this minimal example, we place four instances on the corners of a unit length square with the default orientation:
 
+[%unnumbered]
 [source,javascript]
 ----
 var featureTableJSON = {
@@ -324,6 +328,7 @@ var featureTableBinary = new Buffer(new Float32Array([
 In this example, the four instances will be placed with an orientation `up` of `[0.0, 1.0, 0.0]` and `right` of `[1.0, 0.0, 0.0]` in oct-encoded format
 and they will be placed on the corners of a quantized volume that spans from `-250.0` to `250.0` units in the `x` and `z` directions:
 
+[%unnumbered]
 [source,javascript]
 ----
 var featureTableJSON = {
@@ -382,12 +387,12 @@ The glTF asset to be instanced is stored after the Feature Table and Batch Table
 * When the value of `header.gltfFormat` is `0`, the glTF field is a UTF-8 string, which contains a URI of the glTF or binary glTF model content.
 * When the value of `header.gltfFormat` is `1`, the glTF field is a binary blob containing link:https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#binary-gltf-layout[binary glTF].
 
-When the glTF field contains a URI, then this URI may point to a link:https://tools.ietf.org/html/rfc3986#section-4.2[relative external reference (RFC3986)]. When the URI is relative, its base is always relative to the referring `.i3dm` file. Client implementations are required to support relative external references. Optionally, client implementations may support other schemes (such as `http://`). All URIs must be valid and resolvable.
+When the glTF field contains a URI, then this URI may point to a link:https://tools.ietf.org/html/rfc3986#section-4.2[relative external reference (RFC3986)]. When the URI is relative, its base is always relative to the referring `.i3dm` file. Client implementations are required to support relative external references. Optionally, client implementations may support other schemes (such as `http://`). All URIs shall be valid and resolvable.
 
 [#tileformats-instanced3dmodel-coordinate-system]
 === Coordinate system
 
-By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See xref:{url-specification}README.adoc#core-gltf-transforms[glTF transforms] for more details.
+By default glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs shall be transformed at runtime. See xref:{url-specification}README.adoc#core-gltf-transforms[glTF transforms] for more details.
 
 When the <<tileformats-instanced3dmodel-rtc_center,`RTC_CENTER`>> is defined in the feature table of an Instanced 3D Model, the computation of the xref:{url-specification}README.adoc#core-tile-transforms[tile transform] is done as follows:
 
@@ -397,9 +402,9 @@ When the <<tileformats-instanced3dmodel-rtc_center,`RTC_CENTER`>> is defined in 
 . The transform for the `RTC_CENTER`, which is used to translate model vertices
 . xref:{url-specification}README.adoc#core-tile-transforms[Tile transform]
 
-[#tileformats-instanced3dmodel-file-extension-and-mime-type]
-== File extension and MIME type
+[#tileformats-instanced3dmodel-file-extension-and-media-type]
+== File extension and media type
 
-Instanced 3D models tiles use the `.i3dm` extension and `application/octet-stream` MIME type.
+Instanced 3D models tiles use the `.i3dm` extension and `application/octet-stream` media type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.

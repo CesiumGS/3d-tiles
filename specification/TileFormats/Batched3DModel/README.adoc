@@ -46,15 +46,16 @@ image::figures/layout.png[]
 [#tileformats-batched3dmodel-padding]
 === Padding
 
-A tile's `byteLength` must be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] must conform to their respective padding requirement.
+A tile's `byteLength` shall be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] shall conform to their respective padding requirement.
 
-The <<tileformats-batched3dmodel-binary-gltf,binary glTF>> must start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
+The <<tileformats-batched3dmodel-binary-gltf,binary glTF>> shall start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
 [#tileformats-batched3dmodel-header]
 == Header
 
 The 28-byte header contains the following fields:
 
+.Header fields for Batched 3D Models
 [cols="2,1,3"]
 |===
 | Field name | Data type | Description
@@ -119,13 +120,14 @@ There are currently no per-feature semantics.
 
 These semantics define global properties for all features.
 
+.Global semantics for Batched 3D models
 [cols="2,2,3,1"]
 |===
 | Semantic | Data Type | Description | Required
 
 | `BATCH_LENGTH`
 | `uint32`
-| The number of distinguishable models, also called features, in the batch. If the Binary glTF does not have a `batchId` attribute, this field _must_ be `0`.
+| The number of distinguishable models, also called features, in the batch. If the Binary glTF does not have a `batchId` attribute, this field _shall_ be `0`.
 | Yes.
 
 | `RTC_CENTER`
@@ -150,6 +152,8 @@ The https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#binary-gltf-la
 
 As described above, each vertex has a `batchId` attribute indicating the model to which it belongs.  For example, vertices for a batch with three models may look like this:
 
+[%unnumbered]
+[source]
 ----
 batchId:  [0,   0,   0,   ..., 1,   1,   1,   ..., 2,   2,   2,   ...]
 position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
@@ -158,6 +162,8 @@ normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
 
 Vertices do not need to be ordered by `batchId`, so the following is also OK:
 
+[%unnumbered]
+[source]
 ----
 batchId:  [0,   1,   2,   ..., 2,   1,   0,   ..., 1,   2,   0,   ...]
 position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
@@ -168,6 +174,7 @@ Note that a vertex can't belong to more than one model; in that case, the vertex
 
 The `batchId` parameter is specified in a glTF link:https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#meshes[mesh primitive] by providing the `_BATCHID` attribute semantic, along with the index of the `batchId` link:https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#accessors[accessor]. For example,
 
+[%unnumbered]
 [source,json]
 ----
 "primitives": [
@@ -179,6 +186,7 @@ The `batchId` parameter is specified in a glTF link:https://www.khronos.org/regi
 ]
 ----
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -196,14 +204,14 @@ The `batchId` parameter is specified in a glTF link:https://www.khronos.org/regi
 }
 ----
 
-The `accessor.type` must be a value of `"SCALAR"`. All other properties must conform to the glTF schema, but have no additional requirements.
+The `accessor.type` shall be a value of `"SCALAR"`. All other properties shall conform to the glTF schema, but have no additional requirements.
 
 When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`, the `_BATCHID` attribute is required; otherwise, it is not.
 
 [#tileformats-batched3dmodel-coordinate-system]
 === Coordinate system
 
-By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See xref:{url-specification}README.adoc#core-gltf-transforms[glTF transforms] for more details.
+By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs shall be transformed at runtime. See xref:{url-specification}README.adoc#core-gltf-transforms[glTF transforms] for more details.
 
 Vertex positions may be defined relative-to-center for high-precision rendering, see http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm[Precisions, Precisions]. If defined, `RTC_CENTER` specifies the center position that all vertex positions are relative to after the coordinate system transform and glTF node hierarchy transforms have been applied. Specifically, when the `RTC_CENTER` is defined in the feature table of a Batched 3D Model, the computation of the xref:{url-specification}README.adoc#core-tile-transforms[tile transform] is done as follows:
 
@@ -212,17 +220,17 @@ Vertex positions may be defined relative-to-center for high-precision rendering,
 . The transform for the `RTC_CENTER`, which is used to translate model vertices
 . xref:{url-specification}README.adoc#core-tile-transforms[Tile transform]
 
-[#tileformats-batched3dmodel-file-extension-and-mime-type]
-== File extension and MIME type
+[#tileformats-batched3dmodel-file-extension-and-media-type]
+== File extension and media type
 
-Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` MIME type.
+Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` media type.
 
 An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
 
 [#tileformats-batched3dmodel-implementation-example]
 == Implementation example
 
-_This section is non-normative_
+_This section is informative_
 
 Code for reading the header can be found in
 https://github.com/CesiumGS/cesium/blob/main/Source/Scene/Batched3DModel3DTileContent.js[`Batched3DModelTileContent.js`]

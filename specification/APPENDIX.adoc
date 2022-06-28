@@ -1,13 +1,14 @@
 
 :leveloffset: +1
 
-[appendix]
+[appendix,obligation=normative]
 = Properties Reference
 :leveloffset: +1
 include::PropertiesReference_3dtiles.adoc[]
 :leveloffset: -1
 
 [appendix]
+[#json-schema]
 = JSON Schema reference
 :leveloffset: +1
 include::PropertiesReference_3dtiles_schema.adoc[]
@@ -39,11 +40,10 @@ include::Metadata/ReferenceImplementation/Schema/README.adoc[]
 :imagesdir: Metadata/Semantics
 include::Metadata/Semantics/README.adoc[]
 
-[appendix]
-include::ACKNOWLEDGEMENTS.adoc[]
-
-[appendix]
-include::LICENSE.adoc[]
+// License information is automatically inserted by Metanorma
+// when generating the OGC version of the specification.
+//[appendix]
+//include::LICENSE.adoc[]
 
 
 :leveloffset: -1

@@ -44,7 +44,10 @@ ifndef::env-github[]
 :url-specification-tileformats-pointcloud:
 endif::[]
 
+// Insert the introductry text from 'SCOPE.adoc' when this is viewn on GitHub
+ifdef::env-github[]
 3D Tiles is designed for streaming and rendering massive 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds. It defines a hierarchical data structure and a set of tile formats which deliver renderable content. 3D Tiles does not define explicit rules for visualization of the content; a client may visualize 3D Tiles data however it sees fit.
+endif::[]
 
 In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_. A tileset is described by at least one tileset JSON file containing tileset metadata and a tree of tile objects, each of which may reference renderable content.
 
@@ -58,6 +61,7 @@ See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[g
 
 Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
 
+.Legacy tile formats and common uses
 [cols="1,2"]
 |===
 | Legacy Format | Uses
@@ -110,10 +114,10 @@ Explicit file extensions are optional. Valid implementations may ignore it and i
 
 3D Tiles has the following restrictions on JSON formatting and encoding.
 
-. JSON must use UTF-8 encoding without BOM.
-. All strings defined in this spec (properties names, enums) use only ASCII charset and must be written as plain text, without JSON escaping.
+. JSON shall use UTF-8 encoding without BOM.
+. All strings defined in this spec (properties names, enums) use only ASCII charset and shall be written as plain text, without JSON escaping.
 . Non-ASCII characters that appear as property _values_ in JSON may be escaped.
-. Names (keys) within JSON objects must be unique, i.e., duplicate keys aren't allowed.
+. Names (keys) within JSON objects shall be unique, i.e., duplicate keys aren't allowed.
 . Some properties are defined as integers in the schema. Such values may be stored as decimals with a zero fractional part or by using exponent notation, as defined in https://www.rfc-editor.org/rfc/rfc8259.html#section-6[RFC 8259, Section 6].
 
 [#core-uris]
@@ -123,7 +127,7 @@ Explicit file extensions are optional. Valid implementations may ignore it and i
 
 When the URI is relative, its base is always relative to the referring tileset JSON file.
 
-Client implementations are required to support relative external references and embedded resources. Optionally, client implementations may support other schemes (such as `http://`). All URIs must be valid and resolvable.
+Client implementations are required to support relative external references and embedded resources. Optionally, client implementations may support other schemes (such as `http://`). All URIs shall be valid and resolvable.
 
 [#core-units]
 == Units
@@ -135,13 +139,13 @@ All angles are in radians.
 [#core-coordinate-reference-system-crs]
 == Coordinate reference system (CRS)
 
-3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. A tileset's global coordinate system will often be in a https://epsg.org/ellipsoid_7030/WGS-84.html[WGS 84] Earth-centered, Earth-fixed (ECEF) reference frame (http://spatialreference.org/ref/epsg/4978/[EPSG 4978]), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
+3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. A tileset's global coordinate system will often be in a https://epsg.org/ellipsoid_7030/WGS-84.html[WGS 84] Earth-centered, Earth-fixed (ECEF) reference frame (https://epsg.org/crs_4978/WGS-84.html[EPSG 4978]), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
 The CRS of a tileset may be defined explicitly, as part of the <<core-metadata,tileset metadata>>. The metadata for the tileset can contain a property that has the xref:{url-specification-metadata-semantics}README.adoc#metadata-semantics-tileset-semantics[`TILESET_CRS_GEOCENTRIC` semantic], which is a string that represents the EPSG Geodetic Parameter Dataset identifier.
 
 An additional <<core-tile-transforms,tile transform>> may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
 
-The <<core-region,region>> bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically, http://spatialreference.org/ref/epsg/4979/[EPSG 4979]. The reference ellipsoid is assumed to be the same as the reference ellipsoid of the tileset.
+The <<core-region,region>> bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height), specifically, https://epsg.org/crs_4979/WGS-84.html[EPSG 4979]. The reference ellipsoid is assumed to be the same as the reference ellipsoid of the tileset.
 
 [#core-concepts]
 == Concepts
@@ -187,12 +191,13 @@ A refinement type is required for the root tile of a tileset; it is optional for
 
 If a tile uses replacement refinement, when refined it renders its children in place of itself.
 
-[cols="^,^"]
+.A tile and a refined tile using replacement refinement
+[cols="1,1"]
 |===
 | Parent Tile | Refined
 
-| image:figures/replacement_1.jpg[pdfwidth=3.0in]
-| image:figures/replacement_2.jpg[pdfwidth=3.0in]
+| image:figures/replacement_1.jpg[width=400,pdfwidth=3.0in]
+| image:figures/replacement_2.jpg[width=400,pdfwidth=3.0in]
 |===
 
 [#core-additive]
@@ -200,12 +205,13 @@ If a tile uses replacement refinement, when refined it renders its children in p
 
 If a tile uses additive refinement, when refined it renders itself and its children simultaneously.
 
-[cols="^,^"]
+.A tile and a refined tile using additive refinement
+[cols="1,1"]
 |===
 | Parent Tile | Refined
 
-| image:figures/additive_1.jpg[pdfwidth=3.0in]
-| image:figures/additive_2.jpg[pdfwidth=3.0in]
+| image:figures/additive_1.jpg[width=400,pdfwidth=3.0in]
+| image:figures/additive_2.jpg[width=400,pdfwidth=3.0in]
 |===
 
 [#core-bounding-volumes]
@@ -213,13 +219,14 @@ If a tile uses additive refinement, when refined it renders itself and its child
 
 A bounding volume defines the spatial extent enclosing a tile or a tile's content. To support tight fitting volumes for a variety of datasets such as regularly divided terrain, cities not aligned with a line of latitude or longitude, or arbitrary point clouds, the bounding volume types include an oriented bounding box, a bounding sphere, and a geographic region defined by minimum and maximum latitudes, longitudes, and heights.
 
-[cols="^,^,^"]
+.Different bounding volume types for a tile
+[cols="1,1,1"]
 |===
 | Bounding box | Bounding sphere | Bounding region
 
-| image:figures/BoundingBox.jpg[pdfwidth=2.0in]
-| image:figures/BoundingSphere.jpg[pdfwidth=2.0in]
-| image:figures/BoundingRegion.jpg[pdfwidth=2.0in]
+| image:figures/BoundingBox.jpg[width=300,pdfwidth=2.0in]
+| image:figures/BoundingSphere.jpg[width=300,pdfwidth=2.0in]
+| image:figures/BoundingRegion.jpg[width=300,pdfwidth=2.0in]
 |===
 
 [#core-region]
@@ -230,6 +237,7 @@ The `boundingVolume.region` property is an array of six numbers that define the 
 .A bounding region
 image::figures/BoundingRegion.jpg[Bounding Region]
 
+[%unnumbered]
 [source,json]
 ----
 "boundingVolume": {
@@ -252,6 +260,7 @@ The `boundingVolume.box` property is an array of 12 numbers that define an orien
 .A bounding box
 image::figures/BoundingBox.jpg[Bounding Box]
 
+[%unnumbered]
 [source,json]
 ----
 "boundingVolume": {
@@ -272,6 +281,7 @@ The `boundingVolume.sphere` property is an array of four numbers that define a b
 .A bounding sphere
 image::figures/BoundingSphere.jpg[Bounding Sphere]
 
+[%unnumbered]
 [source,json]
 ----
 "boundingVolume": {
@@ -311,6 +321,7 @@ A tile's `viewerRequestVolume` can be used for combining heterogeneous datasets,
 
 The following example has a point cloud inside a building. The point cloud tile's `boundingVolume` is a sphere with a radius of `1.25`. It also has a larger sphere with a radius of `15` for the `viewerRequestVolume`. Since the `geometricError` is zero, the point cloud tile's content is always rendered (and initially requested) when the viewer is inside the large sphere defined by `viewerRequestVolume`.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -379,6 +390,7 @@ The `transform` property scales the `geometricError` by the largest scaling fact
 
 When `transform` is not defined, it defaults to the identity matrix:
 
+[%unnumbered]
 [source,json]
 ----
 [
@@ -408,8 +420,9 @@ First, glTF node hierarchy transforms are applied according to the https://www.k
 [#core-y-up-to-z-up]
 ====== _y_-up to _z_-up
 
-Next, for consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by π/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
+Next, for consistency with the _z_-up coordinate system of 3D Tiles, glTFs shall be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by π/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
 
+[%unnumbered]
 [source,json]
 ----
 [
@@ -427,7 +440,7 @@ More broadly the order of transformations is:
 . <<core-tile-transforms,Tile transform>>
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 When working with source data that is inherently _z_-up, such as data in WGS 84 coordinates or in a local _z_-up coordinate system, a common workflow is:
 
@@ -437,6 +450,7 @@ When working with source data that is inherently _z_-up, such as data in WGS 84 
 
 Example glTF root node:
 
+[%unnumbered]
 [source,json]
 ----
 "nodes": [
@@ -481,10 +495,11 @@ The full computed transforms, taking into account the <<core-y-up-to-z-up,glTF _
 [#core-implementation-example]
 ===== Implementation example
 
-_This section is non-normative_
+_This section is informative_
 
 The following JavaScript code shows how to compute this using Cesium's https://github.com/CesiumGS/cesium/blob/main/Source/Core/Matrix4.js[Matrix4] and https://github.com/CesiumGS/cesium/blob/main/Source/Core/Matrix3.js[Matrix3] types.
 
+[%unnumbered]
 [source,javascript]
 ----
 function computeTransforms(tileset) {
@@ -524,6 +539,7 @@ image::figures/tile.png[]
 
 The following example shows one non-leaf tile.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -560,7 +576,7 @@ The `boundingVolume` defines a volume enclosing the tile, and is used to determi
 
 The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), the error measured in pixels. The SSE determines if a tile is sufficiently detailed for the current view or if its children should be considered, see <<core-geometric-error,Geometric error>>.
 
-The optional `viewerRequestVolume` property (not shown above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`. See the <<core-viewer-request-volume,Viewer request volume>> section.
+The optional `viewerRequestVolume` property (not shown above) defines a volume, using the same schema as `boundingVolume`, that the viewer shall be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`. See the <<core-viewer-request-volume,Viewer request volume>> section.
 
 The `refine` property is a string that is either `"REPLACE"` for replacement refinement or `"ADD"` for additive refinement, see <<core-refinement,Refinement>>. It is required for the root tile of a tileset; it is optional for all other tiles. A tileset can use any combination of additive and replacement refinement. When the `refine` property is omitted, it is inherited from the parent tile.
 
@@ -575,6 +591,7 @@ image::figures/multiple-contents-geometry.png[]
 
 Contents can also be arranged into groups, using the `content.group` property:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -629,6 +646,7 @@ endif::[]
 
 Here is a subset of the tileset JSON used for Canary Wharf:
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -680,7 +698,7 @@ The tileset JSON has four top-level properties: `asset`, `properties`, `geometri
 
 
 [NOTE]
-.Implementation Note
+.Informative
 ====
 The `tilesetVersion` can be used as a query parameter when requesting content to avoid using outdated content from a cache.
 ====
@@ -701,7 +719,7 @@ image::figures/tilesets.png[]
 
 When a tile points to an external tileset, the tile:
 
-* Cannot have any children; `tile.children` must be omitted
+* Cannot have any children; `tile.children` shall be omitted
 * Cannot be used to create cycles, for example, by pointing to the same tileset file containing the tile or by pointing to another tileset file that then points back to the initial file containing the tile.
 * Will be transformed by both the tile's `transform` and root tile's `transform`. For example, in the following tileset referencing an external tileset, the computed transform for `T3` is `[T0][T1][T2][T3]`. 
 
@@ -813,6 +831,7 @@ An `implicitTiling` object may be added to any tile in the tileset JSON. The obj
 
 The following example shows a quadtree defined on the root tile, with template URIs pointing to content and subtree files.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -871,13 +890,14 @@ Although they are defined independently, the metadata structure in 3D Tiles and 
 
 The Metadata schema defines the structure of the metadata. It contains a definition of the metadata classes, which are templates for the metadata instances, and define the set of properties that each metadata instance has. The metadata schema is stored within a tileset in the form of a JSON representation according to the xref:{url-specification-metadata-referenceimplementation-schema}README.adoc#metadata-referenceimplementation-schema-schema-implementation[Metadata Schema Reference Implementation]. This reference implementation includes the definition of the JSON schema for the metadata schema.
 
-Schemas may be embedded in tilesets with the `schema` property, or referenced externally by the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same schema to avoid duplication. Any class that is defined in the schema of an <<core-external-tilesets,external tileset>> must also be defined in the top-level tileset schema.
+Schemas may be embedded in tilesets with the `schema` property, or referenced externally by the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same schema to avoid duplication. Any class that is defined in the schema of an <<core-external-tilesets,external tileset>> shall also be defined in the top-level tileset schema.
 
 [NOTE]
 .Example
 ====
 Schema with a `building` class having three properties, "height", "owners", and "buildingType". The "buildingType" property refers to the `buildingType` enum as its data type, also defined in the schema. Later examples show how entities declare their class and supply values for their properties.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -920,6 +940,7 @@ Schema with a `building` class having three properties, "height", "owners", and 
 ====
 External schema referenced by a URI.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -940,13 +961,14 @@ endif::[]
 ifndef::env-github[]
 <<reference-schema-metadataentity,`metadataEntity.schema.json`>>.
 endif::[]
-Each metadata entity contains the name of the class that it is an instance of, as well as a dictionary of property values that correspond to the properties of that class. Each property value assigned must be defined by a class property with the same property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
+Each metadata entity contains the name of the class that it is an instance of, as well as a dictionary of property values that correspond to the properties of that class. Each property value assigned shall be defined by a class property with the same property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` shall not be omitted.
 
 [NOTE]
 .Example
 ====
 A metadata entity for the `building` class presented earlier. Such an entity could be assigned to a tileset, a tile, or tile content, by storing it as their respective `metadata` property.
 
+[%unnumbered]
 [source,json]
 ----
   "metadata": {
@@ -986,7 +1008,8 @@ The statistics are defined for each metadata class, including the following elem
 
 Properties may include the following built-in statistics:
 
-[cols="~,30%,~"]
+.Statistics for metadata
+[cols="2,3,2"]
 |===
 | Name | Description | Type
 
@@ -1030,6 +1053,7 @@ Tileset authors may define their own additional statistics, like `_mode` in the 
 ====
 Definition of a "building" class, with three properties. Summary statistics provide a minimum, maximum, and (application-specific) "_mode" for the numerical "height" property. The enum "buildingType" property is summarized by the number of distinct enum value occurrences.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1101,6 +1125,7 @@ Definition of a "building" class, with three properties. Summary statistics prov
 
 Extensions allow the base specification to be extended with new features. The optional `extensions` dictionary property may be added to any 3D Tiles JSON object, which contains the name of the extensions and the extension specific objects. The following example shows a tile object with a hypothetical vendor extension which specifies a separate collision volume.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1135,8 +1160,9 @@ Extensions allow the base specification to be extended with new features. The op
 }
 ----
 
-All extensions used in a tileset or any descendant external tilesets must be listed in the entry tileset JSON in the top-level `extensionsUsed` array property, e.g.,
+All extensions used in a tileset or any descendant external tilesets shall be listed in the entry tileset JSON in the top-level `extensionsUsed` array property, e.g.,
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1146,7 +1172,7 @@ All extensions used in a tileset or any descendant external tilesets must be lis
 }
 ----
 
-All extensions required to load and render a tileset or any descendant external tilesets must also be listed in the entry tileset JSON in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` must also exist in `extensionsUsed`.
+All extensions required to load and render a tileset or any descendant external tilesets shall also be listed in the entry tileset JSON in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` shall also exist in `extensionsUsed`.
 
 
 
@@ -1155,6 +1181,7 @@ All extensions required to load and render a tileset or any descendant external 
 
 The `extras` property allows application specific metadata to be added to any 3D Tiles JSON object. The following example shows a tile object with an additional application specific name property.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -1206,6 +1233,7 @@ See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[g
 
 Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
 
+.Legacy tile formats and common uses
 [cols="1,2"]
 |===
 | Legacy Format | Uses
@@ -1232,6 +1260,7 @@ Styles define how a featured is displayed, for example `show` and `color` (RGB a
 
 The following example colors features with a height above 90 as red and the others as white.
 
+[%unnumbered]
 [source,json]
 ----
 {

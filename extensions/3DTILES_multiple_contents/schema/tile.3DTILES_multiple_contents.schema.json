@@ -3,7 +3,7 @@
     "$id": "tile.3DTILES_multiple_contents.schema.json",
     "title": "3DTILES_multiple_contents tile extension",
     "$ref": "rootProperty.schema.json",
-    "description": "Extends a tile to have multiple contents. When this extension is used the tile's `content` property must be omitted.",
+    "description": "Extends a tile to have multiple contents. When this extension is used the tile's `content` property shall be omitted.",
     "properties": {
         "contents": {
             "type": "array",

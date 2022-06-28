@@ -1,0 +1,14 @@
+[appendix,obligation=informative]
+== Revision history
+
+// NOTE: The 'a|' indicates that the following cell should
+// use AsciiDoc parsing (for bullet point lists etc.)
+
+[%unnumbered]
+[cols="3,2,3,2,6"]
+|===
+|Date |Release |Editor | Primary clauses modified |Description
+
+| TBD | 1.1.0 | Sean Lilley | all a| This is the first normative version of this document.
+
+|===

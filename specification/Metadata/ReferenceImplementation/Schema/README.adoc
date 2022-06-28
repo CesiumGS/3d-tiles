@@ -1,6 +1,5 @@
 
 [#metadata-referenceimplementation-schema-schema-implementation]
-[discrete]
 = Schema Implementation
 
 // Definitions of the directory structure to ensure that relative
@@ -22,7 +21,6 @@ The xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specificat
 The full JSON schema definition for this implementation can be found in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/[the Schema directory of the specification].
 
 [#metadata-referenceimplementation-schema-schema]
-[discrete]
 == Schema
 
 _Defined in 
@@ -40,6 +38,7 @@ A schema defines a set of classes and enums. Classes serve as templates for enti
 ====
 Schema with a `tree` class, and a `speciesEnum` enum that defines different species of trees. Later examples show how these structures in more detail.
 
+[%unnumbered]
 [source,jsonc]
 ----
 {
@@ -55,7 +54,6 @@ Schema with a `tree` class, and a `speciesEnum` enum that defines different spec
 ====
 
 [#metadata-referenceimplementation-schema-class]
-[discrete]
 === Class
 
 _Defined in 
@@ -66,15 +64,16 @@ ifndef::env-github[]
 <<reference-schema-class,`class.schema.json`>>._
 endif::[]
 
-A class is a template for metadata entities. Classes provide a list of property definitions. Every entity must be associated with a class, and the entity's properties must conform to the class's property definitions. Entities whose properties conform to a class are considered instances of that class.
+A class is a template for metadata entities. Classes provide a list of property definitions. Every entity shall be associated with a class, and the entity's properties shall conform to the class's property definitions. Entities whose properties conform to a class are considered instances of that class.
 
-Classes are defined as entries in the `schema.classes` dictionary, indexed by class ID. Class IDs must be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
+Classes are defined as entries in the `schema.classes` dictionary, indexed by class ID. Class IDs shall be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
 
 [NOTE]
 .Example
 ====
 A "Tree" class, which might describe a table of tree measurements taken in a park. Property definitions are abbreviated here, and introduced in the next section.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -97,7 +96,6 @@ A "Tree" class, which might describe a table of tree measurements taken in a par
 ====
 
 [#metadata-referenceimplementation-schema-class-property]
-[discrete]
 === Class Property
 
 _Defined in 
@@ -110,13 +108,14 @@ endif::[]
 
 Class properties are defined abstractly in a class. The class is instantiated with specific values conforming to these properties. Class properties support a rich variety of data types. Details about the supported types can be found in the xref:{url-specification-metadata}README.adoc#metadata-property[3D Metadata Specification].
 
-Class properties are defined as entries in the `class.properties` dictionary, indexed by property ID. Property IDs must be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
+Class properties are defined as entries in the `class.properties` dictionary, indexed by property ID. Property IDs shall be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
 
 [NOTE]
 .Example
 ====
 A "Tree" class, which might describe a table of tree measurements taken in a park. Properties include species, age, height, and diameter of each tree.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -157,7 +156,6 @@ A "Tree" class, which might describe a table of tree measurements taken in a par
 ====
 
 [#metadata-referenceimplementation-schema-enum]
-[discrete]
 === Enum
 
 _Defined in 
@@ -170,13 +168,14 @@ endif::[]
 
 A set of categorical types, defined as `(name, value)` pairs. Enum properties use an enum as their type.
 
-Enums are defined as entries in the `schema.enums` dictionary, indexed by an enum ID. Enum IDs must be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
+Enums are defined as entries in the `schema.enums` dictionary, indexed by an enum ID. Enum IDs shall be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
 
 [NOTE]
 .Example
 ====
 A "Species" enum defining types of trees. An "Unspecified" enum value is optional, but when provided as the `noData` value for a property (see: xref:{url-specification-metadata}README.adoc#metadata-required-properties-no-data-values-and-default-values[3D Metadata - No Data Values]) may be helpful to identify missing data.
 
+[%unnumbered]
 [source,json]
 ----
 {
@@ -199,7 +198,6 @@ A "Species" enum defining types of trees. An "Unspecified" enum value is optiona
 ====
 
 [#metadata-referenceimplementation-schema-enum-value]
-[discrete]
 === Enum Value
 
 _Defined in 
