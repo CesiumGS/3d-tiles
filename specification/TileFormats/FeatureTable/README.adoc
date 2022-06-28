@@ -49,11 +49,11 @@ When a tile format includes a Feature Table, the Feature Table immediately follo
 [#tileformats-featuretable-padding]
 === Padding
 
-The JSON header must end on an 8-byte boundary within the containing tile binary. The JSON header must be padded with trailing Space characters (`0x20`) to satisfy this requirement.
+The JSON header shall end on an 8-byte boundary within the containing tile binary. The JSON header shall be padded with trailing Space characters (`0x20`) to satisfy this requirement.
 
-The binary body must start and end on an 8-byte boundary within the containing tile binary. The binary body must be padded with additional bytes, of any value, to satisfy this requirement.
+The binary body shall start and end on an 8-byte boundary within the containing tile binary. The binary body shall be padded with additional bytes, of any value, to satisfy this requirement.
 
-Binary properties must start at a byte offset that is a multiple of the size in bytes of the property's implicit component type. For example, a property with the implicit component type `FLOAT` has 4 bytes per element, and therefore must start at an offset that is a multiple of `4`. Preceding binary properties must be padded with additional bytes, of any value, to satisfy this requirement.
+Binary properties shall start at a byte offset that is a multiple of the size in bytes of the property's implicit component type. For example, a property with the implicit component type `FLOAT` has 4 bytes per element, and therefore shall start at an offset that is a multiple of `4`. Preceding binary properties shall be padded with additional bytes, of any value, to satisfy this requirement.
 
 [#tileformats-featuretable-json-header]
 === JSON header
@@ -63,7 +63,7 @@ Feature Table values can be represented in the JSON header in two different ways
 . A single value or object, e.g., `"INSTANCES_LENGTH" : 4`.
  ** This is used for global semantics like `"INSTANCES_LENGTH"`, which defines the number of model instances in an Instanced 3D Model tile.
 . A reference to data in the binary body, denoted by an object with a `byteOffset` property, e.g., `"SCALE" : { "byteOffset" : 24}`.
- ** `byteOffset` specifies a zero-based offset relative to the start of the binary body. The value of `byteOffset` must be a multiple of the size in bytes of the property's implicit component type, e.g., the `"POSITION"` property has the component type `FLOAT` (4 bytes), so the value of `byteOffset` must be of a multiple of `4`.
+ ** `byteOffset` specifies a zero-based offset relative to the start of the binary body. The value of `byteOffset` shall be a multiple of the size in bytes of the property's implicit component type, e.g., the `"POSITION"` property has the component type `FLOAT` (4 bytes), so the value of `byteOffset` shall be of a multiple of `4`.
  ** The semantic defines the allowed data type, e.g., when `"POSITION"` in Instanced 3D Model refers to the binary body, the component type is `FLOAT` and the number of components is `3`.
  ** Some semantics allow for overriding the implicit component type. These cases are specified in each tile format, e.g., `"BATCH_ID" : { "byteOffset" : 24, "componentType" : "UNSIGNED_BYTE"}`.
 The only valid properties in the JSON header are the defined semantics by the tile format and optional `extras` and `extensions` properties.  Application-specific data should be stored in the Batch Table.

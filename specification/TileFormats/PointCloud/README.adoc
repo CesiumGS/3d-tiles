@@ -46,7 +46,7 @@ image::figures/layout.png[]
 [#tileformats-pointcloud-padding]
 === Padding
 
-A tile's `byteLength` must be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] must conform to their respective padding requirement.
+A tile's `byteLength` shall be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] shall conform to their respective padding requirement.
 
 [#tileformats-pointcloud-header]
 == Header
@@ -110,10 +110,10 @@ endif::[]
 [#tileformats-pointcloud-point-semantics]
 ==== Point semantics
 
-These semantics map to an array of feature values that define each point. The length of these arrays must be the same for all semantics and is equal to the number of points.
-The value for each point semantic must be a reference to the Feature Table binary body; they cannot be embedded in the Feature Table JSON header.
+These semantics map to an array of feature values that define each point. The length of these arrays shall be the same for all semantics and is equal to the number of points.
+The value for each point semantic shall be a reference to the Feature Table binary body; they cannot be embedded in the Feature Table JSON header.
 
-If a semantic has a dependency on another semantic, that semantic must be defined.
+If a semantic has a dependency on another semantic, that semantic shall be defined.
 If both `POSITION` and `POSITION_QUANTIZED` are defined for a point, the higher precision `POSITION` will be used.
 If both `NORMAL` and `NORMAL_OCT16P` are defined for a point, the higher precision `NORMAL` will be used.
 

@@ -114,10 +114,10 @@ Explicit file extensions are optional. Valid implementations may ignore it and i
 
 3D Tiles has the following restrictions on JSON formatting and encoding.
 
-. JSON must use UTF-8 encoding without BOM.
-. All strings defined in this spec (properties names, enums) use only ASCII charset and must be written as plain text, without JSON escaping.
+. JSON shall use UTF-8 encoding without BOM.
+. All strings defined in this spec (properties names, enums) use only ASCII charset and shall be written as plain text, without JSON escaping.
 . Non-ASCII characters that appear as property _values_ in JSON may be escaped.
-. Names (keys) within JSON objects must be unique, i.e., duplicate keys aren't allowed.
+. Names (keys) within JSON objects shall be unique, i.e., duplicate keys aren't allowed.
 . Some properties are defined as integers in the schema. Such values may be stored as decimals with a zero fractional part or by using exponent notation, as defined in https://www.rfc-editor.org/rfc/rfc8259.html#section-6[RFC 8259, Section 6].
 
 [#core-uris]
@@ -127,7 +127,7 @@ Explicit file extensions are optional. Valid implementations may ignore it and i
 
 When the URI is relative, its base is always relative to the referring tileset JSON file.
 
-Client implementations are required to support relative external references and embedded resources. Optionally, client implementations may support other schemes (such as `http://`). All URIs must be valid and resolvable.
+Client implementations are required to support relative external references and embedded resources. Optionally, client implementations may support other schemes (such as `http://`). All URIs shall be valid and resolvable.
 
 [#core-units]
 == Units
@@ -420,7 +420,7 @@ First, glTF node hierarchy transforms are applied according to the https://www.k
 [#core-y-up-to-z-up]
 ====== _y_-up to _z_-up
 
-Next, for consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by π/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
+Next, for consistency with the _z_-up coordinate system of 3D Tiles, glTFs shall be transformed from _y_-up to _z_-up at runtime. This is done by rotating the model about the _x_-axis by π/2 radians. Equivalently, apply the following matrix transform (shown here as row-major):
 
 [%unnumbered]
 [source,json]
@@ -576,7 +576,7 @@ The `boundingVolume` defines a volume enclosing the tile, and is used to determi
 
 The `geometricError` property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), the error measured in pixels. The SSE determines if a tile is sufficiently detailed for the current view or if its children should be considered, see <<core-geometric-error,Geometric error>>.
 
-The optional `viewerRequestVolume` property (not shown above) defines a volume, using the same schema as `boundingVolume`, that the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`. See the <<core-viewer-request-volume,Viewer request volume>> section.
+The optional `viewerRequestVolume` property (not shown above) defines a volume, using the same schema as `boundingVolume`, that the viewer shall be inside of before the tile's content will be requested and before the tile will be refined based on `geometricError`. See the <<core-viewer-request-volume,Viewer request volume>> section.
 
 The `refine` property is a string that is either `"REPLACE"` for replacement refinement or `"ADD"` for additive refinement, see <<core-refinement,Refinement>>. It is required for the root tile of a tileset; it is optional for all other tiles. A tileset can use any combination of additive and replacement refinement. When the `refine` property is omitted, it is inherited from the parent tile.
 
@@ -719,7 +719,7 @@ image::figures/tilesets.png[]
 
 When a tile points to an external tileset, the tile:
 
-* Cannot have any children; `tile.children` must be omitted
+* Cannot have any children; `tile.children` shall be omitted
 * Cannot be used to create cycles, for example, by pointing to the same tileset file containing the tile or by pointing to another tileset file that then points back to the initial file containing the tile.
 * Will be transformed by both the tile's `transform` and root tile's `transform`. For example, in the following tileset referencing an external tileset, the computed transform for `T3` is `[T0][T1][T2][T3]`. 
 
@@ -890,7 +890,7 @@ Although they are defined independently, the metadata structure in 3D Tiles and 
 
 The Metadata schema defines the structure of the metadata. It contains a definition of the metadata classes, which are templates for the metadata instances, and define the set of properties that each metadata instance has. The metadata schema is stored within a tileset in the form of a JSON representation according to the xref:{url-specification-metadata-referenceimplementation-schema}README.adoc#metadata-referenceimplementation-schema-schema-implementation[Metadata Schema Reference Implementation]. This reference implementation includes the definition of the JSON schema for the metadata schema.
 
-Schemas may be embedded in tilesets with the `schema` property, or referenced externally by the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same schema to avoid duplication. Any class that is defined in the schema of an <<core-external-tilesets,external tileset>> must also be defined in the top-level tileset schema.
+Schemas may be embedded in tilesets with the `schema` property, or referenced externally by the `schemaUri` property. Multiple tilesets and glTF contents may refer to the same schema to avoid duplication. Any class that is defined in the schema of an <<core-external-tilesets,external tileset>> shall also be defined in the top-level tileset schema.
 
 [NOTE]
 .Example
@@ -961,7 +961,7 @@ endif::[]
 ifndef::env-github[]
 <<reference-schema-metadataentity,`metadataEntity.schema.json`>>.
 endif::[]
-Each metadata entity contains the name of the class that it is an instance of, as well as a dictionary of property values that correspond to the properties of that class. Each property value assigned must be defined by a class property with the same property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` must not be omitted.
+Each metadata entity contains the name of the class that it is an instance of, as well as a dictionary of property values that correspond to the properties of that class. Each property value assigned shall be defined by a class property with the same property ID, with values matching the data type of the class property. An entity may provide values for only a subset of the properties of its class, but class properties marked `required: true` shall not be omitted.
 
 [NOTE]
 .Example
@@ -1160,7 +1160,7 @@ Extensions allow the base specification to be extended with new features. The op
 }
 ----
 
-All extensions used in a tileset or any descendant external tilesets must be listed in the entry tileset JSON in the top-level `extensionsUsed` array property, e.g.,
+All extensions used in a tileset or any descendant external tilesets shall be listed in the entry tileset JSON in the top-level `extensionsUsed` array property, e.g.,
 
 [%unnumbered]
 [source,json]
@@ -1172,7 +1172,7 @@ All extensions used in a tileset or any descendant external tilesets must be lis
 }
 ----
 
-All extensions required to load and render a tileset or any descendant external tilesets must also be listed in the entry tileset JSON in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` must also exist in `extensionsUsed`.
+All extensions required to load and render a tileset or any descendant external tilesets shall also be listed in the entry tileset JSON in the top-level `extensionsRequired` array property, such that `extensionsRequired` is a subset of `extensionsUsed`. All values in `extensionsRequired` shall also exist in `extensionsUsed`.
 
 
 

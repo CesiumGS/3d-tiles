@@ -41,7 +41,7 @@ image::figures/layout.png[]
 [#tileformats-composite-padding]
 === Padding
 
-A tile's `byteLength` must be aligned to an 8-byte boundary. All tiles contained in a composite tile must also be aligned to an 8-byte boundary.
+A tile's `byteLength` shall be aligned to an 8-byte boundary. All tiles contained in a composite tile shall also be aligned to an 8-byte boundary.
 
 [#tileformats-composite-header]
 == Header

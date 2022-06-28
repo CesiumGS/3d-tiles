@@ -38,13 +38,13 @@ ifndef::env-github[]
 <<reference-schema-propertytable,`propertyTable.schema.json`>>._
 endif::[]
 
-A property table must specify the following elements:
+A property table shall specify the following elements:
 
 * Its class (`class`), which refers to a class ID in a xref:{url-specification-metadata-referenceimplementation-schema}README.adoc#metadata-referenceimplementation-schema-schema[Schema].
 * A dictionary of properties (`properties`), where each entry describes the binary storage of the data for the corresponding class property.
 * A count (`count`) for the number of elements (rows) in the property table.
 
-The property table may provide value arrays for only a subset of the properties of its class, but class properties that are marked `required: true` in the schema must not be omitted.
+The property table may provide value arrays for only a subset of the properties of its class, but class properties that are marked `required: true` in the schema shall not be omitted.
 
 [NOTE]
 .Example
@@ -88,9 +88,9 @@ Each property definition in a property table represents one column of the table.
 
 The exact structure of each property entry depends on the xref:{url-specification-metadata}README.adoc#metadata-property[property type]:
 
-* Every property definition must define the `values` that store the raw data of the actual values.
-* Properties that have the `STRING` component type must define the `stringOffsets`, as defined in xref:{url-specification-metadata}README.adoc#metadata-strings[Strings].
-* Properties that are variable-length arrays must define the `arrayOffsets`, as defined in xref:{url-specification-metadata}README.adoc#metadata-arrays[Arrays].
+* Every property definition shall define the `values` that store the raw data of the actual values.
+* Properties that have the `STRING` component type shall define the `stringOffsets`, as defined in xref:{url-specification-metadata}README.adoc#metadata-strings[Strings].
+* Properties that are variable-length arrays shall define the `arrayOffsets`, as defined in xref:{url-specification-metadata}README.adoc#metadata-arrays[Arrays].
 
 For variable-length arrays of strings, both the `stringOffsets` and the `arrayOffsets` are required.
 
@@ -125,7 +125,7 @@ The property table from the previous example, with details about the binary stor
 ----
 ====
 
-Each buffer view `byteOffset` must be aligned to a multiple of the size of the xref:{url-specification-metadata}README.adoc#metadata-component-type[`componentType`] of the respective property.
+Each buffer view `byteOffset` shall be aligned to a multiple of the size of the xref:{url-specification-metadata}README.adoc#metadata-component-type[`componentType`] of the respective property.
 
 [NOTE]
 .Informative

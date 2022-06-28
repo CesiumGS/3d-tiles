@@ -64,9 +64,9 @@ ifndef::env-github[]
 <<reference-schema-class,`class.schema.json`>>._
 endif::[]
 
-A class is a template for metadata entities. Classes provide a list of property definitions. Every entity must be associated with a class, and the entity's properties must conform to the class's property definitions. Entities whose properties conform to a class are considered instances of that class.
+A class is a template for metadata entities. Classes provide a list of property definitions. Every entity shall be associated with a class, and the entity's properties shall conform to the class's property definitions. Entities whose properties conform to a class are considered instances of that class.
 
-Classes are defined as entries in the `schema.classes` dictionary, indexed by class ID. Class IDs must be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
+Classes are defined as entries in the `schema.classes` dictionary, indexed by class ID. Class IDs shall be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
 
 [NOTE]
 .Example
@@ -108,7 +108,7 @@ endif::[]
 
 Class properties are defined abstractly in a class. The class is instantiated with specific values conforming to these properties. Class properties support a rich variety of data types. Details about the supported types can be found in the xref:{url-specification-metadata}README.adoc#metadata-property[3D Metadata Specification].
 
-Class properties are defined as entries in the `class.properties` dictionary, indexed by property ID. Property IDs must be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
+Class properties are defined as entries in the `class.properties` dictionary, indexed by property ID. Property IDs shall be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
 
 [NOTE]
 .Example
@@ -168,7 +168,7 @@ endif::[]
 
 A set of categorical types, defined as `(name, value)` pairs. Enum properties use an enum as their type.
 
-Enums are defined as entries in the `schema.enums` dictionary, indexed by an enum ID. Enum IDs must be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
+Enums are defined as entries in the `schema.enums` dictionary, indexed by an enum ID. Enum IDs shall be xref:{url-specification-metadata}README.adoc#metadata-identifiers[identifiers] as defined in the 3D Metadata Specification.
 
 [NOTE]
 .Example

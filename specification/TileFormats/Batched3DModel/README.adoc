@@ -46,9 +46,9 @@ image::figures/layout.png[]
 [#tileformats-batched3dmodel-padding]
 === Padding
 
-A tile's `byteLength` must be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] must conform to their respective padding requirement.
+A tile's `byteLength` shall be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] shall conform to their respective padding requirement.
 
-The <<tileformats-batched3dmodel-binary-gltf,binary glTF>> must start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
+The <<tileformats-batched3dmodel-binary-gltf,binary glTF>> shall start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table or Batch Table if they are present.
 
 [#tileformats-batched3dmodel-header]
 == Header
@@ -127,7 +127,7 @@ These semantics define global properties for all features.
 
 | `BATCH_LENGTH`
 | `uint32`
-| The number of distinguishable models, also called features, in the batch. If the Binary glTF does not have a `batchId` attribute, this field _must_ be `0`.
+| The number of distinguishable models, also called features, in the batch. If the Binary glTF does not have a `batchId` attribute, this field _shall_ be `0`.
 | Yes.
 
 | `RTC_CENTER`
@@ -204,14 +204,14 @@ The `batchId` parameter is specified in a glTF link:https://www.khronos.org/regi
 }
 ----
 
-The `accessor.type` must be a value of `"SCALAR"`. All other properties must conform to the glTF schema, but have no additional requirements.
+The `accessor.type` shall be a value of `"SCALAR"`. All other properties shall conform to the glTF schema, but have no additional requirements.
 
 When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`, the `_BATCHID` attribute is required; otherwise, it is not.
 
 [#tileformats-batched3dmodel-coordinate-system]
 === Coordinate system
 
-By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs must be transformed at runtime. See xref:{url-specification}README.adoc#core-gltf-transforms[glTF transforms] for more details.
+By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs shall be transformed at runtime. See xref:{url-specification}README.adoc#core-gltf-transforms[glTF transforms] for more details.
 
 Vertex positions may be defined relative-to-center for high-precision rendering, see http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm[Precisions, Precisions]. If defined, `RTC_CENTER` specifies the center position that all vertex positions are relative to after the coordinate system transform and glTF node hierarchy transforms have been applied. Specifically, when the `RTC_CENTER` is defined in the feature table of a Batched 3D Model, the computation of the xref:{url-specification}README.adoc#core-tile-transforms[tile transform] is done as follows:
 

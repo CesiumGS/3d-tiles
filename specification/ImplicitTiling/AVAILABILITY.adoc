@@ -69,7 +69,7 @@ lengthBytes = ceil(lengthBits / 8)
 [#implicittiling-accessing-availability-bits]
 == Accessing Availability Bits
 
-For tile availability and content availability, the Morton index only determines the ordering within a single level of the subtree. Since the availability bitstream stores bits for every level of the subtree, a level offset must be computed.
+For tile availability and content availability, the Morton index only determines the ordering within a single level of the subtree. Since the availability bitstream stores bits for every level of the subtree, a level offset shall be computed.
 
 Given the `(level, mortonIndex)` of a tile relative to the subtree root, the index of the corresponding bit can be computed with the following formulas:
 

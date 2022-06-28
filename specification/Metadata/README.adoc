@@ -37,7 +37,7 @@ This specification defines metadata schemas and methods for encoding metadata.
 
 *Schemas* contain a set of *classes* and *enums*. A class represents a category of similar entities, and is defined as a set of *properties*. Each property describes values of a particular type. An enum defines a set of named values representing a single value type, and may be referenced by class properties. Schema definitions do not describe how entities or properties are stored, and may be represented in a file format in various ways. Schemas can be reused across multiple assets or even file formats.
 
-*Entities* are instantiations of a class, populated with *property values* conforming to the class definition. Every property value of an entity must be defined by its class, and an entity must not have extraneous property values. Properties of a class may be required, in which case all entities instantiating the class are required to include them.
+*Entities* are instantiations of a class, populated with *property values* conforming to the class definition. Every property value of an entity shall be defined by its class, and an entity shall not have extraneous property values. Properties of a class may be required, in which case all entities instantiating the class are required to include them.
 
 [NOTE]
 .Informative
@@ -73,7 +73,7 @@ IDs (`id`) are unique <<metadata-identifiers,identifiers>> for a schema.
 [#metadata-version]
 ==== Version
 
-Schema version (`version`) is an application-specific identifier for a given schema revision. Version must be a string, and should be syntactically compatible with https://semver.org/[SemVer].
+Schema version (`version`) is an application-specific identifier for a given schema revision. Version shall be a string, and should be syntactically compatible with https://semver.org/[SemVer].
 
 When a schema has multiple versions, the `(id, version)` pair uniquely identifies a particular schema and revision.
 
@@ -86,12 +86,12 @@ Valid semantic versions include strings like `0.1.2`, `1.2.3`, and `1.2.3-alpha`
 [#metadata-name]
 ==== Name
 
-Names (`name`) provide a human-readable label for a schema, and are not required to be unique. Names must be valid Unicode strings, and should be written in natural language.
+Names (`name`) provide a human-readable label for a schema, and are not required to be unique. Names shall be valid Unicode strings, and should be written in natural language.
 
 [#metadata-description]
 ==== Description
 
-Descriptions (`description`) provide a human-readable explanation of a schema, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings.
+Descriptions (`description`) provide a human-readable explanation of a schema, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions shall be valid Unicode strings.
 
 [#metadata-enums]
 ==== Enums
@@ -146,12 +146,12 @@ IDs (`id`) are unique <<metadata-identifiers,identifiers>> for an enum within a 
 [#metadata-name-1]
 ==== Name
 
-Names (`name`) provide a human-readable label for an enum, and are not required to be unique within a schema. Names must be valid Unicode strings, and should be written in natural language.
+Names (`name`) provide a human-readable label for an enum, and are not required to be unique within a schema. Names shall be valid Unicode strings, and should be written in natural language.
 
 [#metadata-description-1]
 ==== Description
 
-Descriptions (`description`) provide a human-readable explanation of an enum, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings.
+Descriptions (`description`) provide a human-readable explanation of an enum, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions shall be valid Unicode strings.
 
 [#metadata-values]
 ==== Values
@@ -173,12 +173,12 @@ IDs (`id`) are unique <<metadata-identifiers,identifiers>> for a class within a 
 [#metadata-name-2]
 ==== Name
 
-Names (`name`) provide a human-readable label for a class, and are not required to be unique within a schema. Names must be valid Unicode strings, and should be written in natural language.
+Names (`name`) provide a human-readable label for a class, and are not required to be unique within a schema. Names shall be valid Unicode strings, and should be written in natural language.
 
 [#metadata-description-2]
 ==== Description
 
-Descriptions (`description`) provide a human-readable explanation of a class, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings.
+Descriptions (`description`) provide a human-readable explanation of a class, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions shall be valid Unicode strings.
 
 [#metadata-properties]
 ==== Properties
@@ -193,7 +193,7 @@ Unordered set of <<metadata-property,properties>>.
 [#metadata-overview-1]
 ==== Overview
 
-Properties describe the type and structure of values that may be associated with entities of a class. Entities may omit values for a property, unless the property is required. Entities must not contain values other than those defined by the properties of their class.
+Properties describe the type and structure of values that may be associated with entities of a class. Entities may omit values for a property, unless the property is required. Entities shall not contain values other than those defined by the properties of their class.
 
 [NOTE]
 .Example
@@ -242,7 +242,7 @@ IDs (`id`) are unique <<metadata-identifiers,identifiers>> for a property within
 [#metadata-name-3]
 ==== Name
 
-Names (`name`) provide a human-readable label for a property, and must be unique to a property within a class. Names must be valid Unicode strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property must also define a <<metadata-semantic,semantic>>.
+Names (`name`) provide a human-readable label for a property, and shall be unique to a property within a class. Names shall be valid Unicode strings, and should be written in natural language. Property names do not have inherent meaning; to provide such a meaning, a property shall also define a <<metadata-semantic,semantic>>.
 
 [NOTE]
 .Example
@@ -253,7 +253,7 @@ A typical ID / Name pair, in English, would be `localTemperature` and `"Local Te
 [#metadata-description-3]
 ==== Description
 
-Descriptions (`description`) provide a human-readable explanation of a property, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions must be valid Unicode strings. To provide a machine-readable semantic meaning, a property must also define a <<metadata-semantic,semantic>>.
+Descriptions (`description`) provide a human-readable explanation of a property, its purpose, or its contents. Typically at least a phrase, and possibly several sentences or paragraphs. Descriptions shall be valid Unicode strings. To provide a machine-readable semantic meaning, a property shall also define a <<metadata-semantic,semantic>>.
 
 [#metadata-semantic]
 ==== Semantic
@@ -348,7 +348,7 @@ Scalar, vector, and matrix types comprise of numeric components. Each component 
 | A number that can be represented as a 64-bit IEEE floating point number
 |===
 
-Floating-point properties (`FLOAT32` and `FLOAT64`) must not include values `NaN`, `+Infinity`, or `-Infinity`.
+Floating-point properties (`FLOAT32` and `FLOAT64`) shall not include values `NaN`, `+Infinity`, or `-Infinity`.
 
 [NOTE]
 .Informative
@@ -359,12 +359,12 @@ Developers of authoring tools should be aware that many JSON implementations sup
 [#metadata-enum-type]
 ==== Enum Type
 
-<<metadata-enums,Enum properties>> are denoted by `ENUM`. An enum property must additionally provide the ID of the specific enum it uses, referred to as its enum type (`enumType`).
+<<metadata-enums,Enum properties>> are denoted by `ENUM`. An enum property shall additionally provide the ID of the specific enum it uses, referred to as its enum type (`enumType`).
 
 [#metadata-arrays]
 ==== Arrays
 
-A property can be declared to be a fixed- and variable-length array, consisting of elements of the given type. For fixed-length arrays, a count (`count`) denotes the number of elements in each array, and must be greater than or equal to 2. Variable-length arrays do not define a count and may have any length, including zero.
+A property can be declared to be a fixed- and variable-length array, consisting of elements of the given type. For fixed-length arrays, a count (`count`) denotes the number of elements in each array, and shall be greater than or equal to 2. Variable-length arrays do not define a count and may have any length, including zero.
 
 [#metadata-normalized-values]
 ==== Normalized Values
@@ -462,7 +462,7 @@ Property values outside the `[minimum, maximum]` range are not allowed, with the
 [#metadata-required-properties-no-data-values-and-default-values]
 ==== Required Properties, No Data Values, and Default Values
 
-When associated property values must exist for all entities of a class, a property is considered required (`required`).
+When associated property values shall exist for all entities of a class, a property is considered required (`required`).
 
 Individual elements in an array or individual components in a vector or matrix cannot be marked as required; only the property itself can be marked as required.
 
@@ -531,7 +531,7 @@ Additional serialization methods may be defined outside of this specification. F
 [NOTE]
 .Informative
 ====
-Any specification that references 3D Metadata must state explicitly which storage formats are supported, or define its own serialization. For example, the https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] glTF extension implements the binary table format described below, and defines an additional image-based format for per-texel metadata.
+Any specification that references 3D Metadata shall state explicitly which storage formats are supported, or define its own serialization. For example, the https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] glTF extension implements the binary table format described below, and defines an additional image-based format for per-texel metadata.
 ====
 
 [#metadata-binary-table-format]
@@ -609,7 +609,7 @@ Matrix components are tightly packed in column-major order and encoded based on 
 
 A boolean value is encoded as a single bit, either 0 (`false`) or 1 (`true`). Multiple boolean values are packed tightly in the same buffer. These buffers of tightly-packed bits are sometimes referred to as bitstreams.
 
-For a table with `N` rows, the buffer that stores these boolean values will consist of `ceil(N / 8)` bytes. When `N` is not divisible by 8, then the unused bits of the last byte of this buffer must be set to 0.
+For a table with `N` rows, the buffer that stores these boolean values will consist of `ceil(N / 8)` bytes. When `N` is not divisible by 8, then the unused bits of the last byte of this buffer shall be set to 0.
 
 [NOTE]
 .Informative
@@ -845,7 +845,7 @@ _A single entity encoded in JSON. Note that the optional property is omitted in 
 [#metadata-scalars-1]
 ==== Scalars
 
-All component types (`INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, `UINT64`, `FLOAT32`, and `FLOAT64`) are encoded as JSON numbers. Floating point values must be representable as IEEE floating point numbers.
+All component types (`INT8`, `UINT8`, `INT16`, `UINT16`, `INT32`, `UINT32`, `INT64`, `UINT64`, `FLOAT32`, and `FLOAT64`) are encoded as JSON numbers. Floating point values shall be representable as IEEE floating point numbers.
 
 [NOTE]
 .Informative
@@ -881,5 +881,5 @@ Enums are encoded as JSON strings using the name of the enum value rather than t
 [#metadata-arrays-1]
 ==== Arrays
 
-Arrays are encoded as JSON arrays, where each element is encoded according to the `type`. When a count is specified, the length of the JSON array must match the count. Otherwise, for variable-length arrays, the JSON array may be any length, including zero-length.
+Arrays are encoded as JSON arrays, where each element is encoded according to the `type`. When a count is specified, the length of the JSON array shall match the count. Otherwise, for variable-length arrays, the JSON array may be any length, including zero-length.
 

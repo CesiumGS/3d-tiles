@@ -526,7 +526,7 @@ regExp('a') !~ 'bcd'
  ** Vector expressions of the same type
 * Binary equality operators `===` and `!==` operate on any expressions. The operation returns `false` if the expression types do not match.
 * Binary `regExp` operators `=~` and `!~` require one argument to be a string expression and the other to be a `RegExp` expression.
-* Ternary operator `? :` conditional argument must be a boolean expression.
+* Ternary operator `? :` conditional argument shall be a boolean expression.
 
 [#styling-type-conversions]
 === Type conversions
@@ -1598,7 +1598,7 @@ A xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcl
 }
 ----
 
-Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`. A `pointSize` of `1.0` must be supported.
+Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`. A `pointSize` of `1.0` shall be supported.
 
 Point Cloud styles may also reference semantics from the xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-feature-table[Feature Table] including position, color, and normal to allow for more flexible styling of the source data.
 
