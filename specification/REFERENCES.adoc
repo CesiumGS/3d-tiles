@@ -14,6 +14,6 @@
 
 * [[[Khronos_Group,Khronos Group glTF 2.0]]], Khronos Group: glTF 2.0, 2021. https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html[https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html]
 
-* [[[OGC,OGC 12-063r5]]], OGC: [OGC 12-063r5] Geographic information - Well-known text representation of coordinate reference systems, 2015. http://docs.opengeospatial.org/is/12-063r5/12-063r5.html[http://docs.opengeospatial.org/is/12-063r5/12-063r5.html]
+* [[[OGC,OGC 18-010r7]]], OGC: [OGC 18-010r7] Geographic information - Well-known text representation of coordinate reference systems, 2019. https://docs.opengeospatial.org/is/18-010r7/18-010r7.html[https://docs.opengeospatial.org/is/18-010r7/18-010r7.html]
 
 * [[[W3C,W3C css-color-3]]], W3C: CSS3 Color, 2018. https://www.w3.org/TR/css-color-3/[https://www.w3.org/TR/css-color-3/]
