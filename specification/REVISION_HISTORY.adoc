@@ -9,44 +9,6 @@
 |===
 |Date |Release |Editor | Primary clauses modified |Description
 
-| 2018-06-04 | 1.0 | Gabby Getz | a| Put 3D Tiles specification document into OGC document template
-
-| 2018-08-03 | 1.0r1 | Gabby Getz | a| Respond to public comments
-
-| 2018-11-16 | 1.0r2 | Gabby Getz | a| 
-* Updated conformance section to include schema references
-* Update preface to address updates to WKT for CRS (OGC12-053r5)
-* Revise Introduction section to clarify conceptual concepts, including tile, tile content, tile formats, features, properties, styles, and the Batch Table and Features Table and how glTF is used in 3D Tiles
-* Updated "tile" and "HLOD" definitions, added "tile content", "tile format", "geometric error", "screen space error", and "spatial coherence" definitions
-* Add reference to EPSG in CRS section
-* Remove glTF transforms from CRS section. Add only to relevant sections after being introduced.
-* Remove references to "generation tool"
-* Fix phrasing describing Tileset JSON
-* Revise Tile Formats intro
-* Revise embedded glTF wording. 
-* Fix "required" property errors in the properties reference as generated from the schema
-* Remove 3d\_tileset\_time 3D Tiles Style variable
-* Add clarification for styling tilesets without features
-* Update normative references to include:
-** EPSG 4979
-** IETF RFC3986
-** IETF RFC2397
-** UTF-8
-** W3C CSS3 Color
-* Change glTF specification from non-normative to normative reference
-
-| 2019-01-21 | TODO | TODO | a| 
-* Revise internal link formatting
-* TODO
-
-| 2022-06-26 | 1.1.0 | Sean Lilley | all a| 
-* Additions:
-** Support for structured metadata that can be associated with tilesets, tiles, tile content, and tile content groups
-** Directly support glTF assets as tile contents
-** Support for multiple tile contents
-** Support for implicit tiling schemes
-* Deprecations:
-** The original tile formats (b3dm, i3dm, pnts, and cmpt) are deprecated in favor of glTF content
-** The `tileset.properties` are deprecated, in favor of the more versatile metadata support
+| TBD | 1.1.0 | Sean Lilley | all a| This is the first normative version of this document.
 
 |===
