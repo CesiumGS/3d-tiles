@@ -668,7 +668,7 @@ A class containing a set of properties.
 
 |**properties**
 |`object`
-|A dictionary, where each key is a property ID and each value is an object defining the property. Property IDs must be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
+|A dictionary, where each key is a property ID and each value is an object defining the property. Property IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
 |No
 
 |**extensions**
@@ -705,7 +705,7 @@ The description of the class.
 
 == class.properties
 
-A dictionary, where each key is a property ID and each value is an object defining the property. Property IDs must be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
+A dictionary, where each key is a property ID and each value is an object defining the property. Property IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
 
 * **Type**: `object`
 * **Required**: No
@@ -780,7 +780,7 @@ A single property of a metadata class.
 
 |**normalized**
 |`boolean`
-|Specifies whether integer values are normalized. Only applicable to `SCALAR`, `VECN`, and `MATN` types with integer component types. For unsigned integer component types, values are normalized between `[0.0, 1.0]`. For signed integer component types, values are normalized between `[-1.0, 1.0]`. For all other component types, this property must be false.
+|Specifies whether integer values are normalized. Only applicable to `SCALAR`, `VECN`, and `MATN` types with integer component types. For unsigned integer component types, values are normalized between `[0.0, 1.0]`. For signed integer component types, values are normalized between `[-1.0, 1.0]`. For all other component types, this property shall be false.
 |No, default: `false`
 
 |**offset**
@@ -805,17 +805,17 @@ A single property of a metadata class.
 
 |**required**
 |`boolean`
-|If required, the property must be present in every entity conforming to the class. If not required, individual entities may include `noData` values, or the entire property may be omitted. As a result, `noData` has no effect on a required property. Client implementations may use required properties to make performance optimizations.
+|If required, the property shall be present in every entity conforming to the class. If not required, individual entities may include `noData` values, or the entire property may be omitted. As a result, `noData` has no effect on a required property. Client implementations may use required properties to make performance optimizations.
 |No, default: `false`
 
 |**noData**
 |<<reference-definitions-definitions-nodatavalue,`definitions-definitions-noDataValue`>>
-|A `noData` value represents missing data — also known as a sentinel value — wherever it appears. `BOOLEAN` properties may not specify `noData` values. This is given as the plain property value, without the transforms from the `normalized`, `offset`, and `scale` properties. Must not be defined if `required` is true.
+|A `noData` value represents missing data — also known as a sentinel value — wherever it appears. `BOOLEAN` properties may not specify `noData` values. This is given as the plain property value, without the transforms from the `normalized`, `offset`, and `scale` properties. Shall not be defined if `required` is true.
 |No
 
 |**default**
 |<<reference-definitions-definitions-anyvalue,`definitions-definitions-anyValue`>>
-|A default value to use when encountering a `noData` value or an omitted property. The value is given in its final form, taking the effect of `normalized`, `offset`, and `scale` properties into account. Must not be defined if `required` is true.
+|A default value to use when encountering a `noData` value or an omitted property. The value is given in its final form, taking the effect of `normalized`, `offset`, and `scale` properties into account. Shall not be defined if `required` is true.
 |No
 
 |**semantic**
@@ -915,7 +915,7 @@ The number of array elements. May only be defined when `array` is `true`.
 
 == class.property.normalized
 
-Specifies whether integer values are normalized. Only applicable to `SCALAR`, `VECN`, and `MATN` types with integer component types. For unsigned integer component types, values are normalized between `[0.0, 1.0]`. For signed integer component types, values are normalized between `[-1.0, 1.0]`. For all other component types, this property must be false.
+Specifies whether integer values are normalized. Only applicable to `SCALAR`, `VECN`, and `MATN` types with integer component types. For unsigned integer component types, values are normalized between `[0.0, 1.0]`. For signed integer component types, values are normalized between `[-1.0, 1.0]`. For all other component types, this property shall be false.
 
 * **Type**: `boolean`
 * **Required**: No, default: `false`
@@ -950,21 +950,21 @@ Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and
 
 == class.property.required
 
-If required, the property must be present in every entity conforming to the class. If not required, individual entities may include `noData` values, or the entire property may be omitted. As a result, `noData` has no effect on a required property. Client implementations may use required properties to make performance optimizations.
+If required, the property shall be present in every entity conforming to the class. If not required, individual entities may include `noData` values, or the entire property may be omitted. As a result, `noData` has no effect on a required property. Client implementations may use required properties to make performance optimizations.
 
 * **Type**: `boolean`
 * **Required**: No, default: `false`
 
 == class.property.noData
 
-A `noData` value represents missing data — also known as a sentinel value — wherever it appears. `BOOLEAN` properties may not specify `noData` values. This is given as the plain property value, without the transforms from the `normalized`, `offset`, and `scale` properties. Must not be defined if `required` is true.
+A `noData` value represents missing data — also known as a sentinel value — wherever it appears. `BOOLEAN` properties may not specify `noData` values. This is given as the plain property value, without the transforms from the `normalized`, `offset`, and `scale` properties. Shall not be defined if `required` is true.
 
 * **Type**: <<reference-definitions-definitions-nodatavalue,`definitions-definitions-noDataValue`>>
 * **Required**: No
 
 == class.property.default
 
-A default value to use when encountering a `noData` value or an omitted property. The value is given in its final form, taking the effect of `normalized`, `offset`, and `scale` properties into account. Must not be defined if `required` is true.
+A default value to use when encountering a `noData` value or an omitted property. The value is given in its final form, taking the effect of `normalized`, `offset`, and `scale` properties into account. Shall not be defined if `required` is true.
 
 * **Type**: <<reference-definitions-definitions-anyvalue,`definitions-definitions-anyValue`>>
 * **Required**: No
@@ -1173,7 +1173,7 @@ For `SCALAR` this is a number. For `VECN` this is an array of `N` numbers. For `
 [#reference-definitions-definitions-nodatavalue]
 === definitions-definitions-noDataValue
 
-For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`.
+For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that shall be a valid enum `name`, not an integer value. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`.
 
 * **Type**: One of <<reference-definitions-definitions-numericvalue,`definitions-definitions-numericValue`>>, `string`, <<reference-definitions-definitions-stringarray1d,`definitions-definitions-stringArray1D`>>
 
@@ -1185,7 +1185,7 @@ For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is
 [#reference-definitions-definitions-anyvalue]
 === definitions-definitions-anyValue
 
-For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that must be a valid enum `name`, not an integer value. For `BOOLEAN` this is a boolean. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length array this is an array of `count` elements of the given `type`. For variable-length arrays this is an array of any length of the given `type`.
+For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that shall be a valid enum `name`, not an integer value. For `BOOLEAN` this is a boolean. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length array this is an array of `count` elements of the given `type`. For variable-length arrays this is an array of any length of the given `type`.
 
 * **Type**: One of <<reference-definitions-definitions-numericvalue,`definitions-definitions-numericValue`>>, `string`, <<reference-definitions-definitions-stringarray1d,`definitions-definitions-stringArray1D`>>, `boolean`, <<reference-definitions-definitions-booleanarray1d,`definitions-definitions-booleanArray1D`>>
 
@@ -1685,12 +1685,12 @@ An object containing metadata about a group.
 
 |**class**
 |`string`
-|The class that property values conform to. The value must be a class ID declared in the `classes` dictionary of the metadata schema.
+|The class that property values conform to. The value shall be a class ID declared in the `classes` dictionary of the metadata schema.
 | &#10003; Yes
 
 |**properties**
 |`object`
-|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties must be included in this dictionary.
+|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value shall match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties shall be included in this dictionary.
 |No
 
 |**extensions**
@@ -1711,14 +1711,14 @@ An object containing metadata about a group.
 
 == group.class
 
-The class that property values conform to. The value must be a class ID declared in the `classes` dictionary of the metadata schema.
+The class that property values conform to. The value shall be a class ID declared in the `classes` dictionary of the metadata schema.
 
 * **Type**: `string`
 * **Required**:  &#10003; Yes
 
 == group.properties
 
-A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties must be included in this dictionary.
+A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value shall match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties shall be included in this dictionary.
 
 * **Type**: `object`
 * **Required**: No
@@ -1972,12 +1972,12 @@ An object containing a reference to a class from a metadata schema, and property
 
 |**class**
 |`string`
-|The class that property values conform to. The value must be a class ID declared in the `classes` dictionary of the metadata schema.
+|The class that property values conform to. The value shall be a class ID declared in the `classes` dictionary of the metadata schema.
 | &#10003; Yes
 
 |**properties**
 |`object`
-|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties must be included in this dictionary.
+|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value shall match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties shall be included in this dictionary.
 |No
 
 |**extensions**
@@ -1998,14 +1998,14 @@ An object containing a reference to a class from a metadata schema, and property
 
 == metadataEntity.class
 
-The class that property values conform to. The value must be a class ID declared in the `classes` dictionary of the metadata schema.
+The class that property values conform to. The value shall be a class ID declared in the `classes` dictionary of the metadata schema.
 
 * **Type**: `string`
 * **Required**:  &#10003; Yes
 
 == metadataEntity.properties
 
-A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value must match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties must be included in this dictionary.
+A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value shall match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties shall be included in this dictionary.
 
 * **Type**: `object`
 * **Required**: No
@@ -2334,7 +2334,7 @@ Properties conforming to a class, organized as property values stored in binary 
 
 |**class**
 |`string`
-|The class that property values conform to. The value must be a class ID declared in the `classes` dictionary.
+|The class that property values conform to. The value shall be a class ID declared in the `classes` dictionary.
 | &#10003; Yes
 
 |**count**
@@ -2344,7 +2344,7 @@ Properties conforming to a class, organized as property values stored in binary 
 
 |**properties**
 |`object`
-|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Required properties must be included in this dictionary.
+|A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Required properties shall be included in this dictionary.
 |No
 
 |**extensions**
@@ -2373,7 +2373,7 @@ The name of the property table, e.g. for display purposes.
 
 == propertyTable.class
 
-The class that property values conform to. The value must be a class ID declared in the `classes` dictionary.
+The class that property values conform to. The value shall be a class ID declared in the `classes` dictionary.
 
 * **Type**: `string`
 * **Required**:  &#10003; Yes
@@ -2388,7 +2388,7 @@ The number of elements in each property array.
 
 == propertyTable.properties
 
-A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Required properties must be included in this dictionary.
+A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Required properties shall be included in this dictionary.
 
 * **Type**: `object`
 * **Required**: No
@@ -2428,17 +2428,17 @@ An array of binary property values. This represents one column of a property tab
 
 |**values**
 |`integer`
-|The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitstream. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is `SCALAR`, `VECN`, or `MATN` the values are stored as the provided `componentType` and the buffer view `byteOffset` must be aligned to a multiple of the `componentType` size. When `type` is `ENUM` values are stored as the enum's `valueType` and the buffer view `byteOffset` must be aligned to a multiple of the `valueType` size. Each enum value in the array must match one of the allowed values in the enum definition. `arrayOffsets` is required for variable-length arrays and `stringOffsets` is required for strings (for variable-length arrays of strings, both are required).
+|The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitstream. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is `SCALAR`, `VECN`, or `MATN` the values are stored as the provided `componentType` and the buffer view `byteOffset` shall be aligned to a multiple of the `componentType` size. When `type` is `ENUM` values are stored as the enum's `valueType` and the buffer view `byteOffset` shall be aligned to a multiple of the `valueType` size. Each enum value in the array shall match one of the allowed values in the enum definition. `arrayOffsets` is required for variable-length arrays and `stringOffsets` is required for strings (for variable-length arrays of strings, both are required).
 | &#10003; Yes
 
 |**arrayOffsets**
 |`integer`
-|The index of the buffer view containing offsets for variable-length arrays. The number of offsets is equal to the property table `count` plus one. The offsets represent the start positions of each array, with the last offset representing the position after the last array. The array length is computed using the difference between the subsequent offset and the current offset. If `type` is `STRING` the offsets index into the string offsets array (stored in `stringOffsets`), otherwise they index into the property array (stored in `values`). The data type of these offsets is determined by `arrayOffsetType`. The buffer view `byteOffset` must be aligned to a multiple of the `arrayOffsetType` size.
+|The index of the buffer view containing offsets for variable-length arrays. The number of offsets is equal to the property table `count` plus one. The offsets represent the start positions of each array, with the last offset representing the position after the last array. The array length is computed using the difference between the subsequent offset and the current offset. If `type` is `STRING` the offsets index into the string offsets array (stored in `stringOffsets`), otherwise they index into the property array (stored in `values`). The data type of these offsets is determined by `arrayOffsetType`. The buffer view `byteOffset` shall be aligned to a multiple of the `arrayOffsetType` size.
 |No
 
 |**stringOffsets**
 |`integer`
-|The index of the buffer view containing offsets for strings. The number of offsets is equal to the number of string elements plus one. The offsets represent the byte offsets of each string in the property array (stored in `values`), with the last offset representing the byte offset after the last string. The string byte length is computed using the difference between the subsequent offset and the current offset. The data type of these offsets is determined by `stringOffsetType`. The buffer view `byteOffset` must be aligned to a multiple of the `stringOffsetType` size.
+|The index of the buffer view containing offsets for strings. The number of offsets is equal to the number of string elements plus one. The offsets represent the byte offsets of each string in the property array (stored in `values`), with the last offset representing the byte offset after the last string. The string byte length is computed using the difference between the subsequent offset and the current offset. The data type of these offsets is determined by `stringOffsetType`. The buffer view `byteOffset` shall be aligned to a multiple of the `stringOffsetType` size.
 |No
 
 |**arrayOffsetType**
@@ -2489,7 +2489,7 @@ An array of binary property values. This represents one column of a property tab
 
 == propertyTable.property.values
 
-The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitstream. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is `SCALAR`, `VECN`, or `MATN` the values are stored as the provided `componentType` and the buffer view `byteOffset` must be aligned to a multiple of the `componentType` size. When `type` is `ENUM` values are stored as the enum's `valueType` and the buffer view `byteOffset` must be aligned to a multiple of the `valueType` size. Each enum value in the array must match one of the allowed values in the enum definition. `arrayOffsets` is required for variable-length arrays and `stringOffsets` is required for strings (for variable-length arrays of strings, both are required).
+The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitstream. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is `SCALAR`, `VECN`, or `MATN` the values are stored as the provided `componentType` and the buffer view `byteOffset` shall be aligned to a multiple of the `componentType` size. When `type` is `ENUM` values are stored as the enum's `valueType` and the buffer view `byteOffset` shall be aligned to a multiple of the `valueType` size. Each enum value in the array shall match one of the allowed values in the enum definition. `arrayOffsets` is required for variable-length arrays and `stringOffsets` is required for strings (for variable-length arrays of strings, both are required).
 
 * **Type**: `integer`
 * **Required**:  &#10003; Yes
@@ -2497,7 +2497,7 @@ The index of the buffer view containing property values. The data type of proper
 
 == propertyTable.property.arrayOffsets
 
-The index of the buffer view containing offsets for variable-length arrays. The number of offsets is equal to the property table `count` plus one. The offsets represent the start positions of each array, with the last offset representing the position after the last array. The array length is computed using the difference between the subsequent offset and the current offset. If `type` is `STRING` the offsets index into the string offsets array (stored in `stringOffsets`), otherwise they index into the property array (stored in `values`). The data type of these offsets is determined by `arrayOffsetType`. The buffer view `byteOffset` must be aligned to a multiple of the `arrayOffsetType` size.
+The index of the buffer view containing offsets for variable-length arrays. The number of offsets is equal to the property table `count` plus one. The offsets represent the start positions of each array, with the last offset representing the position after the last array. The array length is computed using the difference between the subsequent offset and the current offset. If `type` is `STRING` the offsets index into the string offsets array (stored in `stringOffsets`), otherwise they index into the property array (stored in `values`). The data type of these offsets is determined by `arrayOffsetType`. The buffer view `byteOffset` shall be aligned to a multiple of the `arrayOffsetType` size.
 
 * **Type**: `integer`
 * **Required**: No
@@ -2505,7 +2505,7 @@ The index of the buffer view containing offsets for variable-length arrays. The 
 
 == propertyTable.property.stringOffsets
 
-The index of the buffer view containing offsets for strings. The number of offsets is equal to the number of string elements plus one. The offsets represent the byte offsets of each string in the property array (stored in `values`), with the last offset representing the byte offset after the last string. The string byte length is computed using the difference between the subsequent offset and the current offset. The data type of these offsets is determined by `stringOffsetType`. The buffer view `byteOffset` must be aligned to a multiple of the `stringOffsetType` size.
+The index of the buffer view containing offsets for strings. The number of offsets is equal to the number of string elements plus one. The offsets represent the byte offsets of each string in the property array (stored in `values`), with the last offset representing the byte offset after the last string. The string byte length is computed using the difference between the subsequent offset and the current offset. The data type of these offsets is determined by `stringOffsetType`. The buffer view `byteOffset` shall be aligned to a multiple of the `stringOffsetType` size.
 
 * **Type**: `integer`
 * **Required**: No
@@ -2641,7 +2641,7 @@ An object defining classes and enums.
 
 |**id**
 |`string`
-|Unique identifier for the schema. Schema IDs must be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
+|Unique identifier for the schema. Schema IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
 | &#10003; Yes
 
 |**name**
@@ -2661,12 +2661,12 @@ An object defining classes and enums.
 
 |**classes**
 |`object`
-|A dictionary, where each key is a class ID and each value is an object defining the class. Class IDs must be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
+|A dictionary, where each key is a class ID and each value is an object defining the class. Class IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
 |No
 
 |**enums**
 |`object`
-|A dictionary, where each key is an enum ID and each value is an object defining the values for the enum. Enum IDs must be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
+|A dictionary, where each key is an enum ID and each value is an object defining the values for the enum. Enum IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
 |No
 
 |**extensions**
@@ -2687,7 +2687,7 @@ An object defining classes and enums.
 
 == schema.id
 
-Unique identifier for the schema. Schema IDs must be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
+Unique identifier for the schema. Schema IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
 
 * **Type**: `string`
 * **Required**:  &#10003; Yes
@@ -2719,7 +2719,7 @@ Application-specific version of the schema.
 
 == schema.classes
 
-A dictionary, where each key is a class ID and each value is an object defining the class. Class IDs must be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
+A dictionary, where each key is a class ID and each value is an object defining the class. Class IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
 
 * **Type**: `object`
 * **Required**: No
@@ -2729,7 +2729,7 @@ A dictionary, where each key is a class ID and each value is an object defining 
 
 == schema.enums
 
-A dictionary, where each key is an enum ID and each value is an object defining the values for the enum. Enum IDs must be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
+A dictionary, where each key is an enum ID and each value is an object defining the values for the enum. Enum IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.
 
 * **Type**: `object`
 * **Required**: No
@@ -3175,7 +3175,7 @@ A series of conditions evaluated in order, like a series of if...else statements
 
 |**conditions**
 |<<reference-style-conditions-condition,`style.conditions.condition`>> `[]`
-|A series of boolean conditions evaluated in order. For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned. Result expressions must all be the same type. If no condition evaluates to true, the result is `undefined`. When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.
+|A series of boolean conditions evaluated in order. For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned. Result expressions shall all be the same type. If no condition evaluates to true, the result is `undefined`. When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.
 |No
 
 |**extensions**
@@ -3196,7 +3196,7 @@ A series of conditions evaluated in order, like a series of if...else statements
 
 == style.conditions.conditions
 
-A series of boolean conditions evaluated in order. For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned. Result expressions must all be the same type. If no condition evaluates to true, the result is `undefined`. When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.
+A series of boolean conditions evaluated in order. For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned. Result expressions shall all be the same type. If no condition evaluates to true, the result is `undefined`. When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.
 
 * **Type**: <<reference-style-conditions-condition,`style.conditions.condition`>> `[]`
 * **Required**: No
@@ -3323,7 +3323,7 @@ An object describing the availability of tiles and content in a subtree, as well
 
 |**tileAvailability**
 |<<reference-availability,`availability`>>
-|The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a buffer view or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability must also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees must have at least one tile.
+|The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a buffer view or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability shall also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees shall have at least one tile.
 | &#10003; Yes
 
 |**contentAvailability**
@@ -3390,7 +3390,7 @@ An array of property tables.
 
 == subtree.tileAvailability
 
-The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a buffer view or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability must also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees must have at least one tile.
+The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a buffer view or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability shall also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees shall have at least one tile.
 
 * **Type**: <<reference-availability,`availability`>>
 * **Required**:  &#10003; Yes
@@ -3422,7 +3422,7 @@ Index of the property table containing tile metadata. Tile metadata only exists 
 An array of indexes to property tables containing content metadata. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by 3DTILES_multiple_contents and 3D Tiles 1.1 - this array will have multiple elements. Content metadata only exists for available contents and is tightly packed by increasing tile index. To access individual content metadata, implementations may create a mapping from tile indices to content metadata indices.
 
 * **Type**: `integer` `[1-*]`
-** Each element in the array must be greater than or equal to `0`.
+** Each element in the array shall be greater than or equal to `0`.
 * **Required**: No
 
 == subtree.subtreeMetadata
@@ -3464,7 +3464,7 @@ An object describing the location of subtree files.
 
 |**uri**
 |<<reference-templateuri,`templateUri`>>
-|A template URI pointing to subtree files. A subtree is a fixed-depth (defined by `subtreeLevels`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree root's global level, x, and y. For subdivision scheme `OCTREE`, z must also be given. Relative paths are relative to the tileset JSON.
+|A template URI pointing to subtree files. A subtree is a fixed-depth (defined by `subtreeLevels`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree root's global level, x, and y. For subdivision scheme `OCTREE`, z shall also be given. Relative paths are relative to the tileset JSON.
 | &#10003; Yes
 
 |**extensions**
@@ -3485,7 +3485,7 @@ An object describing the location of subtree files.
 
 == subtrees.uri
 
-A template URI pointing to subtree files. A subtree is a fixed-depth (defined by `subtreeLevels`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree root's global level, x, and y. For subdivision scheme `OCTREE`, z must also be given. Relative paths are relative to the tileset JSON.
+A template URI pointing to subtree files. A subtree is a fixed-depth (defined by `subtreeLevels`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree root's global level, x, and y. For subdivision scheme `OCTREE`, z shall also be given. Relative paths are relative to the tileset JSON.
 
 * **Type**: <<reference-templateuri,`templateUri`>>
 * **Required**:  &#10003; Yes
@@ -3541,7 +3541,7 @@ A tile in a 3D Tiles tileset.
 
 |**viewerRequestVolume**
 |<<reference-boundingvolume,`boundingVolume`>>
-|Optional bounding volume that defines the volume the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.
+|Optional bounding volume that defines the volume the viewer shall be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.
 |No
 
 |**geometricError**
@@ -3561,12 +3561,12 @@ A tile in a 3D Tiles tileset.
 
 |**content**
 |<<reference-content,`content`>>
-|Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. When this is defined, then `contents` must be undefined.
+|Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. When this is defined, then `contents` shall be undefined.
 |No
 
 |**contents**
 |<<reference-content,`content`>> `[1-*]`
-|An array of contents. When this is defined, then `content` must be undefined.
+|An array of contents. When this is defined, then `content` shall be undefined.
 |No
 
 |**metadata**
@@ -3610,7 +3610,7 @@ The bounding volume that encloses the tile.
 
 == tile.viewerRequestVolume
 
-Optional bounding volume that defines the volume the viewer must be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.
+Optional bounding volume that defines the volume the viewer shall be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.
 
 * **Type**: <<reference-boundingvolume,`boundingVolume`>>
 * **Required**: No
@@ -3643,14 +3643,14 @@ A floating-point 4x4 affine transformation matrix, stored in column-major order,
 
 == tile.content
 
-Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. When this is defined, then `contents` must be undefined.
+Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. When this is defined, then `contents` shall be undefined.
 
 * **Type**: <<reference-content,`content`>>
 * **Required**: No
 
 == tile.contents
 
-An array of contents. When this is defined, then `content` must be undefined.
+An array of contents. When this is defined, then `content` shall be undefined.
 
 * **Type**: <<reference-content,`content`>> `[1-*]`
 * **Required**: No
@@ -3674,7 +3674,7 @@ An object that describes the implicit subdivision of this tile.
 An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.
 
 * **Type**: <<reference-tile,`tile`>> `[1-*]`
-** Each element in the array must be unique.
+** Each element in the array shall be unique.
 * **Required**: No
 
 == tile.extensions
@@ -3818,12 +3818,12 @@ A 3D Tiles tileset.
 
 |**schema**
 |<<reference-schema,`schema`>>
-|An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` must be undefined.
+|An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` shall be undefined.
 |No
 
 |**schemaUri**
 |`string`
-|The URI (or IRI) of the external schema file. When this is defined, then `schema` must be undefined.
+|The URI (or IRI) of the external schema file. When this is defined, then `schema` shall be undefined.
 |No
 
 |**statistics**
@@ -3895,14 +3895,14 @@ A dictionary object of metadata about per-feature properties.
 
 == tileset.schema
 
-An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` must be undefined.
+An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` shall be undefined.
 
 * **Type**: <<reference-schema,`schema`>>
 * **Required**: No
 
 == tileset.schemaUri
 
-The URI (or IRI) of the external schema file. When this is defined, then `schema` must be undefined.
+The URI (or IRI) of the external schema file. When this is defined, then `schema` shall be undefined.
 
 * **Type**: `string`
 * **Required**: No
@@ -3949,7 +3949,7 @@ The root tile.
 Names of 3D Tiles extensions used somewhere in this tileset.
 
 * **Type**: `string` `[1-*]`
-** Each element in the array must be unique.
+** Each element in the array shall be unique.
 * **Required**: No
 
 == tileset.extensionsRequired
@@ -3957,7 +3957,7 @@ Names of 3D Tiles extensions used somewhere in this tileset.
 Names of 3D Tiles extensions required to properly load this tileset.
 
 * **Type**: `string` `[1-*]`
-** Each element in the array must be unique.
+** Each element in the array shall be unique.
 * **Required**: No
 
 == tileset.extensions
