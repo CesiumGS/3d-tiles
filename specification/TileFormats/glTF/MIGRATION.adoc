@@ -5,7 +5,7 @@
 // links between ADOC files in sibling directories can be resolved.
 ifdef::env-github[]
 :url-specification: ../
-:url-specification-tileformats: {url-specification}Metadata/
+:url-specification-tileformats: {url-specification}TileFormats/
 :url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
 :url-specification-tileformats-composite: {url-specification-tileformats}Composite/
 :url-specification-tileformats-instanced3dmodel: {url-specification-tileformats}Instanced3DModel/
