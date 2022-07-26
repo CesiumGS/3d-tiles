@@ -38,13 +38,11 @@ Please provide specification feedback by [submitting issues](https://github.com/
 
 The [3D Tiles Resources](./RESOURCES.md) page contains a list of implementations of the 3D Tiles standard, as well as viewers, generators, data providers, and demos. The page also includes developer resources, blog posts, and presentations that explain the concepts and applications of 3D Tiles.
 
-## 3D Tiles Reference Card
+## 3D Tiles Reference Cards
 
-[![](figures/3d-tiles-reference-card-single-layout-6x4.jpg)](./3d-tiles-reference-card.pdf)
+The [**3D Tiles Reference Cards**](./reference-cards) are approachable and concise guides to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles into runtime engines for visualization and analysis of massive heterogeneous 3D geospatial content.
 
-The [**3D Tiles Reference Card**](./3d-tiles-reference-card.pdf) is an approachable and concise guide to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles into runtime engines for visualization and analysis of massive heterogeneous 3D geospatial content.
-
-This guide augments the fully detailed 3D Tiles specification with coverage of key concepts to help developers jumpstart adopting 3D Tiles.
+These guides augment the fully detailed 3D Tiles specification with coverage of key concepts to help developers jumpstart adopting 3D Tiles.
 
 ## Version History
 
