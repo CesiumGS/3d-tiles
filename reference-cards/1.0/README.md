@@ -1,14 +1,10 @@
 # 3D Tiles Reference Card
 
-[![Reference Card pages](../figures/3d-tiles-reference-card-single-layout-8x3.jpg)](../3d-tiles-reference-card.pdf)
+[![Reference Card pages](../../figures/3d-tiles-reference-card-single-layout-8x3.jpg)](../../3d-tiles-reference-card.pdf)
 
-The [**3D Tiles Reference Card**](../3d-tiles-reference-card.pdf) is an approachable and concise guide to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles into runtime engines for visualization and analysis of massive heterogeneous 3D geospatial content.
+The [**3D Tiles Reference Card**](../../3d-tiles-reference-card.pdf) is an approachable and concise guide to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles into runtime engines for visualization and analysis of massive heterogeneous 3D geospatial content.
 
-This guide augments the fully detailed [3D Tiles specification](https://github.com/CesiumGS/3d-tiles/tree/main/specification#3d-tiles-format-specification) with coverage of key concepts to help developers jumpstart adopting 3D Tiles.
-
-## Changelog
-
-* 2020-03-12: Initial release of version 1.0
+This guide augments the fully detailed [3D Tiles specification](https://github.com/CesiumGS/3d-tiles/tree/main/specification) with coverage of key concepts to help developers jumpstart adopting 3D Tiles.
 
 ## Source
 
