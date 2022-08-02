@@ -1046,7 +1046,7 @@ Properties may include the following built-in statistics:
 | Object in which keys are property values (for enums, the enum name), and values are the number of occurrences of that property value
 |===
 
-Tileset authors may define their own additional statistics, like `_mode` in the example below. Application-specific statistics should use an underscore prefix (`_*`) and lowerCamelCase for consistency and to avoid conflicting with future built-in statistics.
+Tileset authors may define their own additional statistics, like `\_mode` in the example below. Application-specific statistics should use an underscore prefix (`_*`) and lowerCamelCase for consistency and to avoid conflicting with future built-in statistics.
 
 [NOTE]
 .Example
