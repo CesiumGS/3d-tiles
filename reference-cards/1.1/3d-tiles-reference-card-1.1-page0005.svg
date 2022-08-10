@@ -22476,9 +22476,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.5455844"
-     inkscape:cx="214.09622"
-     inkscape:cy="522.66977"
+     inkscape:zoom="0.9"
+     inkscape:cx="520.55556"
+     inkscape:cy="606.11111"
      inkscape:document-units="in"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -23251,7 +23251,7 @@
          y="787.22217"
          x="277.59155"
          id="tspan7111-6-0-8-3-1-7-2-0"
-         sodipodi:role="line">minimum: 16.2</tspan></text>
+         sodipodi:role="line"> min: 16.2</tspan></text>
     <text
        id="text7109-2-4-2-7-5-4-7-5"
        y="786.8999"
@@ -23262,7 +23262,7 @@
          y="786.8999"
          x="379.5459"
          id="tspan7111-6-0-8-3-6-1-8-4"
-         sodipodi:role="line">maximum: 31.8</tspan></text>
+         sodipodi:role="line">    max: 31.8</tspan></text>
     <rect
        style="fill:url(#linearGradient265971);fill-opacity:1;stroke:#000000;stroke-width:0.411987;stroke-linejoin:round"
        id="rect265963"
@@ -23347,12 +23347,12 @@
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10px;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';stroke-width:0.9375"
          x="52.589478"
          y="798.90564"
-         id="tspan289241">          &quot;minimum&quot;: 16.2,</tspan><tspan
+         id="tspan289241">          &quot;min&quot;: 16.2,</tspan><tspan
          sodipodi:role="line"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10px;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';stroke-width:0.9375"
          x="52.589478"
          y="811.48444"
-         id="tspan289245">          &quot;maximum&quot;: 31.8</tspan><tspan
+         id="tspan289245">          &quot;max&quot;: 31.8</tspan><tspan
          sodipodi:role="line"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10px;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';stroke-width:0.9375"
          x="52.589478"
