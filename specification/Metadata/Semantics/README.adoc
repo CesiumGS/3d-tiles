@@ -174,19 +174,19 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 | 
 * Type: `SCALAR`
 * Component type: `UINT64`
-| The bounding volume of the tile, expressed as an link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md#cell-ids[S2 Cell ID] using the 64-bit representation instead of the hexadecimal representation. Only applicable to link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
+| The bounding volume of the tile, expressed as an link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md#cell-ids[S2 Cell ID] using the 64-bit representation instead of the hexadecimal representation. Only applicable to link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2`].
 
 | `TILE_MINIMUM_HEIGHT`
 | 
 * Type: `SCALAR`
 * Component type: `FLOAT32` or `FLOAT64`
-| The minimum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to minimum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
+| The minimum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to minimum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2`].
 
 | `TILE_MAXIMUM_HEIGHT`
 | 
 * Type: `SCALAR`
 * Component type: `FLOAT32` or `FLOAT64`
-| The maximum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to maximum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
+| The maximum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to maximum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2`].
 
 | `TILE_HORIZON_OCCLUSION_POINT`^1^
 | 
@@ -261,19 +261,19 @@ In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_S
 | 
 * Type: `SCALAR`
 * Component type: `UINT64`
-| The bounding volume of the content of a tile, expressed as an link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md#cell-ids[S2 Cell ID] using the 64-bit representation instead of the hexadecimal representation. Only applicable to link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
+| The bounding volume of the content of a tile, expressed as an link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md#cell-ids[S2 Cell ID] using the 64-bit representation instead of the hexadecimal representation. Only applicable to link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2`].
 
 | `CONTENT_MINIMUM_HEIGHT`
 | 
 * Type: `SCALAR`
 * Component type: `FLOAT32` or `FLOAT64`
-| The minimum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to minimum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
+| The minimum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to minimum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2`].
 
 | `CONTENT_MAXIMUM_HEIGHT`
 | 
 * Type: `SCALAR`
 * Component type: `FLOAT32` or `FLOAT64`
-| The maximum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to maximum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2].
+| The maximum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to maximum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2`].
 
 | `CONTENT_HORIZON_OCCLUSION_POINT`^1^
 | 
