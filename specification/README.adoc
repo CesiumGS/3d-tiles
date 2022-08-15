@@ -263,6 +263,12 @@ image::figures/BoundingRegion.jpg[Bounding Region]
 
 The `boundingVolume.box` property is an array of 12 numbers that define an oriented bounding box in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the _z_-axis is up. The first three elements define the x, y, and z values for the center of the box. The next three elements (with indices 3, 4, and 5) define the _x_-axis direction and half-length. The next three elements (indices 6, 7, and 8) define the _y_-axis direction and half-length. The last three elements (indices 9, 10, and 11) define the _z_-axis direction and half-length.
 
+[NOTE]
+.Informative
+====
+The representation that is used for an oriented bounding box in 3D Tiles is a versatile and compact: In addition the the center position, the array contains the elements of a 3x3 matrix. The columns of this matrix are the images of unit vectors under a transformation, and therefore uniquely and compactly define the scaling and orientation of the bounding box.
+====
+
 .A bounding box
 image::figures/BoundingBox.jpg[Bounding Box]
 
