@@ -234,6 +234,12 @@ A bounding volume defines the spatial extent enclosing a tile or a tile's conten
 
 The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order `[west, south, east, north, minimum height, maximum height]`. Latitudes and longitudes are in the WGS 84 datum as defined in https://epsg.org/crs_4979/WGS-84.html[EPSG 4979] and are in radians. Heights are in meters above (or below) the https://epsg.org/ellipsoid_7030/WGS-84.html[WGS 84 ellipsoid].
 
+[NOTE]
+.Informative
+====
+The latitude and longitude values are given in _radians_, deviating from the EPSG 4979 definition, where they are given in _degrees_. The choice of using radians is due to internal computations usually taking place in radians -- for example, when converting cartographic to Cartesian coordinates. 
+====
+
 .A bounding region
 image::figures/BoundingRegion.jpg[Bounding Region]
 
@@ -256,6 +262,12 @@ image::figures/BoundingRegion.jpg[Bounding Region]
 ===== Box
 
 The `boundingVolume.box` property is an array of 12 numbers that define an oriented bounding box in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the _z_-axis is up. The first three elements define the x, y, and z values for the center of the box. The next three elements (with indices 3, 4, and 5) define the _x_-axis direction and half-length. The next three elements (indices 6, 7, and 8) define the _y_-axis direction and half-length. The last three elements (indices 9, 10, and 11) define the _z_-axis direction and half-length.
+
+[NOTE]
+.Informative
+====
+The representation that is used for an oriented bounding box in 3D Tiles is a versatile and compact: In addition the the center position, the array contains the elements of a 3x3 matrix. The columns of this matrix are the images of unit vectors under a transformation, and therefore uniquely and compactly define the scaling and orientation of the bounding box.
+====
 
 .A bounding box
 image::figures/BoundingBox.jpg[Bounding Box]
@@ -376,6 +388,12 @@ For more on request volumes, see the https://github.com/CesiumGS/3d-tiles-sample
 To support local coordinate systems--e.g., so a building tileset inside a city tileset can be defined in its own coordinate system, and a point cloud tileset inside the building could, again, be defined in its own coordinate system--each tile has an optional `transform` property.
 
 The `transform` property is a 4x4 affine transformation matrix, stored in column-major order, that transforms from the tile's local coordinate system to the parent tile's coordinate system--or the tileset's coordinate system in the case of the root tile.
+
+[NOTE]
+.Informative
+====
+The storage of the transform matrix in column-major order follows the conventions that are common in graphics programming APIs like OpenGL, meaning that the elements in the `transform` array directly correspond to the entries of a 4x4 matrix in these systems.
+====
 
 The `transform` property applies to
 
