@@ -389,6 +389,12 @@ To support local coordinate systems--e.g., so a building tileset inside a city t
 
 The `transform` property is a 4x4 affine transformation matrix, stored in column-major order, that transforms from the tile's local coordinate system to the parent tile's coordinate system--or the tileset's coordinate system in the case of the root tile.
 
+[NOTE]
+.Informative
+====
+The storage of the transform matrix in column-major order follows the conventions that are common in graphics programming APIs like OpenGL, meaning that the elements in the `transform` array directly correspond to the entries of a 4x4 matrix in these systems.
+====
+
 The `transform` property applies to
 
 * `tile.content`
