@@ -234,6 +234,12 @@ A bounding volume defines the spatial extent enclosing a tile or a tile's conten
 
 The `boundingVolume.region` property is an array of six numbers that define the bounding geographic region with latitude, longitude, and height coordinates with the order `[west, south, east, north, minimum height, maximum height]`. Latitudes and longitudes are in the WGS 84 datum as defined in https://epsg.org/crs_4979/WGS-84.html[EPSG 4979] and are in radians. Heights are in meters above (or below) the https://epsg.org/ellipsoid_7030/WGS-84.html[WGS 84 ellipsoid].
 
+[NOTE]
+.Informative
+====
+The latitude and longitude values are given in _radians_, deviating from the EPSG 4979 definition, where they are given in _degrees_. The choice of using radians is due to internal computations usually taking place in radians -- for example, when converting cartographic to Cartesian coordinates. 
+====
+
 .A bounding region
 image::figures/BoundingRegion.jpg[Bounding Region]
 
