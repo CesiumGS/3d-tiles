@@ -266,7 +266,7 @@ The `boundingVolume.box` property is an array of 12 numbers that define an orien
 [NOTE]
 .Informative
 ====
-The representation that is used for an oriented bounding box in 3D Tiles is a versatile and compact: In addition the the center position, the array contains the elements of a 3x3 matrix. The columns of this matrix are the images of unit vectors under a transformation, and therefore uniquely and compactly define the scaling and orientation of the bounding box.
+The representation that is used for an oriented bounding box in 3D Tiles is versatile and compact: In addition the center position, the array contains the elements of a 3x3 matrix. The columns of this matrix are the images of unit vectors under a transformation, and therefore uniquely and compactly define the scaling and orientation of the bounding box.
 ====
 
 .A bounding box
@@ -879,7 +879,7 @@ See xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-t
 [#core-metadata]
 === Metadata
 
-Application-specific _metadata_ may be provided at multiple granularities within a tileset. Metadata may be associated with high-level entities like tilesets, tiles, contents, or features, or with individual vertices and texels. Metadata conforms to a well-defined type system described by the the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification], which may be extended with application- or domain-specific semantics.
+Application-specific _metadata_ may be provided at multiple granularities within a tileset. Metadata may be associated with high-level entities like tilesets, tiles, contents, or features, or with individual vertices and texels. Metadata conforms to a well-defined type system described by the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification], which may be extended with application- or domain-specific semantics.
 
 Metadata enables additional use cases and functionality for the format:
 
@@ -901,7 +901,7 @@ The figure below shows the relationship between these entities, and examples of 
 .Illustration of the different granularity levels for applying metadata
 image::figures/3d-tiles-metadata-granularities.png[Metadata Granularity,600]
 
-Although they are defined independently, the metadata structure in 3D Tiles and in the glTF `EXT_structural_metadata` extension both conform to the the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification] and build upon the xref:{url-specification-metadata-referenceimplementation}README.adoc#metadata-referenceimplementation-3d-metadata-reference-implementation[Reference Implementation of the 3D Metadata Specification]. Concepts and terminology used here refer to the 3D Metadata Specification, which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
+Although they are defined independently, the metadata structure in 3D Tiles and in the glTF `EXT_structural_metadata` extension both conform to the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification] and build upon the xref:{url-specification-metadata-referenceimplementation}README.adoc#metadata-referenceimplementation-3d-metadata-reference-implementation[Reference Implementation of the 3D Metadata Specification]. Concepts and terminology used here refer to the 3D Metadata Specification, which should be considered a normative reference for definitions and requirements. This document provides inline definitions of terms where appropriate.
 
 [#core-metadata-schema]
 ==== Metadata Schema

@@ -56,7 +56,7 @@ For a tileset with irregular structure, the tile hierarchy can be quickly traver
 
 #### Is screen space error the only metric used to drive refinement?
 
-At runtime, a tile's `geometricError` is used to compute the screen space error (SSE) to drive refinement. Additionally, it is possible to drive the refinement using [metadata ](specification/README.adoc#core-metadata) that is associated withe the tile or tile content. For example, points of interest may be better served with on/off distances and a label collision factor computed at runtime. Note that the viewer's height above the ground is rarely a good metric for 3D since 3D supports arbitrary views.
+At runtime, a tile's `geometricError` is used to compute the screen space error (SSE) to drive refinement. Additionally, it is possible to drive the refinement using [metadata ](specification/README.adoc#core-metadata) that is associated with the tile or tile content. For example, points of interest may be better served with on/off distances and a label collision factor computed at runtime. Note that the viewer's height above the ground is rarely a good metric for 3D since 3D supports arbitrary views.
 
 #### How are cracks between tiles with vector data handled?
 
