@@ -15,9 +15,9 @@
 :comment: ### External link referencing the document; optional. If not provided, a default value is created following this structure: "http://www.opengis.net/doc/{abbrevation of doctype}/{abbrev}/{version}",
 :external-id: TBD
 :comment: ### Internal reference number; mandatory
-:docnumber: 22-025
+:docnumber: 22-025r1
 :comment: ### Date on which the standard was updated; mandatory
-:received-date: 2022-07-26
+:received-date: 2022-08-17
 :comment: ### Date on which the standard was approved by the issuing authority; mandatory
 :issued-date: TBD
 :comment: ### Date on which the standard was published; mandatory
