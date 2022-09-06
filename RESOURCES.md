@@ -13,14 +13,18 @@
 - [Cesium For O3DE](https://cesium.com/platform/cesium-for-o3de/) - An open source plugin for O3DE, the Open 3D Engine, for visualizing 3D Tiles
 - [3DTilesRendererJS](https://github.com/NASA-AMMOS/3DTilesRendererJS) - A renderer for 3D Tiles based on Three.js, developed by NASA-AMMOS
 - [three-loader-3dtiles](https://github.com/nytimes/three-loader-3dtiles) - A Three.js loader module for loading and visualizing 3D Tiles, developed by NY Times R&D.
-- [3DTilesViewer](https://github.com/ebeaufay/3DTilesViewer) - A viewer for 3D Tiles based on Three.js
+- [threedtiles](https://github.com/ebeaufay/threedtiles) - A viewer for 3D Tiles based on Three.js
 - [mapbox-3dtiles](https://github.com/Geodan/mapbox-3dtiles) - A 3D Tiles viewer, implemented as a Mapbox GL JS custom layer, based on Three.js
 - [iTowns](https://github.com/iTowns/itowns) - A Three.js-based framework for visualizing 3D geospatial data, including 3D Tiles
+- [giro3d](https://gitlab.com/giro3d/giro3d) - A framework for visualizing 3D geospatial data, based on Three.js
 - [Hexagon Geospatial Luciad](https://www.hexagongeospatial.com/) - Tools for converting, processing, optimizing, hosting, and visualizing geospatial data based on 3D Tiles 
 - [AGI STK](https://www.agi.com/products/stk) - A mission engineering software with visualization capabilities based on 3D Tiles
 - [Ecere GNOSIS](http://ecere.ca/) - A GIS visualization SDK with support for 3D Tiles
 - [TerriaJS](https://github.com/TerriaJS/terriajs) - A library for web-based geospatial data explorers, based on CesiumJS, with support for 3D Tiles
 - [GeoSolutions MapStore](https://www.geosolutionsgroup.com/technologies/mapstore/) - A framework for creating, managing and sharing maps with different types of geospatial content, including [support for 3D Tiles](https://www.geosolutionsgroup.com/blog/mapstore-release-2022_01_00/)
+- [3DCityDB-Web-Map-Client](https://github.com/3dcitydb/3dcitydb-web-map) A viewer for 3D Tiles and CityGML, based on CesiumJS
+- [deck.gl Tile3DLayer](https://deck.gl/docs/api-reference/geo-layers/tile-3d-layer) An implementation of a 3D Tiles renderer for deck.gl
+
 
 ### Implementations
 
@@ -31,12 +35,13 @@
 ### Tools
 
 - [3d-tiles-validator](https://github.com/CesiumGS/3d-tiles-validator) - A validator for the tileset JSON file and tile formats of 3D Tiles 1.0
+- [blender-3d-tiler](https://gitee.com/cesium_processing/blender-3d-tiler) - A tool for tiling 3D models using the Blender API
 
 ### Sample Data
 
 - [3d-tiles-samples](https://github.com/CesiumGS/3d-tiles-samples) - Sample data sets demonstrating different capabilities of 3D Tiles
 - [3DTilesSampleData](https://github.com/NASA-AMMOS/3DTilesSampleData) - 3D Tiles data sets generated from the NASA Curiosity Rover data
-
+- [cesium_3dtiles_samples](https://github.com/bertt/cesium_3dtiles_samples) - Sample data sets demonstrating different features of 3D Tiles
 
 ### Generators
 
@@ -51,6 +56,7 @@
 - [nFrames](https://www.nframes.com/) - The SURE software system is an application for 3D reconstruction from images that can export the results as 3D Tiles data sets.
 - [Melown Vadstena](https://www.melowntech.com/products/vadstena/) - A software that can process drone-based close-range imagery and low-overlap nadir imagery, to create 3D models that can be exported in the 3D Tiles format.
 - [py3dtilers](https://github.com/VCityTeam/py3dtilers) - A tool and library for building 3D Tiles tilesets from OBJ, GeoJSON, IFC or CityGML input data. 
+- [py3dtiles](https://gitlab.com/Oslandia/py3dtiles) - A Python tool and library for creating and manipulating 3D Tiles
 - [gocesiumtiler](https://github.com/mfbonfigli/gocesiumtiler) - A Golang tool to convert point clouds stored as LAS files to Cesium 3D Tiles
 - [Entwine](https://entwine.io/) - A data organization library for massive point clouds, with the option to output 3D Tiles
 - [AGI GCS](https://www.agi.com/capabilities/geospatial-content-server) - Geospatial Content Server (GCS) is a hosting platform for 3D geospatial data that optimizes data and converts it into 3D Tiles for efficient streaming and visualization.
@@ -60,6 +66,11 @@
 - [4DMapper](https://4dmapper.com/) - A platform for visualizing, managing and delivering geospatial data, with 3D Tiles export
 - [cesium_pnt_generator](https://github.com/mattshax/cesium_pnt_generator) - A set of prototype scripts to convert LAS data into 3D Tiles
 - [cesium-point-cloud-generator](https://github.com/tum-gis/cesium-point-cloud-generator) - A tool for the generation of point cloud visualization datasets in the 3D Tiles format.
+- [pg2b3dm](https://github.com/Geodan/pg2b3dm) - A tool for converting 3D geometries from PostGIS into 3D Tiles B3DM tiles
+- [Obj2Tiles](https://github.com/OpenDroneMap/Obj2Tiles) - A command-line tool and library for converting OBJ files to 3D Tiles
+- [3dtiles](https://github.com/fanvanzh/3dtiles) - Tools for converting OSGB, Esri Shapefiles and FBX files into 3D Tiles
+- [gltf-to-3d-tiles](https://github.com/dreamergz/gltf-to-3d-tiles) - A tool for converting glTF models into GLB, B3DM or 3D Tiles
+
 
 ### Data Providers
 
