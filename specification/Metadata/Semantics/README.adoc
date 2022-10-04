@@ -115,6 +115,7 @@ The geocentric coordinate reference system (CRS) of the tileset. Values include,
 * ``"EPSG:7662"`` - WGS 84 (G1674)
 * ``"EPSG:7664"`` - WGS 84 (G1762)
 * ``"EPSG:9753"`` - WGS 84 (G2139)
+* ``"EPSG:7842"`` - GDA2020
 * ``"UNKNOWN"`` - CRS is unknown
 
 ``region`` bounding volumes are assumed to use the same reference ellipsoid as the geocentric coordinate reference system specified here.
