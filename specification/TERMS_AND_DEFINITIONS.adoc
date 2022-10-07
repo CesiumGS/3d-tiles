@@ -48,7 +48,7 @@ A tile that contains the `implicitTiling` property, and therefore denotes the ro
 
 === Metadata
 
-In the context of 3D Tiles, this term refers to any association of 3D content with entities and properties, such that entities represent meaningful units within an overall structure.
+In the context of 3D Tiles, metadata is equivalent to the concept of attribution in other Open Geospatial Consortium standards. Metadata refers to non-spatial information that is assigned to entities at multiple granularities, including tilesets, tiles, and features.
 
 === Metadata class
 
