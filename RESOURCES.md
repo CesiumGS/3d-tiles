@@ -61,6 +61,7 @@
 - [cesium_pnt_generator](https://github.com/mattshax/cesium_pnt_generator) - A set of prototype scripts to convert LAS data into 3D Tiles
 - [cesium-point-cloud-generator](https://github.com/tum-gis/cesium-point-cloud-generator) - A tool for the generation of point cloud visualization datasets in the 3D Tiles format.
 - [Obj2Tiles](https://github.com/OpenDroneMap/Obj2Tiles) - Open source command-line tool for generating 3D Tiles. Supports Wavefront OBJ (.obj).
+- [py3dtiles](https://gitlab.com/Oslandia/py3dtiles) py3dtiles is a Python tool (CLI) and library for manipulating 3D Tiles
 
 ### Data Providers
 
