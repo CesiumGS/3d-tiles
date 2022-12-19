@@ -1,0 +1,44 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "voxel.schema.json",
+    "title": "Voxel Content",
+    "$ref": "rootProperty.schema.json",
+    "description": "An object describing where voxel property values are stored.",
+    "properties": {
+        "buffers": {
+            "type": "array",
+            "items": {
+                "$ref": "buffer.schema.json"
+            },
+            "minItems": 1,
+            "description": "An array of buffers."
+        },
+        "bufferViews": {
+            "type": "array",
+            "items": {
+                "$ref": "bufferView.schema.json"
+            },
+            "minItems": 1,
+            "description": "An array of buffer views."
+        },
+        "propertyTables": {
+            "type": "array",
+            "items": {
+                "$ref": "propertyTable.schema.json"
+            },
+            "minItems": 1,
+            "description": "An array of property tables."
+        },
+        "voxelTable": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Index of the property table containing voxel data."
+        }
+    },
+    "required": [
+        "buffers",
+        "bufferViews",
+        "propertyTables",
+        "voxelTable"
+    ]
+}
