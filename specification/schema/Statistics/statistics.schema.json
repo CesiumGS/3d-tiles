@@ -13,8 +13,5 @@
                 "$ref": "statistics.class.schema.json"
             }
         }
-    },
-    "required": [
-        "classes"
-    ]
+    }
 }
