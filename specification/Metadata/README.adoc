@@ -70,6 +70,13 @@ Components of a schema are listed below, and implementations may define addition
 
 IDs (`id`) are unique <<metadata-identifiers,identifiers>> for a schema.
 
+[NOTE]
+.Informative
+====
+The schema ID is _required_ for each schema. The main purpose of this ID is to be able to resolve possible ambiguities. The exact mechanism for this disabiguation depends on the client application, and how the access to metadata properties is implemented. But the schema ID makes sure that a compound identifier of the form `<schema-id>.<class-name>.<property-name>` is globally unique, even when the same class name and property name appears in multiple schemas.
+====
+
+
 [#metadata-version]
 ==== Version
 
