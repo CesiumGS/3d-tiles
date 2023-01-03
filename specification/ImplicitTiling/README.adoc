@@ -261,8 +261,6 @@ Each subtree contains tile availability, content availability, and child subtree
 
 Each type of availability is represented as a separate bitstream. Each bitstream is a 1D array where each element represents a node in the quadtree or octree. A 1 bit indicates that the element is available, while a 0 bit indicates that the element is unavailable. Alternatively, if all the bits in a bitstream are the same, a single constant value can be used instead.
 
-The bitstream is encoded in bytes that are stored in a <<implicittiling-buffers-and-buffer-views,buffer>>. Trailing bits that result from the number of nodes not being divisible by 8 shall be set to 0. 
-
 To form the 1D bitstream, the tiles are ordered with the following rules:
 
 * Within each level of the subtree, the tiles are ordered using the https://en.wikipedia.org/wiki/Z-order_curve[Morton Z-order curve]
@@ -404,7 +402,8 @@ Content availability (`contentAvailability`) is an array of content availability
 
 Availability may be represented either as a bitstream or a constant value. `bitstream` is an integer index that identifies the buffer view containing the availability bitstream. `constant` is an integer indicating whether all of the elements are available (`1`) or all are unavailable (`0`). `availableCount` is an integer indicating how many `1` bits exist in the availability bitstream.
 
-Availability bitstreams are packed in binary using the format described in the xref:{url-specification-metadata}README.adoc#metadata-booleans[Booleans] section of the 3D Metadata Specification.
+Availability bitstreams are packed in binary using the format described in the xref:{url-specification-metadata}README.adoc#metadata-booleans[Booleans] section of the 3D Metadata Specification. Trailing bits of availability bitstreams that result from the number of nodes not being divisible by 8 shall be set to 0.
+
 
 [NOTE]
 .Example
