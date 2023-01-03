@@ -125,6 +125,11 @@ For more details on coordinate reference systems in 3D Tiles, see xref:{url-spec
 | `TILESET_CRS_COORDINATE_EPOCH`
 | - Type: `STRING`
 | The coordinate epoch for coordinates that are referenced to a dynamic CRS such as WGS 84. Coordinates include glTF vertex positions after transforms have been applied -- see xref:{url-specification}README.adoc#core-gltf-transforms[glTF transforms]. Expressed as a decimal year (e.g. `"2019.81"`). See http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#128[WKT representation of coordinate epoch and coordinate metadata] for more details.
+| `TILESET_TILE_COUNT`
+| 
+* Type: `SCALAR`
+* Component type: `UINT64`
+| The total number of tiles in the tileset, including empty tiles and tiles from external tilesets.
 |===
 
 [#metadata-semantics-tile]
