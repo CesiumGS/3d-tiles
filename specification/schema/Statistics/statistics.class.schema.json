@@ -3,7 +3,7 @@
     "$id": "statistics.class.schema.json",
     "title": "Class Statistics",
     "$ref": "rootProperty.schema.json",
-    "description": "Statistics about entities that conform to a class.",
+    "description": "Statistics about entities that conform to a class that was defined in a metadata schema.",
     "properties": {
         "count": {
             "type": "integer",

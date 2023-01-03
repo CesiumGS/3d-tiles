@@ -62,7 +62,7 @@
         },
         "extensionsRequired": {
             "type": "array",
-            "description": "Names of 3D Tiles extensions required to properly load this tileset.",
+            "description": "Names of 3D Tiles extensions required to properly load this tileset. Each element of this array shall also be contained in `extensionsUsed`.",
             "items": {
                 "type": "string"
             },

@@ -296,7 +296,7 @@ image::figures/tile-availability.png[Tile Availability]
 [#implicittiling-content-availability]
 ==== Content Availability
 
-Content availability determines which tiles have a content resource. The content resource is located using the `content.uri` template URI. If there are no tiles with a content resource, `tile.content` shall be omitted.
+Content availability determines which tiles have a content resource. The content resource is located using the template URI of the tile content. When the tile has xref:{url-specification}README.adoc#core-tile-content[multiple contents], then there is one content availability bitstream for each content. If there are no tiles with a content resource, then `tile.content` and `tile.contents` shall be omitted.
 
 Content availability has the following restrictions:
 
@@ -402,7 +402,8 @@ Content availability (`contentAvailability`) is an array of content availability
 
 Availability may be represented either as a bitstream or a constant value. `bitstream` is an integer index that identifies the buffer view containing the availability bitstream. `constant` is an integer indicating whether all of the elements are available (`1`) or all are unavailable (`0`). `availableCount` is an integer indicating how many `1` bits exist in the availability bitstream.
 
-Availability bitstreams are packed in binary using the format described in the xref:{url-specification-metadata}README.adoc#metadata-booleans[Booleans] section of the 3D Metadata Specification.
+Availability bitstreams are packed in binary using the format described in the xref:{url-specification-metadata}README.adoc#metadata-booleans[Booleans] section of the 3D Metadata Specification. Trailing bits of availability bitstreams that result from the number of nodes not being divisible by 8 shall be set to 0.
+
 
 [NOTE]
 .Example

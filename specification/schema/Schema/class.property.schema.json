@@ -54,7 +54,7 @@
             ]
         },
         "componentType": {
-            "description": "The datatype of the element's components. Only applicable to `SCALAR`, `VECN`, and `MATN` types.",
+            "description": "The datatype of the element's components. Required for `SCALAR`, `VECN`, and `MATN` types, and disallowed for other types.",
             "anyOf": [
                 {
                     "const": "INT8"
@@ -93,7 +93,7 @@
         },
         "enumType": {
             "type": "string",
-            "description": "Enum ID as declared in the `enums` dictionary. Required when `type` is `ENUM`."
+            "description": "Enum ID as declared in the `enums` dictionary. Required when `type` is `ENUM`. Disallowed when `type` is not `ENUM`"
         },
         "array": {
             "type": "boolean",
@@ -112,19 +112,19 @@
         },
         "offset": {
             "$ref": "definitions.schema.json#/definitions/numericValue",
-            "description": "An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`."
+            "description": "An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Not applicable to variable-length arrays."
         },
         "scale": {
             "$ref": "definitions.schema.json#/definitions/numericValue",
-            "description": "A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`."
+            "description": "A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Not applicable to variable-length arrays."
         },
         "max": {
             "$ref": "definitions.schema.json#/definitions/numericValue",
-            "description": "Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+            "description": "Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied. Not applicable to variable-length arrays."
         },
         "min": {
             "$ref": "definitions.schema.json#/definitions/numericValue",
-            "description": "Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+            "description": "Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied. Not applicable to variable-length arrays."
         },
         "required": {
             "type": "boolean",
