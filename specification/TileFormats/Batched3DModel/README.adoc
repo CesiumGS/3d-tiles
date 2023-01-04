@@ -48,7 +48,7 @@ image::figures/layout.png[]
 
 A tile's `byteLength` shall be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] shall conform to their respective padding requirement.
 
-The <<tileformats-batched3dmodel-binary-gltf,binary glTF>> shall start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. This can be done by padding the Feature Table, or by padding the Batch Table if it is present. The actual binary glTF data does _not_ include possible trailing padding bytes. Clients must take into account the `length` from the https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#binary-gltf-layout[binary glTF header], and use this length to determine the part of the tile data that actually represents the binary glTF. 
+The <<tileformats-batched3dmodel-binary-gltf,binary glTF>> shall start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. The proper alignment for the start of the binary glTF data can be achieved by padding the Feature Table, or by padding the Batch Table if it is present. The alignment for the end of the binary glTF data can be achieved by padding the tile data with 0-bytes. The actual binary glTF data does _not_ include possible trailing padding bytes. Clients must take into account the `length` from the https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#binary-gltf-layout[binary glTF header], and use this length to determine the part of the tile data that actually represents the binary glTF. 
 
 [#tileformats-batched3dmodel-header]
 == Header
