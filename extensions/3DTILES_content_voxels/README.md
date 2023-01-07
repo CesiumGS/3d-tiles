@@ -33,7 +33,7 @@ The `content` extension describes the structure of the voxel grid.
 
 ```json
 "content": {
-  "uri": "tile.voxel",
+  "uri": "voxels.json",
   "boundingVolume": {
     "box": [0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0, 100],
   },
@@ -202,6 +202,12 @@ Each chunk shall be padded so it ends on an 8-byte boundary:
 * The JSON chunk shall be padded with trailing `Space` chars (`0x20`)
 * If it exists, the binary chunk shall be padded with trailing zeros (`0x00`)
 
+#### File Extensions and Media Types
+
+* JSON voxel files should use the `.json` extension and the `application/json` Media Type.
+* Binary voxel files should use the `.voxel` extension and the `application/octet-stream` Media Type.
+* Files representing binary buffers should use the `.bin` extension and `application/octet-stream` Media Type.
+
 ## Example
 
 Tileset JSON with implicit tiling
@@ -236,7 +242,7 @@ Tileset JSON with implicit tiling
       "box": [0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0, 100],
     },
     "content": {
-      "uri": "{level}/{x}/{y}/{z}.voxel",
+      "uri": "{level}/{x}/{y}/{z}.json",
       "extensions": {
         "3DTILES_content_voxels": {
           "dimensions": [8, 8, 8],
