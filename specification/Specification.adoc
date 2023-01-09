@@ -5,23 +5,23 @@
 :comment: ### Document type; mandatory.
 :doctype: community-standard
 :comment: ### Version number; optional. Dot-delimited, preferably with this structure <version number>.<minor version number>.<patch version number>
-:edition: 1.1.0
+:edition: 1.1
 :comment: ### Language of the document; mandatory. Specified in two-letter code: "en" for English, "fr" for French
 :language: en
+:comment: ### Abbreviation
+:abbrev: 3DTiles
 :comment: ### Document status/stage; mandatory.
-:status: work-item-draft
+:status: published
 :comment: ### Relevant committee; mandatory. The permitted types are: technical, planning, and strategic-member-advisory
 :committee: technical
-:comment: ### External link referencing the document; optional. If not provided, a default value is created following this structure: "http://www.opengis.net/doc/{abbrevation of doctype}/{abbrev}/{version}",
-:external-id: TBD
 :comment: ### Internal reference number; mandatory
-:docnumber: 22-025r3
+:docnumber: 22-025r4
 :comment: ### Date on which the standard was updated; mandatory
 :received-date: 2022-10-07
 :comment: ### Date on which the standard was approved by the issuing authority; mandatory
-:issued-date: TBD
+:issued-date: 2022-12-17
 :comment: ### Date on which the standard was published; mandatory
-:published-date: TBD
+:published-date: 2023-01-12
 :comment: ### Authors
 :fullname: Patrick Cozzi
 :fullname_2: Sean Lilley
@@ -36,10 +36,12 @@
 :local-cache-only:
 :comment: ### Directory name used as prefix for the location of image files; optional
 :imagesdir: ./
+:comment: ### URL for this OGC document
+:referenceurlid: https://docs.ogc.org/cs/22-025r4/22-025r4.html
 :comment: ### URI to which the PDF version of this standard is published; optional
-:pdf-uri: ./Specification.pdf
+:pdf-uri: https://portal.opengeospatial.org/files/22-025r4.pdf
 :comment: ### URI to which the HTML version of this standard is published; optional
-:html-uri: ./Specification.html
+:html-uri: https://portal.opengeospatial.org/files/22-025r4.html
 :comment: ### The submitting organizations (active OGC members) that submitted this document
 :submitting-organizations: Cesium GS Inc.
 :keywords: terrain, geospatial, gis, point cloud, spatial data, vector data, photogrammetry, gltf, 3d models, 3d tiles, metadata, implicit tiling
@@ -49,7 +51,7 @@
 //========== ORIGINAL (non-OGC) HEADER START
 //= 3D Tiles Specification
 //Cesium GS, Inc
-//v1.1.0
+//v1.1
 //:toc2:
 //:toclevels: 2
 //:sectnums:
