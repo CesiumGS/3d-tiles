@@ -140,7 +140,7 @@ The offset into the buffer in bytes.
 The datatype of components in the property.
 
 * **Type**: `string`
-* **Required**: Yes
+* **Required**: No
 * **Allowed values**:
    * `"BYTE"`
    * `"UNSIGNED_BYTE"`
