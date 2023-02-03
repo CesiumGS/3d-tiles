@@ -246,6 +246,8 @@ Compressed attributes should be decompressed before any other transforms are app
 
 If more than one color semantic is defined, the precedence order is `RGBA`, `RGB`, `RGB565`, then `CONSTANT_RGBA`. For example, if a tile's Feature Table contains both `RGBA` and `CONSTANT_RGBA` properties, the runtime would render with per-point colors using `RGBA`.
 
+Point colors are defined in sRGB color space.
+
 If no color semantics are defined, the runtime is free to color points using an application-specific default color.
 
 In any case, xref:{url-specification-styling}README.adoc#styling-styling[3D Tiles Styling] may be used to change the final rendered color and other visual properties at runtime.
