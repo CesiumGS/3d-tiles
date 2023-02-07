@@ -57,6 +57,7 @@ xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointclou
 * https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_meshopt_compression[`EXT_meshopt_compression`] and https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_mesh_quantization[`KHR_mesh_quantization`] may be used for point cloud compression. link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_draco_point_compression/[`3DTILES_draco_point_compression`] is not directly supported in glTF because https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_draco_mesh_compression[`KHR_draco_mesh_compression`] only supports triangle meshes.
 * Batch IDs and Batch Tables can be represented using https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`].
 * `CONSTANT_RGBA` is not directly supported in glTF, but can be achieved with materials or per-point colors.
+* If `COLOR` or `CONSTANT_RGBA` are present, they should be converted from sRGB to linear RGB in the glTF.
 
 .Point Clouds in 3D Tiles 1.0, and the corresponding representation in 3D Tiles 1.1
 image::figures/migration-pnts.png[pnts]

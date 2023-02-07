@@ -175,7 +175,7 @@ These semantics define global properties for all points.
 
 | `POINTS_LENGTH`
 | `uint32`
-| The number of points to render. The length of each array value for a point semantic should be equal to this.
+| The number of points to render. This must be greater than zero. The length of each array value for a point semantic should be equal to this.
 | Yes.
 
 | `RTC_CENTER`
@@ -245,6 +245,8 @@ Compressed attributes should be decompressed before any other transforms are app
 === Point colors
 
 If more than one color semantic is defined, the precedence order is `RGBA`, `RGB`, `RGB565`, then `CONSTANT_RGBA`. For example, if a tile's Feature Table contains both `RGBA` and `CONSTANT_RGBA` properties, the runtime would render with per-point colors using `RGBA`.
+
+Point colors are defined in sRGB color space.
 
 If no color semantics are defined, the runtime is free to color points using an application-specific default color.
 
