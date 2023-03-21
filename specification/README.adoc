@@ -16,9 +16,9 @@ ifdef::env-github[]
 :url-specification-implicittiling: {url-specification}ImplicitTiling/
 :url-specification-metadata: {url-specification}Metadata/
 :url-specification-metadata-referenceimplementation: {url-specification-metadata}ReferenceImplementation/
-:url-specification-metadata-referenceimplementation-schema: {url-specification-metadata-referenceImplementation]Schema/
+:url-specification-metadata-referenceimplementation-schema: {url-specification-metadata-referenceImplementation}Schema/
 :url-specification-metadata-semantics: {url-specification-metadata}Semantics/
-:url-specification-styling: {url-specification}/Styling
+:url-specification-styling: {url-specification}/Styling/
 :url-specification-tileformats: {url-specification}TileFormats/
 :url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
 :url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
