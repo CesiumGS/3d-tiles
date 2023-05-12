@@ -515,7 +515,7 @@ The full computed transforms, taking into account the <<core-y-up-to-z-up,glTF _
 
 _This section is informative_
 
-The following JavaScript code shows how to compute this using Cesium's https://github.com/CesiumGS/cesium/blob/main/Source/Core/Matrix4.js[Matrix4] and https://github.com/CesiumGS/cesium/blob/main/Source/Core/Matrix3.js[Matrix3] types.
+The following JavaScript code shows how to compute this using Cesium's https://github.com/CesiumGS/cesium/blob/main/packages/engine/Source/Core/Matrix4.js[Matrix4] and https://github.com/CesiumGS/cesium/blob/main/packages/engine/Source/Core/Matrix3.js[Matrix3] types.
 
 [%unnumbered]
 [source,javascript]

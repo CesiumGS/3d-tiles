@@ -233,6 +233,6 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 _This section is informative_
 
 Code for reading the header can be found in
-https://github.com/CesiumGS/cesium/blob/main/Source/Scene/Batched3DModel3DTileContent.js[`Batched3DModelTileContent.js`]
+https://github.com/CesiumGS/cesium/blob/main/packages/engine/Source/Scene/B3dmParser.js[`B3dmParser.js`]
 in the CesiumJS implementation of 3D Tiles.
 

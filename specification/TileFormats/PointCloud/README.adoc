@@ -266,7 +266,7 @@ Oct-encoding is described in link:http://jcgt.org/published/0003/02/01/[_A Surve
 [NOTE]
 .Informative
 ====
-An implementation for encoding and decoding these unit vectors can be found in CesiumJS's link:https://github.com/CesiumGS/cesium/blob/main/Source/Core/AttributeCompression.js[AttributeCompression]
+An implementation for encoding and decoding these unit vectors can be found in CesiumJS's link:https://github.com/CesiumGS/cesium/blob/main/packages/engine/Source/Core/AttributeCompression.js[AttributeCompression]
 module.
 ====
 
@@ -481,5 +481,5 @@ An explicit file extension is optional. Valid implementations may ignore it and 
 
 _This section is informative_
 
-Code for reading the header can be found in link:https://github.com/CesiumGS/cesium/blob/main/Source/Scene/PointCloud3DTileContent.js[`PointCloud3DModelTileContent.js`] in the CesiumJS implementation of 3D Tiles.
+Code for reading the header can be found in link:https://github.com/CesiumGS/cesium/blob/main/packages/engine/Source/Scene/PntsParser.js[`PntsParser.js`] in the CesiumJS implementation of 3D Tiles.
 
