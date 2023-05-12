@@ -384,4 +384,4 @@ _This section is non-normative_
 
 - [S2Geometry Reference C++ Implementation](https://github.com/google/s2geometry/tree/master/src/s2)
 - [S2Geometry Reference Java Implementation](https://github.com/google/s2-geometry-library-java/tree/master/src/com/google/common/geometry)
-- [S2Cell.js in CesiumJS](https://github.com/CesiumGS/cesium/blob/master/Source/Core/S2Cell.js)
+- [S2Cell.js in CesiumJS](https://github.com/CesiumGS/cesium/blob/main/packages/engine/Source/Core/S2Cell.js)
