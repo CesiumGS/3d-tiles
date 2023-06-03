@@ -1,6 +1,9 @@
 
 
 - Version 1.1, 2023-01-09
+
+  - The [3D Tiles Specification 1.1](https://docs.ogc.org/cs/22-025r4/22-025r4.html) was submitted to the Open Geospatial Consortium (OGC), and approved as an OGC Community Standard _(2022-12-17)_
+   
   - 3D Tiles 1.1 adds new capabilities to 3D Tiles. The additions have been proposed and published as a set of draft extensions, summarized under the name [*3D Tiles Next*](https://cesium.com/blog/2021/11/10/introducing-3d-tiles-next/). The proposed extensions have undergone thorough testing and review, and have been the basis for the additions to the 3D Tiles 1.1 core specification. The new capabilities that have been introduced in 3D Tiles 1.1 are the following:
     
     - **Support for glTF 2.0 assets as tile content:** 
@@ -37,5 +40,7 @@
     
       The detailed revision history for the proposed glTF extensions can be found in the [glTF extension proposals revision history](https://github.com/CesiumGS/3d-tiles/blob/eae37f6071c47201364b7823f3d5e934c0db417d/next/REVISION_HISTORY.md)
 
-- Version 1.0, 2018-06-06
+- [Version 1.0](https://github.com/CesiumGS/3d-tiles/tree/1.0), 2018-06-06
+
+  - The [3D Tiles Specification 1.0](http://docs.opengeospatial.org/cs/18-053r2/18-053r2.html) was submitted to the Open Geospatial Consortium (OGC), and approved as an OGC Community Standard _(2018-12-14)_
 
