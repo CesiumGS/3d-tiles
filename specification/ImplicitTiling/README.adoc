@@ -370,7 +370,7 @@ Properties assigned to subtrees provide metadata about the subtree as a whole. S
 
 _Defined in 
 ifdef::env-github[]
-link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Subtree/subtree.schema.json[`subtree.schema.json`]._
+link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/Subtree/subtree.schema.json[`subtree.schema.json`]._
 endif::[]
 ifndef::env-github[]
 <<reference-schema-subtree,`subtree.schema.json`>>._

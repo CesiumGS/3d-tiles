@@ -18,14 +18,14 @@ The xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specificat
 * xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-tiling[3D Tiles Metadata Implicit Tilesets] - Assigns metadata to tilesets, tiles, groups, and contents in a 3D Tiles tileset. A property table is defined for subtrees of an implicit tile hierarchy, and stores metadata that is associated with the nodes of such a subtree.
 * https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] -- Assigns metadata to vertices, texels, and features in a glTF asset. A property table is defined in the top-level extension object. The property values are stored in standard glTF buffer views.
 
-The full JSON schema definition for this implementation can be found in link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/[the Schema directory of the specification].
+The full JSON schema definition for this implementation can be found in link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/Schema/[the Schema directory of the specification].
 
 [#metadata-referenceimplementation-schema-schema]
 == Schema
 
 _Defined in 
 ifdef::env-github[]
-link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/schema.schema.json[`schema.schema.json`]._
+link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/Schema/schema.schema.json[`schema.schema.json`]._
 endif::[]
 ifndef::env-github[]
 <<reference-schema-schema,`schema.schema.json`>>._
@@ -58,7 +58,7 @@ Schema with a `tree` class, and a `speciesEnum` enum that defines different spec
 
 _Defined in 
 ifdef::env-github[]
-link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/class.schema.json[`class.schema.json`]._
+link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/Schema/class.schema.json[`class.schema.json`]._
 endif::[]
 ifndef::env-github[]
 <<reference-schema-class,`class.schema.json`>>._
@@ -100,7 +100,7 @@ A "Tree" class, which might describe a table of tree measurements taken in a par
 
 _Defined in 
 ifdef::env-github[]
-link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/class.property.schema.json[`class.property.schema.json`]._
+link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/Schema/class.property.schema.json[`class.property.schema.json`]._
 endif::[]
 ifndef::env-github[]
 <<reference-schema-class-property,`class.property.schema.json`>>._
@@ -160,7 +160,7 @@ A "Tree" class, which might describe a table of tree measurements taken in a par
 
 _Defined in 
 ifdef::env-github[]
-link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/enum.schema.json[`enum.schema.json`]._
+link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/Schema/enum.schema.json[`enum.schema.json`]._
 endif::[]
 ifndef::env-github[]
 <<reference-schema-enum,`enum.schema.json`>>._
@@ -202,7 +202,7 @@ A "Species" enum defining types of trees. An "Unspecified" enum value is optiona
 
 _Defined in 
 ifdef::env-github[]
-link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Schema/enum.value.schema.json[`enum.value.schema.json`]._
+link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/Schema/enum.value.schema.json[`enum.value.schema.json`]._
 endif::[]
 ifndef::env-github[]
 <<reference-schema-enum-value,`enum.value.schema.json`>>._

@@ -4,7 +4,7 @@
 
 The [**3D Tiles 1.1 Reference Card**](../../3d-tiles-reference-card-1.1.pdf) is an overview of the new concepts that are introduced with 3D Tiles 1.1.
 
-This guide augments the [3D Tiles 1.0 Reference Card](../../3d-tiles-reference-card.pdf) and the fully detailed [3D Tiles 1.1 specification](https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification). 
+This guide augments the [3D Tiles 1.0 Reference Card](../../3d-tiles-reference-card.pdf) and the fully detailed [3D Tiles 1.1 specification](https://github.com/CesiumGS/3d-tiles/tree/main/specification). 
 
 
 ## Source
