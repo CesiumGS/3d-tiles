@@ -38,7 +38,22 @@
     
       - The [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) extension that allows storing structured metadata within a glTF 2.0 asset.
     
-      The detailed revision history for the proposed glTF extensions can be found in the [glTF extension proposals revision history](https://github.com/CesiumGS/3d-tiles/blob/eae37f6071c47201364b7823f3d5e934c0db417d/next/REVISION_HISTORY.md)
+      The detailed revision history for the proposed glTF extensions can be found in the [glTF extension proposals revision history](./specification/TileFormats/glTF/REVISION_HISTORY.md).
+
+
+  - The additional capabilities of 3D Tiles 1.1 provide more versatile and expressive mechanisms to represent the following elements of 3D Tiles 1.0, which are therefore deprecated:
+
+    - **Legacy tile formats:**
+
+      The functionalities of Batched 3D Models, Instanced 3D Models, Point Clouds and Composite Tiles can largely be emulated with glTF tile content and the proposed glTF extensions. The [migration guide](./specification/TileFormats/glTF/) contains further information about how to replace the legacy tile formats with glTF. 
+
+      The deprecation of the legacy tile formats implies the deprecation of the associated extensions, namely the `3DTILES_batch_table_hierarchy` extension and the `3DTILES_draco_point_compression` extension.
+
+    - **Legacy tileset properties:**
+
+      The `tileset.properties` dictionary in 3D Tiles 1.0 could contain a simple form of per-feature metadata about the tileset. This is deprecated in favor of the more powerful metadata model of 3D Tiles 1.1.
+
+
 
 - [Version 1.0](https://github.com/CesiumGS/3d-tiles/tree/1.0), 2018-06-06
 
