@@ -57,6 +57,7 @@ These guides augment the fully detailed 3D Tiles specification with coverage of 
     - The original tile formats (b3dm, i3dm, pnts, and cmpt) are deprecated in favor of glTF content
     - The `tileset.properties` are deprecated, in favor of the more versatile metadata support
 
+More details about the changes between 3D Tiles 1.0 and 3D Tiles 1.1 can be found in [CHANGES.md](CHANGES.md).
 
 ## Contributing
 

@@ -185,7 +185,7 @@ The computed tile `boundingVolume` and `geometricError` can be overridden with <
 
 For `box` bounding volumes:
 
-.Tile coordinates for bounding regions
+.Tile coordinates for bounding boxes
 [cols="1,3"]
 |===
 | Coordinate | Positive Direction
