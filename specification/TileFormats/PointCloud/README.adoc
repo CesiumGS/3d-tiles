@@ -97,7 +97,7 @@ More information is available in the xref:{url-specification-tileformats-feature
 
 The full JSON schema can be found in 
 ifdef::env-github[]
-link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/TileFormats/pnts.featureTable.schema.json[`pnts.featureTable.schema.json`].
+link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/TileFormats/pnts.featureTable.schema.json[`pnts.featureTable.schema.json`].
 endif::[]
 ifndef::env-github[]
 <<reference-schema-pnts-featuretable,`pnts.featureTable.schema.json`>>.

@@ -650,7 +650,7 @@ The `children` property is an array of objects that define child tiles. Each chi
 
 The full JSON schema can be found in 
 ifdef::env-github[]
-link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/tile.schema.json[`tile.schema.json`].
+link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/tile.schema.json[`tile.schema.json`].
 endif::[]
 ifndef::env-github[]
 <<reference-schema-tile,`tile.schema.json`>>.
@@ -974,7 +974,7 @@ While classes within a schema define the data types and meanings of properties, 
 
 The common structure of metadata entities that appear in a tileset is defined in 
 ifdef::env-github[]
-link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/metadataEntity.schema.json[`metadataEntity.schema.json`].
+link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/metadataEntity.schema.json[`metadataEntity.schema.json`].
 endif::[]
 ifndef::env-github[]
 <<reference-schema-metadataentity,`metadataEntity.schema.json`>>.
@@ -1014,7 +1014,7 @@ image::figures/3d-tiles-metadata-statistics.png[Metadata Granularity,600]
 
 The statistics are stored in the top-level `statistics` object of the tileset. The structure of this statistics object is defined in
 ifdef::env-github[]
-link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/Statistics/statistics.schema.json[`statistics.schema.json`].
+link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/Statistics/statistics.schema.json[`statistics.schema.json`].
 endif::[]
 ifndef::env-github[]
 <<reference-schema-statistics,`statistics.schema.json`>>.
@@ -1229,7 +1229,7 @@ The `extras` property allows application specific metadata to be added to any 3D
 
 The full JSON schema can be found in 
 ifdef::env-github[]
-link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/tileset.schema.json[`tileset.schema.json`].
+link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/tileset.schema.json[`tileset.schema.json`].
 endif::[]
 ifndef::env-github[]
 <<reference-schema-tileset,`tileset.schema.json`>>.
