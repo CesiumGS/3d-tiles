@@ -1,0 +1,43 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tile.implicitTiling.schema.json",
+    "title": "Implicit tiling",
+    "$ref": "rootProperty.schema.json",
+    "description": "This object allows a tile to be implicitly subdivided. Tile and content availability and metadata is stored in subtrees which are referenced externally.",
+    "properties": {
+        "subdivisionScheme": {
+            "description": "A string describing the subdivision scheme used within the tileset.",
+            "anyOf": [
+                {
+                    "const": "QUADTREE"
+                },
+                {
+                    "const": "OCTREE"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "subtreeLevels": {
+            "type": "integer",
+            "description": "The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with 5 nodes (one root and 4 children).",
+            "minimum": 1
+        },
+        "availableLevels": {
+            "type": "integer",
+            "description": "The numbers of the levels in the tree with available tiles.",
+            "minimum": 1
+        },
+        "subtrees": {
+            "$ref": "subtrees.schema.json",
+            "description": "An object describing the location of subtree files."
+        }
+    },
+    "required": [
+        "subdivisionScheme",
+        "subtreeLevels",
+        "availableLevels",
+        "subtrees"
+    ]
+}

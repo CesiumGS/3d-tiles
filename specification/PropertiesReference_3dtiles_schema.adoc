@@ -1,0 +1,2163 @@
+[#reference-schema-asset]
+= JSON Schema for Asset
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "asset.schema.json",
+    "title": "Asset",
+    "$ref": "rootProperty.schema.json",
+    "description": "Metadata about the entire tileset.",
+    "properties": {
+        "version": {
+            "type": "string",
+            "description": "The 3D Tiles version. The version defines the JSON schema for the tileset JSON and the base set of tile formats."
+        },
+        "tilesetVersion": {
+            "type": "string",
+            "description": "Application-specific version of this tileset, e.g., for when an existing tileset is updated."
+        }
+    },
+    "required": [
+        "version"
+    ]
+}
+----
+
+
+[#reference-schema-availability]
+= JSON Schema for Availability
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "availability.schema.json",
+    "title": "Availability",
+    "$ref": "rootProperty.schema.json",
+    "description": "An object describing the availability of a set of elements.",
+    "properties": {
+        "bitstream": {
+            "description": "Index of a buffer view that indicates whether each element is available. The bitstream conforms to the boolean array encoding described in the 3D Metadata specification. If an element is available, its bit is 1, and if it is unavailable, its bit is 0.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "availableCount": {
+            "description": "A number indicating how many 1 bits exist in the availability bitstream.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "constant": {
+            "description": "Integer indicating whether all of the elements are available (1) or all are unavailable (0).",
+            "anyOf": [
+                {
+                    "const": 0,
+                    "description": "UNAVAILABLE",
+                    "type": "integer"
+                },
+                {
+                    "const": 1,
+                    "description": "AVAILABLE",
+                    "type": "integer"
+                },
+                {
+                    "type": "integer"
+                }
+            ]
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "bitstream"
+            ]
+        },
+        {
+            "required": [
+                "constant"
+            ]
+        }
+    ]
+}
+----
+
+
+[#reference-schema-b3dm-featuretable]
+= JSON Schema for Batched 3D Model Feature Table
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "b3dm.featureTable.schema.json",
+    "title": "Batched 3D Model Feature Table",
+    "$ref": "featureTable.schema.json",
+    "description": "A set of Batched 3D Model semantics that contain additional information about features in a tile.",
+    "deprecated": true,
+    "properties": {
+        "BATCH_LENGTH": {
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyInteger",
+            "description": "A `GlobalPropertyInteger` object defining an integer property for all features. Details about this property are described in the 3D Tiles specification."
+        },
+        "RTC_CENTER": {
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3",
+            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. Details about this property are described in the 3D Tiles specification."
+        }
+    },
+    "required": [
+        "BATCH_LENGTH"
+    ]
+}
+----
+
+
+[#reference-schema-batchtable]
+= JSON Schema for Batch Table
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "batchTable.schema.json",
+    "title": "Batch Table",
+    "$ref": "rootProperty.schema.json",
+    "description": "A set of properties defining application-specific metadata for features in a tile.",
+    "deprecated": true,
+    "additionalProperties": {
+        "$ref": "#/definitions/property"
+    },
+    "definitions": {
+        "binaryBodyReference": {
+            "title": "BinaryBodyReference",
+            "$ref": "rootProperty.schema.json",
+            "description": "An object defining the reference to a section of the binary body of the batch table where the property values are stored if not defined directly in the JSON.",
+            "properties": {
+                "byteOffset": {
+                    "type": "integer",
+                    "description": "The offset into the buffer in bytes.",
+                    "minimum": 0
+                },
+                "componentType": {
+                    "description": "The datatype of components in the property.",
+                    "anyOf": [
+                        {
+                            "const": "BYTE"
+                        },
+                        {
+                            "const": "UNSIGNED_BYTE"
+                        },
+                        {
+                            "const": "SHORT"
+                        },
+                        {
+                            "const": "UNSIGNED_SHORT"
+                        },
+                        {
+                            "const": "INT"
+                        },
+                        {
+                            "const": "UNSIGNED_INT"
+                        },
+                        {
+                            "const": "FLOAT"
+                        },
+                        {
+                            "const": "DOUBLE"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "type": {
+                    "description": "Specifies if the property is a scalar or vector.",
+                    "anyOf": [
+                        {
+                            "const": "SCALAR"
+                        },
+                        {
+                            "const": "VEC2"
+                        },
+                        {
+                            "const": "VEC3"
+                        },
+                        {
+                            "const": "VEC4"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "byteOffset",
+                "componentType",
+                "type"
+            ]
+        },
+        "property": {
+            "title": "Property",
+            "description": "A user-defined property which specifies per-feature application-specific metadata in a tile. Values either can be defined directly in the JSON as an array, or can refer to sections in the binary body with a `BinaryBodyReference` object.",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/binaryBodyReference"
+                },
+                {
+                    "type": "array"
+                }
+            ]
+        }
+    }
+}
+----
+
+
+[#reference-schema-boundingvolume]
+= JSON Schema for Bounding Volume
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "boundingVolume.schema.json",
+    "title": "Bounding Volume",
+    "$ref": "rootProperty.schema.json",
+    "description": "A bounding volume that encloses a tile or its content. At least one bounding volume property is required. Bounding volumes include `box`, `region`, or `sphere`.",
+    "minProperties": 1,
+    "properties": {
+        "box": {
+            "type": "array",
+            "description": "An array of 12 numbers that define an oriented bounding box. The first three elements define the x, y, and z values for the center of the box. The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length. The next three elements (indices 6, 7, and 8) define the y axis direction and half-length. The last three elements (indices 9, 10, and 11) define the z axis direction and half-length.",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 12,
+            "maxItems": 12
+        },
+        "region": {
+            "type": "array",
+            "description": "An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 6,
+            "maxItems": 6
+        },
+        "sphere": {
+            "type": "array",
+            "description": "An array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere. The last element (with index 3) defines the radius in meters.",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 4,
+            "maxItems": 4
+        }
+    }
+}
+----
+
+
+[#reference-schema-buffer]
+= JSON Schema for Buffer
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "buffer.schema.json",
+    "title": "Buffer",
+    "$ref": "rootProperty.schema.json",
+    "description": "A buffer is a binary blob. It is either the binary chunk of the subtree file, or an external buffer referenced by a URI.",
+    "properties": {
+        "uri": {
+            "type": "string",
+            "description": "The URI (or IRI) of the external schema file. Relative paths are relative to the file containing the buffer JSON. `uri` is required when using the JSON subtree format and not required when using the binary subtree format - when omitted the buffer refers to the binary chunk of the subtree file. Data URIs are not allowed.",
+            "format": "iri-reference"
+        },
+        "byteLength": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "The length of the buffer in bytes."
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The name of the buffer."
+        }
+    },
+    "required": [
+        "byteLength"
+    ]
+}
+----
+
+
+[#reference-schema-bufferview]
+= JSON Schema for Buffer View
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "bufferView.schema.json",
+    "title": "Buffer View",
+    "$ref": "rootProperty.schema.json",
+    "description": "A contiguous subset of a buffer",
+    "properties": {
+        "buffer": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The index of the buffer."
+        },
+        "byteOffset": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The offset into the buffer in bytes."
+        },
+        "byteLength": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "The total byte length of the buffer view."
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The name of the `bufferView`."
+        }
+    },
+    "required": [
+        "buffer",
+        "byteOffset",
+        "byteLength"
+    ]
+}
+----
+
+
+[#reference-schema-class]
+= JSON Schema for Class
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "class.schema.json",
+    "title": "Class",
+    "$ref": "rootProperty.schema.json",
+    "description": "A class containing a set of properties.",
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The name of the class, e.g. for display purposes."
+        },
+        "description": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The description of the class."
+        },
+        "properties": {
+            "type": "object",
+            "description": "A dictionary, where each key is a property ID and each value is an object defining the property. Property IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "class.property.schema.json"
+            }
+        }
+    }
+}
+----
+
+
+[#reference-schema-class-property]
+= JSON Schema for Class Property
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "class.property.schema.json",
+    "title": "Class Property",
+    "$ref": "rootProperty.schema.json",
+    "description": "A single property of a metadata class.",
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The name of the property, e.g. for display purposes."
+        },
+        "description": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The description of the property."
+        },
+        "type": {
+            "description": "The element type.",
+            "anyOf": [
+                {
+                    "const": "SCALAR"
+                },
+                {
+                    "const": "VEC2"
+                },
+                {
+                    "const": "VEC3"
+                },
+                {
+                    "const": "VEC4"
+                },
+                {
+                    "const": "MAT2"
+                },
+                {
+                    "const": "MAT3"
+                },
+                {
+                    "const": "MAT4"
+                },
+                {
+                    "const": "STRING"
+                },
+                {
+                    "const": "BOOLEAN"
+                },
+                {
+                    "const": "ENUM"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "componentType": {
+            "description": "The datatype of the element's components. Only applicable to `SCALAR`, `VECN`, and `MATN` types.",
+            "anyOf": [
+                {
+                    "const": "INT8"
+                },
+                {
+                    "const": "UINT8"
+                },
+                {
+                    "const": "INT16"
+                },
+                {
+                    "const": "UINT16"
+                },
+                {
+                    "const": "INT32"
+                },
+                {
+                    "const": "UINT32"
+                },
+                {
+                    "const": "INT64"
+                },
+                {
+                    "const": "UINT64"
+                },
+                {
+                    "const": "FLOAT32"
+                },
+                {
+                    "const": "FLOAT64"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "enumType": {
+            "type": "string",
+            "description": "Enum ID as declared in the `enums` dictionary. Required when `type` is `ENUM`."
+        },
+        "array": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether the property is an array. When `count` is defined the property is a fixed-length array. Otherwise the property is a variable-length array."
+        },
+        "count": {
+            "type": "integer",
+            "minimum": 2,
+            "description": "The number of array elements. May only be defined when `array` is `true`."
+        },
+        "normalized": {
+            "type": "boolean",
+            "description": "Specifies whether integer values are normalized. Only applicable to `SCALAR`, `VECN`, and `MATN` types with integer component types. For unsigned integer component types, values are normalized between `[0.0, 1.0]`. For signed integer component types, values are normalized between `[-1.0, 1.0]`. For all other component types, this property shall be false.",
+            "default": false
+        },
+        "offset": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`."
+        },
+        "scale": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`."
+        },
+        "max": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "min": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "required": {
+            "type": "boolean",
+            "description": "If required, the property shall be present in every entity conforming to the class. If not required, individual entities may include `noData` values, or the entire property may be omitted. As a result, `noData` has no effect on a required property. Client implementations may use required properties to make performance optimizations.",
+            "default": false
+        },
+        "noData": {
+            "$ref": "definitions.schema.json#/definitions/noDataValue",
+            "description": "A `noData` value represents missing data — also known as a sentinel value — wherever it appears. `BOOLEAN` properties may not specify `noData` values. This is given as the plain property value, without the transforms from the `normalized`, `offset`, and `scale` properties. Shall not be defined if `required` is true."
+        },
+        "default": {
+            "$ref": "definitions.schema.json#/definitions/anyValue",
+            "description": "A default value to use when encountering a `noData` value or an omitted property. The value is given in its final form, taking the effect of `normalized`, `offset`, and `scale` properties into account. Shall not be defined if `required` is true."
+        },
+        "semantic": {
+            "type": "string",
+            "minLength": 1,
+            "description": "An identifier that describes how this property should be interpreted. The semantic cannot be used by other properties in the class."
+        }
+    },
+    "required": [
+        "type"
+    ]
+}
+----
+
+
+[#reference-schema-content]
+= JSON Schema for Content
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "content.schema.json",
+    "title": "Content",
+    "$ref": "rootProperty.schema.json",
+    "description": "Metadata about the tile's content and a link to the content.",
+    "properties": {
+        "boundingVolume": {
+            "description": "An optional bounding volume that tightly encloses tile content. tile.boundingVolume provides spatial coherence and tile.content.boundingVolume enables tight view frustum culling. When this is omitted, tile.boundingVolume is used.",
+            "$ref": "boundingVolume.schema.json"
+        },
+        "uri": {
+            "type": "string",
+            "description": "A uri that points to tile content. When the uri is relative, it is relative to the referring tileset JSON file."
+        },
+        "metadata": {
+            "$ref": "metadataEntity.schema.json",
+            "description": "Metadata that is associated with this content."
+        },
+        "group": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The group this content belongs to. The value is an index into the array of `groups` that is defined for the containing tileset."
+        }
+    },
+    "required": [
+        "uri"
+    ]
+}
+----
+
+
+[#reference-schema-definitions]
+= JSON Schema for Definitions
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "definitions.schema.json",
+    "title": "Definitions",
+    "description": "Common definitions used in schema files.",
+    "definitions": {
+        "numericArray1D": {
+            "title": "Numeric 1D Array",
+            "type": "array",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 1,
+            "description": "An array of numeric values"
+        },
+        "numericArray2D": {
+            "title": "Numeric 2D Array",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/numericArray1D"
+            },
+            "minItems": 1,
+            "description": "An array of arrays of numeric values"
+        },
+        "booleanArray1D": {
+            "title": "Boolean 1D Array",
+            "type": "array",
+            "items": {
+                "type": "boolean"
+            },
+            "minItems": 1,
+            "description": "An array of boolean values"
+        },
+        "stringArray1D": {
+            "title": "String 1D Array",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "description": "An array of string values"
+        },
+        "numericValue": {
+            "title": "Numeric Value",
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "$ref": "#/definitions/numericArray1D"
+                },
+                {
+                    "$ref": "#/definitions/numericArray2D"
+                }
+            ],
+            "description": "For `SCALAR` this is a number. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`."
+        },
+        "noDataValue": {
+            "title": "No Data Value",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/numericValue"
+                },
+                {
+                    "type": "string"
+                },
+                {
+                    "$ref": "#/definitions/stringArray1D"
+                }
+            ],
+            "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that shall be a valid enum `name`, not an integer value. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length arrays this is an array of `count` elements of the given `type`."
+        },
+        "anyValue": {
+            "title": "Any Value",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/numericValue"
+                },
+               {
+                    "type": "string"
+                },
+                {
+                    "$ref": "#/definitions/stringArray1D"
+                },
+                {
+                    "type": "boolean"
+                },
+                {
+                    "$ref": "#/definitions/booleanArray1D"
+                }
+            ],
+            "description": "For `SCALAR` this is a number. For `STRING` this is a string. For `ENUM` this is a string that shall be a valid enum `name`, not an integer value. For `BOOLEAN` this is a boolean. For `VECN` this is an array of `N` numbers. For `MATN` this is an array of `N²` numbers. For fixed-length array this is an array of `count` elements of the given `type`. For variable-length arrays this is an array of any length of the given `type`."
+        }
+    }
+}
+----
+
+
+[#reference-schema-enum]
+= JSON Schema for Enum
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "enum.schema.json",
+    "title": "Enum",
+    "$ref": "rootProperty.schema.json",
+    "description": "An object defining the values of an enum.",
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The name of the enum, e.g. for display purposes."
+        },
+        "description": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The description of the enum."
+        },
+        "valueType": {
+            "default": "UINT16",
+            "description": "The type of the integer enum value.",
+            "anyOf": [
+                {
+                    "const": "INT8"
+                },
+                {
+                    "const": "UINT8"
+                },
+                {
+                    "const": "INT16"
+                },
+                {
+                    "const": "UINT16"
+                },
+                {
+                    "const": "INT32"
+                },
+                {
+                    "const": "UINT32"
+                },
+                {
+                    "const": "INT64"
+                },
+                {
+                    "const": "UINT64"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "values": {
+            "type": "array",
+            "description": "An array of enum values. Duplicate names or duplicate integer values are not allowed.",
+            "items": {
+                "$ref": "enum.value.schema.json"
+            },
+            "minItems": 1
+        }
+    },
+    "required": [
+        "values"
+    ]
+}
+----
+
+
+[#reference-schema-enum-value]
+= JSON Schema for Enum value
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "enum.value.schema.json",
+    "title": "Enum value",
+    "$ref": "rootProperty.schema.json",
+    "description": "An enum value.",
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The name of the enum value."
+        },
+        "description": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The description of the enum value."
+        },
+        "value": {
+            "type": "integer",
+            "description": "The integer enum value."
+        }
+    },
+    "required": [
+        "name",
+        "value"
+    ]
+}
+----
+
+
+[#reference-schema-extension]
+= JSON Schema for Extension
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "extension.schema.json",
+    "title": "Extension",
+    "type": "object",
+    "description": "Dictionary object with extension-specific objects.",
+    "additionalProperties": {
+        "type": "object"
+    }
+}
+----
+
+
+[#reference-schema-extras]
+= JSON Schema for Extras
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "extras.schema.json",
+    "title": "Extras",
+    "description": "Application-specific data."
+}
+----
+
+
+[#reference-schema-featuretable]
+= JSON Schema for Feature Table
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "featureTable.schema.json",
+    "title": "Feature Table",
+    "$ref": "rootProperty.schema.json",
+    "description": "A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.",
+    "deprecated": true,
+    "additionalProperties": {
+        "$ref": "#/definitions/property"
+    },
+    "definitions": {
+        "binaryBodyOffset": {
+            "title": "BinaryBodyOffset",
+            "$ref": "rootProperty.schema.json",
+            "description": "An object defining the offset into a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
+            "properties": {
+                "byteOffset": {
+                    "type": "integer",
+                    "description": "The offset into the buffer in bytes.",
+                    "minimum": 0
+                }
+            },
+            "required": [
+                "byteOffset"
+            ]
+        },
+        "binaryBodyReference": {
+            "title": "BinaryBodyReference",
+            "$ref": "#/definitions/binaryBodyOffset",
+            "description": "An object defining the reference to a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
+            "properties": {
+                "componentType": {
+                    "description": "The datatype of components in the property. This is defined only if the semantic allows for overriding the implicit component type. These cases are specified in each tile format.",
+                    "anyOf": [
+                        {
+                            "const": "BYTE"
+                        },
+                        {
+                            "const": "UNSIGNED_BYTE"
+                        },
+                        {
+                            "const": "SHORT"
+                        },
+                        {
+                            "const": "UNSIGNED_SHORT"
+                        },
+                        {
+                            "const": "INT"
+                        },
+                        {
+                            "const": "UNSIGNED_INT"
+                        },
+                        {
+                            "const": "FLOAT"
+                        },
+                        {
+                            "const": "DOUBLE"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        "property": {
+            "title": "Property",
+            "description": "A user-defined property which specifies application-specific metadata in a tile. Values can refer to sections in the binary body with a `BinaryBodyReference` object. Global values can be also be defined directly in the JSON.",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/binaryBodyReference"
+                },
+                {
+                    "$ref": "#/definitions/globalPropertyBoolean"
+                },
+                {
+                    "$ref": "#/definitions/globalPropertyInteger"
+                },
+                {
+                    "$ref": "#/definitions/globalPropertyNumber"
+                },
+                {
+                    "$ref": "#/definitions/globalPropertyCartesian3"
+                },
+                {
+                    "$ref": "#/definitions/globalPropertyCartesian4"
+                }
+            ]
+        },
+        "globalPropertyBoolean": {
+            "title": "GlobalPropertyBoolean",
+            "description": "An object defining a global boolean property value for all features.",
+            "type": "boolean"
+        },
+        "globalPropertyInteger": {
+            "title": "GlobalPropertyInteger",
+            "description": "An object defining a global integer property value for all features.",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/binaryBodyOffset"
+                },
+                {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            ]
+        },
+        "globalPropertyNumber": {
+            "title": "GlobalPropertyNumber",
+            "description": "An object defining a global numeric property value for all features.",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/binaryBodyOffset"
+                },
+                {
+                    "type": "number",
+                    "minimum": 0
+                }
+            ]
+        },
+        "globalPropertyCartesian3": {
+            "title": "GlobalPropertyCartesian3",
+            "description": "An object defining a global 3-component numeric property values for all features.",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/binaryBodyOffset"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                }
+            ]
+        },
+        "globalPropertyCartesian4": {
+            "title": "GlobalPropertyCartesian4",
+            "description": "An object defining a global 4-component numeric property values for all features.",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/binaryBodyOffset"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 4,
+                    "maxItems": 4
+                }
+            ]
+        }
+    }
+}
+----
+
+
+[#reference-schema-group]
+= JSON Schema for Group Metadata
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "group.schema.json",
+    "title": "Group Metadata",
+    "$ref": "metadataEntity.schema.json",
+    "description": "An object containing metadata about a group."
+}
+----
+
+
+[#reference-schema-i3dm-featuretable]
+= JSON Schema for Instanced 3D Model Feature Table
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "i3dm.featureTable.schema.json",
+    "title": "Instanced 3D Model Feature Table",
+    "$ref": "featureTable.schema.json",
+    "description": "A set of Instanced 3D Model semantics that contains values defining the position and appearance properties for instanced models in a tile.",
+    "deprecated": true,
+    "properties": {
+        "POSITION": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "POSITION_QUANTIZED": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "NORMAL_UP": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "NORMAL_RIGHT": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "NORMAL_UP_OCT32P": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "NORMAL_RIGHT_OCT32P": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "SCALE": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "SCALE_NON_UNIFORM": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "BATCH_ID": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "INSTANCES_LENGTH": {
+            "description": "A `GlobalPropertyInteger` object defining an integer property for all features. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyInteger"
+        },
+        "RTC_CENTER": {
+            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+        },
+        "QUANTIZED_VOLUME_OFFSET": {
+            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+        },
+        "QUANTIZED_VOLUME_SCALE": {
+            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+        },
+        "EAST_NORTH_UP": {
+            "description": "A `GlobalPropertyBoolean` object defining a boolean property for all features. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyBoolean"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "POSITION"
+            ]
+        },
+        {
+            "required": [
+                "POSITION_QUANTIZED"
+            ]
+        }
+    ],
+    "dependencies": {
+        "POSITION_QUANTIZED": [
+            "QUANTIZED_VOLUME_OFFSET",
+            "QUANTIZED_VOLUME_SCALE"
+        ],
+        "NORMAL_UP": [
+            "NORMAL_RIGHT"
+        ],
+        "NORMAL_RIGHT": [
+            "NORMAL_UP"
+        ],
+        "NORMAL_UP_OCT32P": [
+            "NORMAL_RIGHT_OCT32P"
+        ],
+        "NORMAL_RIGHT_OCT32P": [
+            "NORMAL_UP_OCT32P"
+        ]
+    },
+    "required": [
+        "INSTANCES_LENGTH"
+    ]
+}
+----
+
+
+[#reference-schema-metadataentity]
+= JSON Schema for Metadata Entity
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "metadataEntity.schema.json",
+    "title": "Metadata Entity",
+    "$ref": "rootProperty.schema.json",
+    "description": "An object containing a reference to a class from a metadata schema, and property values that conform to the properties of that class.",
+    "properties": {
+        "class": {
+            "type": "string",
+            "description": "The class that property values conform to. The value shall be a class ID declared in the `classes` dictionary of the metadata schema."
+        },
+        "properties": {
+            "type": "object",
+            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value shall match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties shall be included in this dictionary.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "definitions.schema.json#/definitions/anyValue"
+            }
+        }
+    },
+    "required": [
+        "class"
+    ]
+}
+----
+
+
+[#reference-schema-pnts-featuretable]
+= JSON Schema for Point Cloud Feature Table
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "pnts.featureTable.schema.json",
+    "title": "Point Cloud Feature Table",
+    "$ref": "featureTable.schema.json",
+    "description": "A set of Point Cloud semantics that contains values defining the position and appearance properties for points in a tile.",
+    "deprecated": true,
+    "properties": {
+        "POSITION": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "POSITION_QUANTIZED": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "RGBA": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "RGB": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "RGB565": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "NORMAL": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "NORMAL_OCT16P": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "BATCH_ID": {
+            "description": "A `BinaryBodyReference` object defining the reference to a section of the binary body where the property values are stored. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/binaryBodyReference"
+        },
+        "POINTS_LENGTH": {
+            "description": "A `GlobalPropertyInteger` object defining an integer property for all points. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyInteger"
+        },
+        "RTC_CENTER": {
+            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all points. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+        },
+        "QUANTIZED_VOLUME_OFFSET": {
+            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all points. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+        },
+        "QUANTIZED_VOLUME_SCALE": {
+            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all points. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3"
+        },
+        "CONSTANT_RGBA": {
+            "description": "A `GlobalPropertyCartesian4` object defining a 4-component numeric property for all points. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian4"
+        },
+        "BATCH_LENGTH": {
+            "description": "A `GlobalPropertyInteger` object defining an integer property for all points. Details about this property are described in the 3D Tiles specification.",
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyInteger"
+        }
+    },
+    "anyOf": [
+        {
+            "required": [
+                "POSITION"
+            ]
+        },
+        {
+            "required": [
+                "POSITION_QUANTIZED"
+            ]
+        }
+    ],
+    "dependencies": {
+        "POSITION_QUANTIZED": [
+            "QUANTIZED_VOLUME_OFFSET",
+            "QUANTIZED_VOLUME_SCALE"
+        ],
+        "BATCH_ID": [
+            "BATCH_LENGTH"
+        ]
+    },
+    "required": [
+        "POINTS_LENGTH"
+    ]
+}
+----
+
+
+[#reference-schema-properties]
+= JSON Schema for Properties
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "properties.schema.json",
+    "title": "Properties",
+    "$ref": "rootProperty.schema.json",
+    "description": "A dictionary object of metadata about per-feature properties.",
+    "properties": {
+        "maximum": {
+            "type": "number",
+            "description": "The maximum value of this property of all the features in the tileset."
+        },
+        "minimum": {
+            "type": "number",
+            "description": "The minimum value of this property of all the features in the tileset."
+        }
+    },
+    "required": [
+        "maximum",
+        "minimum"
+    ]
+}
+----
+
+
+[#reference-schema-propertytable]
+= JSON Schema for Property Table
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "propertyTable.schema.json",
+    "title": "Property Table",
+    "$ref": "rootProperty.schema.json",
+    "description": "Properties conforming to a class, organized as property values stored in binary columnar arrays.",
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The name of the property table, e.g. for display purposes."
+        },
+        "class": {
+            "type": "string",
+            "description": "The class that property values conform to. The value shall be a class ID declared in the `classes` dictionary."
+        },
+        "count": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "The number of elements in each property array."
+        },
+        "properties": {
+            "type": "object",
+            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object describing where property values are stored. Required properties shall be included in this dictionary.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "propertyTable.property.schema.json"
+            }
+        }
+    },
+    "required": [
+        "class",
+        "count"
+    ]
+}
+----
+
+
+[#reference-schema-propertytable-property]
+= JSON Schema for Property Table Property
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "propertyTable.property.schema.json",
+    "title": "Property Table Property",
+    "$ref": "rootProperty.schema.json",
+    "description": "An array of binary property values. This represents one column of a property table, and contains one value of a certain property for each metadata entity.",
+    "properties": {
+        "values": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The index of the buffer view containing property values. The data type of property values is determined by the property definition: When `type` is `BOOLEAN` values are packed into a bitstream. When `type` is `STRING` values are stored as byte sequences and decoded as UTF-8 strings. When `type` is `SCALAR`, `VECN`, or `MATN` the values are stored as the provided `componentType` and the buffer view `byteOffset` shall be aligned to a multiple of the `componentType` size. When `type` is `ENUM` values are stored as the enum's `valueType` and the buffer view `byteOffset` shall be aligned to a multiple of the `valueType` size. Each enum value in the array shall match one of the allowed values in the enum definition. `arrayOffsets` is required for variable-length arrays and `stringOffsets` is required for strings (for variable-length arrays of strings, both are required)."
+        },
+        "arrayOffsets": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The index of the buffer view containing offsets for variable-length arrays. The number of offsets is equal to the property table `count` plus one. The offsets represent the start positions of each array, with the last offset representing the position after the last array. The array length is computed using the difference between the subsequent offset and the current offset. If `type` is `STRING` the offsets index into the string offsets array (stored in `stringOffsets`), otherwise they index into the property array (stored in `values`). The data type of these offsets is determined by `arrayOffsetType`. The buffer view `byteOffset` shall be aligned to a multiple of the `arrayOffsetType` size."
+        },
+        "stringOffsets": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The index of the buffer view containing offsets for strings. The number of offsets is equal to the number of string elements plus one. The offsets represent the byte offsets of each string in the property array (stored in `values`), with the last offset representing the byte offset after the last string. The string byte length is computed using the difference between the subsequent offset and the current offset. The data type of these offsets is determined by `stringOffsetType`. The buffer view `byteOffset` shall be aligned to a multiple of the `stringOffsetType` size."
+        },
+        "arrayOffsetType": {
+            "description": "The type of values in `arrayOffsets`.",
+            "default": "UINT32",
+            "anyOf": [
+                {
+                    "const": "UINT8"
+                },
+                {
+                    "const": "UINT16"
+                },
+                {
+                    "const": "UINT32"
+                },
+                {
+                    "const": "UINT64"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "stringOffsetType": {
+            "description": "The type of values in `stringOffsets`.",
+            "default": "UINT32",
+            "anyOf": [
+                {
+                    "const": "UINT8"
+                },
+                {
+                    "const": "UINT16"
+                },
+                {
+                    "const": "UINT32"
+                },
+                {
+                    "const": "UINT64"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "offset": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "An offset to apply to property values. Only applicable when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Overrides the class property's `offset` if both are defined."
+        },
+        "scale": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "A scale to apply to property values. Only applicable when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Overrides the class property's `scale` if both are defined."
+        },
+        "max": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "Maximum value present in the property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "min": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "Minimum value present in the property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        }
+    },
+    "required": [
+        "values"
+    ]
+}
+----
+
+
+[#reference-schema-rootproperty]
+= JSON Schema for Root Property
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "rootProperty.schema.json",
+    "title": "Root Property",
+    "type": "object",
+    "description": "A basis for storing extensions and extras.",
+    "properties": {
+        "extensions": {
+            "$ref": "extension.schema.json"
+        },
+        "extras": {
+            "$ref": "extras.schema.json"
+        }
+    }
+}
+----
+
+
+[#reference-schema-schema]
+= JSON Schema for Schema
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "schema.schema.json",
+    "title": "Schema",
+    "$ref": "rootProperty.schema.json",
+    "description": "An object defining classes and enums.",
+    "properties": {
+        "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$",
+            "description": "Unique identifier for the schema. Schema IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`."
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The name of the schema, e.g. for display purposes."
+        },
+        "description": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The description of the schema."
+        },
+        "version": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Application-specific version of the schema."
+        },
+        "classes": {
+            "type": "object",
+            "description": "A dictionary, where each key is a class ID and each value is an object defining the class. Class IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "class.schema.json"
+            }
+        },
+        "enums": {
+            "type": "object",
+            "description": "A dictionary, where each key is an enum ID and each value is an object defining the values for the enum. Enum IDs shall be alphanumeric identifiers matching the regular expression `^[a-zA-Z_][a-zA-Z0-9_]*$`.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "enum.schema.json"
+            }
+        }
+    },
+    "required": [
+        "id"
+    ]
+}
+----
+
+
+[#reference-schema-statistics]
+= JSON Schema for Statistics
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "statistics.schema.json",
+    "title": "Statistics",
+    "$ref": "rootProperty.schema.json",
+    "description": "Statistics about entities.",
+    "properties": {
+        "classes": {
+            "type": "object",
+            "description": "A dictionary, where each key corresponds to a class ID in the `classes` dictionary and each value is an object containing statistics about entities that conform to the class.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "statistics.class.schema.json"
+            }
+        }
+    }
+}
+----
+
+
+[#reference-schema-statistics-class]
+= JSON Schema for Class Statistics
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "statistics.class.schema.json",
+    "title": "Class Statistics",
+    "$ref": "rootProperty.schema.json",
+    "description": "Statistics about entities that conform to a class.",
+    "properties": {
+        "count": {
+            "type": "integer",
+            "description": "The number of entities that conform to the class.",
+            "minimum": 0
+        },
+        "properties": {
+            "type": "object",
+            "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value is an object containing statistics about property values.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "statistics.class.property.schema.json"
+            }
+        }
+    }
+}
+----
+
+
+[#reference-schema-statistics-class-property]
+= JSON Schema for Property Statistics
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "statistics.class.property.schema.json",
+    "title": "Property Statistics",
+    "$ref": "rootProperty.schema.json",
+    "description": "Statistics about property values.",
+    "properties": {
+        "min": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The minimum property value occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "max": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The maximum property value occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "mean": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The arithmetic mean of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the mean of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "median": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The median of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the median of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "standardDeviation": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The standard deviation of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the standard deviation of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "variance": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The variance of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the variance of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "sum": {
+            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "description": "The sum of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the sum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+        },
+        "occurrences": {
+            "type": "object",
+            "description": "A dictionary, where each key corresponds to an enum `name` and each value is the number of occurrences of that enum. Only applicable when `type` is `ENUM`. For fixed-length arrays, this is an array of component-wise occurrences.",
+            "minProperties": 1,
+            "additionalProperties": {
+                "oneOf": [
+                    {
+                        "type": "integer"
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "minItems": 1
+                    }
+                ]
+            }
+        }
+    }
+}
+----
+
+
+[#reference-schema-style]
+= JSON Schema for Style
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "style.schema.json",
+    "title": "Style",
+    "$ref": "rootProperty.schema.json",
+    "description": "A 3D Tiles style.",
+    "properties": {
+        "defines": {
+            "type": "object",
+            "additionalProperties": {
+                "$ref": "style.expression.schema.json"
+            },
+            "description": "A dictionary object of `expression` strings mapped to a variable name key that may be referenced throughout the style. If an expression references a defined variable, it is replaced with the evaluated result of the corresponding expression."
+        },
+        "show": {
+            "oneOf": [
+                {
+                    "$ref": "style.booleanExpression.schema.json"
+                },
+                {
+                    "$ref": "style.conditions.schema.json"
+                }
+            ],
+            "description": "A `boolean expression` or `conditions` property which determines if a feature should be shown.",
+            "default": "true"
+        },
+        "color": {
+            "oneOf": [
+                {
+                    "$ref": "style.colorExpression.schema.json"
+                },
+                {
+                    "$ref": "style.conditions.schema.json"
+                }
+            ],
+            "description": "A `color expression` or `conditions` property which determines the color blended with the feature's intrinsic color.",
+            "default": "color('#FFFFFF')"
+        },
+        "meta": {
+            "$ref": "style.meta.schema.json",
+            "description": "A `meta` object which determines the values of non-visual properties of the feature."
+        }
+    }
+}
+----
+
+
+[#reference-schema-style-booleanexpression]
+= JSON Schema for Boolean Expression
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "style.booleanExpression.schema.json",
+    "title": "Boolean Expression",
+    "type": [
+        "boolean",
+        "string"
+    ],
+    "description": "A boolean or string with a 3D Tiles style expression that evaluates to a boolean. Details are described in the 3D Tiles Styling specification."
+}
+----
+
+
+[#reference-schema-style-colorexpression]
+= JSON Schema for Color Expression
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "style.colorExpression.schema.json",
+    "title": "Color Expression",
+    "type": "string",
+    "description": "3D Tiles style `expression` that evaluates to a Color. Details are described in the 3D Tiles Styling specification."
+}
+----
+
+
+[#reference-schema-style-conditions]
+= JSON Schema for Conditions
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "style.conditions.schema.json",
+    "title": "Conditions",
+    "$ref": "rootProperty.schema.json",
+    "description": "A series of conditions evaluated in order, like a series of if...else statements that result in an expression being evaluated.",
+    "properties": {
+        "conditions": {
+            "type": "array",
+            "description": "A series of boolean conditions evaluated in order. For the first one that evaluates to true, its value, the 'result' (which is also an expression), is evaluated and returned. Result expressions shall all be the same type. If no condition evaluates to true, the result is `undefined`. When conditions is `undefined`, `null`, or an empty object, the result is `undefined`.",
+            "items": {
+                "$ref": "style.conditions.condition.schema.json"
+            }
+        }
+    }
+}
+----
+
+
+[#reference-schema-style-conditions-condition]
+= JSON Schema for Condition
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "style.conditions.condition.schema.json",
+    "title": "Condition",
+    "type": "array",
+    "description": "An `expression` evaluated as the result of a condition being true. An array of two expressions. If the first expression is evaluated and the result is `true`, then the second expression is evaluated and returned as the result of the condition.",
+    "items": {
+        "$ref": "style.expression.schema.json"
+    },
+    "minItems": 2,
+    "maxItems": 2
+}
+----
+
+
+[#reference-schema-style-expression]
+= JSON Schema for Expression
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "style.expression.schema.json",
+    "title": "Expression",
+    "type": "string",
+    "description": "A valid 3D Tiles style expression. Details are described in the 3D Tiles Styling specification."
+}
+----
+
+
+[#reference-schema-style-meta]
+= JSON Schema for Meta
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "style.meta.schema.json",
+    "title": "Meta",
+    "$ref": "rootProperty.schema.json",
+    "description": "A series of property names and the `expression` to evaluate for the value of that property.",
+    "additionalProperties": {
+        "$ref": "style.expression.schema.json"
+    }
+}
+----
+
+
+[#reference-schema-subtree]
+= JSON Schema for Subtree
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "subtree.schema.json",
+    "title": "Subtree",
+    "$ref": "rootProperty.schema.json",
+    "description": "An object describing the availability of tiles and content in a subtree, as well as availability of children subtrees. May also store metadata for available tiles and content.",
+    "properties": {
+        "buffers": {
+            "type": "array",
+            "items": {
+                "$ref": "buffer.schema.json"
+            },
+            "minItems": 1,
+            "description": "An array of buffers."
+        },
+        "bufferViews": {
+            "type": "array",
+            "items": {
+                "$ref": "bufferView.schema.json"
+            },
+            "minItems": 1,
+            "description": "An array of buffer views."
+        },
+        "propertyTables": {
+            "type": "array",
+            "items": {
+                "$ref": "propertyTable.schema.json"
+            },
+            "minItems": 1,
+            "description": "An array of property tables."
+        },
+        "tileAvailability": {
+            "$ref": "availability.schema.json",
+            "description": "The availability of tiles in the subtree. The availability bitstream is a 1D boolean array where tiles are ordered by their level in the subtree and Morton index within that level. A tile's availability is determined by a single bit, 1 meaning a tile exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `(N^subtreeLevels - 1)/(N - 1)` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a buffer view or as a constant value that applies to all tiles. If a non-root tile's availability is 1 its parent tile's availability shall also be 1. `tileAvailability.constant: 0` is disallowed, as subtrees shall have at least one tile."
+        },
+        "contentAvailability": {
+            "type": "array",
+            "items": {
+                "$ref": "availability.schema.json"
+            },
+            "minItems": 1,
+            "description": "An array of content availability objects. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by 3DTILES_multiple_contents and 3D Tiles 1.1 - this array will have multiple elements."
+        },
+        "childSubtreeAvailability": {
+            "$ref": "availability.schema.json",
+            "description": "The availability of children subtrees. The availability bitstream is a 1D boolean array where subtrees are ordered by their Morton index in the level of the tree immediately below the bottom row of the subtree. A child subtree's availability is determined by a single bit, 1 meaning a subtree exists at that spatial index, and 0 meaning it does not. The number of elements in the array is `N^subtreeLevels` where N is 4 for subdivision scheme `QUADTREE` and 8 for `OCTREE`. Availability may be stored in a buffer view or as a constant value that applies to all child subtrees. If availability is 0 for all child subtrees, then the tileset does not subdivide further."
+        },
+        "tileMetadata": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Index of the property table containing tile metadata. Tile metadata only exists for available tiles and is tightly packed by increasing tile index. To access individual tile metadata, implementations may create a mapping from tile indices to tile metadata indices."
+        },
+        "contentMetadata": {
+            "type": "array",
+            "items": {
+                "type": "integer",
+                "minimum": 0
+            },
+            "minItems": 1,
+            "description": "An array of indexes to property tables containing content metadata. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by 3DTILES_multiple_contents and 3D Tiles 1.1 - this array will have multiple elements. Content metadata only exists for available contents and is tightly packed by increasing tile index. To access individual content metadata, implementations may create a mapping from tile indices to content metadata indices."
+        },
+        "subtreeMetadata": {
+            "$ref": "metadataEntity.schema.json",
+            "description": "Subtree metadata encoded in JSON."
+        }
+    },
+    "required": [
+        "tileAvailability",
+        "childSubtreeAvailability"
+    ]
+}
+----
+
+
+[#reference-schema-subtrees]
+= JSON Schema for Subtrees
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "subtrees.schema.json",
+    "title": "Subtrees",
+    "$ref": "rootProperty.schema.json",
+    "description": "An object describing the location of subtree files.",
+    "properties": {
+        "uri": {
+            "$ref": "templateUri.schema.json",
+            "description": "A template URI pointing to subtree files. A subtree is a fixed-depth (defined by `subtreeLevels`) portion of the tree to keep memory use bounded. The URI of each file is substituted with the subtree root's global level, x, and y. For subdivision scheme `OCTREE`, z shall also be given. Relative paths are relative to the tileset JSON."
+        }
+    },
+    "required": [
+        "uri"
+    ]
+}
+----
+
+
+[#reference-schema-templateuri]
+= JSON Schema for Template URI
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "templateUri.schema.json",
+    "title": "Template URI",
+    "type": "string",
+    "description": "A URI with embedded expressions that describes the resource that is associated with an implicit tile in an implicit tileset. Allowed expressions are `{level}`, `{x}`, `{y}`, and `{z}`. `{level}` is substituted with the level of the node, `{x}` is substituted with the x index of the node within the level, and `{y}` is substituted with the y index of the node within the level. `{z}` may only be given when the subdivision scheme is `OCTREE`, and it is substituted with the z index of the node within the level."
+}
+----
+
+
+[#reference-schema-tile]
+= JSON Schema for Tile
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tile.schema.json",
+    "title": "Tile",
+    "$ref": "rootProperty.schema.json",
+    "description": "A tile in a 3D Tiles tileset.",
+    "properties": {
+        "boundingVolume": {
+            "description": "The bounding volume that encloses the tile.",
+            "$ref": "boundingVolume.schema.json"
+        },
+        "viewerRequestVolume": {
+            "description": "Optional bounding volume that defines the volume the viewer shall be inside of before the tile's content will be requested and before the tile will be refined based on geometricError.",
+            "$ref": "boundingVolume.schema.json"
+        },
+        "geometricError": {
+            "type": "number",
+            "description": "The error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.",
+            "minimum": 0
+        },
+        "refine": {
+            "description": "Specifies if additive or replacement refinement is used when traversing the tileset for rendering. This property is required for the root tile of a tileset; it is optional for all other tiles. The default is to inherit from the parent tile.",
+            "anyOf": [
+                {
+                    "const": "ADD"
+                },
+                {
+                    "const": "REPLACE"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "transform": {
+            "type": "array",
+            "description": "A floating-point 4x4 affine transformation matrix, stored in column-major order, that transforms the tile's content--i.e., its features as well as content.boundingVolume, boundingVolume, and viewerRequestVolume--from the tile's local coordinate system to the parent tile's coordinate system, or, in the case of a root tile, from the tile's local coordinate system to the tileset's coordinate system. `transform` does not apply to any volume property when the volume is a region, defined in EPSG:4979 coordinates. `transform` scales the `geometricError` by the maximum scaling factor from the matrix.",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 16,
+            "maxItems": 16,
+            "default": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ]
+        },
+        "content": {
+            "description": "Metadata about the tile's content and a link to the content. When this is omitted the tile is just used for culling. When this is defined, then `contents` shall be undefined.",
+            "$ref": "content.schema.json"
+        },
+        "contents": {
+            "type": "array",
+            "description": "An array of contents. When this is defined, then `content` shall be undefined.",
+            "items": {
+                "$ref": "content.schema.json"
+            },
+            "minItems": 1
+        },
+        "metadata": {
+            "$ref": "metadataEntity.schema.json",
+            "description": "A metadata entity that is associated with this tile."
+        },
+        "implicitTiling": {
+            "$ref": "tile.implicitTiling.schema.json",
+            "description": "An object that describes the implicit subdivision of this tile."
+        },
+        "children": {
+            "type": "array",
+            "description": "An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.",
+            "items": {
+                "$ref": "tile.schema.json"
+            },
+            "uniqueItems": true,
+            "minItems": 1
+        }
+    },
+    "required": [
+        "boundingVolume",
+        "geometricError"
+    ],
+    "not": {
+        "required": [
+            "content",
+            "contents"
+        ]
+    }
+}
+----
+
+
+[#reference-schema-tile-implicittiling]
+= JSON Schema for Implicit tiling
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tile.implicitTiling.schema.json",
+    "title": "Implicit tiling",
+    "$ref": "rootProperty.schema.json",
+    "description": "This object allows a tile to be implicitly subdivided. Tile and content availability and metadata is stored in subtrees which are referenced externally.",
+    "properties": {
+        "subdivisionScheme": {
+            "description": "A string describing the subdivision scheme used within the tileset.",
+            "anyOf": [
+                {
+                    "const": "QUADTREE"
+                },
+                {
+                    "const": "OCTREE"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "subtreeLevels": {
+            "type": "integer",
+            "description": "The number of distinct levels in each subtree. For example, a quadtree with `subtreeLevels = 2` will have subtrees with 5 nodes (one root and 4 children).",
+            "minimum": 1
+        },
+        "availableLevels": {
+            "type": "integer",
+            "description": "The numbers of the levels in the tree with available tiles.",
+            "minimum": 1
+        },
+        "subtrees": {
+            "$ref": "subtrees.schema.json",
+            "description": "An object describing the location of subtree files."
+        }
+    },
+    "required": [
+        "subdivisionScheme",
+        "subtreeLevels",
+        "availableLevels",
+        "subtrees"
+    ]
+}
+----
+
+
+[#reference-schema-tileset]
+= JSON Schema for Tileset
+
+[%unnumbered]
+[source,json]
+----
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tileset.schema.json",
+    "title": "Tileset",
+    "$ref": "rootProperty.schema.json",
+    "description": "A 3D Tiles tileset.",
+    "properties": {
+        "asset": {
+            "description": "Metadata about the entire tileset.",
+            "$ref": "asset.schema.json"
+        },
+        "properties": {
+            "type": "object",
+            "description": "A dictionary object of metadata about per-feature properties.",
+            "additionalProperties": {
+                "$ref": "properties.schema.json"
+            },
+            "deprecated": true
+        },
+        "schema": {
+            "$ref": "schema.schema.json",
+            "description": "An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` shall be undefined."
+        },
+        "schemaUri": {
+            "type": "string",
+            "description": "The URI (or IRI) of the external schema file. When this is defined, then `schema` shall be undefined.",
+            "format": "iri-reference"
+        },
+        "statistics": {
+            "$ref": "statistics.schema.json",
+            "description": "An object containing statistics about metadata entities."
+        },
+        "groups": {
+            "type": "array",
+            "description": "An array of groups that tile content may belong to. Each element of this array is a metadata entity that describes the group. The tile content `group` property is an index into this array.",
+            "items": {
+                "$ref": "group.schema.json"
+            },
+            "minItems": 1
+        },
+        "metadata": {
+            "$ref": "metadataEntity.schema.json",
+            "description": "A metadata entity that is associated with this tileset."
+        },
+        "geometricError": {
+            "type": "number",
+            "description": "The error, in meters, introduced if this tileset is not rendered. At runtime, the geometric error is used to compute screen space error (SSE), i.e., the error measured in pixels.",
+            "minimum": 0
+        },
+        "root": {
+            "description": "The root tile.",
+            "$ref": "tile.schema.json"
+        },
+        "extensionsUsed": {
+            "type": "array",
+            "description": "Names of 3D Tiles extensions used somewhere in this tileset.",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true,
+            "minItems": 1
+        },
+        "extensionsRequired": {
+            "type": "array",
+            "description": "Names of 3D Tiles extensions required to properly load this tileset.",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true,
+            "minItems": 1
+        }
+    },
+    "required": [
+        "asset",
+        "geometricError",
+        "root"
+    ],
+    "not": {
+        "required": [
+            "schema",
+            "schemaUri"
+        ]
+    }
+}
+----
+
+

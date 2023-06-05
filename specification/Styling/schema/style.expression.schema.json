@@ -1,7 +1,0 @@
-{
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "style.expression.schema.json",
-    "title": "Expression",
-    "type": "string",
-    "description": "A valid 3D Tiles style expression. See [Expressions](/specification/Styling/README.md#expressions)."
-}

@@ -1,0 +1,17 @@
+[appendix,obligation=informative]
+== Revision history
+
+// NOTE: The 'a|' indicates that the following cell should
+// use AsciiDoc parsing (for bullet point lists etc.)
+
+[%unnumbered]
+[cols="3,2,3,2,6"]
+|===
+|Date |Release |Editor | Primary clauses modified |Description
+
+| 2022-07-26 | 1.1.0 | Sean Lilley | all a| This is the first normative version of this document.
+| 2022-08-17 | 1.1.0 | Sean Lilley | a| Added explanatory notes about choice of radians, bounding box representation, and column-major order for matrices. Fixed formatting issues and typos.
+| 2022-10-07 | 1.1.0 | Sean Lilley | Terms and Definitions a| Added note that in the context of 3D Tiles the term "metadata" is equivalent to the concept of attribution in other OGC standards.
+| 2023-01-09 | 1.1.0 | Sean Lilley | Document Metadata a| Updated approval date and public date.
+
+|===

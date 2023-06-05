@@ -2,17 +2,12 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "boundingVolume.3DTILES_bounding_volume_S2.schema.json",
     "title": "3DTILES_bounding_volume_S2 extension",
-    "type": "object",
     "description": "3D Tiles extension for S2 bounding volumes.",
-    "allOf": [
-        {
-            "$ref": "tilesetProperty.schema.json"
-        }
-    ],
+    "$ref": "rootProperty.schema.json",
     "properties": {
         "token": {
             "type": "string",
-            "description": "A hexadecimal representation of the S2CellId. Tokens must be lower-case, must not contain whitespace and must have trailing zeros stripped."
+            "description": "A hexadecimal representation of the S2CellId. Tokens shall be lower-case, shall not contain whitespace and shall have trailing zeros stripped."
         },
         "minimumHeight": {
             "type": "number",
@@ -21,9 +16,7 @@
         "maximumHeight": {
             "type": "number",
             "description": "The maximum height of the tile, specified in meters above (or below) the WGS84 ellipsoid."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "token",

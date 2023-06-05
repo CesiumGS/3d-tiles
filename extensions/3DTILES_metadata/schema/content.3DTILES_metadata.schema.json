@@ -2,21 +2,12 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "content.3DTILES_metadata.schema.json",
     "title": "3DTILES_metadata tile content extension",
-    "type": "object",
-    "description": "An object containing metadata about content. This extension must not be added to contents of tiles using the `3DTILES_implicit_tiling` extension since content metadata is provided separately in the subtrees.",
-    "allOf": [
-        {
-            "$ref": "metadataEntity.schema.json"
-        }
-    ],
+    "$ref": "metadataEntity.schema.json",
+    "description": "An object containing metadata about content. This extension shall not be added to contents of tiles using the `3DTILES_implicit_tiling` extension since content metadata is provided separately in the subtrees.",
     "properties": {
         "group": {
             "type": "integer",
             "description": "The group this content belongs to. The value is an index into the array of `groups` that is defined for the containing tileset."
-        },
-        "class": {},
-        "properties": {},
-        "extensions": {},
-        "extras": {}
+        }
     }
 }

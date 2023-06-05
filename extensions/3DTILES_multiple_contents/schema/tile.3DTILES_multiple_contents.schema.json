@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tile.3DTILES_multiple_contents.schema.json",
     "title": "3DTILES_multiple_contents tile extension",
-    "type": "object",
-    "description": "Extends a tile to have multiple contents. When this extension is used the tile's `content` property must be omitted.",
-    "allOf": [
-        {
-            "$ref": "tilesetProperty.schema.json"
-        }
-    ],
+    "$ref": "rootProperty.schema.json",
+    "description": "Extends a tile to have multiple contents. When this extension is used the tile's `content` property shall be omitted.",
     "properties": {
         "contents": {
             "type": "array",
@@ -17,9 +12,7 @@
                 "$ref": "content.schema.json"
             },
             "minItems": 1
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "content"

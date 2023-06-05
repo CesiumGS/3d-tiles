@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tileset.schema.json",
     "title": "Tileset",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "A 3D Tiles tileset.",
-    "allOf": [
-        {
-            "$ref": "tilesetProperty.schema.json"
-        }
-    ],
     "properties": {
         "asset": {
             "description": "Metadata about the entire tileset.",
@@ -19,7 +14,33 @@
             "description": "A dictionary object of metadata about per-feature properties.",
             "additionalProperties": {
                 "$ref": "properties.schema.json"
-            }
+            },
+            "deprecated": true
+        },
+        "schema": {
+            "$ref": "schema.schema.json",
+            "description": "An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` shall be undefined."
+        },
+        "schemaUri": {
+            "type": "string",
+            "description": "The URI (or IRI) of the external schema file. When this is defined, then `schema` shall be undefined.",
+            "format": "iri-reference"
+        },
+        "statistics": {
+            "$ref": "statistics.schema.json",
+            "description": "An object containing statistics about metadata entities."
+        },
+        "groups": {
+            "type": "array",
+            "description": "An array of groups that tile content may belong to. Each element of this array is a metadata entity that describes the group. The tile content `group` property is an index into this array.",
+            "items": {
+                "$ref": "group.schema.json"
+            },
+            "minItems": 1
+        },
+        "metadata": {
+            "$ref": "metadataEntity.schema.json",
+            "description": "A metadata entity that is associated with this tileset."
         },
         "geometricError": {
             "type": "number",
@@ -41,19 +62,23 @@
         },
         "extensionsRequired": {
             "type": "array",
-            "description": "Names of 3D Tiles extensions required to properly load this tileset.",
+            "description": "Names of 3D Tiles extensions required to properly load this tileset. Each element of this array shall also be contained in `extensionsUsed`.",
             "items": {
                 "type": "string"
             },
             "uniqueItems": true,
             "minItems": 1
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "asset",
         "geometricError",
         "root"
-    ]
+    ],
+    "not": {
+        "required": [
+            "schema",
+            "schemaUri"
+        ]
+    }
 }

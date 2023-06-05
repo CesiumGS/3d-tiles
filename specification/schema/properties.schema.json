@@ -2,24 +2,17 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "properties.schema.json",
     "title": "Properties",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "A dictionary object of metadata about per-feature properties.",
-    "allOf": [
-        {
-            "$ref": "tilesetProperty.schema.json"
-        }
-    ],
     "properties": {
         "maximum": {
             "type": "number",
-            "description": "The maximum value of this property of all the features in the tileset."
+            "description": "The maximum value of this property of all the features in the tileset. The maximum value shall not be larger than the minimum value."
         },
         "minimum": {
             "type": "number",
-            "description": "The minimum value of this property of all the features in the tileset."
-        },
-        "extensions": {},
-        "extras": {}
+            "description": "The minimum value of this property of all the features in the tileset. The maximum value shall not be larger than the minimum value."
+        }
     },
     "required": [
         "maximum",

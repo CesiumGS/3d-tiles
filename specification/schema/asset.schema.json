@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "asset.schema.json",
     "title": "Asset",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "Metadata about the entire tileset.",
-    "allOf": [
-        {
-            "$ref": "tilesetProperty.schema.json"
-        }
-    ],
     "properties": {
         "version": {
             "type": "string",
@@ -17,9 +12,7 @@
         "tilesetVersion": {
             "type": "string",
             "description": "Application-specific version of this tileset, e.g., for when an existing tileset is updated."
-        },
-        "extensions": {},
-        "extras": {}
+        }
     },
     "required": [
         "version"

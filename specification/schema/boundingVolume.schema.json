@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "boundingVolume.schema.json",
     "title": "Bounding Volume",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "A bounding volume that encloses a tile or its content. At least one bounding volume property is required. Bounding volumes include `box`, `region`, or `sphere`.",
-    "allOf": [
-        {
-            "$ref": "tilesetProperty.schema.json"
-        }
-    ],
     "minProperties": 1,
     "properties": {
         "box": {
@@ -22,7 +17,7 @@
         },
         "region": {
             "type": "array",
-            "description": "An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.",
+            "description": "An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians. The range for latitudes is [-PI/2,PI/2]. The range for longitudes is [-PI,PI]. The value that is given as the 'south' of the region shall not be larger than the value for the 'north' of the region. The heights are in meters above (or below) the WGS84 ellipsoid. The 'minimum height' shall not be larger than the 'maximum height'.",
             "items": {
                 "type": "number"
             },
@@ -31,14 +26,12 @@
         },
         "sphere": {
             "type": "array",
-            "description": "An array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere. The last element (with index 3) defines the radius in meters.",
+            "description": "An array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere. The last element (with index 3) defines the radius in meters. The radius shall not be negative.",
             "items": {
                 "type": "number"
             },
             "minItems": 4,
             "maxItems": 4
-        },
-        "extensions": {},
-        "extras": {}
+        }
     }
 }

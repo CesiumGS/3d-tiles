@@ -2,13 +2,8 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "statistics.class.schema.json",
     "title": "Class Statistics",
-    "type": "object",
+    "$ref": "rootProperty.schema.json",
     "description": "Statistics about entities that conform to a class.",
-    "allOf": [
-        {
-            "$ref": "tilesetProperty.schema.json"
-        }
-    ],
     "properties": {
         "count": {
             "type": "integer",
@@ -22,8 +17,6 @@
             "additionalProperties": {
                 "$ref": "statistics.class.property.schema.json"
             }
-        },
-        "extensions": {},
-        "extras": {}
+        }
     }
 }

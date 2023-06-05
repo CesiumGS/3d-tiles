@@ -1,0 +1,116 @@
+
+== Terms and Definitions
+
+=== Availability 
+
+Data specifying which tiles/contents/child subtrees exist within a single subtree of an implicit tileset
+
+=== Bitstream 
+
+A boolean array stored as a sequence of bits rather than bytes.
+
+=== Bounding Volume
+
+A closed volume completely containing the union of a set of geometric objects. See https://en.wikipedia.org/wiki/Bounding_volume[Wikipedia: Bounding volume]
+
+=== Child subtree
+
+A subtree reachable from an available tile in the bottommost row of a subtree of an implicit tileset
+
+=== Entity
+
+An entity, in the context of 3D Tiles metadata, is an instance of a metadata class, populated with property values conforming to a metadata class definition
+
+=== Feature
+
+In 3D Tiles, an individual component of a tile, such as a 3D model in a Batched 3D Model or a point in a Point Cloud which contains position, appearance, and metadata properties.
+
+=== Geometric Error
+
+The difference, in meters, of a tile's simplified representation of its source geometry used to calculate the screen space error introduced if a tile's content is rendered and its children's are not.
+
+[[glTF]]
+=== glTF
+
+An API-neutral runtime asset delivery format for 3D assets.
+
+=== Hierarchical Level of Detail (HLOD)
+
+Decreasing the complexity of a 3D representation according to metrics such as object importance or distance from the tile to the observation point or camera position. Generally, higher levels of detail provide greater visual fidelity. See https://en.wikipedia.org/wiki/Level_of_detail[Wikipedia: Level of detail]
+
+=== Implicit tiling 
+
+A description of a tileset using recursive subdivision.
+
+=== Implicit root tile 
+
+A tile that contains the `implicitTiling` property, and therefore denotes the root of an implicit tileset.
+
+=== Metadata
+
+In the context of 3D Tiles, metadata is equivalent to the concept of attribution in other Open Geospatial Consortium standards. Metadata refers to non-spatial information that is assigned to entities at multiple granularities, including tilesets, tiles, and features.
+
+=== Metadata class
+
+The description of the structure of an entity that contains 3D Tiles metadata, consisting of multiple metadata properties
+
+=== Metadata property
+
+An element of a metadata class that defines a name and a type for the corresponding element of a metadata entity.
+
+=== Octree 
+
+A 3D subdivision scheme that divides each bounding volume into 8 smaller bounding volumes along the midpoint of the x, y, and z axes.
+
+=== Quadtree 
+
+A 2D subdivision scheme that divides each bounding volume into 4 smaller bounding volumes along the midpoint of the x and y axes.
+
+=== Schema
+
+A set of metadata classes and enums that define the structure and type of metadata
+
+=== Screen-Space Error (SSE)
+
+The difference, in pixels, of a tile's simplified representation of its source geometry introduced if a tile's content is rendered and its children's are not.
+
+=== Spatial Coherence
+
+The union of all content of the child tiles is completely inside the parent tile's bounding volume
+
+=== Style
+
+A set of expressions to be evaluated which modify how each feature in a tileset is displayed
+
+=== Subtree 
+
+A fixed-size section of the tree of an implicit tileset that contains availability information.
+
+=== Subtree file 
+
+A binary file storing information about a specific subtree of an implicit tileset
+
+=== Subdivision scheme 
+
+A recursive pattern of dividing a parent tile into smaller child tiles occupying the same area. This is done by uniformly dividing the bounding volume of the parent tile with an implicit tileset.
+
+=== Template URI 
+
+A URI pattern containing tile coordinates for directly addressing tiles in an implicit tileset.
+
+=== Tile
+
+In 3D Tiles, a subset of a tileset containing a reference to renderable content and the metadata, such as the content's bounding volume, which is used by a client to determine if the content is rendered.
+
+=== Tile Content 
+
+A binary blob containing information necessary to render a tile which is an instance of a specific tile format (Batched 3D Model, Instanced 3D Model, Point Clouds, Composite, or glTF).
+
+=== Tile Format
+
+The structure or layout of tile content data, (Batched 3D Model, Instanced 3D Model, Point Clouds, Composite, or glTF).
+
+=== Tileset
+
+In 3D Tiles, a collection of 3D Tiles tile instances organized into a spatial data structure and additional metadata, such that the aggregation of these tiles represent some 3D content at various levels of detail.
+

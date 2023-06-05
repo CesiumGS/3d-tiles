@@ -1,0 +1,238 @@
+
+[#tileformats-batched3dmodel-batched-3d-model]
+= Batched 3D Model
+
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
+:url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
+:url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-gltf-migration: {url-specification-tileformats-gltf}MIGRATION.adoc
+:url-specification-styling: {url-specification}Styling/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batchtable:
+:url-specification-tileformats-featuretable:
+:url-specification-tileformats-gltf:
+:url-specification-tileformats-gltf-migration:
+:url-specification-styling:
+endif::[]
+
+
+WARNING: Batched 3D Model was deprecated in 3D Tiles 1.1. See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-batched-3d-model-b3dm[`b3dm` migration guide].
+
+[#tileformats-batched3dmodel-overview]
+== Overview
+
+_Batched 3D Model_ allows offline batching of heterogeneous 3D models, such as different buildings in a city, for efficient streaming to a web client for rendering and interaction.  Efficiency comes from transferring multiple models in a single request and rendering them in the least number of WebGL draw calls necessary.  Using the core 3D Tiles spec language, each model is a _feature_.
+
+Per-model properties, such as IDs, enable individual models to be identified and updated at runtime, e.g., show/hide, highlight color, etc. Properties may be used, for example, to query a web service to access metadata, such as passing a building's ID to get its address. Or a property might be referenced on the fly for changing a model's appearance, e.g., changing highlight color based on a property value.
+
+A Batched 3D Model tile is a binary blob in little endian.
+
+[#tileformats-batched3dmodel-layout]
+== Layout
+
+A tile is composed of two sections: a header immediately followed by a body. The following figure shows the Batched 3D Model layout (dashes indicate optional fields):
+
+.Data layout of a Batched 3D Model
+image::figures/layout.png[]
+
+[#tileformats-batched3dmodel-padding]
+=== Padding
+
+A tile's `byteLength` shall be aligned to an 8-byte boundary. The contained xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-padding[Feature Table] and xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-padding[Batch Table] shall conform to their respective padding requirement.
+
+The <<tileformats-batched3dmodel-binary-gltf,binary glTF>> shall start and end on an 8-byte boundary so that glTF's byte-alignment guarantees are met. The proper alignment for the start of the binary glTF data can be achieved by padding the Feature Table, or by padding the Batch Table if it is present. The alignment for the end of the binary glTF data can be achieved by padding the tile data with 0-bytes. The actual binary glTF data does _not_ include possible trailing padding bytes. Clients must take into account the `length` from the https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#binary-gltf-layout[binary glTF header], and use this length to determine the part of the tile data that actually represents the binary glTF. 
+
+[#tileformats-batched3dmodel-header]
+== Header
+
+The 28-byte header contains the following fields:
+
+.Header fields for Batched 3D Models
+[cols="2,1,3"]
+|===
+| Field name | Data type | Description
+
+| `magic`
+| 4-byte ANSI string
+| `"b3dm"`.  This can be used to identify the content as a Batched 3D Model tile.
+
+| `version`
+| `uint32`
+| The version of the Batched 3D Model format. It is currently `1`.
+
+| `byteLength`
+| `uint32`
+| The length of the entire tile, including the header, in bytes.
+
+| `featureTableJSONByteLength`
+| `uint32`
+| The length of the Feature Table JSON section in bytes.
+
+| `featureTableBinaryByteLength`
+| `uint32`
+| The length of the Feature Table binary section in bytes.
+
+| `batchTableJSONByteLength`
+| `uint32`
+| The length of the Batch Table JSON section in bytes. Zero indicates there is no Batch Table.
+
+| `batchTableBinaryByteLength`
+| `uint32`
+| The length of the Batch Table binary section in bytes. If `batchTableJSONByteLength` is zero, this will also be zero.
+|===
+
+The body section immediately follows the header section, and is composed of three fields: `Feature Table`, `Batch Table`, and `Binary glTF`.
+
+[#tileformats-batched3dmodel-feature-table]
+== Feature Table
+
+Contains values for `b3dm` semantics.
+
+More information is available in the xref:{url-specification-tileformats-featuretable}README.adoc#tileformats-featuretable-feature-table[Feature Table specification].
+
+The full JSON schema can be found in 
+ifdef::env-github[]
+link:https://github.com/CesiumGS/3d-tiles/tree/draft-1.1/specification/schema/TileFormats/b3dm.featureTable.schema.json[`b3dm.featureTable.schema.json`].
+endif::[]
+ifndef::env-github[]
+<<reference-schema-b3dm-featuretable,`b3dm.featureTable.schema.json`>>.
+endif::[]
+
+
+[#tileformats-batched3dmodel-semantics]
+=== Semantics
+
+[#tileformats-batched3dmodel-feature-semantics]
+==== Feature semantics
+
+There are currently no per-feature semantics.
+
+[#tileformats-batched3dmodel-global-semantics]
+==== Global semantics
+
+These semantics define global properties for all features.
+
+.Global semantics for Batched 3D models
+[cols="2,2,3,1"]
+|===
+| Semantic | Data Type | Description | Required
+
+| `BATCH_LENGTH`
+| `uint32`
+| The number of distinguishable models, also called features, in the batch. If the Binary glTF does not have a `batchId` attribute, this field _shall_ be `0`.
+| Yes.
+
+| `RTC_CENTER`
+| `float32[3]`
+| A 3-component array of numbers defining the center position when positions are defined relative-to-center, (see <<tileformats-batched3dmodel-coordinate-system,Coordinate system>>).
+| No.
+|===
+
+[#tileformats-batched3dmodel-batch-table]
+== Batch Table
+
+The _Batch Table_ contains per-model application-specific properties, indexable by `batchId`, that can be used for xref:{url-specification-styling}README.adoc#styling-styling[declarative styling] and application-specific use cases such as populating a UI or issuing a REST API request.  In the binary glTF section, each vertex has a numeric `batchId` attribute in the integer range `[0, number of models in the batch - 1]`.  The `batchId` indicates the model to which the vertex belongs.  This allows models to be batched together and still be identifiable.
+
+See the xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-batch-table[Batch Table] reference for more information.
+
+[#tileformats-batched3dmodel-binary-gltf]
+== Binary glTF
+
+Batched 3D Model embeds https://github.com/KhronosGroup/glTF/tree/main/specification/2.0[glTF 2.0] containing model geometry and texture information.
+
+The https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#binary-gltf-layout[binary glTF] immediately follows the Feature Table and Batch Table.  It may embed all of its geometry, texture, and animations, or it may refer to external sources for some or all of these data.
+
+As described above, each vertex has a `batchId` attribute indicating the model to which it belongs.  For example, vertices for a batch with three models may look like this:
+
+[%unnumbered]
+[source]
+----
+batchId:  [0,   0,   0,   ..., 1,   1,   1,   ..., 2,   2,   2,   ...]
+position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
+normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
+----
+
+Vertices do not need to be ordered by `batchId`, so the following is also OK:
+
+[%unnumbered]
+[source]
+----
+batchId:  [0,   1,   2,   ..., 2,   1,   0,   ..., 1,   2,   0,   ...]
+position: [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
+normal:   [xyz, xyz, xyz, ..., xyz, xyz, xyz, ..., xyz, xyz, xyz, ...]
+----
+
+Note that a vertex can't belong to more than one model; in that case, the vertex needs to be duplicated so the ``batchId``s can be assigned.
+
+The `batchId` parameter is specified in a glTF link:https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#meshes[mesh primitive] by providing the `_BATCHID` attribute semantic, along with the index of the `batchId` link:https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#accessors[accessor]. For example,
+
+[%unnumbered]
+[source,json]
+----
+"primitives": [
+    {
+        "attributes": {
+            "_BATCHID": 0
+        }
+    }
+]
+----
+
+[%unnumbered]
+[source,json]
+----
+{
+    "accessors": [
+        {
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 4860,
+            "max": [2],
+            "min": [0],
+            "type": "SCALAR"
+        }
+    ]
+}
+----
+
+The `accessor.type` shall be a value of `"SCALAR"`. All other properties shall conform to the glTF schema, but have no additional requirements.
+
+When a Batch Table is present or the `BATCH_LENGTH` property is greater than `0`, the `_BATCHID` attribute is required; otherwise, it is not.
+
+[#tileformats-batched3dmodel-coordinate-system]
+=== Coordinate system
+
+By default embedded glTFs use a right handed coordinate system where the _y_-axis is up. For consistency with the _z_-up coordinate system of 3D Tiles, glTFs shall be transformed at runtime. See xref:{url-specification}README.adoc#core-gltf-transforms[glTF transforms] for more details.
+
+Vertex positions may be defined relative-to-center for high-precision rendering, see http://help.agi.com/AGIComponents/html/BlogPrecisionsPrecisions.htm[Precisions, Precisions]. If defined, `RTC_CENTER` specifies the center position that all vertex positions are relative to after the coordinate system transform and glTF node hierarchy transforms have been applied. Specifically, when the `RTC_CENTER` is defined in the feature table of a Batched 3D Model, the computation of the xref:{url-specification}README.adoc#core-tile-transforms[tile transform] is done as follows:
+
+. xref:{url-specification}README.adoc#core-gltf-node-hierarchy[glTF node hierarchy transformations]
+. xref:{url-specification}README.adoc#core-y-up-to-z-up[glTF _y_-up to _z_-up transform]
+. The transform for the `RTC_CENTER`, which is used to translate model vertices
+. xref:{url-specification}README.adoc#core-tile-transforms[Tile transform]
+
+[#tileformats-batched3dmodel-file-extension-and-media-type]
+== File extension and media type
+
+Batched 3D Model tiles use the `.b3dm` extension and `application/octet-stream` media type.
+
+An explicit file extension is optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
+
+[#tileformats-batched3dmodel-implementation-example]
+== Implementation example
+
+_This section is informative_
+
+Code for reading the header can be found in
+https://github.com/CesiumGS/cesium/blob/main/packages/engine/Source/Scene/B3dmParser.js[`B3dmParser.js`]
+in the CesiumJS implementation of 3D Tiles.
+

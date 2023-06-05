@@ -1,0 +1,244 @@
+
+[#tileformats-batchtable-batch-table]
+= Batch Table
+
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
+:url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
+:url-specification-tileformats-featuretable: {url-specification-tileformats}FeatureTable/
+:url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-gltf-migration: {url-specification-tileformats-gltf}MIGRATION.adoc
+:url-specification-tileformats-instanced3dmodel: {url-specification-tileformats}Instanced3DModel/
+:url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batched3dmodel:
+:url-specification-tileformats-batchtable:
+:url-specification-tileformats-featuretable:
+:url-specification-tileformats-gltf:
+:url-specification-tileformats-gltf-migration:
+:url-specification-tileformats-instanced3dmodel:
+:url-specification-tileformats-pointcloud:
+endif::[]
+
+
+WARNING:  Batch Table was deprecated in 3D Tiles 1.1. See xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-migration-from-legacy-tile-formats[glTF migration guide].
+
+[#tileformats-batchtable-overview]
+== Overview
+
+A _Batch Table_ is a component of a tile's binary body and contains per-feature application-specific properties in a tile. These properties are queried at runtime for declarative styling and any application-specific use cases such as populating a UI or issuing a REST API request.  Some example Batch Table properties are building heights, geographic coordinates, and database primary keys.
+
+A Batch Table is used by the following tile formats:
+
+* xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model] (b3dm)
+* xref:{url-specification-tileformats-instanced3dmodel}README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model] (i3dm)
+* xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud] (pnts)
+
+[#tileformats-batchtable-layout]
+== Layout
+
+A Batch Table is composed of two parts: a JSON header and an optional binary body in little endian. The JSON describes the properties, whose values either can be defined directly in the JSON as an array, or can refer to sections in the binary body.  It is more efficient to store long numeric arrays in the binary body. The following figure shows the Batch Table layout:
+
+.Data layout of a Batch Table
+image::figures/batch-table-layout.png[batch table layout]
+
+When a tile format includes a Batch Table, the Batch Table immediately follows the tile's Feature Table.
+The header will also contain `batchTableJSONByteLength` and `batchTableBinaryByteLength` `uint32` fields, which can be used to extract each respective part of the Batch Table.
+
+[#tileformats-batchtable-padding]
+=== Padding
+
+The JSON header shall end on an 8-byte boundary within the containing tile binary. The JSON header shall be padded with trailing Space characters (`0x20`) to satisfy this requirement.
+
+The binary body shall start and end on an 8-byte boundary within the containing tile binary. The binary body shall be padded with additional bytes, of any value, to satisfy this requirement.
+
+Binary properties shall start at a byte offset that is a multiple of the size in bytes of the property's `componentType`. For example, a property with the component type `FLOAT` has 4 bytes per element, and therefore shall start at an offset that is a multiple of `4`. Preceding binary properties shall be padded with additional bytes, of any value, to satisfy this requirement.
+
+[#tileformats-batchtable-json-header]
+=== JSON header
+
+Batch Table values can be represented in the JSON header in two different ways:
+
+. An array of values, e.g., `"name" : ['name1', 'name2', 'name3']` or `"height" : [10.0, 20.0, 15.0]`.
+ ** Array elements can be any valid JSON data type, including objects and arrays.  Elements may be `null`.
+ ** The length of each array is equal to `batchLength`, which is specified in each tile format.  This is the number of features in the tile.  For example, `batchLength` may be the number of models in a b3dm tile, the number of instances in a i3dm tile, or the number of points (or number of objects) in a pnts tile.
+. A reference to data in the binary body, denoted by an object with `byteOffset`, `componentType`, and `type` properties,  e.g., `"height" : { "byteOffset" : 24, "componentType" : "FLOAT", "type" : "SCALAR"}`.
+ ** `byteOffset` specifies a zero-based offset relative to the start of the binary body. The value of `byteOffset` shall be a multiple of the size in bytes of the property's `componentType`, e.g., a property with the component type `FLOAT` shall have a `byteOffset` value that is a multiple of `4`.
+ ** `componentType` is the datatype of components in the attribute. Allowed values are `"BYTE"`, `"UNSIGNED_BYTE"`, `"SHORT"`, `"UNSIGNED_SHORT"`, `"INT"`, `"UNSIGNED_INT"`, `"FLOAT"`, and `"DOUBLE"`.
+ ** `type` specifies if the property is a scalar or vector. Allowed values are `"SCALAR"`, `"VEC2"`, `"VEC3"`, and `"VEC4"`.
+
+The Batch Table JSON is a `UTF-8` string containing JSON.
+
+[NOTE]
+.Informative
+====
+In JavaScript, the Batch Table JSON can be extracted from an `ArrayBuffer` using the `TextDecoder` JavaScript API and transformed to a JavaScript object with `JSON.parse`.
+====
+
+A `batchId` is used to access elements in each array and extract the corresponding properties. For example, the following Batch Table has properties for a batch of two features:
+
+[%unnumbered]
+[source,json]
+----
+{
+    "id" : ["unique id", "another unique id"],
+    "displayName" : ["Building name", "Another building name"],
+    "yearBuilt" : [1999, 2015],
+    "address" : [{"street" : "Main Street", "houseNumber" : "1"}, {"street" : "Main Street", "houseNumber" : "2"}]
+}
+----
+
+The properties for the feature with `batchId = 0` are
+
+[%unnumbered]
+[source,javascript]
+----
+id[0] = 'unique id';
+displayName[0] = 'Building name';
+yearBuilt[0] = 1999;
+address[0] = {street : 'Main Street', houseNumber : '1'};
+----
+
+The properties for `batchId = 1` are
+
+[%unnumbered]
+[source,javascript]
+----
+id[1] = 'another unique id';
+displayName[1] = 'Another building name';
+yearBuilt[1] = 2015;
+address[1] = {street : 'Main Street', houseNumber : '2'};
+----
+
+[#tileformats-batchtable-binary-body]
+=== Binary body
+
+When the JSON header includes a reference to the binary section, the provided `byteOffset` is used to index into the data, as shown in the following figure:
+
+.An example showing how to access the binary body, based on the information from the JSON header
+image::figures/batch-table-binary-index.png[batch table binary index]
+
+Values can be retrieved using the number of features, `batchLength`; the desired batch id, `batchId`; and the `componentType` and `type` defined in the JSON header.
+
+The following tables can be used to compute the byte size of a property.
+
+.Sizes of component types
+[cols="1,1"]
+|===
+| `componentType` | Size in bytes
+
+| `"BYTE"`
+| 1
+
+| `"UNSIGNED_BYTE"`
+| 1
+
+| `"SHORT"`
+| 2
+
+| `"UNSIGNED_SHORT"`
+| 2
+
+| `"INT"`
+| 4
+
+| `"UNSIGNED_INT"`
+| 4
+
+| `"FLOAT"`
+| 4
+
+| `"DOUBLE"`
+| 8
+|===
+
+.Numbers of components for elements
+[cols="1,1"]
+|===
+| `type` | Number of components
+
+| `"SCALAR"`
+| 1
+
+| `"VEC2"`
+| 2
+
+| `"VEC3"`
+| 3
+
+| `"VEC4"`
+| 4
+|===
+
+[#tileformats-batchtable-extensions]
+== Extensions
+
+The following extensions can be applied to a Batch Table.
+
+* link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_batch_table_hierarchy/README.md[`3DTILES_batch_table_hierarchy`]
+
+[#tileformats-batchtable-implementation-example]
+== Implementation example
+
+_This section is informative_
+
+The following examples access the `"height"` and `"geographic"` values respectively given the following Batch Table JSON with `batchLength` of 10:
+
+[%unnumbered]
+[source,json]
+----
+{
+    "height" : {
+        "byteOffset" : 0,
+        "componentType" : "FLOAT",
+        "type" : "SCALAR"
+    },
+    "geographic" : {
+        "byteOffset" : 40,
+        "componentType" : "DOUBLE",
+        "type" : "VEC3"
+    }
+}
+----
+
+To get the `"height"` values:
+
+[%unnumbered]
+[source,javascript]
+----
+var height = batchTableJSON.height;
+var byteOffset = height.byteOffset;
+var componentType = height.componentType;
+var type = height.type;
+
+var heightArrayByteLength = batchLength * sizeInBytes(componentType) * numberOfComponents(type); // 10 * 4 * 1
+var heightArray = new Float32Array(batchTableBinary.buffer, byteOffset, heightArrayByteLength);
+var heightOfFeature = heightArray[batchId];
+----
+
+To get the `"geographic"` values:
+
+[%unnumbered]
+[source,javascript]
+----
+var geographic = batchTableJSON.geographic;
+var byteOffset = geographic.byteOffset;
+var componentType = geographic.componentType;
+var type = geographic.type;
+var componentSizeInBytes = sizeInBytes(componentType)
+var numberOfComponents = numberOfComponents(type);
+
+var geographicArrayByteLength = batchLength * componentSizeInBytes * numberOfComponents // 10 * 8 * 3
+var geographicArray = new Float64Array(batchTableBinary.buffer, byteOffset, geographicArrayByteLength);
+var geographicOfFeature = positionArray.subarray(batchId * numberOfComponents, batchId * numberOfComponents + numberOfComponents); // Using subarray creates a view into the array, and not a new array.
+----
+
+Code for reading the Batch Table can be found in https://github.com/CesiumGS/cesium/blob/main/packages/engine/Source/Scene/Cesium3DTileBatchTable.js[`Cesium3DTileBatchTable.js`] in the CesiumJS implementation of 3D Tiles.
+

@@ -1,0 +1,56 @@
+
+[#tileformats-tile-formats]
+= Tile Formats
+
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
+:url-specification-tileformats-composite: {url-specification-tileformats}Composite/
+:url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
+:url-specification-tileformats-gltf-migration: {url-specification-tileformats-gltf}MIGRATION.adoc
+:url-specification-tileformats-instanced3dmodel: {url-specification-tileformats}Instanced3DModel/
+:url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batched3dmodel:
+:url-specification-tileformats-composite:
+:url-specification-tileformats-gltf:
+:url-specification-tileformats-gltf-migration:
+:url-specification-tileformats-instanced3dmodel:
+:url-specification-tileformats-pointcloud:
+endif::[]
+
+
+The xref:{url-specification}README.adoc#core-tile-content[tile content] in a 3D Tiles tileset represents the renderable content of a tile. It is referred to with the `content.uri` of the tile JSON.
+
+The primary tile format in 3D Tiles 1.1 is the xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[glTF Tile Format]. It is built on https://github.com/KhronosGroup/glTF[glTF 2.0] and allows modeling many different use cases and different forms of renderable content in 3D Tiles.
+
+[#tileformats-legacy-tile-formats]
+== Legacy Tile Formats
+
+The following tile formats have been part of 3D Tiles 1.0, and have been superseded by the xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[glTF Tile Format].
+
+.Legacy tile formats and common uses
+[cols="1,2"]
+|===
+| Legacy Format | Uses
+
+| xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model (`b3dm`)] 
+| Heterogeneous 3D models
+
+| xref:{url-specification-tileformats-instanced3dmodel}README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model (`i3dm`)]
+| 3D model instances
+
+| xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud (`pnts`)]
+| Massive number of points
+
+| xref:{url-specification-tileformats-composite}README.adoc#tileformats-composite-composite[Composite (`cmpt`)]
+| Concatenate tiles of different formats into one tile
+|===
+
+See the xref:{url-specification-tileformats-gltf-migration}#tileformats-gltf-migration-from-legacy-tile-formats[migration guide] for further information about how these use cases can be modeled based on the glTF tile format.

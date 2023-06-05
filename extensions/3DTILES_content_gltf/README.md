@@ -1,3 +1,5 @@
+### ⚠️ `3DTILES_content_gltf` has been promoted to core in 3D Tiles 1.1. See [glTF Tile Format](../../specification/TileFormats/glTF/). ⚠️
+
 # 3DTILES_content_gltf
 
 ## Contributors
@@ -10,7 +12,7 @@
 
 ## Status
 
-Draft
+Complete
 
 ## Dependencies
 
@@ -22,9 +24,9 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 ## Overview
 
-This extension allows a tileset to use [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0) assets directly as tile content. Both `glTF` JSON and `GLB` binary formats are supported.
+This extension allows a tileset to use [glTF 2.0](https://github.com/KhronosGroup/glTF/tree/main/specification/2.0) assets directly as tile content. Both `glTF` JSON and `GLB` binary formats are supported.
 
-Using glTF as a tile format simplifies content pipelines from creation to runtime. This allows greater compatibility with existing tools (e.g. 3D modeling software, validators, optimizers) that create or process glTF assets. Runtime engines that currently support glTF can more easily support 3D Tiles. In many cases, existing tile formats can be converted into the corresponding glTF content, as described in the [Migration Guide](MIGRATION_GUIDE.md).
+Using glTF as a tile format simplifies content pipelines from creation to runtime. This allows greater compatibility with existing tools (e.g. 3D modeling software, validators, optimizers) that create or process glTF assets. Runtime engines that currently support glTF can more easily support 3D Tiles. In many cases, existing tile formats can be converted into the corresponding glTF content, as described in the [Migration Guide](../specification/TileFormats/../../../specification/TileFormats/glTF/MIGRATION.adoc).
 
 ## Extension JSON
 
