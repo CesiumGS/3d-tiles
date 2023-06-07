@@ -1,9 +1,8 @@
 ## 3D Tiles Resources
 
-
 - [**Introducing 3D Tiles**](https://cesium.com/blog/2015/08/10/introducing-3d-tiles/) - the motivation for and principles of 3D Tiles.  Read this first if you are new to 3D Tiles.
 - [**Introducing 3D Tiles Next, Streaming Geospatial to the Metaverse**](https://cesium.com/blog/2021/11/10/introducing-3d-tiles-next/) - the announcement of the 3D Tiles Next specification, summarizing the technical goals and application areas.
-- [**3D Tiles Reference Card**](./3d-tiles-reference-card.pdf) - an approachable and concise guide to learning about the main concepts in 3D Tiles and designed to help integrate 3D Tiles into runtime engines.
+- [**3D Tiles Reference Cards**](./reference-cards) - approachable and concise guides to learning about the main concepts in 3D Tiles and 3D Tiles 1.1, designed to help integrate 3D Tiles into runtime engines.
 - [**3D Tiles Q&A**](./Q-and-A.md)
 
 ### Viewers
@@ -11,6 +10,7 @@
 - [CesiumJS](https://cesium.com/cesiumjs/) - An open source JavaScript runtime engine for visualizing 3D Tiles
 - [Cesium For Unreal](https://cesium.com/platform/cesium-for-unreal/) - An open source plugin for Unreal Engine for visualizing 3D Tiles
 - [Cesium For O3DE](https://cesium.com/platform/cesium-for-o3de/) - An open source plugin for O3DE, the Open 3D Engine, for visualizing 3D Tiles
+- [Cesium For Unity](https://cesium.com/platform/cesium-for-unity/) - An open source plugin that enables rich 3D geospatial workflows and applications based on 3D Tiles in Unity.
 - [3DTilesRendererJS](https://github.com/NASA-AMMOS/3DTilesRendererJS) - A renderer for 3D Tiles based on Three.js, developed by NASA-AMMOS
 - [three-loader-3dtiles](https://github.com/nytimes/three-loader-3dtiles) - A Three.js loader module for loading and visualizing 3D Tiles, developed by NY Times R&D.
 - [threedtiles](https://github.com/ebeaufay/threedtiles) - A viewer for 3D Tiles based on Three.js
@@ -24,6 +24,7 @@
 - [GeoSolutions MapStore](https://www.geosolutionsgroup.com/technologies/mapstore/) - A framework for creating, managing and sharing maps with different types of geospatial content, including [support for 3D Tiles](https://www.geosolutionsgroup.com/blog/mapstore-release-2022_01_00/)
 - [3DCityDB-Web-Map-Client](https://github.com/3dcitydb/3dcitydb-web-map) A viewer for 3D Tiles and CityGML, based on CesiumJS
 - [deck.gl Tile3DLayer](https://deck.gl/docs/api-reference/geo-layers/tile-3d-layer) An implementation of a 3D Tiles renderer for deck.gl
+- [vsgCs](https://github.com/timoore/vsgCs) - A library for using 3D Tiles in Vulkan Scene Graph (VSG) applications, based on [Cesium Native](https://github.com/CesiumGS/cesium-native)
 
 
 ### Implementations
@@ -71,6 +72,8 @@
 - [Obj2Tiles](https://github.com/OpenDroneMap/Obj2Tiles) - A command-line tool and library for converting OBJ files to 3D Tiles
 - [3dtiles](https://github.com/fanvanzh/3dtiles) - Tools for converting OSGB, Esri Shapefiles and FBX files into 3D Tiles
 - [gltf-to-3d-tiles](https://github.com/dreamergz/gltf-to-3d-tiles) - A tool for converting glTF models into GLB, B3DM or 3D Tiles
+- [Apache Baremaps](https://github.com/apache/incubator-baremaps/pull/569) - Experimental support for 3D Tiles in Apache Baremaps
+- [Kitware](https://www.kitware.com/3d-tiles-generation-using-vtk/) - The Kitware Danesfield application can convert satellite imagery into 3D mesh models of buildings atop a separate terrain mesh, and packages the 3D mesh models as 3D Tiles
 
 
 ### Data Providers
@@ -82,6 +85,7 @@
 - [CyberCity3D](https://www.cybercity3d.com/) - City models for use in smart cities presentations, building analytics and for contextual environmental needs, streamed using 3D Tiles
 - [Virtual City Systems](https://vc.systems/en/) - A virtual city hosting- and visualization platform for visualizing 3D cities based on 3D Tiles
 - [DroneDeploy](https://www.dronedeploy.com/) - A drone data repository that uses CesiumJS and Cesium ion for tiling and visualizing massive 3D models using 3D Tiles
+- [Google Photorealistic 3D Tiles](https://cloud.google.com/blog/products/maps-platform/create-immersive-3d-map-experiences-photorealistic-3d-tiles) - Photorealistic 3D Tiles of over 2500 cities across 49 countries, offered via the Google Map Tiles API
 
 ### Selected Talks
 
