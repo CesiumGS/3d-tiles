@@ -70,7 +70,7 @@ image::figures/multi-instance-metadata.png[Model Instance Features]
 [#tileformats-gltf-feature-identification]
 == Feature Identification
 
-link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features/README.md[`EXT_mesh_features`] provides a means of assigning identifiers to geometry and subcomponents of geometry within a glTF 2.0 asset. Feature IDs can de assigned to vertices or texels. link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features/README.md[`EXT_instance_features`] allows feature IDs to be assigned to individual instances.
+link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features/README.md[`EXT_mesh_features`] provides a means of assigning identifiers to geometry and subcomponents of geometry within a glTF 2.0 asset. Feature IDs can be assigned to vertices or texels. link:https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features/README.md[`EXT_instance_features`] allows feature IDs to be assigned to individual instances.
 
 .Street level photogrammetry of San Francisco Ferry Building from Aerometrex. Left: per-texel colors showing the feature classification, e.g., roof, sky roof, windows, window frames, and AC units . Right: classification is used to determine rendering material properties, e.g., make the windows translucent
 image::figures/glTF-feature-identification.png[Per-texel features]
