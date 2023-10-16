@@ -398,12 +398,12 @@ A bounding volume that encloses a tile or its content. At least one bounding vol
 
 |**region**
 |`number` `[6]`
-|An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
+|An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians. The range for latitudes is [-PI/2,PI/2]. The range for longitudes is [-PI,PI]. The value that is given as the 'south' of the region shall not be larger than the value for the 'north' of the region. The heights are in meters above (or below) the WGS84 ellipsoid. The 'minimum height' shall not be larger than the 'maximum height'.
 |No
 
 |**sphere**
 |`number` `[4]`
-|An array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere. The last element (with index 3) defines the radius in meters.
+|An array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere. The last element (with index 3) defines the radius in meters. The radius shall not be negative.
 |No
 
 |**extensions**
@@ -431,14 +431,14 @@ An array of 12 numbers that define an oriented bounding box. The first three ele
 
 == boundingVolume.region
 
-An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.
+An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians. The range for latitudes is [-PI/2,PI/2]. The range for longitudes is [-PI,PI]. The value that is given as the 'south' of the region shall not be larger than the value for the 'north' of the region. The heights are in meters above (or below) the WGS84 ellipsoid. The 'minimum height' shall not be larger than the 'maximum height'.
 
 * **Type**: `number` `[6]`
 * **Required**: No
 
 == boundingVolume.sphere
 
-An array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere. The last element (with index 3) defines the radius in meters.
+An array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere. The last element (with index 3) defines the radius in meters. The radius shall not be negative.
 
 * **Type**: `number` `[4]`
 * **Required**: No
@@ -475,7 +475,7 @@ A buffer is a binary blob. It is either the binary chunk of the subtree file, or
 
 |**uri**
 |`string`
-|The URI (or IRI) of the external schema file. Relative paths are relative to the file containing the buffer JSON. `uri` is required when using the JSON subtree format and not required when using the binary subtree format - when omitted the buffer refers to the binary chunk of the subtree file. Data URIs are not allowed.
+|The URI (or IRI) of the file that contains the binary buffer data. Relative paths are relative to the file containing the buffer JSON. `uri` is required when using the JSON subtree format and not required when using the binary subtree format - when omitted the buffer refers to the binary chunk of the subtree file. Data URIs are not allowed.
 |No
 
 |**byteLength**
@@ -506,7 +506,7 @@ A buffer is a binary blob. It is either the binary chunk of the subtree file, or
 
 == buffer.uri
 
-The URI (or IRI) of the external schema file. Relative paths are relative to the file containing the buffer JSON. `uri` is required when using the JSON subtree format and not required when using the binary subtree format - when omitted the buffer refers to the binary chunk of the subtree file. Data URIs are not allowed.
+The URI (or IRI) of the file that contains the binary buffer data. Relative paths are relative to the file containing the buffer JSON. `uri` is required when using the JSON subtree format and not required when using the binary subtree format - when omitted the buffer refers to the binary chunk of the subtree file. Data URIs are not allowed.
 
 * **Type**: `string`
 * **Required**: No
@@ -760,12 +760,12 @@ A single property of a metadata class.
 
 |**componentType**
 |`string`
-|The datatype of the element's components. Only applicable to `SCALAR`, `VECN`, and `MATN` types.
+|The datatype of the element's components. Required for `SCALAR`, `VECN`, and `MATN` types, and disallowed for other types.
 |No
 
 |**enumType**
 |`string`
-|Enum ID as declared in the `enums` dictionary. Required when `type` is `ENUM`.
+|Enum ID as declared in the `enums` dictionary. Required when `type` is `ENUM`. Disallowed when `type` is not `ENUM`
 |No
 
 |**array**
@@ -785,22 +785,22 @@ A single property of a metadata class.
 
 |**offset**
 |<<reference-definitions-definitions-numericvalue,`definitions-definitions-numericValue`>>
-|An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`.
+|An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Not applicable to variable-length arrays.
 |No
 
 |**scale**
 |<<reference-definitions-definitions-numericvalue,`definitions-definitions-numericValue`>>
-|A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`.
+|A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Not applicable to variable-length arrays.
 |No
 
 |**max**
 |<<reference-definitions-definitions-numericvalue,`definitions-definitions-numericValue`>>
-|Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied.
+|Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied. Not applicable to variable-length arrays.
 |No
 
 |**min**
 |<<reference-definitions-definitions-numericvalue,`definitions-definitions-numericValue`>>
-|Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied.
+|Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied. Not applicable to variable-length arrays.
 |No
 
 |**required**
@@ -875,7 +875,7 @@ The element type.
 
 == class.property.componentType
 
-The datatype of the element's components. Only applicable to `SCALAR`, `VECN`, and `MATN` types.
+The datatype of the element's components. Required for `SCALAR`, `VECN`, and `MATN` types, and disallowed for other types.
 
 * **Type**: `string`
 * **Required**: No
@@ -893,7 +893,7 @@ The datatype of the element's components. Only applicable to `SCALAR`, `VECN`, a
 
 == class.property.enumType
 
-Enum ID as declared in the `enums` dictionary. Required when `type` is `ENUM`.
+Enum ID as declared in the `enums` dictionary. Required when `type` is `ENUM`. Disallowed when `type` is not `ENUM`
 
 * **Type**: `string`
 * **Required**: No
@@ -922,28 +922,28 @@ Specifies whether integer values are normalized. Only applicable to `SCALAR`, `V
 
 == class.property.offset
 
-An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`.
+An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Not applicable to variable-length arrays.
 
 * **Type**: <<reference-definitions-definitions-numericvalue,`definitions-definitions-numericValue`>>
 * **Required**: No
 
 == class.property.scale
 
-A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`.
+A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Not applicable to variable-length arrays.
 
 * **Type**: <<reference-definitions-definitions-numericvalue,`definitions-definitions-numericValue`>>
 * **Required**: No
 
 == class.property.max
 
-Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied.
+Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied. Not applicable to variable-length arrays.
 
 * **Type**: <<reference-definitions-definitions-numericvalue,`definitions-definitions-numericValue`>>
 * **Required**: No
 
 == class.property.min
 
-Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied.
+Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied. Not applicable to variable-length arrays.
 
 * **Type**: <<reference-definitions-definitions-numericvalue,`definitions-definitions-numericValue`>>
 * **Required**: No
@@ -2259,12 +2259,12 @@ A dictionary object of metadata about per-feature properties.
 
 |**maximum**
 |`number`
-|The maximum value of this property of all the features in the tileset.
+|The maximum value of this property of all the features in the tileset. The maximum value shall not be smaller than the minimum value.
 | &#10003; Yes
 
 |**minimum**
 |`number`
-|The minimum value of this property of all the features in the tileset.
+|The minimum value of this property of all the features in the tileset. The maximum value shall not be smaller than the minimum value.
 | &#10003; Yes
 
 |**extensions**
@@ -2285,14 +2285,14 @@ A dictionary object of metadata about per-feature properties.
 
 == properties.maximum
 
-The maximum value of this property of all the features in the tileset.
+The maximum value of this property of all the features in the tileset. The maximum value shall not be smaller than the minimum value.
 
 * **Type**: `number`
 * **Required**:  &#10003; Yes
 
 == properties.minimum
 
-The minimum value of this property of all the features in the tileset.
+The minimum value of this property of all the features in the tileset. The maximum value shall not be smaller than the minimum value.
 
 * **Type**: `number`
 * **Required**:  &#10003; Yes
@@ -2769,7 +2769,7 @@ Statistics about entities.
 
 |**classes**
 |`object`
-|A dictionary, where each key corresponds to a class ID in the `classes` dictionary and each value is an object containing statistics about entities that conform to the class.
+|A dictionary, where each key corresponds to a class ID in the `classes` dictionary of the metatata schema that was defined for the tileset that contains these statistics. Each value is an object containing statistics about entities that conform to the class.
 |No
 
 |**extensions**
@@ -2790,7 +2790,7 @@ Statistics about entities.
 
 == statistics.classes
 
-A dictionary, where each key corresponds to a class ID in the `classes` dictionary and each value is an object containing statistics about entities that conform to the class.
+A dictionary, where each key corresponds to a class ID in the `classes` dictionary of the metatata schema that was defined for the tileset that contains these statistics. Each value is an object containing statistics about entities that conform to the class.
 
 * **Type**: `object`
 * **Required**: No
@@ -2822,7 +2822,7 @@ Application-specific data.
 [#reference-statistics-class]
 = Class Statistics
 
-Statistics about entities that conform to a class.
+Statistics about entities that conform to a class that was defined in a metadata schema.
 
 .`Class Statistics` Properties
 |===
@@ -3581,7 +3581,7 @@ A tile in a 3D Tiles tileset.
 
 |**children**
 |<<reference-tile,`tile`>> `[1-*]`
-|An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.
+|An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, there are no children, and this property may not be defined.
 |No
 
 |**extensions**
@@ -3671,7 +3671,7 @@ An object that describes the implicit subdivision of this tile.
 
 == tile.children
 
-An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.
+An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, there are no children, and this property may not be defined.
 
 * **Type**: <<reference-tile,`tile`>> `[1-*]`
 ** Each element in the array shall be unique.
@@ -3858,7 +3858,7 @@ A 3D Tiles tileset.
 
 |**extensionsRequired**
 |`string` `[1-*]`
-|Names of 3D Tiles extensions required to properly load this tileset.
+|Names of 3D Tiles extensions required to properly load this tileset. Each element of this array shall also be contained in `extensionsUsed`.
 |No
 
 |**extensions**
@@ -3954,7 +3954,7 @@ Names of 3D Tiles extensions used somewhere in this tileset.
 
 == tileset.extensionsRequired
 
-Names of 3D Tiles extensions required to properly load this tileset.
+Names of 3D Tiles extensions required to properly load this tileset. Each element of this array shall also be contained in `extensionsUsed`.
 
 * **Type**: `string` `[1-*]`
 ** Each element in the array shall be unique.
