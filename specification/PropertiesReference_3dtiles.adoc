@@ -2259,12 +2259,12 @@ A dictionary object of metadata about per-feature properties.
 
 |**maximum**
 |`number`
-|The maximum value of this property of all the features in the tileset. The maximum value shall not be larger than the minimum value.
+|The maximum value of this property of all the features in the tileset. The maximum value shall not be smaller than the minimum value.
 | &#10003; Yes
 
 |**minimum**
 |`number`
-|The minimum value of this property of all the features in the tileset. The maximum value shall not be larger than the minimum value.
+|The minimum value of this property of all the features in the tileset. The maximum value shall not be smaller than the minimum value.
 | &#10003; Yes
 
 |**extensions**
@@ -2285,14 +2285,14 @@ A dictionary object of metadata about per-feature properties.
 
 == properties.maximum
 
-The maximum value of this property of all the features in the tileset. The maximum value shall not be larger than the minimum value.
+The maximum value of this property of all the features in the tileset. The maximum value shall not be smaller than the minimum value.
 
 * **Type**: `number`
 * **Required**:  &#10003; Yes
 
 == properties.minimum
 
-The minimum value of this property of all the features in the tileset. The maximum value shall not be larger than the minimum value.
+The minimum value of this property of all the features in the tileset. The maximum value shall not be smaller than the minimum value.
 
 * **Type**: `number`
 * **Required**:  &#10003; Yes
