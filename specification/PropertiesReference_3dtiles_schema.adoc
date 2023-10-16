@@ -243,7 +243,7 @@
         },
         "region": {
             "type": "array",
-            "description": "An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians, and heights are in meters above (or below) the WGS84 ellipsoid.",
+            "description": "An array of six numbers that define a bounding geographic region in EPSG:4979 coordinates with the order [west, south, east, north, minimum height, maximum height]. Longitudes and latitudes are in radians. The range for latitudes is [-PI/2,PI/2]. The range for longitudes is [-PI,PI]. The value that is given as the 'south' of the region shall not be larger than the value for the 'north' of the region. The heights are in meters above (or below) the WGS84 ellipsoid. The 'minimum height' shall not be larger than the 'maximum height'.",
             "items": {
                 "type": "number"
             },
@@ -252,7 +252,7 @@
         },
         "sphere": {
             "type": "array",
-            "description": "An array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere. The last element (with index 3) defines the radius in meters.",
+            "description": "An array of four numbers that define a bounding sphere. The first three elements define the x, y, and z values for the center of the sphere. The last element (with index 3) defines the radius in meters. The radius shall not be negative.",
             "items": {
                 "type": "number"
             },
@@ -279,7 +279,7 @@
     "properties": {
         "uri": {
             "type": "string",
-            "description": "The URI (or IRI) of the external schema file. Relative paths are relative to the file containing the buffer JSON. `uri` is required when using the JSON subtree format and not required when using the binary subtree format - when omitted the buffer refers to the binary chunk of the subtree file. Data URIs are not allowed.",
+            "description": "The URI (or IRI) of the file that contains the binary buffer data. Relative paths are relative to the file containing the buffer JSON. `uri` is required when using the JSON subtree format and not required when using the binary subtree format - when omitted the buffer refers to the binary chunk of the subtree file. Data URIs are not allowed.",
             "format": "iri-reference"
         },
         "byteLength": {
@@ -441,7 +441,7 @@
             ]
         },
         "componentType": {
-            "description": "The datatype of the element's components. Only applicable to `SCALAR`, `VECN`, and `MATN` types.",
+            "description": "The datatype of the element's components. Required for `SCALAR`, `VECN`, and `MATN` types, and disallowed for other types.",
             "anyOf": [
                 {
                     "const": "INT8"
@@ -480,7 +480,7 @@
         },
         "enumType": {
             "type": "string",
-            "description": "Enum ID as declared in the `enums` dictionary. Required when `type` is `ENUM`."
+            "description": "Enum ID as declared in the `enums` dictionary. Required when `type` is `ENUM`. Disallowed when `type` is not `ENUM`"
         },
         "array": {
             "type": "boolean",
@@ -499,19 +499,19 @@
         },
         "offset": {
             "$ref": "definitions.schema.json#/definitions/numericValue",
-            "description": "An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`."
+            "description": "An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Not applicable to variable-length arrays."
         },
         "scale": {
             "$ref": "definitions.schema.json#/definitions/numericValue",
-            "description": "A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`."
+            "description": "A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Not applicable to variable-length arrays."
         },
         "max": {
             "$ref": "definitions.schema.json#/definitions/numericValue",
-            "description": "Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+            "description": "Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied. Not applicable to variable-length arrays."
         },
         "min": {
             "$ref": "definitions.schema.json#/definitions/numericValue",
-            "description": "Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
+            "description": "Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied. Not applicable to variable-length arrays."
         },
         "required": {
             "type": "boolean",
@@ -1259,11 +1259,11 @@
     "properties": {
         "maximum": {
             "type": "number",
-            "description": "The maximum value of this property of all the features in the tileset."
+            "description": "The maximum value of this property of all the features in the tileset. The maximum value shall not be larger than the minimum value."
         },
         "minimum": {
             "type": "number",
-            "description": "The minimum value of this property of all the features in the tileset."
+            "description": "The minimum value of this property of all the features in the tileset. The maximum value shall not be larger than the minimum value."
         }
     },
     "required": [
@@ -1508,7 +1508,7 @@
     "properties": {
         "classes": {
             "type": "object",
-            "description": "A dictionary, where each key corresponds to a class ID in the `classes` dictionary and each value is an object containing statistics about entities that conform to the class.",
+            "description": "A dictionary, where each key corresponds to a class ID in the `classes` dictionary of the metatata schema that was defined for the tileset that contains these statistics. Each value is an object containing statistics about entities that conform to the class.",
             "minProperties": 1,
             "additionalProperties": {
                 "$ref": "statistics.class.schema.json"
@@ -1530,7 +1530,7 @@
     "$id": "statistics.class.schema.json",
     "title": "Class Statistics",
     "$ref": "rootProperty.schema.json",
-    "description": "Statistics about entities that conform to a class.",
+    "description": "Statistics about entities that conform to a class that was defined in a metadata schema.",
     "properties": {
         "count": {
             "type": "integer",
@@ -1994,7 +1994,7 @@
         },
         "children": {
             "type": "array",
-            "description": "An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, the length of this array is zero, and children may not be defined.",
+            "description": "An array of objects that define child tiles. Each child tile content is fully enclosed by its parent tile's bounding volume and, generally, has a geometricError less than its parent tile's geometricError. For leaf tiles, there are no children, and this property may not be defined.",
             "items": {
                 "$ref": "tile.schema.json"
             },
@@ -2138,7 +2138,7 @@
         },
         "extensionsRequired": {
             "type": "array",
-            "description": "Names of 3D Tiles extensions required to properly load this tileset.",
+            "description": "Names of 3D Tiles extensions required to properly load this tileset. Each element of this array shall also be contained in `extensionsUsed`.",
             "items": {
                 "type": "string"
             },

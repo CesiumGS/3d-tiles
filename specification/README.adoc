@@ -646,7 +646,7 @@ The optional `transform` property (not shown above) defines a 4x4 affine transfo
 
 The optional `implicitTiling` property (not shown above) defines how the tile is subdivided and where to locate content resources. See <<core-implicit-tiling,Implicit Tiling>>.
 
-The `children` property is an array of objects that define child tiles. Each child tile's content is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`. For leaf tiles, the length of this array is zero, and `children` may not be defined. See the <<core-tileset-json,Tileset JSON>> section below.
+The `children` property is an array of objects that define child tiles. Each child tile's content is fully enclosed by its parent tile's `boundingVolume` and, generally, a `geometricError` less than its parent tile's `geometricError`. For leaf tiles, there are no children, and `children` may not be defined. See the <<core-tileset-json,Tileset JSON>> section below.
 
 The full JSON schema can be found in 
 ifdef::env-github[]
