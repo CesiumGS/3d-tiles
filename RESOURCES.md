@@ -36,7 +36,8 @@
 
 ### Tools
 
-- [3d-tiles-validator](https://github.com/CesiumGS/3d-tiles-validator) - A validator for the tileset JSON file and tile formats of 3D Tiles 1.0
+- [3d-tiles-validator](https://github.com/CesiumGS/3d-tiles-validator) - A validator for the tileset JSON file and tile formats of 3D Tiles
+- [3d-tiles-tools](https://github.com/CesiumGS/3d-tiles-tools) - A collection of tools and utilities for converting, optimizing, processing, and analyzing 3D Tiles data
 - [blender-3d-tiler](https://gitee.com/cesium_processing/blender-3d-tiler) - A tool for tiling 3D models using the Blender API
 
 ### Sample Data
@@ -44,6 +45,8 @@
 - [3d-tiles-samples](https://github.com/CesiumGS/3d-tiles-samples) - Sample data sets demonstrating different capabilities of 3D Tiles
 - [3DTilesSampleData](https://github.com/NASA-AMMOS/3DTilesSampleData) - 3D Tiles data sets generated from the NASA Curiosity Rover data
 - [cesium_3dtiles_samples](https://github.com/bertt/cesium_3dtiles_samples) - Sample data sets demonstrating different features of 3D Tiles
+- [mapbox_3dtiles_samples](https://github.com/bertt/mapbox_3dtiles_samples) - Sample data for MapBox 3D Tiles support, with a [blog post 'Exploring 3D Options of MapBox V3'](https://bertt.wordpress.com/2023/08/21/exploring-3d-options-of-mapbox-v3/)
+
 
 ### Generators
 
@@ -87,6 +90,7 @@
 - [DroneDeploy](https://www.dronedeploy.com/) - A drone data repository that uses CesiumJS and Cesium ion for tiling and visualizing massive 3D models using 3D Tiles
 - [Google Photorealistic 3D Tiles](https://cloud.google.com/blog/products/maps-platform/create-immersive-3d-map-experiences-photorealistic-3d-tiles) - Photorealistic 3D Tiles of over 2500 cities across 49 countries, offered via the Google Map Tiles API
 - [Matterport](https://matterport.com) - Photorealistic 3D Tiles of over 10m+ spaces captured across the globe, using 3D Tiles to visualize and stream massive 3d models
+- [basemap.de](https://basemap.de/) - A group of cartographic products developed by the federal and state governments of Germany, with [3D visualizations based on CesiumJS](https://basemap.de/beta/)
 
 ### Selected Talks
 
