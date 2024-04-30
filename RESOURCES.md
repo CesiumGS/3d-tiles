@@ -25,7 +25,9 @@
 - [3DCityDB-Web-Map-Client](https://github.com/3dcitydb/3dcitydb-web-map) A viewer for 3D Tiles and CityGML, based on CesiumJS
 - [deck.gl Tile3DLayer](https://deck.gl/docs/api-reference/geo-layers/tile-3d-layer) An implementation of a 3D Tiles renderer for deck.gl
 - [vsgCs](https://github.com/timoore/vsgCs) - A library for using 3D Tiles in Vulkan Scene Graph (VSG) applications, based on [Cesium Native](https://github.com/CesiumGS/cesium-native)
-
+- [Earth Explorer 3D](https://earthexplorer.techmaven.net/) - Earth Explorer 3D is an iOS, Android and Windows app that supports 3D Tiles, including 3D Tiles packages in online- and offline mode, as well as Cesium ion assets and different mapping services
+- [Map Data Explorer](https://mapexplorer.techmaven.net/) - Map Data Explorer is an iOS and Android App with support for different tile data formats, including 3D Tiles
+- [Oracle Spatial Studio](https://www.oracle.com/database/spatial/) - A spatial database platform that can display 3D Tiles data sets by integrating CesiumJS as a plugin, as described in [the release blog post](https://blogs.oracle.com/oraclespatial/post/oracle-spatial-studio-now-supports-displaying-3d-tiles-using-cesiumjs-plugin)
 
 ### Implementations
 
@@ -33,6 +35,7 @@
 - [Cesium Native](https://github.com/CesiumGS/cesium-native) - A set of C++ libraries for 3D geospatial including an engine-agnostic 3D Tiles loader
 - [loaders.gl](https://github.com/visgl/loaders.gl) - A framework for loaders for geospatial data, including 3D Tiles
 - [Unity GIS Streaming Framework](https://github.com/Unity-Technologies/com.unity.gis.streaming-framework) - A framework for streaming 3D geospatial data for visualization in Unity, with 3D Tiles support
+- [ArcGIS Maps SDK for Native Apps](https://doc.arcgis.com/en/arcgis-online/reference/tile-layers.htm) - Supports 3D Tiles layers, as described in the [release blog post for version 200.4](https://www.esri.com/arcgis-blog/products/developers/announcements/whats-new-in-arcgis-maps-sdks-for-native-apps-200-4/). 
 
 ### Tools
 
@@ -43,6 +46,7 @@
 ### Sample Data
 
 - [3d-tiles-samples](https://github.com/CesiumGS/3d-tiles-samples) - Sample data sets demonstrating different capabilities of 3D Tiles
+- [CesiumJS 3D Tiles Spec files](https://github.com/CesiumGS/cesium/tree/main/Specs/Data/Cesium3DTiles) - The data that is used for testing the 3D Tiles support in CesiumJS. This data was mostly generated with the [3d-tiles-samples-generator](https://github.com/CesiumGS/3d-tiles-samples-generator).
 - [3DTilesSampleData](https://github.com/NASA-AMMOS/3DTilesSampleData) - 3D Tiles data sets generated from the NASA Curiosity Rover data
 - [cesium_3dtiles_samples](https://github.com/bertt/cesium_3dtiles_samples) - Sample data sets demonstrating different features of 3D Tiles
 - [mapbox_3dtiles_samples](https://github.com/bertt/mapbox_3dtiles_samples) - Sample data for MapBox 3D Tiles support, with a [blog post 'Exploring 3D Options of MapBox V3'](https://bertt.wordpress.com/2023/08/21/exploring-3d-options-of-mapbox-v3/)
