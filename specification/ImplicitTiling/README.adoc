@@ -452,9 +452,9 @@ The JSON description of a subtree where each tile is available, but not all tile
 
 The tile availability can be encoded by setting `tileAvailability.constant` to `1`, without needing an explicit bitstream, because all tiles in the subtree are available.
 
-Only some tiles have content, and `contentAvailability.bufferView` indicates where the bitstream for the content availability is stored: The `bufferView` with index 0 refers to the `buffer` with index 0. This buffer does not have a `uri` property, and therefore refers to the _internal_ buffer that is stored directly in the binary chunk of the subtree binary file. The `byteOffset` and `byteLength` indicate that the content availability bitstream is stored in the bytes `+[0...11)+` of the internal buffer.
+Only some tiles have content, and `contentAvailability.bitstream` is the index of the buffer view where the bitstream for the content availability is stored: The `bufferView` with index 0 refers to the `buffer` with index 0. This buffer does not have a `uri` property, and therefore refers to the _internal_ buffer that is stored directly in the binary chunk of the subtree binary file. The `byteOffset` and `byteLength` indicate that the content availability bitstream is stored in the bytes `+[0...11)+` of the internal buffer.
 
-Some child subtrees exist, so `childSubtreeAvailability.bufferView` refers to another bitstream. The `bufferView` with index 1 refers to the buffer with index `1`. This buffer has a `uri` property, indicating that this second bitstream is stored in an external binary file.
+Some child subtrees exist, so `childSubtreeAvailability.bitstream` is the index of a buffer view that contains another bitstream. The `bufferView` with index 1 refers to the buffer with index `1`. This buffer has a `uri` property, indicating that this second bitstream is stored in an external binary file.
 ====
 
 
