@@ -398,7 +398,7 @@ For efficient memory access, the `byteOffset` of a buffer view shall be aligned 
 
 Tile availability (`tileAvailability`) and child subtree availability (`childSubtreeAvailability`) shall always be provided for a subtree.
 
-Content availability (`contentAvailability`) is an array of content availability objects. If the implicit root tile has a single content this array will have one element; if the tile has multiple contents this array will have multiple elements. If the implicit root tile does not have content then `contentAvailability` shall be omitted.
+Content availability (`contentAvailability`) is an array of content availability objects. If the implicit root tile has a single `content`, then this array will have one element; if the tile has multiple `contents`, then this array will have multiple elements. If the implicit root tile does not have a `content` or `contents` property, and therefore does not define a content template URI, then this means that none of the implicit tiles has any content, and the `contentAvailability` in the subtrees shall be omitted.
 
 Availability may be represented either as a bitstream or a constant value. `bitstream` is an integer index that identifies the buffer view containing the availability bitstream. `constant` is an integer indicating whether all of the elements are available (`1`) or all are unavailable (`0`). `availableCount` is an integer indicating how many `1` bits exist in the availability bitstream.
 
@@ -462,7 +462,7 @@ Some child subtrees exist, so `childSubtreeAvailability.bitstream` is the index 
 [#implicittiling-metadata-1]
 === Metadata
 
-Subtrees may store metadata at multiple granularities. `tileMetadata` is a property table containing metadata for available tiles. `contentMetadata` is an array of property tables containing metadata for available content. If the implicit root tile has a single content this array will have one element; if the tile has multiple contents then this array will have multiple elements. If the implicit root tile does not have content then `contentMetadata` shall be omitted.
+Subtrees may store metadata at multiple granularities. `tileMetadata` is a property table containing metadata for available tiles. `contentMetadata` is an array of property tables containing metadata for available content. If the implicit root tile has a single `content`, then this array will have one element; if the tile has multiple `contents`, then this array will have multiple elements. If the implicit root tile does not have a `content` or `contents` property, then none of the implicit tiles has any content, and the `contentMetadata` shall be omitted.
 
 Subtree metadata (`subtreeMetadata`) is encoded in JSON according to the xref:{url-specification-metadata}README.adoc#metadata-json-format[JSON Format] specification.
 
