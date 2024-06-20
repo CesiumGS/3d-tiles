@@ -22,6 +22,11 @@
             "additionalProperties": {
                 "$ref": "class.property.schema.json"
             }
+        },
+        "parent": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Experimental. The parent class ID."
         }
     }
 }
