@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "3DTILES_ellipsoid.schema.json",
+  "title": "3DTILES_ellipsoid extension",
+  "description": "3DTILES_ellipsoid extension data to define the referenced ellipsoid",
+  "type": "object",
+  "properties": {
+    "body": {
+      "type": "string",
+      "description": "Name of the body the ellipsoid represents, or 'none'"
+    },
+    "radii": {
+      "type": "array",
+      "description": "An array of three numbers that define the X, Y and Z radii values in meters for the ellipsoid",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "body": { "const": "none" }
+      },
+      "required":["body"]
+    },
+    {
+      "required": ["body", "radii"]
+    }
+  ]
+}
