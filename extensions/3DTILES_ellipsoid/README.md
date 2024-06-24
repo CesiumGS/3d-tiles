@@ -47,9 +47,9 @@ Tilesets that use this value must not include any region bounding volumes.
 ```json
 {
   "root": {
-    "extensionsUsed":["3D_TILES_ellipsoid"],
+    "extensionsUsed":["3DTILES_ellipsoid"],
     "extensions": {
-      "3D_TILES_ellipsoid": {
+      "3DTILES_ellipsoid": {
         "body": "none"
       }
     }
@@ -70,9 +70,9 @@ The radii value should be set to the radii of the ellipsoid in meters. These sho
 ```json
 {
   "root": {
-    "extensionsUsed":["3D_TILES_ellipsoid"],
+    "extensionsUsed":["3DTILES_ellipsoid"],
     "extensions": {
-      "3D_TILES_ellipsoid": {
+      "3DTILES_ellipsoid": {
         "body": "Earth",
         "radii":  [6378137.0, 6378137.0, 6356752.3142451793]
       }
@@ -86,9 +86,9 @@ The radii value should be set to the radii of the ellipsoid in meters. These sho
 ```json
 {
   "root": {
-    "extensionsUsed":["3D_TILES_ellipsoid"],
+    "extensionsUsed":["3DTILES_ellipsoid"],
     "extensions": {
-      "3D_TILES_ellipsoid": {
+      "3DTILES_ellipsoid": {
         "body": "Moon",
         "radii":  [1737400.0, 1737400.0, 1737400.0]
       }
