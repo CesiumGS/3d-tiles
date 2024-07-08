@@ -11,9 +11,9 @@ In progress
 
 ## Optional vs. Required
 
-This extension is optional when the tileset does not contain any region bounding volumes. It should be placed in the tileset JSON extensionsUsed list, but not in the extensionsRequired list.
+This extension is optional when the tileset does not contain any region bounding volumes. It should be placed in the tileset JSON `extensionsUsed` list, but not in the `extensionsRequired` list.
 
-If the tileset contains region bounding volumes and is defining an ellipsoid that is not the WGS 84 ellipsoid, then this extension is required. It should be placed in both the extensionsUsed and extensionsRequired lists in the tileset JSON.
+If the tileset contains region bounding volumes and is defining an ellipsoid that is not the WGS 84 ellipsoid, then this extension is required. It should be placed in both the `extensionsUsed` and `extensionsRequired` lists in the tileset JSON.
 
 ## Contents
 
