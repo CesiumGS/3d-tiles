@@ -51,6 +51,13 @@
 - [cesium_3dtiles_samples](https://github.com/bertt/cesium_3dtiles_samples) - Sample data sets demonstrating different features of 3D Tiles
 - [mapbox_3dtiles_samples](https://github.com/bertt/mapbox_3dtiles_samples) - Sample data for MapBox 3D Tiles support, with a [blog post 'Exploring 3D Options of MapBox V3'](https://bertt.wordpress.com/2023/08/21/exploring-3d-options-of-mapbox-v3/)
 
+### Open-data
+ - [Auvergne Rhone Alpes](3d.craig.fr/viewer/) - also see [metadata](https://catalogue.datara.gouv.fr/geonetwork/apps/api/records/60eabec9-6780-4dae-acb7-a211f195188b) and [tileset.json](http://3d.craig.fr/datasets/Domerat_bati3d/3dtiles/tileset.json)
+ - [Métropole Européenne de Lille 2016](https://www.data.gouv.fr/fr/datasets/maquette-3d-mel-2016-1/) and [tileset.json](https://webimaging.lillemetropole.fr/externe/maillage/2016_mel_10cm/3dtiles/tileset.json)
+ - [AGI Headquarters tileset.json](https://pelican-public.s3.amazonaws.com/3dtiles/agi-hq/tileset.json)
+ - Planet Labs has a collection of satellite stereo imagery 3dtiles, see the [STAC catalog](https://www.planet.com/data/stac/browser/open-skysat-data/angkor-wat/catalog.json) eg [angkor-wat tileset.json](https://storage.googleapis.com/open-cogs/planet-stac/angkor-wat/3d-geofox.ai/3DTiles/tileset.json)
+ - [Metropolis of Lyon](https://datasets.liris.cnrs.fr/3dtiles-tilesets-metropolis-lyon-version1) has multiple tilesets located in [here](https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/) 
+
 
 ### Generators
 
