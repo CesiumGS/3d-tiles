@@ -60,9 +60,8 @@
  - [Utrecht](https://bertt.github.io/cesium_3dtiles_samples/samples/esridemo/) ESRI 3d tiles [tileset.json](https://tiles.arcgis.com/tiles/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Utrecht_3D_Tiles_Integrated_Mesh/3DTilesServer/tileset.json)
  - [Soest](https://soest.virtualcitymap.de/#/legend) and [tileset.json](https://soest.virtualcitymap.de/datasource-data/HOSTING-Soest/3D-Mesh_2023/tileset.json)
  - [Aarhus](https://sdfe-hosting.virtualcitymap.de/Aarhus/#/) and [tileset.json](https://sdfe-hosting.virtualcitymap.de/Aarhus/datasource-data/Aarhus_Mesh/tileset.json)
- - Aerometrex samples over [san-francisco](https://aerometrex.com/models/san-francisco-3d-model-2cm/) ([tileset.json](https://demo3d.aerometrex.com/USA/US0005_San_Francisco/San_Francisco_2cm_SL_split/Scene/Cesium_SF_2cm_mSL.json)
- - Vexcel [3d-cities](https://vexceldata.com/products/3d-cities/) 
  - [AGI Headquarters tileset.json](https://pelican-public.s3.amazonaws.com/3dtiles/agi-hq/tileset.json)
+ - Plateau [tutorial](https://github.com/Project-PLATEAU/plateau-streaming-tutorial/blob/main/3d-tiles/plateau-3dtiles-streaming.md) for buildings 3Dtiles models, for example minato-ku_lod4 [tileset.json](https://assets.cms.plateau.reearth.io/assets/99/e2a800-7d75-4d11-94e1-bef604c39d01/13103_minato-ku_pref_2023_citygml_1_op_bldg_3dtiles_13103_minato-ku_lod4/tileset.json)
 
 ### Generators
 
