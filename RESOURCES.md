@@ -52,12 +52,16 @@
 - [mapbox_3dtiles_samples](https://github.com/bertt/mapbox_3dtiles_samples) - Sample data for MapBox 3D Tiles support, with a [blog post 'Exploring 3D Options of MapBox V3'](https://bertt.wordpress.com/2023/08/21/exploring-3d-options-of-mapbox-v3/)
 
 ### Open data
- - [Auvergne Rhone Alpes](https://3d.craig.fr/viewer/) - also see [metadata](https://catalogue.datara.gouv.fr/geonetwork/apps/api/records/60eabec9-6780-4dae-acb7-a211f195188b) and [tileset.json](http://3d.craig.fr/datasets/Domerat_bati3d/3dtiles/tileset.json)
+ - [Strasbourg Od@CiT](https://odacit.3d.strasbourg.eu/) viewer and sample [tileset.json](https://s3.eu-west-2.wasabisys.com/ems-sgct-photomaillage/ODACIT/EMS_PM2022/tileset.json)
+ - [Auvergne Rhone Alpes](https://3d.craig.fr/viewer/) - also see [metadata](https://catalogue.datara.gouv.fr/geonetwork/apps/api/records/60eabec9-6780-4dae-acb7-a211f195188b) and sample tileset.json for [Clermont](https://3d.craig.fr/datasets/Clermont/3dtiles/tileset.json) & [Saint-Etienne](https://3d.craig.fr/datasets/St-Etienne/3dtiles/tileset.json)
  - [Métropole Européenne de Lille 2016](https://www.data.gouv.fr/fr/datasets/maquette-3d-mel-2016-1/) and [tileset.json](https://webimaging.lillemetropole.fr/externe/maillage/2016_mel_10cm/3dtiles/tileset.json)
- - [AGI Headquarters tileset.json](https://pelican-public.s3.amazonaws.com/3dtiles/agi-hq/tileset.json)
  - Planet Labs has a collection of satellite stereo imagery 3dtiles, see the [STAC catalog](https://www.planet.com/data/stac/browser/open-skysat-data/angkor-wat/catalog.json) e.g. [angkor-wat tileset.json](https://storage.googleapis.com/open-cogs/planet-stac/angkor-wat/3d-geofox.ai/3DTiles/tileset.json)
- - [Metropolis of Lyon](https://datasets.liris.cnrs.fr/3dtiles-tilesets-metropolis-lyon-version1) has multiple tilesets located in [here](https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/) 
-
+ - [Utrecht](https://bertt.github.io/cesium_3dtiles_samples/samples/esridemo/) ESRI 3d tiles [tileset.json](https://tiles.arcgis.com/tiles/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Utrecht_3D_Tiles_Integrated_Mesh/3DTilesServer/tileset.json)
+ - [Soest](https://soest.virtualcitymap.de/#/legend) and [tileset.json](https://soest.virtualcitymap.de/datasource-data/HOSTING-Soest/3D-Mesh_2023/tileset.json)
+ - [Aarhus](https://sdfe-hosting.virtualcitymap.de/Aarhus/#/) and [tileset.json](https://sdfe-hosting.virtualcitymap.de/Aarhus/datasource-data/Aarhus_Mesh/tileset.json)
+ - Aerometrex samples over [san-francisco](https://aerometrex.com/models/san-francisco-3d-model-2cm/) ([tileset.json](https://demo3d.aerometrex.com/USA/US0005_San_Francisco/San_Francisco_2cm_SL_split/Scene/Cesium_SF_2cm_mSL.json)
+ - Vexcel [3d-cities](https://vexceldata.com/products/3d-cities/) 
+ - [AGI Headquarters tileset.json](https://pelican-public.s3.amazonaws.com/3dtiles/agi-hq/tileset.json)
 
 ### Generators
 
