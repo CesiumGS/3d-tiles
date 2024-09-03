@@ -28,6 +28,7 @@
 - [Earth Explorer 3D](https://earthexplorer.techmaven.net/) - Earth Explorer 3D is an iOS, Android and Windows app that supports 3D Tiles, including 3D Tiles packages in online- and offline mode, as well as Cesium ion assets and different mapping services
 - [Map Data Explorer](https://mapexplorer.techmaven.net/) - Map Data Explorer is an iOS and Android App with support for different tile data formats, including 3D Tiles
 - [Oracle Spatial Studio](https://www.oracle.com/database/spatial/) - A spatial database platform that can display 3D Tiles data sets by integrating CesiumJS as a plugin, as described in [the release blog post](https://blogs.oracle.com/oraclespatial/post/oracle-spatial-studio-now-supports-displaying-3d-tiles-using-cesiumjs-plugin)
+ - [Geofox Viewer](https://viewer.geofox.ai/?tileset=tilesetURL) which parses a `tileset` url-param search query and displays the provided `tileset.json` url dataset
 
 ### Implementations
 
