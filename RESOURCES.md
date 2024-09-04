@@ -28,6 +28,7 @@
 - [Earth Explorer 3D](https://earthexplorer.techmaven.net/) - Earth Explorer 3D is an iOS, Android and Windows app that supports 3D Tiles, including 3D Tiles packages in online- and offline mode, as well as Cesium ion assets and different mapping services
 - [Map Data Explorer](https://mapexplorer.techmaven.net/) - Map Data Explorer is an iOS and Android App with support for different tile data formats, including 3D Tiles
 - [Oracle Spatial Studio](https://www.oracle.com/database/spatial/) - A spatial database platform that can display 3D Tiles data sets by integrating CesiumJS as a plugin, as described in [the release blog post](https://blogs.oracle.com/oraclespatial/post/oracle-spatial-studio-now-supports-displaying-3d-tiles-using-cesiumjs-plugin)
+ - [Geofox Viewer](https://viewer.geofox.ai/?tileset=tilesetURL) which parses a `tileset` url-param search query and displays the provided `tileset.json` url dataset
 
 ### Implementations
 
@@ -51,6 +52,16 @@
 - [cesium_3dtiles_samples](https://github.com/bertt/cesium_3dtiles_samples) - Sample data sets demonstrating different features of 3D Tiles
 - [mapbox_3dtiles_samples](https://github.com/bertt/mapbox_3dtiles_samples) - Sample data for MapBox 3D Tiles support, with a [blog post 'Exploring 3D Options of MapBox V3'](https://bertt.wordpress.com/2023/08/21/exploring-3d-options-of-mapbox-v3/)
 
+### Open data
+ - [Strasbourg Od@CiT](https://odacit.3d.strasbourg.eu/) viewer and sample [tileset.json](https://s3.eu-west-2.wasabisys.com/ems-sgct-photomaillage/ODACIT/EMS_PM2022/tileset.json)
+ - [Auvergne Rhone Alpes](https://3d.craig.fr/viewer/) - also see [metadata](https://catalogue.datara.gouv.fr/geonetwork/apps/api/records/60eabec9-6780-4dae-acb7-a211f195188b) and sample tileset.json for [Clermont](https://3d.craig.fr/datasets/Clermont/3dtiles/tileset.json) & [Saint-Etienne](https://3d.craig.fr/datasets/St-Etienne/3dtiles/tileset.json)
+ - [Métropole Européenne de Lille 2016](https://www.data.gouv.fr/fr/datasets/maquette-3d-mel-2016-1/) and [tileset.json](https://webimaging.lillemetropole.fr/externe/maillage/2016_mel_10cm/3dtiles/tileset.json)
+ - Planet Labs has a collection of satellite stereo imagery 3dtiles, see the [STAC catalog](https://www.planet.com/data/stac/browser/open-skysat-data/angkor-wat/catalog.json) e.g. [angkor-wat tileset.json](https://storage.googleapis.com/open-cogs/planet-stac/angkor-wat/3d-geofox.ai/3DTiles/tileset.json)
+ - [Utrecht](https://bertt.github.io/cesium_3dtiles_samples/samples/esridemo/) ESRI 3d tiles [tileset.json](https://tiles.arcgis.com/tiles/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Utrecht_3D_Tiles_Integrated_Mesh/3DTilesServer/tileset.json)
+ - [Soest](https://soest.virtualcitymap.de/#/legend) and [tileset.json](https://soest.virtualcitymap.de/datasource-data/HOSTING-Soest/3D-Mesh_2023/tileset.json)
+ - [Aarhus](https://sdfe-hosting.virtualcitymap.de/Aarhus/#/) and [tileset.json](https://sdfe-hosting.virtualcitymap.de/Aarhus/datasource-data/Aarhus_Mesh/tileset.json)
+ - [AGI Headquarters tileset.json](https://pelican-public.s3.amazonaws.com/3dtiles/agi-hq/tileset.json)
+ - Plateau [tutorial](https://github.com/Project-PLATEAU/plateau-streaming-tutorial/blob/main/3d-tiles/plateau-3dtiles-streaming.md) for buildings 3Dtiles models, for example minato-ku_lod4 [tileset.json](https://assets.cms.plateau.reearth.io/assets/99/e2a800-7d75-4d11-94e1-bef604c39d01/13103_minato-ku_pref_2023_citygml_1_op_bldg_3dtiles_13103_minato-ku_lod4/tileset.json)
 
 ### Generators
 
