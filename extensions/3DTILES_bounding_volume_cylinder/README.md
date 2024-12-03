@@ -3,6 +3,7 @@
 ## Contributors
 
 - Sean Lilley, Cesium
+- Janine Liu, Cesium
 
 ## Status
 
@@ -49,7 +50,7 @@ Implicit tile coordinates:
 Coordinate|Positive Direction
 --|--
 x| From the center (increasing radius)
-y| From bottom to top (increasing height)
-z| From `-pi` to `pi` clockwise (see figure below)
+y| From `-pi` to `pi` clockwise (see figure below)
+z| From bottom to top (increasing height)
 
 ![Cylinder Coordinates](figures/cylinder-coordinates.png)
