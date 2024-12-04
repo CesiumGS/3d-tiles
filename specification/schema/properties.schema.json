@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "properties.schema.json",
     "title": "Properties",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "A dictionary object of metadata about per-feature properties.",
     "properties": {
         "maximum": {

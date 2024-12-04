@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "buffer.schema.json",
     "title": "Buffer",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A buffer is a binary blob. It is either the binary chunk of the subtree file, or an external buffer referenced by a URI.",
     "properties": {
         "uri": {

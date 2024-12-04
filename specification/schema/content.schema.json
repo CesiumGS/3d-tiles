@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "content.schema.json",
     "title": "Content",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "Metadata about the tile's content and a link to the content.",
     "properties": {
         "boundingVolume": {

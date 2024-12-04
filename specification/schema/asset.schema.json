@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "asset.schema.json",
     "title": "Asset",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "Metadata about the entire tileset.",
     "properties": {
         "version": {

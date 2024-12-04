@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "subtree.schema.json",
     "title": "Subtree",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "An object describing the availability of tiles and content in a subtree, as well as availability of children subtrees. May also store metadata for available tiles and content.",
     "properties": {
         "buffers": {
@@ -24,7 +24,7 @@
         "propertyTables": {
             "type": "array",
             "items": {
-                "$ref": "propertyTable.schema.json"
+                "$ref": "../PropertyTable/propertyTable.schema.json"
             },
             "minItems": 1,
             "description": "An array of property tables."
@@ -60,7 +60,7 @@
             "description": "An array of indexes to property tables containing content metadata. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by 3DTILES_multiple_contents and 3D Tiles 1.1 - this array will have multiple elements. Content metadata only exists for available contents and is tightly packed by increasing tile index. To access individual content metadata, implementations may create a mapping from tile indices to content metadata indices."
         },
         "subtreeMetadata": {
-            "$ref": "metadataEntity.schema.json",
+            "$ref": "../metadataEntity.schema.json",
             "description": "Subtree metadata encoded in JSON."
         }
     },

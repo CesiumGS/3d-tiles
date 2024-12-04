@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "style.schema.json",
     "title": "Style",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A 3D Tiles style.",
     "properties": {
         "defines": {
