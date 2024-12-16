@@ -29,6 +29,7 @@ Extension|Notes
 [MAXAR_content_3tz](https://github.com/Maxar-Public/3d-tiles/tree/wff1.7.0/extensions/MAXAR_content_3tz)|_Written against 3D Tiles 1.0_
 [MAXAR_content_geojson](https://github.com/Maxar-Public/3d-tiles/tree/wff1.7.0/extensions/MAXAR_content_geojson)|_Written against 3D Tiles 1.1_
 [MAXAR_extent](https://github.com/Maxar-Public/3d-tiles/tree/wff1.7.0/extensions/MAXAR_extent)|_Written against 3D Tiles 1.0 and 1.1_
+[VRICON_class](https://github.com/Maxar-Public/3d-tiles/tree/wff1.7.0/extensions/VRICON_class)|_Written against 3D Tiles 1.0_
 
 
 ## About
