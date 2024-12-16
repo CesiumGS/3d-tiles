@@ -7,6 +7,7 @@
 Extension|Notes
 --|--
 [3DTILES_bounding_volume_S2](./3DTILES_bounding_volume_S2)|_Written against 3D Tiles 1.1 and 1.0_
+[3DTILES_ellipsoid](./3DTILES_ellipsoid)|_Written against 3D Tiles 1.1 and 1.0_
 
 ### Extensions for 3D Tiles 1.0
 
@@ -19,6 +20,16 @@ Extension|Notes
 [3DTILES_bounding_volume_S2](./3DTILES_bounding_volume_S2)|_Written against 3D Tiles 1.1 and 1.0_
 [3DTILES_batch_table_hierarchy](./3DTILES_batch_table_hierarchy/)|_Deprecated in 3D Tiles 1.1_
 [3DTILES_draco_point_compression](./3DTILES_draco_point_compression/)|_Deprecated in 3D Tiles 1.1_
+
+
+## Vendor Extensions
+
+Extension|Notes
+--|--
+[MAXAR_content_3tz](https://github.com/Maxar-Public/3d-tiles/tree/wff1.7.0/extensions/MAXAR_content_3tz)|_Written against 3D Tiles 1.0_
+[MAXAR_content_geojson](https://github.com/Maxar-Public/3d-tiles/tree/wff1.7.0/extensions/MAXAR_content_geojson)|_Written against 3D Tiles 1.1_
+[MAXAR_extent](https://github.com/Maxar-Public/3d-tiles/tree/wff1.7.0/extensions/MAXAR_extent)|_Written against 3D Tiles 1.0 and 1.1_
+
 
 ## About
 
