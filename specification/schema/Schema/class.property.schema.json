@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "class.property.schema.json",
     "title": "Class Property",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A single property of a metadata class.",
     "properties": {
         "name": {
@@ -111,19 +111,19 @@
             "default": false
         },
         "offset": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Not applicable to variable-length arrays."
         },
         "scale": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Not applicable to variable-length arrays."
         },
         "max": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied. Not applicable to variable-length arrays."
         },
         "min": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied. Not applicable to variable-length arrays."
         },
         "required": {
@@ -132,11 +132,11 @@
             "default": false
         },
         "noData": {
-            "$ref": "definitions.schema.json#/definitions/noDataValue",
+            "$ref": "../common/definitions.schema.json#/definitions/noDataValue",
             "description": "A `noData` value represents missing data — also known as a sentinel value — wherever it appears. `BOOLEAN` properties may not specify `noData` values. This is given as the plain property value, without the transforms from the `normalized`, `offset`, and `scale` properties. Shall not be defined if `required` is true."
         },
         "default": {
-            "$ref": "definitions.schema.json#/definitions/anyValue",
+            "$ref": "../common/definitions.schema.json#/definitions/anyValue",
             "description": "A default value to use when encountering a `noData` value or an omitted property. The value is given in its final form, taking the effect of `normalized`, `offset`, and `scale` properties into account. Shall not be defined if `required` is true."
         },
         "semantic": {

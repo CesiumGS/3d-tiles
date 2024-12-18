@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tile.implicitTiling.schema.json",
     "title": "Implicit tiling",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "This object allows a tile to be implicitly subdivided. Tile and content availability and metadata is stored in subtrees which are referenced externally.",
     "properties": {
         "subdivisionScheme": {

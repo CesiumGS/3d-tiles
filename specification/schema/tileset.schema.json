@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tileset.schema.json",
     "title": "Tileset",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "A 3D Tiles tileset.",
     "properties": {
         "asset": {
@@ -18,7 +18,7 @@
             "deprecated": true
         },
         "schema": {
-            "$ref": "schema.schema.json",
+            "$ref": "./Schema/schema.schema.json",
             "description": "An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` shall be undefined."
         },
         "schemaUri": {
@@ -27,7 +27,7 @@
             "format": "iri-reference"
         },
         "statistics": {
-            "$ref": "statistics.schema.json",
+            "$ref": "./Statistics/statistics.schema.json",
             "description": "An object containing statistics about metadata entities."
         },
         "groups": {

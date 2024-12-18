@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "style.conditions.schema.json",
     "title": "Conditions",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A series of conditions evaluated in order, like a series of if...else statements that result in an expression being evaluated.",
     "properties": {
         "conditions": {

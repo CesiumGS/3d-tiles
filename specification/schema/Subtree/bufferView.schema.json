@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "bufferView.schema.json",
     "title": "Buffer View",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A contiguous subset of a buffer",
     "properties": {
         "buffer": {

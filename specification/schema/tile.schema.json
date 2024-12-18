@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tile.schema.json",
     "title": "Tile",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "A tile in a 3D Tiles tileset.",
     "properties": {
         "boundingVolume": {
