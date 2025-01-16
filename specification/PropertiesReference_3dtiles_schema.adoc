@@ -8,7 +8,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "asset.schema.json",
     "title": "Asset",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "Metadata about the entire tileset.",
     "properties": {
         "version": {
@@ -24,6 +24,7 @@
         "version"
     ]
 }
+
 ----
 
 
@@ -37,7 +38,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "availability.schema.json",
     "title": "Availability",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "An object describing the availability of a set of elements.",
     "properties": {
         "bitstream": {
@@ -125,7 +126,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "batchTable.schema.json",
     "title": "Batch Table",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A set of properties defining application-specific metadata for features in a tile.",
     "deprecated": true,
     "additionalProperties": {
@@ -134,7 +135,7 @@
     "definitions": {
         "binaryBodyReference": {
             "title": "BinaryBodyReference",
-            "$ref": "rootProperty.schema.json",
+            "$ref": "../common/rootProperty.schema.json",
             "description": "An object defining the reference to a section of the binary body of the batch table where the property values are stored if not defined directly in the JSON.",
             "properties": {
                 "byteOffset": {
@@ -228,7 +229,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "boundingVolume.schema.json",
     "title": "Bounding Volume",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "A bounding volume that encloses a tile or its content. At least one bounding volume property is required. Bounding volumes include `box`, `region`, or `sphere`.",
     "minProperties": 1,
     "properties": {
@@ -274,7 +275,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "buffer.schema.json",
     "title": "Buffer",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A buffer is a binary blob. It is either the binary chunk of the subtree file, or an external buffer referenced by a URI.",
     "properties": {
         "uri": {
@@ -310,7 +311,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "bufferView.schema.json",
     "title": "Buffer View",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A contiguous subset of a buffer",
     "properties": {
         "buffer": {
@@ -353,7 +354,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "class.schema.json",
     "title": "Class",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A class containing a set of properties.",
     "properties": {
         "name": {
@@ -389,7 +390,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "class.property.schema.json",
     "title": "Class Property",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A single property of a metadata class.",
     "properties": {
         "name": {
@@ -498,19 +499,19 @@
             "default": false
         },
         "offset": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "An offset to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Not applicable to variable-length arrays."
         },
         "scale": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "A scale to apply to property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Not applicable to variable-length arrays."
         },
         "max": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "Maximum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied. Not applicable to variable-length arrays."
         },
         "min": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "Minimum allowed value for the property. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied. Not applicable to variable-length arrays."
         },
         "required": {
@@ -519,11 +520,11 @@
             "default": false
         },
         "noData": {
-            "$ref": "definitions.schema.json#/definitions/noDataValue",
+            "$ref": "../common/definitions.schema.json#/definitions/noDataValue",
             "description": "A `noData` value represents missing data — also known as a sentinel value — wherever it appears. `BOOLEAN` properties may not specify `noData` values. This is given as the plain property value, without the transforms from the `normalized`, `offset`, and `scale` properties. Shall not be defined if `required` is true."
         },
         "default": {
-            "$ref": "definitions.schema.json#/definitions/anyValue",
+            "$ref": "../common/definitions.schema.json#/definitions/anyValue",
             "description": "A default value to use when encountering a `noData` value or an omitted property. The value is given in its final form, taking the effect of `normalized`, `offset`, and `scale` properties into account. Shall not be defined if `required` is true."
         },
         "semantic": {
@@ -549,7 +550,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "content.schema.json",
     "title": "Content",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "Metadata about the tile's content and a link to the content.",
     "properties": {
         "boundingVolume": {
@@ -691,7 +692,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "enum.schema.json",
     "title": "Enum",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "An object defining the values of an enum.",
     "properties": {
         "name": {
@@ -763,7 +764,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "enum.value.schema.json",
     "title": "Enum value",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "An enum value.",
     "properties": {
         "name": {
@@ -833,7 +834,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "featureTable.schema.json",
     "title": "Feature Table",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A set of semantics containing per-tile and per-feature values defining the position and appearance properties for features in a tile.",
     "deprecated": true,
     "additionalProperties": {
@@ -842,7 +843,7 @@
     "definitions": {
         "binaryBodyOffset": {
             "title": "BinaryBodyOffset",
-            "$ref": "rootProperty.schema.json",
+            "$ref": "../common/rootProperty.schema.json",
             "description": "An object defining the offset into a section of the binary body of the features table where the property values are stored if not defined directly in the JSON.",
             "properties": {
                 "byteOffset": {
@@ -1122,7 +1123,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "metadataEntity.schema.json",
     "title": "Metadata Entity",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "An object containing a reference to a class from a metadata schema, and property values that conform to the properties of that class.",
     "properties": {
         "class": {
@@ -1134,7 +1135,7 @@
             "description": "A dictionary, where each key corresponds to a property ID in the class' `properties` dictionary and each value contains the property values. The type of the value shall match the property definition: For `BOOLEAN` use `true` or `false`. For `STRING` use a JSON string. For numeric types use a JSON number. For `ENUM` use a valid enum `name`, not an integer value. For `ARRAY`, `VECN`, and `MATN` types use a JSON array containing values matching the `componentType`. Required properties shall be included in this dictionary.",
             "minProperties": 1,
             "additionalProperties": {
-                "$ref": "definitions.schema.json#/definitions/anyValue"
+                "$ref": "./common/definitions.schema.json#/definitions/anyValue"
             }
         }
     },
@@ -1254,7 +1255,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "properties.schema.json",
     "title": "Properties",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "A dictionary object of metadata about per-feature properties.",
     "properties": {
         "maximum": {
@@ -1284,7 +1285,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "propertyTable.schema.json",
     "title": "Property Table",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "Properties conforming to a class, organized as property values stored in binary columnar arrays.",
     "properties": {
         "name": {
@@ -1328,7 +1329,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "propertyTable.property.schema.json",
     "title": "Property Table Property",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "An array of binary property values. This represents one column of a property table, and contains one value of a certain property for each metadata entity.",
     "properties": {
         "values": {
@@ -1389,19 +1390,19 @@
             ]
         },
         "offset": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "An offset to apply to property values. Only applicable when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Overrides the class property's `offset` if both are defined."
         },
         "scale": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "A scale to apply to property values. Only applicable when the component type is `FLOAT32` or `FLOAT64`, or when the property is `normalized`. Overrides the class property's `scale` if both are defined."
         },
         "max": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "Maximum value present in the property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
         },
         "min": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "Minimum value present in the property values. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
         }
     },
@@ -1446,7 +1447,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "schema.schema.json",
     "title": "Schema",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "An object defining classes and enums.",
     "properties": {
         "id": {
@@ -1503,7 +1504,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "statistics.schema.json",
     "title": "Statistics",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "Statistics about entities.",
     "properties": {
         "classes": {
@@ -1529,7 +1530,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "statistics.class.schema.json",
     "title": "Class Statistics",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "Statistics about entities that conform to a class that was defined in a metadata schema.",
     "properties": {
         "count": {
@@ -1560,35 +1561,35 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "statistics.class.property.schema.json",
     "title": "Property Statistics",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "Statistics about property values.",
     "properties": {
         "min": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "The minimum property value occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the minimum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
         },
         "max": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "The maximum property value occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the maximum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
         },
         "mean": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "The arithmetic mean of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the mean of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
         },
         "median": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "The median of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the median of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
         },
         "standardDeviation": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "The standard deviation of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the standard deviation of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
         },
         "variance": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "The variance of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the variance of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
         },
         "sum": {
-            "$ref": "definitions.schema.json#/definitions/numericValue",
+            "$ref": "../common/definitions.schema.json#/definitions/numericValue",
             "description": "The sum of property values occurring in the tileset. Only applicable to `SCALAR`, `VECN`, and `MATN` types. This is the sum of all property values, after the transforms based on the `normalized`, `offset`, and `scale` properties have been applied."
         },
         "occurrences": {
@@ -1625,7 +1626,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "style.schema.json",
     "title": "Style",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A 3D Tiles style.",
     "properties": {
         "defines": {
@@ -1713,7 +1714,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "style.conditions.schema.json",
     "title": "Conditions",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A series of conditions evaluated in order, like a series of if...else statements that result in an expression being evaluated.",
     "properties": {
         "conditions": {
@@ -1775,7 +1776,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "style.meta.schema.json",
     "title": "Meta",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A series of property names and the `expression` to evaluate for the value of that property.",
     "additionalProperties": {
         "$ref": "style.expression.schema.json"
@@ -1794,7 +1795,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "subtree.schema.json",
     "title": "Subtree",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "An object describing the availability of tiles and content in a subtree, as well as availability of children subtrees. May also store metadata for available tiles and content.",
     "properties": {
         "buffers": {
@@ -1816,7 +1817,7 @@
         "propertyTables": {
             "type": "array",
             "items": {
-                "$ref": "propertyTable.schema.json"
+                "$ref": "../PropertyTable/propertyTable.schema.json"
             },
             "minItems": 1,
             "description": "An array of property tables."
@@ -1852,7 +1853,7 @@
             "description": "An array of indexes to property tables containing content metadata. If the tile has a single content this array will have one element; if the tile has multiple contents - as supported by 3DTILES_multiple_contents and 3D Tiles 1.1 - this array will have multiple elements. Content metadata only exists for available contents and is tightly packed by increasing tile index. To access individual content metadata, implementations may create a mapping from tile indices to content metadata indices."
         },
         "subtreeMetadata": {
-            "$ref": "metadataEntity.schema.json",
+            "$ref": "../metadataEntity.schema.json",
             "description": "Subtree metadata encoded in JSON."
         }
     },
@@ -1874,7 +1875,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "subtrees.schema.json",
     "title": "Subtrees",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "An object describing the location of subtree files.",
     "properties": {
         "uri": {
@@ -1886,6 +1887,7 @@
         "uri"
     ]
 }
+
 ----
 
 
@@ -1915,7 +1917,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tile.schema.json",
     "title": "Tile",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "A tile in a 3D Tiles tileset.",
     "properties": {
         "boundingVolume": {
@@ -2026,7 +2028,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tile.implicitTiling.schema.json",
     "title": "Implicit tiling",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "This object allows a tile to be implicitly subdivided. Tile and content availability and metadata is stored in subtrees which are referenced externally.",
     "properties": {
         "subdivisionScheme": {
@@ -2065,6 +2067,7 @@
         "subtrees"
     ]
 }
+
 ----
 
 
@@ -2078,7 +2081,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tileset.schema.json",
     "title": "Tileset",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "A 3D Tiles tileset.",
     "properties": {
         "asset": {
@@ -2094,7 +2097,7 @@
             "deprecated": true
         },
         "schema": {
-            "$ref": "schema.schema.json",
+            "$ref": "./Schema/schema.schema.json",
             "description": "An object defining the structure of metadata classes and enums. When this is defined, then `schemaUri` shall be undefined."
         },
         "schemaUri": {
@@ -2103,7 +2106,7 @@
             "format": "iri-reference"
         },
         "statistics": {
-            "$ref": "statistics.schema.json",
+            "$ref": "./Statistics/statistics.schema.json",
             "description": "An object containing statistics about metadata entities."
         },
         "groups": {
