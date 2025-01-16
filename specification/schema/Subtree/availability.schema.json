@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "availability.schema.json",
     "title": "Availability",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "An object describing the availability of a set of elements.",
     "properties": {
         "bitstream": {

@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "batchTable.schema.json",
     "title": "Batch Table",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "../common/rootProperty.schema.json",
     "description": "A set of properties defining application-specific metadata for features in a tile.",
     "deprecated": true,
     "additionalProperties": {
@@ -11,7 +11,7 @@
     "definitions": {
         "binaryBodyReference": {
             "title": "BinaryBodyReference",
-            "$ref": "rootProperty.schema.json",
+            "$ref": "../common/rootProperty.schema.json",
             "description": "An object defining the reference to a section of the binary body of the batch table where the property values are stored if not defined directly in the JSON.",
             "properties": {
                 "byteOffset": {

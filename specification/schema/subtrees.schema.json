@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "subtrees.schema.json",
     "title": "Subtrees",
-    "$ref": "rootProperty.schema.json",
+    "$ref": "./common/rootProperty.schema.json",
     "description": "An object describing the location of subtree files.",
     "properties": {
         "uri": {
