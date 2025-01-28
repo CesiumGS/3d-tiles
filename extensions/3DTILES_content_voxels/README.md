@@ -20,11 +20,9 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 ## Overview
 
-This extension indicates the presence of voxel content, represented by glTFs containing the `EXT_primitive_voxels` extension. It is typically paired with `EXT_structural_metadata` to unify the schemas between the tileset and its tiles using a shared `schemaUri`.
+This extension indicates the presence of voxel content and associates it with metadata definitions in the tileset's `schema`. Voxels are stored as glTFs with the `EXT_primitive_voxels` extension and are typically paired with `EXT_structural_metadata` to unify the schema between a tileset and its tiles.
 
-This extension is often paired with [Implicit Tiling](../../specification/ImplicitTiling/) for efficient representation of massive sparse voxel datasets.
-
-Implementations for rendering voxel content may vary across runtimes. However, placing this extension in the root tile's `content` can inform runtimes about the presence of voxels, and thus allocate necessary resources for rendering before any tiles load.
+This extension is often paired with [Implicit Tiling](../../specification/ImplicitTiling/) for efficient representation of massive sparse voxel datasets. Although rendering implementations may vary, this extension can let runtimes detect voxel content in advance, such that they can allocate the necessary resources before any tiles load. 
 
 ### Content Extension
 
@@ -48,6 +46,8 @@ The `content` extension describes the structure of the voxel grid.
   }
 }
 ```
+
+#### Shape
 
 The shape and coordinate system of the voxel grid is determined by the content bounding volume. When undefined, the tile bounding volume is used instead.
 
@@ -85,6 +85,8 @@ Axis|Coordinate|Positive Direction
 
 ![Cylinder Coordinates](figures/cylinder-coordinates.png)
 
+#### Dimensions
+
 The figure below shows `"dimensions": [8, 8, 8]` for each shape type:
 
 |Box|Region|Cylinder|
@@ -93,11 +95,15 @@ The figure below shows `"dimensions": [8, 8, 8]` for each shape type:
 
 Dimensions must be nonzero. Elements are laid out in memory first-axis-contiguous, e.g. for boxes, x data is contiguous.
 
-The `padding` property specifies how many rows of voxel data in each dimension come from neighboring grids. This is useful in situations where the content represents a single tile in a larger grid, and data from neighboring tiles is needed for non-local effects e.g. trilinear interpolation, blurring, anti-aliasing. `padding.before` and `padding.after` specify the number of rows before and after the grid in each dimension, e.g. a `padding.before` of 1 and a `padding.after` of 2 in the `y` dimension mean that each series of values in a given `y`-slice is preceded by one value and followed by two.
+#### Padding
+
+The `padding` property specifies how many rows of voxel data in each dimension come from neighboring grids. This is useful in situations where the content represents a single tile in a larger grid, and data from neighboring tiles is needed for non-local effects, e.g., trilinear interpolation, blurring, anti-aliasing. `padding.before` and `padding.after` specify the number of rows before and after the grid in each dimension, e.g., a `padding.before` of 1 and a `padding.after` of 2 in the `y` dimension mean that each series of values in a given `y`-slice is preceded by one value and followed by two.
 
 The padding data must be supplied with the rest of the voxel data - this means if `dimensions` is `[d1, d2, d3]`, `padding.before` is `[b1, b2, b3]`, and `padding.after` is `[a1, a2, a3]`, the property must supply `(d1 + a1 + b1)*(d2 + a2 + b2)*(d3 + a3 + b3)` values.
 
 The `padding` property is optional; when omitted, `padding.before` and `padding.after` are both `[0, 0, 0]`.
+
+#### Class
 
 The `class` property refers to a class ID in the root tileset [schema](../../specification/README.adoc#metadata-schema). The class describes which properties exist in the voxel grid. In the example below, each voxel has a `temperature` value and a `salinity` value. When a property value equals the `noData` value it indicates that no data exists for that voxel.
 
