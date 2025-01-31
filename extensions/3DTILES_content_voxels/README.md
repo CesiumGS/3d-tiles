@@ -20,7 +20,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 ## Overview
 
-This extension indicates the presence of voxel content and associates it with metadata definitions in the tileset's `schema`. Voxels are stored as glTFs with the `EXT_primitive_voxels` extension and are typically paired with `EXT_structural_metadata` to unify the schema between a tileset and its tiles.
+This extension indicates the presence of voxel content and associates it with metadata definitions in the tileset's `schema`. Voxels are stored as glTFs with the [`EXT_primitive_voxels`](https://github.com/CesiumGS/glTF/tree/ext-primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels) extension and are typically paired with [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) to unify the schema between a tileset and its tiles.
 
 This extension is often paired with [Implicit Tiling](../../specification/ImplicitTiling/) for efficient representation of massive sparse voxel datasets. Although rendering implementations may vary, this extension can let runtimes detect voxel content in advance, such that they can allocate the necessary resources before any tiles load. 
 
@@ -57,7 +57,15 @@ The following bounding volume types are supported:
 * [`region`](../../specification/README.adoc#region) - geographic region in longitude, latitude, height coordinates
 * [`cylinder`](../3DTILES_bounding_volume_cylinder) - oriented bounding cylinder as defined by [3DTILES_bounding_volume_cylinder](../3DTILES_bounding_volume_cylinder)
 
-The `dimensions` property of the extension specifies the grid dimensions for each axis. The axis order and coordinate conventions are described below:
+The bounding volume **MUST** match the type of `shape` used for the glTF voxel grids. This means that:
+
+- For `box` bounding volumes, glTF voxels must use the `box` in [`KHR_implicit_shapes`](https://github.com/eoineoineoin/glTF/tree/refs/heads/collisionShapeMerge/extensions/2.0/Khronos/KHR_implicit_shapes). 
+- For `region` bounding volumes, glTF voxels must use the [`EXT_implicit_ellipsoid_region`](https://github.com/CesiumGS/glTF/blob/ext-primitive-voxels/extensions/2.0/Vendor/EXT_implicit_ellipsoid_region/README.md) extension.
+- For `cylinder` bounding volumes, glTF voxels must use the [`EXT_implicit_cylinder_region`](https://github.com/CesiumGS/glTF/blob/ext-primitive-voxels/extensions/2.0/Vendor/EXT_implicit_cylinder_region/README.md) etxension.
+
+#### Dimensions
+
+The `dimensions` property of the extension specifies the grid dimensions for each axis. The value **MUST** match the `dimensions` specified in the `EXT_primitive_voxels` extension on the glTF voxel grids. The axis order and coordinate conventions are described below.
 
 For `box` bounding volumes:
 
@@ -85,8 +93,6 @@ Axis|Coordinate|Positive Direction
 
 ![Cylinder Coordinates](figures/cylinder-coordinates.png)
 
-#### Dimensions
-
 The figure below shows `"dimensions": [8, 8, 8]` for each shape type:
 
 |Box|Region|Cylinder|
@@ -97,11 +103,11 @@ Dimensions must be nonzero. Elements are laid out in memory first-axis-contiguou
 
 #### Padding
 
-The `padding` property specifies how many rows of voxel data in each dimension come from neighboring grids. This is useful in situations where the content represents a single tile in a larger grid, and data from neighboring tiles is needed for non-local effects, e.g., trilinear interpolation, blurring, anti-aliasing. `padding.before` and `padding.after` specify the number of rows before and after the grid in each dimension, e.g., a `padding.before` of 1 and a `padding.after` of 2 in the `y` dimension mean that each series of values in a given `y`-slice is preceded by one value and followed by two.
+The `padding` property specifies how many rows of voxel data in each dimension come from neighboring grids. This is useful in situations where the content represents a single tile in a larger grid, and data from neighboring tiles is needed for non-local effects, e.g., trilinear interpolation, blurring, or anti-aliasing.
 
-The padding data must be supplied with the rest of the voxel data - this means if `dimensions` is `[d1, d2, d3]`, `padding.before` is `[b1, b2, b3]`, and `padding.after` is `[a1, a2, a3]`, the property must supply `(d1 + a1 + b1)*(d2 + a2 + b2)*(d3 + a3 + b3)` values.
+`padding.before` and `padding.after` specify the number of rows before and after the grid in each dimension, e.g., a `padding.before` of 1 and a `padding.after` of 2 in the `y` dimension mean that each series of values in a given `y`-slice is preceded by one value and followed by two.
 
-The `padding` property is optional; when omitted, `padding.before` and `padding.after` are both `[0, 0, 0]`.
+The `padding` property is optional; when omitted, `padding.before` and `padding.after` are both `[0, 0, 0]`. However, it **MUST** match the `padding` property specified in `EXT_primitive_voxels` on the glTF voxel grids.
 
 #### Class
 
@@ -128,6 +134,8 @@ The `class` property refers to a class ID in the root tileset [schema](../../spe
   }
 }
 ```
+
+The `class` **MUST** match the `class` used to classify the glTF voxels in their `EXT_strutural_metadata` extension.
 
 ## Example
 
