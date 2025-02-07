@@ -99,17 +99,15 @@ These conventions align with how implicit tile coordinates defined in [Implicit 
 | ------------- | ------------- | ------------- |
 |![Box Voxel Grid](figures/box.png)|![Region Voxel Grid](figures/sphere.png)|![Cylinder Voxel Grid](figures/cylinder.png)|
 
-> **Implementation Note**: glTF and 3D Tiles use different up-axes, which results in different expectations for voxel **data order**. Although both use an `[x, y, z]` ordering, the meanings of the `y` and `z` axes are not one-to-one for **box** or **cylinder** voxels.
+> **Implementation Note**: glTF and 3D Tiles use different up-axes, which results in different expectations for voxel **data order**. Although both use an `[x, y, z]` ordering, the meanings of the `y` and `z` axes are not one-to-one for **box** or **cylinder** voxels. Although the glTFs will be transformed from `y`-up to `z`-up at runtime, the data itself must be accessed in a non-linear fashion to reflect the transform.
 >
-> For **box** voxels, the grid's height corresponds to `y` in glTF, but must ultimately align with `z` in 3D Tiles. If the dimensions in `3DTILES_content_voxels` are `[width, height, depth]`, then the dimensions in `EXT_primitive_voxels` **MUST** be `[width, depth, height]`. Furthermore, if a **box** voxel is located at `[x, y, z]` within 3D Tiles, it refers to the voxel at `[x, depth-z, y]` in the glTF. 
+> For **box** voxels, the grid's height corresponds to `y` in glTF, but must ultimately align with `z` in 3D Tiles. If the dimensions in `3DTILES_content_voxels` are `[width, height, depth]`, then the dimensions in `EXT_primitive_voxels` **MUST** be `[width, depth, height]`. Furthermore, if a **box** voxel is located at `[x, y, z]` within 3D Tiles, it refers to the voxel at `[x, (depth - 1) - z, y]` in the glTF. 
 >
-> (From the glTF's perspective, if its dimensions are `[width, height, depth]`, then a **box** voxel at `[x, y, z]` will be located at `[x, z, height-y]` in 3D Tiles.)
+> (From the glTF's perspective, if its dimensions are `[width, height, depth]`, then a **box** voxel at `[x, y, z]` will be located at `[x, z, (height - 1) - y]` in 3D Tiles.)
 > 
 > For **cylinder** voxels, the grid's height corresponds to `y` in glTF but `z` in 3D Tiles. If the dimensions in `3DTILES_content_voxels` are `[radius, angle, height]`, then the dimensions in `EXT_primitive_voxels` **MUST** be `[radius, height, angle]`. The start of the cylinder's angular data is also affected due to the differing orientations. A **cylinder** voxel at `[x, y, z]` within 3D Tiles is located at `[x, z, a]` in the glTF where `a = [y + (angle / 2)] % angle`. The math is the same vice versa.
 > 
 > The data order of **ellipsoid** voxels is the same between glTF and 3D Tiles. In this case, the `dimensions` in `EXT_primitive_voxels` **MUST** be equal to those in `3DTILES_content_voxels`.
-> 
-> Finally, glTFs with `EXT_primitive_voxels` should contain a `z`-up-to-`y`-up transform via `node.matrix` to account for how they are be transformed at runtime to be brought into the 3D Tiles frame of reference (`y`-up-to-`z`-up). The non-linear access of the voxel data essentially reflects that `y`-up-to-`z`-up transform.
 
 #### Padding
 
