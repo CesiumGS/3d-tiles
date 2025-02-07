@@ -1,0 +1,30 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "content.3DTILES_content_voxels.schema.json",
+    "title": "3DTILES_content_voxels content extension",
+    "$ref": "rootProperty.schema.json",
+    "description": "Voxel content type.",
+    "properties": {
+        "dimensions": {
+            "type": "array",
+            "description": "Dimensions of the voxel grid. x/y/z for a box, r/z/theta for a cylinder, lon/lat/height for an ellipsoid.",
+            "items": {
+                "type": "integer",
+                "minimum": 1
+            },
+            "minItems": 3,
+            "maxItems": 3
+        },
+        "padding": {
+            "$ref": "padding.schema.json"
+        },
+        "class": {
+            "type": "string",
+            "description": "The class that property values conform to. The value shall be a class ID declared in the `classes` dictionary."
+        }
+    },
+    "required": [
+        "dimensions",
+        "class"
+    ]
+}
