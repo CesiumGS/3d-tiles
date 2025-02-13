@@ -19,38 +19,92 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 ## Overview
 
-This extension defines a cylinder bounding volume type.
+This extension defines a bounding volume type for a region that follows the surface of a cylinder between two different radius values—aptly referred to as a "cylinder region". These regions are useful for visualizing real-world data that has been captured by cylindrical sensors.
+
+<table>
+  <tr>
+    <th>
+    Example
+    </th>
+  </tr>
+  <tr>
+    <td>
 
 ```json
 "boundingVolume": {
   "extensions": {
     "3DTILES_bounding_volume_cylinder": {
-      "cylinder": [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1]
+      "minRadius": 0.5,
+      "maxRadius": 1.0,
+      "height": 2.0
     }
   }
 }
 ```
-_Example: Cylinder with radius 1.0, height 2.0, and no rotation_
 
-The `cylinder` property is an array of 12 numbers that define an oriented bounding cylinder in a right-handed 3-axis (x, y, z) Cartesian coordinate system where the z-axis is up. The first three elements define the x, y, and z values for the center of the cylinder. The next three elements (with indices 3, 4, and 5) define the x-axis direction and half-length. The next three elements (indices 6, 7, and 8) define the y-axis direction and half-length. The last three elements (indices 9, 10, and 11) define the z-axis direction and half-length.
+  </td>
+    <td>
+    <img width="500px" src="figures/hollow-cylinder.png">
+    </td>
+  </tr>
+</table>
 
-The half-axes must be orthogonal to each other.
+The cylinder does not need to be completely represented by the volume—for instance, the region may be hollow inside like a tube. However, an inner radius of `0` results in a completely solid cylinder.
 
+## Details
+
+The cylinder is centered at the origin, where the `minRadius` and `maxRadius` are measured along the `x` and `y` axes. The `height` of the cylinder is aligned with the `z` axis.
+
+In addition to these properties—which inherently capture the volume's scale—the cylinder may also be transformed using `translation` and `rotation`. The `rotation` is captured by an array of four numbers `[x, y, z, w]` describing a unit quaternion, where `w` is the scalar.
+
+A cylinder region may also be confined to a certain angular range. Angles are given in radians within the range `[-pi, pi]` and open counter-clockwise around the cylinder. The bounds are aligned such that an angle of `0` falls on the `+y` axis (see figure below).
+
+![Cylinder Coordinates](figures/cylinder-coordinates.png)
+
+The `minAngle` and `maxAngle` properties define the angles at which the region starts and stops on the cylinder.
+
+<table>
+  <tr>
+    <th>
+    Example
+    </th>
+  </tr>
+  <tr>
+    <td>
+
+```json
+"boundingVolume": {
+  "extensions": {
+    "3DTILES_bounding_volume_cylinder": {
+      "minRadius": 0.5,
+      "maxRadius": 1.0,
+      "height": 2.0,
+      "minAngle": 1.57079632679,
+      "maxAngle": -1.57079632679
+    }
+  }
+}
+```
+
+  </td>
+    <td>
+    <img width="500px" src="figures/half-cylinder.png">
+    </td>
+  </tr>
+</table>
 
 ## Implicit Subdivision
 
-When used with [Implicit Tiling](../../specification/ImplicitTiling), a `QUADTREE` subdivision will subdivide along the radius and angle axes. An `OCTREE` subdivision will subdivide along the radius, angle, and height axes.
+When used with [Implicit Tiling](../../specification/ImplicitTiling), the implicit tile coordinates are interpreted as `(radius, angle, height)` for the cylinder region.
+
+A `QUADTREE` subdivision will subdivide along the radius and angle axes. An `OCTREE` subdivision will subdivide along the radius, angle, and height axes.
 
 | Root Cylinder  | Quadtree | Octree |
 |---|---|---|
 | ![Parent Cell](figures/root.png)  | ![Quadtree Cells](figures/quadtree.png)  | ![Octree Cells](figures/octree.png)  |
 
-Implicit tile coordinates:
-
 Coordinate|Positive Direction
 --|--
-x| From the center (increasing radius)
-y| From `-pi` to `pi` clockwise (see figure below)
+x| From the center outwards (increasing radius)
+y| From `-pi` to `pi` (counter-clockwise)
 z| From bottom to top (increasing height)
-
-![Cylinder Coordinates](figures/cylinder-coordinates.png)

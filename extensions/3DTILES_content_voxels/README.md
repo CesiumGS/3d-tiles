@@ -88,7 +88,7 @@ For `cylinder` bounding volumes:
 Axis|Coordinate|Positive Direction
 --|--|--
 0|`radius`|From center (increasing radius)
-1|`angle`|From `-pi` to `pi` clockwise (see figure below)
+1|`angle`|From `-pi` to `pi` counter-clockwise (see figure below)
 2|`height`|From bottom to top (increasing height)
 
 ![Cylinder Coordinates](figures/cylinder-coordinates.png)

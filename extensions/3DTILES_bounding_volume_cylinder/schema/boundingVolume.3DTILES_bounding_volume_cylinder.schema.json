@@ -2,20 +2,64 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "boundingVolume.3DTILES_bounding_volume_cylinder.schema.json",
     "title": "3DTILES_bounding_volume_cylinder extension",
-    "description": "3D Tiles extension for cylinder bounding volumes.",
+    "description": "3D Tiles extension for cylinder region bounding volumes.",
     "$ref": "rootProperty.schema.json",
     "properties": {
-        "cylinder": {
+        "minRadius": {
+            "type": "number",
+            "description": "The inner radius of the cylinder region along the x and y axes, in meters.",
+            "minimum": 0
+        },
+        "maxRadius": {
+            "type": "number",
+            "description": "The outer radius of the cylinder region along the x and y axes, in meters.",
+            "minimum": 0
+        },
+        "height": {
+            "type": "number",
+            "description": "The height of the cylinder in meters along the z-axis, in meters.",
+            "minimum": 0
+        },
+        "minAngle": {
+            "type": "number",
+            "description": "The minimum angle of the cylinder region in radians. In other words, this is the angle where the cylinder region starts. Must be in the range [-pi, pi].",
+            "minimum": -3.14159265359,
+            "maximum": 3.14159265359,
+            "default": -3.14159265359
+        },
+        "maxAngle": {
+            "type": "number",
+            "description": "The maximum angle of the cylinder region in radians. In other words, this is the angle where the cylinder region ends. Must be in the range [-pi, pi].",
+            "minimum": -3.14159265359,
+            "maximum": 3.14159265359,
+            "default": 3.14159265359
+        },
+        "translation": {
             "type": "array",
-            "description": "An array of 12 numbers that define a cylinder. The first three elements define the x, y, and z values for the center of the cylinder. The next three elements (with indices 3, 4, and 5) define the x axis direction and half-length. The next three elements (indices 6, 7, and 8) define the y axis direction and half-length. The last three elements (indices 9, 10, and 11) define the z axis direction and half-length. The axes must be orthogonal to each other.",
+            "description": "The cylinder's translation along the x, y, and z axes.",
             "items": {
                 "type": "number"
             },
-            "minItems": 12,
-            "maxItems": 12
+            "minItems": 3,
+            "maxItems": 3,
+            "default": [ 0.0, 0.0, 0.0 ]
+        },
+        "rotation": {
+            "type": "array",
+            "description": "The cylinder's rotation, represented by a unit quaternion in the order (x, y, z, w), where w is the scalar.",
+            "items": {
+                "type": "number",
+                "minimum": -1.0,
+                "maximum": 1.0
+            },
+            "minItems": 4,
+            "maxItems": 4,
+            "default": [ 0.0, 0.0, 0.0, 1.0 ]
         }
     },
     "required": [
-        "cylinder"
+        "minRadius",
+        "maxRadius",
+        "height"
     ]
 }
