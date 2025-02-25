@@ -7,7 +7,7 @@
     "properties": {
         "dimensions": {
             "type": "array",
-            "description": "Dimensions of the voxel grid. x/y/z for a box, r/z/theta for a cylinder, lon/lat/height for an ellipsoid.",
+            "description": "Dimensions of the voxel grid. x/y/z for a box, r/theta/z for a cylinder, lon/lat/height for an ellipsoid.",
             "items": {
                 "type": "integer",
                 "minimum": 1
