@@ -225,7 +225,7 @@ The following notes explain the implications for **box** and **cylinder** voxel 
 
 For any given glTF model, a `y`-up to `z`-up rotation will rotate its `y` axis to the positive `+z` axis, and its `z` axis to the negative `-y` axis. In a box voxel grid, the rotation transforms the indices of the voxel data in a similar way.
 
-Given a box grid with dimensions `[width, height, depth]`, a voxel at index `[x, y, z]` in the glTF will be relocated to `[x, z, (height - 1) - y]` in 3D Tiles (see figure below).
+Given a **box** grid with dimensions `[width, height, depth]`, a voxel at index `[x, y, z]` in the glTF will be relocated to `[x, z, (height - 1) - y]` in 3D Tiles (see figure below).
 
 ![](figures/box-voxel-transform.png)
 
@@ -245,7 +245,7 @@ Given an `EXT_implicit_cylinder_region` in glTF, its equivalent in `3DTILES_boun
 
 No matter how the `minAngle` and `maxAngle` change, a voxel located at `[x, y, z]` in the glTF will still be located at [`x, z, y`] in 3D Tiles, and vice versa. (`y` and `z` are swapped due to the different up-axes.)
 
-However, this rule does not work if the cylinder region fills the entire `2pi` range (such that `minAngle = -pi` and `maxAngle = pi`). In this case, the indices used to access the voxel data will be affected. A **cylinder** voxel at `[x, y, z]` within the glTF will be located at `[x, z, a]` in 3D Tiles, where `a = [y + (angle / 2)] % angle`. The math is the same vice versa.
+However, this rule does not work if the cylinder region fills the entire `2pi` range (such that `minAngle = -pi` and `maxAngle = pi`). In this case, the indices used to access the voxel data will be affected. Given a voxel glTF with dimensions of `[radius, height, angleRange]`, then a **cylinder** voxel at `[x, y, z]` within the glTF will be located at `[x, a, y]` in 3D Tiles, where `a = [z + (angleRange / 2)] % angleRange`. The math is the same vice versa.
 
 ![](figures/cylinder-voxel-transform.png)
 
