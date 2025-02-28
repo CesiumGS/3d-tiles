@@ -57,7 +57,7 @@ The cylinder is centered at the origin, where the `minRadius` and `maxRadius` ar
 
 In addition to these properties—which inherently capture the volume's scale—the cylinder may also be transformed using `translation` and `rotation`. The `rotation` is captured by an array of four numbers `[x, y, z, w]` describing a unit quaternion, where `w` is the scalar.
 
-A cylinder region may also be confined to a certain angular range. Angles are given in radians within the range `[-pi, pi]` and open counter-clockwise around the cylinder. The bounds are aligned such that an angle of `0` falls on the `+y` axis (see figure below).
+A cylinder region may also be confined to a certain angular range. Angles are given in radians within the range `[-pi, pi]` and open counter-clockwise around the cylinder. The bounds are aligned such that an angle of `0` falls on the `+x` axis (see figure below).
 
 ![Cylinder Coordinates](figures/cylinder-coordinates.png)
 
@@ -79,8 +79,8 @@ The `minAngle` and `maxAngle` properties define the angles at which the region s
       "minRadius": 0.5,
       "maxRadius": 1.0,
       "height": 2.0,
-      "minAngle": 1.57079632679,
-      "maxAngle": -1.57079632679
+      "minAngle": -3.1415926,
+      "maxAngle": 0
     }
   }
 }
