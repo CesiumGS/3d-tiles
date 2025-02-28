@@ -18,6 +18,12 @@ Written against the 3D Tiles 1.1 specification.
 
 This extension is required, meaning it must be placed in both the `extensionsUsed` and `extensionsRequired` lists in the tileset JSON.
 
+## Contents
+
+- [Overview](#overview)
+- [Example](#example)
+- [Notes](#notes)
+
 ## Overview
 
 This extension indicates the presence of voxel content and associates it with metadata definitions in the tileset's `schema`. Voxels are stored as glTFs with the [`EXT_primitive_voxels`](https://github.com/CesiumGS/glTF/tree/ext-primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels) extension and are typically paired with [`EXT_structural_metadata`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) to unify the schema between a tileset and its tiles.
@@ -99,15 +105,17 @@ These conventions align with how implicit tile coordinates defined in [Implicit 
 | ------------- | ------------- | ------------- |
 |![Box Voxel Grid](figures/box.png)|![Region Voxel Grid](figures/sphere.png)|![Cylinder Voxel Grid](figures/cylinder.png)|
 
-> **Implementation Note**: glTF and 3D Tiles use different up-axes, which results in different expectations for voxel **data order**. Although both use an `[x, y, z]` ordering, the meanings of the `y` and `z` axes are not one-to-one for **box** or **cylinder** voxels. Although the glTFs will be transformed from `y`-up to `z`-up at runtime, the data itself must be accessed in a non-linear fashion to reflect the transform.
+> [!NOTE]
 >
-> For **box** voxels, the grid's height corresponds to `y` in glTF, but must ultimately align with `z` in 3D Tiles. If the dimensions in `3DTILES_content_voxels` are `[width, height, depth]`, then the dimensions in `EXT_primitive_voxels` **MUST** be `[width, depth, height]`. Furthermore, if a **box** voxel is located at `[x, y, z]` within 3D Tiles, it refers to the voxel at `[x, (depth - 1) - z, y]` in the glTF. 
+> glTF and 3D Tiles use different up-axes, which can result in different expectations for voxel **dimensions**.
 >
-> (From the glTF's perspective, if its dimensions are `[width, height, depth]`, then a **box** voxel at `[x, y, z]` will be located at `[x, z, (height - 1) - y]` in 3D Tiles.)
-> 
-> For **cylinder** voxels, the grid's height corresponds to `y` in glTF but `z` in 3D Tiles. If the dimensions in `3DTILES_content_voxels` are `[radius, angle, height]`, then the dimensions in `EXT_primitive_voxels` **MUST** be `[radius, height, angle]`. The start of the cylinder's angular data is also affected due to the differing orientations. A **cylinder** voxel at `[x, y, z]` within 3D Tiles is located at `[x, z, a]` in the glTF where `a = [y + (angle / 2)] % angle`. The math is the same vice versa.
-> 
-> The data order of **ellipsoid** voxels is the same between glTF and 3D Tiles. In this case, the `dimensions` in `EXT_primitive_voxels` **MUST** be equal to those in `3DTILES_content_voxels`.
+> For **box** voxels, grid height corresponds to `y` in glTF, but must ultimately align with `z` in 3D Tiles. If the dimensions in `3DTILES_content_voxels` are `[width, height, depth]`, then the dimensions in `EXT_primitive_voxels` **MUST** be `[width, depth, height]`.
+>
+> For **cylinder** voxels, the same rule applies. If the dimensions in `3DTILES_content_voxels` are `[radius, angle, height]`, then the dimensions in `EXT_primitive_voxels` **MUST** be `[radius, height, angle]`.
+>
+> For **ellipsoid** voxels, the up-axis has no effect on the data layout. The `dimensions` in `EXT_primitive_voxels` **MUST** be equal to those in `3DTILES_content_voxels`.
+>
+> The up-axis difference will also affect the **data order** for box and cylinder voxels. See [Notes](#notes) for more details.
 
 #### Padding
 
@@ -147,7 +155,9 @@ The `class` **MUST** match the `class` used to classify the glTF voxels in their
 
 ## Example
 
-Tileset JSON with implicit tiling
+_This section is non-normative_
+
+The following example is a tileset JSON that uses voxel content with implicit tiling.
 
 ```json
 {
@@ -201,4 +211,48 @@ Tileset JSON with implicit tiling
 }
 ```
 
-See [`EXT_primitive_voxels`](https://github.com/CesiumGS/glTF/tree/ext-primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels) for examples of glTF voxel tiles.
+### Notes
+
+_This section is non-normative_
+
+Recall that [dimensions](#dimensions) are given as `[x, y, z]` for both the `3DTILES_content_voxels` and `EXT_primitive_voxels` extensions, but each is defined against a different up-axis. This notably affects **box** and **cylinder** voxel grids, which align their height with the up-axis in either coordinate system.
+
+In general, this up-axis difference is typically resolved at runtime by transforming the model's vertices with a rotation matrix. However, the attributes used for `EXT_primitive_voxels` are not positional. One solution could be to generate an explicit mesh from the implicit voxel data, then apply the rotation as usual. But other rendering implementations—for example, raymarching—must account for the transform in other ways, such as rewriting data for the 3D Tiles order, or adjusting the coordinates used to sample data at a point within the volume.
+
+The following notes explain the implications for **box** and **cylinder** voxel shapes, including ways that runtimes can incorporate the `y`-up to `z`-up transform as they render voxel data.
+
+#### Box
+
+For any given glTF model, a `y`-up to `z`-up rotation will rotate its `y` axis to the positive `+z` axis, and its `z` axis to the negative `-y` axis. In a box voxel grid, the rotation transforms the indices of the voxel data in a similar way.
+
+Given a box grid with dimensions `[width, height, depth]`, a voxel at index `[x, y, z]` in the glTF will be relocated to `[x, z, (height - 1) - y]` in 3D Tiles (see figure below).
+
+![](figures/box-voxel-transform.png)
+
+In a UV-sampling approach, the original UV coordinates would be converted from `[u, v, w]` to `[u, w, 1.0 - v]`.
+
+Conversely, if the dimensions are `[width, height, depth]` in 3D Tiles, a box voxel that is located at `[x, y, z]` will relocate to `[x, (depth - 1) - z, y]` in the glTF. Their UV coordinates respectively would be converted from `[u, v, w]` to `[u, 1.0 - w, v]`.
+
+#### Cylinder
+
+`3DTILES_bounding_cylinder` is modeled closely after the `EXT_implicit_cylinder_region` extension in glTF. However, the start of the cylinder's angle is different between the two coordinate systems. In 3D Tiles, an angle of `0` aligns with the positive `+x` axis, whereas in glTF it aligns with the negative `-x` axis. The resulting difference of `pi` should be accounted for when rendering the data.
+
+As long as the region's angular range is less than `2pi`, the ordering of the voxel data remains the same. Instead, the difference can be treated as an offset in the `minAngle` and `maxAngle` properties of the region.
+
+Given an `EXT_implicit_cylinder_region` in glTF, its equivalent in `3DTILES_bounding_cylinder` can be deduced by adding `pi` to its angular bounds. If the resulting angle is greater than `2pi`, then it should be wrapped around to its equivalent in the `[-pi, pi]` range (see below).
+
+![](figures/cylinder-angle-rotation.png)
+
+No matter how the `minAngle` and `maxAngle` change, a voxel located at `[x, y, z]` in the glTF will still be located at [`x, z, y`] in 3D Tiles, and vice versa. (`y` and `z` are swapped due to the different up-axes.)
+
+However, this rule does not work if the cylinder region fills the entire `2pi` range (such that `minAngle = -pi` and `maxAngle = pi`). In this case, the indices used to access the voxel data will be affected. A **cylinder** voxel at `[x, y, z]` within the glTF will be located at `[x, z, a]` in 3D Tiles, where `a = [y + (angle / 2)] % angle`. The math is the same vice versa.
+
+![](figures/cylinder-voxel-transform.png)
+
+In a UV-sampling approach, the original coordinates would be converted from `[u, v, w]` in the glTF to `[u, fract(w + 0.5), v]` in 3D Tiles.
+
+### Resources
+
+_This section is non-normative_
+
+- [`EXT_primitive_voxels specification`](https://github.com/CesiumGS/glTF/tree/ext-primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels)
