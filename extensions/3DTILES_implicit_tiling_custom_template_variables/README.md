@@ -28,7 +28,7 @@ This extension allows arbitrary property IDs to be used in implicit tiling [temp
 
 This is useful for resolving tile content through mechanisms other than just its implicit tile coordinates.
 
-Template variables are substituted with property values in [`tileMetadata`](https://github.com/CesiumGS/3d-tiles/tree/main/specification/ImplicitTiling#tile-metadata) and/or [`contentMetadata`](https://github.com/CesiumGS/3d-tiles/tree/main/specification/ImplicitTiling#content-metadata). The fully resolved values are used, i.e. after [`noData`/`default` substitution](https://github.com/CesiumGS/3d-tiles/blob/main/specification/Metadata/README.adoc#required-properties-no-data-values-and-default-values) and [`normalized`](https://github.com/CesiumGS/3d-tiles/blob/main/specification/Metadata/README.adoc#normalized-values) and [`offset` and `scale`](https://github.com/CesiumGS/3d-tiles/blob/main/specification/Metadata/README.adoc#offset-and-scale) transformations have been applied.
+Template variables are substituted with property values in [`tileMetadata`](https://github.com/CesiumGS/3d-tiles/tree/main/specification/ImplicitTiling#tile-metadata), [`contentMetadata`](https://github.com/CesiumGS/3d-tiles/tree/main/specification/ImplicitTiling#content-metadata), [`subtreeMetadata`](https://github.com/CesiumGS/3d-tiles/tree/main/specification/ImplicitTiling#subtree-metadata), or [tileset metadata](https://github.com/CesiumGS/3d-tiles/blob/main/specification/README.adoc#metadata). The fully resolved values are used, i.e. after [`noData`/`default` substitution](https://github.com/CesiumGS/3d-tiles/blob/main/specification/Metadata/README.adoc#required-properties-no-data-values-and-default-values) and [`normalized`](https://github.com/CesiumGS/3d-tiles/blob/main/specification/Metadata/README.adoc#normalized-values) and [`offset` and `scale`](https://github.com/CesiumGS/3d-tiles/blob/main/specification/Metadata/README.adoc#offset-and-scale) transformations have been applied.
 
 The following restrictions apply:
 
@@ -73,6 +73,8 @@ Precedence|Source
 --|--
 1|Content property
 2|Tile property
-3|Implicit tile coordinates
+3|Subtree property
+4|Tileset property
+5|Implicit tile coordinates
 
-For example, if the the content and tile both have a `level` property, the content property value is used. The implicit tile coordinate level is not used.
+For example, if the content and tile both have a `level` property, the content property value is used. The implicit tile coordinate level is not used.
