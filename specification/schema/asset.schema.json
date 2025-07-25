@@ -5,6 +5,14 @@
     "$ref": "./common/rootProperty.schema.json",
     "description": "Metadata about the entire tileset.",
     "properties": {
+        "generator": {
+            "type": "string",
+            "description": "Tool that generated this 3D Tiles model.  Useful for debugging."
+        },
+        "generatorVersion": {
+            "type": "string",
+            "description": "The version of the tool that generated this 3D Tiles model.  Useful for debugging."
+        },
         "version": {
             "type": "string",
             "description": "The 3D Tiles version. The version defines the JSON schema for the tileset JSON and the base set of tile formats."
