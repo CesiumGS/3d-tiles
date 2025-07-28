@@ -7,11 +7,7 @@
     "properties": {
         "generator": {
             "type": "string",
-            "description": "Tool that generated this 3D Tiles model.  Useful for debugging."
-        },
-        "generatorVersion": {
-            "type": "string",
-            "description": "The version of the tool that generated this 3D Tiles model.  Useful for debugging."
+            "description": "The name and version number of the tool that generated this 3D Tiles model.  Useful for debugging."
         },
         "version": {
             "type": "string",
