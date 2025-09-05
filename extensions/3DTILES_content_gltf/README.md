@@ -73,7 +73,7 @@ The `3DTILES_content_gltf` object is a property of the top-level tileset `extens
 > ```
 
 
-> **Example:** A 3D Tiles 1.1 tileset that uses the `3DTILES_content_gltf` extension. In this example, the glTF content uses (and requires) the  `EXT_mesh_gpu_instancing` extension. The `3DTILES_content_gltf` extension JSON is used to define the glTF extensions that are used and required by the glTF content.
+> **Example:** A 3D Tiles 1.1 tileset that uses glTF content directly. In this example, the glTF content uses (and requires) the `EXT_mesh_gpu_instancing extension`. While the `3DTILES_content_gltf` extension is not required in 3D Tiles 1.1 (as glTF support is now core), including it helps runtime engines determine compatibility before loading content. The extension's JSON properties declare which glTF extensions are used and required by any glTF content in the tileset.
 > 
 > ```json
 > {
