@@ -28,7 +28,7 @@ This extension allows a 3D Tiles 1.0 tileset to use [glTF 2.0](https://github.co
 
 Using glTF as a tile format simplifies content pipelines from creation to runtime. This allows greater compatibility with existing tools (e.g. 3D modeling software, validators, optimizers) that create or process glTF assets. Runtime engines that currently support glTF can more easily support 3D Tiles. In many cases, existing tile formats can be converted into the corresponding glTF content, as described in the [Migration Guide](../specification/TileFormats/../../../specification/TileFormats/glTF/MIGRATION.adoc).
 
-For both 3D Tiles 1.0 and 1.1, this extension allows specifying the extensions that are used and required by the glTF content that the tileset refers to. This allows runtime engines to determine compatibility immediately after loading the tileset JSON, but before loading the content.
+For both 3D Tiles 1.0 and 1.1, this extension allows specifying the extensions that are used and required by any glTF content that the tileset refers to. This allows runtime engines to determine compatibility immediately after loading the tileset JSON, but before loading the content.
 
 ## Extension JSON
 
