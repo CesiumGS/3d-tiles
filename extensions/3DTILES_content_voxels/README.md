@@ -223,15 +223,15 @@ The following notes explain the implications for **box** and **cylinder** voxel 
 
 #### Box
 
-For any given glTF model, a `y`-up to `z`-up rotation will rotate its `y` axis to the positive `+z` axis, and its `z` axis to the negative `-y` axis. In a box voxel grid, the rotation transforms the indices of the voxel data in a similar way.
+For any given glTF model, a `y`-up to `z`-up rotation will rotate its `y` axis to the negative `-z` axis, and its `z` axis to the positive `+y` axis. In a box voxel grid, the rotation transforms the indices of the voxel data in a similar way.
 
-Given a **box** grid with dimensions `[width, height, depth]`, a voxel at index `[x, y, z]` in the glTF will be relocated to `[x, z, (height - 1) - y]` in 3D Tiles (see figure below).
+Given a **box** grid with dimensions `[width, height, depth]`, a voxel at index `[x, y, z]` in the glTF will be relocated to `[x, (depth - 1) - z, y]` in 3D Tiles (see figure below).
 
 ![](figures/box-voxel-transform.png)
 
-In a UV-sampling approach, the original UV coordinates would be converted from `[u, v, w]` to `[u, w, 1.0 - v]`.
+In a UV-sampling approach, the original UV coordinates would be converted from `[u, v, w]` to `[u, 1.0 - w, v]`.
 
-Conversely, if the dimensions are `[width, height, depth]` in 3D Tiles, a box voxel that is located at `[x, y, z]` will relocate to `[x, (depth - 1) - z, y]` in the glTF. Their UV coordinates respectively would be converted from `[u, v, w]` to `[u, 1.0 - w, v]`.
+Conversely, if the dimensions are `[width, height, depth]` in 3D Tiles, a box voxel that is located at `[x, y, z]` will relocate to `[x, z, (height - 1) - y]` in the glTF. Their UV coordinates respectively would be converted from `[u, v, w]` to `[u, w, 1.0 - v]`.
 
 #### Cylinder
 
