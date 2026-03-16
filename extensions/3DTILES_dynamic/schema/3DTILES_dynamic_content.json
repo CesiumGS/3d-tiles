@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "3DTILES_dynamic_content.json",
+  "title": "3DTILES_dynamic content",
+  "description": "Defines the structure of 3D Tiles content for the 3DTILES_dynamic extension",
+  "type": "object",
+  "properties": {
+    "dynamicContents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "uri": {
+            "type": "string"
+          },
+          "keys": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "uri",
+          "keys"
+        ]
+      }
+    }
+  },
+  "required": [
+    "dynamicContents"
+  ]
+}
