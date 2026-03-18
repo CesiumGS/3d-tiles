@@ -1,0 +1,15 @@
+{
+  "dynamicContents" : [ {
+    "uri" : "content-0-0-2025-09-25-revision0.glb",
+    "keys" : {
+      "exampleTimeStamp" : "2025-09-25",
+      "exampleRevision" : "revision0"
+    }
+  }, {
+    "uri" : "content-0-0-2025-09-26-revision1.glb",
+    "keys" : {
+      "exampleTimeStamp" : "2025-09-26",
+      "exampleRevision" : "revision1"
+    }
+  } ]
+}

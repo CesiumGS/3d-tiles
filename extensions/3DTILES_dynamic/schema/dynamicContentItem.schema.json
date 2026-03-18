@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dynamicContentItem.schema.json",
+  "title": "One item of the dynamic content for 3DTILES_dynamic",
+  "description": "Defines the structure of a single content item in 3DTILES_dynamic",
+  "$ref": "content.schema.json",
+  "properties": {
+    "keys": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "uri",
+    "keys"
+  ]
+}
