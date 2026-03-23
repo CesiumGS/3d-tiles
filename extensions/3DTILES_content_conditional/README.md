@@ -1,4 +1,4 @@
-# 3DTILES_dynamic
+# 3DTILES_content_conditional
 
 ## Contributors
 
@@ -19,29 +19,29 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 
 ## Overview
 
-This extension adds support for dynamic content in 3D Tiles, by defining the following elements:
+This extension adds support for conditional content in 3D Tiles, by defining the following elements:
 
 - A new content _type_ that can be referred to via the `tile.content.uri` in a 3D Tiles data set.
-- An _extension object_ in the top-level tileset JSON that descries the structure of the dynamic content
+- An _extension object_ in the top-level tileset JSON that descries the structure of the conditional content
 
-In the context of this extension, 'dynamic content' is tile content where the actual content data that is loaded and rendered depends on user-selectable criteria. In the context of this specification, the content data item that should be loaded and rendered is referred to as the _'active'_ content data. 
+In the context of this extension, 'conditional content' is tile content where the actual content data that is loaded and rendered depends on user-selectable criteria. In the context of this specification, the content data item that should be loaded and rendered is referred to as the _'active'_ content data. 
 
 
 > **Implementation Note**
 >
 > This extension specification itself does not define the behavior of clients regarding this 'active' content data. Clients could choose to pre-load all content data items, to allow them to quickly switch between them when a certain item becomes active. Alternatively, they can choose to download a content item lazily when it becomes active. When they download the content lazily, they can choose to display the previously active content until the newly active content is available and ready to be rendered, or they can choose to display a placeholder or loading indicator instead.
 
-### Dynamic Content Type
+### Conditional Content Type
 
-The new content type for the dynamic content is represented as a JSON file. Such a file can be referred to via the `tile.content.uri` in a 3D Tiles data set. The file contains an array `dynamicContents`, where each item is a [3D Tiles 1.1 `content`](https://github.com/CesiumGS/3d-tiles/blob/1.1/specification/schema/content.schema.json) with additional properties.
+The new content type for the conditional content is represented as a JSON file. Such a file can be referred to via the `tile.content.uri` in a 3D Tiles data set. The file contains an array `conditionalContents`, where each item is a [3D Tiles 1.1 `content`](https://github.com/CesiumGS/3d-tiles/blob/1.1/specification/schema/content.schema.json) with additional properties.
 
 The additional properties that are defined for each item are the `keys`. These keys serve as the basis for deciding whether the respective content item should be active. The keys are objects with arbitrary string-typed properties. The set of properties is defined by the top-level extension object (as described below).
 
-An example dynamic content data is shown here: It defines two different content items. These contents contain different keys. The keys allow the application to select the contents to be 'active', depending on a time stamp and a revision indicator.
+An example conditional content data is shown here: It defines two different content items. These contents contain different keys. The keys allow the application to select the contents to be 'active', depending on a time stamp and a revision indicator.
 
 ```jsonc
 {
-  "dynamicContents" : [ {
+  "conditionalContents" : [ {
     "uri" : "content-0-0-2025-09-25-revision0.glb",
     "keys" : {
       "exampleTimeStamp" : "2025-09-25",
@@ -59,7 +59,7 @@ An example dynamic content data is shown here: It defines two different content 
 
 ### Top-level Extension Object
 
-The structure of the dynamic contents is defined with a top-level extension object in the tileset JSON. This object is stored as the `3DTILES_dynamic` object in the `extensions` dictionary of the tileset JSON. An example of such an object - corresponding to the example content from the previous section - is shown here:
+The structure of the condition contents is defined with a top-level extension object in the tileset JSON. This object is stored as the `3DTILES_content_conditional` object in the `extensions` dictionary of the tileset JSON. An example of such an object - corresponding to the example content from the previous section - is shown here:
 
 ```jsonc
 {
@@ -77,13 +77,13 @@ It defines the `dimensions` that are available for selecting the content that sh
 
 ### Content Structure Constraints
 
-- The items that are contained in the `dynamicContents` may refer to different content types. This includes the common content types that are supported as the [3D Tiles 1.1 tile formats](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/TileFormats). But the items may _not_ refer to _external tilesets_. And they may _not_ refer to other dynamic contents.
+- The items that are contained in the `conditionalContents` may refer to different content types. This includes the common content types that are supported as the [3D Tiles 1.1 tile formats](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/TileFormats). But the items may _not_ refer to _external tilesets_. And they may _not_ refer to other conditional contents.
 
 
 ## Schema
 
-- [`3DTILES_dynamic` extension object schema](./schema/tileset.3DTILES_dynamic.schema.json)
-- [Dynamic content JSON schema](./schema/dynamicContent.schema.json)
-  - [Dynamic content item JSON schema](./schema/dynamicContentItem.schema.json)
+- [`3DTILES_content_conditional` extension object schema](./schema/tileset.3DTILES_content_conditional.schema.json)
+- [Conditional content JSON schema](./schema/conditionalContent.schema.json)
+  - [Conditional content item JSON schema](./schema/conditionalContentItem.schema.json)
 
 

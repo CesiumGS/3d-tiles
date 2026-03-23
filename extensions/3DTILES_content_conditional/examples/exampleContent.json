@@ -1,5 +1,5 @@
 {
-  "dynamicContents" : [ {
+  "conditionalContents" : [ {
     "uri" : "content-0-0-2025-09-25-revision0.glb",
     "keys" : {
       "exampleTimeStamp" : "2025-09-25",

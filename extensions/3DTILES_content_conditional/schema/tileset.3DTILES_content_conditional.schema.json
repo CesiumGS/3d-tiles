@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "3DTILES_dynamic_extension.json",
-  "title": "3DTILES_dynamic extension",
-  "description": "Defines the structure of the extension object that is stored as the 3DTILES_dynamic extension in a tileset JSON",
+  "$id": "3DTILES_content_conditional.schema.json",
+  "title": "3DTILES_content_conditional extension",
+  "description": "Defines the structure of the extension object that is stored as the 3DTILES_content_conditional extension in a tileset JSON",
   "type": "object",
   "properties": {
     "dimensions": {

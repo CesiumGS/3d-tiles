@@ -1,6 +1,6 @@
 {
   "extensions" : {
-    "3DTILES_dynamic" : {
+    "3DTILES_content_conditional" : {
       "dimensions" : [ {
         "name" : "exampleTimeStamp",
         "keySet" : [ "2025-09-25", "2025-09-26" ]
