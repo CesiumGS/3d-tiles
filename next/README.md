@@ -60,4 +60,4 @@ These extensions, combined with 3D Tiles hierarchical level-of-detail system, al
 
 ## Presentations & Videos
 
- - [3D Tiles 2.0 presented at OGC Member Meeting](https://example.org/change/me)
+ - [3D Tiles 2.0 presented at OGC Member Meeting](https://vimeo.com/1171949806?share=copy&fl=sv&fe=ci)
