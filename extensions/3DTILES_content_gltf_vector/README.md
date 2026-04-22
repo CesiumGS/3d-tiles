@@ -48,7 +48,8 @@ Applied to geospatial domains, the term “vector data” refers to geometric to
 
 Extending the concept of vector data into the domain of graphics APIs, and of 3D scenes already composed of graphics primitives — such as points, lines, triangles — this extension proposes and defines an additional distinction: \*\*“vector data” comprises point, polyline, and polygon geometries with intrinsic semantic meaning, but without intrinsic rendering intent.
 
-> **Implementation note:** Unlike typical glTF geometry, vector data geometry does not directly convey rendering intent. Vector data is a vehicle for topology or for associated properties. Points may be aggregated, clustered, or used as anchors for labels. Lines may be widened or dashed, or used as an invisible track for animation. Polygons may be outlined, extruded, subtracted from existing scene geometry, or used to define an abstract area of analysis.,
+> [!NOTE]
+> Unlike typical glTF geometry, vector data geometry does not directly convey rendering intent. Vector data is a vehicle for topology or for associated properties. Points may be aggregated, clustered, or used as anchors for labels. Lines may be widened, dashed, or used as an invisible track for animation. Polygons may be outlined, extruded, subtracted from existing scene geometry, or used to define an abstract area of analysis.
 
 Working from the definition above, this extension proposes a mechanism for encoding vector point, line, and polygon data in 3D Tiles using glTF content, and for distinguishing such vector data from general glTF content. The extension further refines tile and content bounding volumes as needed to support seamless tiled vector rendering in a variety of visual styles.
 
@@ -114,15 +115,19 @@ The buffer region is provided to mitigate seams and discontinuities at tile boun
 
 > TODO: Improve and describe illustration.
 
-> **Implementation note:** Clipping may be implemented by pre-processing geometry, by discarding fragments in a pixel shader, or by any other means. For typical vector visual styles (involving, for example, wide lines), it is expected that most implementations will implement clipping in the fragment shader (or equivalent), in order to preserve the influence of geometry just outside the tile boundary on lines or outlines crossing the tile boundary.
+> [!NOTE]
+> Clipping may be implemented by pre-processing geometry, by discarding fragments in a pixel shader, or by any other means. For typical vector visual styles (involving, for example, wide lines), it is expected that most implementations will implement clipping in the fragment shader (or equivalent), in order to preserve the influence of geometry just outside the tile boundary on lines or outlines crossing the tile boundary.
 
-> **Implementation note:** To avoid visual artifacts, client implementations would (in the absence of "buffer" region data) need to connect geometries in each tile to their corresponding geometries in adjacent tiles. Such mapping and reconstruction at runtime, while not prohibited, is often impractical for realtime implementations. Overlapping buffers at tile boundaries are included in 3D Tiles as an alternative.
+> [!NOTE]
+> To avoid visual artifacts, client implementations would (in the absence of "buffer" region data) need to connect geometries in each tile to their corresponding geometries in adjacent tiles. Such mapping and reconstruction at runtime, while not prohibited, is often impractical for realtime implementations. Overlapping buffers at tile boundaries are included in 3D Tiles as an alternative.
 
 As a result, `content.boundingVolume` may extend arbitrarily outside of `tile.boundingVolume`. Client implementations SHOULD implement LOD selection and tile visibility based on the tile bounding volume, not the (potentially larger) content bounding volume; tile visibility is unchanged as compared to non-vector data. Authoring implementations SHOULD include content extending _outside_ the tile bounding volume only to the extent that such content is likely to influence visualization _inside_ the tile bounding volume.
 
-> **Implementation note:** A small buffer region, representing a single-digit percentage of a tile's width, is expected to be sufficient for most rendering styles. Client implementations may choose to limit line widths to the widths of tile buffers, in screen space or world space, to avoid visual artifacts.
+> [!NOTE]
+> A small buffer region, representing a single-digit percentage of a tile's width, is expected to be sufficient for most rendering styles. Client implementations may choose to limit line widths to the widths of tile buffers, in screen space or world space, to avoid visual artifacts.
 
-> **Implementation note:** Point geometries do not typically require buffer regions or clipping at tile boundaries for proper rendering, but authoring and client implementations are not prohibited from doing either.
+> [!NOTE]
+> Point geometries do not typically require buffer regions or clipping at tile boundaries for proper rendering, but authoring and client implementations are not prohibited from doing either.
 
 ## Feature IDs and Properties
 
