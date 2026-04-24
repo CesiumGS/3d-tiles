@@ -30,7 +30,7 @@ Extension|Notes
 [MAXAR_content_geojson](https://github.com/Maxar-Public/3d-tiles/tree/wff1.7.0/extensions/MAXAR_content_geojson)|_Written against 3D Tiles 1.1_
 [MAXAR_extent](https://github.com/Maxar-Public/3d-tiles/tree/wff1.7.0/extensions/MAXAR_extent)|_Written against 3D Tiles 1.0 and 1.1_
 [VRICON_class](https://github.com/Maxar-Public/3d-tiles/tree/wff1.7.0/extensions/VRICON_class)|_Written against 3D Tiles 1.0_
-
+[ESRI_crs](https://github.com/Esri/3D-tiles-layer/blob/main/ESRI_CRS/Esri_crs_extension.md)|_Written against 3D Tiles 1.1_
 
 ## About
 

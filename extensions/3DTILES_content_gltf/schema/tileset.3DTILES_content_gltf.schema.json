@@ -3,7 +3,7 @@
     "$id": "tileset.3DTILES_content_gltf.schema.json",
     "title": "3DTILES_content_gltf extension",
     "$ref": "rootProperty.schema.json",
-    "description": "3D Tiles extension that allows a tileset to use glTF models directly as tile content.",
+    "description": "3D Tiles extension that allows a 3D Tiles 1.0 tileset to use glTF models directly as tile content. For 3D Tiles 1.0 and 3D Tiles 1.1, it allows to specify the extensions that are used and required by the glTF content.",
     "properties": {
         "extensionsUsed": {
             "type": "array",
