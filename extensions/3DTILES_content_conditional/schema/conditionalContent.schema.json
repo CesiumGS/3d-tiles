@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "conditionalContent.schema.json",
+  "$ref": "rootProperty.schema.json",
   "title": "Content for 3DTILES_content_conditional",
   "description": "Defines the structure of 3D Tiles content for the 3DTILES_content_conditional extension",
   "type": "object",

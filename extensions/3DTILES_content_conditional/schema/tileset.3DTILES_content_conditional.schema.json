@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "3DTILES_content_conditional.schema.json",
+  "$ref": "rootProperty.schema.json",
   "title": "3DTILES_content_conditional extension",
   "description": "Defines the structure of the extension object that is stored as the 3DTILES_content_conditional extension in a tileset JSON",
   "type": "object",
