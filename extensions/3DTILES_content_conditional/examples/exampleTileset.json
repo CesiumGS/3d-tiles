@@ -1,0 +1,27 @@
+{
+  "extensions" : {
+    "3DTILES_content_conditional" : {
+      "dimensions" : [ {
+        "name" : "exampleTimeStamp",
+        "keySet" : [ "2025-09-25", "2025-09-26" ]
+      }, {
+        "name" : "exampleRevision",
+        "keySet" : [ "revision0", "revision1" ]
+      } ]
+    }
+  },
+  "asset" : {
+    "version" : "1.1"
+  },
+  "geometricError" : 2.0,
+  "root" : {
+    "refine": "REPLACE",
+    "boundingVolume" : {
+      "box" : [ 0.5, 0.5, 0.5, 0.5, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.5 ]
+    },
+    "geometricError" : 1.0,
+    "content": {
+      "uri": "exampleContent.json"
+    }
+  }
+}
