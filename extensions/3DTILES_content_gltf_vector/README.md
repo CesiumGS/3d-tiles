@@ -46,7 +46,7 @@ This extension is always optional. It should be placed in the tileset JSON `exte
 
 Applied to geospatial domains, the term “vector data” refers to geometric topologies: points in 2D or 3D coordinate systems; polylines connecting a series of points; or polygons having a closed, exterior loop of points, optionally with additional interior loops defining holes in the polygon. The term "vector data" exists in contrast to “raster data”, which stores pixel grids in image-like formats, rather than discrete geometric types.
 
-Extending the concept of vector data into the domain of graphics APIs, and of 3D scenes already composed of graphics primitives — such as points, lines, triangles — this extension proposes and defines an additional distinction: \*\*“vector data” comprises point, polyline, and polygon geometries with intrinsic semantic meaning, but without intrinsic rendering intent.
+Extending the concept of vector data into the domain of graphics APIs, and of 3D scenes already composed of graphics primitives — such as points, lines, triangles — this extension proposes and defines an additional distinction: “vector data” comprises point, polyline, and polygon geometries with intrinsic semantic meaning, but without intrinsic rendering intent.
 
 > [!NOTE]
 > Unlike typical glTF geometry, vector data geometry does not directly convey rendering intent. Vector data is a vehicle for topology or for associated properties. Points may be aggregated, clustered, or used as anchors for labels. Lines may be widened, dashed, or used as an invisible track for animation. Polygons may be outlined, extruded, subtracted from existing scene geometry, or used to define an abstract area of analysis.
@@ -59,8 +59,9 @@ A `content` definition, containing a reference URL or template URL to glTF conte
 
 ```jsonc
 {
+  ...
+  "extensionsUsed": [ "3DTILES_content_gltf_vector" ],
   "root": {
-    "extensionsUsed": [ "3DTILES_content_gltf_vector" ],
     ...
     "content": {
       "uri": "content/{level}/{x}/{y}.glb",
