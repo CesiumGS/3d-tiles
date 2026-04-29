@@ -1,0 +1,41 @@
+{
+  "type": "FeatureCollection",
+  "features": [{
+      "type": "Feature",
+      "properties": {
+        "Name": "Bu. No.6545",
+        "Type": "PBM-3 Mariner",
+        "Casualties": 12,
+        "Date": "1945-07-10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-77.34, 25.22]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+        "Name": "Flight 19",
+        "Type": "Grumman TBF Avengers",
+        "Casualties": 14,
+        "Date": "1945-12-05"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-79, 29]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+        "Name": "Bu. No.59225",
+        "Type": "PBM-5 Mariner",
+        "Casualties": 13,
+        "Date": "1945-12-05"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-80.25, 28.59]
+      }
+    }
+  ]
+}

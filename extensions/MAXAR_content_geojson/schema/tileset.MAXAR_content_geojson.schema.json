@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tileset.MAXAR_content_geojson.schema.json",
+  "title": "MAXAR_content_geojson tileset extension",
+  "description": "Enables loading GeoJSON content in 3D Tiles. This extension is declared at the tileset level to enable the use of GeoJSON content and optional properties metadata schemas in metadata entities.",
+  "$ref": "rootProperty.schema.json",
+  "type": "object"
+}

@@ -1,0 +1,38 @@
+{
+  "name": "Ships schema",
+  "semantic": "UNKNOWN",
+  "geometry": {
+    "type": "LineString",
+    "dimensions": 2
+  },
+  "properties": [{
+      "id": "Name",
+      "type": "String",
+      "required": true
+    }, {
+      "id": "Displacement",
+      "type": "Integer",
+      "unit": "tons",
+      "required": true,
+      "min": 1000,
+      "max": 50000,
+      "description": "Ship displacement in tons"
+    }, {
+      "id": "Length",
+      "type": "Float",
+      "unit": "meter",
+      "required": true,
+      "min": 10.0,
+      "max": 500.0,
+      "description": "Ship length in meters"
+    }, {
+      "id": "Year",
+      "type": "Integer",
+      "unit": "year",
+      "required": true,
+      "min": 1800,
+      "max": 2024,
+      "description": "The year the ship disappeared"
+    }
+  ]
+}

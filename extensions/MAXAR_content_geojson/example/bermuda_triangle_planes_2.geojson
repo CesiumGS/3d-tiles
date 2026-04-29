@@ -1,0 +1,29 @@
+{
+  "type": "FeatureCollection",
+  "features": [{
+      "type": "Feature",
+      "properties": {
+        "Name": "51-2680",
+        "Type": " C-119 Flying Boxcar",
+        "Casualties": 10,
+        "Date": "1965-06-5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-74.016667, 22.35]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+        "Name": "BSAA Star Tiger",
+        "Type": "Avro 688 Tudor Mark IV",
+        "Casualties": 31,
+        "Date": "1948-01-30"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-64.681528, 32.364528]
+      }
+    }
+  ]
+}

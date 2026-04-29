@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "geojsonproperties.schema.json",
+  "title": "GeoJSON Properties Schema",
+  "type": "object",
+  "description": "External metadata schema that describes the structure and validation rules for properties found in GeoJSON features within 3D Tiles content. This schema defines the expected property names, data types, constraints, and semantics that should be present in the 'properties' object of GeoJSON Feature objects.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Human readable name for the properties schema",
+      "minLength": 1
+    },
+    "semantic": {
+      "type": "string",
+      "minLength": 1,
+      "description": "A high-level identifier that define the meaning of the properties. Recommended best practice is to select a value from a controlled vocabulary or formal classification scheme."
+    },
+    "geometry": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["Point", "LineString", "Polygon", "MultiPoint", "MultiLineString", "MultiPolygon"],
+          "description": "Type of GeoJSON geometry inside the group"
+        },
+        "dimensions": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 3,
+          "description": "2D or 3D geometries"
+        }
+      },
+      "required": [
+        "type",
+        "dimensions"
+      ]
+    },
+    "properties": {
+      "type": "array",
+      "description": "An array of property definitions that correspond to the properties found in GeoJSON Feature objects. Each definition describes a property that may appear in the 'properties' field of GeoJSON features within the associated tile content. Each property's semantic value must be unique within the array.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Unique property identifier that corresponds to a property name in the GeoJSON Feature's 'properties' object."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["Integer", "Float", "String", "Boolean", "Variant"],
+            "description": "Expected datatype of the property value in the GeoJSON Feature's 'properties' object"
+          },
+          "description": {
+            "type": "string",
+            "description": "Human readable description of the property.",
+            "minLength": 1
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit of the specified property.",
+            "minLength": 1
+          },
+          "max": {
+            "type": "number",
+            "description": "Maximum allowed value for the property. Only applicable to integer and float types. When both min and max are specified, max must be greater than or equal to min."
+          },
+          "min": {
+            "type": "number",
+            "description": "Minimum allowed value for the property. Only applicable to integer and float types. When both min and max are specified, min must be less than or equal to max."
+          },
+          "required": {
+            "type": "boolean",
+            "description": "If true, this property must be present in the 'properties' object of every GeoJSON Feature in the associated tile content."
+          },
+          "default": {
+            "oneOf": [{
+                "type": "number"
+              }, {
+                "type": "string"
+              }, {
+                "type": "boolean"
+              }
+            ],
+            "description": "A default value to use when this property is missing from a GeoJSON Feature's 'properties' object. Shall not be defined if `required` is true."
+          },
+          "semantic": {
+            "type": "string",
+            "minLength": 1,
+            "description": "An identifier that describes how this property should be interpreted. The semantic cannot be used by other properties in the properties schema."
+          }
+        },
+        "allOf": [{
+            "if": {
+              "properties": {
+                "required": {
+                  "const": true
+                }
+              },
+              "required": ["required"]
+            },
+            "then": {
+              "not": {
+                "required": ["default"]
+              }
+            }
+          }, {
+            "if": {
+              "not": {
+                "properties": {
+                  "type": {
+                    "enum": ["Integer", "Float"]
+                  }
+                },
+                "required": ["type"]
+              }
+            },
+            "then": {
+              "not": {
+                "anyOf": [{
+                    "required": ["min"]
+                  }, {
+                    "required": ["max"]
+                  }
+                ]
+              }
+            }
+          }, {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "Variant"
+                }
+              },
+              "required": ["type"]
+            },
+            "then": {
+              "not": {
+                "required": ["default"]
+              }
+            }
+          }, {
+            "not": {
+              "properties": {
+                "type": {
+                  "const": "Variant"
+                },
+                "required": {
+                  "const": false
+                }
+              },
+              "required": ["type", "required"]
+            }
+          }, {
+
+            "if": {
+              "properties": {
+                "type": {
+                  "enum": ["Integer", "Float"]
+                }
+              },
+              "required": ["type", "default"]
+            },
+            "then": {
+              "properties": {
+                "default": {
+                  "type": "number"
+                }
+              }
+            }
+          }, {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "String"
+                }
+              },
+              "required": ["type", "default"]
+            },
+            "then": {
+              "properties": {
+                "default": {
+                  "type": "string",
+                  "minLength": 0
+                }
+              }
+            }
+          }, {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "Boolean"
+                }
+              },
+              "required": ["type", "default"]
+            },
+            "then": {
+              "properties": {
+                "default": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "semantic",
+    "geometry",
+    "properties"
+  ]
+}

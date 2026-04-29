@@ -1,0 +1,32 @@
+{
+  "name": "Planes schema",
+  "semantic": "UNKNOWN",
+  "geometry": {
+    "type": "Point",
+    "dimensions": 2
+  },
+  "properties": [{
+      "id": "Name",
+      "type": "String",
+      "required": true
+    }, {
+      "id": "Type",
+      "type": "String",
+      "description": "Type of aircraft",
+      "required": true
+    }, {
+      "id": "Casualties",
+      "type": "Integer",
+      "description": "Number of known casualties",
+      "required": true,
+      "min": 0,
+      "max": 100
+    }, {
+      "id": "Date",
+      "type": "String",
+      "unit": "date",
+      "description": "ISO 8601 formatted date of incident",
+      "required": true
+    }
+  ]
+}
