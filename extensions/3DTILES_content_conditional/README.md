@@ -22,7 +22,7 @@ This extension is required, meaning it must be placed in both the `extensionsUse
 This extension adds support for conditional content in 3D Tiles, by defining the following elements:
 
 - A new content _type_ that can be referred to via the `tile.content.uri` in a 3D Tiles data set.
-- An _extension object_ in the top-level tileset JSON that descries the structure of the conditional content
+- An _extension object_ in the top-level tileset JSON that describes the structure of the conditional content
 
 In the context of this extension, 'conditional content' is tile content where the actual content data that is loaded and rendered depends on user-selectable criteria. In the context of this specification, the content data item that should be loaded and rendered is referred to as the _'active'_ content data. 
 
@@ -35,7 +35,7 @@ In the context of this extension, 'conditional content' is tile content where th
 
 The new content type for the conditional content is represented as a JSON file. Such a file can be referred to via the `tile.content.uri` in a 3D Tiles data set. The file contains an array `conditionalContents`, where each item is a [3D Tiles 1.1 `content`](https://github.com/CesiumGS/3d-tiles/blob/1.1/specification/schema/content.schema.json) with additional properties.
 
-The additional properties that are defined for each item are the `keys`. These keys serve as the basis for deciding whether the respective content item should be active. The keys are objects with arbitrary string-typed properties. The set of properties is defined by the top-level extension object (as described below).
+The additional properties that are defined for each item are the `keys`. These keys serve as the basis for deciding whether the respective content item should be active. The keys are objects with arbitrary properties that have the type `string`, `number`, or `boolean`. The set of properties is defined by the top-level extension object (as described below).
 
 An example conditional content data is shown here: It defines two different content items. These contents contain different keys. The keys allow the application to select the contents to be 'active', depending on a time stamp and a revision indicator.
 
@@ -59,7 +59,7 @@ An example conditional content data is shown here: It defines two different cont
 
 ### Top-level Extension Object
 
-The structure of the condition contents is defined with a top-level extension object in the tileset JSON. This object is stored as the `3DTILES_content_conditional` object in the `extensions` dictionary of the tileset JSON. An example of such an object - corresponding to the example content from the previous section - is shown here:
+The structure of the conditional contents is defined with a top-level extension object in the tileset JSON. This object is stored as the `3DTILES_content_conditional` object in the `extensions` dictionary of the tileset JSON. An example of such an object - corresponding to the example content from the previous section - is shown here:
 
 ```jsonc
 {
