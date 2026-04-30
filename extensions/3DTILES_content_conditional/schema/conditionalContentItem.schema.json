@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "conditionalContentItem.schema.json",
-  "title": "One item of the dynamic content for 3DTILES_content_conditional",
+  "title": "One item of the conditional content for 3DTILES_content_conditional",
   "description": "Defines the structure of a single content item in 3DTILES_content_conditional",
   "$ref": "content.schema.json",
   "properties": {
