@@ -1,6 +1,6 @@
 # 3D Tiles 2.0
 
-![](figures/3DTiles_light_color_small.png#gh-dark-mode-only)![](figures/3DTiles_dark_color_small.png#gh-light-mode-only)
+![](../../figures/3DTiles_light_color_small.png#gh-dark-mode-only)![](../../figures/3DTiles_dark_color_small.png#gh-light-mode-only)
 
 **3D Tiles 2.0** continues the evolution of 3D Tiles, embracing new glTF concepts as well as bringing new features to 3D Tiles, including:
 
