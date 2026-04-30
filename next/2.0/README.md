@@ -18,6 +18,11 @@ _**Overview:** Building upon 3D Tiles and glTF, 3D Tiles 2.0 uses a 3D-first app
 
 _The addition of vector data within 3D Tiles doesn't replace existing formats but instead embraces interoperability with popular formats like Mapbox Vector Tiles, GeoJSON, and others. Styling is performed by using the declarative styling language that 3D Tiles users are already familiar with._
 
+| | Extension |
+| --- | --- |
+| | [`KHR_mesh_primitive_restart`](https://github.com/KhronosGroup/glTF/pull/2569) (glTF 2.0 extension) <br> Allows selective relaxation of the prohibition against maximal index values in index buffers to allow use of primitive restart in glTF assets. This allows for more performant rendering of complex scenes. |
+| | [`EXT_Mesh_polygon`](https://github.com/KhronosGroup/glTF/pull/2570) (glTF 2.0 extension) <br> Allows defining n-sided polygons optionally containing holes. |
+
 ## Voxels
 
 _**Overview:** Much of what geospatial systems model, from weather and atmosphere to subsurface geology and ocean columns, doesn't live on a surface. Voxels are often the best representation for many of these systems, and in some cases, the only representation that makes sense. 3D Tiles 2.0 adds support for both dense and sparse voxels._
@@ -26,7 +31,7 @@ _**Overview:** Much of what geospatial systems model, from weather and atmospher
 | --- | --- |
 | ![Voxels](./images/voxels.png) | [`EXT_primitive_voxels`](https://github.com/KhronosGroup/glTF/pull/2496) (glTF 2.0 extension) <br> Enables support for volumetric data to be stored as voxels in glTF. Using this extension, a glTF mesh can define a uniform voxel grid with specified shapes and dimensions. The primitives attributes are inferred to fill the voxel grid as continuous data within the volume. |
 | ![Implicit Cylinder](./images/implicit_cylinder.png) | [`EXT_implicit_cylinder_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_implicit_cylinder_region) (glTF 2.0 extension) <br> Adds support for implicit cylinder regions to the `KHR_implicit_shapes` extension for glTF. This is used by `EXT_primitive_voxels` for rendering voxels in a cylinder volume. |
-| ![Implicit Ellipsoid](./iamges/implicit_ellipsoid.png) | [`EXT_implicit_ellipsoid_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_implicit_ellipsoid_region) (glTF 2.0 extension) <br> Adds support for implicit ellipsoid regions to the `KHR_implicit_shapes` extension for glTF. This is used by `EXT_primitive_voxes` for rendering voxels in an ellipsoidal region. |
+| ![Implicit Ellipsoid](./images/implicit_ellipsoid.png) | [`EXT_implicit_ellipsoid_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_implicit_ellipsoid_region) (glTF 2.0 extension) <br> Adds support for implicit ellipsoid regions to the `KHR_implicit_shapes` extension for glTF. This is used by `EXT_primitive_voxes` for rendering voxels in an ellipsoidal region. |
 
 ## Time Dynamic Tiles
 
@@ -42,7 +47,7 @@ _**Overview:** To meet the requirements of the CAD-centric users of the AECO dom
 
 | | Extension |
 | --- | --- |
-| | [`EXT_mesh_primitive_restart`](https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_restart) (glTF 2.0 extension) <br> Allows selective relaxation of the prohibition against maximal index values in index buffers to allow use of primitive restart in glTF assets. This allows for more performant rendering of complex scenes. |
+| | [`KHR_mesh_primitive_restart`](https://github.com/KhronosGroup/glTF/pull/2569) (glTF 2.0 extension) <br> Allows selective relaxation of the prohibition against maximal index values in index buffers to allow use of primitive restart in glTF assets. This allows for more performant rendering of complex scenes. |
 | ![Visible edges in mesh](./images/edge_visibility.png) | [`EXT_mesh_primitive_edge_visibility`](https://github.com/KhronosGroup/glTF/pull/2479) (glTF 2.0+ extension) <br> Augments a triangle mesh primitive with sufficient information to enable engines to produce non-photorealistic visualizations of 3D objects with visible edges. The edge visibility is encoded in a highly compact form to avoid excessively bloating the glTF asset. |
 | ![Constant level-of-detail](./images/constant_lod.png) | [`EXT_texture_info_constant_lod`](https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/EXT_textureInfo_constant_lod) (glTF 2.0 extension) <br> Constant level-of-detail ("LOD") is a technique of texture coordinate generation which dynamically calculates texture coordinates to maintain a consistent texel-to-pixel ratio on screen, regardless of camera distance. This extension defines properties needed to calculate these dynamic texture coordinates: the number of times the texture is repeated per meter, an offset to shift the texture, and the minimum and maximum distance for which to clamp the texture. |
 | ![Line Style](./images/line_style.jpg) | [`BENTLEY_materials_line_style`](https://github.com/CesiumGS/glTF/pull/89) (glTF 2.0+ extension) <br> Defines a method for describing the visual style of lines within glTF material. It enables authors to specify line thickness and a repeating dash pattern. |
