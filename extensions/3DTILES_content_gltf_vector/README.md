@@ -74,9 +74,9 @@ A `content` definition, containing a reference URL or template URL to glTF conte
 }
 ```
 
-Interpretation glTF content as particular vector types is explained further in the following sections. See [points](#points), [polylines](#polylines), and [polygons](#polygons).
+Interpretation of glTF content as particular vector types is explained further in the following sections. See [points](#points), [polylines](#polylines), and [polygons](#polygons).
 
-Requirements for bounding volumes on glTF vector content may differ from other 3D Tiles content types. See [bounding volumes](#bounding-volumes).
+Requirements for bounding volumes on glTF vector content may differ from other 3D Tiles content types. See [Bounding volumes and clipping](#bounding-volumes-and-clipping).
 
 ## Points
 
@@ -134,7 +134,7 @@ As a result, `content.boundingVolume` may extend arbitrarily outside of `tile.bo
 
 _This section is non-normative._
 
-Point, polyline, and polygon geometries are often associated with other geometries comprising a single conceptual feature. Polyline and polygon geometries may also be cut across neighboring tiles during the tiling process. In such cases, `EXT_mesh_features` and `EXT_structural_metadata` may be used to reference and store properties associated with vector features. Global unique IDs, stored as columns in `EXT_structural_metadata`, may be used to allow features split across multiple tiles to participate in interaction (e.g. highlighting) as a single enttiy.
+Point, polyline, and polygon geometries are often associated with other geometries comprising a single conceptual feature. Polyline and polygon geometries may also be cut across neighboring tiles during the tiling process. In such cases, `EXT_mesh_features` and `EXT_structural_metadata` may be used to reference and store properties associated with vector features. Global unique IDs, stored as columns in `EXT_structural_metadata`, may be used to allow features split across multiple tiles to participate in interaction (e.g. highlighting) as a single entity.
 
 ## Visualization
 
