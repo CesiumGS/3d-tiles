@@ -58,6 +58,7 @@ An example conditional content data is shown here: It defines two different cont
 ```
 The `uri` of an item in the `conditionalContents` array is resolved relative to the conditional content JSON file.
 
+The conditional content JSON files should use the `.json` extension and the [application/json](https://www.iana.org/assignments/media-types/application/json) Media Type.
 
 ### Top-level Extension Object
 
