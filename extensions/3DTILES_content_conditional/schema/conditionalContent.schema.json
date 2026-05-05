@@ -7,6 +7,7 @@
   "type": "object",
   "properties": {
     "conditionalContents": {
+      "description": "The array of content objects that have additional conditions associated with them, based on which they are activated.",
       "type": "array",
       "items": {
           "$ref": "conditionalContentItem.schema.json"
