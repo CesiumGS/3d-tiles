@@ -1,0 +1,22 @@
+{
+  "type": "FeatureCollection",
+  "name": "Bermuda Features",
+  "features": [{
+      "type": "Feature",
+      "properties": {
+        "name": "Bermuda Triangle"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-64.74, 32.32],
+            [-80.208615, 25.775163],
+            [-66.063889, 18.406389],
+            [-64.74, 32.32]
+          ]
+        ]
+      }
+    }
+  ]
+}

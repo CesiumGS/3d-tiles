@@ -1,0 +1,35 @@
+{
+  "type": "FeatureCollection",
+  "features": [{
+      "type": "Feature",
+      "properties": {
+        "Name": "USS Cyclops",
+        "Displacement": 19360,
+        "Length": 165.0,
+        "Year": 1918
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+        [-59.566667, 13.166667],
+        [-76.615278, 39.289444]
+        ]
+      }
+    },{
+      "type": "Feature",
+      "properties": {
+        "Name": "Carroll A. Deering",
+        "Displacement": 3500,
+        "Length": 77.724,
+        "Year": 1921       
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+        [-59.566667, 13.166667],
+        [-76.366667, 36.966667]
+        ]
+      }
+    }
+  ]
+}

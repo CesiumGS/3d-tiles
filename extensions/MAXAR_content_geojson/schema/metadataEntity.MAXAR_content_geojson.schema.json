@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "metadataEntity.MAXAR_content_geojson.schema.json",
+  "title": "MAXAR_content_geojson extension",
+  "description": "Enables loading optional metadata schema for GeoJSON properties.",
+  "$ref": "rootProperty.schema.json",
+  "type": "object",
+  "properties": {
+    "propertiesSchemaUri": {
+      "type": "string",
+      "description": "The URI (or IRI) of the external schema file for feature metadata.",
+      "format": "iri-reference"
+    }
+  }
+}

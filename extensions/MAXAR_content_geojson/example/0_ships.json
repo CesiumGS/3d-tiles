@@ -1,0 +1,86 @@
+{
+  "asset": {
+    "title": "Bermuda Triangle Example",
+    "version": "1.1"
+  },
+  "schema": {
+    "id": "ExampleSchema",
+    "classes": {
+      "tileset": {
+        "properties": {
+          "content_type": {
+            "default": "MESH",
+            "name": "Content Type",
+            "optional": true,
+            "type": "STRING"
+          },
+          "geometry_model": {
+            "default": "SURFACE",
+            "name": "Geometry Model",
+            "optional": true,
+            "type": "STRING"
+          },
+          "name": {
+            "name": "Name of dataset",
+            "optional": true,
+            "type": "STRING"
+          },
+          "schema": {
+            "name": "WFF Schema identifier",
+            "optional": true,
+            "type": "STRING"
+          },
+          "wff_version": {
+            "default": "1.5",
+            "name": "WFF Schema version",
+            "optional": false,
+            "type": "STRING"
+          }
+
+        }
+      }
+    }
+  },
+  "metadata": {
+    "class": "tileset",
+    "properties": {
+      "content_type": "VECTOR",
+      "geometry_model": "OBJECTS",
+      "name": "Bermuda Triangle",
+      "schema": "wff/15",
+      "wff_version": "1.5"
+    },
+    "extensions": {
+      "MAXAR_content_geojson": {
+        "propertiesSchemaUri": "ships_schema.json"
+      }
+    }
+  },
+  "extensions": {
+    "MAXAR_content_geojson": {}
+  },
+  "extensionsRequired": [
+    "MAXAR_content_geojson"
+  ],
+  "extensionsUsed": [
+    "MAXAR_content_geojson"
+  ],
+  "geometricError": 0,
+  "root": {
+    "boundingVolume": {
+      "region": [
+        -1.337188893,
+        0.229801743,
+        -1.039634516,
+        0.685730089,
+        -250.0,
+        250.0
+      ]
+    },
+    "content": {
+      "uri": "bermuda_triangle_ships.geojson"
+    },
+    "geometricError": 0,
+    "refine": "REPLACE"
+  }
+}
