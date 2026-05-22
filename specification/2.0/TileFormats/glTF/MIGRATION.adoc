@@ -1,0 +1,69 @@
+[#tileformats-gltf-migration-from-legacy-tile-formats]
+= Migration From Legacy Tile Formats
+
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-tileformats: {url-specification}TileFormats/
+:url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
+:url-specification-tileformats-composite: {url-specification-tileformats}Composite/
+:url-specification-tileformats-instanced3dmodel: {url-specification-tileformats}Instanced3DModel/
+:url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-tileformats:
+:url-specification-tileformats-batched3dmodel:
+:url-specification-tileformats-composite:
+:url-specification-tileformats-instanced3dmodel:
+:url-specification-tileformats-pointcloud:
+endif::[]
+
+This section describes how legacy tile formats can be converted into equivalent glTF content.
+
+[#tileformats-gltf-batched-3d-model-b3dm]
+== Batched 3D Model (b3dm)
+
+xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model] is a wrapper around a binary glTF that includes additional information in its Feature Table and Batch Table. Batched 3D Model content can be converted into glTF content with the following changes:
+
+* The xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-coordinate-system[`RTC_CENTER`] can be added to the translation component of the root node of the glTF asset.
+* Batch IDs and Batch Tables can be represented using https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`].
+
+.Batched 3D Models in 3D Tiles 1.0, and the corresponding representation in 3D Tiles 1.1
+image::figures/migration-b3dm.png[b3dm]
+
+[#tileformats-gltf-instanced-3d-model-i3dm]
+== Instanced 3D Model (i3dm)
+
+
+xref:{url-specification-tileformats-instanced3dmodel}README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model] instances a glTF asset (embedded or external) and provides per-instance transforms and batch IDs.
+
+* The `RTC_CENTER` can be added to the translation component of the root node of the glTF asset.
+* glTF can leverage GPU instancing with the https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Vendor/EXT_mesh_gpu_instancing/README.md[EXT_mesh_gpu_instancing] extension.
+* Batch IDs and Batch Tables can be represented using https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features[`EXT_instance_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`].
+* `EAST_NORTH_UP` is not directly supported, but can be represented using per-instance rotations.
+
+.Instanced 3D Models in 3D Tiles 1.0, and the corresponding representation in 3D Tiles 1.1
+image::figures/migration-i3dm.png[i3dm]
+
+[#tileformats-gltf-point-cloud-pnts]
+== Point Cloud (pnts)
+
+xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud] can be represented as a glTF using the primitive mode `0` (`POINTS`).
+
+* The `RTC_CENTER` can be added to the translation component of the root node of the glTF asset.
+* Feature table properties like `POSITION`, `COLOR`, and `NORMAL` may be stored as glTF attributes.
+* https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_meshopt_compression[`EXT_meshopt_compression`] and https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_mesh_quantization[`KHR_mesh_quantization`] may be used for point cloud compression. link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_draco_point_compression/[`3DTILES_draco_point_compression`] is not directly supported in glTF because https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_draco_mesh_compression[`KHR_draco_mesh_compression`] only supports triangle meshes.
+* Batch IDs and Batch Tables can be represented using https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`].
+* `CONSTANT_RGBA` is not directly supported in glTF, but can be achieved with materials or per-point colors.
+* If `COLOR` or `CONSTANT_RGBA` are present, they should be converted from sRGB to linear RGB in the glTF.
+
+.Point Clouds in 3D Tiles 1.0, and the corresponding representation in 3D Tiles 1.1
+image::figures/migration-pnts.png[pnts]
+
+[#tileformats-gltf-composite-cmpt]
+== Composite (cmpt)
+
+All inner contents of a xref:{url-specification-tileformats-composite}README.adoc#tileformats-composite-composite[Composite] may be combined into the same glTF as separate nodes, meshes, or primitives, at the tileset author's discretion. Alternatively, a tile may have xref:{url-specification}README.adoc#core-tile-content[multiple contents].
+

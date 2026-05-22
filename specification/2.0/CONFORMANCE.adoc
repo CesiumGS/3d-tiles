@@ -1,0 +1,6 @@
+== Conformance
+
+Annex A of this document describes the Objects and Properties required to implement 3D Tiles. Conformance is relative to these elements and as partly expressed via the associated 3D Tiles xref:APPENDIX.adoc#json-schema[JSON Schema].
+
+All figures, examples, notes, and background information are informative.
+

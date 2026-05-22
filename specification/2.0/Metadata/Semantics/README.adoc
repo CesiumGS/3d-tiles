@@ -1,0 +1,302 @@
+[#metadata-semantics-3d-metadata-semantic-reference]
+= 3D Metadata Semantic Reference
+
+// Definitions of the directory structure to ensure that relative
+// links between ADOC files in sibling directories can be resolved.
+ifdef::env-github[]
+:url-specification: ../../
+:url-specification-implicittiling: {url-specification}ImplicitTiling/
+:url-specification-metadata: {url-specification}Metadata/
+endif::[]
+ifndef::env-github[]
+:url-specification:
+:url-specification-implicittiling:
+:url-specification-metadata:
+endif::[]
+
+[#metadata-semantics-overview]
+== Overview
+
+This document provides common definitions of meaning ("semantics") used by metadata properties in 3D Tiles and glTF. Tileset authors may define their own application- or domain-specific semantics separately.
+
+Semantics describe how properties should be interpreted. For example, an application that encounters the `ID` or `NAME` semantics while parsing a dataset may use these values as unique identifiers or human-readable labels, respectively.
+
+Each semantic is defined in terms of its meaning, and the datatypes it may assume. Datatype specifications include "type" as defined by the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification]. When applicable they may also include "component type", "array", and "count".
+
+For use of semantics, see:
+
+* xref:{url-specification}README.adoc#core-metadata[3D Tiles Metadata] - Assigns metadata to tilesets, tiles, and contents in 3D Tiles 1.1
+* link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_metadata[`3DTILES_metadata`] - An extension for 3D Tiles 1.0 that assigns metadata to tilesets, tiles, and contents
+* https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] (glTF 2.0) --  Assigns metadata to vertices, texels, and features in a glTF asset
+
+[#metadata-semantics-general]
+== General
+
+[#metadata-semantics-overview-1]
+=== Overview
+
+Throughout this section, the term "entity" refers to any conceptual object with which a property value (as defined in the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification]) may be associated. Examples of entities include tilesets, tiles, and tile contents in 3D Tiles, or groups of vertices and texels in glTF 2.0 assets. Additional types of entities may be defined by other specifications or applications.
+
+[#metadata-semantics-general-semantics]
+=== General Semantics
+
+.General metadata semantics
+[cols="1,1a,2"]
+|===
+| Semantic | Type | Description
+
+| `ID`
+| - Type: `STRING`
+| The unique identifier for the entity.
+
+| `NAME`
+| * Type: `STRING`
+| The name of the entity. Names should be human-readable, and do not have to be unique.
+
+| `DESCRIPTION`
+| * Type: `STRING`
+| Description of the entity. Typically at least a phrase, and possibly several sentences or paragraphs.
+
+| `ATTRIBUTION_IDS`
+| 
+* Type: `SCALAR`
+* Component type: `UINT8`, `UINT16`, `UINT32`, or `UINT64`
+* Array: `true`
+| List of attribution IDs that index into a global list of attribution strings. This semantic may be assigned to metadata at any level of granularity including tileset, group, subtree, tile, content, feature, vertex, and texel granularity. The global list of attribution strings is located in a tileset or subtree with the property semantic `ATTRIBUTION_STRINGS`. The following precedence order is used to locate the attribution strings: first the containing subtree (if applicable), then the containing external tileset (if applicable), and finally the root tileset.
+
+| `ATTRIBUTION_STRINGS`
+| 
+* Type: `STRING`
+* Array: `true`
+| List of attribution strings. Each string contains information about a data provider or copyright text. Text may include embedded markup languages such as HTML. This semantic may be assigned to metadata at any granularity (wherever `STRING` property values can be encoded). When used in combination with `ATTRIBUTION_IDS` it is assigned to subtrees and tilesets.
+|===
+
+[#metadata-semantics-3d-tiles]
+== 3D Tiles
+
+[#metadata-semantics-overview-2]
+=== Overview
+
+Semantics for 3D Tiles are assigned in relationship to a tileset, subtree, tile, or tile content, as defined by the 3D Tiles specification. When associated with other types of entities, these semantics may have invalid or undefined meanings.
+
+Units for all linear distances are meters, and all angles are radians.
+
+[#metadata-semantics-tileset]
+=== Tileset
+
+[#metadata-semantics-overview-3]
+==== Overview
+
+`TILESET_*` semantics provide meaning for properties associated with a tileset.
+
+[#metadata-semantics-tileset-semantics]
+==== Tileset Semantics
+
+.Tileset metadata semantics
+[cols="1,1a,2a"]
+|===
+| Semantic | Type | Description
+
+| `TILESET_FEATURE_ID_LABELS`
+| 
+* Type: `STRING`
+* Array: `true`
+| The union of all the feature ID labels in glTF content using the https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features[`EXT_instance_features`] extensions.
+
+| `TILESET_CRS_GEOCENTRIC`
+| * Type: `STRING`
+| 
+The geocentric coordinate reference system (CRS) of the tileset. Values include, but are not limited to:
+
+* ``"EPSG:4978"`` - WGS 84
+* ``"EPSG:7656"`` - WGS 84 (G730)
+* ``"EPSG:7658"`` - WGS 84 (G873)
+* ``"EPSG:7660"`` - WGS 84 (G1150)
+* ``"EPSG:7662"`` - WGS 84 (G1674)
+* ``"EPSG:7664"`` - WGS 84 (G1762)
+* ``"EPSG:9753"`` - WGS 84 (G2139)
+* ``"EPSG:7842"`` - GDA2020
+* ``"UNKNOWN"`` - CRS is unknown
+
+``region`` bounding volumes are assumed to use the same reference ellipsoid as the geocentric coordinate reference system specified here.
+
+For more details on coordinate reference systems in 3D Tiles, see xref:{url-specification}README.adoc#core-coordinate-reference-system-crs[Coordinate Reference System (CRS)].
+
+| `TILESET_CRS_COORDINATE_EPOCH`
+| - Type: `STRING`
+| The coordinate epoch for coordinates that are referenced to a dynamic CRS such as WGS 84. Coordinates include glTF vertex positions after transforms have been applied -- see xref:{url-specification}README.adoc#core-gltf-transforms[glTF transforms]. Expressed as a decimal year (e.g. `"2019.81"`). See http://docs.opengeospatial.org/is/18-010r7/18-010r7.html#128[WKT representation of coordinate epoch and coordinate metadata] for more details.
+| `TILESET_TILE_COUNT`
+| 
+* Type: `SCALAR`
+* Component type: `UINT64`
+| The total number of tiles in the tileset, including empty tiles and tiles from external tilesets.
+|===
+
+[#metadata-semantics-tile]
+=== Tile
+
+[#metadata-semantics-overview-4]
+==== Overview
+
+`TILE_*` semantics provide meaning for properties associated with a particular tile, and should take precedence over equivalent metadata on parent objects, as well as over values derived from subdivision schemes in xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-tiling[Implicit Tiling].
+
+If property values are missing, either because the property is omitted or the property table contains `noData` values, the original tile properties are used, such as those explicitly defined in tileset JSON or implicitly computed from subdivision schemes in xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-tiling[Implicit Tiling].
+
+In particular, `TILE_BOUNDING_BOX`, `TILE_BOUNDING_REGION`, and `TILE_BOUNDING_SPHERE` semantics each define a more specific bounding volume for a tile than is implicitly calculated from xref:{url-specification-implicittiling}README.adoc#implicittiling-implicit-tiling[Implicit Tiling]. If more than one of these semantics are available for a tile, clients may select the most appropriate option based on use case and performance requirements.
+
+[#metadata-semantics-tile-semantics]
+==== Tile Semantics
+
+.Tile metadata semantics
+[cols="1,1a,2"]
+|===
+| Semantic | Type | Description
+
+| `TILE_BOUNDING_BOX`
+| 
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+* Array: `true`
+* Count: `12`
+| The bounding volume of the tile, expressed as a xref:{url-specification}README.adoc#core-box[box]. Equivalent to `tile.boundingVolume.box`.
+
+| `TILE_BOUNDING_REGION`
+| 
+* Type: `SCALAR`
+* Component type: `FLOAT64`
+* Array: `true`
+* Count: `6`
+| The bounding volume of the tile, expressed as a xref:{url-specification}README.adoc#core-region[region]. Equivalent to `tile.boundingVolume.region`.
+
+| `TILE_BOUNDING_SPHERE`
+| 
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+* Array: `true`
+* Count: `4`
+| The bounding volume of the tile, expressed as a xref:{url-specification}README.adoc#core-sphere[sphere]. Equivalent to `tile.boundingVolume.sphere`.
+
+| `TILE_BOUNDING_S2_CELL`
+| 
+* Type: `SCALAR`
+* Component type: `UINT64`
+| The bounding volume of the tile, expressed as an link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md#cell-ids[S2 Cell ID] using the 64-bit representation instead of the hexadecimal representation. Only applicable to link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2`].
+
+| `TILE_MINIMUM_HEIGHT`
+| 
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+| The minimum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to minimum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2`].
+
+| `TILE_MAXIMUM_HEIGHT`
+| 
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+| The maximum height of the tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `TILE_BOUNDING_REGION` and `tile.boundingVolume.region`. Also equivalent to maximum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2`].
+
+| `TILE_HORIZON_OCCLUSION_POINT`^1^
+| 
+* Type: `VEC3`
+* Component type: `FLOAT32` or `FLOAT64`
+| The horizon occlusion point of the tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire tile is below the horizon. See https://cesium.com/blog/2013/04/25/horizon-culling/[Horizon Culling] for more information.
+
+| `TILE_GEOMETRIC_ERROR`
+| 
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+| The geometric error of the tile. Equivalent to `tile.geometricError`.
+
+| `TILE_REFINE`
+| 
+* Type: `SCALAR`
+* Component type: `UINT8`
+| The tile refinement type. Valid values are `0` (`"ADD"`) and `1` (`"REPLACE"`). Equivalent to `tile.refine`.
+
+| `TILE_TRANSFORM`
+| 
+* Type: `MAT4`
+* Component type: `FLOAT32` or `FLOAT64`
+| The tile transform. Equivalent to `tile.transform`.
+|===
+
+^1^ `TILE_HORIZON_OCCLUSION_POINT` should account for all content in a tile and its descendants, whereas `CONTENT_HORIZON_OCCLUSION_POINT` should only account for content in a tile. When the two values are equivalent, only `TILE_HORIZON_OCCLUSION_POINT` should be specified.
+
+[#metadata-semantics-content]
+=== Content
+
+[#metadata-semantics-overview-5]
+==== Overview
+
+`CONTENT_*` semantics provide meaning for properties associated with the content of a tile, and may be more specific to that content than properties of the containing tile.
+
+`CONTENT_BOUNDING_BOX`, `CONTENT_BOUNDING_REGION`, and `CONTENT_BOUNDING_SPHERE` semantics each define a more specific bounding volume for tile contents than the bounding volume of the tile. If more than one of these semantics are available for the same content, clients may select the most appropriate option based on use case and performance requirements.
+
+[#metadata-semantics-content-semantics]
+==== Content Semantics
+
+.Content metadata semantics
+[cols="1,1a,2"]
+|===
+| Semantic | Type | Description
+
+| `CONTENT_BOUNDING_BOX`
+| 
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+* Array: `true`
+* Count: `12`
+| The bounding volume of the content of a tile, expressed as a xref:{url-specification}README.adoc#core-box[box]. Equivalent to `tile.content.boundingVolume.box`.
+
+| `CONTENT_BOUNDING_REGION`
+| 
+* Type: `SCALAR`
+* Component type: `FLOAT64`
+* Array: `true`
+* Count: `6`
+| The bounding volume of the content of a tile, expressed as a xref:{url-specification}README.adoc#core-region[region]. Equivalent to `tile.content.boundingVolume.region`.
+
+| `CONTENT_BOUNDING_SPHERE`
+| 
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+* Array: `true`
+* Count: `4`
+| The bounding volume of the content of a tile, expressed as a xref:{url-specification}README.adoc#core-sphere[sphere]. Equivalent to `tile.content.boundingVolume.sphere`.
+
+| `CONTENT_BOUNDING_S2_CELL`
+| 
+* Type: `SCALAR`
+* Component type: `UINT64`
+| The bounding volume of the content of a tile, expressed as an link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md#cell-ids[S2 Cell ID] using the 64-bit representation instead of the hexadecimal representation. Only applicable to link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2`].
+
+| `CONTENT_MINIMUM_HEIGHT`
+| 
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+| The minimum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to minimum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to minimum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2`].
+
+| `CONTENT_MAXIMUM_HEIGHT`
+| 
+* Type: `SCALAR`
+* Component type: `FLOAT32` or `FLOAT64`
+| The maximum height of the content of a tile above (or below) the WGS84 ellipsoid. Equivalent to maximum height component of `CONTENT_BOUNDING_REGION` and `tile.content.boundingVolume.region`. Also equivalent to maximum height component of link:https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2/README.md[`3DTILES_bounding_volume_S2`].
+
+| `CONTENT_HORIZON_OCCLUSION_POINT`^1^
+| 
+* Type: `VEC3`
+* Component type: `FLOAT32` or `FLOAT64`
+| The horizon occlusion point of the content of a tile expressed in an ellipsoid-scaled fixed frame. If this point is below the horizon, the entire content is below the horizon. See https://cesium.com/blog/2013/04/25/horizon-culling/[Horizon Culling] for more information.
+
+| `CONTENT_URI`
+| 
+* Type: `STRING`
+| The content uri. Overrides the implicit tile's generated content uri. Equivalent to `tile.content.uri`.
+
+| `CONTENT_GROUP_ID`
+| 
+* Type: `SCALAR`
+* Component type: `UINT8`, `UINT16`, `UINT32`, or `UINT64`
+| The content group ID. Equivalent to `tile.content.group`.
+|===
+
+^1^`TILE_HORIZON_OCCLUSION_POINT` should account for all content in a tile and its descendants, whereas `CONTENT_HORIZON_OCCLUSION_POINT` should only account for content in a tile. When the two values are equivalent, only `TILE_HORIZON_OCCLUSION_POINT` should be specified.

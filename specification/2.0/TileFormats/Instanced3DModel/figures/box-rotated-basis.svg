@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="114.75mm" width="147.54mm" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 522.78989 406.5884">
+ <defs id="defs4">
+  <marker id="Arrow1Lend-5" refY="0" refX="0" orient="auto" overflow="visible">
+   <path id="path8094-9" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#0f0" stroke-width="1pt" fill="#0f0"/>
+  </marker>
+  <marker id="Arrow1Lend" refY="0" refX="0" orient="auto" overflow="visible">
+   <path id="path8094" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#f00" stroke-width="1pt" fill="#f00"/>
+  </marker>
+  <marker id="Arrow1Lend-5-8" refY="0" refX="0" orient="auto" overflow="visible">
+   <path id="path8094-9-9" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#00f" stroke-width="1pt" fill="#00f"/>
+  </marker>
+  <marker id="Arrow1Lend-0-2" refY="0" refX="0" orient="auto" overflow="visible">
+   <path id="path8094-4-7" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#f0f" stroke-width="1pt" fill="#f0f"/>
+  </marker>
+  <marker id="Arrow1Lend-0-2-6" refY="0" refX="0" orient="auto" overflow="visible">
+   <path id="path8094-4-7-0" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill-rule="evenodd" transform="matrix(-.8 0 0 -.8 -10 0)" stroke="#7f00ff" stroke-width="1pt" fill="#7f00ff"/>
+  </marker>
+ </defs>
+ <metadata id="metadata7">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1" transform="translate(100.37 -149.54)">
+  <g id="g4154" fill-rule="evenodd">
+   <path id="path4164" d="m99.957 489.33 95.193 59.96 179.25-93.31-120.52-46.78z" points="195.1525,549.29319 374.40284,455.98136 253.88204,409.20107 99.956607,489.32958 " fill="#afafde"/>
+   <path id="path4156" d="m30.08 355.1 69.877 134.23 153.92-80.13-69.87-134.23z" points="99.956607,489.32958 253.88204,409.20107 184.00508,274.96867 30.079645,355.09718 " fill="#353564"/>
+   <path id="path4166" d="m184.01 274.97 109.02 24.695 81.374 156.32-120.52-46.78z" points="293.02922,299.66408 374.40284,455.98136 253.88204,409.20107 184.00508,274.96867 " fill="#e9e9ff"/>
+   <path id="path4158" d="m30.08 355.1 83.7 37.88 179.25-93.32-109.02-24.69z" points="113.77888,392.97591 293.02922,299.66408 184.00508,274.96867 30.079645,355.09718 " fill="#4d4d9f"/>
+   <path id="path4162" d="m113.78 392.98 81.37 156.31 179.25-93.31-81.37-156.32z" points="195.1525,549.29319 374.40284,455.98136 293.02922,299.66408 113.77888,392.97591 " fill="#d7d7ff"/>
+   <path id="path4160" d="m30.08 355.1 83.7 37.88 81.37 156.31-95.193-59.96z" points="113.77888,392.97591 195.1525,549.29319 99.956607,489.32958 30.079645,355.09718 " fill="#8686bf"/>
+  </g>
+  <path id="path8493-2" marker-end="url(#Arrow1Lend-5)" d="m161.81 323.51-3.05-162.63" stroke="#0f0" stroke-width="4.548" fill="none"/>
+  <text id="text4482" font-size="46.33px" xml:space="preserve" style="word-spacing:0px;letter-spacing:0px" y="206.47462" x="184.90871" font-family="sans-serif" line-height="125%" fill="#00ff00"><tspan id="tspan4484" y="206.47462" x="184.90871">y</tspan></text>
+  <path id="path8493" marker-end="url(#Arrow1Lend)" d="m248.71 438.8 125.38 112.29" stroke="#f00" stroke-width="4.1528" fill="none"/>
+  <text id="text10349" font-size="47.912px" font-family="sans-serif" transform="scale(.98863 1.0115)" line-height="125%" stroke="#000000" style="word-spacing:0px;letter-spacing:0px" y="527.58679" x="382.1337" stroke-width=".45215px" xml:space="preserve" fill="#ff0000"><tspan id="tspan10351" y="527.58679" x="382.1337" stroke-width=".45215px">x</tspan></text>
+  <path id="path8493-2-4" marker-end="url(#Arrow1Lend-5-8)" d="m101.46 441.42-192.86-3.89" stroke="#00f" stroke-width="4.9308" fill="none"/>
+  <text id="text4486" font-size="54.075px" xml:space="preserve" style="word-spacing:0px;letter-spacing:0px" y="399.55475" x="-39.650997" font-family="sans-serif" line-height="125%" fill="#0000ff"><tspan id="tspan4488" y="399.55475" x="-39.650997">z</tspan></text>
+  <path id="path8493-8-9" marker-end="url(#Arrow1Lend-0-2)" d="m161.42 323.46-71.787-168.13" stroke="#f0f" stroke-width="3.4712" fill="none"/>
+  <text id="text4334" font-size="40px" xml:space="preserve" style="word-spacing:0px;letter-spacing:0px" y="252.13022" x="45.742149" font-family="sans-serif" line-height="125%" fill="#ff00ff"><tspan id="tspan4336" y="-232.59311" x="69.414024"><tspan id="tspan4338" y="252.13022" x="45.742149">up</tspan><tspan id="tspan4340" font-size="65%" style="baseline-shift:sub" y="252.13022" x="69.414024" fill="#ff00ff"/></tspan></text>
+  <path id="path8493-8-9-3" marker-end="url(#Arrow1Lend-0-2-6)" d="m249.66 437.49 167.43 56.994" stroke="#7f00ff" stroke-width="3.0965" fill="none"/>
+  <text id="text4350" font-size="40px" xml:space="preserve" style="word-spacing:0px;letter-spacing:0px" y="451.12744" x="321.16562" font-family="sans-serif" line-height="125%" fill="#7f00ff"><tspan id="tspan4352">right</tspan></text>
+ </g>
+</svg>

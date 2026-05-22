@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "b3dm.featureTable.schema.json",
+    "title": "Batched 3D Model Feature Table",
+    "$ref": "featureTable.schema.json",
+    "description": "A set of Batched 3D Model semantics that contain additional information about features in a tile.",
+    "deprecated": true,
+    "properties": {
+        "BATCH_LENGTH": {
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyInteger",
+            "description": "A `GlobalPropertyInteger` object defining an integer property for all features. Details about this property are described in the 3D Tiles specification."
+        },
+        "RTC_CENTER": {
+            "$ref": "featureTable.schema.json#/definitions/globalPropertyCartesian3",
+            "description": "A `GlobalPropertyCartesian3` object defining a 3-component numeric property for all features. Details about this property are described in the 3D Tiles specification."
+        }
+    },
+    "required": [
+        "BATCH_LENGTH"
+    ]
+}

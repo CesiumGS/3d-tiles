@@ -1,0 +1,15 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "rootProperty.schema.json",
+    "title": "Root Property",
+    "type": "object",
+    "description": "A basis for storing extensions and extras.",
+    "properties": {
+        "extensions": {
+            "$ref": "extension.schema.json"
+        },
+        "extras": {
+            "$ref": "extras.schema.json"
+        }
+    }
+}

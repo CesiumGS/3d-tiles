@@ -1,0 +1,49 @@
+
+:leveloffset: +1
+
+[appendix,obligation=normative]
+= Properties Reference
+:leveloffset: +1
+include::PropertiesReference_3dtiles.adoc[]
+:leveloffset: -1
+
+[appendix]
+[#json-schema]
+= JSON Schema reference
+:leveloffset: +1
+include::PropertiesReference_3dtiles_schema.adoc[]
+:leveloffset: -1
+
+[appendix]
+:imagesdir: TileFormats/glTF
+include::TileFormats/glTF/MIGRATION.adoc[]
+
+[appendix]
+:imagesdir: ImplicitTiling
+include::ImplicitTiling/AVAILABILITY.adoc[]
+
+[appendix]
+:imagesdir: Metadata/ReferenceImplementation
+include::Metadata/ReferenceImplementation/README.adoc[]
+
+:leveloffset: +1
+
+:imagesdir: Metadata/ReferenceImplementation/PropertyTable
+include::Metadata/ReferenceImplementation/PropertyTable/README.adoc[]
+
+:imagesdir: Metadata/ReferenceImplementation/Schema
+include::Metadata/ReferenceImplementation/Schema/README.adoc[]
+
+:leveloffset: -1
+
+[appendix]
+:imagesdir: Metadata/Semantics
+include::Metadata/Semantics/README.adoc[]
+
+// License information is automatically inserted by Metanorma
+// when generating the OGC version of the specification.
+//[appendix]
+//include::LICENSE.adoc[]
+
+
+:leveloffset: -1
