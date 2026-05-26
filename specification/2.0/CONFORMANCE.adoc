@@ -4,3 +4,23 @@ Annex A of this document describes the Objects and Properties required to implem
 
 All figures, examples, notes, and background information are informative.
 
+=== Conformance Class: Core
+
+A conforming 3D Tiles 2.0 client or server SHALL implement the core requirements of the specification.
+
+==== Requirement 1: glTF 2.1
+
+A conforming implementation MUST support the glTF 2.1 specification.
+
+==== Requirement 2: `3DTILES_tileset` Extension
+
+A conforming implementation MUST support the `3DTILES_tileset` glTF extension. This extension is required for defining the structure of a 3D Tiles 2.0 tileset.
+
+==== Requirement 3: `3DTILES_subtree` Extension
+
+A conforming implementation that supports implicit tiling MUST support the `3DTILES_subtree` glTF extension. This extension is required for handling availability and metadata in implicit tilesets.
+
+==== Requirement 4: `3DTILES_implicit_tiling` Extension
+
+A conforming implementation that supports implicit tiling MUST support the `3DTILES_implicit_tiling` glTF extension. This extension is required for defining the implicit tiling scheme.
+

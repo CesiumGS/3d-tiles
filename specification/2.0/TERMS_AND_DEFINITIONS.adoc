@@ -40,7 +40,7 @@ Decreasing the complexity of a 3D representation according to metrics such as ob
 
 === Implicit tiling 
 
-A description of a tileset using recursive subdivision.
+A description of a tileset using recursive subdivision. The structure and semantics of implicit tiling are defined by the `3DTILES_implicit_tiling` extension. See [3DTILES_implicit_tiling]().
 
 === Implicit root tile 
 
@@ -82,9 +82,9 @@ The union of all content of the child tiles is completely inside the parent tile
 
 A set of expressions to be evaluated which modify how each feature in a tileset is displayed
 
-=== Subtree 
+=== Subtree
 
-A fixed-size section of the tree of an implicit tileset that contains availability information.
+A fixed-size section of the tree of an implicit tileset that contains availability information. The structure and semantics of a subtree are defined by the `3DTILES_subtree` extension. See [3DTILES_subtree]().
 
 === Subtree file 
 
@@ -100,7 +100,7 @@ A URI pattern containing tile coordinates for directly addressing tiles in an im
 
 === Tile
 
-In 3D Tiles, a subset of a tileset containing a reference to renderable content and the metadata, such as the content's bounding volume, which is used by a client to determine if the content is rendered.
+In 3D Tiles, a tile is a subset of a tileset containing a reference to renderable content and the metadata, such as the content's bounding volume, which is used by a client to determine if the content is rendered. Tiles are defined using a glTF node within a `3DTILES_tileset` extension property. The structure and semantics of tiles are defined by the `3DTILES_tileset` extension. See the [Tile section in 3DTILES_tileset]().
 
 === Tile Content 
 
@@ -112,5 +112,5 @@ The structure or layout of tile content data, (Batched 3D Model, Instanced 3D Mo
 
 === Tileset
 
-In 3D Tiles, a collection of 3D Tiles tile instances organized into a spatial data structure and additional metadata, such that the aggregation of these tiles represent some 3D content at various levels of detail.
+In 3D Tiles, a collection of 3D Tiles tile instances organized into a spatial data structure and additional metadata, such that the aggregation of these tiles represent some 3D content at various levels of detail. The structure and semantics of a tileset are defined by the `3DTILES_tileset` extension. A valid tileset in 3D Tiles 2.0 MUST use the `3DTILES_tileset` extension for glTF 2.1. See the [Tileset section in 3DTILES_tileset]().
 

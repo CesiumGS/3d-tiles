@@ -27,6 +27,12 @@ endif::[]
 
 Implicit tiling defines a concise representation of quadtrees and octrees in 3D Tiles. This regular pattern allows for random access of tiles based on their tile coordinates which enables accelerated spatial queries, new traversal algorithms, and efficient updates of tile content, among other use cases.
 
+[NOTE]
+.Normative Note
+====
+The normative definition of implicit tiling, including the subdivision schemes, availability of tiles, and subtree formats, is defined by the `3DTILES_implicit_tiling` glTF extension. This section provides an informative overview.
+====
+
 Implicit tiling also allows for better interoperability with existing GIS data formats with implicitly defined tiling schemes. Some examples are https://wiki.osgeo.org/wiki/Tile_Map_Service_Specification[TMS], https://www.ogc.org/standards/wmts[WMTS], http://s2geometry.io/[S2], and https://docs.opengeospatial.org/is/15-113r5/15-113r5.html[CDB].
 
 In order to support sparse datasets, *availability* data determines which tiles exist. To support massive datasets, availability is partitioned into fixed-size *subtrees*. Subtrees may store *metadata* for available tiles and contents.
@@ -240,7 +246,7 @@ image::figures/template-uri.png[]
 
 In order to support sparse datasets, additional information is needed to indicate which tiles or contents exist. This is called *availability*.
 
-*Subtrees* are fixed size sections of the tileset tree used for storing availability. The tileset is partitioned into subtrees to bound the size of each availability buffer for optimal network transfer and caching. The `subtreeLevels` property defines the number of levels in each subtree. The subdivision scheme determines the number of children per tile.
+*Subtrees* are fixed size sections of the tileset tree used for storing availability. The tileset is partitioned into subtrees to bound the size of each availability buffer for optimal network transfer and caching. The `subtreeLevels` property defines the number of levels in each subtree. The subdivision scheme determines the number of children per tile. The format and semantics of subtrees are normatively defined in the `3DTILES_subtree` extension.
 
 .The structure of a subtree for implicit tiling
 image::figures/subtree-anatomy.png[subtree anatomy]
@@ -368,13 +374,7 @@ Properties assigned to subtrees provide metadata about the subtree as a whole. S
 [#implicittiling-subtree-json-format]
 == Subtree JSON Format
 
-_Defined in 
-ifdef::env-github[]
-link:https://github.com/CesiumGS/3d-tiles/tree/main/specification/schema/Subtree/subtree.schema.json[`subtree.schema.json`]._
-endif::[]
-ifndef::env-github[]
-<<reference-schema-subtree,`subtree.schema.json`>>._
-endif::[]
+The JSON structure of a subtree is normatively defined by the JSON schema in the `3DTILES_subtree` extension.
 
 A *subtree file* is a JSON file that contains availability and metadata information for a single subtree. A subtree may reference external files containing binary data. An alternative <<implicittiling-subtree-binary-format,Binary Format>> allows the JSON and binary data to be embedded into a single binary file.
 

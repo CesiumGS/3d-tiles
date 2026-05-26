@@ -128,6 +128,22 @@ include::TERMS_AND_DEFINITIONS.adoc[]
 
 No conventions are specified in this document.
 
+== Relationship to glTF
+
+A 3D Tiles 2.0 tileset is a glTF 2.1 asset. The `3DTILES_tileset` extension is a normative part of the 3D Tiles 2.0 specification and defines the structure of the tileset. Specifically, the `3DTILES_tileset` extension defines:
+
+* The hierarchical structure of the tileset, including the `children` of a tile.
+* The tile object, which represents a node in the tileset hierarchy.
+* The definition of a tile's content, including its URI and bounding volume.
+* The geometric error and refinement strategy (`ADD` or `REPLACE`) for each tile.
+* The transformation of a tile.
+* How application-specific _metadata_ may be included at multiple granularities using the 3D Metadata Specification.
+* The mechanism for linking to external tilesets.
+
+All tile content is represented as glTF assets, either embedded or external.
+
+Any feature that is normatively defined in the glTF 2.1 specification is considered a normative part of 3D Tiles 2.0. A conforming 3D Tiles 2.0 implementation SHOULD support all normative features of glTF 2.1 unless otherwise stated.
+
 // ===========================================================================
 // Content sections
 
