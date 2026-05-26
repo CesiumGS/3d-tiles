@@ -20,12 +20,7 @@ ifdef::env-github[]
 :url-specification-metadata-semantics: {url-specification-metadata}Semantics/
 :url-specification-styling: {url-specification}Styling/
 :url-specification-tileformats: {url-specification}TileFormats/
-:url-specification-tileformats-batched3dmodel: {url-specification-tileformats}Batched3DModel/
-:url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
-:url-specification-tileformats-composite: {url-specification-tileformats}Composite/
 :url-specification-tileformats-gltf: {url-specification-tileformats}glTF/
-:url-specification-tileformats-instanced3dmodel: {url-specification-tileformats}Instanced3DModel/
-:url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
 endif::[]
 ifndef::env-github[]
 :url-specification:
@@ -36,12 +31,7 @@ ifndef::env-github[]
 :url-specification-metadata-semantics:
 :url-specification-styling:
 :url-specification-tileformats:
-:url-specification-tileformats-batched3dmodel:
-:url-specification-tileformats-batchtable:
-:url-specification-tileformats-composite:
 :url-specification-tileformats-gltf:
-:url-specification-tileformats-instanced3dmodel:
-:url-specification-tileformats-pointcloud:
 endif::[]
 
 // Insert the introductry text from 'SCOPE.adoc' when this is viewn on GitHub
@@ -59,25 +49,6 @@ https://github.com/KhronosGroup/glTF[glTF 2.0] is the primary tile format for 3D
 
 See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[glTF Tile Format] for more details.
 
-Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
-
-.Legacy tile formats and common uses
-[cols="1,2"]
-|===
-| Legacy Format | Uses
-
-| xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model (`b3dm`)]
-| Heterogeneous 3D models
-
-| xref:{url-specification-tileformats-instanced3dmodel}README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model (`i3dm`)] 
-| 3D model instances
-
-| xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud (`pnts`)] 
-| Massive number of points
-
-| xref:{url-specification-tileformats-composite}README.adoc#tileformats-composite-composite[Composite (`cmpt`)]
-| Concatenate tiles of different formats into one tile
-|===
 
 A tile's _content_ is an individual instance of a tile format. A tile may have multiple contents.
 
@@ -721,7 +692,7 @@ The tileset JSON has four top-level properties: `asset`, `properties`, `geometri
 The `tilesetVersion` can be used as a query parameter when requesting content to avoid using outdated content from a cache.
 ====
 
-`properties` is an object containing objects for each per-feature property in the tileset. This tileset JSON snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property (see xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-batch-table[Batch Table]). The name of each object in `properties` matches the name of a per-feature property, and its value defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
+`properties` is an object containing objects for each per-feature property in the tileset. This tileset JSON snippet is for 3D buildings, so each tile has building models, and each building model has a `Height` property. The name of each object in `properties` matches the name of a per-feature property, and its value defines its `minimum` and `maximum` numeric values, which are useful, for example, for creating color ramps for styling.
 
 `geometricError` is a nonnegative number that defines the error, in meters, that determines if the tileset is rendered. At runtime, the geometric error is used to compute _Screen-Space Error_ (SSE), the error measured in pixels. If the SSE does not exceed a required minimum, the tileset should not be rendered, and none of its tiles should be considered for rendering, see <<core-geometric-error,Geometric error>>.
 
@@ -1249,25 +1220,6 @@ https://github.com/KhronosGroup/glTF[glTF 2.0] is the primary tile format for 3D
 
 See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[glTF Tile Format] for more details.
 
-Tiles may also reference the legacy 3D Tiles 1.0 formats listed below. These formats were deprecated in 3D Tiles 1.1 and may be removed in a future version of 3D Tiles.
-
-.Legacy tile formats and common uses
-[cols="1,2"]
-|===
-| Legacy Format | Uses
-
-| xref:{url-specification-tileformats-batched3dmodel}README.adoc#tileformats-batched3dmodel-batched-3d-model[Batched 3D Model (`b3dm`)]
-| Heterogeneous 3D models
-
-| xref:{url-specification-tileformats-instanced3dmodel}README.adoc#tileformats-instanced3dmodel-instanced-3d-model[Instanced 3D Model (`i3dm`)] 
-| 3D model instances
-
-| xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud (`pnts`)] 
-| Massive number of points
-
-| xref:{url-specification-tileformats-composite}README.adoc#tileformats-composite-composite[Composite (`cmpt`)]
-| Concatenate tiles of different formats into one tile
-|===
 
 [#core-declarative-styling-specification]
 == Declarative styling specification

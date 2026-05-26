@@ -7,21 +7,19 @@
 ifdef::env-github[]
 :url-specification: ../
 :url-specification-tileformats: {url-specification}TileFormats/
-:url-specification-tileformats-batchtable: {url-specification-tileformats}BatchTable/
-:url-specification-tileformats-pointcloud: {url-specification-tileformats}PointCloud/
+:url-extension-metadata: ../../extensions/3DTILES_metadata/README.adoc
 endif::[]
 ifndef::env-github[]
 :url-specification:
 :url-specification-tileformats:
-:url-specification-tileformats-batchtable:
-:url-specification-tileformats-pointcloud:
+:url-extension-metadata:
 endif::[]
 
 
 [#styling-overview]
 == Overview
 
-3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate the display of a feature, for example `color` (RGB and translucency) and `show` properties, often based on the feature's properties stored in the tile's xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-batch-table[Batch Table].
+3D Tiles styles provide concise declarative styling of tileset features.  A style defines expressions to evaluate the display of a feature, for example `color` (RGB and translucency) and `show` properties, often based on the feature's properties.
 
 A style may be applied to a tile that doesn't contain features, in which case the tile is treated as an implicit single feature without properties.
 
@@ -613,7 +611,7 @@ Euler's constant and the base of the natural logarithm, approximately `2.71828`.
 [#styling-variables]
 === Variables
 
-Variables are used to retrieve the property values of individual features in a tileset.  Variables are identified using the ES 6 (http://www.ecma-international.org/ecma-262/6.0/[ECMAScript 2015]) template literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name. Variable names are encoded in UTF-8. `feature` is implicit and can be omitted in most cases. If the identifier contains non-alphanumeric characters, such as `:`, `-`, `#`, or spaces, the `${feature['identifier']}` form should be used.
+Variables are used to retrieve the property values of individual features in a tileset. These properties are sourced from the xref:{url-extension-metadata}README.adoc[`EXT_structural_metadata`] glTF extension, which provides property textures and property tables for feature attributes. Variables are identified using the ES 6 (http://www.ecma-international.org/ecma-262/6.0/[ECMAScript 2015]) template literal syntax, i.e., `${feature.identifier}` or `${feature['identifier']}`, where the identifier is the case-sensitive property name. Variable names are encoded in UTF-8. `feature` is implicit and can be omitted in most cases. If the identifier contains non-alphanumeric characters, such as `:`, `-`, `#`, or spaces, the `${feature['identifier']}` form should be used.
 
 Variables can be used anywhere a valid expression is accepted, except inside other variable identifiers. For example, the following is not allowed:
 
@@ -655,22 +653,7 @@ ${order} === 1
 ${name} === 'Feature name'
 ----
 
-Additionally, variables originating from vector properties stored in the xref:{url-specification-tileformats-batchtable}README.adoc#tileformats-batchtable-binary-body[Batch Table binary] are treated as vector types:
-
-.Vector type variables
-[cols="1,1"]
-|===
-| `componentType` | variable type
-
-| `"VEC2"`
-| `vec2`
-
-| `"VEC3"`
-| `vec3`
-
-| `"VEC4"`
-| `vec4`
-|===
+Additionally, variables representing vector properties are treated as vector types:
 
 Variables can be used to construct colors or vectors. For example:
 
@@ -1584,54 +1567,7 @@ Computes the cross product of `x` and `y`. This function only accepts `vec3` arg
 
 Comments are not supported.
 
-[#styling-point-cloud]
-== Point Cloud
 
-A xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-point-cloud[Point Cloud] is a collection of points that may be styled like other features. In addition to evaluating a point's `color` and `show` properties, a Point Cloud style may evaluate `pointSize`, or the size of each point in pixels. The default `pointSize` is `1.0`.
-
-[%unnumbered]
-[source,json]
-----
-{
-    "color" : "color('red')",
-    "pointSize" : "${Temperature} * 0.5"
-}
-----
-
-Implementations may clamp the evaluated `pointSize` to the system's supported point size range. For example, WebGL renderers may query `ALIASED_POINT_SIZE_RANGE` to get the system limits when rendering with `POINTS`. A `pointSize` of `1.0` shall be supported.
-
-Point Cloud styles may also reference semantics from the xref:{url-specification-tileformats-pointcloud}README.adoc#tileformats-pointcloud-feature-table[Feature Table] including position, color, and normal to allow for more flexible styling of the source data.
-
-* `+${POSITION}+` is a `vec3` storing the xyz Cartesian coordinates of the point before the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `+${POSITION}+` refers to the position after the `QUANTIZED_VOLUME_SCALE` is applied, but before `QUANTIZED_VOLUME_OFFSET` is applied.
-* `+${POSITION_ABSOLUTE}+` is a `vec3` storing the xyz Cartesian coordinates of the point after the `RTC_CENTER` and tile transform are applied. When the positions are quantized, `+${POSITION_ABSOLUTE}+` refers to the position after the `QUANTIZED_VOLUME_SCALE`, `QUANTIZED_VOLUME_OFFSET`, and tile transform are applied.
-* `+${COLOR}+` evaluates to a `Color` storing the rgba color of the point. When the Feature Table's color semantic is `RGB` or `RGB565`, `+${COLOR}.alpha+` is `1.0`. If no color semantic is defined, `+${COLOR}+` evaluates to the application-specific default color.
-* `+${NORMAL}+` is a `vec3` storing the normal, in Cartesian coordinates, of the point before the tile transform is applied. When normals are oct-encoded, `+${NORMAL}+` refers to the decoded normal. If no normal semantic is defined in the Feature Table, `+${NORMAL}+` evaluates to `undefined`.
-
-For example:
-
-[%unnumbered]
-[source,json]
-----
-{
-    "color" : "${COLOR} * color('red')'",
-    "show" : "${POSITION}.x > 0.5",
-    "pointSize" : "${NORMAL}.x > 0 ? 2 : 1"
-}
-----
-
-[NOTE]
-.Informative
-====
-Point cloud styling engines may often use a shader (GLSL) implementation, however some features of the expression language are not possible in pure a GLSL implementation. Some of these features include:
-
-* Evaluation of `isNaN` and `isFinite` (GLSL 2.0+ supports `isnan` and `isinf` for these functions respectively)
-* The types `null` and `undefined`
-* Strings, including accessing object properties (`color()['r']`) and batch table values
-* Regular expressions
-* Arrays of lengths other than 2, 3, or 4
-* Mismatched type comparisons (e.g. `1.0 === false`)
-* Array index out of bounds
-====
 
 [#styling-file-extension-and-media-type]
 == File extension and media type
