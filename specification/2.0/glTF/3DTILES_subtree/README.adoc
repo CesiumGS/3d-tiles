@@ -1,0 +1,6 @@
+
+[#gltf-3dtiles-subtree-extension]
+=== 3DTILES_subtree Extension
+
+// TODO: Copy the 3DTILES_subtree extension here.
+Goes nowhere, does nothing.

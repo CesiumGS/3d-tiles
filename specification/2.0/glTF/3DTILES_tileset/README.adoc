@@ -1,0 +1,6 @@
+
+[#gltf-3dtiles-tileset-extension]
+=== 3DTILES_Tileset Extension
+
+// TODO: Copy the 3DTILES_tileset extension here.
+Goes nowhere, does nothing.

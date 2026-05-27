@@ -1,0 +1,6 @@
+
+[#gltf-3dtiles-content-gltf-vector-extension]
+=== 3DTILES_content_gltf_vector Extension
+
+// TODO: Copy the 3DTILES_content_gltf_vector extension here.
+Goes nowhere, does nothing.

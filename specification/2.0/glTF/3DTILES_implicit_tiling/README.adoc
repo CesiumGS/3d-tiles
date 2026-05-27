@@ -1,0 +1,6 @@
+
+[#gltf-3dtiles-implicit-tiling-extension]
+=== 3DTILES_implicit_tiling Extension
+
+// TODO: Copy the 3DTILES_implicit_tiling extension here.
+Goes nowhere, does nothing.
