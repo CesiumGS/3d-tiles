@@ -4,6 +4,8 @@ Editors:
 
 * Patrick Cozzi, https://twitter.com/pjcozzi[@pjcozzi], link:mailto:patrick@cesium.com[patrick@cesium.com]
 * Sean Lilley, https://twitter.com/lilleyse[@lilleyse], link:mailto:sean@cesium.com[sean@cesium.com]
+* Amanda Morgan, link:mailto:amanda@cesium.com[amanda@cesium.com]
+* Adam Morris, https://github.com/weegeekps[@weegeekps], link:mailto:adam@cesium.com[adam@cesium.com]
 
 Acknowledgements:
 
