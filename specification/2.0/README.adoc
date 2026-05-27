@@ -65,58 +65,39 @@ Application-specific _metadata_ may be provided at multiple granularities within
 
 Optionally a xref:{url-specification-styling}README.adoc#styling-styling[3D Tiles Style], or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
 
-[#core-file-extensions-and-media-types]
-== File Extensions and Media Types
+[#core-gltf-concepts]
+== Core glTF Concepts
 
-3D Tiles uses the following file extensions and Media Types.
+3D Tiles is designed to be consistent with glTF 2.1. As such, many core concepts are inherited directly from the glTF 2.1 specification.
 
-* Tileset files should use the `.json` extension and the https://www.iana.org/assignments/media-types/application/json[`application/json`] Media Type.
-* Tile content files should use the file extensions and Media Type specific to their <<core-tile-format-specifications,tile format specification>>.
-* Metadata schema files should use the `.json` extension and the https://www.iana.org/assignments/media-types/application/json[`application/json`] Media Type.
-* Tileset style files should use the `.json` extension and the https://www.iana.org/assignments/media-types/application/json[`application/json`] Media Type.
-* JSON subtree files should use the `.json` extension and the https://www.iana.org/assignments/media-types/application/json[`application/json`] Media Type.
-* Binary subtree files should use the `.subtree` extension and the https://www.iana.org/assignments/media-types/application/octet-stream[`application/octet-stream`] Media Type.
-* Files representing binary buffers should use the `.bin` extension and https://www.iana.org/assignments/media-types/application/octet-stream[`application/octet-stream`] Media Type.
+=== File Extensions and Media Types
 
-Explicit file extensions are optional. Valid implementations may ignore it and identify a content's format by the `magic` field in its header.
+File extensions and media types are defined by the glTF 2.1 specification.
 
-[#core-json-encoding]
-== JSON encoding
+The `3DTILES_tileset` extension has specific requirements for file extensions. Assets using this extension SHOULD use the `.tileset.gltf` or `.tileset.glb` file extensions. The entry tileset SHOULD be named `root.tileset.gltf`. See the `3DTILES_tileset` extension specification for more details. (stub link)
 
-3D Tiles has the following restrictions on JSON formatting and encoding.
+The `3DTILES_subtree` extension, used for implicit tiling, also has specific file extension requirements. Subtree assets for implicit tiling will use the `.subtree.gltf` file extension.
 
-. JSON shall use UTF-8 encoding without BOM.
-. All strings defined in this spec (properties names, enums) use only ASCII charset and shall be written as plain text, without JSON escaping.
-. Non-ASCII characters that appear as property _values_ in JSON may be escaped.
-. Names (keys) within JSON objects shall be unique, i.e., duplicate keys aren't allowed.
-. Some properties are defined as integers in the schema. Such values may be stored as decimals with a zero fractional part or by using exponent notation, as defined in https://www.rfc-editor.org/rfc/rfc8259.html#section-6[RFC 8259, Section 6].
+=== JSON Encoding
 
-[#core-uris]
-== URIs
+All JSON content in 3D Tiles conforms to the JSON encoding requirements of glTF 2.1.
 
-3D Tiles uses URIs to reference tile content. These URIs may point to https://tools.ietf.org/html/rfc3986#section-4.2[relative external references (RFC3986)] or be data URIs that embed resources in the JSON. Embedded resources use https://tools.ietf.org/html/rfc2397[the "data" URL scheme (RFC2397)].
+=== URIs
 
-When the URI is relative, its base is always relative to the referring tileset JSON file.
+URIs for referencing external resources follow the guidelines and capabilities of glTF 2.1.
 
-Client implementations are required to support relative external references and embedded resources. Optionally, client implementations may support other schemes (such as `http://`). All URIs shall be valid and resolvable.
+=== Units
 
-[#core-units]
-== Units
-
-The unit for all linear distances is meters.
-
-All angles are in radians.
+The units for all linear distances and angles are consistent with the glTF 2.1 specification, which are meters and radians, respectively.
 
 [#core-coordinate-reference-system-crs]
 == Coordinate reference system (CRS)
 
-3D Tiles uses a right-handed Cartesian coordinate system; that is, the cross product of _x_ and _y_ yields _z_. 3D Tiles defines the _z_ axis as up for local Cartesian coordinate systems. A tileset's global coordinate system will often be in a https://epsg.org/ellipsoid_7030/WGS-84.html[WGS 84] Earth-centered, Earth-fixed (ECEF) reference frame (https://epsg.org/crs_4978/WGS-84.html[EPSG 4978]), but it doesn't have to be, e.g., a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
+3D Tiles uses the same coordinate system and units as glTF; that is a right-handed coordinate system with +Y as up, +Z as forward, and -X as right. The units for all linear distances are meters.
 
-The CRS of a tileset may be defined explicitly, as part of the <<core-metadata,tileset metadata>>. The metadata for the tileset can contain a property that has the xref:{url-specification-metadata-semantics}README.adoc#metadata-semantics-tileset-semantics[`TILESET_CRS_GEOCENTRIC` semantic], which is a string that represents the EPSG Geodetic Parameter Dataset identifier.
+The default coordinate system may be overriden with the `3DTILES_geocentric_crs` extension. For example, a tileset's global coordinate system will often be in a WGS 84 Earth-centered, Earth-fixed (ECEF) reference frame (EPSG 4978), but it doesn't have to be, e.g. a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
 
-An additional <<core-tile-transforms,tile transform>> may be applied to transform a tile's local coordinate system to the parent tile's coordinate system.
-
-The <<core-region,region>> bounding volume specifies bounds using a geographic coordinate system (latitude, longitude, height). Specifically, https://epsg.org/crs_4979/WGS-84.html[EPSG 4979], but with the latitude and longitude given in _radians_ instead of _degrees_. The reference ellipsoid is assumed to be the same as the reference ellipsoid of the tileset.
+Additionally, a tileset may be defined in a local coordinate system and georeferenced to a specific longitude/latitude with the `3DTILES_georeference` extension.
 
 [#core-concepts]
 == Concepts
