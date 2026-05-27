@@ -5,7 +5,7 @@
 :comment: ### Document type; mandatory.
 :doctype: community-standard
 :comment: ### Version number; optional. Dot-delimited, preferably with this structure <version number>.<minor version number>.<patch version number>
-:edition: 1.1
+:edition: 2.0
 :comment: ### Language of the document; mandatory. Specified in two-letter code: "en" for English, "fr" for French
 :language: en
 :comment: ### Abbreviation
@@ -25,6 +25,8 @@
 :comment: ### Authors
 :fullname: Patrick Cozzi
 :fullname_2: Sean Lilley
+:fullname_3: Amanda Morgan
+:fullname_4: Adam Morris
 :comment: ### Role of the authors; mandatory
 :role: editor
 :role_2: editor
@@ -50,8 +52,8 @@
 
 //========== ORIGINAL (non-OGC) HEADER START
 //= 3D Tiles Specification
-//Cesium GS, Inc
-//v1.1
+//Bentley Systems, Inc
+//v2.0
 //:toc2:
 //:toclevels: 2
 //:sectnums:
@@ -102,8 +104,10 @@ Bringing techniques from graphics research, the movie industry, and the game ind
 |===
 |Name |Affiliation |OGC member
 
-| Patrick Cozzi |  Cesium GS, Inc. | Yes
-| Sean Lilley |  Cesium GS, Inc. | Yes
+| Patrick Cozzi |  Bentley Systems, Inc. | Yes
+| Sean Lilley |  Bentley Systems, Inc. | Yes
+| Amanda Morgan |  Bentley Systems, Inc. | Yes
+| Adam Morris |  Bentley Systems, Inc. | Yes
 |===
 
 [.preface]
@@ -152,7 +156,7 @@ Any feature that is normatively defined in the glTF 2.1 specification is conside
 = 3D Tiles Format Specification
 include::README.adoc[]
 
-
+// This entire section will likely be replaced.
 :imagesdir: TileFormats
 include::TileFormats/README.adoc[]
 
@@ -161,29 +165,11 @@ include::TileFormats/README.adoc[]
 :imagesdir: TileFormats/glTF/
 include::TileFormats/glTF/README.adoc[]
 
-:imagesdir: TileFormats/BatchTable/
-include::TileFormats/BatchTable/README.adoc[]
-
-:imagesdir: TileFormats/FeatureTable/
-include::TileFormats/FeatureTable/README.adoc[]
-
-:imagesdir: TileFormats/Batched3DModel/
-include::TileFormats/Batched3DModel/README.adoc[]
-
-:imagesdir: TileFormats/Instanced3DModel/
-include::TileFormats/Instanced3DModel/README.adoc[]
-
-:imagesdir: TileFormats/PointCloud/
-include::TileFormats/PointCloud/README.adoc[]
-
-:imagesdir: TileFormats/Composite/
-include::TileFormats/Composite/README.adoc[]
-
 :leveloffset: -1
 
 
-:imagesdir: ImplicitTiling
-include::ImplicitTiling/README.adoc[]
+:imagesdir: glTF Extensions
+include::GLTF_EXTENSIONS.adoc[]
 
 :imagesdir: Metadata
 include::Metadata/README.adoc[]
