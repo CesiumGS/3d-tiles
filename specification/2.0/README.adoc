@@ -53,16 +53,21 @@ A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling
 
 Application-specific _metadata_ may be provided at multiple granularities within a tileset. Properties may be associated with high-level entities like tilesets, tiles, contents, or features, or with individual vertices and texels. Metadata conforms to a well-defined type system described by the link:https://github.com/CesiumGS/3d-tiles/blob/main/specification/Metadata/[3D Metadata Specification], which may be extended with application- or domain-specific semantics.
 
-Optionally a link:https://github.com/CesiumGS/3d-tiles/blob/main/specification/Styling/[3D Tiles Style], or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
+3D Tiles supports a variety of content types and features through its alignment with glTF. This allows for rich, interactive 3D experiences. Some of these features include:
 
-// TODO: Section with an overview of 3D TILES content features.
+* Advanced rendering for architectural, engineering, and construction (AEC) models, including edge display, specialized line and point styles, and techniques to avoid visual artifacts for overlapping surfaces.
+* Time-dynamic content, where a tileset can hold multiple representations for the same location. This enables visualizations over time, comparison of design revisions, or switching between different data types like meshes and point clouds.
+* Support for volumetric data through voxels, optimized for streaming with support for sparse datasets and compression.
+* Rendering of complex scenes using 3D Gaussian Splatting, which is fully compatible with the 3D Tiles level-of-detail hierarchy.
+
+Optionally a link:https://github.com/CesiumGS/3d-tiles/blob/main/specification/Styling/[3D Tiles Style], or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
 
 [#alignment-with-gltf]
 == Alignment with glTF
 
 3D Tiles is built on glTF 2.1. As such, many core concepts are inherited directly from the glTF 2.1 specification or defined through glTF extensions.
 
-// TODO: Collapse json,uri,units here.
+To conform with the glTF 2.1 specification, all JSON content in 3D Tiles adheres to the JSON encoding requirements of glTF 2.1, URIs for referencing external resources follow the guidelines and capabilities of glTF 2.1, and all linear distances and angles are meters and radians, respectively.
 
 === File Extensions and Media Types
 
@@ -71,18 +76,6 @@ File extensions and media types are defined by the glTF 2.1 specification.
 The `3DTILES_tileset` extension has specific requirements for file extensions. Assets using this extension SHOULD use the `.tileset.gltf` or `.tileset.glb` file extensions. The entry tileset SHOULD be named `root.tileset.gltf`. See the `3DTILES_tileset` extension specification for more details. (stub link)
 
 The `3DTILES_subtree` extension, used for implicit tiling, also has specific file extension requirements. Subtree assets for implicit tiling will use the `.subtree.gltf` file extension.
-
-=== JSON Encoding
-
-All JSON content in 3D Tiles conforms to the JSON encoding requirements of glTF 2.1.
-
-=== URIs
-
-URIs for referencing external resources follow the guidelines and capabilities of glTF 2.1.
-
-=== Units
-
-The units for all linear distances and angles are consistent with the glTF 2.1 specification, which are meters and radians, respectively.
 
 === glTF Extensions
 
