@@ -6,7 +6,7 @@ image:figures/3DTiles_dark_color_small.png[]
 This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
 endif::[]
 
-[#core-introduction]
+[#introduction]
 == Introduction
 
 // Definitions of the directory structure to ensure that relative
@@ -40,18 +40,7 @@ ifdef::env-github[]
 3D Tiles is designed for streaming and rendering massive 3D geospatial content such as Photogrammetry, 3D Buildings, BIM/CAD, Instanced Features, and Point Clouds. It defines a hierarchical data structure and a set of tile formats which deliver renderable content. 3D Tiles does not define explicit rules for visualization of the content; a client may visualize 3D Tiles data however it sees fit.
 endif::[]
 
-In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_. A tileset is described by at least one tileset JSON file containing tileset metadata and a tree of tile objects, each of which may reference renderable content.
-
-https://github.com/KhronosGroup/glTF[glTF 2.0] is the primary tile format for 3D Tiles. glTF is an open specification designed for the efficient transmission and loading of 3D content. A glTF asset includes geometry and texture information for a single tile, and may be extended to include metadata, model instancing, and compression. glTF may be used for a wide variety of 3D content including:
-
-* Heterogeneous 3D models. E.g. textured terrain and surfaces, 3D building exteriors and interiors, massive models
-* 3D model instances. E.g. trees, windmills, bolts
-* Massive point clouds
-
-See xref:{url-specification-tileformats-gltf}README.adoc#tileformats-gltf-gltf[glTF Tile Format] for more details.
-
-
-A tile's _content_ is an individual instance of a tile format. A tile may have multiple contents.
+In 3D Tiles, a _tileset_ is a set of _tiles_ organized in a spatial data structure, the _tree_. Each tile may reference renderable _content_.
 
 The content references a set of _features_, such as 3D models representing buildings or trees, or points in a point cloud. Each feature has position and appearance properties and additional application-specific properties. A client may choose to select features at runtime and retrieve their properties for visualization or analysis.
 
@@ -62,9 +51,9 @@ image::figures/tree.png[]
 
 A tileset may use a 2D spatial tiling scheme similar to raster and vector tiling schemes (like a Web Map Tile Service (WMTS) or XYZ scheme) that serve predefined tiles at several levels of detail (or zoom levels). However since the content of a tileset is often non-uniform or may not easily be organized in only two dimensions, the tree can be any <<core-spatial-data-structures,spatial data structure>> with spatial coherence, including k-d trees, quadtrees, octrees, and grids. <<core-implicit-tiling,Implicit tiling>> defines a concise representation of quadtrees and octrees.
 
-Application-specific _metadata_ may be provided at multiple granularities within a tileset. Metadata may be associated with high-level entities like tilesets, tiles, contents, or features, or with individual vertices and texels. Metadata conforms to a well-defined type system described by the xref:{url-specification-metadata}README.adoc#metadata-3d-metadata-specification[3D Metadata Specification], which may be extended with application- or domain-specific semantics.
+Application-specific _metadata_ may be provided at multiple granularities within a tileset. Properties may be associated with high-level entities like tilesets, tiles, contents, or features, or with individual vertices and texels. Metadata conforms to a well-defined type system described by the link:https://github.com/CesiumGS/3d-tiles/blob/main/specification/Metadata/[3D Metadata Specification], which may be extended with application- or domain-specific semantics.
 
-Optionally a xref:{url-specification-styling}README.adoc#styling-styling[3D Tiles Style], or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
+Optionally a link:https://github.com/CesiumGS/3d-tiles/blob/main/specification/Styling/[3D Tiles Style], or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
 
 // TODO: Section with an overview of 3D TILES content features.
 
@@ -99,7 +88,7 @@ The units for all linear distances and angles are consistent with the glTF 2.1 s
 
 As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension or extension compatible with glTF 2.1 may be used with 3D Tiles 2.0. There are some specific extensions that are normatively defined by 3D Tiles 2.0. These extensions use the `3DTILES_` prefix to differentiate them. Their definitions as well as informative descriptions to other extensions can be found in xref:{url-specification-gltf}README.adoc[the section on glTF extensions].
 
-[#core-concepts]
+[#concepts]
 == Concepts
 
 The concepts listed below are normatively defined within the `3DTILES_tileset` glTF extension. More details can be found in the xref:{url-specification-gltf}README.adoc#gltf-3dtiles-tileset-extension[3DTILES_tileset] specification.
@@ -113,8 +102,9 @@ The concepts listed below are normatively defined within the `3DTILES_tileset` g
 * External Tilesets
 * Coordinate Reference Systems
 * Metadata
+* Declarative Styling
 
-[#core-declarative-styling-specification]
+[#declarative-styling-specification]
 == Declarative styling specification
 
 3D Tiles includes concise declarative styling defined with JSON and expressions written in a small subset of JavaScript augmented for styling.
