@@ -24,6 +24,8 @@ Since 3D Tiles 2.0 tilesets are valid glTF 2.1 files, any extension compatible w
 
 === Architectural, Engineering, and Construction Rendering
 
+// TODO: FIX THE SHALLs. Make supports.
+
 3D Tiles 2.0 shall support edge rendering for AEC workflows through the glTF extensions `KHR_mesh_primitive_restart` and `EXT_mesh_primitive_edge_visibility`. Conforming implementations shall recognize both extensions in tile content and shall either render the content according to the extension definitions or report the extension as unsupported in accordance with glTF 2.1. 
 
 For the styling of points and lines in CAD content, 3D Tiles 2.0 shall support the `BENTLEY_materials_line_style` and `BENTLEY_materials_point_style` glTF extensions. These extensions define the properties used to represent hidden and conceptual elements common in civil and engineering rendering workflows. 
@@ -44,7 +46,7 @@ Authoring tools may use time-dynamic 3D tiles to publish incremental updates wit
 
 3D Tiles 2.0 supports voxel volumetric datasets. Conforming voxel tilesets shall use the `EXT_primitive_voxels`, the `3DTILES_shape_ellipsoid_region`, and the `3DTILES_shape_cylinder_region` glTF 2.1 extensions in combination with the implicit tiling mechanism defined in 3D Tiles 2.0. 
 
-Both dense and sparse voxel volumes shall be supported. Voxel payloads may be uncompressed, or may be compressed using gzip, the glTF EXT_meshopt_compression extension, the glTF KHR_meshopt_compression extensions, or a combination of the available methods.
+Both dense and sparse voxel volumes shall be supported. Voxel payloads may be uncompressed, or may be compressed using gzip, the glTF `EXT_meshopt_compression` extension, the glTF `KHR_meshopt_compression` extension, or a combination of the available methods.
 
 === 3D Gaussian Splatting
 

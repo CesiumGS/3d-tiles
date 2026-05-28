@@ -66,10 +66,14 @@ Application-specific _metadata_ may be provided at multiple granularities within
 
 Optionally a xref:{url-specification-styling}README.adoc#styling-styling[3D Tiles Style], or _style_, may be applied to a tileset. A style defines expressions to be evaluated which modify how each feature is displayed.
 
+// TODO: Section with an overview of 3D TILES content features.
+
 [#alignment-with-gltf]
 == Alignment with glTF
 
-3D Tiles is designed to be consistent with glTF 2.1. As such, many core concepts are inherited directly from the glTF 2.1 specification or defined through glTF extensions.
+3D Tiles is built on glTF 2.1. As such, many core concepts are inherited directly from the glTF 2.1 specification or defined through glTF extensions.
+
+// TODO: Collapse json,uri,units here.
 
 === File Extensions and Media Types
 
@@ -93,21 +97,12 @@ The units for all linear distances and angles are consistent with the glTF 2.1 s
 
 === glTF Extensions
 
-As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension or extension compatible with glTF 2.1 may be used with 3D Tiles 2.0. There are some specific extensions that are normatively defined by 3D Tiles 2.0 and specific to 3D Tiles 2.0. These extensions use the `3DTILES_` prefix to differentiate them. Their definitions as well as informative descriptions to other extensions can be found in xref:{url-specification-gltf}README.adoc[the section on glTF extensions].
-
-[#core-coordinate-reference-system-crs]
-== Coordinate reference system (CRS)
-
-3D Tiles uses the same coordinate system and units as glTF; that is a right-handed coordinate system with +Y as up, +Z as forward, and -X as right. The units for all linear distances are meters.
-
-The default coordinate system may be overriden with the `3DTILES_geocentric_crs` extension. For example, a tileset's global coordinate system will often be in a WGS 84 Earth-centered, Earth-fixed (ECEF) reference frame (EPSG 4978), but it doesn't have to be, e.g. a power plant may be defined fully in its local coordinate system for use with a modeling tool without a geospatial context.
-
-Additionally, a tileset may be defined in a local coordinate system and georeferenced to a specific longitude/latitude with the `3DTILES_georeference` extension.
+As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension or extension compatible with glTF 2.1 may be used with 3D Tiles 2.0. There are some specific extensions that are normatively defined by 3D Tiles 2.0. These extensions use the `3DTILES_` prefix to differentiate them. Their definitions as well as informative descriptions to other extensions can be found in xref:{url-specification-gltf}README.adoc[the section on glTF extensions].
 
 [#core-concepts]
 == Concepts
 
-The concepts listed below are normatively defined within the `3DTILES_tileset` glTF extension. More details can be found in the xref:{url-specification-gltf}README.adoc#tileset[3DTILES_tileset] specification.
+The concepts listed below are normatively defined within the `3DTILES_tileset` glTF extension. More details can be found in the xref:{url-specification-gltf}README.adoc#gltf-3dtiles-tileset-extension[3DTILES_tileset] specification.
 
 * Tilesets, Tiles, and Tile Content
 * Geometric Error
@@ -125,15 +120,5 @@ The concepts listed below are normatively defined within the `3DTILES_tileset` g
 3D Tiles includes concise declarative styling defined with JSON and expressions written in a small subset of JavaScript augmented for styling.
 
 Styles define how a featured is displayed, for example `show` and `color` (RGB and translucency), using an expression based on a feature's properties.
-
-The following example colors features with a height above 90 as red and the others as white.
-
-[%unnumbered]
-[source,json]
-----
-{
-  "color" : "(${Height} > 90) ? color('red') : color('white')"
-}
-----
 
 For complete details, see the xref:{url-specification-styling}README.adoc#styling-styling[Declarative Styling] specification.

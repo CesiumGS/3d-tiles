@@ -10,49 +10,22 @@ A conforming 3D Tiles 2.0 client or server SHALL implement the core requirements
 
 ==== Requirement 1: glTF 2.1
 
-A conforming implementation MUST support the glTF 2.1 specification.
+A conforming implementation SHALL support the glTF 2.1 specification.
 
 ==== Requirement 2: `3DTILES_tileset` Extension
 
-A conforming implementation MUST support the `3DTILES_tileset` glTF extension. This extension is required for defining the structure of a 3D Tiles 2.0 tileset.
+A conforming implementation SHALL support the `3DTILES_tileset` glTF extension. This extension is required for defining the structure of a 3D Tiles 2.0 tileset.
 
 === Conformance Class: Implicit Tiling
 
 A conforming 3D Tiles 2.0 client or server SHOULD implement the implicit tiling requirements of the specification.
 
-==== Requirement 1: `3DTILES_subtree` Extension
+==== Requirement 1: `3DTILES_implicit_tiling` Extension
 
-A conforming implementation that supports implicit tiling MUST support the `3DTILES_subtree` glTF extension. This extension is required for handling availability and metadata in implicit tilesets.
+A conforming implementation that supports implicit tiling SHALL support the `3DTILES_implicit_tiling` glTF extension. This extension is required for defining the implicit tiling scheme.
 
-==== Requirement 2: `3DTILES_implicit_tiling` Extension
+==== Requirement 2: `3DTILES_subtree` Extension
 
-A conforming implementation that supports implicit tiling MUST support the `3DTILES_implicit_tiling` glTF extension. This extension is required for defining the implicit tiling scheme.
+A conforming implementation that supports implicit tiling SHALL support the `3DTILES_subtree` glTF extension. This extension is required for handling availability and metadata in implicit tilesets.
 
-=== Conformance Class: Architectural, Engineering, and Construction Content
-
-A conforming 3D Tiles 2.0 client or server SHOULD implement the Architectural, Engineering, and Construction Content requirements of this specification.
-
-// TODO Requirements
-
-=== Conformance Class: Time-dynamic Content
-
-A conforming 3D Tiles 2.0 client or server SHOULD implement the Time-dynamic Content requirements of this specification.
-
-// TODO Requirements
-
-=== Conformance Class: Voxels Content
-
-A conforming 3D Tiles 2.0 client or server SHOULD implement the Voxels Content requirements of this specification.
-
-// TODO Requirements
-
-=== Conformance Class: Vector Tiles Content
-
-A conforming 3D Tiles 2.0 client or server SHOULD implement the Vector Tiles Content requirements of this specification.
-
-// TODO Requirements
-
-=== Conformance Class: 3D Gaussian Splatting Content
-
-A conforming 3D Tiles 2.0 client or server SHOULD implement the 3D Gaussian Splatting Content requirements of this specification.
-
+// TODO: Make conformance classes for each "optional feature"
