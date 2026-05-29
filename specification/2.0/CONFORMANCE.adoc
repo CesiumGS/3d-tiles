@@ -46,7 +46,7 @@ A conforming 3D Tiles 2.0 client or server SHOULD implement the coordinate geore
 
 A conforming implementation that supports coordinate georeferencing SHALL support the link:{extensions-url}/3DTILES_crs_geocentric/README.md#3dtiles_crs_geocentric[3DTILES_crs_geocentric] glTF extension. This extension is required for specifying the tileset's global coordinate system, typically https://epsg.org/crs_4978/WGS-84.html[EPSG 4978].
 
-==== Requirement 2: link:{extensions-url}/3DTILES_georeference/README.md#3dtiles_georeference[3DTILES_crs_georeference] Extension
+==== Requirement 2: link:{extensions-url}/3DTILES_crs_georeference/README.md#3dtiles_crs_georeference[3DTILES_crs_georeference] Extension
 
 A conforming implementation that supports coordinate georeferencing SHALL support the link:{extensions-url}/3DTILES_crs_georeference/README.md#3dtiles_crs_georeference[3DTILES_crs_georeference] glTF extension. This extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
 
@@ -72,7 +72,7 @@ A conforming 3D Tiles 2.0 client or server MAY implement the tileset metadata re
 
 ==== Requirement 1: link:https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata/README.md#ext_structural_metadata[EXT_structural_metadata] Extension
 
-A conforming implementation that supports tileset metadata SHALL support the link:https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata/README.md#ext_structural_metadata[EXT_structural_metadata] extension. This extension allows associating metadata with tilesets, tiles, and contents within a tilesets.
+A conforming implementation that supports tileset metadata SHALL support the link:https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata/README.md#ext_structural_metadata[EXT_structural_metadata] extension. This extension allows associating metadata with tilesets, tiles, and contents within a tileset.
 
 ==== Requirement 2: 3D Metadata specification
 
