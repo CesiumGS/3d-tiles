@@ -1,6 +1,0 @@
-
-[#gltf-3dtiles-geocentric-crs-extension]
-=== 3DTILES_geocentric_crs Extension
-
-// TODO: Link the 3DTILES_geocentric_crs extension here.
-Goes nowhere, does nothing.

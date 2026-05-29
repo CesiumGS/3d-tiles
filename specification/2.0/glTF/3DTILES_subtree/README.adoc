@@ -1,6 +1,0 @@
-
-[#gltf-3dtiles-subtree-extension]
-=== 3DTILES_subtree Extension
-
-// TODO: Link the 3DTILES_subtree extension here.
-Goes nowhere, does nothing.

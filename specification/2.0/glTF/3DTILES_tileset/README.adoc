@@ -1,5 +1,0 @@
-
-[#gltf-3dtiles-tileset-extension]
-=== 3DTILES_Tileset Extension
-
-This extension specifies a well defined subset of glTF 2.1 for representing a tileset in https://github.com/CesiumGS/3d-tiles/tree/main/specification/[3D Tiles]. It extends the node hierarchy to support Hierarchical Level of Detail (HLOD) for streaming massive 3D scenes. Additionally, it depends on core glTF 2.1 features like external assets and bounding volumes.
