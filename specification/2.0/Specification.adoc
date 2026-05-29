@@ -156,20 +156,8 @@ Any feature that is normatively defined in the glTF 2.1 specification is conside
 = 3D Tiles Format Specification
 include::README.adoc[]
 
-// This entire section will likely be replaced.
-:imagesdir: TileFormats
-include::TileFormats/README.adoc[]
-
-:leveloffset: +1
-
-:imagesdir: TileFormats/glTF/
-include::TileFormats/glTF/README.adoc[]
-
-:leveloffset: -1
-
-
 :imagesdir: glTF Extensions
-include::GLTF_EXTENSIONS.adoc[]
+include::glTF.adoc[]
 
 :imagesdir: Metadata
 include::Metadata/README.adoc[]
