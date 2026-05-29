@@ -12,10 +12,54 @@
 
 * [[[IETF_RFC8259,IETF RFC 8259]]], IETF RFC8259: The JavaScript Object Notation (JSON) Data Interchange Format, 2017, https://datatracker.ietf.org/doc/html/rfc8259[https://datatracker.ietf.org/doc/html/rfc8259]
 
+// TODO: Link to the issue.
 * [[[Khronos_Group,Khronos Group glTF 2.1]]], Khronos Group: glTF 2.1, 2026. https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html[https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html]
+
+* [[[KHR_mesh_primitive_restart,KHR_mesh_primitive_restart]]], Khronos Group: KHR_mesh_primitive_restart, 2026. https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart]
+
+* [[[KHR_meshopt_compression,KHR_meshopt_compression]]], Khronos Group: KHR_meshopt_compression, 2026. https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression[https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression]
+
+* [[[KHR_gaussian_splatting,KHR_gaussian_splatting]]], Khronos Group: KHR_gaussian_splatting, 2026. https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting[https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting]
+
+* [[[KHR_gaussian_splatting_compression_spz_2,KHR_gaussian_splatting_compression_spz_2]]], Khronos Group KHR_gaussian_splatting_compression_spz_2, 2026. https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2[https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2]
+
+* [[[EXT_meshopt_compression,EXT_meshopt_compression]]], Khronos Group: EXT_meshopt_compression, 2026. https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_meshopt_compression[https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_meshopt_compression]
 
 * [[[OGC,OGC 18-010r7]]], OGC: [OGC 18-010r7] Geographic information - Well-known text representation of coordinate reference systems, 2019. https://docs.opengeospatial.org/is/18-010r7/18-010r7.html[https://docs.opengeospatial.org/is/18-010r7/18-010r7.html]
 
 * [[[W3C,W3C css-color-3]]], W3C: CSS3 Color, 2018. https://www.w3.org/TR/css-color-3/[https://www.w3.org/TR/css-color-3/]
 
-// TODO: Include all the gltf ext refs.
+* [[[3DTILES_tileset,3DTILES_tileset]]], 3D Tiles: 3DTILES_tileset, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#3dtiles_tileset[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#3dtiles_tileset]
+
+* [[[3DTILES_implicit_tiling,3DTILES_implicit_tiling]]], 3D Tiles: 3DTILES_implicit_tiling, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_implicit_tiling/README.md#3dtiles_implicit_tiling[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_implicit_tiling/README.md#3dtiles_implicit_tiling]
+
+* [[[3DTILES_subtree,3DTILES_subtree]]], 3D Tiles: 3DTILES_subtree, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_subtree/README.md#3dtiles_subtree[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_subtree/README.md#3dtiles_subtree]
+
+* [[[3DTILES_external_tileset,3DTILES_external_tileset]]], 3D Tiles: 3DTILES_external_tileset, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_external_tileset/README.md#3dtiles_external_tileset[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_external_tileset/README.md#3dtiles_external_tileset]
+
+* [[[3DTILES_crs_geocentric,3DTILES_crs_geocentric]]], 3D Tiles: 3DTILES_crs_geocentric, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs_geocentric/README.md#3dtiles_crs_geocentric[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs_geocentric/README.md#3dtiles_crs_geocentric]
+
+* [[[3DTILES_crs_georeference,3DTILES_crs_georeference]]], 3D Tiles: 3DTILES_crs_georeference, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs_georeference/README.md#3dtiles_crs_georeference[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs_georeference/README.md#3dtiles_crs_georeference]
+
+* [[[3DTILES_shape_ellipsoid_region,3DTILES_shape_ellipsoid_region]]], 3D Tiles: 3DTILES_shape_ellipsoid_region, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md#3dtiles_shape_ellipsoid_region[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md#3dtiles_shape_ellipsoid_region]
+
+* [[[3DTILES_shape_cylinder_region,3DTILES_shape_cylinder_region]]], 3D Tiles: 3DTILES_shape_cylinder_region, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region/README.md#3dtiles_shape_cylinder_region[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region/README.md#3dtiles_shape_cylinder_region]
+
+* [[[3DTILES_bounding_volume_S2,3DTILES_bounding_volume_S2]]], 3D Tiles: 3DTILES_bounding_volume_S2, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_bounding_volume_S2/README.md#3dtiles_bounding_volume_s2[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_bounding_volume_S2/README.md#3dtiles_bounding_volume_s2]
+
+* [[[3DTILES_content_conditional,3DTILES_content_conditional]]], 3D Tiles: 3DTILES_content_conditional, 2026. https://github.com/CesiumGS/3d-tiles/tree/3DTILES_dynamic/extensions/3DTILES_content_conditional[https://github.com/CesiumGS/3d-tiles/tree/3DTILES_dynamic/extensions/3DTILES_content_conditional]
+
+* [[[EXT_structural_metadata,EXT_structural_metadata]]], EXT_structural_metadata, 2026. https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata/README.md#ext_structural_metadata[https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata/README.md#ext_structural_metadata]
+
+* [[[EXT_mesh_primitive_edge_visibility,EXT_mesh_primitive_edge_visibility]]], EXT_mesh_primitive_edge_visibility, 2026. https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility[https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility]
+
+* [[[EXT_primitive_voxels,EXT_primitive_voxels]]], EXT_primitive_voxels, 2026. https://github.com/CesiumGS/glTF/tree/primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels[https://github.com/CesiumGS/glTF/tree/primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels]
+
+* [[[EXT_textureInfo_constant_lod,EXT_textureInfo_constant_lod]]], EXT_textureInfo_constant_lod, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/EXT_textureInfo_constant_lod[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/EXT_textureInfo_constant_lod]
+
+* [[[BENTLEY_materials_planar_fill,BENTLEY_materials_planar_fill]]], BENTLEY_materials_planar_fill, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_planar_fill[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_planar_fill]
+
+* [[[BENTLEY_materials_line_style,BENTLEY_materials_line_style]]], BENTLEY_materials_line_style, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_line_style[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_line_style]
+
+* [[[BENTLEY_materials_point_style,BENTLEY_materials_point_style]]], BENTLEY_materials_point_style, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_point_style[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_point_style]
+
