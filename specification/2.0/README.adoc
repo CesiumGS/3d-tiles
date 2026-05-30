@@ -49,6 +49,7 @@ Application-specific _metadata_ may be provided at multiple granularities within
 3D Tiles supports a variety of content types and features through its alignment with glTF. This allows for rich, interactive 3D experiences. Some of these features include:
 
 * Advanced rendering for architectural, engineering, and construction (AEC) models, including edge display, specialized line and point styles, and techniques to avoid visual artifacts for overlapping surfaces.
+* Support for both 2D and 3D vector data using a 3D-native data model consistent with the rest of the standard and with glTF.
 * Time-dynamic content, where a tileset can hold multiple representations for the same location. This enables visualizations over time, comparison of design revisions, or switching between different data types like meshes and point clouds.
 * Support for volumetric data through voxels, optimized for streaming with support for sparse datasets and compression.
 * Rendering of complex scenes using 3D Gaussian Splatting, which is fully compatible with the 3D Tiles level-of-detail hierarchy.
