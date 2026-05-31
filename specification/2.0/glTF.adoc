@@ -83,6 +83,20 @@ Authoring tools may use time-dynamic 3D tiles to publish incremental updates wit
 
 See the https://github.com/CesiumGS/3d-tiles/tree/3DTILES_dynamic/extensions/3DTILES_content_conditional[3DTILES_content_conditional] for details.
 
+[#gltf-content-extensions-vector-tiles]
+=== Vector Tiles
+
+3D Tiles 2.0 supports both 2D and 3D vector data using a 3D-native data model consistent with the rest of the standard and with glTF 2.1. Relevant dependencies include https://github.com/CesiumGS/3d-tiles/blob/donmccurdy/3DTILES_content_gltf_vector/extensions/3DTILES_content_gltf_vector/README.md[3DTILES_content_gltf_vector], https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart] and https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon]. Tilesets can represent road centerlines, building footprints, large-scale map features, and AEC design linework as vector data. Payloads may be uncompressed or compressed using the https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[KHR_meshopt_compression] extension.
+
+3D Tiles 2.0 is designed for efficient transmission and rendering of 3D vector data, which differentiates it from established vector formats like Mapbox Vector Tiles and GeoJSON. Implementations may provide interoperability paths to and from those formats where appropriate. Styling of vector content uses the same declarative styling language defined for other 3D Tiles content types. 
+
+See these glTF extension definitions for details:
+
+ * https://github.com/CesiumGS/3d-tiles/blob/donmccurdy/3DTILES_content_gltf_vector/extensions/3DTILES_content_gltf_vector/README.md[3DTILES_content_gltf_vector]
+ * https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart]
+ * https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon]
+ * https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression[KHR_meshopt_compression]
+
 [#gltf-content-extensions-voxels]
 === Voxels
 

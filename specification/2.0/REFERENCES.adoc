@@ -49,6 +49,8 @@
 
 * [[[3DTILES_content_conditional,3DTILES_content_conditional]]], 3D Tiles: 3DTILES_content_conditional, 2026. https://github.com/CesiumGS/3d-tiles/tree/3DTILES_dynamic/extensions/3DTILES_content_conditional[https://github.com/CesiumGS/3d-tiles/tree/3DTILES_dynamic/extensions/3DTILES_content_conditional]
 
+* [[[3DTILES_content_gltf_vector,3DTILES_content_gltf_vector]]], 3D Tiles: 3DTILES_content_gltf_vector, 2026. https://github.com/CesiumGS/3d-tiles/blob/donmccurdy/3DTILES_content_gltf_vector/extensions/3DTILES_content_gltf_vector/README.md[https://github.com/CesiumGS/3d-tiles/blob/donmccurdy/3DTILES_content_gltf_vector/extensions/3DTILES_content_gltf_vector/README.md]
+
 * [[[EXT_structural_metadata,EXT_structural_metadata]]], EXT_structural_metadata, 2026. https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata/README.md#ext_structural_metadata[https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata/README.md#ext_structural_metadata]
 
 * [[[EXT_mesh_primitive_edge_visibility,EXT_mesh_primitive_edge_visibility]]], EXT_mesh_primitive_edge_visibility, 2026. https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility[https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility]
