@@ -33,9 +33,9 @@ The link:{extensions-url}/3DTILES_external_tileset/README.md#3dtiles_external_ti
 [#gltf-supporting-extensions-coordinate-referencing]
 ==== Coordinate Referencing
 
-The link:{extensions-url}/3DTILES_crs_geocentric/README.md#3dtiles_crs_geocentric[3DTILES_crs_geocentric] extension indicates that the glTF is in a geocentric coordinate system such as a WGS 84 Earth-centered, Earth-fixed (ECEF) reference frame (EPSG 4978).
+The link:{extensions-url}/3DTILES_crs/README.md#3dtiles_crs[3DTILES_crs] extension indicates that the glTF is in a geocentric coordinate system such as a WGS 84 Earth-centered, Earth-fixed (ECEF) reference frame (EPSG 4978).
 
-The link:{extensions-url}/3DTILES_crs_georeference/README.md#3dtiles_crs_georeference[3DTILES_crs_georeference] extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
+The link:{extensions-url}/3DTILES_georeference/README.md#3dtiles_georeference[3DTILES_georeference] extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
 
 ==== Additional Bounding Volume Shapes
 

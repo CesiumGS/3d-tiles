@@ -42,13 +42,13 @@ A conforming implementation that supports external tilesets SHALL support the li
 
 A conforming 3D Tiles 2.0 client or server SHOULD implement the coordinate georeferencing requirements of the specification.
 
-==== Requirement 1: link:{extensions-url}/3DTILES_crs_geocentric/README.md#3dtiles_crs_geocentric[3DTILES_crs_geocentric] Extension
+==== Requirement 1: link:{extensions-url}/3DTILES_crs/README.md#3dtiles_crs[3DTILES_crs] Extension
 
-A conforming implementation that supports coordinate georeferencing SHALL support the link:{extensions-url}/3DTILES_crs_geocentric/README.md#3dtiles_crs_geocentric[3DTILES_crs_geocentric] glTF extension. This extension is required for specifying the tileset's global coordinate system, typically https://epsg.org/crs_4978/WGS-84.html[EPSG 4978].
+A conforming implementation that supports coordinate georeferencing SHALL support the link:{extensions-url}/3DTILES_crs/README.md#3dtiles_crs[3DTILES_crs] glTF extension. This extension is required for specifying the tileset's global coordinate system, typically https://epsg.org/crs_4978/WGS-84.html[EPSG 4978].
 
-==== Requirement 2: link:{extensions-url}/3DTILES_crs_georeference/README.md#3dtiles_crs_georeference[3DTILES_crs_georeference] Extension
+==== Requirement 2: link:{extensions-url}/3DTILES_georeference/README.md#3dtiles_georeference[3DTILES_georeference] Extension
 
-A conforming implementation that supports coordinate georeferencing SHALL support the link:{extensions-url}/3DTILES_crs_georeference/README.md#3dtiles_crs_georeference[3DTILES_crs_georeference] glTF extension. This extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
+A conforming implementation that supports coordinate georeferencing SHALL support the link:{extensions-url}/3DTILES_georeference/README.md#3dtiles_georeference[3DTILES_georeference] glTF extension. This extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
 
 === Conformance Class: Additional Bounding Volume Types
 

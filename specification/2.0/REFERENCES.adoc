@@ -37,9 +37,9 @@
 
 * [[[3DTILES_external_tileset,3DTILES_external_tileset]]], 3D Tiles: 3DTILES_external_tileset, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_external_tileset/README.md#3dtiles_external_tileset[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_external_tileset/README.md#3dtiles_external_tileset]
 
-* [[[3DTILES_crs_geocentric,3DTILES_crs_geocentric]]], 3D Tiles: 3DTILES_crs_geocentric, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs_geocentric/README.md#3dtiles_crs_geocentric[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs_geocentric/README.md#3dtiles_crs_geocentric]
+* [[[3DTILES_crs,3DTILES_crs]]], 3D Tiles: 3DTILES_crs, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs/README.md#3dtiles_crs[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs/README.md#3dtiles_crs]
 
-* [[[3DTILES_crs_georeference,3DTILES_crs_georeference]]], 3D Tiles: 3DTILES_crs_georeference, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs_georeference/README.md#3dtiles_crs_georeference[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs_georeference/README.md#3dtiles_crs_georeference]
+* [[[3DTILES_georeference,3DTILES_georeference]]], 3D Tiles: 3DTILES_georeference, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_georeference/README.md#3dtiles_georeference[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_georeference/README.md#3dtiles_georeference]
 
 * [[[3DTILES_shape_ellipsoid_region,3DTILES_shape_ellipsoid_region]]], 3D Tiles: 3DTILES_shape_ellipsoid_region, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md#3dtiles_shape_ellipsoid_region[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md#3dtiles_shape_ellipsoid_region]
 
