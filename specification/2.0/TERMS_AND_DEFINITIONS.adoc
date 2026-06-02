@@ -3,36 +3,31 @@
 
 === Availability 
 
-Data specifying which tiles/contents/child subtrees exist within a single subtree of an implicit tileset
-
-=== Bitstream 
-
-A boolean array stored as a sequence of bits rather than bytes.
+Data specifying which tiles/contents/child subtrees exist within a single subtree of an implicit tileset.
 
 === Bounding Volume
 
-A closed volume completely containing the union of a set of geometric objects. See https://en.wikipedia.org/wiki/Bounding_volume[Wikipedia: Bounding volume]
+A closed volume completely containing the union of a set of geometric objects. See https://en.wikipedia.org/wiki/Bounding_volume[Wikipedia: Bounding volume].
 
 === Child subtree
 
-A subtree reachable from an available tile in the bottommost row of a subtree of an implicit tileset
+A subtree reachable from an available tile in the bottommost row of a subtree of an implicit tileset.
 
 === Entity
 
-An entity, in the context of 3D Tiles metadata, is an instance of a metadata class, populated with property values conforming to a metadata class definition
+An entity, in the context of 3D Tiles metadata, is an instance of a metadata class, populated with property values conforming to a metadata class definition.
 
 === Feature
 
-In 3D Tiles, an individual component of a tile, such as a 3D model in a Batched 3D Model or a point in a Point Cloud which contains position, appearance, and metadata properties.
+In 3D Tiles, an individual component of a tile, such as 3D models representing buildings or trees, or points in a point cloud. Each feature has position and appearance properties and additional application-specific properties.
 
 === Geometric Error
 
-The difference, in meters, of a tile's simplified representation of its source geometry used to calculate the screen space error introduced if a tile's content is rendered and its children's are not.
+A nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not. At runtime, the geometric error is used to compute Screen-Space Error (SSE).
 
-[[glTF]]
 === glTF
 
-An API-neutral runtime asset delivery format for 3D assets.
+An API-neutral runtime asset delivery format for 3D assets and scenes.
 
 === Hierarchical Level of Detail (HLOD)
 
@@ -40,19 +35,19 @@ Decreasing the complexity of a 3D representation according to metrics such as ob
 
 === Implicit tiling 
 
-A description of a tileset using recursive subdivision. The structure and semantics of implicit tiling are defined by the `3DTILES_implicit_tiling` extension. See [3DTILES_implicit_tiling]().
+A description of a tileset using recursive subdivision. The structure and semantics of implicit tiling are defined by the `3DTILES_implicit_tiling` extension. See https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling].
 
 === Implicit root tile 
 
-A tile that contains the `implicitTiling` property, and therefore denotes the root of an implicit tileset.
+A tile that contains the https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling] extension, and therefore denotes the root of an implicit tileset.
 
 === Metadata
 
-In the context of 3D Tiles, metadata is equivalent to the concept of attribution in other Open Geospatial Consortium standards. Metadata refers to non-spatial information that is assigned to entities at multiple granularities, including tilesets, tiles, and features.
+In the context of 3D Tiles, metadata is equivalent to the concept of attribution in other Open Geospatial Consortium standards. Metadata refers to non-spatial information that is assigned to entities at multiple granularities, including tilesets, tiles, contents, and features.
 
 === Metadata class
 
-The description of the structure of an entity that contains 3D Tiles metadata, consisting of multiple metadata properties
+The description of the structure of an entity that contains 3D Tiles metadata, consisting of multiple metadata properties.
 
 === Metadata property
 
@@ -68,27 +63,27 @@ A 2D subdivision scheme that divides each bounding volume into 4 smaller boundin
 
 === Schema
 
-A set of metadata classes and enums that define the structure and type of metadata
+A set of metadata classes and enums that define the structure and type of metadata.
 
 === Screen-Space Error (SSE)
 
-The difference, in pixels, of a tile's simplified representation of its source geometry introduced if a tile's content is rendered and its children's are not.
+The error measured in pixels that determines if a tile is sufficiently detailed for the current view or if its children should be considered.
 
 === Spatial Coherence
 
-The union of all content of the child tiles is completely inside the parent tile's bounding volume
+The union of all content of the child tiles is completely inside the parent tile's bounding volume.
 
 === Style
 
-A set of expressions to be evaluated which modify how each feature in a tileset is displayed
+A set of expressions to be evaluated which modify how each feature in a tileset is displayed.
 
 === Subtree
 
-A fixed-size section of the tree of an implicit tileset that contains availability information. The structure and semantics of a subtree are defined by the `3DTILES_subtree` extension. See [3DTILES_subtree]().
+A fixed-size section of the tree of an implicit tileset that contains availability information. The structure and semantics of a subtree are defined by the `3DTILES_subtree` extension. See https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_subtree/README.md[3DTILES_subtree].
 
 === Subtree file 
 
-A binary file storing information about a specific subtree of an implicit tileset
+A file storing information about a specific subtree of an implicit tileset.
 
 === Subdivision scheme 
 
@@ -100,17 +95,12 @@ A URI pattern containing tile coordinates for directly addressing tiles in an im
 
 === Tile
 
-In 3D Tiles, a tile is a subset of a tileset containing a reference to renderable content and the metadata, such as the content's bounding volume, which is used by a client to determine if the content is rendered. Tiles are defined using a glTF node within a `3DTILES_tileset` extension property. The structure and semantics of tiles are defined by the `3DTILES_tileset` extension. See the [Tile section in 3DTILES_tileset]().
+In 3D Tiles, a tile is a subset of a tileset containing a reference to renderable content and the metadata used to determine if the content is rendered. Tiles are defined using a glTF node within a `3DTILES_tileset` extension property. See the https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#tile[Tile section in 3DTILES_tileset].
 
-=== Tile Content 
+=== Content 
 
-A binary blob containing information necessary to render a tile which is an instance of a specific tile format (Batched 3D Model, Instanced 3D Model, Point Clouds, Composite, or glTF).
-
-=== Tile Format
-
-The structure or layout of tile content data, (Batched 3D Model, Instanced 3D Model, Point Clouds, Composite, or glTF).
+The renderable content of a tile as a glTF asset.
 
 === Tileset
 
-In 3D Tiles, a collection of 3D Tiles tile instances organized into a spatial data structure and additional metadata, such that the aggregation of these tiles represent some 3D content at various levels of detail. The structure and semantics of a tileset are defined by the `3DTILES_tileset` extension. A valid tileset in 3D Tiles 2.0 MUST use the `3DTILES_tileset` extension for glTF 2.1. See the [Tileset section in 3DTILES_tileset]().
-
+In 3D Tiles, a collection of 3D Tiles tile instances organized into a spatial data structure and additional metadata, such that the aggregation of these tiles represent some 3D content at various levels of detail. The structure and semantics of a tileset are defined by the `3DTILES_tileset` extension. A valid tileset in 3D Tiles 2.0 MUST use the `3DTILES_tileset` extension for glTF 2.1. See the https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#tileset[Tileset section in 3DTILES_tileset].

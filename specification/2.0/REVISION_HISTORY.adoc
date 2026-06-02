@@ -9,6 +9,6 @@
 |===
 |Date |Release |Editor | Primary clauses modified |Description
 
-| 2026-03-29 | 2.0.0 | Adam Morris | all a| This is the initial normative specification for 3D Tiles 2.0.
+| 2026-06-03 | 2.0.0 | Adam Morris | all a| This is the initial normative specification for 3D Tiles 2.0.
 
 |===

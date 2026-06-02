@@ -12,8 +12,7 @@
 
 * [[[IETF_RFC8259,IETF RFC 8259]]], IETF RFC8259: The JavaScript Object Notation (JSON) Data Interchange Format, 2017, https://datatracker.ietf.org/doc/html/rfc8259[https://datatracker.ietf.org/doc/html/rfc8259]
 
-// TODO: Link to the issue.
-* [[[Khronos_Group,Khronos Group glTF 2.1]]], Khronos Group: glTF 2.1, 2026. https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html[https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html]
+* [[[Khronos_Group,Khronos Group glTF 2.1]]], Khronos Group: glTF 2.1, 2026. https://github.com/KhronosGroup/glTF/issues/2585[https://github.com/KhronosGroup/glTF/issues/2585]
 
 * [[[KHR_mesh_primitive_restart,KHR_mesh_primitive_restart]]], Khronos Group: KHR_mesh_primitive_restart, 2026. https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart]
 
@@ -47,15 +46,19 @@
 
 * [[[3DTILES_shape_s2,3DTILES_shape_s2]]], 3D Tiles: 3DTILES_shape_s2, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2/README.md[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2/README.md]
 
-* [[[3DTILES_content_conditional,3DTILES_content_conditional]]], 3D Tiles: 3DTILES_content_conditional, 2026. https://github.com/CesiumGS/3d-tiles/tree/3DTILES_dynamic/extensions/3DTILES_content_conditional[https://github.com/CesiumGS/3d-tiles/tree/3DTILES_dynamic/extensions/3DTILES_content_conditional]
+* [[[3DTILES_content_conditional,3DTILES_content_conditional]]], 3D Tiles: 3DTILES_content_conditional, 2026. https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_conditional/README.md[https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_conditional/README.md]
 
-* [[[3DTILES_content_gltf_vector,3DTILES_content_gltf_vector]]], 3D Tiles: 3DTILES_content_gltf_vector, 2026. https://github.com/CesiumGS/3d-tiles/blob/donmccurdy/3DTILES_content_gltf_vector/extensions/3DTILES_content_gltf_vector/README.md[https://github.com/CesiumGS/3d-tiles/blob/donmccurdy/3DTILES_content_gltf_vector/extensions/3DTILES_content_gltf_vector/README.md]
+* [[[3DTILES_content_vector,3DTILES_content_vector]]], 3DTILES_content_vector, 2026. https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_vector/README.md[https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_vector/README.md]
 
-* [[[EXT_structural_metadata,EXT_structural_metadata]]], EXT_structural_metadata, 2026. https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata/README.md#ext_structural_metadata[https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata/README.md#ext_structural_metadata]
+* [[[3DTILES_content_voxels,3DTILES_content_voxels]]], 3D Tiles: 3DTILES_content_voxels, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_voxels/README.md[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_voxels/README.md]
+
+* [[[EXT_mesh_polygon,EXT_mesh_polygon]]], 3D Tiles: EXT_mesh_polygon, 2026. https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md]
+
+* [[[EXT_structural_metadata,EXT_structural_metadata]]], EXT_structural_metadata, 2026. https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata/README.md[https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata/README.md]
+
+* [[[EXT_primitive_voxels,EXT_primitive_voxels]]], EXT_primitive_voxels, 2026. https://github.com/CesiumGS/glTF/blob/primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels/README.md[https://github.com/CesiumGS/glTF/blob/primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels/README.md]
 
 * [[[EXT_mesh_primitive_edge_visibility,EXT_mesh_primitive_edge_visibility]]], EXT_mesh_primitive_edge_visibility, 2026. https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility[https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility]
-
-* [[[EXT_primitive_voxels,EXT_primitive_voxels]]], EXT_primitive_voxels, 2026. https://github.com/CesiumGS/glTF/tree/primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels[https://github.com/CesiumGS/glTF/tree/primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels]
 
 * [[[EXT_textureInfo_constant_lod,EXT_textureInfo_constant_lod]]], EXT_textureInfo_constant_lod, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/EXT_textureInfo_constant_lod[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/EXT_textureInfo_constant_lod]
 

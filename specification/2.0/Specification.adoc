@@ -45,8 +45,8 @@
 :comment: ### URI to which the HTML version of this standard is published; optional
 :html-uri: https://portal.opengeospatial.org/files/22-025r4.html
 :comment: ### The submitting organizations (active OGC members) that submitted this document
-:submitting-organizations: Cesium GS Inc.
-:keywords: terrain, geospatial, gis, point cloud, spatial data, vector data, photogrammetry, gltf, 3d models, 3d tiles, metadata, implicit tiling
+:submitting-organizations: Bentley Systems Inc.
+:keywords: terrain, geospatial, gis, point cloud, spatial data, vector data, photogrammetry, gltf, 3d models, 3d tiles, metadata, implicit tiling, voxels, gaussian splatting, aec, time dynamic 
 //========== EXPERIMENTAL OGC HEADER END
 
 

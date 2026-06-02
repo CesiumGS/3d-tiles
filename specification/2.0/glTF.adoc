@@ -6,7 +6,7 @@
 [#gltf-tileset-extensions]
 == Tileset Extensions
 
-As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension or extension compatible with glTF 2.1 may be used with 3D Tiles 2.0. There are some specific extensions that are normatively defined by 3D Tiles 2.0. These extensions use the `3DTILES_` prefix to differentiate them.
+As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension compatible with glTF 2.1 may be used with 3D Tiles 2.0. There are some specific extensions that are normatively defined by 3D Tiles 2.0. These extensions use the `3DTILES_` prefix to differentiate them.
 
 [#gltf-base-extension]
 === Base Extension
@@ -43,16 +43,12 @@ Several extensions exist that extend the bounding volumes shapes that can be use
 
 The link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region] extension defines a cylinder-conforming region as an additional shape type. Cylindrical regions are useful for visualizing real-world data that has been captured by cylindrical sensors.
 
-Additionally, the link:{extensions-url}/3DTILES_shape_s2/README.md[3DTILES_shape_s2] extension to 3D Tiles enables using S2 cells as an additional shape type. Due to the properties of S2 described above, this extension is well suited for tilesets that span the whole globe. 
-
-S2 is a geometry library that defines a framework for decomposing the unit sphere into a hierarchy of cells. A cell is a quadrilateral bounded by four geodesics. The S2 cell hierarchy has 6 root cells, that are obtained by projecting the six faces of a cube onto the unit sphere.
-
-Typically, traditional GIS libraries rely on projecting map data from an ellipsoid onto a plane. For example, the Mercator projection is a cylindrical projection, where the ellipsoid is mapped onto a cylinder that is then unrolled as a plane. This method leads to increasingly large distortion in areas as you move further away from the equator. S2 makes it possible to split the Earth into tiles that have no singularities, have relatively low distortion and are nearly equal in size.
+Additionally, the link:{extensions-url}/3DTILES_shape_s2/README.md[3DTILES_shape_s2] extension to 3D Tiles enables using S2 cells as an additional shape type for global near equal-area coverage.
 
 [#gltf-content-extensions]
 == Content Extensions
 
-Since 3D Tiles 2.0 tilesets are valid glTF 2.1 files, any glTF extension compatible with glTF 2.1 can be used to extend 3D Tiles 2.0. Many core content features of 3D Tiles 2.0 are powered entirely by glTF extensions. Supporting certain types of content means supporting these glTF extensions. This is not an exhaustive list--other extensions may exist within the glTF community that could be used within 3D Tiles 2.0.
+Any glTF extension compatible with glTF 2.1 can be used to extend content files. Many core content features of 3D Tiles 2.0 are powered entirely by glTF extensions. Supporting certain types of content means supporting these glTF extensions. This is not an exhaustive list--other extensions may exist within the glTF community that could be used within 3D Tiles 2.0.
 
 [#gltf-content-extensions-aec-rendering]
 === Architectural, Engineering, and Construction Rendering
@@ -75,24 +71,24 @@ See these glTF extension definitions for details:
 [#gltf-content-extensions-time-dynamic-content]
 === Time-dynamic Content 
 
-Using the https://github.com/CesiumGS/3d-tiles/tree/3DTILES_dynamic/extensions/3DTILES_content_conditional[3DTILES_content_conditional] extension, implementations may support time-dynamic 3D tiles, enabling multiple representations of the same spatial region within a single tileset (for example, temporal states of terrain, design-model revisions, or alternative geometries such as point clouds and meshes). 
+Using the https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_conditional/README.md[3DTILES_content_conditional] extension, implementations may support time-dynamic 3D tiles, enabling multiple representations of the same spatial region within a single tileset (for example, temporal states of terrain, design-model revisions, or alternative geometries such as point clouds and meshes). 
 
 Any tile may be tagged with one or more attribute key/value pairs. Tilesets are not required to tag every tile; untagged tiles are treated as unconditional. Clients select tile content by evaluating these tags against a selection expression supplied at runtime. Where no selection expression is supplied, clients can render the default content declared by the tileset author. 
 
 Authoring tools may use time-dynamic 3D tiles to publish incremental updates without rewriting an entire tileset. 
 
-See the https://github.com/CesiumGS/3d-tiles/tree/3DTILES_dynamic/extensions/3DTILES_content_conditional[3DTILES_content_conditional] for details.
+See the https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_conditional/README.md[3DTILES_content_conditional] extension for details.
 
 [#gltf-content-extensions-vector-tiles]
 === Vector Tiles
 
-3D Tiles 2.0 supports both 2D and 3D vector data using a 3D-native data model consistent with the rest of the standard and with glTF 2.1. Relevant dependencies include https://github.com/CesiumGS/3d-tiles/blob/donmccurdy/3DTILES_content_gltf_vector/extensions/3DTILES_content_gltf_vector/README.md[3DTILES_content_gltf_vector], https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart] and https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon]. Tilesets can represent road centerlines, building footprints, large-scale map features, and AEC design linework as vector data. Payloads may be uncompressed or compressed using the https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[KHR_meshopt_compression] extension.
+3D Tiles 2.0 supports both 2D and 3D vector data using a 3D-native data model consistent with the rest of the standard and with glTF 2.1. Relevant dependencies include https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_vector/README.md[3DTILES_content_vector], https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart] and https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon]. Tilesets can represent road centerlines, building footprints, large-scale map features, and AEC design linework as vector data. Payloads may be uncompressed or compressed using the https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_meshopt_compression/README.md[KHR_meshopt_compression] extension.
 
 3D Tiles 2.0 is designed for efficient transmission and rendering of 3D vector data, which differentiates it from established vector formats like Mapbox Vector Tiles and GeoJSON. Implementations may provide interoperability paths to and from those formats where appropriate. Styling of vector content uses the same declarative styling language defined for other 3D Tiles content types. 
 
 See these glTF extension definitions for details:
 
- * https://github.com/CesiumGS/3d-tiles/blob/donmccurdy/3DTILES_content_gltf_vector/extensions/3DTILES_content_gltf_vector/README.md[3DTILES_content_gltf_vector]
+ * https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_vector/README.md[3DTILES_content_vector]
  * https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart]
  * https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon]
  * https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression[KHR_meshopt_compression]
@@ -100,15 +96,16 @@ See these glTF extension definitions for details:
 [#gltf-content-extensions-voxels]
 === Voxels
 
-3D Tiles 2.0 supports voxel volumetric datasets. Conforming voxel tilesets may use the https://github.com/CesiumGS/glTF/tree/primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels[EXT_primitive_voxels], the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor[3DTILES_shape_ellipsoid_region], and the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor[3DTILES_shape_cylinder_region] glTF 2.1 extensions in combination with the implicit tiling mechanism defined in 3D Tiles 2.0. 
+3D Tiles 2.0 supports voxel volumetric datasets. Conforming voxel tilesets may use the https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_voxels/README.md[3DTILES_content_voxels], https://github.com/CesiumGS/glTF/blob/primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels/README.md[EXT_primitive_voxels], https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor[3DTILES_shape_ellipsoid_region], and https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor[3DTILES_shape_cylinder_region] glTF 2.1 extensions in combination with the implicit tiling mechanism defined in 3D Tiles 2.0.
 
 Both dense and sparse voxel volumes can be supported. Voxel payloads may be uncompressed, or may be compressed using gzip, the glTF https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_meshopt_compression[EXT_meshopt_compression] extension, the glTF https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression[KHR_meshopt_compression] extension, or a combination of the available methods.
 
 See these glTF extension definitions for details:
 
+ * https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_voxels/README.md[3DTILES_content_voxels]
+ * https://github.com/CesiumGS/glTF/blob/primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels/README.md[EXT_primitive_voxels]
  * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor[3DTILES_shape_ellipsoid_region]
  * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor[3DTILES_shape_cylinder_region]
- * https://github.com/CesiumGS/glTF/tree/primitive-voxels/extensions/2.0/Vendor/EXT_primitive_voxels[EXT_primitive_voxels]
  * https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_meshopt_compression[EXT_meshopt_compression]
  * https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression[KHR_meshopt_compression]
 

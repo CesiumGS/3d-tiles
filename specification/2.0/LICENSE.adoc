@@ -1,6 +1,6 @@
 = License
 
-Copyright 2016 - 2026 Cesium GS, Inc.
+Copyright 2016 - 2026 Bentley Systems, Inc.
 
 This Specification is licensed under a http://creativecommons.org/licenses/by/4.0/[Creative Commons Attribution 4.0 International License (CC BY 4.0)].
 
