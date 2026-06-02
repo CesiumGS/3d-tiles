@@ -62,9 +62,9 @@ A conforming implementation MAY support the link:{extensions-url}/3DTILES_shape_
 
 A conforming implementation MAY support the link:{extensions-url}/3DTILES_shape_cylinder_region/README.md#3dtiles_shape_cylinder_region[3DTILES_shape_cylinder_region] glTF extension. This extension allows defining an cylinder-conforming region as an additional glTF 2.1 shape type.
 
-==== Requirement 3: link:{extensions-url}/3DTILES_bounding_volume_S2/README.md#3dtiles_bounding_volume_s2[3DTILES_bounding_volume_S2]
+==== Requirement 3: link:{extensions-url}/3DTILES_shape_s2/README.md#3dtiles_shape_s2[3DTILES_shape_s2]
 
-A conforming implementation MAY support the link:{extensions-url}/3DTILES_bounding_volume_S2/README.md#3dtiles_bounding_volume_s2[3DTILES_bounding_volume_S2] glTF extension. This extension enables using S2 cells as bounding volumes.
+A conforming implementation MAY support the link:{extensions-url}/3DTILES_shape_s2/README.md#3dtiles_shape_s2[3DTILES_shape_s2] glTF extension. This extension enables using S2 cells as as additional glTF 2.1 shape type.
 
 === Conformance Class: Tileset Metadata
 

@@ -43,7 +43,7 @@ Several extensions exist that extend the bounding volumes shapes that can be use
 
 The link:{extensions-url}/3DTILES_shape_cylinder_region/README.md#3dtiles_shape_cylinder_region[3DTILES_shape_cylinder_region] extension defines a cylinder-conforming region as an additional shape type. Cylindrical regions are useful for visualizing real-world data that has been captured by cylindrical sensors.
 
-Additionally, the link:{extensions-url}/3DTILES_bounding_volume_S2/README.md#3dtiles_bounding_volume_s2[3DTILES_bounding_volume_S2] extension to 3D Tiles enables using S2 cells as bounding volumes. Due to the properties of S2 described above, this extension is well suited for tilesets that span the whole globe. 
+Additionally, the link:{extensions-url}/3DTILES_shape_s2/README.md#3dtiles_shape_s2[3DTILES_shape_s2] extension to 3D Tiles enables using S2 cells as an additional shape type. Due to the properties of S2 described above, this extension is well suited for tilesets that span the whole globe. 
 
 S2 is a geometry library that defines a framework for decomposing the unit sphere into a hierarchy of cells. A cell is a quadrilateral bounded by four geodesics. The S2 cell hierarchy has 6 root cells, that are obtained by projecting the six faces of a cube onto the unit sphere.
 
