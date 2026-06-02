@@ -29,23 +29,23 @@
 
 * [[[W3C,W3C css-color-3]]], W3C: CSS3 Color, 2018. https://www.w3.org/TR/css-color-3/[https://www.w3.org/TR/css-color-3/]
 
-* [[[3DTILES_tileset,3DTILES_tileset]]], 3D Tiles: 3DTILES_tileset, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#3dtiles_tileset[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#3dtiles_tileset]
+* [[[3DTILES_tileset,3DTILES_tileset]]], 3D Tiles: 3DTILES_tileset, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md]
 
-* [[[3DTILES_implicit_tiling,3DTILES_implicit_tiling]]], 3D Tiles: 3DTILES_implicit_tiling, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_implicit_tiling/README.md#3dtiles_implicit_tiling[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_implicit_tiling/README.md#3dtiles_implicit_tiling]
+* [[[3DTILES_implicit_tiling,3DTILES_implicit_tiling]]], 3D Tiles: 3DTILES_implicit_tiling, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_implicit_tiling/README.md[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_implicit_tiling/README.md]
 
-* [[[3DTILES_subtree,3DTILES_subtree]]], 3D Tiles: 3DTILES_subtree, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_subtree/README.md#3dtiles_subtree[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_subtree/README.md#3dtiles_subtree]
+* [[[3DTILES_subtree,3DTILES_subtree]]], 3D Tiles: 3DTILES_subtree, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_subtree/README.md[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_subtree/README.md]
 
-* [[[3DTILES_external_tileset,3DTILES_external_tileset]]], 3D Tiles: 3DTILES_external_tileset, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_external_tileset/README.md#3dtiles_external_tileset[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_external_tileset/README.md#3dtiles_external_tileset]
+* [[[3DTILES_external_tileset,3DTILES_external_tileset]]], 3D Tiles: 3DTILES_external_tileset, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_external_tileset/README.md[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_external_tileset/README.md]
 
-* [[[3DTILES_crs,3DTILES_crs]]], 3D Tiles: 3DTILES_crs, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs/README.md#3dtiles_crs[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs/README.md#3dtiles_crs]
+* [[[3DTILES_crs,3DTILES_crs]]], 3D Tiles: 3DTILES_crs, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs/README.md[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs/README.md]
 
-* [[[3DTILES_georeference,3DTILES_georeference]]], 3D Tiles: 3DTILES_georeference, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_georeference/README.md#3dtiles_georeference[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_georeference/README.md#3dtiles_georeference]
+* [[[3DTILES_georeference,3DTILES_georeference]]], 3D Tiles: 3DTILES_georeference, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_georeference/README.md[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_georeference/README.md]
 
-* [[[3DTILES_shape_ellipsoid_region,3DTILES_shape_ellipsoid_region]]], 3D Tiles: 3DTILES_shape_ellipsoid_region, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md#3dtiles_shape_ellipsoid_region[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md#3dtiles_shape_ellipsoid_region]
+* [[[3DTILES_shape_ellipsoid_region,3DTILES_shape_ellipsoid_region]]], 3D Tiles: 3DTILES_shape_ellipsoid_region, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md]
 
-* [[[3DTILES_shape_cylinder_region,3DTILES_shape_cylinder_region]]], 3D Tiles: 3DTILES_shape_cylinder_region, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region/README.md#3dtiles_shape_cylinder_region[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region/README.md#3dtiles_shape_cylinder_region]
+* [[[3DTILES_shape_cylinder_region,3DTILES_shape_cylinder_region]]], 3D Tiles: 3DTILES_shape_cylinder_region, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region/README.md[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region/README.md]
 
-* [[[3DTILES_shape_s2,3DTILES_shape_s2]]], 3D Tiles: 3DTILES_shape_s2, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2/README.md#3dtiles_shape_s2[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2/README.md#3dtiles_shape_s2]
+* [[[3DTILES_shape_s2,3DTILES_shape_s2]]], 3D Tiles: 3DTILES_shape_s2, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2/README.md[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2/README.md]
 
 * [[[3DTILES_content_conditional,3DTILES_content_conditional]]], 3D Tiles: 3DTILES_content_conditional, 2026. https://github.com/CesiumGS/3d-tiles/tree/3DTILES_dynamic/extensions/3DTILES_content_conditional[https://github.com/CesiumGS/3d-tiles/tree/3DTILES_dynamic/extensions/3DTILES_content_conditional]
 

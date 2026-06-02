@@ -14,57 +14,57 @@ A conforming 3D Tiles 2.0 client or server SHALL implement the core requirements
 
 A conforming implementation SHALL support the glTF 2.1 specification.
 
-==== Requirement 2: link:{extensions-url}/3DTILES_tileset/README.md#3dtiles_tileset[3DTILES_tileset]
+==== Requirement 2: link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset]
 
-A conforming implementation SHALL support the link:{extensions-url}/3DTILES_tileset/README.md#3dtiles_tileset[3DTILES_tileset] glTF extension. This extension is required for defining the structure of a 3D Tiles 2.0 tileset.
+A conforming implementation SHALL support the link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset] glTF extension. This extension is required for defining the structure of a 3D Tiles 2.0 tileset.
 
 === Conformance Class: Implicit Tiling
 
 A conforming 3D Tiles 2.0 client or server SHOULD implement the implicit tiling requirements of the specification.
 
-==== Requirement 1: link:{extensions-url}/3DTILES_implicit_tiling/README.md#3dtiles_implicit_tiling[3DTILES_implicit_tiling] Extension
+==== Requirement 1: link:{extensions-url}/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling] Extension
 
-A conforming implementation that supports implicit tiling SHALL support the link:{extensions-url}/3DTILES_implicit_tiling/README.md#3dtiles_implicit_tiling[3DTILES_implicit_tiling] glTF extension. This extension is required for defining the implicit tiling scheme.
+A conforming implementation that supports implicit tiling SHALL support the link:{extensions-url}/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling] glTF extension. This extension is required for defining the implicit tiling scheme.
 
-==== Requirement 2: link:{extensions-url}/3DTILES_subtree/README.md#3dtiles_subtree[3DTILES_subtree] Extension
+==== Requirement 2: link:{extensions-url}/3DTILES_subtree/README.md[3DTILES_subtree] Extension
 
-A conforming implementation that supports implicit tiling SHALL support the link:{extensions-url}/3DTILES_subtree/README.md#3dtiles_subtree[3DTILES_subtree] glTF extension. This extension is required for handling availability and metadata in implicit tilesets.
+A conforming implementation that supports implicit tiling SHALL support the link:{extensions-url}/3DTILES_subtree/README.md[3DTILES_subtree] glTF extension. This extension is required for handling availability and metadata in implicit tilesets.
 
 === Conformance Class: External Tilesets
 
 A conforming 3D Tiles 2.0 client or server SHOULD implement the external tilesets requirements of the specification.
 
-==== Requirement 1: link:{extensions-url}/3DTILES_external_tileset/README.md#3dtiles_external_tileset[3DTILES_external_tileset] Extension
+==== Requirement 1: link:{extensions-url}/3DTILES_external_tileset/README.md[3DTILES_external_tileset] Extension
 
-A conforming implementation that supports external tilesets SHALL support the link:{extensions-url}/3DTILES_external_tileset/README.md#3dtiles_external_tileset[3DTILES_external_tileset] glTF extension. This extension allows a tileset to reference external tilesets.
+A conforming implementation that supports external tilesets SHALL support the link:{extensions-url}/3DTILES_external_tileset/README.md[3DTILES_external_tileset] glTF extension. This extension allows a tileset to reference external tilesets.
 
 === Conformance Class: Coordinate Referencing
 
 A conforming 3D Tiles 2.0 client or server SHOULD implement the coordinate georeferencing requirements of the specification.
 
-==== Requirement 1: link:{extensions-url}/3DTILES_crs/README.md#3dtiles_crs[3DTILES_crs] Extension
+==== Requirement 1: link:{extensions-url}/3DTILES_crs/README.md[3DTILES_crs] Extension
 
-A conforming implementation that supports coordinate georeferencing SHALL support the link:{extensions-url}/3DTILES_crs/README.md#3dtiles_crs[3DTILES_crs] glTF extension. This extension is required for specifying the tileset's global coordinate system, typically https://epsg.org/crs_4978/WGS-84.html[EPSG 4978].
+A conforming implementation that supports coordinate georeferencing SHALL support the link:{extensions-url}/3DTILES_crs/README.md[3DTILES_crs] glTF extension. This extension is required for specifying the tileset's global coordinate system, typically https://epsg.org/crs_4978/WGS-84.html[EPSG 4978].
 
-==== Requirement 2: link:{extensions-url}/3DTILES_georeference/README.md#3dtiles_georeference[3DTILES_georeference] Extension
+==== Requirement 2: link:{extensions-url}/3DTILES_georeference/README.md[3DTILES_georeference] Extension
 
-A conforming implementation that supports coordinate georeferencing SHALL support the link:{extensions-url}/3DTILES_georeference/README.md#3dtiles_georeference[3DTILES_georeference] glTF extension. This extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
+A conforming implementation that supports coordinate georeferencing SHALL support the link:{extensions-url}/3DTILES_georeference/README.md[3DTILES_georeference] glTF extension. This extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
 
 === Conformance Class: Additional Bounding Volume Types
 
 A conforming 3D Tiles 2.0 client or server MAY implement the additional bounding volume type requirements of the specification.
 
-==== Requirement 1: link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md#3dtiles_shape_ellipsoid_region[3DTILES_shape_ellipsoid_region]
+==== Requirement 1: link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region]
 
-A conforming implementation MAY support the link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md#3dtiles_shape_ellipsoid_region[3DTILES_shape_ellipsoid_region] glTF extension. This extension allows defining an ellipsoid-conforming region as an additional glTF 2.1 shape type.
+A conforming implementation MAY support the link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region] glTF extension. This extension allows defining an ellipsoid-conforming region as an additional glTF 2.1 shape type.
 
-==== Requirement 2: link:{extensions-url}/3DTILES_shape_cylinder_region/README.md#3dtiles_shape_cylinder_region[3DTILES_shape_cylinder_region]
+==== Requirement 2: link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region]
 
-A conforming implementation MAY support the link:{extensions-url}/3DTILES_shape_cylinder_region/README.md#3dtiles_shape_cylinder_region[3DTILES_shape_cylinder_region] glTF extension. This extension allows defining an cylinder-conforming region as an additional glTF 2.1 shape type.
+A conforming implementation MAY support the link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region] glTF extension. This extension allows defining an cylinder-conforming region as an additional glTF 2.1 shape type.
 
-==== Requirement 3: link:{extensions-url}/3DTILES_shape_s2/README.md#3dtiles_shape_s2[3DTILES_shape_s2]
+==== Requirement 3: link:{extensions-url}/3DTILES_shape_s2/README.md[3DTILES_shape_s2]
 
-A conforming implementation MAY support the link:{extensions-url}/3DTILES_shape_s2/README.md#3dtiles_shape_s2[3DTILES_shape_s2] glTF extension. This extension enables using S2 cells as as additional glTF 2.1 shape type.
+A conforming implementation MAY support the link:{extensions-url}/3DTILES_shape_s2/README.md[3DTILES_shape_s2] glTF extension. This extension enables using S2 cells as as additional glTF 2.1 shape type.
 
 === Conformance Class: Tileset Metadata
 

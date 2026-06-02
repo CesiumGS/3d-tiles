@@ -11,7 +11,7 @@ As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension or extension
 [#gltf-base-extension]
 === Base Extension
 
-The link:{extensions-url}/3DTILES_tileset/README.md#3dtiles_tileset[3DTILES_tileset] extension specifies a well defined subset of glTF 2.1 for representing a tileset in https://github.com/CesiumGS/3d-tiles/tree/main/specification/[3D Tiles]. It extends the node hierarchy to support Hierarchical Level of Detail (HLOD) for streaming massive 3D scenes. Additionally, it depends on core glTF 2.1 features like external assets and bounding volumes.
+The link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset] extension specifies a well defined subset of glTF 2.1 for representing a tileset in https://github.com/CesiumGS/3d-tiles/tree/main/specification/[3D Tiles]. It extends the node hierarchy to support Hierarchical Level of Detail (HLOD) for streaming massive 3D scenes. Additionally, it depends on core glTF 2.1 features like external assets and bounding volumes.
 
 [#gltf-supporting-extensions]
 === Supporting Extensions
@@ -21,29 +21,29 @@ These tileset extensions are optional supporting extensions that bring features 
 [#gltf-supporting-extensions-implicit-tiling]
 ==== Implicit Tiling
 
-Implicit tiling defines a concise representation of quadtrees and octrees in 3D Tiles. This regular pattern allows for random access of tiles based on their tile coordinates which enables accelerated spatial queries, new traversal algorithms, and efficient updates of tile content, among other use cases. The link:{extensions-url}/3DTILES_implicit_tiling/README.md#3dtiles_implicit_tiling[3DTILES_implicit_tiling] extension enables implicit tiling workflows in 3D Tiles 2.0.
+Implicit tiling defines a concise representation of quadtrees and octrees in 3D Tiles. This regular pattern allows for random access of tiles based on their tile coordinates which enables accelerated spatial queries, new traversal algorithms, and efficient updates of tile content, among other use cases. The link:{extensions-url}/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling] extension enables implicit tiling workflows in 3D Tiles 2.0.
 
-The link:{extensions-url}/3DTILES_subtree/README.md#3dtiles_subtree[3DTILES_subtree] extension specifies a well defined subset of glTF 2.1 for representing a subtree in 3DTILES_implicit_tiling. A subtree stores tile, content, and child subtree availability, as well as metadata for available tiles and contents.
+The link:{extensions-url}/3DTILES_subtree/README.md[3DTILES_subtree] extension specifies a well defined subset of glTF 2.1 for representing a subtree in 3DTILES_implicit_tiling. A subtree stores tile, content, and child subtree availability, as well as metadata for available tiles and contents.
 
 [#gltf-external-tilesets]
 ==== External Tilesets
 
-The link:{extensions-url}/3DTILES_external_tileset/README.md#3dtiles_external_tileset[3DTILES_external_tileset] extension allows a tileset to reference external tilesets (other assets with the link:{extensions-url}/3DTILES_tileset/README.md#3dtiles_tileset[3DTILES_tileset] extension). This enables, for example, storing each city in a tileset and then having a global tileset of tilesets. It is also helpful for partitioning large tilesets into multiple smaller tilesets to improve initial load time.
+The link:{extensions-url}/3DTILES_external_tileset/README.md[3DTILES_external_tileset] extension allows a tileset to reference external tilesets (other assets with the link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset] extension). This enables, for example, storing each city in a tileset and then having a global tileset of tilesets. It is also helpful for partitioning large tilesets into multiple smaller tilesets to improve initial load time.
 
 [#gltf-supporting-extensions-coordinate-referencing]
 ==== Coordinate Referencing
 
-The link:{extensions-url}/3DTILES_crs/README.md#3dtiles_crs[3DTILES_crs] extension indicates that the glTF is in a geocentric coordinate system such as a WGS 84 Earth-centered, Earth-fixed (ECEF) reference frame (EPSG 4978).
+The link:{extensions-url}/3DTILES_crs/README.md[3DTILES_crs] extension indicates that the glTF is in a geocentric coordinate system such as a WGS 84 Earth-centered, Earth-fixed (ECEF) reference frame (EPSG 4978).
 
-The link:{extensions-url}/3DTILES_georeference/README.md#3dtiles_georeference[3DTILES_georeference] extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
+The link:{extensions-url}/3DTILES_georeference/README.md[3DTILES_georeference] extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
 
 ==== Additional Bounding Volume Shapes
 
-Several extensions exist that extend the bounding volumes shapes that can be used with 3D Tiles 2.0. The link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md#3dtiles_shape_ellipsoid_region[3DTILES_shape_ellipsoid_region] extension defines an ellipsoid-conforming region as an additional shape type. Ellipsoid regions are commonly used in geospatial applications to describe volumes that conform to the curvature of the Earth, or other bodies.
+Several extensions exist that extend the bounding volumes shapes that can be used with 3D Tiles 2.0. The link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region] extension defines an ellipsoid-conforming region as an additional shape type. Ellipsoid regions are commonly used in geospatial applications to describe volumes that conform to the curvature of the Earth, or other bodies.
 
-The link:{extensions-url}/3DTILES_shape_cylinder_region/README.md#3dtiles_shape_cylinder_region[3DTILES_shape_cylinder_region] extension defines a cylinder-conforming region as an additional shape type. Cylindrical regions are useful for visualizing real-world data that has been captured by cylindrical sensors.
+The link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region] extension defines a cylinder-conforming region as an additional shape type. Cylindrical regions are useful for visualizing real-world data that has been captured by cylindrical sensors.
 
-Additionally, the link:{extensions-url}/3DTILES_shape_s2/README.md#3dtiles_shape_s2[3DTILES_shape_s2] extension to 3D Tiles enables using S2 cells as an additional shape type. Due to the properties of S2 described above, this extension is well suited for tilesets that span the whole globe. 
+Additionally, the link:{extensions-url}/3DTILES_shape_s2/README.md[3DTILES_shape_s2] extension to 3D Tiles enables using S2 cells as an additional shape type. Due to the properties of S2 described above, this extension is well suited for tilesets that span the whole globe. 
 
 S2 is a geometry library that defines a framework for decomposing the unit sphere into a hierarchy of cells. A cell is a quadrilateral bounded by four geodesics. The S2 cell hierarchy has 6 root cells, that are obtained by projecting the six faces of a cube onto the unit sphere.
 
