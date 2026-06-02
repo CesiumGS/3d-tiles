@@ -97,7 +97,7 @@ This document describes the specification for 3D Tiles, an open standard for str
 
 == Preface
 
-Bringing techniques from graphics research, the movie industry, and the game industry to 3D geospatial, 3D Tiles defines a spatial data structure and a set of tile formats designed for 3D, and optimized for streaming and rendering.
+Bringing techniques from graphics research, the movie industry, and the game industry to 3D geospatial, 3D Tiles defines a spatial data structure built on glTF designed for 3D, and optimized for streaming and rendering.
 
 == Submitters
 
@@ -136,13 +136,14 @@ No conventions are specified in this document.
 
 A 3D Tiles 2.0 tileset is a glTF 2.1 asset. The `3DTILES_tileset` extension is a normative part of the 3D Tiles 2.0 specification and defines the structure of the tileset. Specifically, the `3DTILES_tileset` extension defines:
 
-* The hierarchical structure of the tileset, including the `children` of a tile.
-* The tile object, which represents a node in the tileset hierarchy.
-* The definition of a tile's content, including its URI and bounding volume.
+* The hierarchical structure of the tileset.
+* The tile object, which represents a tile in the tileset hierarchy.
+* The definition of a tile's content, including its URI.
 * The geometric error and refinement strategy (`ADD` or `REPLACE`) for each tile.
-* The transformation of a tile.
-* How application-specific _metadata_ may be included at multiple granularities using the 3D Metadata Specification.
+* The mechanism for supporting implicit tiling.
 * The mechanism for linking to external tilesets.
+* The coordinate reference system of the tileset.
+* The mechanism for assigning application-specific _metadata_ using the 3D Metadata Specification.
 
 All tile content is represented as glTF assets, either embedded or external.
 
