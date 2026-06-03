@@ -33,9 +33,9 @@ The link:{extensions-url}/3DTILES_external_tileset/README.md[3DTILES_external_ti
 [#gltf-supporting-extensions-coordinate-referencing]
 ==== Coordinate Referencing
 
-The link:{extensions-url}/3DTILES_crs/README.md[3DTILES_crs] extension indicates that the glTF is in a geocentric coordinate system such as a WGS 84 Earth-centered, Earth-fixed (ECEF) reference frame (EPSG 4978).
+The link:{extensions-url}/3DTILES_crs/README.md[3DTILES_crs] extension indicates that the glTF is in a planetocentric coordinate reference system such as a WGS84 Earth-centered, Earth-fixed (ECEF) geocentric reference frame (EPSG 4978). The identifier used can an EPSG code, WKT2 string, or other common CRS identifier such as but not limited to IAU_2015 codes. See the link:{extensions-url}/3DTILES_crs/README.md[3DTILES_crs] extension for full normative specification and further examples.
 
-The link:{extensions-url}/3DTILES_georeference/README.md[3DTILES_georeference] extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
+The link:{extensions-url}/3DTILES_georeference/README.md[3DTILES_georeference] extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude. This extension uses WGS84 by default, but can use link:{extensions-url}/3DTILES_crs/README.md[3DTILES_crs] to specify a different coordinate reference system. See the link:{extensions-url}/3DTILES_georeference/README.md[3DTILES_georeference] extension for a full normative specification.
 
 ==== Additional Bounding Volume Shapes
 
