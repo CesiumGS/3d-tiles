@@ -136,6 +136,16 @@ _This section is non-normative._
 
 Point, polyline, and polygon geometries are often associated with other geometries comprising a single conceptual feature. Polyline and polygon geometries may also be cut across neighboring tiles during the tiling process. In such cases, `EXT_mesh_features` and `EXT_structural_metadata` may be used to reference and store properties associated with vector features. Global unique IDs, stored as columns in `EXT_structural_metadata`, may be used to allow features split across multiple tiles to participate in interaction (e.g. highlighting) as a single entity.
 
+## Layers
+
+_This section is non-normative._
+
+“Layers” are a common concept when working with vector data, representing semantic or functional groups of geometries requiring common handling by the application. For example, in a vector basemap, land and water boundaries are typically rendered behind geometries like roads and buildings, and will have different styling rules applied. In this case, semantic layers such as "water", "land", "roads", and "buildings" may be appropriate.
+
+When translating from vector formats with explicit layer concepts, authoring implementations should encode each layer as a unique glTF node, named for the source layer. Ordered layers (if applicable) should be encoded as ordered nodes under a common parent node or scene.
+
+Point, polyline, and polygon geometries should — in the absence of layers — be encoded with the minimum number of mesh primitives required.
+
 ## Visualization
 
 _This section is non-normative._
