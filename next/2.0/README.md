@@ -2,7 +2,7 @@
 
 ![](../../figures/3DTiles_light_color_small.png#gh-dark-mode-only)![](../../figures/3DTiles_dark_color_small.png#gh-light-mode-only)
 
-**3D Tiles 2.0** continues the evolution of 3D Tiles, embracing new glTF concepts as well as bringing new features to 3D Tiles, including:
+**3D Tiles 2.0** continues the evolution of 3D Tiles, embracing new glTF 2.1 concepts as well as bringing new features to 3D Tiles, including:
 
  - Vector Tiles
  - Voxels
@@ -12,6 +12,22 @@
 
 This folder and document provides links and information regarding these features and other 3D Tiles 2.0 information, as information becomes available.
 
+## glTF 2.1 Baselining
+
+3D Tiles 2.0 uses glTF 2.1, together with a set of geospatial extensions, as the foundation for spatial subdivision. 
+
+| | Extension |
+| --- | --- |
+| | [`3DTILES_tileset`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset) (glTF 2.1 extension) <br> Specifies and extends glTF 2.1 for representing a 3D Tiles tileset. |
+| | [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_implicit_tiling) (glTF 2.1 extension) <br> Defines a concise representation of quadtrees and octrees in 3D Tiles to accelerate spatial queries and traversal. |
+| | [`3DTILES_subtree`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_subtree) (glTF 2.1 extension) <br> Specifies a subset of glTF 2.1 to represent subtrees in implicit tiling, storing data availability and metadata. |
+| | [`3DTILES_external_tileset`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_external_tileset) (glTF 2.1 extension) <br> Allows a 3D Tiles tileset to reference external tilesets to support modularity, hierarchical organization, and faster initial loading times. |
+| | [`3DTILES_crs`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs) (glTF 2.1 extension) <br> Declares the Coordinate Reference System (CRS) in which a glTF asset was authored, allowing deviations from default coordinate systems. |
+| | [`3DTILES_georeference`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_georeference) (glTF 2.1 extension) <br> Georeferences a glTF node to specific geographic coordinates using WGS84 or another specified CRS. |
+| | [`3DTILES_shape_s2`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2) (glTF 2.1 extension) <br> Enables using S2 cells as bounding volumes in 3D Tiles, making it highly suitable for tilesets that span the entire globe. |
+| | [`3DTILES_shape_cylinder_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region) (glTF 2.1 extension) <br> Defines a cylinder-conforming region as an additional bounding volume shape type. |
+| | [`3DTILES_shape_ellipsoid_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region) (glTF 2.1 extension) <br> Defines an ellipsoid-conforming region as an additional bounding volume shape type, commonly used to represent volumes conforming to the curvature of the Earth. |
+
 ## Vector Tiles
 
 _**Overview:** Building upon 3D Tiles and glTF, 3D Tiles 2.0 uses a 3D-first approach allowing for a broad mix of both 2D and 3D use cases. This permits 3D Tiles to handle both AEC design model and Geospatial use cases such as road design projects, large-scale traditional maps, building footprints, and more._
@@ -20,6 +36,7 @@ _The addition of vector data within 3D Tiles doesn't replace existing formats bu
 
 | | Extension |
 | --- | --- |
+| | [`3DTILES_content_vector`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_vector) (glTF 2.1 extension) <br> Proposes a mechanism for encoding vector point, line, and polygon data in 3D Tiles using glTF content. |
 | | [`KHR_mesh_primitive_restart`](https://github.com/KhronosGroup/glTF/pull/2569) (glTF 2.0 extension) <br> Allows selective relaxation of the prohibition against maximal index values in index buffers to allow use of primitive restart in glTF assets. This allows for more performant rendering of complex scenes. |
 | | [`EXT_Mesh_polygon`](https://github.com/KhronosGroup/glTF/pull/2570) (glTF 2.0 extension) <br> Allows defining n-sided polygons optionally containing holes. |
 
@@ -29,9 +46,10 @@ _**Overview:** Much of what geospatial systems model, from weather and atmospher
 
 | | Extension |
 | --- | --- |
-| ![Voxels](./images/voxels.png) | [`EXT_primitive_voxels`](https://github.com/KhronosGroup/glTF/pull/2496) (glTF 2.0 extension) <br> Enables support for volumetric data to be stored as voxels in glTF. Using this extension, a glTF mesh can define a uniform voxel grid with specified shapes and dimensions. The primitives attributes are inferred to fill the voxel grid as continuous data within the volume. |
-| ![Implicit Cylinder](./images/implicit_cylinder.png) | [`EXT_implicit_cylinder_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_implicit_cylinder_region) (glTF 2.0 extension) <br> Adds support for implicit cylinder regions to the `KHR_implicit_shapes` extension for glTF. This is used by `EXT_primitive_voxels` for rendering voxels in a cylinder volume. |
-| ![Implicit Ellipsoid](./images/implicit_ellipsoid.png) | [`EXT_implicit_ellipsoid_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_implicit_ellipsoid_region) (glTF 2.0 extension) <br> Adds support for implicit ellipsoid regions to the `KHR_implicit_shapes` extension for glTF. This is used by `EXT_primitive_voxes` for rendering voxels in an ellipsoidal region. |
+| | [`3DTILES_content_voxels`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_voxels) (glTF 2.1 extension) <br> Indicates the presence of voxel content and associates it with metadata definitions in the tileset's schema. |
+| ![Voxels](./images/voxels.png) | [`EXT_primitive_voxels`](https://github.com/KhronosGroup/glTF/pull/2496) (glTF 2.1 extension) <br> Enables support for volumetric data to be stored as voxels in glTF. Using this extension, a glTF mesh can define a uniform voxel grid with specified shapes and dimensions. The primitives attributes are inferred to fill the voxel grid as continuous data within the volume. |
+| | [`3DTILES_shape_cylinder_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region) (glTF 2.1 extension) <br> Defines a cylinder-conforming region as an additional bounding volume shape type. |
+| | [`3DTILES_shape_ellipsoid_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region) (glTF 2.1 extension) <br> Defines an ellipsoid-conforming region as an additional bounding volume shape type, commonly used to represent volumes conforming to the curvature of the Earth. |
 
 ## Time Dynamic Tiles
 
@@ -39,7 +57,7 @@ _**Overview:** Time-dynamic 3D Tiles is a major step forward for 3D Tiles and al
 
 | | Extension |
 | --- | --- |
-| ![Time-dynamic content](./images/time_dynamic_content.png) | [`3DTILES_content_conditional`](https://github.com/CesiumGS/3d-tiles/pull/834) (3D Tiles 1.1 extension) <br> Permits tiles to have conditional content that is selectable through `keys`, such as timestamps, revisions, or other _string_ values. |
+| ![Time-dynamic content](./images/time_dynamic_content.png) | [`3DTILES_content_conditional`](https://github.com/CesiumGS/3d-tiles/pull/834) (glTF 2.1 extension) <br> Permits tiles to have conditional content that is selectable through `keys`, such as timestamps, revisions, or other _string_ values. |
 
 ## AEC Extensions
 
