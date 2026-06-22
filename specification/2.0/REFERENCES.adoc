@@ -12,6 +12,8 @@
 
 * [[[IETF_RFC8259,IETF RFC 8259]]], IETF RFC8259: The JavaScript Object Notation (JSON) Data Interchange Format, 2017, https://datatracker.ietf.org/doc/html/rfc8259[https://datatracker.ietf.org/doc/html/rfc8259]
 
+* Andreas Plesch and Mike McCann. 2015. The X3D geospatial component: X3DOM implementation of GeoOrigin, GeoLocation, GeoViewpoint, and GeoPositionInterpolator nodes. In Proceedings of the 20th International Conference on 3D Web Technology (Web3D '15). Association for Computing Machinery, New York, NY, USA, 31–37. https://doi.org/10.1145/2775292.2775315[https://doi.org/10.1145/2775292.2775315]
+
 * [[[Khronos_Group,Khronos Group glTF 2.1]]], Khronos Group: glTF 2.1, 2026. https://github.com/KhronosGroup/glTF/issues/2585[https://github.com/KhronosGroup/glTF/issues/2585]
 
 * [[[KHR_mesh_primitive_restart,KHR_mesh_primitive_restart]]], Khronos Group: KHR_mesh_primitive_restart, 2026. https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart]
