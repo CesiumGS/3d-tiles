@@ -22,8 +22,10 @@ This folder and document provides links and information regarding these features
 | | [`3DTILES_implicit_tiling`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_implicit_tiling) (glTF 2.1 extension) <br> Defines a concise representation of quadtrees and octrees in 3D Tiles to accelerate spatial queries and traversal. |
 | | [`3DTILES_subtree`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_subtree) (glTF 2.1 extension) <br> Specifies a subset of glTF 2.1 to represent subtrees in implicit tiling, storing data availability and metadata. |
 | | [`3DTILES_external_tileset`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_external_tileset) (glTF 2.1 extension) <br> Allows a 3D Tiles tileset to reference external tilesets to support modularity, hierarchical organization, and faster initial loading times. |
-| | [`3DTILES_crs`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_crs) (glTF 2.1 extension) <br> Declares the Coordinate Reference System (CRS) in which a glTF asset was authored, allowing deviations from default coordinate systems. |
-| | [`3DTILES_georeference`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_georeference) (glTF 2.1 extension) <br> Georeferences a glTF node to specific geographic coordinates using WGS84 or another specified CRS. |
+| | [`EXT_crs_enu`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_crs_enu) (glTF 2.1 extension) <br> Declares that the glTF is in a local right-handed Cartesian coordinate system in meters where `+X` faces east, `+Y` faces north, and `+Z` faces up. |
+| | [`EXT_crs_wkid`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_crs_wkid) (glTF 2.1 extension) <br> Declares the Coordinate Reference System (CRS) in which a glTF 2.1 asset was authored, provided as a Well-Known ID (WKID), commonly an EPSG code. |
+| | [`EXT_crs_wkt2`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_crs_wkt2) (glTF 2.1 extension) <br> Declares the Coordinate Reference System (CRS) in which a glTF 2.1 asset was authored, provided as a Well-Known Text (version 2) string. |
+| | [`EXT_georeference`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_georeference) (glTF 2.1 extension) <br> Georeferences a node to the provided geographic coordinates. |
 | | [`3DTILES_shape_s2`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2) (glTF 2.1 extension) <br> Enables using S2 cells as bounding volumes in 3D Tiles, making it highly suitable for tilesets that span the entire globe. |
 | | [`3DTILES_shape_cylinder_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region) (glTF 2.1 extension) <br> Defines a cylinder-conforming region as an additional bounding volume shape type. |
 | | [`3DTILES_shape_ellipsoid_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region) (glTF 2.1 extension) <br> Defines an ellipsoid-conforming region as an additional bounding volume shape type, commonly used to represent volumes conforming to the curvature of the Earth. |
@@ -47,7 +49,7 @@ _**Overview:** Much of what geospatial systems model, from weather and atmospher
 | | Extension |
 | --- | --- |
 | | [`3DTILES_content_voxels`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_voxels) (glTF 2.1 extension) <br> Indicates the presence of voxel content and associates it with metadata definitions in the tileset's schema. |
-| ![Voxels](./images/voxels.png) | [`EXT_primitive_voxels`](https://github.com/KhronosGroup/glTF/pull/2496) (glTF 2.1 extension) <br> Enables support for volumetric data to be stored as voxels in glTF. Using this extension, a glTF mesh can define a uniform voxel grid with specified shapes and dimensions. The primitives attributes are inferred to fill the voxel grid as continuous data within the volume. |
+| | [`EXT_primitive_voxels`](https://github.com/KhronosGroup/glTF/pull/2496) (glTF 2.1 extension) <br> Enables support for volumetric data to be stored as voxels in glTF. Using this extension, a glTF mesh can define a uniform voxel grid with specified shapes and dimensions. The primitives attributes are inferred to fill the voxel grid as continuous data within the volume. |
 | | [`3DTILES_shape_cylinder_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region) (glTF 2.1 extension) <br> Defines a cylinder-conforming region as an additional bounding volume shape type. |
 | | [`3DTILES_shape_ellipsoid_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region) (glTF 2.1 extension) <br> Defines an ellipsoid-conforming region as an additional bounding volume shape type, commonly used to represent volumes conforming to the curvature of the Earth. |
 
@@ -57,7 +59,7 @@ _**Overview:** Time-dynamic 3D Tiles is a major step forward for 3D Tiles and al
 
 | | Extension |
 | --- | --- |
-| ![Time-dynamic content](./images/time_dynamic_content.png) | [`3DTILES_content_conditional`](https://github.com/CesiumGS/3d-tiles/pull/834) (glTF 2.1 extension) <br> Permits tiles to have conditional content that is selectable through `keys`, such as timestamps, revisions, or other _string_ values. |
+| ![Time-dynamic content](./images/time_dynamic_content.png) | [`3DTILES_content_conditional`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_conditional) (glTF 2.1 extension) <br> Permits tiles to have conditional content that is selectable through `keys`, such as timestamps, revisions, or other _string_ values. |
 
 ## AEC Extensions
 
