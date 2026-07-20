@@ -6,9 +6,12 @@
 
 ## Contributors
 
+- Björn Blissing, [@bjornblissing](https://github.com/bjornblissing)
 - Xuan Huang, [@xuanhuang1](https://github.com/xuanhuang1)
 - Sean Lilley, [@lilleyse](https://github.com/lilleyse)
 - Don McCurdy, [@donmccurdy](https://github.com/donmccurdy)
+- Adam Morris, [@weegeekps](https://github.com/weegeekps)
+- Daniel Zhong, [@danielzhong](https://github.com/danielzhong)
 
 <!-- omit in toc -->
 
