@@ -6,8 +6,9 @@
 
 ## Contributors
 
-- Don McCurdy, Bentley Systems
-- TODO
+- Xuan Huang, [@xuanhuang1](https://github.com/xuanhuang1)
+- Sean Lilley, [@lilleyse](https://github.com/lilleyse)
+- Don McCurdy, [@donmccurdy](https://github.com/donmccurdy)
 
 <!-- omit in toc -->
 
@@ -88,7 +89,7 @@ glTF mesh primitives having `primitive.mode = 3` ("LINE_STRIP") SHOULD be interp
 
 ## Polygons
 
-glTF mesh primitives in drawing mode `primitive.mode = 4` ("TRIANGLES"), using extension `EXT_mesh_polygon` (TODO) SHOULD be interpreted as vector polygon topologies. Authoring tools SHOULD encode multiple polygon features within the same glTF mesh primitive, to improve file size and rendering efficiency.
+glTF mesh primitives in drawing mode `primitive.mode = 4` ("TRIANGLES"), using extension [`EXT_mesh_polygon`](https://github.com/KhronosGroup/glTF/pull/2570) SHOULD be interpreted as vector polygon topologies. Authoring tools SHOULD encode multiple polygon features within the same glTF mesh primitive, to improve file size and rendering efficiency.
 
 ## Bounding volumes and clipping
 
@@ -111,10 +112,6 @@ When `true`, a default 3D Tiles requirement is modified: `content.boundingVolume
 Client implementations SHOULD visually "clip" this content at the limits of `tile.boundingVolume`. Overflow of content outside the tile bounding volume is referred to as a "buffer" region.
 
 The buffer region is provided to mitigate seams and discontinuities at tile boundaries. For polylines and polygons crossing tile boundaries and rendered with certain visual styles — particularly "wide" lines or outlines — display in tile A may be affected by the continuation of the same geometry a short distance ("buffer") into tile B. By clipping precisely at the tile boundary, sections of the geometry in tile B may still influence display within tile A, without duplicate rendering and/or z-fighting in tile B.
-
-<img alt="Illustration of tiles, content, and buffers" src="./figures/tiles-and-buffers.png" width="400">
-
-> TODO: Improve and describe illustration.
 
 > [!NOTE]
 > Clipping may be implemented by pre-processing geometry, by discarding fragments in a pixel shader, or by any other means. For typical vector visual styles (involving, for example, wide lines), it is expected that most implementations will implement clipping in the fragment shader (or equivalent), in order to preserve the influence of geometry just outside the tile boundary on lines or outlines crossing the tile boundary.
@@ -154,10 +151,4 @@ Visual representation of vector data in 3D Tiles is left undefined by this speci
 
 ## Schema
 
-- TODO
-
-## Implementation Examples
-
-_This section is non-normative_
-
-- TODO
+* [3DTILES_content_gltf_vector.schema.json](schema/3DTILES_content_gltf_vector.schema.json).
