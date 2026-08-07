@@ -116,6 +116,10 @@ Client implementations SHOULD visually "clip" this content at the limits of `til
 
 The buffer region is provided to mitigate seams and discontinuities at tile boundaries. For polylines and polygons crossing tile boundaries and rendered with certain visual styles — particularly "wide" lines or outlines — display in tile A may be affected by the continuation of the same geometry a short distance ("buffer") into tile B. By clipping precisely at the tile boundary, sections of the geometry in tile B may still influence display within tile A, without duplicate rendering and/or z-fighting in tile B.
 
+<p>
+<img alt="Vector Tiles and Contents" src="./figures/vector_tiles_and_contents.png"/>
+</p>
+
 > [!NOTE]
 > Clipping may be implemented by pre-processing geometry, by discarding fragments in a pixel shader, or by any other means. For typical vector visual styles (involving, for example, wide lines), it is expected that most implementations will implement clipping in the fragment shader (or equivalent), in order to preserve the influence of geometry just outside the tile boundary on lines or outlines crossing the tile boundary.
 
