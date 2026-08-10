@@ -45,11 +45,11 @@
 
 # Other migration notes
 
-- Package formats for 3D Tiles 1.0 and 1.1 such as `.3dtiles` and `.3tz` are superceded by glTF 2.1's native packaging mechanism: [Packaging External Assets](https://github.com/KhronosGroup/glTF/issues/2589).
+- Package formats for 3D Tiles 1.0 and 1.1 such as `.3dtiles` and `.3tz` are superseded by glTF 2.1's native packaging mechanism: [Packaging External Assets](https://github.com/KhronosGroup/glTF/issues/2589).
 - [EXT_georeference](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_georeference) is now the preferred way to georeference tilesets instead of using a tile transform.
 - The `asset.extras.ion.georeferenced` and `asset.extras.ion.movable` properties found in some tilesets are now obsolete. An asset is considered georeferenced if it uses `EXT_crs` and movable if it uses `EXT_crs` and `EXT_georeference`.
 - The 3D Tiles 1.1 extension [3DTILES_bounding_volume_s2](https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2) has migrated to the glTF extension [3DTILES_shape_s2](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2).
 - The 3D Tiles 1.1 extension [3DTILES_bounding_volume_cylinder](https://github.com/CesiumGS/3d-tiles/tree/voxels/extensions/3DTILES_bounding_volume_cylinder) has migrated to the glTF extension [3DTILES_shape_cylinder_region](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region).
 - The 3D Tiles 1.1 extension [3DTILES_content_voxels](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_voxels) has migrated to the glTF extension [3DTILES_content_voxels](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_voxels)
 - The 3D Tiles 1.1 extension [3DTILES_content_gltf_vector]() has migrated to the glTF extension [3DTILES_content_vector](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_vector)
-- The 3D Tiles 1.1 extension [3DTILES_ellipsoid](https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_ellipsoid) is superceded by the glTF extension [EXT_crs](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_crs).
+- The 3D Tiles 1.1 extension [3DTILES_ellipsoid](https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_ellipsoid) is superseded by the glTF extension [EXT_crs](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_crs).
