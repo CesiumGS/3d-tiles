@@ -31,8 +31,9 @@ For the full change log, see [CHANGES.md](./CHANGES.md).
 | | [`3DTILES_shape_cylinder_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region) (glTF 2.1 extension) <br> Defines a cylinder-conforming region as an additional bounding volume shape type. |
 | | [`3DTILES_shape_ellipsoid_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region) (glTF 2.1 extension) <br> Defines an ellipsoid-conforming region as an additional bounding volume shape type, commonly used to represent volumes conforming to the curvature of the Earth. |
 | | [`3DTILES_layers`](https://github.com/CesiumGS/glTF/pull/116) (glTF 2.1 extension) <br> Allows content to be associated with a particular layer, which may have application-specific properties. |
-| | [`3DTILES_horizon_occlusion_point`](TODO) (glTF 2.1 extension) <br> Defines the horizon occlusion point of a tile for runtime horizon culling. |
-| | [`3DTILES_viewer_request_volume`](TODO) (glTF 2.1 extension) <br> Defines a volume that the viewer shall be inside before the tile's content will be requested and before the tile will be refined based on geometric error. |
+| | [`3DTILES_horizon_occlusion_point`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_horizon_occlusion_point) (glTF 2.1 extension) <br> Defines the horizon occlusion point of a tile for runtime horizon culling. |
+| | [`EXT_node_visibility_volume`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_volume) (glTF 2.1 extension) <br> Defines a volume that the viewer shall be inside before the tile's content will be requested and before the tile will be refined based on geometric error. |
+| | [`EXT_node_visibility_conditions`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_conditions) (glTF 2.1 extension) <br> Permits tiles to have conditional content that is selectable through `keys`, such as timestamps, revisions, or other _string_ values. |
 
 
 
@@ -44,7 +45,7 @@ _The addition of vector data within 3D Tiles doesn't replace existing formats bu
 
 | | Extension |
 | --- | --- |
-| | [`3DTILES_content_vector`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_vector) (glTF 2.1 extension) <br> Proposes a mechanism for encoding vector point, line, and polygon data in 3D Tiles using glTF content. |
+| | [`3DTILES_tileset_vectors`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_vectors) (glTF 2.1 extension) <br> Proposes a mechanism for encoding vector point, line, and polygon data in 3D Tiles using glTF content. |
 | | [`KHR_mesh_primitive_restart`](https://github.com/KhronosGroup/glTF/pull/2569) (glTF 2.0 extension) <br> Allows selective relaxation of the prohibition against maximal index values in index buffers to allow use of primitive restart in glTF assets. This allows for more performant rendering of complex scenes. |
 | | [`EXT_mesh_polygon`](https://github.com/KhronosGroup/glTF/pull/2570) (glTF 2.0 extension) <br> Allows defining n-sided polygons optionally containing holes. |
 | | [`3DTILES_layers`](https://github.com/CesiumGS/glTF/pull/116) (glTF 2.1 extension) <br> Allows content to be associated with a particular layer, which may have application-specific properties. |
@@ -55,8 +56,8 @@ _**Overview:** Much of what geospatial systems model, from weather and atmospher
 
 | | Extension |
 | --- | --- |
-| | [`3DTILES_content_voxels`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_voxels) (glTF 2.1 extension) <br> Indicates the presence of voxel content and associates it with metadata definitions in the tileset's schema. |
-| | [`EXT_voxels`](TODO) (glTF 2.1 extension) <br> Enables support for volumetric data to be stored as voxels in glTF. Using this extension, a glTF node can define a uniform voxel grid with specified shapes and dimensions. Attributes are inferred to fill the voxel grid as continuous data within the volume. |
+| | [`3DTILES_tileset_voxels`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tilest_voxels) (glTF 2.1 extension) <br> Indicates the presence of voxel content and associates it with metadata definitions in the tileset's schema. |
+| | [`EXT_voxels`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_voxels) (glTF 2.1 extension) <br> Enables support for volumetric data to be stored as voxels in glTF. Using this extension, a glTF node can define a uniform voxel grid with specified shapes and dimensions. Attributes are inferred to fill the voxel grid as continuous data within the volume. |
 | | [`3DTILES_shape_cylinder_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region) (glTF 2.1 extension) <br> Defines a cylinder-conforming region as an additional bounding volume shape type. |
 | | [`3DTILES_shape_ellipsoid_region`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region) (glTF 2.1 extension) <br> Defines an ellipsoid-conforming region as an additional bounding volume shape type, commonly used to represent volumes conforming to the curvature of the Earth. |
 
@@ -66,7 +67,7 @@ _**Overview:** Time-dynamic 3D Tiles is a major step forward for 3D Tiles and al
 
 | | Extension |
 | --- | --- |
-| ![Time-dynamic content](./images/time_dynamic_content.png) | [`EXT_node_visibility_conditions`](https://github.com/CesiumGS/glTF/pull/117) (glTF 2.1 extension) <br> Permits tiles to have conditional content that is selectable through `keys`, such as timestamps, revisions, or other _string_ values. |
+| ![Time-dynamic content](./images/time_dynamic_content.png) | [`EXT_node_visibility_conditions`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_conditions) (glTF 2.1 extension) <br> Permits tiles to have conditional content that is selectable through `keys`, such as timestamps, revisions, or other _string_ values. |
 
 ## AEC Extensions
 

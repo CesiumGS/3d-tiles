@@ -10,14 +10,15 @@
     - For `"box"` the coordinate names are now `{right}`, `{forward}`, `{up}`.
     - For [`"ellipsoid region"`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region) the coordinate names are now `{longitude}`, `{latitude}`, `{height}`
     - For [`"cylinder region"`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region) the coordinate names are now `{radius}`, `{angle}`, `{height}`
+  * Tile and content properties may now be used as template variables, e.g. `"content/{level}/{tileId}/{timestamp}.glb"`
 
 - Multiple contents is no longer part of the core schema; instead glTF content may reference external assets to achieve similar behavior.
 
-- Metadata is no longer part of the core schema, but may be assigned at multiple granularities as before with `EXT_structural_metadata` - tileset, tile, content, layer, feature, vertex, texel, etc.
+- Metadata is no longer part of the core schema, but may be assigned at multiple granularities as before with [EXT_structural_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) - tileset, tile, content, layer, feature, vertex, texel, etc. Tileset-level statistics may also be provided with [EXT_structural_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata).
 
 - The `region` bounding volume type is no longer part of the core schema; it is now an optional glTF extension: [3DTILES_shape_ellipsoid_region](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region).
 
-- The `viewerRequestVolume` property is no longer part of the core schema; it is now an optional glTF extension: [3DTILES_viewer_request_volume](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_viewer_request_volume).
+- The `viewerRequestVolume` property is no longer part of the core schema; it is now an optional glTF extension: [EXT_node_visibility_volume](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_volume).
 
 - The `group` and `groups` properties are no longer part of the core schema; layering functionality is now an optional glTF extension: [3DTILES_layers](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_layers).
 
@@ -37,10 +38,7 @@
   - Content group semantic `CONTENT_GROUP_ID` has been replaced by `CONTENT_LAYER_INDEX` in [3DTILES_layers](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_layers).
   - All other semantics do not currently have equivalent representations in 3D Tiles 2.0, but could in the future with extensions.
 
-# Additions
-
 - The entry tileset now has a recommended naming convention: `root.tileset.gltf` or `root.tileset.glb`
-- Tile content can now indicate whether it is regular content, conditional content, or an external tileset.
 
 
 # Other migration notes
@@ -50,6 +48,7 @@
 - The `asset.extras.ion.georeferenced` and `asset.extras.ion.movable` properties found in some tilesets are now obsolete. An asset is considered georeferenced if it uses `EXT_geospatial_crs` and movable if it uses `EXT_geospatial_crs` and `EXT_georeference`.
 - The 3D Tiles 1.1 extension [3DTILES_bounding_volume_s2](https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_bounding_volume_S2) has migrated to the glTF extension [3DTILES_shape_s2](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2).
 - The 3D Tiles 1.1 extension [3DTILES_bounding_volume_cylinder](https://github.com/CesiumGS/3d-tiles/tree/voxels/extensions/3DTILES_bounding_volume_cylinder) has migrated to the glTF extension [3DTILES_shape_cylinder_region](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region).
-- The 3D Tiles 1.1 extension [3DTILES_content_voxels](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_voxels) has migrated to the glTF extension [3DTILES_content_voxels](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_voxels)
-- The 3D Tiles 1.1 extension [3DTILES_content_gltf_vector]() has migrated to the glTF extension [3DTILES_content_vector](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_vector)
+- The 3D Tiles 1.1 extension [3DTILES_content_voxels](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_content_voxels) has migrated to the glTF extension [3DTILES_tileset_voxels](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_voxels)
+- The 3D Tiles 1.1 extension [3DTILES_content_gltf_vector]() has migrated to the glTF extension [3DTILES_tileset_vectors](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_vectors)
 - The 3D Tiles 1.1 extension [3DTILES_ellipsoid](https://github.com/CesiumGS/3d-tiles/tree/main/extensions/3DTILES_ellipsoid) is superseded by the glTF extension [EXT_geospatial_crs](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_geospatial_crs).
+- The 3D Tiles 1.1 extension [3DTILES_content_conditional](https://github.com/CesiumGS/3d-tiles/pull/834) is replaced by the glTF extension [EXT_node_visibility_conditions](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_conditions).
