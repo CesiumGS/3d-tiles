@@ -1,3 +1,8 @@
+> [!WARNING]
+> 3D Tiles 2.0 hasn't been released yet and these changes are subject to change.
+
+*Last updated: 2026-08-18*
+
 # Breaking changes
 
 - 3D Tiles 2.0 no longer defines its own file format, Tileset JSON; a tileset is now a glTF 2.1 asset with the [3DTILES_tileset](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset) extension.
