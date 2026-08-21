@@ -66,7 +66,9 @@
 
 * [[[EXT_mesh_polygon,EXT_mesh_polygon]]], 3D Tiles: EXT_mesh_polygon, 2026. https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon[https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon]
 
-* [[[EXT_structural_metadata,EXT_structural_metadata]]], EXT_structural_metadata, 2026. https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata[https://github.com/CesiumGS/glTF/blob/proposal-EXT_structural_metadata/extensions/2.0/Vendor/EXT_structural_metadata]
+* [[[EXT_structural_metadata,EXT_structural_metadata]]], EXT_structural_metadata, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata]
+
+* [[[EXT_mesh_features,EXT_mesh_features]]], EXT_mesh_features, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_mesh_features[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_mesh_features]
 
 * [[[EXT_voxels,EXT_voxels]]], EXT_voxels, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/EXT_voxels[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/EXT_voxels]
 
