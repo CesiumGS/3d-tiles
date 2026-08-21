@@ -44,7 +44,7 @@
 
 * [[[3DTILES_shape_s2,3DTILES_shape_s2]]], 3D Tiles: 3DTILES_shape_s2, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2]
 
-* [[[3DTILES_tileset_vector,3DTILES_tileset_vector]]], 3DTILES_tileset_vector, 2026. https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_vector[https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_vector]
+* [[[3DTILES_tileset_vectors,3DTILES_tileset_vectors]]], 3DTILES_tileset_vectors, 2026. https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_vectors[https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_vectors]
 
 * [[[3DTILES_tileset_voxels,3DTILES_tileset_voxels]]], 3D Tiles: 3DTILES_tileset_voxels, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_voxels[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_voxels]
 

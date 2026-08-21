@@ -73,3 +73,41 @@ A conforming 3D Tiles 2.0 client or server MAY implement the declarative styling
 ==== Requirement 1: 3D Tiles styling
 
 A conforming implementation that supports declarative styling SHALL support the xref:Styling/README.adoc#styling-styling[3D Tiles styles specification]. This specification provides concise declarative styling of tileset features.
+
+=== Conformance Class: Vector Tiles Content Type
+
+A conforming 3D Tiles 2.0 client or server MAY implement the vector tiles content type requirements of the specification.
+
+==== Requirement 1: link:{extensions-url}/3DTILES_tileset_vectors[3DTILES_tileset_vectors]
+
+A conforming implementation that supports the vector tile contents SHALL support the link:{extensions-url}/3DTILES_tileset_vectors[3DTILES_tileset_vectors] glTF extension. This extension allows defining a tileset containing vector data tile contents.
+
+=== Conformance Class: Voxel Tiles Content Type
+
+A conforming 3D Tiles 2.0 client or server MAY implement the voxel tiles content type requirements of the specification.
+
+==== Requirement 1: link:{extensions-url}/3DTILES_tileset_voxels[3DTILES_tileset_voxels]
+
+A conforming implementation that supports voxel tile contents SHALL support the link:{extensions-url}/3DTILES_tileset_voxels[3DTILES_tileset_voxels] glTF extension. This extension allows defining a tileset containing voxel data tile contents.
+
+==== Requirement 2: Implicit Tiling
+
+A conforming implementation that supports voxel tile contents SHALL support the entire Implicit Tiling conformance class.
+
+==== Requirement 3: link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region]
+
+A conforming implementation SHOULD support the link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region] glTF extension. This extension allows defining an ellipsoid-conforming region as an additional glTF 2.1 shape type.
+
+==== Requirement 4: link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region]
+
+A conforming implementation SHOULD support the link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region] glTF extension. This extension allows defining an cylinder-conforming region as an additional glTF 2.1 shape type.
+
+=== Conformance Class: 3D Gaussian Splatting
+
+==== Requirement 1: https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting]
+
+A conforming implementation that supports 3D Gaussian Splatting tile contents SHALL support the https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting] glTF extension. This extension provides a basis for including 3D Gaussian splatting data in glTF.
+
+==== Requirement 2: https://github.com/KhronosGroup/glTF/pull/2531[KHR_gaussian_splatting_compression_spz_2]
+
+A conforming implementation that supports 3D Gaussian Splatting tile contents SHALL support the https://github.com/KhronosGroup/glTF/pull/2531[KHR_gaussian_splatting_compression_spz_2] glTF extension. This extension compresses the 3D Gaussian Splatting data using the SPZ compression format in glTF.
