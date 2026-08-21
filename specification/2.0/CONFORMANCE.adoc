@@ -22,9 +22,9 @@ A conforming implementation SHALL support the link:{extensions-url}/3DTILES_tile
 
 A conforming implementation SHOULD support the link:{extensions-url}/EXT_geospatial_crs/README.md[EXT_geospatial_crs] glTF extension. This extension is required for specifying the tileset's global coordinate system, typically https://epsg.org/crs_4978/WGS-84.html[EPSG 4978].
 
-==== Requirement 4: link:{extensions-url}/3DTILES_georeference/README.md[3DTILES_georeference] Extension
+==== Requirement 4: link:{extensions-url}/EXT_georeference/README.md[EXT_georeference] Extension
 
-A conforming implementation SHOULD support the link:{extensions-url}/3DTILES_georeference/README.md[3DTILES_georeference] glTF extension. This extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
+A conforming implementation SHOULD support the link:{extensions-url}/EXT_georeference/README.md[EXT_georeference] glTF extension. This extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
 
 === Conformance Class: Implicit Tiling
 
