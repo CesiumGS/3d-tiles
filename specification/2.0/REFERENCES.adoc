@@ -81,4 +81,3 @@
 * [[[BENTLEY_materials_line_style,BENTLEY_materials_line_style]]], BENTLEY_materials_line_style, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_line_style[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_line_style]
 
 * [[[BENTLEY_materials_point_style,BENTLEY_materials_point_style]]], BENTLEY_materials_point_style, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_point_style[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_point_style]
-

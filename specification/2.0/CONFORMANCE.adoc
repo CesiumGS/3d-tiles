@@ -104,6 +104,8 @@ A conforming implementation SHOULD support the link:{extensions-url}/3DTILES_sha
 
 === Conformance Class: 3D Gaussian Splatting
 
+A conforming 3D Tiles 2.0 client or server MAY implement the 3D Gaussian Splatting tiles content type requirements of the specification.
+
 ==== Requirement 1: https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting]
 
 A conforming implementation that supports 3D Gaussian Splatting tile contents SHALL support the https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting] glTF extension. This extension provides a basis for including 3D Gaussian splatting data in glTF.
@@ -111,3 +113,31 @@ A conforming implementation that supports 3D Gaussian Splatting tile contents SH
 ==== Requirement 2: https://github.com/KhronosGroup/glTF/pull/2531[KHR_gaussian_splatting_compression_spz_2]
 
 A conforming implementation that supports 3D Gaussian Splatting tile contents SHALL support the https://github.com/KhronosGroup/glTF/pull/2531[KHR_gaussian_splatting_compression_spz_2] glTF extension. This extension compresses the 3D Gaussian Splatting data using the SPZ compression format in glTF.
+
+=== Conformance Class: Architecture, Engineering, and Construction Rendering Enhancements
+
+A conforming 3D Tiles 2.0 client or server MAY implement the Architecture, Engineering, and Construction Rendering Enhancements requirements of the specification.
+
+==== Requirement 1: https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart]
+
+A conforming implementation MAY support the https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart] glTF extension. Relaxes vertex max value restrictions in the glTF specification to allow for the max value to be used as a primitive restart indication. This allows certain renderers to render complex geometry more efficiently.
+
+==== Requirement 2: link:{khronos-gltf-extensions-url}/2.0/Vendor/EXT_mesh_primitive_edge_visibility[EXT_mesh_primitive_edge_visibility]
+
+A conforming implementation MAY support the link:{khronos-gltf-extensions-url}/2.0/Vendor/EXT_mesh_primitive_edge_visibility[EXT_mesh_primitive_edge_visibility] glTF extension. Adds information to a triangle mesh primitive to enable engines to render visible edges for engineering scenarios.
+
+==== Requirement 3: link:{cesium-gltf-extensions-url}/EXT_textureInfo_constant_lod[EXT_textureInfo_constant_lod]
+
+A conforming implementation MAY support the link:{cesium-gltf-extensions-url}/EXT_textureInfo_constant_lod[EXT_textureInfo_constant_lod] glTF extension. Allows a texture to maintain a consistent texel-to-pixel ratio on screen, regardless of camera distance.
+
+==== Requirement 4: link:{cesium-gltf-extensions-url}/BENTLEY_materials_line_style[BENTLEY_materials_line_style]
+
+A conforming implementation MAY support the link:{cesium-gltf-extensions-url}/BENTLEY_materials_line_style[BENTLEY_materials_line_style] glTF extension. Allows defining the visual style of lines within a glTF material, enabling authors to specify line thickness and repeating dash patterns.
+
+==== Requirement 5: link:{cesium-gltf-extensions-url}/BENTLEY_materials_point_style[BENTLEY_materials_point_style]
+
+A conforming implementation MAY support the link:{cesium-gltf-extensions-url}/BENTLEY_materials_point_style[BENTLEY_materials_point_style] glTF extension. Allows defining the visual style of points within a glTF material, enabling authors to specify styles for individual point primitives in CAD applications.
+
+==== Requirement 6: link:{cesium-gltf-extensions-url}/BENTLEY_materials_planar_fill[BENTLEY_materials_planar_fill]
+
+A conforming implementation MAY support the link:{cesium-gltf-extensions-url}/BENTLEY_materials_planar_fill[BENTLEY_materials_planar_fill] glTF extension. Allows defining a customization of a polygon's interior fill to convey a variety of meetings useful to CAD applications.
