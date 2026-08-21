@@ -25,7 +25,8 @@ Each semantic is defined in terms of its meaning, and the datatypes it may assum
 
 For use of semantics, see:
 
-* https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] (glTF 2.1) --  Assigns metadata to vertices, texels, and features in a glTF asset
+* https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata[`EXT_structural_metadata`] (glTF 2.0+) --  Assigns metadata to vertices, texels, and features in a glTF asset.
+* https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] (glTF 2.0+) --  Assigns identifiers to geometry and subcomponents of geometry within a glTF asset.
 
 [#metadata-semantics-general]
 == General
