@@ -99,7 +99,7 @@ Units for all linear distances are meters, and all angles are radians.
 | 
 * Type: `STRING`
 * Array: `true`
-| The union of all the feature ID labels in glTF content using the https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_instance_features[`EXT_instance_features`] extensions.
+| The union of all the feature ID labels in glTF content using the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor/EXT_mesh_features[`EXT_mesh_features`] and https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor/EXT_instance_features[`EXT_instance_features`] extensions.
 
 | `TILESET_CRS_GEOCENTRIC`
 | * Type: `STRING`
