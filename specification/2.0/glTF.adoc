@@ -10,30 +10,31 @@
 
 As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension compatible with glTF 2.1 may be used with 3D Tiles 2.0. There are some specific extensions that are normatively defined by 3D Tiles 2.0. These extensions use the `3DTILES_` prefix to differentiate them.
 
-[#gltf-base-extension]
-=== Base Extension
+[#gltf-core-extension]
+=== Core Extension
 
 The link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset] extension specifies a well defined subset of glTF 2.1 for representing a tileset in https://github.com/CesiumGS/3d-tiles/tree/main/specification/[3D Tiles]. It extends the node hierarchy to support Hierarchical Level of Detail (HLOD) for streaming massive 3D scenes. Additionally, it depends on core glTF 2.1 features like external assets and bounding volumes.
+
+These concepts are normatively defined within the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset[3DTILES_tileset] glTF extension.
+
+* Tilesets, Tiles, and Tile Content
+* Geometric Error
+* Refinement (Replacement and Additive)
+* Bounding Volumes
+* Spatial Coherence and Spatial Data Structures
+* Implicit Tiling
+* External Tilesets
+* Coordinate Reference Systems
+* Metadata
+* Declarative Styling
 
 [#gltf-supporting-extensions]
 === Supporting Extensions
 
 These tileset extensions are optional supporting extensions that bring features such as implicit tiling, coordinate referencing, and other features to 3D Tiles 2.0 tilesets.
 
-[#gltf-supporting-extensions-implicit-tiling]
-==== Implicit Tiling
-
-Implicit tiling defines a concise representation of quadtrees and octrees in 3D Tiles. This regular pattern allows for random access of tiles based on their tile coordinates which enables accelerated spatial queries, new traversal algorithms, and efficient updates of tile content, among other use cases. The link:{extensions-url}/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling] extension enables implicit tiling workflows in 3D Tiles 2.0.
-
-The link:{extensions-url}/3DTILES_subtree/README.md[3DTILES_subtree] extension specifies a well defined subset of glTF 2.1 for representing a subtree in 3DTILES_implicit_tiling. A subtree stores tile, content, and child subtree availability, as well as metadata for available tiles and contents.
-
-[#gltf-external-tilesets]
-==== External Tilesets
-
-The link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset] extension allows a tileset to reference external tilesets. This enables, for example, storing each city in a tileset and then having a global tileset of tilesets. It is also helpful for partitioning large tilesets into multiple smaller tilesets to improve initial load time. The link:{extensions-url}/3DTILES_tileset/README.md#external-tilesets[External Tilesets] section of the extension specification outlines further details.
-
-[#gltf-supporting-extensions-coordinate-referencing]
-==== Coordinate Referencing
+[#gltf-supporting-extensions-coordinate-reference-system]
+==== Coordinate Reference System
 
 The link:{extensions-url}/EXT_geospatial_crs/README.md[EXT_geospatial_crs] extension indicates that the glTF is in a planetocentric coordinate reference system such as a WGS84 Earth-centered, Earth-fixed (ECEF) geocentric reference frame (EPSG 4978). This can be further configured through either the link:{extensions-url}/EXT_geospatial_crs_wkt2/README.md[EXT_geospatial_crs_wkt2] or link:{extensions-url}/EXT_geospatial_crs_wkid/README.md[EXT_geospatial_crs_wkid] extensions. link:{extensions-url}/EXT_geospatial_crs_wkt2/README.md[EXT_geospatial_crs_wkt2] allows specifying a Well-Known Text (Version 2) string as the coordinate reference system, and link:{extensions-url}/EXT_geospatial_crs_wkid/README.md[EXT_geospatial_crs_wkid] allows specifying a Well-Known ID, such as an ESPG code, as the coordinate reference system.
 
@@ -45,6 +46,13 @@ See the extensions for full normative specification and further examples:
 
 The link:{extensions-url}/EXT_georeference/README.md[EXT_georeference] extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude. This extension uses WGS84 by default, but can use link:{extensions-url}/EXT_geospatial_crs/README.md[EXT_geospatial_crs] to specify a different coordinate reference system. See the link:{extensions-url}/EXT_georeference/README.md[EXT_georeference] extension for a full normative specification.
 
+[#gltf-supporting-extensions-implicit-tiling]
+==== Implicit Tiling
+
+Implicit tiling defines a concise representation of quadtrees and octrees in 3D Tiles. This regular pattern allows for random access of tiles based on their tile coordinates which enables accelerated spatial queries, new traversal algorithms, and efficient updates of tile content, among other use cases. The link:{extensions-url}/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling] extension enables implicit tiling workflows in 3D Tiles 2.0.
+
+The link:{extensions-url}/3DTILES_subtree/README.md[3DTILES_subtree] extension specifies a well defined subset of glTF 2.1 for representing a subtree in 3DTILES_implicit_tiling. A subtree stores tile, content, and child subtree availability, as well as metadata for available tiles and contents.
+
 ==== Additional Bounding Volume Shapes
 
 Several extensions exist that extend the bounding volumes shapes that can be used with 3D Tiles 2.0. The link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region] extension defines an ellipsoid-conforming region as an additional shape type. Ellipsoid regions are commonly used in geospatial applications to describe volumes that conform to the curvature of the Earth, or other bodies.
@@ -52,6 +60,10 @@ Several extensions exist that extend the bounding volumes shapes that can be use
 The link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region] extension defines a cylinder-conforming region as an additional shape type. Cylindrical regions are useful for visualizing real-world data that has been captured by cylindrical sensors.
 
 Additionally, the link:{extensions-url}/3DTILES_shape_s2/README.md[3DTILES_shape_s2] extension to 3D Tiles enables using S2 cells as an additional shape type for global near equal-area coverage.
+
+==== Tileset Metadata
+
+The link:{extensions-url}/EXT_structural_metadata/README.md[EXT_structural_metadata] extension allows assigning metadata to tileset, tile, content, vertices, texels, and features in a glTF asset. Use of this extension in 3D Tiles is covered in detail in the xref:Metadata/README.adoc#metadata-3d-metadata-specification[3D Metadata specification].
 
 ==== Layers
 
@@ -69,6 +81,16 @@ Visibility bounding volumes allow specifying a space where specialized geometry 
 == Content Extensions
 
 Any glTF extension compatible with glTF 2.1 can be used to extend content files. Many core content features of 3D Tiles 2.0 are powered entirely by glTF extensions. Supporting certain types of content means supporting these glTF extensions. This is not an exhaustive list--other extensions may exist within the glTF community that could be used within 3D Tiles 2.0.
+
+[#gltf-content-extensions-3d-gaussian-splatting]
+=== 3D Gaussian Splatting
+
+3D Tiles 2.0 supports 3D Gaussian Splatting content via the link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting] glTF extension. Implementations supporting link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting] should also support https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2[KHR_gaussian_splatting_compression_spz_2], which defines compression of splat data using the SPZ format. Uncompressed splat content may be used where compression is not required. 3D Gaussian splatting tilesets are compatible with the hierarchical level-of-detail mechanism of 3D Tiles, such that clients may stream and cull splat content using the same traversal rules as other tile content types. 
+
+See these glTF Extension definitions for details:
+
+ * link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting]
+ * https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2[KHR_gaussian_splatting_compression_spz_2]
 
 [#gltf-content-extensions-aec-rendering]
 === Architectural, Engineering, and Construction Rendering
@@ -93,7 +115,7 @@ See these glTF extensions for details:
 
 Using the link:{extensions-url}/EXT_node_visibility_conditions/README.md[EXT_node_visibility_conditions] extension, implementations may support time-dynamic 3D tiles, enabling multiple representations of the same spatial region within a single tileset (for example, temporal states of terrain, design-model revisions, or alternative geometries such as point clouds and meshes). 
 
-This extension builds upon the the link:{khronos-gltf-extensions-url}/2.0/Khronos/EXT_node_visibility/README.md[EXT_node_visibility] extension by adding support for visibility conditions. Any tile may be tagged with one or more attribute key/value pairs. Tilesets are not required to tag every tile; untagged tiles are treated as unconditional. Clients select tile content by evaluating these tags against a selection expression supplied at runtime. Where no selection expression is supplied, clients can render the default content declared by the tileset author.
+This extension builds upon the the link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_node_visibility/README.md[KHR_node_visibility] extension by adding support for visibility conditions. Any tile may be tagged with one or more attribute key/value pairs. Tilesets are not required to tag every tile; untagged tiles are treated as unconditional. Clients select tile content by evaluating these tags against a selection expression supplied at runtime. Where no selection expression is supplied, clients can render the default content declared by the tileset author.
 
 Authoring tools may use time-dynamic 3D tiles to publish incremental updates without rewriting an entire tileset.
 
@@ -109,8 +131,8 @@ See the link:{extensions-url}/EXT_node_visibility_conditions/README.md[EXT_node_
 See these glTF extension definitions for details:
 
  * link:{extensions-url}/3DTILES_tileset_vectors/README.md[3DTILES_tileset_vectors]
- * https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart]
  * https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon]
+ * https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart]
  * link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_meshopt_compression[KHR_meshopt_compression]
 
 [#gltf-content-extensions-voxels]
@@ -118,23 +140,12 @@ See these glTF extension definitions for details:
 
 3D Tiles 2.0 supports voxel volumetric datasets. Conforming voxel tilesets may use the link:{extensions-url}/3DTILES_tileset_voxels/README.md[3DTILES_tileset_voxels], link:{extensions-url}/EXT_voxels/README.md[EXT_voxels], link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region], and link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region] glTF 2.1 extensions in combination with the implicit tiling mechanism defined in 3D Tiles 2.0.
 
-Both dense and sparse voxel volumes can be supported. Voxel payloads may be uncompressed, or may be compressed using gzip, the glTF link:{khronos-gltf-extensions-url}/2.0/Vendor/EXT_meshopt_compression[EXT_meshopt_compression] extension, the glTF link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_meshopt_compression[KHR_meshopt_compression] extension, or a combination of the available methods.
+Both dense and sparse voxel volumes can be supported. Voxel payloads may be uncompressed, or may be compressed using gzip, the glTF link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_meshopt_compression[KHR_meshopt_compression] extension, or a combination of the available methods.
 
 See these glTF extension definitions for details:
 
  * link:{extensions-url}/3DTILES_tileset_voxels/README.md[3DTILES_tileset_voxels]
  * link:{extensions-url}/EXT_voxels/README.md[EXT_voxels]
- * link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region]
  * link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region]
- * link:{khronos-gltf-extensions-url}/2.0/Vendor/EXT_meshopt_compression[EXT_meshopt_compression]
+ * link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region]
  * link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_meshopt_compression[KHR_meshopt_compression]
-
-[#gltf-content-extensions-3d-gaussian-splatting]
-=== 3D Gaussian Splatting
-
-3D Tiles 2.0 supports 3D Gaussian Splatting content via the link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting] glTF extension. Implementations supporting link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting] should also support https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2[KHR_gaussian_splatting_compression_spz_2], which defines compression of splat data using the SPZ format. Uncompressed splat content may be used where compression is not required. 3D Gaussian splatting tilesets are compatible with the hierarchical level-of-detail mechanism of 3D Tiles, such that clients may stream and cull splat content using the same traversal rules as other tile content types. 
-
-See these glTF Extension definitions for details:
-
- * link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting]
- * https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2[KHR_gaussian_splatting_compression_spz_2]
