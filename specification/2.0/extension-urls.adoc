@@ -7,8 +7,8 @@
 
 :khronos-gltf-repo: https://github.com/KhronosGroup/glTF
 :cesiumgs-gltf-repo-fork: https://github.com/CesiumGS
-:3dtiles-extensions-url: {cesiumgs-gltf-repo-fork}/glTF/blob/3d-tiles-2.0/extensions
-:gltf-2_0-extensions-url: {cesiumgs-gltf-repo-fork}/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor
+:3dtiles-extensions-url: {cesiumgs-gltf-repo-fork}/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor
+:gltf-2_0-extensions-url: {cesiumgs-gltf-repo-fork}/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor
 
 // 3DTILES Extensions
 :gltf-ext-3dtiles_horizon_occlusion_point-url: {3dtiles-extensions-url}/3DTILES_horizon_occlusion_point/README.md 
