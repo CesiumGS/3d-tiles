@@ -9,11 +9,12 @@ Editors:
 
 Acknowledgements:
 
-* Gabby Getz, https://twitter.com/gabbygetz[@gabbygetz]
 * Matt Amato, https://twitter.com/matt_amato[@matt_amato]
 * Erik Andersson, https://github.com/e-andersson[@e-andersson]
 * Dan Bagnell, https://github.com/bagnell[@bagnell]
+* Tamrat Belayneh
 * Ray Bentley
+* Björn Blissing
 * Jannes Bolling, https://github.com/jbo023[@jbo023]
 * Johan Borg
 * Dylan Brown, http://www.github.com/Dylan-Brown[@Dylan-Brown]
@@ -21,21 +22,28 @@ Acknowledgements:
 * Paul Connelly
 * Volker Coors
 * Erik Dahlström, https://github.com/erikdahlstrom[@erikdahlstrom]
-* Tom Fili, https://twitter.com/CesiumFili[@CesiumFili]
+* Henrik Edstrom
+* Tom Fili, https://www.linkedin.com/in/tfili/[@tfili]
 * Leesa Fini, http://www.github.com/LeesaFini[@LeesaFini]
 * Peter Gagliardi, https://github.com/ptrgags[@ptrgags]
+* Gabby Getz, https://twitter.com/gabbygetz[@gabbygetz]
 * Ralf Gutbell
 * Frederic Houbie
+* Jeshurun Hembd, https://github.com/jjhembd[@jjhembd]
+* Xuan Huang, https://github.com/xuanhuang1[@xuanhuang1]
 * Marco Hutter, https://github.com/javagl[@javagl]
 * Daniel Krupka, https://github.com/krupkad[@krupkad]
 * Ian Lilley, https://github.com/IanLilleyT[@IanLilleyT]
+* Janine Liu, https://github.com/j9liu[@j9liu]
 * Don McCurdy, https://github.com/donmccurdy[@donmccurdy]
 * Christopher Mitchell, Ph.D., https://github.com/KermMartian[@KermMartian]
 * Shehzan Mohammed, https://github.com/shehzan10[@shehzan10]
 * Claus Nagel
 * Jean-Philippe Pons
+* Andreas Plesch, https://github.com/andreasplesch[@andreasplesch]
 * Carl Reed
 * Kevin Ring, http://www.kotachrome.com/kevin/[www.kotachrome.com/kevin]
+* Mark Schlosser, https://github.com/markschlosseratbentley[@markschlosseratbentley]
 * Scott Simmons
 * Sam Suhag, https://github.com/sanjeetsuhag[@sanjeetsuhag]
 * Rob Taglang, https://github.com/lasalvavida[@lasalvavida]
@@ -45,6 +53,4 @@ Acknowledgements:
 * Samuel Vargas, https://github.com/samulus[@samulus]
 * Pano Voudouris
 * Dave Wesloh
-* Tamrat Belayneh
-* Björn Blissing
-* Andreas Plesch, https://github.com/andreasplesch[@andreasplesch]
+* Daniel Zhong, https://github.com/danielzhong[@danielzhong]
