@@ -1,0 +1,48 @@
+// This file is a helper file for handling the extension urls in a consistent place where 
+// we can easily update them.
+//
+// If you're looking for the 3D Tiles specification, go here: https://github.com/CesiumGS/3d-tiles/specification/2.0/
+
+// COPY_STARTS_HERE
+
+:khronos-gltf-repo: https://github.com/KhronosGroup/glTF
+:cesiumgs-gltf-repo-fork: https://github.com/CesiumGS
+:3dtiles-extensions-url: {cesiumgs-gltf-repo-fork}/glTF/blob/3d-tiles-2.0/extensions
+:gltf-2_0-extensions-url: {cesiumgs-gltf-repo-fork}/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor
+
+// 3DTILES Extensions
+:gltf-ext-3dtiles_horizon_occlusion_point-url: {3dtiles-extensions-url}/3DTILES_horizon_occlusion_point/README.md 
+:gltf-ext-3dtiles_implicit_tiling-url: {3dtiles-extensions-url}/3DTILES_implicit_tiling/README.md 
+:gltf-ext-3dtiles_layers-url: {3dtiles-extensions-url}/3DTILES_layers/README.md 
+:gltf-ext-3dtiles_shape_cylinder_region-url: {3dtiles-extensions-url}/3DTILES_shape_cylinder_region/README.md 
+:gltf-ext-3dtiles_shape_ellipsoid_region-url: {3dtiles-extensions-url}/3DTILES_shape_ellipsoid_region/README.md 
+:gltf-ext-3dtiles_shape_s2-url: {3dtiles-extensions-url}/3DTILES_shape_s2/README.md 
+:gltf-ext-3dtiles_subtree-url: {3dtiles-extensions-url}/3DTILES_subtree/README.md 
+:gltf-ext-3dtiles_tileset-url: {3dtiles-extensions-url}/3DTILES_tileset/README.md
+:gltf-ext-3dtiles_tileset_vectors-url: {3dtiles-extensions-url}/3DTILES_tileset_vectors/README.md
+:gltf-ext-3dtiles_tileset_voxels-url: {3dtiles-extensions-url}/3DTILES_tileset_voxels/README.md
+
+// BENTLEY Extensions
+:gltf-ext-bentley_materials_line_style-url: {gltf-2_0-extensions-url}/BENTLEY_materials_line_style/README.md
+:gltf-ext-bentley_materials_point_style-url: {gltf-2_0-extensions-url}/BENTLEY_materials_point_style/README.md
+:gltf-ext-bentley_materials_planar_fill-url: {gltf-2_0-extensions-url}/BENTLEY_materials_planar_fill/README.md
+
+// EXT extensions
+:gltf-ext-ext_georeference-url: {3dtiles-extensions-url}/EXT_georeference/README.md
+:gltf-ext-ext_geospatial_crs-url: {3dtiles-extensions-url}/EXT_geospatial_crs/README.md
+:gltf-ext-ext_geospatial_crs_wkid-url: {3dtiles-extensions-url}/EXT_geospatial_crs_wkid/README.md
+:gltf-ext-ext_geospatial_crs_wtk2-url: {3dtiles-extensions-url}/EXT_geospatial_crs_wkt2/README.md
+:gltf-ext-ext_mesh_polygon-url: {cesiumgs-gltf-repo-fork}/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md
+:gltf-ext-ext_mesh_primitive_edge_visibility-url: {khronos-gltf-repo}/2.0/Vendor/EXT_mesh_primitive_edge_visibility/README.md
+:gltf-ext-ext_node_visibility_conditions-url: {3dtiles-extensions-url}/EXT_node_visibility_conditions/README.md
+:gltf-ext-ext_node_visibility_volume-url: {3dtiles-extensions-url}/EXT_node_visibility_volume
+:gltf-ext-ext_structural_metadata-url: {gltf-2_0-extensions-url}/EXT_structural_metadata/README.md 
+:gltf-ext-ext_textureInfo_constant_lod-url: {cesium-gltf-extensions-url}/EXT_textureInfo_constant_lod/README.md
+:gltf-ext-ext_voxels-url: {gltf-2-1-extensions-url}/EXT_voxels/README.md 
+
+// KHR Extensions
+:gltf-ext-khr_meshopt_compression-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression/README.md 
+:gltf-ext-khr_mesh_primitive_restart-url: {cesiumgs-gltf-repo-fork}/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart
+:gltf-ext-khr_gaussian_splatting_compression_spz_2-url: {khronos-gltf-repo}/pull/2531 
+:gltf-ext-khr_gaussian_splatting-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting 
+:gltf-ext-khr_node_visibility-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_node_visibility 
