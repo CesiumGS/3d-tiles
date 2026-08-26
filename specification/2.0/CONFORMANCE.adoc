@@ -2,160 +2,174 @@
 
 == Conformance
 
-Annex A of this document describes the Objects and Properties required to implement 3D Tiles. Conformance is relative to these elements and as partly expressed via the associated 3D Tiles xref:APPENDIX.adoc#json-schema[JSON Schema].
+Annex A of this document contains the link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset] glTF 2.1 extension required to implement 3D Tiles.
 
 All figures, examples, notes, and background information are informative.
 
 === Conformance Class: Core
 
-A conforming 3D Tiles 2.0 client or server SHALL implement the core requirements of the specification.
+A conforming 3D Tiles 2.0 client or server *SHALL* implement the core requirements of the specification.
 
 ==== Requirement 1: glTF 2.1
 
-A conforming implementation SHALL support the glTF 2.1 specification.
+A conforming implementation *SHALL* support the glTF 2.1 specification.
 
 ==== Requirement 2: link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset]
 
-A conforming implementation SHALL support the link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset] glTF extension. This extension is required for defining the structure of a 3D Tiles 2.0 tileset.
+A conforming implementation *SHALL* support the link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset] glTF extension.
 
 === Conformance Class: Coordinate Reference System
 
-==== Requirement 1: link:{extensions-url}/EXT_geospatial_crs/README.md[EXT_geospatial_crs] Extension
+A conforming implementation *SHALL* implement the the coordinate reference system requirements of the specification.
 
-A conforming implementation SHOULD support the link:{extensions-url}/EXT_geospatial_crs/README.md[EXT_geospatial_crs] glTF extension. This extension is required for specifying the tileset's global coordinate system, typically https://epsg.org/crs_4978/WGS-84.html[EPSG 4978].
+==== Requirement 1: Support Local Coordinate Reference Systems
 
-==== Requirement 2: link:{extensions-url}/EXT_georeference/README.md[EXT_georeference] Extension
+A conforming implementation *SHALL* support tilesets using a local coordinate reference system. Tilesets using a local coordinate reference system *SHALL* NOT use the link:{extensions-url}/EXT_geospatial_crs/README.md[EXT_geospatial_crs] or link:{extensions-url}/EXT_georeference/README.md[EXT_georeference] glTF Extensions.
 
-A conforming implementation SHOULD support the link:{extensions-url}/EXT_georeference/README.md[EXT_georeference] glTF extension. This extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude.
+==== Requirement 2: Support Global Coordinate Reference Systems
+
+A conforming implementation *SHOULD* support tilesets using a global coordinate reference system. Tilesets using a global coordinate reference system *SHALL* use either the link:{extensions-url}/EXT_geospatial_crs/README.md[EXT_geospatial_crs] or link:{extensions-url}/EXT_georeference/README.md[EXT_georeference] glTF Extensions.
 
 === Conformance Class: Implicit Tiling
 
-A conforming 3D Tiles 2.0 client or server SHOULD implement the implicit tiling requirements of the specification.
+A conforming implementation *SHOULD* implement the implicit tiling requirements of the specification.
 
-==== Requirement 1: link:{extensions-url}/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling] Extension
+==== Requirement 1: Support link:{extensions-url}/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling]
 
-A conforming implementation that supports implicit tiling SHALL support the link:{extensions-url}/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling] glTF extension. This extension is required for defining the implicit tiling scheme.
+A conforming implementation that supports implicit tiling *SHALL* support the link:{extensions-url}/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling] glTF extension.
 
-==== Requirement 2: link:{extensions-url}/3DTILES_subtree/README.md[3DTILES_subtree] Extension
+==== Requirement 2: Support link:{extensions-url}/3DTILES_subtree/README.md[3DTILES_subtree]
 
-A conforming implementation that supports implicit tiling SHALL support the link:{extensions-url}/3DTILES_subtree/README.md[3DTILES_subtree] glTF extension. This extension is required for handling availability and metadata in implicit tilesets.
+A conforming implementation that supports implicit tiling *SHALL* support the link:{extensions-url}/3DTILES_subtree/README.md[3DTILES_subtree] glTF extension.
 
 === Conformance Class: Additional Bounding Volume Types
 
-A conforming 3D Tiles 2.0 client or server MAY implement the additional bounding volume type requirements of the specification.
+A conforming implementation *MAY* implement the additional bounding volume type requirements of the specification.
 
-==== Requirement 1: link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region]
+==== Requirement 1: Support link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region]
 
-A conforming implementation MAY support the link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region] glTF extension. This extension allows defining an ellipsoid-conforming region as an additional glTF 2.1 shape type.
+A conforming implementation *MAY* support the link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region] glTF extension.
 
-==== Requirement 2: link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region]
+==== Requirement 2: Support link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region]
 
-A conforming implementation MAY support the link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region] glTF extension. This extension allows defining an cylinder-conforming region as an additional glTF 2.1 shape type.
+A conforming implementation *MAY* support the link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region] glTF extension.
 
-==== Requirement 3: link:{extensions-url}/3DTILES_shape_s2/README.md[3DTILES_shape_s2]
+==== Requirement 3: Support link:{extensions-url}/3DTILES_shape_s2/README.md[3DTILES_shape_s2]
 
-A conforming implementation MAY support the link:{extensions-url}/3DTILES_shape_s2/README.md[3DTILES_shape_s2] glTF extension. This extension enables using S2 cells as as additional glTF 2.1 shape type.
+A conforming implementation *MAY* support the link:{extensions-url}/3DTILES_shape_s2/README.md[3DTILES_shape_s2] glTF extension. 
 
 === Conformance Class: Tileset Metadata
 
-A conforming 3D Tiles 2.0 client or server MAY implement the tileset metadata requirements of the specification.
+A conforming implementation *MAY* implement the tileset metadata requirements of the specification.
 
-==== Requirement 1: https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata[EXT_structural_metadata] Extension
+==== Requirement 1: Support https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata[EXT_structural_metadata] Extension
 
-A conforming implementation that supports tileset metadata SHALL support the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata[EXT_structural_metadata] extension. This extension allows associating metadata with tilesets, tiles, and contents within a tileset.
+A conforming implementation that supports tileset metadata *SHALL* support the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata[EXT_structural_metadata] extension.
 
 ==== Requirement 2: 3D Metadata specification
 
-A conforming implementation that supports tileset metadata SHALL support the xref:Metadata/README.adoc#metadata-3d-metadata-specification[3D Metadata specification]. This specification defines a standard format for structured metadata in 3D content.
+A conforming implementation that supports tileset metadata *SHALL* support the xref:Metadata/README.adoc#metadata-3d-metadata-specification[3D Metadata specification].
 
 === Conformance Class: Declarative Styling
 
-A conforming 3D Tiles 2.0 client or server MAY implement the declarative styling requirements of the specification.
+A conforming implementation *MAY* implement the declarative styling requirements of the specification.
 
 ==== Requirement 1: 3D Tiles styling
 
-A conforming implementation that supports declarative styling SHALL support the xref:Styling/README.adoc#styling-styling[3D Tiles styles specification]. This specification provides concise declarative styling of tileset features.
+A conforming implementation that supports declarative styling *SHALL* support the xref:Styling/README.adoc#styling-styling[3D Tiles styles specification].
 
 === Conformance Class: 3D Gaussian Splatting Tiles Content Type
 
-A conforming 3D Tiles 2.0 client or server MAY implement the 3D Gaussian Splatting tiles content type requirements of the specification.
+A conforming implementation *MAY* implement the 3D Gaussian Splatting tiles content type requirements of the specification.
 
-==== Requirement 1: https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting]
+==== Requirement 1: Support https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting]
 
-A conforming implementation that supports 3D Gaussian Splatting tile contents SHALL support the https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting] glTF extension. This extension provides a basis for including 3D Gaussian splatting data in glTF.
+A conforming implementation that supports 3D Gaussian Splatting tile content type *SHALL* support the https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting] glTF extension.
 
-==== Requirement 2: https://github.com/KhronosGroup/glTF/pull/2531[KHR_gaussian_splatting_compression_spz_2]
+==== Requirement 2: Support https://github.com/KhronosGroup/glTF/pull/2531[KHR_gaussian_splatting_compression_spz_2]
 
-A conforming implementation that supports 3D Gaussian Splatting tile contents SHALL support the https://github.com/KhronosGroup/glTF/pull/2531[KHR_gaussian_splatting_compression_spz_2] glTF extension. This extension compresses the 3D Gaussian Splatting data using the SPZ compression format in glTF.
+A conforming implementation that supports the 3D Gaussian Splatting tile content type *SHALL* support the https://github.com/KhronosGroup/glTF/pull/2531[KHR_gaussian_splatting_compression_spz_2] glTF extension.
 
 === Conformance Class: Architecture, Engineering, and Construction Content Type
 
-A conforming 3D Tiles 2.0 client or server MAY implement the Architecture, Engineering, and Construction Rendering Enhancements requirements of the specification.
+A conforming implementation *MAY* implement the Architecture, Engineering, and Construction content type requirements of the specification.
 
-==== Requirement 1: https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart]
+==== Requirement 1: Support https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart]
 
-A conforming implementation MAY support the https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart] glTF extension. Relaxes vertex max value restrictions in the glTF specification to allow for the max value to be used as a primitive restart indication. This allows certain renderers to render complex geometry more efficiently.
+A conforming implementation that supports the Architecture, Engineering, and Construction content type *MAY* support the https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart] glTF extension.
 
-==== Requirement 2: link:{khronos-gltf-extensions-url}/2.0/Vendor/EXT_mesh_primitive_edge_visibility[EXT_mesh_primitive_edge_visibility]
+==== Requirement 2: Support link:{khronos-gltf-extensions-url}/2.0/Vendor/EXT_mesh_primitive_edge_visibility[EXT_mesh_primitive_edge_visibility]
 
-A conforming implementation MAY support the link:{khronos-gltf-extensions-url}/2.0/Vendor/EXT_mesh_primitive_edge_visibility[EXT_mesh_primitive_edge_visibility] glTF extension. Adds information to a triangle mesh primitive to enable engines to render visible edges for engineering scenarios.
+A conforming implementation that supports the Architecture, Engineering, and Construction content type *MAY* support the link:{khronos-gltf-extensions-url}/2.0/Vendor/EXT_mesh_primitive_edge_visibility[EXT_mesh_primitive_edge_visibility] glTF extension.
 
-==== Requirement 3: link:{cesium-gltf-extensions-url}/EXT_textureInfo_constant_lod[EXT_textureInfo_constant_lod]
+==== Requirement 3: Support link:{cesium-gltf-extensions-url}/EXT_textureInfo_constant_lod[EXT_textureInfo_constant_lod]
 
-A conforming implementation MAY support the link:{cesium-gltf-extensions-url}/EXT_textureInfo_constant_lod[EXT_textureInfo_constant_lod] glTF extension. Allows a texture to maintain a consistent texel-to-pixel ratio on screen, regardless of camera distance.
+A conforming implementation that supports the Architecture, Engineering, and Construction content type *MAY* support the link:{cesium-gltf-extensions-url}/EXT_textureInfo_constant_lod[EXT_textureInfo_constant_lod] glTF extension.
 
-==== Requirement 4: link:{cesium-gltf-extensions-url}/BENTLEY_materials_line_style[BENTLEY_materials_line_style]
+==== Requirement 4: Support link:{cesium-gltf-extensions-url}/BENTLEY_materials_line_style[BENTLEY_materials_line_style]
 
-A conforming implementation MAY support the link:{cesium-gltf-extensions-url}/BENTLEY_materials_line_style[BENTLEY_materials_line_style] glTF extension. Allows defining the visual style of lines within a glTF material, enabling authors to specify line thickness and repeating dash patterns.
+A conforming implementation that supports the Architecture, Engineering, and Construction content type *MAY* support the link:{cesium-gltf-extensions-url}/BENTLEY_materials_line_style[BENTLEY_materials_line_style] glTF extension.
 
-==== Requirement 5: link:{cesium-gltf-extensions-url}/BENTLEY_materials_point_style[BENTLEY_materials_point_style]
+==== Requirement 5: Support link:{cesium-gltf-extensions-url}/BENTLEY_materials_point_style[BENTLEY_materials_point_style]
 
-A conforming implementation MAY support the link:{cesium-gltf-extensions-url}/BENTLEY_materials_point_style[BENTLEY_materials_point_style] glTF extension. Allows defining the visual style of points within a glTF material, enabling authors to specify styles for individual point primitives in CAD applications.
+A conforming implementation that supports the Architecture, Engineering, and Construction content type *MAY* support the link:{cesium-gltf-extensions-url}/BENTLEY_materials_point_style[BENTLEY_materials_point_style] glTF extension.
 
-==== Requirement 6: link:{cesium-gltf-extensions-url}/BENTLEY_materials_planar_fill[BENTLEY_materials_planar_fill]
+==== Requirement 6: Support link:{cesium-gltf-extensions-url}/BENTLEY_materials_planar_fill[BENTLEY_materials_planar_fill]
 
-A conforming implementation MAY support the link:{cesium-gltf-extensions-url}/BENTLEY_materials_planar_fill[BENTLEY_materials_planar_fill] glTF extension. Allows defining a customization of a polygon's interior fill to convey a variety of meetings useful to CAD applications.
+A conforming implementation that supports the Architecture, Engineering, and Construction content type *MAY* support the link:{cesium-gltf-extensions-url}/BENTLEY_materials_planar_fill[BENTLEY_materials_planar_fill] glTF extension.
 
 === Conformance Class: Time-dynamic Tiles Content Type
 
-A conforming 3D Tiles 2.0 client or server MAY implement the vector tiles content type requirements of the specification.
+A conforming implementation *MAY* implement the vector tiles content type requirements of the specification.
 
-==== Requirement 1: https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_node_visibility[KHR_node_visibility]
+==== Requirement 1: Support https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_node_visibility[KHR_node_visibility]
 
-A conforming implementation SHALL support the https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_node_visibility[KHR_node_visibility] glTF extension. This extension allows controlling the visibility of node hierarchies in glTF.
+A conforming implementation *SHALL* support the https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_node_visibility[KHR_node_visibility] glTF extension.
 
-==== Requirement 2: link:{extensions-url}/EXT_node_visibility_conditions[EXT_node_visibility_conditions]
+==== Requirement 2: Support link:{extensions-url}/EXT_node_visibility_conditions[EXT_node_visibility_conditions]
 
-A conforming implementation SHALL support the link:{extensions-url}/EXT_node_visibility_conditions[EXT_node_visibility_conditions] glTF extension. This extension extends the https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_node_visibility[KHR_node_visibility] extension for glTF to allow defining conditions that indicate when a node should be visible.
+A conforming implementation *SHALL* support the link:{extensions-url}/EXT_node_visibility_conditions[EXT_node_visibility_conditions] glTF extension.
 
 === Conformance Class: Vector Tiles Content Type
 
-A conforming 3D Tiles 2.0 client or server MAY implement the vector tiles content type requirements of the specification.
+A conforming implementation *MAY* implement the vector tiles content type requirements of the specification.
 
-==== Requirement 1: link:{extensions-url}/3DTILES_tileset_vectors[3DTILES_tileset_vectors]
+==== Requirement 1: Support link:{extensions-url}/3DTILES_tileset_vectors[3DTILES_tileset_vectors]
 
-A conforming implementation that supports the vector tile contents SHALL support the link:{extensions-url}/3DTILES_tileset_vectors[3DTILES_tileset_vectors] glTF extension. This extension allows defining a tileset containing vector data tile contents.
+A conforming implementation that supports the vector tile content type *SHALL* support the link:{extensions-url}/3DTILES_tileset_vectors[3DTILES_tileset_vectors] glTF extension.
 
-==== Requirement 2: https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon]
+==== Requirement 2: Support https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart]
 
-A conforming implementation that supports the vector tile contents MAY support the https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon] glTF extension. This extension extends glTF mesh primitives by adding an encoding of polygon primitive topology, including triangle indices for backwards-compatible rendering.
+A conforming implementation that supports the vector tile content type *MAY* support the https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart] glTF extension.
+
+==== Requirement 3: Support https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon]
+
+A conforming implementation that supports the vector tile content type *MAY* support the https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon] glTF extension.
 
 === Conformance Class: Voxel Tiles Content Type
 
-A conforming 3D Tiles 2.0 client or server MAY implement the voxel tiles content type requirements of the specification.
+A conforming implementation *MAY* implement the voxel tiles content type requirements of the specification.
 
-==== Requirement 1: Implicit Tiling
+==== Requirement 1: Support link:{extensions-url}/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling]
 
-A conforming implementation that supports voxel tile contents SHALL support the entire Implicit Tiling conformance class.
+A conforming implementation that supports voxel tile content type *SHALL* support the link:{extensions-url}/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling] glTF extension.
 
-==== Requirement 2: link:{extensions-url}/3DTILES_tileset_voxels[3DTILES_tileset_voxels]
+==== Requirement 2: Support link:{extensions-url}/3DTILES_subtree/README.md[3DTILES_subtree]
 
-A conforming implementation that supports voxel tile contents SHALL support the link:{extensions-url}/3DTILES_tileset_voxels[3DTILES_tileset_voxels] glTF extension. This extension allows defining a tileset containing voxel data tile contents.
+A conforming implementation that supports voxel tile content type *SHALL* support the link:{extensions-url}/3DTILES_subtree/README.md[3DTILES_subtree] glTF extension.
 
-==== Requirement 3: link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region]
+==== Requirement 3: Support link:{extensions-url}/3DTILES_tileset_voxels[3DTILES_tileset_voxels]
 
-A conforming implementation SHOULD support the link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region] glTF extension. This extension allows defining an ellipsoid-conforming region as an additional glTF 2.1 shape type.
+A conforming implementation that supports voxel tile content type *SHALL* support the link:{extensions-url}/3DTILES_tileset_voxels[3DTILES_tileset_voxels] glTF extension.
 
-==== Requirement 4: link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region]
+==== Requirement 4: Support link:{extensions-url}/EXT_voxels/README.md[EXT_voxels]
 
-A conforming implementation SHOULD support the link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region] glTF extension. This extension allows defining an cylinder-conforming region as an additional glTF 2.1 shape type.
+A conforming implementation that supports voxel tile content type *SHALL* support the link:{extensions-url}/EXT_voxels/README.md[EXT_voxels] glTF extension.
+
+==== Requirement 5: Support link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region]
+
+A conforming implementation that supports voxel tile content type *SHOULD* support the link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region] glTF extension.
+
+==== Requirement 6: Support link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region]
+
+A conforming implementation that supports voxel tile content type *SHOULD* support the link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region] glTF extension.
