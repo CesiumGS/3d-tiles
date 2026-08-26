@@ -20,13 +20,11 @@
 
 * [[[KHR_meshopt_compression,KHR_meshopt_compression]]], Khronos Group: KHR_meshopt_compression, 2026. https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression[https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression]
 
-* [[[KHR_node_visibility,KHR_node_visibility]]], KHR_node_visibility, 2026. https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_node_visibility[https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_node_visibility]
+* [[[KHR_node_visibility,KHR_node_visibility]]], Khronos Group: KHR_node_visibility, 2026. https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_node_visibility[https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_node_visibility]
 
 * [[[KHR_gaussian_splatting,KHR_gaussian_splatting]]], Khronos Group: KHR_gaussian_splatting, 2026. https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting[https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting]
 
-* [[[KHR_gaussian_splatting_compression_spz_2,KHR_gaussian_splatting_compression_spz_2]]], Khronos Group KHR_gaussian_splatting_compression_spz_2, 2026. https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2[https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2]
-
-* [[[EXT_meshopt_compression,EXT_meshopt_compression]]], Khronos Group: EXT_meshopt_compression, 2026. https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_meshopt_compression[https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_meshopt_compression]
+* [[[KHR_gaussian_splatting_compression_spz_2,KHR_gaussian_splatting_compression_spz_2]]], Khronos Group: KHR_gaussian_splatting_compression_spz_2, 2026. https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2[https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2]
 
 * [[[OGC,OGC 18-010r7]]], OGC: [OGC 18-010r7] Geographic information - Well-known text representation of coordinate reference systems, 2019. https://docs.opengeospatial.org/is/18-010r7/18-010r7.html[https://docs.opengeospatial.org/is/18-010r7/18-010r7.html]
 
@@ -50,7 +48,7 @@
 
 * [[[3DTILES_horizon_occlusion_point,3DTILES_horizon_occlusion_point]]], 3D Tiles: 3DTILES_horizon_occlusion_point, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_horizon_occlusion_point[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_horizon_occlusion_point]
 
-* [[[3DTILES_layers,3DTILES_layers]]], 3DTILES_layers, 2026. https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_layers[https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_layers]
+* [[[3DTILES_layers,3DTILES_layers]]], 3D Tiles: 3DTILES_layers, 2026. https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_layers[https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_layers]
 
 * [[[EXT_node_visibility_conditions,EXT_node_visibility_conditions]]], 3D Tiles: EXT_node_visibility_conditions, 2026. https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_conditions[https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_conditions]
 
@@ -66,18 +64,18 @@
 
 * [[[EXT_mesh_polygon,EXT_mesh_polygon]]], 3D Tiles: EXT_mesh_polygon, 2026. https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon[https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon]
 
-* [[[EXT_structural_metadata,EXT_structural_metadata]]], EXT_structural_metadata, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata]
+* [[[EXT_structural_metadata,EXT_structural_metadata]]], 3D Tiles: EXT_structural_metadata, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata]
 
-* [[[EXT_mesh_features,EXT_mesh_features]]], EXT_mesh_features, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_mesh_features[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_mesh_features]
+* [[[EXT_mesh_features,EXT_mesh_features]]], 3D Tiles: EXT_mesh_features, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_mesh_features[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.0/Vendor/EXT_mesh_features]
 
-* [[[EXT_voxels,EXT_voxels]]], EXT_voxels, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/EXT_voxels[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/EXT_voxels]
+* [[[EXT_voxels,EXT_voxels]]], 3D Tiles: EXT_voxels, 2026. https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/EXT_voxels[https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor/EXT_voxels]
 
-* [[[EXT_mesh_primitive_edge_visibility,EXT_mesh_primitive_edge_visibility]]], EXT_mesh_primitive_edge_visibility, 2026. https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility[https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility]
+* [[[EXT_mesh_primitive_edge_visibility,EXT_mesh_primitive_edge_visibility]]], 3D Tiles: EXT_mesh_primitive_edge_visibility, 2026. https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility[https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility]
 
-* [[[EXT_textureInfo_constant_lod,EXT_textureInfo_constant_lod]]], EXT_textureInfo_constant_lod, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/EXT_textureInfo_constant_lod[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/EXT_textureInfo_constant_lod]
+* [[[EXT_textureInfo_constant_lod,EXT_textureInfo_constant_lod]]], 3D Tiles: EXT_textureInfo_constant_lod, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/EXT_textureInfo_constant_lod[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/EXT_textureInfo_constant_lod]
 
-* [[[BENTLEY_materials_planar_fill,BENTLEY_materials_planar_fill]]], BENTLEY_materials_planar_fill, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_planar_fill[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_planar_fill]
+* [[[BENTLEY_materials_planar_fill,BENTLEY_materials_planar_fill]]], 3D Tiles: BENTLEY_materials_planar_fill, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_planar_fill[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_planar_fill]
 
-* [[[BENTLEY_materials_line_style,BENTLEY_materials_line_style]]], BENTLEY_materials_line_style, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_line_style[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_line_style]
+* [[[BENTLEY_materials_line_style,BENTLEY_materials_line_style]]], 3D Tiles: BENTLEY_materials_line_style, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_line_style[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_line_style]
 
-* [[[BENTLEY_materials_point_style,BENTLEY_materials_point_style]]], BENTLEY_materials_point_style, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_point_style[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_point_style]
+* [[[BENTLEY_materials_point_style,BENTLEY_materials_point_style]]], 3D Tiles: BENTLEY_materials_point_style, 2026. https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_point_style[https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_point_style]

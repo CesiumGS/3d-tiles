@@ -1,4 +1,5 @@
 :extensions-url: https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor
+:tileset-extension-url: 
 :cesium-gltf-extensions-url: https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor
 :khronos-gltf-extensions-url: https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos
 
@@ -15,67 +16,31 @@ As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension compatible w
 
 The link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset] extension specifies a well defined subset of glTF 2.1 for representing a tileset in https://github.com/CesiumGS/3d-tiles/tree/main/specification/[3D Tiles]. It extends the node hierarchy to support Hierarchical Level of Detail (HLOD) for streaming massive 3D scenes. Additionally, it depends on core glTF 2.1 features like external assets and bounding volumes.
 
+// TODO: Add links to each section once I have links under control.
+
 These concepts are normatively defined within the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset[3DTILES_tileset] glTF extension.
 
-* Tilesets, Tiles, and Tile Content
-* Geometric Error
-* Refinement (Replacement and Additive)
-* Bounding Volumes
-* Spatial Coherence and Spatial Data Structures
-* Implicit Tiling
+* 3D Tiles
+* Tilesets
+* Tiles
+* Tile Content
 * External Tilesets
+* Geometric Error
+* Refinement
+* Bounding Volumes
+* Transforms
+* Spatial Coherence
+* Spatial Data Structures
 * Coordinate Reference Systems
+
+Additional normative concepts are defined in both link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset] and several supporting extensions, including:
+
+* Implicit Tiling
 * Metadata
+* Layers
+* Horizon Occlusion Point
+* Visibility Bounding Volumes
 * Declarative Styling
-
-[#gltf-supporting-extensions]
-=== Supporting Extensions
-
-These tileset extensions are optional supporting extensions that bring features such as implicit tiling, coordinate referencing, and other features to 3D Tiles 2.0 tilesets.
-
-[#gltf-supporting-extensions-coordinate-reference-system]
-==== Coordinate Reference System
-
-The link:{extensions-url}/EXT_geospatial_crs/README.md[EXT_geospatial_crs] extension indicates that the glTF is in a planetocentric coordinate reference system such as a WGS84 Earth-centered, Earth-fixed (ECEF) geocentric reference frame (EPSG 4978). This can be further configured through either the link:{extensions-url}/EXT_geospatial_crs_wkt2/README.md[EXT_geospatial_crs_wkt2] or link:{extensions-url}/EXT_geospatial_crs_wkid/README.md[EXT_geospatial_crs_wkid] extensions. link:{extensions-url}/EXT_geospatial_crs_wkt2/README.md[EXT_geospatial_crs_wkt2] allows specifying a Well-Known Text (Version 2) string as the coordinate reference system, and link:{extensions-url}/EXT_geospatial_crs_wkid/README.md[EXT_geospatial_crs_wkid] allows specifying a Well-Known ID, such as an ESPG code, as the coordinate reference system.
-
-See the extensions for full normative specification and further examples:
-
- * link:{extensions-url}/EXT_geospatial_crs/README.md[EXT_geospatial_crs]
- * link:{extensions-url}/EXT_geospatial_crs_wkt2/README.md[EXT_geospatial_crs_wkt2]
- * link:{extensions-url}/EXT_geospatial_crs_wkid/README.md[EXT_geospatial_crs_wkid]
-
-The link:{extensions-url}/EXT_georeference/README.md[EXT_georeference] extension allows defining a tileset in a local coordinate system and georeferenced to a specific latitude and longitude. This extension uses WGS84 by default, but can use link:{extensions-url}/EXT_geospatial_crs/README.md[EXT_geospatial_crs] to specify a different coordinate reference system. See the link:{extensions-url}/EXT_georeference/README.md[EXT_georeference] extension for a full normative specification.
-
-[#gltf-supporting-extensions-implicit-tiling]
-==== Implicit Tiling
-
-Implicit tiling defines a concise representation of quadtrees and octrees in 3D Tiles. This regular pattern allows for random access of tiles based on their tile coordinates which enables accelerated spatial queries, new traversal algorithms, and efficient updates of tile content, among other use cases. The link:{extensions-url}/3DTILES_implicit_tiling/README.md[3DTILES_implicit_tiling] extension enables implicit tiling workflows in 3D Tiles 2.0.
-
-The link:{extensions-url}/3DTILES_subtree/README.md[3DTILES_subtree] extension specifies a well defined subset of glTF 2.1 for representing a subtree in 3DTILES_implicit_tiling. A subtree stores tile, content, and child subtree availability, as well as metadata for available tiles and contents.
-
-==== Additional Bounding Volume Shapes
-
-Several extensions exist that extend the bounding volumes shapes that can be used with 3D Tiles 2.0. The link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region] extension defines an ellipsoid-conforming region as an additional shape type. Ellipsoid regions are commonly used in geospatial applications to describe volumes that conform to the curvature of the Earth, or other bodies.
-
-The link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region] extension defines a cylinder-conforming region as an additional shape type. Cylindrical regions are useful for visualizing real-world data that has been captured by cylindrical sensors.
-
-Additionally, the link:{extensions-url}/3DTILES_shape_s2/README.md[3DTILES_shape_s2] extension to 3D Tiles enables using S2 cells as an additional shape type for global near equal-area coverage.
-
-==== Tileset Metadata
-
-The link:{extensions-url}/EXT_structural_metadata/README.md[EXT_structural_metadata] extension allows assigning metadata to tileset, tile, content, vertices, texels, and features in a glTF asset. Use of this extension in 3D Tiles is covered in detail in the xref:Metadata/README.adoc#metadata-3d-metadata-specification[3D Metadata specification].
-
-==== Layers
-
-Layers are a common concept when working with geospatial data, representing semantic or functional groups of geometries requiring common handling by the application. The link:{extensions-url}/3DTILES_layers/README.md[3DTILES_layers] extension adds support for layers. This can be useful for a variety of applications including vector data. See the link:{extensions-url}/3DTILES_layers/README.md[3DTILES_layers] extension specification for further details.
-
-==== Horizon Occlusion Point
-
-To allow for fast horizon culling at runtime, the link:{extensions-url}/3DTILES_horizon_occlusion_point/README.md[3DTILES_horizon_occlusion_point] extension can be used to set a precomputed horizon occlusion point to a tile or contents. This uses a WGS84 ellipsoid by default but can be configured using the link:{extensions-url}/EXT_geospatial_crs/README.md[EXT_geospatial_crs] extension. See the link:{extensions-url}/3DTILES_horizon_occlusion_point/README.md[3DTILES_horizon_occlusion_point] extension specification for further details.
-
-==== Visibility Bounding Volumes
-
-Visibility bounding volumes allow specifying a space where specialized geometry is only visible when a camera is present. The link:{extensions-url}/EXT_node_visibility_volume[EXT_node_visibility_volume] extension allows specifying a bounding volume where an associated node containing a link:{khronos-gltf-extensions-url}/2.0/Khronos/EXT_node_visibility/README.md[EXT_node_visibility] definition is set to become visible. See the link:{extensions-url}/EXT_node_visibility_volume[EXT_node_visibility_volume] extension specification for further details.
 
 [#gltf-content-extensions]
 == Content Extensions

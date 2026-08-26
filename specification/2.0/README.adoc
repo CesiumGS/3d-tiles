@@ -82,18 +82,7 @@ As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension compatible w
 [#concepts]
 == Concepts
 
-The concepts listed below are normatively defined within the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset[3DTILES_tileset] glTF extension. Additional details can be found in the xref:{url-specification}glTF.adoc#gltf-extensions-for-3dtiles[glTF Extensions for 3D Tiles] section.
-
-* Tilesets, Tiles, and Tile Content
-* Geometric Error
-* Refinement (Replacement and Additive)
-* Bounding Volumes
-* Spatial Coherence and Spatial Data Structures
-* Implicit Tiling
-* External Tilesets
-* Coordinate Reference Systems
-* Metadata
-* Declarative Styling
+Core concepts are normatively defined within the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset[3DTILES_tileset] glTF extension. Additional details can be found in the xref:{url-specification}glTF.adoc#gltf-extensions-for-3dtiles[glTF Extensions for 3D Tiles] section and the extension specification.
 
 [#declarative-styling-specification]
 == Declarative styling specification
