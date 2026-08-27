@@ -18,6 +18,9 @@ URL_SRC_FILE="./extension-urls.adoc"
 # These are the files we copy to. Each of them has a special block.
 DEST_FILES=(
     "./CONFORMANCE.adoc"
+    "./README.adoc"
+    "./REFERENCES.adoc"
+    "./glTF.adoc"
 )
 
 if pushd "$SPEC_DIR" > /dev/null; then

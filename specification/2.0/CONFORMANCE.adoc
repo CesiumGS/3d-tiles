@@ -3,7 +3,6 @@ ifdef::env-github[]
 // That will properly update the URLs across all documents.
 
 // GITHUB_URL_START
-
 :khronos-gltf-repo: https://github.com/KhronosGroup/glTF
 :cesiumgs-gltf-repo-fork: https://github.com/CesiumGS
 :3dtiles-extensions-url: {cesiumgs-gltf-repo-fork}/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor

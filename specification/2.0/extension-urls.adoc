@@ -4,7 +4,6 @@
 // If you're looking for the 3D Tiles specification, go here: https://github.com/CesiumGS/3d-tiles/specification/2.0/
 
 // COPY_STARTS_HERE
-
 :khronos-gltf-repo: https://github.com/KhronosGroup/glTF
 :cesiumgs-gltf-repo-fork: https://github.com/CesiumGS
 :3dtiles-extensions-url: {cesiumgs-gltf-repo-fork}/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor
