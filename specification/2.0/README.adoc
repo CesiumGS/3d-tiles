@@ -37,6 +37,7 @@ ifdef::env-github[]
 :cesiumgs-gltf-repo-fork: https://github.com/CesiumGS/glTF
 :3dtiles-extensions-url: {cesiumgs-gltf-repo-fork}/tree/3d-tiles-2.0/extensions/2.1/Vendor
 :gltf-2_0-extensions-url: {cesiumgs-gltf-repo-fork}/tree/3d-tiles-2.0/extensions/2.0/Vendor
+:bentley-extensions-url: {cesiumgs-gltf-repo-fork}/tree/vendor-extensions/extensions/2.0/Vendor
 
 // 3DTILES Extensions
 :gltf-ext-3dtiles_horizon_occlusion_point-url: {3dtiles-extensions-url}/3DTILES_horizon_occlusion_point/README.md 
@@ -51,9 +52,9 @@ ifdef::env-github[]
 :gltf-ext-3dtiles_tileset_voxels-url: {3dtiles-extensions-url}/3DTILES_tileset_voxels/README.md
 
 // BENTLEY Extensions
-:gltf-ext-bentley_materials_line_style-url: {gltf-2_0-extensions-url}/BENTLEY_materials_line_style/README.md
-:gltf-ext-bentley_materials_point_style-url: {gltf-2_0-extensions-url}/BENTLEY_materials_point_style/README.md
-:gltf-ext-bentley_materials_planar_fill-url: {gltf-2_0-extensions-url}/BENTLEY_materials_planar_fill/README.md
+:gltf-ext-bentley_materials_line_style-url: {bentley-extensions-url}/BENTLEY_materials_line_style/README.md
+:gltf-ext-bentley_materials_point_style-url: {bentley-extensions-url}/BENTLEY_materials_point_style/README.md
+:gltf-ext-bentley_materials_planar_fill-url: {bentley-extensions-url}/BENTLEY_materials_planar_fill/README.md
 
 // EXT extensions
 :gltf-ext-ext_georeference-url: {3dtiles-extensions-url}/EXT_georeference/README.md
