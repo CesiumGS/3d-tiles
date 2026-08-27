@@ -22,6 +22,7 @@ DEST_FILES=(
     "./Metadata/README.adoc"
     "./README.adoc"
     "./REFERENCES.adoc"
+    "./Specification.adoc"
     "./Styling/README.adoc"
 )
 
