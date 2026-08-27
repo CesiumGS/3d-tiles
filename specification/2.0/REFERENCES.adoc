@@ -1,0 +1,139 @@
+ifdef::env-github[]
+// WARNING: Do not edit the URLs here. Update the url `extension-urls.adoc` and then run `update-urls.sh`!
+// That will properly update the URLs across all documents.
+
+// GITHUB_URL_START
+:khronos-gltf-repo: https://github.com/KhronosGroup/glTF
+:cesiumgs-gltf-repo-fork: https://github.com/CesiumGS/glTF
+:3dtiles-extensions-url: {cesiumgs-gltf-repo-fork}/tree/3d-tiles-2.0/extensions/2.1/Vendor
+:gltf-2_0-extensions-url: {cesiumgs-gltf-repo-fork}/tree/3d-tiles-2.0/extensions/2.0/Vendor
+:bentley-extensions-url: {cesiumgs-gltf-repo-fork}/tree/vendor-extensions/extensions/2.0/Vendor
+
+// 3DTILES Extensions
+:gltf-ext-3dtiles_horizon_occlusion_point-url: {3dtiles-extensions-url}/3DTILES_horizon_occlusion_point/README.md 
+:gltf-ext-3dtiles_implicit_tiling-url: {3dtiles-extensions-url}/3DTILES_implicit_tiling/README.md 
+:gltf-ext-3dtiles_layers-url: {3dtiles-extensions-url}/3DTILES_layers/README.md 
+:gltf-ext-3dtiles_shape_cylinder_region-url: {3dtiles-extensions-url}/3DTILES_shape_cylinder_region/README.md 
+:gltf-ext-3dtiles_shape_ellipsoid_region-url: {3dtiles-extensions-url}/3DTILES_shape_ellipsoid_region/README.md 
+:gltf-ext-3dtiles_shape_s2-url: {3dtiles-extensions-url}/3DTILES_shape_s2/README.md 
+:gltf-ext-3dtiles_subtree-url: {3dtiles-extensions-url}/3DTILES_subtree/README.md 
+:gltf-ext-3dtiles_tileset-url: {3dtiles-extensions-url}/3DTILES_tileset/README.md
+:gltf-ext-3dtiles_tileset_vectors-url: {3dtiles-extensions-url}/3DTILES_tileset_vectors/README.md
+:gltf-ext-3dtiles_tileset_voxels-url: {3dtiles-extensions-url}/3DTILES_tileset_voxels/README.md
+
+// BENTLEY Extensions
+:gltf-ext-bentley_materials_line_style-url: {bentley-extensions-url}/BENTLEY_materials_line_style/README.md
+:gltf-ext-bentley_materials_point_style-url: {bentley-extensions-url}/BENTLEY_materials_point_style/README.md
+:gltf-ext-bentley_materials_planar_fill-url: {bentley-extensions-url}/BENTLEY_materials_planar_fill/README.md
+
+// EXT extensions
+:gltf-ext-ext_georeference-url: {3dtiles-extensions-url}/EXT_georeference/README.md
+:gltf-ext-ext_geospatial_crs-url: {3dtiles-extensions-url}/EXT_geospatial_crs/README.md
+:gltf-ext-ext_geospatial_crs_wkid-url: {3dtiles-extensions-url}/EXT_geospatial_crs_wkid/README.md
+:gltf-ext-ext_geospatial_crs_wkt2-url: {3dtiles-extensions-url}/EXT_geospatial_crs_wkt2/README.md
+:gltf-ext-ext_instance_features-url: {gltf-2_0-extensions-url}/EXT_instance_features/README.md
+:gltf-ext-ext_mesh_features-url: {gltf-2_0-extensions-url}/EXT_mesh_features/README.md
+:gltf-ext-ext_mesh_polygon-url: {cesiumgs-gltf-repo-fork}/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md
+:gltf-ext-ext_mesh_primitive_edge_visibility-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility/README.md
+:gltf-ext-ext_node_visibility_conditions-url: {3dtiles-extensions-url}/EXT_node_visibility_conditions/README.md
+:gltf-ext-ext_node_visibility_volume-url: {3dtiles-extensions-url}/EXT_node_visibility_volume
+:gltf-ext-ext_structural_metadata-url: {gltf-2_0-extensions-url}/EXT_structural_metadata/README.md 
+:gltf-ext-ext_textureInfo_constant_lod-url: {bentley-extensions-url}/EXT_textureInfo_constant_lod/README.md
+:gltf-ext-ext_voxels-url: {3dtiles-extensions-url}/EXT_voxels/README.md 
+
+// KHR Extensions
+:gltf-ext-khr_meshopt_compression-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression/README.md 
+:gltf-ext-khr_mesh_primitive_restart-url: {cesiumgs-gltf-repo-fork}/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart/README.md
+:gltf-ext-khr_gaussian_splatting_compression_spz_2-url: {cesiumgs-gltf-repo-fork}/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2/README.md
+:gltf-ext-khr_gaussian_splatting-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting/README.md
+:gltf-ext-khr_node_visibility-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_node_visibility/README.md
+// GITHUB_URL_END
+
+endif::[]
+ifndef::env-github[]
+include::extension-urls.adoc[]
+endif::[]
+
+== References
+
+* [[[EPSG_4978,EPSG 4978]]], EPSG: 4978, 2020. https://epsg.org/crs_4978/WGS-84.html[https://epsg.org/crs_4978/WGS-84.html]
+
+* [[[EPSG_4949,EPSG 4979]]], EPSG: 4979, 2020. https://epsg.org/crs_4979/WGS-84.html[https://epsg.org/crs_4979/WGS-84.html]
+
+* [[[IETF_RFC2397,IETF RFC 2397]]], IETF RFC2397: The "data" URL scheme, 1998. https://tools.ietf.org/html/rfc2397[https://tools.ietf.org/html/rfc2397]
+
+* [[[IETF_RFC3629,IETF RFC 3629]]], IETF RFC3629: UTF-8, a transformation format of ISO 10646, 2003. https://tools.ietf.org/html/rfc3629[https://tools.ietf.org/html/rfc3629]
+
+* [[[IETF_RFC3986,IETF RFC 3986]]], IETF RFC3986: IANA Registration for Enumservice 'XMPP', 2007. https://tools.ietf.org/html/rfc4979[https://tools.ietf.org/html/rfc4979]
+
+* [[[IETF_RFC8259,IETF RFC 8259]]], IETF RFC8259: The JavaScript Object Notation (JSON) Data Interchange Format, 2017, https://datatracker.ietf.org/doc/html/rfc8259[https://datatracker.ietf.org/doc/html/rfc8259]
+
+* [[[X3D_Geospatial,X3D Geospatial]]], Andreas Plesch and Mike McCann. 2015. The X3D geospatial component: X3DOM implementation of GeoOrigin, GeoLocation, GeoViewpoint, and GeoPositionInterpolator nodes. In Proceedings of the 20th International Conference on 3D Web Technology (Web3D '15). Association for Computing Machinery, New York, NY, USA, 31–37. https://doi.org/10.1145/2775292.2775315[https://doi.org/10.1145/2775292.2775315]
+
+* [[[Khronos_Group,Khronos Group glTF 2.1]]], Khronos Group: glTF 2.1, 2026. https://github.com/KhronosGroup/glTF/issues/2585[https://github.com/KhronosGroup/glTF/issues/2585]
+
+* [[[KHR_mesh_primitive_restart,KHR_mesh_primitive_restart]]], Khronos Group: KHR_mesh_primitive_restart, 2026. link:{gltf-ext-khr_mesh_primitive_restart-url}[{gltf-ext-khr_mesh_primitive_restart-url}]
+
+* [[[KHR_meshopt_compression,KHR_meshopt_compression]]], Khronos Group: KHR_meshopt_compression, 2026. link:{gltf-ext-khr_meshopt_compression-url}[{gltf-ext-khr_meshopt_compression-url}]
+
+* [[[KHR_node_visibility,KHR_node_visibility]]], Khronos Group: KHR_node_visibility, 2026. link:{gltf-ext-khr_node_visibility-url}[{gltf-ext-khr_node_visibility-url}]
+
+* [[[KHR_gaussian_splatting,KHR_gaussian_splatting]]], Khronos Group: KHR_gaussian_splatting, 2026. link:{gltf-ext-khr_gaussian_splatting-url}[{gltf-ext-khr_gaussian_splatting-url}]
+
+* [[[KHR_gaussian_splatting_compression_spz_2,KHR_gaussian_splatting_compression_spz_2]]], Khronos Group: KHR_gaussian_splatting_compression_spz_2, 2026. link:{ext-gltf-khr_gaussian_splatting_compression_spz_2-url}[{gltf-ext-khr_gaussian_splatting_compression_spz_2-url}]
+
+* [[[OGC,OGC 18-010r7]]], OGC: [OGC 18-010r7] Geographic information - Well-known text representation of coordinate reference systems, 2019. https://docs.opengeospatial.org/is/18-010r7/18-010r7.html[https://docs.opengeospatial.org/is/18-010r7/18-010r7.html]
+
+* [[[W3C,W3C css-color-3]]], W3C: CSS3 Color, 2018. https://www.w3.org/TR/css-color-3/[https://www.w3.org/TR/css-color-3/]
+
+* [[[3DTILES_tileset,3DTILES_tileset]]], 3D Tiles: 3DTILES_tileset, 2026. link:{ext-gltf-3dtiles_tileset-url}}[{gltf-ext-3dtiles_tileset-url}]
+
+* [[[3DTILES_implicit_tiling,3DTILES_implicit_tiling]]], 3D Tiles: 3DTILES_implicit_tiling, 2026. link:{ext-gltf-3dtiles_implicit_tiling-url}[{gltf-ext-3dtiles_implicit_tiling-url}]
+
+* [[[3DTILES_subtree,3DTILES_subtree]]], 3D Tiles: 3DTILES_subtree, 2026. link:{gltf-ext-3dtiles_subtree-url}[{gltf-ext-3dtiles_subtree-url}]
+
+* [[[3DTILES_shape_ellipsoid_region,3DTILES_shape_ellipsoid_region]]], 3D Tiles: 3DTILES_shape_ellipsoid_region, 2026. link:{gltf-ext-3dtiles_shape_ellipsoid_region-url}[{gltf-ext-3dtiles_shape_ellipsoid_region-url}]
+
+* [[[3DTILES_shape_cylinder_region,3DTILES_shape_cylinder_region]]], 3D Tiles: 3DTILES_shape_cylinder_region, 2026. link:{gltf-ext-3dtiles_shape_cylinder_region-url}[{gltf-ext-3dtiles_shape_cylinder_region-url}]
+
+* [[[3DTILES_shape_s2,3DTILES_shape_s2]]], 3D Tiles: 3DTILES_shape_s2, 2026. link:{gltf-ext-3dtiles_shape_s2-url}[{gltf-ext-3dtiles_shape_s2-url}]
+
+* [[[3DTILES_tileset_vectors,3DTILES_tileset_vectors]]], 3DTILES_tileset_vectors, 2026. link:{gltf-ext-3dtiles_tileset_vectors-url}[{gltf-ext-3dtiles_tileset_vectors-url}]
+
+* [[[3DTILES_tileset_voxels,3DTILES_tileset_voxels]]], 3D Tiles: 3DTILES_tileset_voxels, 2026. link:{gltf-ext-3dtiles_tileset_voxels-url}[{gltf-ext-3dtiles_tileset_voxels-url}]
+
+* [[[3DTILES_horizon_occlusion_point,3DTILES_horizon_occlusion_point]]], 3D Tiles: 3DTILES_horizon_occlusion_point, 2026. link:{gltf-ext-3dtiles_horizon_occlusion_point-url}[{gltf-ext-3dtiles_horizon_occlusion_point-url}]
+
+* [[[3DTILES_layers,3DTILES_layers]]], 3D Tiles: 3DTILES_layers, 2026. link:{gltf-ext-3dtiles_layers-url}[{gltf-ext-3dtiles_layers-url}]
+
+* [[[EXT_node_visibility_conditions,EXT_node_visibility_conditions]]], 3D Tiles: EXT_node_visibility_conditions, 2026. link:{gltf-ext-ext_node_visibility_conditions-url}[{gltf-ext-ext_node_visibility_conditions-url}]
+
+* [[[EXT_node_visibility_volume,EXT_node_visibility_volume]]], 3D Tiles: EXT_node_visibility_volume, 2026. link:{gltf-ext-ext_node_visibility_volume-url}[{gltf-ext-ext_node_visibility_volume-url}]
+
+* [[[EXT_geospatial_crs,EXT_geospatial_crs]]], 3D Tiles: EXT_geospatial_crs, 2026. link:{gltf-ext-ext_geospatial_crs-url}[{gltf-ext-ext_geospatial_crs-url}]
+
+* [[[EXT_geospatial_crs_wkid,EXT_geospatial_crs_wkid]]], 3D Tiles: EXT_geospatial_crs_wkid, 2026. link:{gltf-ext-ext_geospatial_crs_wkid-url}[{gltf-ext-ext_geospatial_crs_wkid-url}]
+
+* [[[EXT_geospatial_crs_wkt2,EXT_geospatial_crs_wkt2]]], 3D Tiles: EXT_geospatial_crs_wkt2, 2026. link:{gltf-ext-ext_geospatial_crs_wkt2-url}[{gltf-ext-ext_geospatial_crs_wkt2-url}]
+
+* [[[EXT_georeference,EXT_georeference]]], 3D Tiles: EXT_georeference, 2026. link:{gltf-ext-ext_georeference-url}[{gltf-ext-ext_georeference-url}]
+
+* [[[EXT_mesh_polygon,EXT_mesh_polygon]]], 3D Tiles: EXT_mesh_polygon, 2026. link:{gltf-ext-ext_mesh_polygon-url}[{gltf-ext-ext_mesh_polygon-url}]
+
+* [[[EXT_structural_metadata,EXT_structural_metadata]]], 3D Tiles: EXT_structural_metadata, 2026. link:{gltf-ext-ext_structural_metadata-url}[{gltf-ext-ext_structural_metadata-url}]
+
+* [[[EXT_mesh_features,EXT_mesh_features]]], 3D Tiles: EXT_mesh_features, 2026. link:{gltf-ext-ext_mesh_features-url}[{gltf-ext-ext_mesh_features-url}]
+
+* [[[EXT_instance_features,EXT_instance_features]]], 3D Tiles: EXT_instance_features, 2026. link:{gltf-ext-ext_instance_features-url}[{gltf-ext-ext_instance_features-url}]
+
+* [[[EXT_voxels,EXT_voxels]]], 3D Tiles: EXT_voxels, 2026. link:{gltf-ext-ext_voxels-url}[{gltf-ext-ext_voxels-url}]
+
+* [[[EXT_mesh_primitive_edge_visibility,EXT_mesh_primitive_edge_visibility]]], 3D Tiles: EXT_mesh_primitive_edge_visibility, 2026. link:{gltf-ext-ext_mesh_primitive_edge_visibility-url}[{gltf-ext-ext_mesh_primitive_edge_visibility-url}]
+
+* [[[EXT_textureInfo_constant_lod,EXT_textureInfo_constant_lod]]], 3D Tiles: EXT_textureInfo_constant_lod, 2026. link:{gltf-ext-ext_textureInfo_constant_lod-url}[{gltf-ext-ext_textureInfo_constant_lod-url}]
+
+* [[[BENTLEY_materials_planar_fill,BENTLEY_materials_planar_fill]]], 3D Tiles: BENTLEY_materials_planar_fill, 2026. link:{gltf-ext-bentley_materials_planar_fill-url}[{gltf-ext-bentley_materials_planar_fill-url}]
+
+* [[[BENTLEY_materials_line_style,BENTLEY_materials_line_style]]], 3D Tiles: BENTLEY_materials_line_style, 2026. link:{gltf-ext-bentley_materials_line_style-url}[{gltf-ext-bentley_materials_line_style-url}]
+
+* [[[BENTLEY_materials_point_style,BENTLEY_materials_point_style]]], 3D Tiles: BENTLEY_materials_point_style, 2026. link:{gltf-ext-bentley_materials_point_style-url}[{gltf-ext-bentley_materials_point_style-url}]

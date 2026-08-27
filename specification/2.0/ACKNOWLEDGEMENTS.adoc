@@ -1,0 +1,56 @@
+== Contributors
+
+Editors:
+
+* Patrick Cozzi, https://twitter.com/pjcozzi[@pjcozzi], link:mailto:patrick@cesium.com[patrick@cesium.com]
+* Sean Lilley, https://twitter.com/lilleyse[@lilleyse], link:mailto:sean@cesium.com[sean@cesium.com]
+* Amanda Morgan, https://github.com/akmorgan99[@akmorgan99], link:mailto:amanda.morgan@cesium.com[amanda.morgan@cesium.com]
+* Adam Morris, https://github.com/weegeekps[@weegeekps], link:mailto:adam@cesium.com[adam@cesium.com]
+
+Acknowledgements:
+
+* Matt Amato, https://twitter.com/matt_amato[@matt_amato]
+* Erik Andersson, https://github.com/e-andersson[@e-andersson]
+* Dan Bagnell, https://github.com/bagnell[@bagnell]
+* Tamrat Belayneh
+* Ray Bentley
+* Björn Blissing
+* Jannes Bolling, https://github.com/jbo023[@jbo023]
+* Johan Borg
+* Dylan Brown, http://www.github.com/Dylan-Brown[@Dylan-Brown]
+* Sarah Chow, https://cesium.com/team/SarahChow/[cesium.com/team/SarahChow]
+* Paul Connelly
+* Volker Coors
+* Erik Dahlström, https://github.com/erikdahlstrom[@erikdahlstrom]
+* Henrik Edstrom
+* Tom Fili, https://www.linkedin.com/in/tfili/[@tfili]
+* Leesa Fini, http://www.github.com/LeesaFini[@LeesaFini]
+* Peter Gagliardi, https://github.com/ptrgags[@ptrgags]
+* Gabby Getz, https://twitter.com/gabbygetz[@gabbygetz]
+* Ralf Gutbell
+* Frederic Houbie
+* Jeshurun Hembd, https://github.com/jjhembd[@jjhembd]
+* Xuan Huang, https://github.com/xuanhuang1[@xuanhuang1]
+* Marco Hutter, https://github.com/javagl[@javagl]
+* Daniel Krupka, https://github.com/krupkad[@krupkad]
+* Ian Lilley, https://github.com/IanLilleyT[@IanLilleyT]
+* Janine Liu, https://github.com/j9liu[@j9liu]
+* Don McCurdy, https://github.com/donmccurdy[@donmccurdy]
+* Christopher Mitchell, Ph.D., https://github.com/KermMartian[@KermMartian]
+* Shehzan Mohammed, https://github.com/shehzan10[@shehzan10]
+* Claus Nagel
+* Jean-Philippe Pons
+* Andreas Plesch, https://github.com/andreasplesch[@andreasplesch]
+* Carl Reed
+* Kevin Ring, http://www.kotachrome.com/kevin/[www.kotachrome.com/kevin]
+* Mark Schlosser, https://github.com/markschlosseratbentley[@markschlosseratbentley]
+* Scott Simmons
+* Sam Suhag, https://github.com/sanjeetsuhag[@sanjeetsuhag]
+* Rob Taglang, https://github.com/lasalvavida[@lasalvavida]
+* Stan Tillman
+* Piero Toffanin, https://github.com/pierotofy[@pierotofy]
+* Bao Tran, https://github.com/baothientran[@baothientran]
+* Samuel Vargas, https://github.com/samulus[@samulus]
+* Pano Voudouris
+* Dave Wesloh
+* Daniel Zhong, https://github.com/danielzhong[@danielzhong]
