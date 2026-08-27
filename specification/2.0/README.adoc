@@ -34,7 +34,7 @@ ifdef::env-github[]
 
 // GITHUB_URL_START
 :khronos-gltf-repo: https://github.com/KhronosGroup/glTF
-:cesiumgs-gltf-repo-fork: https://github.com/CesiumGS
+:cesiumgs-gltf-repo-fork: https://github.com/CesiumGS/glTF
 :3dtiles-extensions-url: {cesiumgs-gltf-repo-fork}/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor
 :gltf-2_0-extensions-url: {cesiumgs-gltf-repo-fork}/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor
 
