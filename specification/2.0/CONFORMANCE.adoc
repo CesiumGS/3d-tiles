@@ -86,7 +86,7 @@ A conforming implementation *SHOULD* support tilesets using a global coordinate 
 
 A conforming implementation *SHOULD* implement the implicit tiling requirements of the specification.
 
-==== Requirement 1: Support link:{gltf-3dtiles_implicit_tiling-url}[3DTILES_implicit_tiling]
+==== Requirement 1: Support link:{gltf-ext-3dtiles_implicit_tiling-url}[3DTILES_implicit_tiling]
 
 A conforming implementation that supports implicit tiling *SHALL* support the link:{gltf-ext-3dtiles_implicit_tiling-url}[3DTILES_implicit_tiling] glTF extension.
 
@@ -104,7 +104,7 @@ A conforming implementation that supports the additional bounding volume types *
 
 ==== Requirement 2: Support link:{gltf-ext-3dtiles_shape_cylinder_region-url}[3DTILES_shape_cylinder_region]
 
-A conforming implementation that supports the additional bounding volume types *MAY* support the link:{gltf-3dtiles_shape_cylinder_region-url}[3DTILES_shape_cylinder_region] glTF extension.
+A conforming implementation that supports the additional bounding volume types *MAY* support the link:{gltf-ext-3dtiles_shape_cylinder_region-url}[3DTILES_shape_cylinder_region] glTF extension.
 
 ==== Requirement 3: Support link:{gltf-ext-3dtiles_shape_s2-url}[3DTILES_shape_s2]
 
