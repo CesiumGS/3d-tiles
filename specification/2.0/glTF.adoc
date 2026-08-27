@@ -1,7 +1,58 @@
-:extensions-url: https://github.com/CesiumGS/glTF/blob/3d-tiles-2.0/extensions/2.1/Vendor
-:tileset-extension-url: 
-:cesium-gltf-extensions-url: https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor
-:khronos-gltf-extensions-url: https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos
+ifdef::env-github[]
+// WARNING: Do not edit the URLs here. Update the url `extension-urls.adoc` and then run `update-urls.sh`!
+// That will properly update the URLs across all documents.
+
+// GITHUB_URL_START
+:khronos-gltf-repo: https://github.com/KhronosGroup/glTF
+:cesiumgs-gltf-repo-fork: https://github.com/CesiumGS/glTF
+:3dtiles-extensions-url: {cesiumgs-gltf-repo-fork}/tree/3d-tiles-2.0/extensions/2.1/Vendor
+:gltf-2_0-extensions-url: {cesiumgs-gltf-repo-fork}/tree/3d-tiles-2.0/extensions/2.0/Vendor
+:bentley-extensions-url: {cesiumgs-gltf-repo-fork}/tree/vendor-extensions/extensions/2.0/Vendor
+
+// 3DTILES Extensions
+:gltf-ext-3dtiles_horizon_occlusion_point-url: {3dtiles-extensions-url}/3DTILES_horizon_occlusion_point/README.md 
+:gltf-ext-3dtiles_implicit_tiling-url: {3dtiles-extensions-url}/3DTILES_implicit_tiling/README.md 
+:gltf-ext-3dtiles_layers-url: {3dtiles-extensions-url}/3DTILES_layers/README.md 
+:gltf-ext-3dtiles_shape_cylinder_region-url: {3dtiles-extensions-url}/3DTILES_shape_cylinder_region/README.md 
+:gltf-ext-3dtiles_shape_ellipsoid_region-url: {3dtiles-extensions-url}/3DTILES_shape_ellipsoid_region/README.md 
+:gltf-ext-3dtiles_shape_s2-url: {3dtiles-extensions-url}/3DTILES_shape_s2/README.md 
+:gltf-ext-3dtiles_subtree-url: {3dtiles-extensions-url}/3DTILES_subtree/README.md 
+:gltf-ext-3dtiles_tileset-url: {3dtiles-extensions-url}/3DTILES_tileset/README.md
+:gltf-ext-3dtiles_tileset_vectors-url: {3dtiles-extensions-url}/3DTILES_tileset_vectors/README.md
+:gltf-ext-3dtiles_tileset_voxels-url: {3dtiles-extensions-url}/3DTILES_tileset_voxels/README.md
+
+// BENTLEY Extensions
+:gltf-ext-bentley_materials_line_style-url: {bentley-extensions-url}/BENTLEY_materials_line_style/README.md
+:gltf-ext-bentley_materials_point_style-url: {bentley-extensions-url}/BENTLEY_materials_point_style/README.md
+:gltf-ext-bentley_materials_planar_fill-url: {bentley-extensions-url}/BENTLEY_materials_planar_fill/README.md
+
+// EXT extensions
+:gltf-ext-ext_georeference-url: {3dtiles-extensions-url}/EXT_georeference/README.md
+:gltf-ext-ext_geospatial_crs-url: {3dtiles-extensions-url}/EXT_geospatial_crs/README.md
+:gltf-ext-ext_geospatial_crs_wkid-url: {3dtiles-extensions-url}/EXT_geospatial_crs_wkid/README.md
+:gltf-ext-ext_geospatial_crs_wkt2-url: {3dtiles-extensions-url}/EXT_geospatial_crs_wkt2/README.md
+:gltf-ext-ext_instance_features-url: {gltf-2_0-extensions-url}/EXT_instance_features/README.md
+:gltf-ext-ext_mesh_features-url: {gltf-2_0-extensions-url}/EXT_mesh_features/README.md
+:gltf-ext-ext_mesh_polygon-url: {cesiumgs-gltf-repo-fork}/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md
+:gltf-ext-ext_mesh_primitive_edge_visibility-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility/README.md
+:gltf-ext-ext_node_visibility_conditions-url: {3dtiles-extensions-url}/EXT_node_visibility_conditions/README.md
+:gltf-ext-ext_node_visibility_volume-url: {3dtiles-extensions-url}/EXT_node_visibility_volume
+:gltf-ext-ext_structural_metadata-url: {gltf-2_0-extensions-url}/EXT_structural_metadata/README.md 
+:gltf-ext-ext_textureInfo_constant_lod-url: {bentley-extensions-url}/EXT_textureInfo_constant_lod/README.md
+:gltf-ext-ext_voxels-url: {3dtiles-extensions-url}/EXT_voxels/README.md 
+
+// KHR Extensions
+:gltf-ext-khr_meshopt_compression-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression/README.md 
+:gltf-ext-khr_mesh_primitive_restart-url: {cesiumgs-gltf-repo-fork}/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart/README.md
+:gltf-ext-khr_gaussian_splatting_compression_spz_2-url: {cesiumgs-gltf-repo-fork}/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2/README.md
+:gltf-ext-khr_gaussian_splatting-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting/README.md
+:gltf-ext-khr_node_visibility-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_node_visibility/README.md
+// GITHUB_URL_END
+
+endif::[]
+ifndef::env-github[]
+include::extension-urls.adoc[]
+endif::[]
 
 [#gltf-extensions-for-3dtiles]
 = glTF Extensions for 3D Tiles
@@ -14,11 +65,11 @@ As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension compatible w
 [#gltf-core-extension]
 === Core Extension
 
-The link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset] extension specifies a well defined subset of glTF 2.1 for representing a tileset in https://github.com/CesiumGS/3d-tiles/tree/main/specification/[3D Tiles]. It extends the node hierarchy to support Hierarchical Level of Detail (HLOD) for streaming massive 3D scenes. Additionally, it depends on core glTF 2.1 features like external assets and bounding volumes.
+The link:{gltf-ext-3dtiles_tileset-url}[3DTILES_tileset] extension specifies a well defined subset of glTF 2.1 for representing a tileset in https://github.com/CesiumGS/3d-tiles/tree/main/specification/[3D Tiles]. It extends the node hierarchy to support Hierarchical Level of Detail (HLOD) for streaming massive 3D scenes. Additionally, it depends on core glTF 2.1 features like external assets and bounding volumes.
 
 // TODO: Add links to each section once I have links under control.
 
-These concepts are normatively defined within the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset[3DTILES_tileset] glTF extension.
+These concepts are normatively defined within the link:{gltf-ext-3dtiles_tileset-url}[3DTILES_tileset] glTF extension.
 
 * 3D Tiles
 * Tilesets
@@ -33,7 +84,7 @@ These concepts are normatively defined within the https://github.com/CesiumGS/gl
 * Spatial Data Structures
 * Coordinate Reference Systems
 
-Additional normative concepts are defined in both link:{extensions-url}/3DTILES_tileset/README.md[3DTILES_tileset] and several supporting extensions, including:
+Additional normative concepts are defined in both link:{gltf-ext-3dtiles_tileset-url}[3DTILES_tileset] and several supporting extensions, including:
 
 * Implicit Tiling
 * Metadata
@@ -50,67 +101,70 @@ Any glTF extension compatible with glTF 2.1 can be used to extend content files.
 [#gltf-content-extensions-3d-gaussian-splatting]
 === 3D Gaussian Splatting
 
-3D Tiles 2.0 supports 3D Gaussian Splatting content via the link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting] glTF extension. Implementations supporting link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting] should also support https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2[KHR_gaussian_splatting_compression_spz_2], which defines compression of splat data using the SPZ format. Uncompressed splat content may be used where compression is not required. 3D Gaussian splatting tilesets are compatible with the hierarchical level-of-detail mechanism of 3D Tiles, such that clients may stream and cull splat content using the same traversal rules as other tile content types. 
+3D Tiles 2.0 supports 3D Gaussian Splatting content via the link:{gltf-ext-khr_gaussian_splatting-url}[KHR_gaussian_splatting] glTF extension. Implementations supporting link:{gltf-ext-khr_gaussian_splatting-url}[KHR_gaussian_splatting] should also support link:{gltf-ext-khr_gaussian_splatting_compression_spz_2-url}[KHR_gaussian_splatting_compression_spz_2], which defines compression of splat data using the SPZ format. Uncompressed splat content may be used where compression is not required. 3D Gaussian splatting tilesets are compatible with the hierarchical level-of-detail mechanism of 3D Tiles, such that clients may stream and cull splat content using the same traversal rules as other tile content types. 
 
-See these glTF Extension definitions for details:
+See these glTF extension definitions for details:
 
- * link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_gaussian_splatting[KHR_gaussian_splatting]
- * https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2[KHR_gaussian_splatting_compression_spz_2]
+ * link:{gltf-ext-khr_gaussian_splatting-url}[KHR_gaussian_splatting]
+ * link:{gltf-ext-khr_gaussian_splatting_compression_spz_2-url}[KHR_gaussian_splatting_compression_spz_2]
 
 [#gltf-content-extensions-aec-rendering]
 === Architectural, Engineering, and Construction Rendering
 
-3D Tiles 2.0 supports edge rendering for AEC workflows through the glTF extensions https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart] and link:{khronos-gltf-extensions-url}/2.0/Vendor/EXT_mesh_primitive_edge_visibility[EXT_mesh_primitive_edge_visibility]. Implementations for AEC workflows may recognize both extensions in tile content and can either render the content according to the extension definitions or report the extension as unsupported in accordance with glTF 2.1. 
+3D Tiles 2.0 supports edge rendering for AEC workflows through the glTF extensions link:{gltf-ext-khr_mesh_primitive_restart-url}[KHR_mesh_primitive_restart] and link:{gltf-ext-ext_mesh_primitive_edge_visibility-url}[EXT_mesh_primitive_edge_visibility]. Implementations for AEC workflows may recognize both extensions in tile content and can either render the content according to the extension definitions or report the extension as unsupported in accordance with glTF 2.1. 
 
-For the styling of points and lines in CAD content, 3D Tiles 2.0 supports the link:{cesium-gltf-extensions-url}/BENTLEY_materials_line_style[BENTLEY_materials_line_style] and link:{cesium-gltf-extensions-url}/BENTLEY_materials_point_style[BENTLEY_materials_point_style] glTF extensions. These extensions define the properties used to represent hidden and conceptual elements common in civil and engineering rendering workflows. 
+For the styling of points and lines in CAD content, 3D Tiles 2.0 supports the link:{gltf-ext-bentley_materials_line_style-url}[BENTLEY_materials_line_style] and link:{gltf-ext-bentley_materials_point_style-url}[BENTLEY_materials_point_style] glTF extensions. These extensions define the properties used to represent hidden and conceptual elements common in civil and engineering rendering workflows. 
 
-Implementations may use link:{cesium-gltf-extensions-url}/EXT_textureInfo_constant_lod[EXT_textureInfo_constant_lod] to maintain consistent texture pattern scale across zoom levels. Implementations may also use link:{cesium-gltf-extensions-url}/BENTLEY_materials_planar_fill[BENTLEY_materials_planar_fill] to mitigate z-fighting between co-located surfaces such as labels, roads, and overlapping infrastructure. 
+Implementations may use link:{gltf-ext-ext_textureInfo_constant_lod-url}[EXT_textureInfo_constant_lod] to maintain consistent texture pattern scale across zoom levels. Implementations may also use link:{gltf-ext-bentley_materials_planar_fill-url}[BENTLEY_materials_planar_fill] to mitigate z-fighting between co-located surfaces such as labels, roads, and overlapping infrastructure. 
 
-See these glTF extensions for details:
+See these glTF extension definitions for details:
 
- * https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart]
- * link:{khronos-gltf-extensions-url}/2.0/Vendor/EXT_mesh_primitive_edge_visibility[EXT_mesh_primitive_edge_visibility]
- * link:{cesium-gltf-extensions-url}/BENTLEY_materials_line_style[BENTLEY_materials_line_style]
- * link:{cesium-gltf-extensions-url}/BENTLEY_materials_point_style[BENTLEY_materials_point_style]
- * link:{cesium-gltf-extensions-url}/EXT_textureInfo_constant_lod[EXT_textureInfo_constant_lod]
- * link:{cesium-gltf-extensions-url}/BENTLEY_materials_planar_fill[BENTLEY_materials_planar_fill]
+ * link:{gltf-ext-khr_mesh_primitive_restart-url}[KHR_mesh_primitive_restart]
+ * link:{gltf-ext-ext_mesh_primitive_edge_visibility-url}[EXT_mesh_primitive_edge_visibility]
+ * link:{gltf-ext-bentley_materials_line_style-url}[BENTLEY_materials_line_style]
+ * link:{gltf-ext-bentley_materials_point_style-url}[BENTLEY_materials_point_style]
+ * link:{gltf-ext-ext_textureInfo_constant_lod-url}[EXT_textureInfo_constant_lod]
+ * link:{gltf-ext-bentley_materials_planar_fill-url}[BENTLEY_materials_planar_fill]
 
 [#gltf-content-extensions-time-dynamic-content]
 === Time-dynamic Content 
 
-Using the link:{extensions-url}/EXT_node_visibility_conditions/README.md[EXT_node_visibility_conditions] extension, implementations may support time-dynamic 3D tiles, enabling multiple representations of the same spatial region within a single tileset (for example, temporal states of terrain, design-model revisions, or alternative geometries such as point clouds and meshes). 
+Using the link:{gltf-ext-ext_node_visibility_conditions-url}[EXT_node_visibility_conditions] extension, implementations may support time-dynamic 3D tiles, enabling multiple representations of the same spatial region within a single tileset (for example, temporal states of terrain, design-model revisions, or alternative geometries such as point clouds and meshes). 
 
-This extension builds upon the the link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_node_visibility/README.md[KHR_node_visibility] extension by adding support for visibility conditions. Any tile may be tagged with one or more attribute key/value pairs. Tilesets are not required to tag every tile; untagged tiles are treated as unconditional. Clients select tile content by evaluating these tags against a selection expression supplied at runtime. Where no selection expression is supplied, clients can render the default content declared by the tileset author.
+This extension builds upon the the link:{gltf-ext-khr_node_visibility-url}[KHR_node_visibility] extension by adding support for visibility conditions. Any tile may be tagged with one or more attribute key/value pairs. Tilesets are not required to tag every tile; untagged tiles are treated as unconditional. Clients select tile content by evaluating these tags against a selection expression supplied at runtime. Where no selection expression is supplied, clients can render the default content declared by the tileset author.
 
 Authoring tools may use time-dynamic 3D tiles to publish incremental updates without rewriting an entire tileset.
 
-See the link:{extensions-url}/EXT_node_visibility_conditions/README.md[EXT_node_visibility_conditions] extension for details.
+See these glTF extension definitions for details:
+
+ * link:{gltf-ext-ext_node_visibility_conditions-url}[EXT_node_visibility_conditions]
+ * link:{gltf-ext-khr_node_visibility-url}[KHR_node_visibility]
 
 [#gltf-content-extensions-vector-tiles]
 === Vector Tiles
 
-3D Tiles 2.0 supports both 2D and 3D vector data using a 3D-native data model consistent with the rest of the standard and with glTF 2.1. Relevant dependencies include link:{extensions-url}/3DTILES_tileset_vectors/README.md[3DTILES_tileset_vectors], https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart] and https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon]. Tilesets can represent road centerlines, building footprints, large-scale map features, and AEC design linework as vector data. Payloads may be uncompressed or compressed using the link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_meshopt_compression/README.md[KHR_meshopt_compression] extension.
+3D Tiles 2.0 supports both 2D and 3D vector data using a 3D-native data model consistent with the rest of the standard and with glTF 2.1. Relevant dependencies include link:{gltf-ext-3dtiles_tileset_vectors-url}[3DTILES_tileset_vectors], link:{gltf-ext-khr_mesh_primitive_restart-url}[KHR_mesh_primitive_restart] and link:{gltf-ext-ext_mesh_polygon-url}[EXT_mesh_polygon]. Tilesets can represent road centerlines, building footprints, large-scale map features, and AEC design linework as vector data. Payloads may be uncompressed or compressed using the link:{gltf-ext-khr_meshopt_compression-url}[KHR_meshopt_compression] extension.
 
 3D Tiles 2.0 is designed for efficient transmission and rendering of 3D vector data, which differentiates it from established vector formats like Mapbox Vector Tiles and GeoJSON. Implementations may provide interoperability paths to and from those formats where appropriate. Styling of vector content uses the same declarative styling language defined for other 3D Tiles content types. 
 
 See these glTF extension definitions for details:
 
- * link:{extensions-url}/3DTILES_tileset_vectors/README.md[3DTILES_tileset_vectors]
- * https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon]
- * https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart[KHR_mesh_primitive_restart]
- * link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_meshopt_compression[KHR_meshopt_compression]
+ * link:{gltf-ext-3dtiles_tileset_vectors-url}[3DTILES_tileset_vectors]
+ * link:{gltf-ext-khr_mesh_primitive_restart-url}[KHR_mesh_primitive_restart]
+ * link:{gltf-ext-ext_mesh_polygon-url}[EXT_mesh_polygon]
+ * link:{gltf-ext-khr_meshopt_compression-url}[KHR_meshopt_compression]
 
 [#gltf-content-extensions-voxels]
 === Voxels
 
-3D Tiles 2.0 supports voxel volumetric datasets. Conforming voxel tilesets may use the link:{extensions-url}/3DTILES_tileset_voxels/README.md[3DTILES_tileset_voxels], link:{extensions-url}/EXT_voxels/README.md[EXT_voxels], link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region], and link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region] glTF 2.1 extensions in combination with the implicit tiling mechanism defined in 3D Tiles 2.0.
+3D Tiles 2.0 supports voxel volumetric datasets. Conforming voxel tilesets may use the link:{gltf-ext-3dtiles_tileset_voxels-url}[3DTILES_tileset_voxels], link:{gltf-ext-ext_voxels-url}[EXT_voxels], link:{gltf-ext-3dtiles_shape_cylinder_region-url}[3DTILES_shape_cylinder_region], and link:{gltf-ext-3dtiles_shape_ellipsoid_region-url}[3DTILES_shape_ellipsoid_region] glTF 2.1 extensions in combination with the implicit tiling mechanism defined in 3D Tiles 2.0.
 
-Both dense and sparse voxel volumes can be supported. Voxel payloads may be uncompressed, or may be compressed using gzip, the glTF link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_meshopt_compression[KHR_meshopt_compression] extension, or a combination of the available methods.
+Both dense and sparse voxel volumes can be supported. Voxel payloads can be uncompressed, or can be compressed using gzip, the glTF link:{gltf-ext-khr_meshopt_compression-url}[KHR_meshopt_compression] extension, or a combination of the available methods.
 
 See these glTF extension definitions for details:
 
- * link:{extensions-url}/3DTILES_tileset_voxels/README.md[3DTILES_tileset_voxels]
- * link:{extensions-url}/EXT_voxels/README.md[EXT_voxels]
- * link:{extensions-url}/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region]
- * link:{extensions-url}/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region]
- * link:{khronos-gltf-extensions-url}/2.0/Khronos/KHR_meshopt_compression[KHR_meshopt_compression]
+ * link:{gltf-ext-3dtiles_tileset_voxels-url}[3DTILES_tileset_voxels]
+ * link:{gltf-ext-ext_voxels-url}[EXT_voxels]
+ * link:{gltf-ext-3dtiles_shape_cylinder_region-url}[3DTILES_shape_cylinder_region]
+ * link:{gltf-ext-3dtiles_shape_ellipsoid_region-url}[3DTILES_shape_ellipsoid_region]
+ * link:{gltf-ext-khr_meshopt_compression-url}[KHR_meshopt_compression]
