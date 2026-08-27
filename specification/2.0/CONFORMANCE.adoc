@@ -86,7 +86,7 @@ A conforming locally-referenced tileset *SHALL* support use of a local coordinat
 
 ==== Requirement 3: Support Globally-Referenced Tilesets 
 
-A conforming globally-referenced tileset *SHOULD* support use of a global coordinate reference system. Tilesets using a global coordinate reference system *SHALL* use either the link:{gltf-ext-ext_geospatial_crs-url}[EXT_geospatial_crs] or link:{gltf-ext-ext_georeference-url}[EXT_georeference] glTF Extensions.
+A conforming globally-referenced tileset *SHOULD* support use of a global coordinate reference system. Tilesets using a global coordinate reference system *SHALL* use the link:{gltf-ext-ext_geospatial_crs-url}[EXT_geospatial_crs] glTF Extension.
 
 === Conformance Class: Implicit Tiling
 
