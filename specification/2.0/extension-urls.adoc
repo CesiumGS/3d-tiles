@@ -36,9 +36,9 @@
 :gltf-ext-ext_mesh_primitive_edge_visibility-url: {khronos-gltf-repo}/2.0/Vendor/EXT_mesh_primitive_edge_visibility/README.md
 :gltf-ext-ext_node_visibility_conditions-url: {3dtiles-extensions-url}/EXT_node_visibility_conditions/README.md
 :gltf-ext-ext_node_visibility_volume-url: {3dtiles-extensions-url}/EXT_node_visibility_volume
-:gltf-ext-ext_structural_metadata-url: {gltf-2_0-extensions-url}/EXT_structural_metadata/README.md 
-:gltf-ext-ext_textureInfo_constant_lod-url: {cesium-gltf-extensions-url}/EXT_textureInfo_constant_lod/README.md
-:gltf-ext-ext_voxels-url: {gltf-2-1-extensions-url}/EXT_voxels/README.md 
+:gltf-ext-ext_structural_metadata-url: {3dtiles-extensions-url}/EXT_structural_metadata/README.md 
+:gltf-ext-ext_textureInfo_constant_lod-url: {bentley-extensions-url}/EXT_textureInfo_constant_lod/README.md
+:gltf-ext-ext_voxels-url: {3dtiles-extensions-url}}/EXT_voxels/README.md 
 
 // KHR Extensions
 :gltf-ext-khr_meshopt_compression-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression/README.md 
