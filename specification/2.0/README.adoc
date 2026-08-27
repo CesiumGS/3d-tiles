@@ -60,7 +60,9 @@ ifdef::env-github[]
 :gltf-ext-ext_georeference-url: {3dtiles-extensions-url}/EXT_georeference/README.md
 :gltf-ext-ext_geospatial_crs-url: {3dtiles-extensions-url}/EXT_geospatial_crs/README.md
 :gltf-ext-ext_geospatial_crs_wkid-url: {3dtiles-extensions-url}/EXT_geospatial_crs_wkid/README.md
-:gltf-ext-ext_geospatial_crs_wtk2-url: {3dtiles-extensions-url}/EXT_geospatial_crs_wkt2/README.md
+:gltf-ext-ext_geospatial_crs_wkt2-url: {3dtiles-extensions-url}/EXT_geospatial_crs_wkt2/README.md
+:gltf-ext-ext_instance_features-url: {3dtiles-extensions-url}/EXT_instance_features/README.md
+:gltf-ext-ext_mesh_features-url: {3dtiles-extensions-url}/EXT_mesh_features/README.md
 :gltf-ext-ext_mesh_polygon-url: {cesiumgs-gltf-repo-fork}/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md
 :gltf-ext-ext_mesh_primitive_edge_visibility-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility/README.md
 :gltf-ext-ext_node_visibility_conditions-url: {3dtiles-extensions-url}/EXT_node_visibility_conditions/README.md
