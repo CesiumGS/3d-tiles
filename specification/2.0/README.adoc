@@ -130,7 +130,7 @@ The link:{gltf-ext-3dtiles_subtree-url}[3DTILES_subtree] extension, used for imp
 [#gltf-extensions]
 === glTF Extensions
 
-As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension compatible with glTF 2.1 may be used with 3D Tiles 2.0. There are some specific extensions that are normatively defined by 3D Tiles 2.0. These extensions use the `3DTILES_` prefix to differentiate them. Definitions as well as informative descriptions to other extensions can be found in xref:{url-specification}glTF.adoc#gltf-supporting-extensions[Supporting Extensions] section.
+As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension compatible with glTF 2.1 may be used with 3D Tiles 2.0. There are some specific extensions that are normatively defined by 3D Tiles 2.0. These extensions use the `3DTILES_` prefix to differentiate them. Definitions as well as informative descriptions to the extensions can be found in the xref:{url-specification}glTF.adoc#gltf-extensions-for-3dtiles[glTF Extensions for 3D Tiles] section and the link:{gltf-ext-3dtiles_tileset-url}[3DTILES_tileset] extension.
 
 [#concepts]
 == Concepts
