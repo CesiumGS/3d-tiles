@@ -140,3 +140,8 @@ Core concepts are normatively defined within the link:{gltf-ext-3dtiles_tileset-
 3D Tiles includes concise declarative styling defined with JSON and expressions written in a small subset of JavaScript augmented for styling.
 
 For complete details, see the xref:{url-specification-styling}README.adoc#styling-styling[Declarative Styling] specification.
+
+[#compatibility-with-previous-versions-of-3d-tiles]
+== Compatibility with previous versions of 3D Tiles
+
+3D Tiles 2.0 introduces changes that are not fully backwards compatible with previous versions of 3D Tiles. Tilesets created in 3D Tiles 1.1 and earlier are not valid 3D Tiles 2.0 tilesets. A full list of https://github.com/CesiumGS/3d-tiles/blob/draft-2.0/next/2.0/CHANGES.md[breaking changes and migration notes] can be found on the 3D Tiles GitHub repository.

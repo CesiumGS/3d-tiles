@@ -1,6 +1,14 @@
 
 :leveloffset: +1
 
+= 3DTILES_Tileset glTF Extension
+
+ifdef::env-github[]
+To view the `3DTILES_Tileset` extension on GitHub, please use this link: https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_Tileset[3DTILES_Tileset]
+endif::[]
+ifndef::env-github[]
+// TODO: Metanorma will place the 3DTILES_Tileset extension here.
+endif::[]
 
 // License information is automatically inserted by Metanorma
 // when generating the OGC version of the specification.
