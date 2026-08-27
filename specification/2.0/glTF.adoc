@@ -67,31 +67,29 @@ As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension compatible w
 
 The link:{gltf-ext-3dtiles_tileset-url}[3DTILES_tileset] extension specifies a well defined subset of glTF 2.1 for representing a tileset in https://github.com/CesiumGS/3d-tiles/tree/main/specification/[3D Tiles]. It extends the node hierarchy to support Hierarchical Level of Detail (HLOD) for streaming massive 3D scenes. Additionally, it depends on core glTF 2.1 features like external assets and bounding volumes.
 
-// TODO: Add links to each section once I have links under control.
-
 These concepts are normatively defined within the link:{gltf-ext-3dtiles_tileset-url}[3DTILES_tileset] glTF extension.
 
-* 3D Tiles
-* Tilesets
-* Tiles
-* Tile Content
-* External Tilesets
-* Geometric Error
-* Refinement
-* Bounding Volumes
-* Transforms
-* Spatial Coherence
-* Spatial Data Structures
-* Coordinate Reference Systems
+ * link:{gltf-ext-3dtiles_tileset-url}#3d-tiles[3D Tiles]
+ * link:{gltf-ext-3dtiles_tileset-url}#tileset[Tilesets]
+ * link:{gltf-ext-3dtiles_tileset-url}#tile[Tiles]
+ * link:{gltf-ext-3dtiles_tileset-url}#content[Tile Content]
+ * link:{gltf-ext-3dtiles_tileset-url}#external-tilesets[External Tilesets]
+ * link:{gltf-ext-3dtiles_tileset-url}#geometric-error[Geometric Error]
+ * link:{gltf-ext-3dtiles_tileset-url}#refinement[Refinement]
+ * link:{gltf-ext-3dtiles_tileset-url}#bounding-volumes[Bounding Volumes]
+ * link:{gltf-ext-3dtiles_tileset-url}#transforms[Transforms]
+ * link:{gltf-ext-3dtiles_tileset-url}#spatial-coherence[Spatial Coherence]
+ * link:{gltf-ext-3dtiles_tileset-url}#spatial-data-structures[Spatial Data Structures]
+ * link:{gltf-ext-3dtiles_tileset-url}#coordinate-reference-system[Coordinate Reference Systems]
+ * link:{gltf-ext-3dtiles_tileset-url}#implicit-tiling[Implicit Tiling]
 
 Additional normative concepts are defined in both link:{gltf-ext-3dtiles_tileset-url}[3DTILES_tileset] and several supporting extensions, including:
 
-* Implicit Tiling
-* Metadata
-* Layers
-* Horizon Occlusion Point
-* Visibility Bounding Volumes
-* Declarative Styling
+ * link:{gltf-ext-3dtiles_tileset-url}#metadata[Metadata]
+ * link:{gltf-ext-3dtiles_tileset-url}#layers[Layers]
+ * link:{gltf-ext-3dtiles_tileset-url}#horizon-occlusion-point[Horizon Occlusion Point]
+ * link:{gltf-ext-3dtiles_tileset-url}#visibility-bounding-volumes[Visibility Bounding Volumes]
+ * link:{gltf-ext-3dtiles_tileset-url}#declarative-styling[Declarative Styling]
 
 [#gltf-content-extensions]
 == Content Extensions
@@ -157,7 +155,7 @@ See these glTF extension definitions for details:
 [#gltf-content-extensions-voxels]
 === Voxels
 
-3D Tiles 2.0 supports voxel volumetric datasets. Conforming voxel tilesets may use the link:{gltf-ext-3dtiles_tileset_voxels-url}[3DTILES_tileset_voxels], link:{gltf-ext-ext_voxels-url}[EXT_voxels], link:{gltf-ext-3dtiles_shape_cylinder_region-url}[3DTILES_shape_cylinder_region], and link:{gltf-ext-3dtiles_shape_ellipsoid_region-url}[3DTILES_shape_ellipsoid_region] glTF 2.1 extensions in combination with the implicit tiling mechanism defined in 3D Tiles 2.0.
+3D Tiles 2.0 supports voxel volumetric datasets. Relevant depdencies include the link:{gltf-ext-3dtiles_tileset_voxels-url}[3DTILES_tileset_voxels], link:{gltf-ext-ext_voxels-url}[EXT_voxels], link:{gltf-ext-3dtiles_shape_cylinder_region-url}[3DTILES_shape_cylinder_region], and link:{gltf-ext-3dtiles_shape_ellipsoid_region-url}[3DTILES_shape_ellipsoid_region] glTF 2.1 extensions in combination with the implicit tiling mechanism defined in the link:{gltf-ext-3dtiles_tileset-url}[3DTILES_tileset] extension.
 
 Both dense and sparse voxel volumes can be supported. Voxel payloads can be uncompressed, or can be compressed using gzip, the glTF link:{gltf-ext-khr_meshopt_compression-url}[KHR_meshopt_compression] extension, or a combination of the available methods.
 
