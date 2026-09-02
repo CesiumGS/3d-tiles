@@ -15,13 +15,13 @@
 :comment: ### Relevant committee; mandatory. The permitted types are: technical, planning, and strategic-member-advisory
 :committee: technical
 :comment: ### Internal reference number; mandatory
-:docnumber: 22-025r4
+:docnumber: 22-025r6
 :comment: ### Date on which the standard was updated; mandatory
-:received-date: 2026-09-08
+:received-date: 2026-09-02
 :comment: ### Date on which the standard was approved by the issuing authority; mandatory
-:issued-date: 2026-09-08
+:issued-date: 
 :comment: ### Date on which the standard was published; mandatory
-:published-date: 2026-09-08
+:published-date: 
 :comment: ### Authors
 :fullname: Patrick Cozzi
 :fullname_2: Sean Lilley
@@ -132,7 +132,7 @@ No conventions are specified in this document.
 
 == Relationship to glTF
 
-A 3D Tiles 2.0 tileset is a glTF 2.1 asset. The link:{gltf-ext-3dtiles_tileset-url}[3DTILES_tileset] extension is a normative part of the 3D Tiles 2.0 specification and defines the structure of the tileset. Specifically, the link:{gltf-ext-3dtiles_tileset-url}[3DTILES_tileset] extension defines:
+A 3D Tiles 2.0 tileset is a glTF 2.1 asset. The https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md[3DTILES_tileset] extension is a normative part of the 3D Tiles 2.0 specification and defines the structure of the tileset. Specifically, the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md[3DTILES_tileset] extension defines:
 
 * The hierarchical structure of the tileset.
 * The tile object, which represents a tile in the tileset hierarchy.
