@@ -1,0 +1,14 @@
+[appendix,obligation=informative]
+== Revision history
+
+// NOTE: The 'a|' indicates that the following cell should
+// use AsciiDoc parsing (for bullet point lists etc.)
+
+[%unnumbered]
+[cols="3,2,3,2,6"]
+|===
+|Date |Release |Editor | Primary clauses modified |Description
+
+| 2026-06-03 | 2.0.0 | Adam Morris | all a| This is the initial normative specification for 3D Tiles 2.0.
+
+|===

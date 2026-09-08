@@ -1,0 +1,238 @@
+//========== EXPERIMENTAL OGC HEADER START
+// Details about the document attributes that are used here can currently 
+// be found at https://www.metanorma.org/author/ogc/authoring-guide/metadata/
+= 3D Tiles Specification
+:comment: ### Document type; mandatory.
+:doctype: community-standard
+:comment: ### Version number; optional. Dot-delimited, preferably with this structure <version number>.<minor version number>.<patch version number>
+:edition: 2.0
+:comment: ### Language of the document; mandatory. Specified in two-letter code: "en" for English, "fr" for French
+:language: en
+:comment: ### Abbreviation
+:abbrev: 3DTiles
+:comment: ### Document status/stage; mandatory.
+:status: published
+:comment: ### Relevant committee; mandatory. The permitted types are: technical, planning, and strategic-member-advisory
+:committee: technical
+:comment: ### Internal reference number; mandatory
+:docnumber: 22-025r4
+:comment: ### Date on which the standard was updated; mandatory
+:received-date: 2022-10-07
+:comment: ### Date on which the standard was approved by the issuing authority; mandatory
+:issued-date: 2022-12-17
+:comment: ### Date on which the standard was published; mandatory
+:published-date: 2023-01-12
+:comment: ### Authors
+:fullname: Patrick Cozzi
+:fullname_2: Sean Lilley
+:fullname_3: Amanda Morgan
+:fullname_4: Adam Morris
+:comment: ### Role of the authors; mandatory
+:role: editor
+:role_2: editor
+:comment: ### Metanorma flavor; mandatory
+:mn-document-class: ogc
+:comment: ### Desired output formats; mandatory
+:mn-output-extensions: html,pdf
+:comment: ### Enable local relaton cache for quick inclusion of prefetched references; optional. 
+:local-cache-only:
+:comment: ### Directory name used as prefix for the location of image files; optional
+:imagesdir: ./
+:comment: ### URL for this OGC document
+:referenceurlid: https://docs.ogc.org/cs/22-025r4/22-025r4.html
+:comment: ### URI to which the PDF version of this standard is published; optional
+:pdf-uri: https://portal.opengeospatial.org/files/22-025r4.pdf
+:comment: ### URI to which the HTML version of this standard is published; optional
+:html-uri: https://portal.opengeospatial.org/files/22-025r4.html
+:comment: ### The submitting organizations (active OGC members) that submitted this document
+:submitting-organizations: Bentley Systems Inc.
+:keywords: terrain, geospatial, gis, point cloud, spatial data, vector data, photogrammetry, gltf, 3d models, 3d tiles, metadata, implicit tiling, voxels, gaussian splatting, aec, time dynamic 
+//========== EXPERIMENTAL OGC HEADER END
+
+
+//========== ORIGINAL (non-OGC) HEADER START
+//= 3D Tiles Specification
+//Bentley Systems, Inc
+//v2.0
+//:toc2:
+//:toclevels: 2
+//:sectnums:
+//:source-highlighter: rouge
+//:rouge-style: github
+//========== ORIGINAL (non-OGC) HEADER END
+
+
+ifdef::env-github[]
+// WARNING: Do not edit the URLs here. Update the url `extension-urls.adoc` and then run `update-urls.sh`!
+// That will properly update the URLs across all documents.
+
+// GITHUB_URL_START
+:khronos-gltf-repo: https://github.com/KhronosGroup/glTF
+:cesiumgs-gltf-repo-fork: https://github.com/CesiumGS/glTF
+:3dtiles-extensions-url: {cesiumgs-gltf-repo-fork}/tree/3d-tiles-2.0/extensions/2.1/Vendor
+:gltf-2_0-extensions-url: {cesiumgs-gltf-repo-fork}/tree/3d-tiles-2.0/extensions/2.0/Vendor
+:bentley-extensions-url: {cesiumgs-gltf-repo-fork}/tree/vendor-extensions/extensions/2.0/Vendor
+
+// 3DTILES Extensions
+:gltf-ext-3dtiles_horizon_occlusion_point-url: {3dtiles-extensions-url}/3DTILES_horizon_occlusion_point/README.md 
+:gltf-ext-3dtiles_implicit_tiling-url: {3dtiles-extensions-url}/3DTILES_implicit_tiling/README.md 
+:gltf-ext-3dtiles_layers-url: {3dtiles-extensions-url}/3DTILES_layers/README.md 
+:gltf-ext-3dtiles_shape_cylinder_region-url: {3dtiles-extensions-url}/3DTILES_shape_cylinder_region/README.md 
+:gltf-ext-3dtiles_shape_ellipsoid_region-url: {3dtiles-extensions-url}/3DTILES_shape_ellipsoid_region/README.md 
+:gltf-ext-3dtiles_shape_s2-url: {3dtiles-extensions-url}/3DTILES_shape_s2/README.md 
+:gltf-ext-3dtiles_subtree-url: {3dtiles-extensions-url}/3DTILES_subtree/README.md 
+:gltf-ext-3dtiles_tileset-url: {3dtiles-extensions-url}/3DTILES_tileset/README.md
+:gltf-ext-3dtiles_tileset_vectors-url: {3dtiles-extensions-url}/3DTILES_tileset_vectors/README.md
+:gltf-ext-3dtiles_tileset_voxels-url: {3dtiles-extensions-url}/3DTILES_tileset_voxels/README.md
+
+// BENTLEY Extensions
+:gltf-ext-bentley_materials_line_style-url: {bentley-extensions-url}/BENTLEY_materials_line_style/README.md
+:gltf-ext-bentley_materials_point_style-url: {bentley-extensions-url}/BENTLEY_materials_point_style/README.md
+:gltf-ext-bentley_materials_planar_fill-url: {bentley-extensions-url}/BENTLEY_materials_planar_fill/README.md
+
+// EXT extensions
+:gltf-ext-ext_georeference-url: {3dtiles-extensions-url}/EXT_georeference/README.md
+:gltf-ext-ext_geospatial_crs-url: {3dtiles-extensions-url}/EXT_geospatial_crs/README.md
+:gltf-ext-ext_geospatial_crs_wkid-url: {3dtiles-extensions-url}/EXT_geospatial_crs_wkid/README.md
+:gltf-ext-ext_geospatial_crs_wkt2-url: {3dtiles-extensions-url}/EXT_geospatial_crs_wkt2/README.md
+:gltf-ext-ext_instance_features-url: {gltf-2_0-extensions-url}/EXT_instance_features/README.md
+:gltf-ext-ext_mesh_features-url: {gltf-2_0-extensions-url}/EXT_mesh_features/README.md
+:gltf-ext-ext_mesh_polygon-url: {cesiumgs-gltf-repo-fork}/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md
+:gltf-ext-ext_mesh_primitive_edge_visibility-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility/README.md
+:gltf-ext-ext_node_visibility_conditions-url: {3dtiles-extensions-url}/EXT_node_visibility_conditions/README.md
+:gltf-ext-ext_node_visibility_volume-url: {3dtiles-extensions-url}/EXT_node_visibility_volume
+:gltf-ext-ext_structural_metadata-url: {gltf-2_0-extensions-url}/EXT_structural_metadata/README.md 
+:gltf-ext-ext_textureInfo_constant_lod-url: {bentley-extensions-url}/EXT_textureInfo_constant_lod/README.md
+:gltf-ext-ext_voxels-url: {3dtiles-extensions-url}/EXT_voxels/README.md 
+
+// KHR Extensions
+:gltf-ext-khr_meshopt_compression-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression/README.md 
+:gltf-ext-khr_mesh_primitive_restart-url: {cesiumgs-gltf-repo-fork}/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart/README.md
+:gltf-ext-khr_gaussian_splatting_compression_spz_2-url: {cesiumgs-gltf-repo-fork}/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2/README.md
+:gltf-ext-khr_gaussian_splatting-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting/README.md
+:gltf-ext-khr_node_visibility-url: {khronos-gltf-repo}/tree/main/extensions/2.0/Khronos/KHR_node_visibility/README.md
+// GITHUB_URL_END
+
+endif::[]
+ifndef::env-github[]
+include::extension-urls.adoc[]
+endif::[]
+
+// The structure of the sections is given at 
+// https://www.metanorma.org/author/ogc/authoring-guide/sections-ogc/ and
+// https://www.metanorma.org/author/ogc/authoring-guide/metanorma-adoc/
+// with subtle differences, but should roughly be
+// - Preliminary sections
+//   - Abstract
+//   - Executive Summary (Engineering Reports only)
+//   - Keywords (inserted automatically from the document attributes)
+//   - Preface
+//   - Security Considerations (boilerplate added automatically if omitted)
+//   - Submitting Organizations (inserted from document attributes)
+//   - Submitters
+// - Scope
+// - Normative References
+// - Terms and definitions
+// - Conformance
+// - Content sections
+// - Annex sections
+// - Bibliography (Non-normative references)
+
+
+// ===========================================================================
+// Preliminary sections
+
+[abstract]
+== Abstract
+
+[%unnumbered]
+image::figures/3DTiles_dark_color_small.png[]
+
+This document describes the specification for 3D Tiles, an open standard for streaming massive heterogeneous 3D geospatial datasets.
+
+== Preface
+
+Bringing techniques from graphics research, the movie industry, and the game industry to 3D geospatial, 3D Tiles defines a spatial data structure built on glTF designed for 3D, and optimized for streaming and rendering.
+
+== Submitters
+
+|===
+|Name |Affiliation |OGC member
+
+| Patrick Cozzi |  Bentley Systems, Inc. | Yes
+| Sean Lilley |  Bentley Systems, Inc. | Yes
+| Amanda Morgan |  Bentley Systems, Inc. | Yes
+| Adam Morris |  Bentley Systems, Inc. | Yes
+|===
+
+[.preface]
+== Future Work
+
+The 3D Tiles community anticipates that revisions to this Community Standard will be required to prescribe content appropriate to meet new use cases. These use cases may arise from either (or both) the external user and developer community or from OGC review and comments. Further, future revisions will be driven by any submitted change requests that document community uses cases and requirements.
+
+
+// ===========================================================================
+// Non-content sections
+
+include::SCOPE.adoc[]
+
+include::CONFORMANCE.adoc[]
+
+[bibliography]
+include::REFERENCES.adoc[]
+
+include::TERMS_AND_DEFINITIONS.adoc[]
+
+== Conventions
+
+No conventions are specified in this document.
+
+== Relationship to glTF
+
+A 3D Tiles 2.0 tileset is a glTF 2.1 asset. The link:{gltf-ext-3dtiles_tileset-url}[3DTILES_tileset] extension is a normative part of the 3D Tiles 2.0 specification and defines the structure of the tileset. Specifically, the link:{gltf-ext-3dtiles_tileset-url}[3DTILES_tileset] extension defines:
+
+* The hierarchical structure of the tileset.
+* The tile object, which represents a tile in the tileset hierarchy.
+* The definition of a tile's content, including its URI.
+* The geometric error and refinement strategy (`ADD` or `REPLACE`) for each tile.
+* The mechanism for supporting implicit tiling.
+* The mechanism for linking to external tilesets.
+* The coordinate reference system of the tileset.
+* The mechanism for assigning application-specific _metadata_ using the 3D Metadata Specification.
+
+All tile content is represented as glTF assets, either embedded or external.
+
+Any feature that is normatively defined in the glTF 2.1 specification is considered a normative part of 3D Tiles 2.0. A conforming 3D Tiles 2.0 implementation SHOULD support all normative features of glTF 2.1 unless otherwise stated.
+
+// ===========================================================================
+// Content sections
+
+:leveloffset: +1
+
+= 3D Tiles Format Specification
+include::README.adoc[]
+
+:imagesdir: glTF Extensions
+include::glTF.adoc[]
+
+:imagesdir: Metadata
+include::Metadata/README.adoc[]
+
+:imagesdir: Styling
+include::Styling/README.adoc[]
+
+:leveloffset: -1
+
+
+// ===========================================================================
+// Annex sections
+
+:imagesdir: 
+include::APPENDIX.adoc[]
+
+[appendix]
+include::ACKNOWLEDGEMENTS.adoc[]
+
+[appendix,obligation=informative]
+include::REVISION_HISTORY.adoc[]
+
