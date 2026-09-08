@@ -1,4 +1,8 @@
 <!-- omit in toc -->
+
+> [!WARNING]
+> This is extremely out of date, and will be updated before the launch of 3D Tiles 2.0
+
 # Build instructions
 - [Building the specification](#building-the-specification)
   - [Generating the properties reference](#generating-the-properties-reference)
