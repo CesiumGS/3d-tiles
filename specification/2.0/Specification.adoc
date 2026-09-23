@@ -11,7 +11,7 @@
 :comment: ### Abbreviation
 :abbrev: 3DTiles
 :comment: ### Document status/stage; mandatory.
-:status: oab-review
+:status: public-rfc
 :comment: ### Relevant committee; mandatory. The permitted types are: technical, planning, and strategic-member-advisory
 :committee: technical
 :comment: ### Internal reference number; mandatory
@@ -30,6 +30,8 @@
 :comment: ### Role of the authors; mandatory
 :role: editor
 :role_2: editor
+:role_3: editor
+:role_4: editor
 :comment: ### Metanorma flavor; mandatory
 :mn-document-class: ogc
 :comment: ### Desired output formats; mandatory
