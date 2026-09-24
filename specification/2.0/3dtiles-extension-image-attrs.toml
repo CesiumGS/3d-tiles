@@ -1,0 +1,6 @@
+[[images]]
+name = "figures/tile.png"
+
+[[images.attributes]]
+name = "scaledwidth"
+value = "80%"

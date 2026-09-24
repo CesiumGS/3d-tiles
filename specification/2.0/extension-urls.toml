@@ -1,0 +1,125 @@
+# These are all extensions and their URLs.
+
+[[extension]]
+attribute = "gltf-ext-3dtiles_horizon_occlusion_point-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_horizon_occlusion_point/README.md"
+
+[[extension]]
+attribute = "gltf-ext-3dtiles_implicit_tiling-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_implicit_tiling/README.md"
+
+[[extension]]
+attribute = "gltf-ext-3dtiles_layers-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_layers/README.md"
+
+[[extension]]
+attribute = "gltf-ext-3dtiles_shape_cylinder_region-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region/README.md"
+
+[[extension]]
+attribute = "gltf-ext-3dtiles_shape_ellipsoid_region-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md"
+
+[[extension]]
+attribute = "gltf-ext-3dtiles_shape_s2-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_s2/README.md"
+
+[[extension]]
+attribute = "gltf-ext-3dtiles_subtree-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_subtree/README.md"
+
+[[extension]]
+attribute = "gltf-ext-3dtiles_tileset-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md"
+
+[[extension]]
+attribute = "gltf-ext-3dtiles_tileset_vectors-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_vectors/README.md"
+
+[[extension]]
+attribute = "gltf-ext-3dtiles_tileset_voxels-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_voxels/README.md"
+
+[[extension]]
+attribute = "gltf-ext-bentley_materials_line_style-url"
+url = "https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_line_style/README.md"
+
+[[extension]]
+attribute = "gltf-ext-bentley_materials_point_style-url"
+url = "https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_point_style/README.md"
+
+[[extension]]
+attribute = "gltf-ext-bentley_materials_planar_fill-url"
+url = "https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_planar_fill/README.md"
+
+[[extension]]
+attribute = "gltf-ext-ext_georeference-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_georeference/README.md"
+
+[[extension]]
+attribute = "gltf-ext-ext_geospatial_crs-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_geospatial_crs/README.md"
+
+[[extension]]
+attribute = "gltf-ext-ext_geospatial_crs_wkid-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_geospatial_crs_wkid/README.md"
+
+[[extension]]
+attribute = "gltf-ext-ext_geospatial_crs_wkt2-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_geospatial_crs_wkt2/README.md"
+
+[[extension]]
+attribute = "gltf-ext-ext_instance_features-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor/EXT_instance_features/README.md"
+
+[[extension]]
+attribute = "gltf-ext-ext_mesh_features-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor/EXT_mesh_features/README.md"
+
+[[extension]]
+attribute = "gltf-ext-ext_mesh_polygon-url"
+url = "https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md"
+
+[[extension]]
+attribute = "gltf-ext-ext_mesh_primitive_edge_visibility-url"
+url = "https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility/README.md"
+
+[[extension]]
+attribute = "gltf-ext-ext_node_visibility_conditions-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_conditions/README.md"
+
+[[extension]]
+attribute = "gltf-ext-ext_node_visibility_volume-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_volume"
+
+[[extension]]
+attribute = "gltf-ext-ext_structural_metadata-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata/README.md"
+
+[[extension]]
+attribute = "gltf-ext-ext_textureInfo_constant_lod-url"
+url = "https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/EXT_textureInfo_constant_lod/README.md"
+
+[[extension]]
+attribute = "gltf-ext-ext_voxels-url"
+url = "https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_voxels/README.md"
+
+[[extension]]
+attribute = "gltf-ext-khr_meshopt_compression-url"
+url = "https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression/README.md"
+
+[[extension]]
+attribute = "gltf-ext-khr_mesh_primitive_restart-url"
+url = "https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart/README.md"
+
+[[extension]]
+attribute = "gltf-ext-khr_gaussian_splatting_compression_spz_2-url"
+url = "https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2/README.md"
+
+[[extension]]
+attribute = "gltf-ext-khr_gaussian_splatting-url"
+url = "https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting/README.md"
+
+[[extension]]
+attribute = "gltf-ext-khr_node_visibility-url"
+url = "https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_node_visibility/README.md"

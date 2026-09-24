@@ -19,7 +19,7 @@
 
 - Multiple contents is no longer part of the core schema; instead glTF content may reference external assets to achieve similar behavior.
 
-- Metadata is no longer part of the core schema, but may be assigned at multiple granularities as before with [EXT_structural_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata) - tileset, tile, content, layer, feature, vertex, texel, etc. Tileset-level statistics may also be provided with [EXT_structural_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata).
+- Metadata is no longer part of the core schema, but may be assigned at multiple granularities as before with [EXT_structural_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata) - tileset, tile, content, layer, feature, vertex, texel, etc. Tileset-level statistics may also be provided with [EXT_structural_metadata](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.0/Vendor/EXT_structural_metadata).
 
 - The `region` bounding volume type is no longer part of the core schema; it is now an optional glTF extension: [3DTILES_shape_ellipsoid_region](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region).
 
