@@ -1,7 +1,9 @@
 <!-- omit in toc -->
 
 > [!WARNING]
-> This is extremely out of date, and will be updated before the launch of 3D Tiles 2.0
+> This is extremely out of date, and will be updated before the launch of 3D Tiles 2.0.
+>
+> The current docker image for the 3D Tiles 2.0 document build is located in the [3d-tiles-build-docker](https://github.com/CesiumGS/3d-tiles-build-docker) repository.
 
 # Build instructions
 - [Building the specification](#building-the-specification)
