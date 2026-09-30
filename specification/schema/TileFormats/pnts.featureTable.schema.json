@@ -75,7 +75,7 @@
             ]
         }
     ],
-    "dependencies": {
+    "dependentRequired": {
         "POSITION_QUANTIZED": [
             "QUANTIZED_VOLUME_OFFSET",
             "QUANTIZED_VOLUME_SCALE"
