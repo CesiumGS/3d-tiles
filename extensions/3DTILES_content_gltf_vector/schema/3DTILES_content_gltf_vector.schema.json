@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "3DTILES_content_gltf_vector.schema.json",
+  "title": "3DTILES_content_gltf_vector extension",
+  "description": "3DTILES_content_gltf_vector extension data defining vector tile contents",
+  "type": "object",
+  "properties": {
+    "vector": {
+      "enum": [true],
+      "description": "Indicates tile content is vector data"
+    },
+    "clip": {
+      "type": "boolean",
+      "description": "Whether content should be clipped to tile bounds when rendering",
+      "default": false
+    }
+  },
+  "required": ["vector"]
+}
