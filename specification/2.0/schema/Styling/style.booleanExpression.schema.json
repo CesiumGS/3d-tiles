@@ -1,0 +1,10 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "style.booleanExpression.schema.json",
+    "title": "Boolean Expression",
+    "type": [
+        "boolean",
+        "string"
+    ],
+    "description": "A boolean or string with a 3D Tiles style expression that evaluates to a boolean. Details are described in the 3D Tiles Styling specification."
+}

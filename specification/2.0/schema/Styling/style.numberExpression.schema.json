@@ -1,0 +1,10 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "style.numberExpression.schema.json",
+    "title": "Number Expression",
+    "type": [
+        "number",
+        "string"
+    ],
+    "description": "3D Tiles style expression that evaluates to a number. Details are described in the 3D Tiles Styling specification."
+}
