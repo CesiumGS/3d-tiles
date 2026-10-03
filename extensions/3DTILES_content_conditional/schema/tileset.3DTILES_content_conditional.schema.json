@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tileset.3DTILES_content_conditional.schema.json",
+  "$ref": "rootProperty.schema.json",
+  "title": "3DTILES_content_conditional extension",
+  "description": "Defines the structure of the extension object that is stored as the 3DTILES_content_conditional extension in a tileset JSON, and that summarizes the conditions that appear in the contents.",
+  "type": "object",
+  "properties": {
+    "dimensions": {
+      "description": "The dimensions of the conditions, each consisting of the name and domain of the respective property.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the property that is used for defining the condition, to be used as one of the keys in the conditional content array items.",
+            "type": "string"
+          },
+          "keySet": {
+            "description": "The set of all values that appear in any condition.",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": [ "string", "number", "boolean" ]
+            }
+          }
+        },
+        "required": [
+          "name",
+          "keySet"
+        ]
+      }
+    }
+  },
+  "required": [
+    "dimensions"
+  ]
+}
