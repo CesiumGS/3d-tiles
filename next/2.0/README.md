@@ -68,6 +68,7 @@ _**Overview:** Time-dynamic 3D Tiles is a major step forward for 3D Tiles and al
 | | Extension |
 | --- | --- |
 | ![Time-dynamic content](./images/time_dynamic_content.png) | [`EXT_node_visibility_conditions`](https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_conditions) (glTF 2.1 extension) <br> Permits tiles to have conditional content that is selectable through `keys`, such as timestamps, revisions, or other _string_ values. |
+| | [`KHR_node_visibility`](https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_node_visibility) (glTF 2.0 extension) <br> Allows control of the visibility of node hierarchies within glTF files. |
 
 ## AEC Extensions
 

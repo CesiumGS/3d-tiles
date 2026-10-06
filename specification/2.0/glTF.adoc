@@ -1,0 +1,112 @@
+[#gltf-extensions-for-3dtiles]
+= glTF Extensions for 3D Tiles
+
+[#gltf-tileset-extensions]
+== Tileset Extensions
+
+As a 3D Tiles tileset must be a valid glTF 2.1 asset, any extension compatible with glTF 2.1 may be used with 3D Tiles 2.0. There are some specific extensions that are normatively defined by 3D Tiles 2.0. These extensions use the `3DTILES_` prefix to differentiate them.
+
+[#gltf-core-extension]
+=== Core Extension
+
+The https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md[3DTILES_tileset] extension specifies a well defined subset of glTF 2.1 for representing a tileset in https://github.com/CesiumGS/3d-tiles/tree/main/specification/[3D Tiles]. It extends the node hierarchy to support Hierarchical Level of Detail (HLOD) for streaming massive 3D scenes. Additionally, it depends on core glTF 2.1 features like external assets and bounding volumes.
+
+These concepts are normatively defined within the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md[3DTILES_tileset] glTF extension.
+
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#3d-tiles[3D Tiles]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#tileset[Tilesets]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#tile[Tiles]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#content[Tile Content]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#external-tilesets[External Tilesets]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#geometric-error[Geometric Error]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#refinement[Refinement]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#bounding-volumes[Bounding Volumes]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#transforms[Transforms]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#spatial-coherence[Spatial Coherence]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#spatial-data-structures[Spatial Data Structures]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#coordinate-reference-system[Coordinate Reference Systems]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#implicit-tiling[Implicit Tiling]
+
+Additional normative concepts are defined in both https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md[3DTILES_tileset] and several supporting extensions, including:
+
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#metadata[Metadata]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#layers[Layers]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#horizon-occlusion-point[Horizon Occlusion Point]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#visibility-bounding-volumes[Visibility Bounding Volumes]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#declarative-styling[Declarative Styling]
+
+[#gltf-content-extensions]
+== Content Extensions
+
+Any glTF extension compatible with glTF 2.1 can be used to extend content files. Many core content features of 3D Tiles 2.0 are powered entirely by glTF extensions. Supporting certain types of content means supporting these glTF extensions. This is not an exhaustive list--other extensions may exist within the glTF community that could be used within 3D Tiles 2.0.
+
+[#gltf-content-extensions-3d-gaussian-splatting]
+=== 3D Gaussian Splatting
+
+3D Tiles 2.0 supports 3D Gaussian Splatting content via the https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting/README.md[KHR_gaussian_splatting] glTF extension. Implementations supporting https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting/README.md[KHR_gaussian_splatting] should also support https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2/README.md[KHR_gaussian_splatting_compression_spz_2], which defines compression of splat data using the SPZ format. Uncompressed splat content may be used where compression is not required. 3D Gaussian splatting tilesets are compatible with the hierarchical level-of-detail mechanism of 3D Tiles, such that clients may stream and cull splat content using the same traversal rules as other tile content types. 
+
+See these glTF extension definitions for details:
+
+ * https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_gaussian_splatting/README.md[KHR_gaussian_splatting]
+ * https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2/README.md[KHR_gaussian_splatting_compression_spz_2]
+
+[#gltf-content-extensions-aec-rendering]
+=== Architectural, Engineering, and Construction Rendering
+
+3D Tiles 2.0 supports edge rendering for AEC workflows through the glTF extensions https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart/README.md[KHR_mesh_primitive_restart] and https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility/README.md[EXT_mesh_primitive_edge_visibility]. Implementations for AEC workflows may recognize both extensions in tile content and can either render the content according to the extension definitions or report the extension as unsupported in accordance with glTF 2.1. 
+
+For the styling of points and lines in CAD content, 3D Tiles 2.0 supports the https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_line_style/README.md[BENTLEY_materials_line_style] and https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_point_style/README.md[BENTLEY_materials_point_style] glTF extensions. These extensions define the properties used to represent hidden and conceptual elements common in civil and engineering rendering workflows. 
+
+Implementations may use https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/EXT_textureInfo_constant_lod/README.md[EXT_textureInfo_constant_lod] to maintain consistent texture pattern scale across zoom levels. Implementations may also use https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_planar_fill/README.md[BENTLEY_materials_planar_fill] to mitigate z-fighting between co-located surfaces such as labels, roads, and overlapping infrastructure. 
+
+See these glTF extension definitions for details:
+
+ * https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart/README.md[KHR_mesh_primitive_restart]
+ * https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility/README.md[EXT_mesh_primitive_edge_visibility]
+ * https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_line_style/README.md[BENTLEY_materials_line_style]
+ * https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_point_style/README.md[BENTLEY_materials_point_style]
+ * https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/EXT_textureInfo_constant_lod/README.md[EXT_textureInfo_constant_lod]
+ * https://github.com/CesiumGS/glTF/tree/vendor-extensions/extensions/2.0/Vendor/BENTLEY_materials_planar_fill/README.md[BENTLEY_materials_planar_fill]
+
+[#gltf-content-extensions-time-dynamic-content]
+=== Time-dynamic Content 
+
+Using the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_conditions/README.md[EXT_node_visibility_conditions] extension, implementations may support time-dynamic 3D tiles, enabling multiple representations of the same spatial region within a single tileset (for example, temporal states of terrain, design-model revisions, or alternative geometries such as point clouds and meshes). 
+
+This extension builds upon the the https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_node_visibility/README.md[KHR_node_visibility] extension by adding support for visibility conditions. Any tile may be tagged with one or more attribute key/value pairs. Tilesets are not required to tag every tile; untagged tiles are treated as unconditional. Clients select tile content by evaluating these tags against a selection expression supplied at runtime. Where no selection expression is supplied, clients can render the default content declared by the tileset author.
+
+Authoring tools may use time-dynamic 3D tiles to publish incremental updates without rewriting an entire tileset.
+
+See these glTF extension definitions for details:
+
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_conditions/README.md[EXT_node_visibility_conditions]
+ * https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_node_visibility/README.md[KHR_node_visibility]
+
+[#gltf-content-extensions-vector-tiles]
+=== Vector Tiles
+
+3D Tiles 2.0 supports both 2D and 3D vector data using a 3D-native data model consistent with the rest of the standard and with glTF 2.1. Relevant dependencies include https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_vectors/README.md[3DTILES_tileset_vectors], https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart/README.md[KHR_mesh_primitive_restart] and https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon]. Tilesets can represent road centerlines, building footprints, large-scale map features, and AEC design linework as vector data. Payloads may be uncompressed or compressed using the https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression/README.md[KHR_meshopt_compression] extension.
+
+3D Tiles 2.0 is designed for efficient transmission and rendering of 3D vector data, which differentiates it from established vector formats like Mapbox Vector Tiles and GeoJSON. Implementations may provide interoperability paths to and from those formats where appropriate. Styling of vector content uses the same declarative styling language defined for other 3D Tiles content types. 
+
+See these glTF extension definitions for details:
+
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_vectors/README.md[3DTILES_tileset_vectors]
+ * https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart/README.md[KHR_mesh_primitive_restart]
+ * https://github.com/CesiumGS/glTF/blob/donmccurdy/EXT_mesh_polygon/extensions/2.0/Vendor/EXT_mesh_polygon/README.md[EXT_mesh_polygon]
+ * https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression/README.md[KHR_meshopt_compression]
+
+[#gltf-content-extensions-voxels]
+=== Voxels
+
+3D Tiles 2.0 supports voxel volumetric datasets. Relevant depdencies include the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_voxels/README.md[3DTILES_tileset_voxels], https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_voxels/README.md[EXT_voxels], https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region], and https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region] glTF 2.1 extensions in combination with the implicit tiling mechanism defined in the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md[3DTILES_tileset] extension.
+
+Both dense and sparse voxel volumes can be supported. Voxel payloads can be uncompressed, or can be compressed using gzip, the glTF https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression/README.md[KHR_meshopt_compression] extension, or a combination of the available methods.
+
+See these glTF extension definitions for details:
+
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_voxels/README.md[3DTILES_tileset_voxels]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_voxels/README.md[EXT_voxels]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region]
+ * https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region]
+ * https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression/README.md[KHR_meshopt_compression]

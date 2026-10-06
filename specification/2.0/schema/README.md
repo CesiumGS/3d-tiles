@@ -1,0 +1,13 @@
+# 3D Tiles JSON Schema
+
+Parts of 3D Tiles are represented with JSON. The JSON structure is defined using [JSON Schema](http://json-schema.org/) 2020-12 in schema subdirectories.
+
+This directory contains the JSON schema definitions for different concepts. Some of the concepts are defined in subfolders, in order to modularize the schema and define clear dependencies. Dependencies in a JSON schema are established with the `$ref` keyword, and these references are assumed to be resolved against the respective subdirectories. 
+
+The [common](common) directory contains common definitions that are used by all other JSON schemas, but have no dependency to any other schema.
+
+
+## Usage
+
+A JSON object can be validated against the schema using a JSON schema validator such as [Ajv JSON schema validator](https://github.com/ajv-validator/ajv), which supports JSON Schema 2020-12. A command-line tool is available on npm as [ajv-cli](https://www.npmjs.com/package/ajv-cli). Validating against the schema does not prove full compliance with the 3D Tiles specification since not all requirements can be represented with JSON schema.
+
