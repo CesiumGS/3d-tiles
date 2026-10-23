@@ -66,7 +66,7 @@
         "property": {
             "title": "Property",
             "description": "A user-defined property which specifies application-specific metadata in a tile. Values can refer to sections in the binary body with a `BinaryBodyReference` object. Global values can be also be defined directly in the JSON.",
-            "oneOf": [
+            "anyOf": [
                 {
                     "$ref": "#/definitions/binaryBodyReference"
                 },
