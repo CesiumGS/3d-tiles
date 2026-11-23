@@ -86,7 +86,7 @@ A conforming implementation that supports the Architecture, Engineering, and Con
 
 === Conformance Class: Time-dynamic Tiles Content Type
 
-A conforming implementation *MAY* implement the vector tiles content type requirements of the specification.
+A conforming implementation *MAY* implement the time-dynamic tiles content type requirements of the specification.
 
 ==== Requirement 1: Support https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_node_visibility/README.md[KHR_node_visibility]
 

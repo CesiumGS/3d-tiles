@@ -51,7 +51,7 @@ See these glTF extension definitions for details:
  * https://github.com/CesiumGS/glTF/tree/draft-splat-spz-split/extensions/2.0/Khronos/KHR_gaussian_splatting_compression_spz_2/README.md[KHR_gaussian_splatting_compression_spz_2]
 
 [#gltf-content-extensions-aec-rendering]
-=== Architectural, Engineering, and Construction Rendering
+=== Architectural, Engineering, and Construction
 
 3D Tiles 2.0 supports edge rendering for AEC workflows through the glTF extensions https://github.com/CesiumGS/glTF/tree/donmccurdy/KHR_mesh_primitive_restart/extensions/2.0/Khronos/KHR_mesh_primitive_restart/README.md[KHR_mesh_primitive_restart] and https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Vendor/EXT_mesh_primitive_edge_visibility/README.md[EXT_mesh_primitive_edge_visibility]. Implementations for AEC workflows may recognize both extensions in tile content and can either render the content according to the extension definitions or report the extension as unsupported in accordance with glTF 2.1. 
 
@@ -73,7 +73,7 @@ See these glTF extension definitions for details:
 
 Using the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_node_visibility_conditions/README.md[EXT_node_visibility_conditions] extension, implementations may support time-dynamic 3D tiles, enabling multiple representations of the same spatial region within a single tileset (for example, temporal states of terrain, design-model revisions, or alternative geometries such as point clouds and meshes). 
 
-This extension builds upon the the https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_node_visibility/README.md[KHR_node_visibility] extension by adding support for visibility conditions. Any tile may be tagged with one or more attribute key/value pairs. Tilesets are not required to tag every tile; untagged tiles are treated as unconditional. Clients select tile content by evaluating these tags against a selection expression supplied at runtime. Where no selection expression is supplied, clients can render the default content declared by the tileset author.
+This extension builds upon the https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_node_visibility/README.md[KHR_node_visibility] extension by adding support for visibility conditions. Any tile may be tagged with one or more attribute key/value pairs. Tilesets are not required to tag every tile; untagged tiles are treated as unconditional. Clients select tile content by evaluating these tags against a selection expression supplied at runtime. Where no selection expression is supplied, clients can render the default content declared by the tileset author.
 
 Authoring tools may use time-dynamic 3D tiles to publish incremental updates without rewriting an entire tileset.
 
@@ -99,7 +99,7 @@ See these glTF extension definitions for details:
 [#gltf-content-extensions-voxels]
 === Voxels
 
-3D Tiles 2.0 supports voxel volumetric datasets. Relevant depdencies include the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_voxels/README.md[3DTILES_tileset_voxels], https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_voxels/README.md[EXT_voxels], https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region], and https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region] glTF 2.1 extensions in combination with the implicit tiling mechanism defined in the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md[3DTILES_tileset] extension.
+3D Tiles 2.0 supports voxel volumetric datasets. Relevant dependencies include the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset_voxels/README.md[3DTILES_tileset_voxels], https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_voxels/README.md[EXT_voxels], https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_cylinder_region/README.md[3DTILES_shape_cylinder_region], and https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_shape_ellipsoid_region/README.md[3DTILES_shape_ellipsoid_region] glTF 2.1 extensions in combination with the implicit tiling mechanism defined in the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md[3DTILES_tileset] extension.
 
 Both dense and sparse voxel volumes can be supported. Voxel payloads can be uncompressed, or can be compressed using gzip, the glTF https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_meshopt_compression/README.md[KHR_meshopt_compression] extension, or a combination of the available methods.
 

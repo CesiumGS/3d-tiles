@@ -11,5 +11,6 @@
 
 | 2026-06-03 | 2.0.0 | Adam Morris | all a| This is the initial normative specification for 3D Tiles 2.0.
 | 2026-09-02 | 2.0.0 | Adam Morris | all a| Final draft for submission to OGC.
+| 2026-11-23 | 2.0.0 | Adam Morris | 2.6, 8.2.2, 8.2.3, 8.2.5 a| Fixed typos.
 
 |===
