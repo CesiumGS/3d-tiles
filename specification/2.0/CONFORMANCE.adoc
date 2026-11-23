@@ -24,6 +24,12 @@ A conforming implementation *SHALL* implement the coordinate reference system re
 
 A conforming implementation *MAY* support both locally-referenced and globally-referenced tilesets.
 
+[NOTE]
+.Informative
+====
+3D Tiles 2.0 supports both _local_ and _global_ coordinate systems. _Locally-referenced_ tilesets are those that use the standard glTF coordinate system. In contrast, _Globally-referenced_ tilesets refer to those that are using a global coordinate reference system. Depending on the combination of extensions used, tiles within a _globally-referenced_ tileset can be positioned using either a local coordinate system with geographic positioning or a global coordinate system with absolute positioning in the specified geocentric coordinate system. See the section titled https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/3DTILES_tileset/README.md#coordinate-reference-system-crs[Coordinate Reference System (CRS) in the 3DTILES_tileset extension specification] for more details.
+====
+
 ==== Requirement 2: Support Locally-Referenced Tilesets
 
 A conforming locally-referenced tileset *SHALL* support use of a local coordinate reference system. Tilesets using a local coordinate reference system *SHALL NOT* use the https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_geospatial_crs/README.md[EXT_geospatial_crs] or https://github.com/CesiumGS/glTF/tree/3d-tiles-2.0/extensions/2.1/Vendor/EXT_georeference/README.md[EXT_georeference] glTF Extensions.
